@@ -1,0 +1,21 @@
+.controlDirections {
+  width: 100px;
+  height: 100px;
+
+  position: absolute;
+  left: 50%;
+  margin-left: -50px;
+  bottom: 10px;
+
+  z-index: 101;
+
+  .__circle {
+    width: 100px;
+    height: 100px;
+    border: 3px solid #e5adffa6;
+    box-sizing: border-box;
+    border-radius: 50%;
+
+    position: relative;
+  }
+}

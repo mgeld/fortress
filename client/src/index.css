@@ -1,0 +1,29 @@
+@font-face {
+  font-family: "Lilita";
+  src: url("./app/assets/fonts/Lilita.ttf") format("truetype");
+  font-style: normal;
+  font-weight: normal;
+}
+
+body {
+  margin: 0;
+  font-family: "Lilita";
+  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif; */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+div {
+  font-family: "Lilita";
+}
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+svg {
+  margin: 0px;
+  padding: 0px;
+  display: block;
+}

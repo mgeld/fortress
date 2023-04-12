@@ -1,0 +1,1 @@
+export * as pointerMapModel from './model/pointer-map'
