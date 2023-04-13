@@ -2,7 +2,7 @@ import { WS } from "processes/socket"
 import { TLatLng } from "shared/types"
 import { TConnectUserAPI } from "./types/send"
 
-export const connectUser = (
+export const connectUserAPI = (
     userId: number,
     position: TLatLng,
     health: number

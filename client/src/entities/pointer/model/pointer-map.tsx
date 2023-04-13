@@ -49,17 +49,6 @@ export const $pointersStore = createStore<TPointer[]>(DEFAULT_STORE)
         ...DEFAULT_STORE
     }))
 
-// const getHitPointer = createEvent<THitPointer>()
-
-// $hitPointer = 
-
-// sample({
-//     clock: getHitPointer,
-//     source: $pointersStore,
-//     fn: () =>
-
-
-// })
 export const selectors = {
     usePointers,
 }

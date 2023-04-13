@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import 'app/assets/styles/App.scss'
 import 'app/assets/styles//leaflet.css'
@@ -9,18 +9,30 @@ import { ControlPointer } from 'features/control-pointer'
 import MapLayout from 'widgets/map-layout/ui/map-layout'
 import LoadFonts from 'shared/ui/LoadFonts'
 import { Counters } from 'widgets/counters/counters'
-import { fireMapModel } from 'entities/gun-fire'
 import { WS } from 'processes/socket'
-import { connectUser } from 'shared/api/connect'
+import { connectUserAPI } from 'shared/api/connect'
 import { userModel } from 'entities/user'
+import { attach, createEvent, sample } from 'effector'
+
+const connectUser = createEvent()
+
+sample({
+  clock: connectUser,
+  target: attach({
+    source: {
+      userId: userModel.$userIdStore,
+      pos: userModel.$userPositionStore,
+      health: userModel.$userHealthStore,
+    },
+    effect: (user) => {
+      connectUserAPI(user.userId, user.pos, user.health)
+    }
+  })
+})
 
 const App = () => {
 
-  const {
-    userId,
-    pos,
-    health
-  } = userModel.useUser()
+  const userId = userModel.useUserId()
 
   console.log('App')
 
@@ -32,7 +44,7 @@ const App = () => {
 
   useEffect(() => {
     console.log('useEffect userId', userId)
-    userId > 0 && connectUser(userId, pos, health)
+    userId > 0 && connectUser()
   }, [userId])
 
   return (
@@ -46,14 +58,11 @@ const App = () => {
 
         <Counters />
 
-        <MapLayout
-        />
+        <MapLayout />
 
-        <ControlPointer
-        />
+        <ControlPointer />
 
-        <ControlFire
-        />
+        <ControlFire />
 
       </div>}
 

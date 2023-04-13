@@ -6,6 +6,7 @@ export const direct = (
     position: TLatLng,
     userId: number,
 ) => {
+
     console.log('direct userId', userId)
 
     const data: TDirectAPI = {

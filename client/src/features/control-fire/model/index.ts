@@ -36,7 +36,7 @@ const hitPointersFx = createEffect(({
     fire
 }: THitPointersFxProps) => {
 
-    
+
     console.log('hitPointersFx')
 
     let hitPointer: THitPointer = {
@@ -133,7 +133,7 @@ sample({
 sample({
     clock: hitPointersFx.done,
     source: { userId: $userIdStore, userPos: $userPositionStore },
-    fn: (user, hitPointer)=> ({ user, hitPointer }),
+    fn: (user, hitPointer) => ({ user, hitPointer }),
     target: fireControlFx
 })
 

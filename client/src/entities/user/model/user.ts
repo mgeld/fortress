@@ -19,6 +19,8 @@ const movePoint = createEvent<TActionPos>()
 const setHealth = createEvent<number>()
 const setUser = createEvent<number>()
 
+movePoint.watch(() => console.log('movePoint'))
+
 export const $userPositionStore = createStore<TLatLng>(DEFAULT_STORE_POSITION)
     .on(movePoint, reducer)
 
@@ -42,5 +44,6 @@ export const useUser = () => {
         pos: useStore($userPositionStore),
         health: useStore($userHealthStore),
     }
-
 }
+
+export const useUserId = () => useStore($userIdStore)
