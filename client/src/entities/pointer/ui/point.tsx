@@ -1,9 +1,9 @@
-import { TPointer } from "entities/pointer/model/pointer-map";
 import { FC } from "react";
+import Health from "./health";
 import { Circle, Marker } from "react-leaflet";
+import { TPointer } from "entities/pointer/model/pointer-map";
 import { pointIcon } from "widgets/map-layout/lib/point-icon";
 import { useHitFirePointer } from "../hooks/use-hit-fire-pointer";
-import Health from "./health";
 
 type TPointProps = {
     pointer: TPointer
@@ -11,8 +11,8 @@ type TPointProps = {
 }
 
 const Point: FC<TPointProps> = ({
-    pointer,
     icon,
+    pointer,
 }) => {
 
     const { fireHitTarget } = useHitFirePointer(pointer.health)
@@ -29,13 +29,12 @@ const Point: FC<TPointProps> = ({
                 position={pointer.pos}
                 icon={iconPoint}
             />
-
             <Circle
                 center={pointer.pos}
                 pathOptions={{
-                    fillColor: fireHitTarget ? 'red' : '#3FF672',
+                    fillColor: fireHitTarget || pointer.health < 1 ? 'red' : '#3FF672',
                     fillOpacity: 0.7,
-                    color: fireHitTarget ? 'red' : '#3FF672'
+                    color: fireHitTarget  || pointer.health < 1 ? 'red' : '#3FF672'
                 }}
                 // radius={(40000 / 360) * Math.cos(position[0])}
                 radius={0.0004 * Math.cos(pointer.pos[0]) * 111319.9}

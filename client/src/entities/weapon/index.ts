@@ -1,0 +1,1 @@
+export * as weaponModel from './model/weapon'

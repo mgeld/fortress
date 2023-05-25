@@ -1,24 +1,45 @@
-import { API_BASE_URL } from "shared/config"
-import { TSendEvent } from "../types/send"
+import { Event } from "effector"
+import { TSendEvent } from "../../../../../common-types/socket/client-to-server"
+import { TSocketStatus } from "./model"
 
 export class Socket {
-    socket: WebSocket
+    socket: WebSocket | null = null
+
+    url: string
 
     private socketStatus: 'open' | 'close' = 'close'
 
-    constructor() {
-        this.socket = new WebSocket(API_BASE_URL)
-        this.socketStartListener()
+    setStatus: Event<TSocketStatus>
 
-        // this.socket.onmessage = (data) => 
+    constructor(url: string, setStatus: Event<TSocketStatus>) {
+
+        this.url = url
+        this.setStatus = setStatus
+
+        this.connect()
     }
 
-    socketStartListener() {
+    connect() {
+        console.log('connect')
+        this.socket = new WebSocket(this.url)
+        this.socketListener()
+    }
+
+    socketListener() {
+
+        console.log('socketListener', this.socket)
+
+        if (!this.socket) return
+
         this.socket.onopen = () => {
+            console.log('onopen')
             this.socketStatus = 'open'
+            this.setStatus('open')
         }
         this.socket.onclose = () => {
-            this.socketStatus = 'close'
+            console.log('onclose')
+            this.setStatus('close')
+            setTimeout(() => this.connect(), 1500)
         }
     }
 
@@ -27,11 +48,14 @@ export class Socket {
     }
 
     sendData(params: TSendEvent) {
+        console.log('sendData this.url', this.url)
+        if (!this.socket) return
         this.socket.send(JSON.stringify(params))
     }
 
-    getDataHandlers(callback: (message: MessageEvent<any>) => void) {
-        console.log('getDataHandlers callback', callback)
+    setHandlers(callback: (message: MessageEvent<any>) => void) {
+        console.log('setHandlers callback', callback)
+        if (!this.socket) return
         this.socket.onmessage = callback
     }
 

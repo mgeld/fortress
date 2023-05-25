@@ -1,8 +1,8 @@
-import { createStore, createEvent, sample } from 'effector'
+import { createStore, createEvent } from 'effector'
 import { useStore } from 'effector-react'
 import { pointersAPI } from "shared/api/events"
-import { THealthPointer, TUpdatePos } from "shared/api/events/pointers"
-import { TJoystickDirection, TLatLng } from 'shared/types'
+import { TDelPointer, THealthPointer, TUpdatePos } from "shared/api/events/pointers"
+import { TLatLng } from 'shared/types'
 
 export type TPointer = {
     userId: number
@@ -24,6 +24,7 @@ const clearStore = createEvent()
 const {
     setPointers,
     newPointer,
+    delPointer,
     updatePositionPointer,
     changeHealthPointer
 } = pointersAPI.events
@@ -31,6 +32,7 @@ const {
 export const $pointersStore = createStore<TPointer[]>(DEFAULT_STORE)
     .on(setPointers, (_, pointers: TPointer[]) => pointers)
     .on(newPointer, (prevPointers: TPointer[], pointer: TPointer) => ([...prevPointers, pointer]))
+    .on(delPointer, (prevPointers: TPointer[], data: TDelPointer) => prevPointers.filter(pointer => pointer.userId !== data.userId))
     .on(updatePositionPointer, (prevPointers: TPointer[], data: TUpdatePos) => (prevPointers.map(pointer => {
         if (pointer.userId === data.userId)
             return {

@@ -1,26 +1,29 @@
-import { THitPointer } from "features/control-fire/model"
 import { WS } from "processes/socket"
 import { TJoystickDirection, TLatLng } from "shared/types"
-import { TFireAPI } from "./types/send"
+import { TFireAPI } from "../../../../common-types/socket/client-to-server"
+import { THitPointer } from '@ctypes/model'
 
 export const fire = (
     position: TLatLng,
     direction: TJoystickDirection | null,
     userId: number,
-    hitPointer: THitPointer
-) => {
     
-    console.log('fire userId', userId)
+    hitPointer: THitPointer,
+    weapon: string
+) => {
     const data: TFireAPI = {
         event: 'fire',
         payload: {
+
             position,
             direction,
-            userId
+            userId,
+            weapon
         }
     }
     if (hitPointer.userId) {
         data['payload']['hitPointer'] = hitPointer
     }
+    
     WS.sendData(data)
 }

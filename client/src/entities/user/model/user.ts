@@ -1,5 +1,6 @@
 import { createEvent, createStore } from "effector";
 import { useStore } from "effector-react";
+import { userAPI } from "shared/api/events";
 import { TJoystickDirection, TLatLng } from "shared/types";
 import { reducer } from "../lib/reducer";
 
@@ -13,10 +14,14 @@ export type TActionPos = {
     type: TJoystickDirection | null,
 }
 
+const {
+    setHealth,
+    changeHealth
+} = userAPI.events
+
 const DEFAULT_STORE_POSITION: TLatLng = [43.31, 45.68];
 
 const movePoint = createEvent<TActionPos>()
-const setHealth = createEvent<number>()
 const setUser = createEvent<number>()
 
 movePoint.watch(() => console.log('movePoint'))
@@ -25,8 +30,9 @@ export const $userPositionStore = createStore<TLatLng>(DEFAULT_STORE_POSITION)
     .on(movePoint, reducer)
 
 const DEFAULT_STORE_HEALTH: number = 0
-export const $userHealthStore = createStore(DEFAULT_STORE_HEALTH).
-    on(setHealth, (_, health) => health)
+export const $userHealthStore = createStore(DEFAULT_STORE_HEALTH)
+    .on(setHealth, (_, health) => health)
+    .on(changeHealth, (health, damage) => health - damage)
 
 const DEFAULT_STORE_USER: number = 0
 export const $userIdStore = createStore(DEFAULT_STORE_USER)
@@ -34,7 +40,6 @@ export const $userIdStore = createStore(DEFAULT_STORE_USER)
 
 export const events = {
     movePoint,
-    setHealth,
     setUser
 }
 

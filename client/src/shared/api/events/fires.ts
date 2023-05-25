@@ -1,16 +1,23 @@
 import { createEvent } from "effector"
-import { TGunFire } from "entities/gun-fire/model/gun-fire"
+import { TFire } from "entities/fire/model/fire"
 
-const setFires = createEvent<TGunFire[]>()
-const addFire = createEvent<TGunFire>()
-const addFireHitMarket = createEvent<TGunFire>()
+const setFires = createEvent<TFire[]>()
+const addFire = createEvent<TFire>()
+const addFireHitMarket = createEvent<TFire>()
 
 export type TFireId = { fire_id: number }
 const delFireById = createEvent<TFireId>()
+
+export type THealthChange = {
+    hitUserId: number,
+    damage: number
+}
+const hitFireInTarget = createEvent<THealthChange>()
 
 export const events = {
     setFires,
     addFire,
     addFireHitMarket,
+    hitFireInTarget,
     delFireById
 }

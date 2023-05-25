@@ -1,14 +1,11 @@
 import { WS } from "processes/socket"
 import { TLatLng } from "shared/types"
-import { TDirectAPI } from "./types/send"
+import { TDirectAPI } from "../../../../common-types/socket/client-to-server"
 
 export const direct = (
     position: TLatLng,
     userId: number,
 ) => {
-
-    console.log('direct userId', userId)
-
     const data: TDirectAPI = {
         event: 'direct',
         payload: {

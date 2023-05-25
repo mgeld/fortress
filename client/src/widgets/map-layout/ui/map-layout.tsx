@@ -8,11 +8,12 @@ import {
     Marker,
     TileLayer,
     useMapEvents,
+    Circle,
 } from 'react-leaflet'
 
 import { usePointer } from "entities/pointer/hooks/use-pointer";
 
-import GunFires from "entities/gun-fire/ui/gun-fires";
+import Fires from "entities/fire/ui/fires";
 import Point from "entities/pointer/ui/point";
 
 import { useUser } from "entities/user/model/user";
@@ -20,15 +21,12 @@ import { PointersMap } from "./pointers-map";
 
 import './styles.scss'
 
-type TGunFireProps = {
-}
+type TMapProps = {}
 
-type TMapProps = TGunFireProps
-
-const bounds: LatLngBoundsExpression = [
-    [51.49, -0.08],
-    [51.5, -0.06]
-]
+// const bounds: LatLngBoundsExpression = [
+//     [51.49, -0.08],
+//     [51.5, -0.06]
+// ]
 
 const MapLayout: FC<TMapProps> = () => {
 
@@ -55,6 +53,39 @@ const MapLayout: FC<TMapProps> = () => {
 
                 <LocationMarker />
 
+                <Circle
+                    center={pos}
+                    pathOptions={{
+                        fillColor: 'green',
+                        fillOpacity: 0.5,
+                        color: 'red'
+                    }}
+                    // radius={(40000 / 360) * Math.cos(position[0])}
+                    radius={40}
+                />
+
+                <Circle
+                    center={[pos[0]-33.14, pos[1]]}
+                    pathOptions={{
+                        fillColor: 'green',
+                        fillOpacity: 0.5,
+                        color: 'red'
+                    }}
+                    // radius={(40000 / 360) * Math.cos(position[0])}
+                    radius={40}
+                />
+
+                <Circle
+                    center={[pos[0], pos[1]-0.0]}
+                    pathOptions={{
+                        fillColor: 'green',
+                        fillOpacity: 0.5,
+                        color: 'red'
+                    }}
+                    // radius={(40000 / 360) * Math.cos(position[0])}
+                    radius={40}
+                />
+
                 <Point
                     pointer={{
                         userId,
@@ -66,7 +97,7 @@ const MapLayout: FC<TMapProps> = () => {
 
                 <PointersMap />
 
-                <GunFires />
+                <Fires />
 
             </MapContainer>
 

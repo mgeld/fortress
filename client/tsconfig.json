@@ -19,9 +19,15 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "paths": {
+      "@ctypes/*": [
+        "../../common-types/*"
+      ],
+    },
   },
   "include": [
-    "./src"
+    "./src",
+    // "../common-types/socket/client-to-server.ts"
   ]
 }

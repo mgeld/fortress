@@ -5,6 +5,11 @@ import { TLatLng } from "shared/types";
 const setPointers = createEvent<TPointer[]>()
 const newPointer = createEvent<TPointer>()
 
+export type TDelPointer = {
+    userId: number
+}
+const delPointer = createEvent<TDelPointer>()
+
 export type TUpdatePos = {
     pos: TLatLng
     userId: number
@@ -19,6 +24,7 @@ const changeHealthPointer = createEvent<THealthPointer>()
 
 export const events = {
     newPointer,
+    delPointer,
     setPointers,
     updatePositionPointer,
     changeHealthPointer
