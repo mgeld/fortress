@@ -1,41 +1,37 @@
 import { TFirePayload } from "../common-types/socket/server-to-client"
-import { TFireAPI, TEventFire } from "../common-types/socket/client-to-server"
+import { TFireAPI, TEventBattleFire } from "../common-types/socket/client-to-server"
 import { IWebSocket } from "../api/socket/server";
 import { IRoute } from "./handlers"
 import { inject, injectable } from "inversify";
 import { TYPES } from "../types";
 import { Rooms } from "../api/socket/socket/rooms";
-import { PointerService } from "../services/pointer.service";
 import { ArenaService } from "../services/arena.service";
 import { WeaponService } from "../services/weapon.service";
+import { MemberService } from "../services/member.service";
 
 @injectable()
-class FireHandler extends IRoute {
+class BattleFireHandler extends IRoute {
     @inject(TYPES.Rooms) private _rooms!: Rooms
-    @inject(TYPES.PointerService) private _pointerService!: PointerService
+    @inject(TYPES.MemberService) private _memberService!: MemberService
     @inject(TYPES.WeaponService) private _weaponService!: WeaponService
     @inject(TYPES.ArenaService) private _arenaService!: ArenaService
 
-    public static EVENT: TEventFire = "fire"
+    public static EVENT: TEventBattleFire = "battleFire"
 
     async handle(
         message: TFireAPI,
         uSocket: IWebSocket,
     ) {
 
-
         console.log('FireHandler handle')
-        const _pointer = await this._pointerService.getById(message.payload.userId)
+
+        const _member = await this._memberService.getById(message.payload.userId)
         const weapon = await this._weaponService.getById(message.payload.weapon)
 
-        const arena = await this._arenaService.getById(_pointer.arena)
-
-        console.log('')
-
-        arena
+        const arena = await this._arenaService.getById(_member.arena)
 
         // Если я умер
-        if (_pointer.health < 1) {
+        if (_member.health < 1) {
             return
         }
         // Если у меня нет патронов
@@ -60,18 +56,21 @@ class FireHandler extends IRoute {
 
             fire['hitPointer'] = message.payload.hitPointer
 
-            const hitPointer = await this._pointerService.getById(message.payload.hitPointer.userId)
+            const hitPointer = await this._memberService.getById(message.payload.hitPointer.userId)
 
             hitPointer.health = hitPointer.health - weapon.weapon.damage
 
             if (hitPointer.health < 1) {
 
-                hitPointer.exitArena()
-                
+                console.log('1111111111111111111111')
 
                 const killPointerTeam = arena.killPointer(hitPointer.userId, hitPointer.arenaTeam)
+                await this._arenaService.update(arena)
+
+                console.log('killPointerTeam.alive_members', killPointerTeam.alive_members)
 
                 if (killPointerTeam.alive_members === 0) {
+
                     arena.teamList.forEach(team => {
                         if (team.id === killPointerTeam.id) {
                             team.defeatTeam()
@@ -79,18 +78,33 @@ class FireHandler extends IRoute {
                             team.victoryTeam()
                         }
                     })
+
+                    setTimeout(() => {
+                        this._rooms.arenas.broadcast(arena.id, {
+                            event: 'battle-over',
+                            payload: {
+                                teams: arena.teamList.map(team => ({
+                                    teamId: team.id,
+                                    status: team.status,
+                                    pointers: team.members,
+                                }))
+                            }
+                        })
+                    }, 2000)
+
                 }
 
+                hitPointer.exitArena()
 
             }
 
-            await this._pointerService.update(hitPointer)
+            await this._memberService.update(hitPointer)
         }
 
-        this._rooms.arenas.broadcast(_pointer.arena, {
+        this._rooms.arenas.broadcast(_member.arena, {
             event: 'fire',
             payload: fire
-        })
+        }, _member.userId)
 
 
     }
@@ -99,5 +113,5 @@ class FireHandler extends IRoute {
 // FireHandler.EVENT = 'fire'
 
 export {
-    FireHandler
+    BattleFireHandler
 }

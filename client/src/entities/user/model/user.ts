@@ -15,11 +15,13 @@ export type TActionPos = {
 }
 
 const {
+    setPos,
     setHealth,
     changeHealth
 } = userAPI.events
 
-const DEFAULT_STORE_POSITION: TLatLng = [43.31, 45.68];
+// const DEFAULT_STORE_POSITION: TLatLng = [43.31, 45.68];
+const DEFAULT_STORE_POSITION: TLatLng = [0.031, 0.068];
 
 const movePoint = createEvent<TActionPos>()
 const setUser = createEvent<number>()
@@ -28,6 +30,7 @@ movePoint.watch(() => console.log('movePoint'))
 
 export const $userPositionStore = createStore<TLatLng>(DEFAULT_STORE_POSITION)
     .on(movePoint, reducer)
+    .on(setPos, (_, pos) => pos)
 
 const DEFAULT_STORE_HEALTH: number = 0
 export const $userHealthStore = createStore(DEFAULT_STORE_HEALTH)
@@ -43,7 +46,7 @@ export const events = {
     setUser
 }
 
-export const useUser = () => {
+const useUser = () => {
     return {
         userId: useStore($userIdStore),
         pos: useStore($userPositionStore),
@@ -51,4 +54,9 @@ export const useUser = () => {
     }
 }
 
-export const useUserId = () => useStore($userIdStore)
+const useUserId = () => useStore($userIdStore)
+
+export const selectors = {
+    useUser,
+    useUserId,
+}

@@ -1,9 +1,9 @@
 import { Arena, UnmarshalledArena } from "../../../../entities/arena/arena";
 import { Team } from "../../../../entities/arena/arena-team";
-import { Member } from "../../../../entities/arena/arena-team-member";
 
 export class ArenaMapper {
     public static toDomain(arena: UnmarshalledArena): Arena {
+
         return Arena.create({
             id: arena.id,
             place: arena.place,
@@ -13,11 +13,14 @@ export class ArenaMapper {
                 return Team.create({
                     id: team.id,
                     status: team.status,
-                    members: team.members.map(member => {
-                        return Member.create(member)
-                    })
+                    members: team.members,
+                    alive_members: team.alive_members
+                    // members: team.members.map(member => {
+                    //     return Member.create(member)
+                    // })
                 })
             })
         })
+
     }
 }

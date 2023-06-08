@@ -1,30 +1,33 @@
 import { createEvent } from "effector";
-// import { TPointer } from "entities/pointer/model/pointer-map";
-// import { TLatLng } from "shared/types";
-
-// const setPointers = createEvent<TPointer[]>()
-// const newPointer = createEvent<TPointer>()
-
-// export type TUpdatePos = {
-//     pos: TLatLng
-//     userId: number
-// }
-// const updatePositionPointer = createEvent<TUpdatePos>()
-
-// export type THealthPointer = {
-//     userId: number
-//     health: number
-// }
-// const changeHealthPointer = createEvent<THealthPointer>()
-
+import { TLatLng } from "shared/types";
 
 export type TBattleStatus = 'default' | 'pending' | 'start' | 'over'
 const setBattleStatus = createEvent<TBattleStatus>()
 
+export type TDeadEvent = {
+    team: number
+    pointer: number
+}
+const killPointer = createEvent<TDeadEvent>()
+
+export type TTeam = {
+    teamId: number
+    status: 'default' | 'victory' | 'defeat'
+    pointers: number[]
+}
+const setTeams = createEvent<TTeam[]>()
+
+export type TArena = {
+    id: string
+    time_start: number
+    place: TLatLng
+    // teams: number[]
+}
+const setArena = createEvent<TArena>()
+
 export const events = {
+    setArena,
+    setTeams,
+    killPointer,
     setBattleStatus,
-    // newPointer,
-    // setPointers,
-    // updatePositionPointer,
-    // changeHealthPointer
 }

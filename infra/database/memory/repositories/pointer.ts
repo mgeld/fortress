@@ -2,7 +2,7 @@ import { injectable, inject } from 'inversify'
 import { Pointer, UnmarshalledPointer } from '../../../../entities/pointer/pointer'
 import { IPointerRepository } from '../../../../entities/repository'
 import { TYPES } from '../../../../types'
-import { PointerMapper } from '../mappers.ts/pointer'
+import { PointerMapper } from '../mappers/pointer'
 import { MemoryData } from '../memory-data'
 
 @injectable()

@@ -6,11 +6,13 @@ const TYPES = {
 
     ArenaService: Symbol.for('ArenaService'),
     PointerService: Symbol.for('PointerService'),
+    MemberService: Symbol.for('MemberService'),
     WeaponService: Symbol.for('WeaponService'),
     
     ArenaMemoryRepository: Symbol.for('ArenaMemoryRepository'),
     PointerMemoryRepository: Symbol.for('PointerMemoryRepository'),
     WeaponMemoryRepository: Symbol.for('WeaponMemoryRepository'),
+    MemberMemoryRepository: Symbol.for('MemberMemoryRepository'),
 
     Base64EntityIdGenerator: Symbol.for('Base64EntityIdGenerator'),
     
@@ -20,6 +22,8 @@ const TYPES = {
     DirectHandler: Symbol.for('DirectHandler'),
     FireHandler: Symbol.for('FireHandler'),
     BattleJoinHandler: Symbol.for('BattleJoinHandler'),
+    BattleFireHandler: Symbol.for('BattleFireHandler'),
+    BattleDirectHandler: Symbol.for('BattleDirectHandler'),
 
 }
 

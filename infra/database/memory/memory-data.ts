@@ -40,5 +40,7 @@ class Collection {
 export class MemoryData {
   public pointer = new Collection()
   public arena = new Collection()
+  // public arenaTeam = new Collection()
+  public arenaTeamMember = new Collection()
   public weapon = new Collection()
 }

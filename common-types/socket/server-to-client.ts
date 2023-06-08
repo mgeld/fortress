@@ -1,3 +1,4 @@
+import { TTeam } from "../../client/src/shared/api/events/battle"
 import { THitPointer, TJoystickDirection, TLatLng, TPointer, TWeapon, TWeaponSymbol } from "../model"
 
 export type TEventConnect = 'connect'
@@ -6,7 +7,10 @@ export type TEventDelPointer = 'del-pointer'
 export type TEventDirect = 'direct'
 export type TEventPointers = 'pointers'
 export type TEventFire = 'fire'
-export type TEventBattle = 'battle-start'
+
+export type TEventBattleStart = 'battle-start'
+export type TEventBattleOver = 'battle-over'
+export type TEventBattleJoin = 'battle-join'
 
 export type TEventsMessage =
     | TEventConnect
@@ -15,7 +19,9 @@ export type TEventsMessage =
     | TEventConnectPointer
     | TEventDelPointer
     | TEventDirect
-    | TEventBattle
+    | TEventBattleStart
+    | TEventBattleOver
+    | TEventBattleJoin
 
 
 type TConnectPayload = {
@@ -85,14 +91,40 @@ export type TFire = {
     payload: TFirePayload
 }
 
-export type TBattlePayload = {
-    battleId: string,
+
+export type TBattleStartPayload = {
+    battleId: string
+    place: TLatLng
+    timeStart: number
+    teams: TTeam[]
     pointers: TPointer[]
 }
-export type TBattle = {
-    event: TEventBattle
-    payload: TBattlePayload
+export type TBattleStart = {
+    event: TEventBattleStart
+    payload: TBattleStartPayload
 }
+
+
+export type TBattleOverPayload = {
+    teams: TTeam[]
+}
+export type TBattleOver = {
+    event: TEventBattleOver
+    payload: TBattleOverPayload
+}
+
+
+type TBattleJoinPayload = {
+    user: {
+        pos: TLatLng
+        health: number
+    }
+}
+export type TBattleJoin = {
+    event: TEventBattleJoin
+    payload: TBattleJoinPayload
+}
+
 
 export type TMessage =
     | TConnectPointer
@@ -101,4 +133,6 @@ export type TMessage =
     | TDirectPointer
     | TPointers
     | TFire
-    | TBattle
+    | TBattleStart
+    | TBattleOver
+    | TBattleJoin

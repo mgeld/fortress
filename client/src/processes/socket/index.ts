@@ -1,4 +1,6 @@
 import { Handlers, THandlers } from "shared/api/handlers"
+import { BattleJoinHandler } from "shared/api/handlers/battle-join"
+import { BattleOverHandler } from "shared/api/handlers/battle-over"
 import { BattleStartHandler } from "shared/api/handlers/battle-start"
 import { ConnectHandler } from "shared/api/handlers/connect"
 import { ConnectPointerHandler } from "shared/api/handlers/connect-pointer"
@@ -20,6 +22,8 @@ const callbacks = {
     [PointersHandler.EVENT]: new PointersHandler(),
     [FireHandler.EVENT]: new FireHandler(),
     [BattleStartHandler.EVENT]: new BattleStartHandler(),
+    [BattleOverHandler.EVENT]: new BattleOverHandler(),
+    [BattleJoinHandler.EVENT]: new BattleJoinHandler(),
 } as THandlers
 
 const handlers = new Handlers(callbacks)

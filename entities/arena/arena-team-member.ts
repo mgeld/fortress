@@ -1,34 +1,43 @@
 import { TLatLng } from "../../common-types/model"
 
 export type TTeamMember = {
-    pointerId: number
+    userId: number
     killed?: number
     damage?: number
     pos: TLatLng
     health: number
+    arena: string
+    arenaTeam: number
     // status?: 'alive' | 'dead'
 }
 
-type UnmarshalledMember = {
+export type UnmarshalledMember = {
+    id: string
     killed: number
     damage: number
     // status: 'alive' | 'dead'
 } & Omit<TTeamMember, 'killed' | 'damage'>
 
 class Member {
-    private _pointerId: number
+    private _userId: number
     private _killed: number
     private _damage: number
     private _pos: TLatLng
     private _health: number
+
+    private _arenaId: string
+    private _arenaTeamId: number
+    
     // private _status:  'alive' | 'dead'
 
     private constructor(props: TTeamMember) {
-        this._pointerId = props.pointerId
+        this._userId = props.userId
         this._killed = props.killed || 0
         this._damage = props.damage || 0
         this._pos = props.pos
         this._health = props.health || 100
+        this._arenaId = props.arena || ''
+        this._arenaTeamId = props.arenaTeam || 0
         // this._status = props.status || 'alive'
     }
 
@@ -38,17 +47,28 @@ class Member {
 
     unmarshal(): UnmarshalledMember {
         return {
-            pointerId: this._pointerId,
+            id: String(this._userId),
+            userId: this._userId,
             killed: this.killed,
             damage: this.damage,
             pos: this.pos,
             health: this.health,
+            arena: this.arena,
+            arenaTeam: this.arenaTeam,
             // status: this.status,
         }
     }
 
-    get pointerId() {
-        return this._pointerId
+    pointerUnmarshal() {
+        return {
+            userId: this._userId,
+            pos: this.pos,
+            health: this.health,
+        }
+    }
+
+    get userId() {
+        return this._userId
     }
 
     public kill() {
@@ -69,6 +89,10 @@ class Member {
         return this._pos
     }
 
+    set pos(pos: TLatLng) {
+        this._pos = pos
+    }
+
     get health() {
         return this._health
     }
@@ -83,6 +107,27 @@ class Member {
 
     set damage(damage: number) {
         this._damage = damage
+    }
+
+    exitArena() {
+        this._arenaId = ''
+        this._arenaTeamId = 0
+    }
+
+    get arena(): string {
+        return this._arenaId
+    }
+
+    set arena(arenaId: string) {
+        this._arenaId = arenaId
+    }
+
+    get arenaTeam(): number {
+        return this._arenaTeamId
+    }
+
+    set arenaTeam(teamId: number) {
+        this._arenaTeamId = teamId
     }
 
     // get status() {

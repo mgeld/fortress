@@ -1,1 +1,1 @@
-export {}
+export * as arenaModel from './model/arena'

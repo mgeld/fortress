@@ -1,21 +1,31 @@
 import { THitPointer, TJoystickDirection, TLatLng } from "../model"
 
 export type TEventConnect = 'connect'
+
 export type TEventDirect = 'direct'
 export type TEventFire = 'fire'
-export type TEventBattle = 'battleJoin'
+
+export type TEventBattleJoin = 'battleJoin'
+export type TEventBattleFire = 'battleFire'
+export type TEventBattleDirect = 'battleDirect'
 
 export type TEventsAPI =
-    | TEventFire
     | TEventConnect
+    | TEventFire
     | TEventDirect
-    | TEventBattle
+    | TEventBattleJoin
+    | TEventBattleFire
+    | TEventBattleDirect
 
 export type TSendEvent =
     | TConnectAPI
     | TFireAPI
     | TDirectAPI
-    | TBattleAPI
+    | TBattleJoinAPI
+    | TBattleFireAPI
+    | TBattleDirectAPI
+
+//----------------------------
 
 export type TConnectAPI = {
     event: TEventConnect
@@ -28,7 +38,6 @@ export type TConnectAPI = {
 export type TFireAPI = {
     event: TEventFire
     payload: {
-        arena?: string
         position: TLatLng
         direction: TJoystickDirection | null
         weapon: string,
@@ -40,14 +49,34 @@ export type TFireAPI = {
 export type TDirectAPI = {
     event: TEventDirect
     payload: {
-        arena?: string
         position: TLatLng
         userId: number
     }
 }
 
-export type TBattleAPI = {
-    event: TEventBattle
+//----------------------------
+
+export type TBattleFireAPI = {
+    event: TEventBattleFire
+    payload: {
+        position: TLatLng
+        direction: TJoystickDirection | null
+        weapon: string,
+        userId: number
+        hitPointer?: THitPointer
+    }
+}
+
+export type TBattleDirectAPI = {
+    event: TEventBattleDirect
+    payload: {
+        position: TLatLng
+        userId: number
+    }
+}
+
+export type TBattleJoinAPI = {
+    event: TEventBattleJoin
     payload: {
         userId: number
     }

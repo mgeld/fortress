@@ -78,5 +78,5 @@ class CollectionRooms {
 @injectable()
 export class Rooms {
     public arenas = new CollectionRooms()
-    public sectors = new CollectionRooms()
+    public areals = new CollectionRooms()
 }

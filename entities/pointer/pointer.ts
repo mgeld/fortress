@@ -6,16 +6,16 @@ export type TPointerProps = {
     userId: number
     health: number
     pos: TLatLng
-    sector?: string
-    arena?: string
-    arenaTeam?: number
+    areal?: string
+    // arena?: string
+    // arenaTeam?: number
     weapons?: string[]
 }
 
 export type UnmarshalledPointer = {
     id: string
-    sector: string
-} & Omit<TPointerProps, 'sector'>
+    areal: string
+} & Omit<TPointerProps, 'areal'>
 
 export class Pointer {
 
@@ -29,9 +29,9 @@ export class Pointer {
 
     private _weapons: string[]
 
-    private _arenaId: string
-    private _arenaTeamId: number
-    private _sector: string
+    // private _arenaId: string
+    // private _arenaTeamId: number
+    private _areal: string
 
     private constructor(pointer: TPointerProps) {
         this._userId = pointer.userId
@@ -43,9 +43,9 @@ export class Pointer {
         // this._id = pointer.id
         // this._icon = pointer.icon
 
-        this._sector = pointer.sector || ''
-        this._arenaId = pointer.arena || ''
-        this._arenaTeamId = pointer.arenaTeam || 0
+        this._areal = pointer.areal || ''
+        // this._arenaId = pointer.arena || ''
+        // this._arenaTeamId = pointer.arenaTeam || 0
     }
 
     public static create(pointer: TPointerProps) {
@@ -62,42 +62,42 @@ export class Pointer {
 
             weapons: this.weapons,
 
-            sector: this.sector,
+            areal: this.areal,
             
-            arena: this.arena,
-            arenaTeam: this.arenaTeam,
+            // arena: this.arena,
+            // arenaTeam: this.arenaTeam,
             // icon: this.icon
         }
     }
 
-    exitArena() {
-        this._arenaId = ''
-        this._arenaTeamId = 0
+    // exitArena() {
+    //     this._arenaId = ''
+    //     this._arenaTeamId = 0
+    // }
+
+    // get arena(): string {
+    //     return this._arenaId
+    // }
+
+    // set arena(arenaId: string) {
+    //     this._arenaId = arenaId
+    // }
+
+    // get arenaTeam(): number {
+    //     return this._arenaTeamId
+    // }
+
+    // set arenaTeam(teamId: number) {
+    //     this._arenaTeamId = teamId
+    // }
+
+
+    get areal(): string {
+        return this._areal
     }
 
-    get arena(): string {
-        return this._arenaId
-    }
-
-    set arena(arenaId: string) {
-        this._arenaId = arenaId
-    }
-
-    get arenaTeam(): number {
-        return this._arenaTeamId
-    }
-
-    set arenaTeam(teamId: number) {
-        this._arenaTeamId = teamId
-    }
-
-
-    get sector(): string {
-        return this._sector
-    }
-
-    set sector(sector: string) {
-        this._sector = sector
+    set areal(areal: string) {
+        this._areal = areal
     }
 
     get userId(): number {

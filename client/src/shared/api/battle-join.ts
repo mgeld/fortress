@@ -1,21 +1,16 @@
 import { WS } from "processes/socket"
-import { TBattleAPI, TEventBattle } from "../../../../common-types/socket/client-to-server"
-import { battleAPI } from "./events"
+// import { battleAPI } from "./events"
+import { TBattleJoinAPI, TEventBattleJoin } from "@ctypes/socket/client-to-server"
 
 export const battleJoinAPI = (
     userId: number
 ) => {
-
-    const data: TBattleAPI = {
-        event: 'battleJoin' as TEventBattle,
+    const data: TBattleJoinAPI = {
+        event: 'battleJoin' as TEventBattleJoin,
         payload: {
             userId
         }
     }
-
-    console.log('getSocketStatus', WS.getSocketStatus())
     WS.sendData(data)
-
-    battleAPI.events.setBattleStatus('pending')
-    
+    // battleAPI.events.setBattleStatus('pending')
 }

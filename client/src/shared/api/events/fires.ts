@@ -15,9 +15,9 @@ export type THealthChange = {
 const hitFireInTarget = createEvent<THealthChange>()
 
 export const events = {
-    setFires,
     addFire,
-    addFireHitMarket,
+    setFires,
+    delFireById,
     hitFireInTarget,
-    delFireById
+    addFireHitMarket,
 }

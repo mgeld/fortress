@@ -23,7 +23,6 @@ class FireHandler extends IRoute {
         uSocket: IWebSocket,
     ) {
 
-
         console.log('FireHandler handle')
         const _pointer = await this._pointerService.getById(message.payload.userId)
         const weapon = await this._weaponService.getById(message.payload.weapon)
@@ -31,11 +30,11 @@ class FireHandler extends IRoute {
         console.log('')
 
         // Если я умер
-        if(_pointer.health < 1) {
+        if (_pointer.health < 1) {
             return
         }
         // Если у меня нет патронов
-        if(weapon.bullets < 1) {
+        if (weapon.bullets < 1) {
             return
         }
 
@@ -62,41 +61,15 @@ class FireHandler extends IRoute {
 
             if (hitPointer.health < 1) {
 
-                if (message.payload?.arena) {
-
-                    hitPointer.exitArena()
-                    const arena = await this._arenaService.getById(_pointer.arena)
-
-                    const killPointerTeam = arena.killPointer(hitPointer.userId, hitPointer.arenaTeam)
-
-                    if (killPointerTeam.alive_members === 0) {
-                        arena.teamList.forEach(team => {
-                            if (team.id === killPointerTeam.id) {
-                                team.defeatTeam()
-                            } else {
-                                team.victoryTeam()
-                            }
-                        })
-                    }
-
-                }
-
             }
 
             await this._pointerService.update(hitPointer)
         }
 
-        if (message.payload?.arena && _pointer.arena) {
-            this._rooms.arenas.broadcast(_pointer.arena, {
-                event: 'fire',
-                payload: fire
-            })
-        } else {
-            this._rooms.sectors.broadcast(_pointer.sector, {
-                event: 'fire',
-                payload: fire
-            })
-        }
+        this._rooms.areals.broadcast(_pointer.areal, {
+            event: 'fire',
+            payload: fire
+        }, _pointer.userId)
 
     }
 }

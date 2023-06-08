@@ -1,29 +1,9 @@
-import { createEvent, createStore } from "effector"
+import { createStore } from "effector"
 import { useStore } from "effector-react"
 import { battleAPI } from "shared/api/events"
-import { TBattleStatus } from "shared/api/events/battle"
-
-type TTeam = {
-    teamId: number
-    status: 'default' | 'victory' | 'defeat'
-    pointers: number[]
-}
-
-export type TArena = {
-    id: string
-    time_start: number
-    teams: number[]
-}
+import { TArena, TBattleStatus, TDeadEvent, TTeam } from "shared/api/events/battle"
 
 const DEFAULT_STORE: TArena | null = null
-
-const setArena = createEvent<TArena>()
-
-type TDeadEvent = {
-    team: number
-    pointer: number
-}
-const killPointer = createEvent<TDeadEvent>()
 
 type TArenaStore = TArena | null
 
@@ -39,20 +19,25 @@ const useTeams = () => {
     }
 }
 
-const { setBattleStatus } = battleAPI.events
 const useBattleStatus = () => {
     return {
-        data: useStore($battleStatus)
+        data: useStore($battleStatusStore)
     }
 }
-const $battleStatus = createStore<TBattleStatus>('default')
+
+const {
+    setArena,
+    setTeams,
+    killPointer,
+    setBattleStatus,
+} = battleAPI.events
+
+export const $battleStatusStore = createStore<TBattleStatus>('default')
     .on(setBattleStatus, (_, status) => status)
 
 const $arenaStore = createStore<TArenaStore>(DEFAULT_STORE)
     .on(setArena, (_, arena: TArena) => arena)
 
-
-const setTeams = createEvent<TTeam[]>()
 const $teamStore = createStore<TTeam[]>([])
     .on(setTeams, (_, teams: TTeam[]) => teams)
     .on(killPointer, (prevTeams: TTeam[], dead: TDeadEvent) => prevTeams.map(team => {
@@ -63,8 +48,7 @@ const $teamStore = createStore<TTeam[]>([])
             }
         }
         return team
-    })
-    )
+    }))
 
 
 export const selectors = {

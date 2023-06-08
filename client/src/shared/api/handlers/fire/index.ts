@@ -47,12 +47,6 @@ class FireHandler extends Handler {
             firesAPI.events.delFireById({ fire_id: FIRE_ID })
 
             if (message.payload.hitPointer?.userId) {
-
-                console.log('Есть контакт!!!')
-                // pointersAPI.events.changeHealthPointer({
-                //     health: determinant.damage,
-                //     userId: message.payload.hitPointer.userId
-                // })
                 firesAPI.events.hitFireInTarget({
                     hitUserId: message.payload.hitPointer.userId,
                     damage: weapon.damage

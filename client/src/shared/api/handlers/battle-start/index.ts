@@ -1,12 +1,22 @@
-import { battleAPI, pointersAPI } from "shared/api/events";
-import { Handler } from "..";
-import { TBattle } from '@ctypes/socket/server-to-client'
+import { Handler } from ".."
+import { battleAPI, pointersAPI } from "shared/api/events"
+import { TBattleStart } from '@ctypes/socket/server-to-client'
+import { filterPointersStore } from "widgets/map-layout/model"
 
 class BattleStartHandler extends Handler {
-    handle(message: TBattle) {
-        console.log('-----/////-----/////------BattleStartHandler handle')
-        // pointersAPI.events.newPointer(message.payload)
+    handle(message: TBattleStart) {
+        
+        filterPointersStore()
+
+        // VK BRIDGE GET AVATARS FOR POINTERS
+
         pointersAPI.events.setPointers(message.payload.pointers)
+        battleAPI.events.setArena({
+            id: message.payload.battleId,
+            time_start: message.payload.timeStart,
+            place: message.payload.place
+        })
+        battleAPI.events.setTeams(message.payload.teams)
         battleAPI.events.setBattleStatus('start')
     }
 }

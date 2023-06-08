@@ -40,7 +40,7 @@ export class Gun implements WeaponType {
 
     get damage(): number {
         if (this._level === 1) {
-            return 30
+            return 10
         }
         if (this._level === 2) {
             return 15

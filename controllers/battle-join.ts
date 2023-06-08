@@ -3,24 +3,26 @@ import { inject, injectable } from "inversify";
 
 import { IWebSocket } from "../api/socket/server";
 import { Rooms } from "../api/socket/socket/rooms";
-import { TBattleAPI, TEventBattle } from "../common-types/socket/client-to-server";
+import { TBattleJoinAPI, TEventBattleJoin } from "../common-types/socket/client-to-server";
 import { Member } from "../entities/arena/arena-team-member";
+import { MemberPlace } from "../entities/arena/member-place";
 import { ArenaService } from "../services/arena.service";
-import { PointerService } from "../services/pointer.service";
+import { MemberService } from "../services/member.service";
 
 import { TYPES } from "../types";
 import { IRoute } from "./handlers";
 
 @injectable()
 class BattleJoinHandler extends IRoute {
-    @inject(TYPES.PointerService) private _pointerService!: PointerService
-    @inject(TYPES.ArenaService) private _arenaService!: ArenaService
     @inject(TYPES.Rooms) private _rooms!: Rooms
+    // @inject(TYPES.PointerService) private _pointerService!: PointerService
+    @inject(TYPES.ArenaService) private _arenaService!: ArenaService
+    @inject(TYPES.MemberService) private _memberService!: MemberService
 
-    public static EVENT: TEventBattle = "battleJoin"
+    public static EVENT: TEventBattleJoin = "battleJoin"
 
     async handle(
-        message: TBattleAPI,
+        message: TBattleJoinAPI,
         uSocket: IWebSocket,
     ) {
 
@@ -28,30 +30,69 @@ class BattleJoinHandler extends IRoute {
 
         const arena = await this._arenaService.getArena()
 
-        const pointer = await this._pointerService.getById(message.payload.userId)
-        pointer.arena = arena.id
+        // const pointer = await this._pointerService.getById(message.payload.userId)
+        // pointer.arena = arena.id
 
-        const isAdd = arena.addPointer(Member.create({ pointerId: pointer.userId }))
+        const team = arena.addPointer(message.payload.userId)
 
-        await this._pointerService.update(pointer)
-        await this._arenaService.update(arena)
+        const teamPlace = team.getPlace(arena.place)
+
+        const _member = Member.create({
+            userId: message.payload.userId,
+            pos: MemberPlace.generate(teamPlace, team.getMembersNumber()),
+            health: 100,
+            arena: arena.id,
+            arenaTeam: team.id
+        })
+
+        console.log('!!!!!!!!!!!!!_member.pos', _member.pos)
+
+        const member = await this._memberService.insert(_member)
+
+        // await this._pointerService.update(pointer)
 
         const roomId = this._rooms.arenas.getRoom(arena.id)
-        this._rooms.arenas.addClientToRoom(pointer.userId, roomId, uSocket)
+        this._rooms.arenas.addClientToRoom(message.payload.userId, roomId, uSocket)
+
+        uSocket.send(JSON.stringify({
+            event: 'battle-join',
+            payload: {
+                user: {
+                    pos: _member.pos,
+                    health: _member.health,
+                },
+            }
+        }))
 
         if (arena.isFullTeams()) {
 
-            const pointers = await this._pointerService.getByIds(arena.pointers)
+            arena.battleStart()
+
+            const members = await this._memberService.getByIds(arena.pointers)
 
             this._rooms.arenas.broadcast(roomId, {
                 event: 'battle-start',
                 payload: {
                     battleId: arena.id,
-                    pointers: pointers.map(pointer => pointer.unmarshal())
+                    place: arena.place,
+                    timeStart: +new Date(),
+                    teams: arena.teamList.map(team => ({
+                        teamId: team.id,
+                        status: team.status,
+                        pointers: team.members,
+                    })),
+                    pointers: members
+                        // .filter(member => member.userId !== _member.userId)
+                        .map(member => member.pointerUnmarshal())
                 }
             })
 
         }
+
+        console.log('arena.teamList[0].alive_members', arena.teamList[0].alive_members)
+
+        await this._arenaService.update(arena)
+
     }
 }
 

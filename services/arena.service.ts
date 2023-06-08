@@ -4,6 +4,7 @@ import { Arena } from "../entities/arena/arena";
 import { IArenaRepository } from "../entities/repository";
 import { TYPES } from "../types";
 import { Team } from "../entities/arena/arena-team";
+import { ArenaPlace } from "../entities/arena/arena-place";
 
 @injectable()
 export class ArenaService {
@@ -13,7 +14,6 @@ export class ArenaService {
     async getArena(): Promise<Arena> {
         try {
             const arena = await this._repository.getForRegistrArena('open')
-            console.log('getArena ', arena.unmarshal())
             return arena
         } catch (e) {
             return this._create()
@@ -23,7 +23,7 @@ export class ArenaService {
     async _create(): Promise<Arena> {
         const arena = Arena.create({
             id: this._entityId.nextIdEntity().id,
-            place: [0, 0],
+            place: ArenaPlace.nextPlace(),
             registr: 'open',
             status: 'pending',
             teams: [

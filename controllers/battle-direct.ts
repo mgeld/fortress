@@ -1,46 +1,41 @@
-import { inject, injectable } from "inversify"
-import { TDirectAPI, TEventDirect } from "../common-types/socket/client-to-server"
-import { PointerService } from "../services/pointer.service"
 import { TYPES } from "../types"
-import { IWebSocket } from "../api/socket/server";
 import { IRoute } from "./handlers"
+import { inject, injectable } from "inversify"
+import { IWebSocket } from "../api/socket/server"
 import { Rooms } from "../api/socket/socket/rooms"
-import { Sector } from "../entities/pointer/sector"
-import { IPointerRepository } from "../entities/repository"
+import { MemberService } from "../services/member.service"
+import { TBattleDirectAPI, TEventBattleDirect } from "../common-types/socket/client-to-server"
 
 @injectable()
 class BattleDirectHandler extends IRoute {
-    @inject(TYPES.PointerService) private _pointerService!: PointerService
-    @inject(TYPES.PointerMemoryRepository) private _repository!: IPointerRepository
     @inject(TYPES.Rooms) private _rooms!: Rooms
+    @inject(TYPES.MemberService) private _memberService!: MemberService
 
-    public static EVENT: TEventDirect = "battle-direct"
+    public static EVENT: TEventBattleDirect = "battleDirect"
 
     async handle(
-        message: TDirectAPI,
+        message: TBattleDirectAPI,
         uSocket: IWebSocket,
     ) {
 
         console.log('BattleDirectHandler handle')
 
-        const _pointer = await this._pointerService.getById(message.payload.userId)
+        const _member = await this._memberService.getById(message.payload.userId)
 
-        if (_pointer.health < 1) {
+        if (_member.health < 1) {
             return
         }
 
-        _pointer.pos = message.payload.position
-        this._pointerService.update(_pointer)
+        _member.pos = message.payload.position
+        this._memberService.update(_member)
 
-        this._rooms.sectors.broadcast(_pointer.arena, {
+        this._rooms.arenas.broadcast(_member.arena, {
             event: 'direct',
             payload: {
                 userId: message.payload.userId,
                 pos: message.payload.position
             }
-        }, _pointer.userId)
-
-
+        }, _member.userId)
 
     }
 }

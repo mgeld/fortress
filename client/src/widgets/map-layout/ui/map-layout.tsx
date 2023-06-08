@@ -9,6 +9,7 @@ import {
     TileLayer,
     useMapEvents,
     Circle,
+    Rectangle,
 } from 'react-leaflet'
 
 import { usePointer } from "entities/pointer/hooks/use-pointer";
@@ -16,10 +17,15 @@ import { usePointer } from "entities/pointer/hooks/use-pointer";
 import Fires from "entities/fire/ui/fires";
 import Point from "entities/pointer/ui/point";
 
-import { useUser } from "entities/user/model/user";
 import { PointersMap } from "./pointers-map";
 
 import './styles.scss'
+import { userModel } from "entities/user";
+import { ArenaMap } from "./arena-map";
+import { mapModel } from "entities/map";
+import { changeBattleStatusListener } from "features/battle/battle-change-status/model";
+import { Areal } from "entities/areal/model";
+import { Test } from "./test";
 
 type TMapProps = {}
 
@@ -28,11 +34,13 @@ type TMapProps = {}
 //     [51.5, -0.06]
 // ]
 
+changeBattleStatusListener()
+
 const MapLayout: FC<TMapProps> = () => {
 
     const { point } = usePointer()
 
-    const { userId, pos, health } = useUser()
+    const { userId, pos, health } = userModel.selectors.useUser()
 
     if (!point.load) return <>Load...</>
 
@@ -40,9 +48,10 @@ const MapLayout: FC<TMapProps> = () => {
         <div className='mapCard'>
 
             <MapContainer
+                ref={mapModel.events.setMap}
                 className='_MapContainer'
                 center={pos}
-                zoom={16}
+                zoom={5}
                 zoomControl={false}
                 scrollWheelZoom={true}
             >
@@ -52,6 +61,37 @@ const MapLayout: FC<TMapProps> = () => {
                 />
 
                 <LocationMarker />
+
+                <Test />
+
+                <Rectangle
+                    bounds={Areal.getBounds(pos)}
+                    pathOptions={{
+                        fillOpacity: 0,
+                        fillRule: "nonzero",
+                    }}
+                    weight={1}
+                />
+
+                <Rectangle
+                    bounds={[[0.0, 0.0], [90.0,90.0]]}
+                    pathOptions={{
+                        fillOpacity: 0,
+                        fillRule: "nonzero",
+                    }}
+                    weight={1}
+                />
+
+                <Rectangle
+                    bounds={Areal.getBounds(pos)}
+                    pathOptions={{
+                        fillOpacity: 0,
+                        fillRule: "nonzero",
+                    }}
+                    weight={1}
+                />
+
+                {/* <ArenaMap /> */}
 
                 <Circle
                     center={pos}
@@ -64,8 +104,20 @@ const MapLayout: FC<TMapProps> = () => {
                     radius={40}
                 />
 
+
                 <Circle
-                    center={[pos[0]-33.14, pos[1]]}
+                    center={[0.0, 0.0]}
+                    pathOptions={{
+                        fillColor: 'black',
+                        fillOpacity: 0.5,
+                        color: 'black'
+                    }}
+                    // radius={(40000 / 360) * Math.cos(position[0])}
+                    radius={100}
+                />
+
+                <Circle
+                    center={[pos[0] - 33.14, pos[1]]}
                     pathOptions={{
                         fillColor: 'green',
                         fillOpacity: 0.5,
@@ -76,7 +128,7 @@ const MapLayout: FC<TMapProps> = () => {
                 />
 
                 <Circle
-                    center={[pos[0], pos[1]-0.0]}
+                    center={[pos[0], pos[1] - 0.0]}
                     pathOptions={{
                         fillColor: 'green',
                         fillOpacity: 0.5,

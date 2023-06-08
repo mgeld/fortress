@@ -3,12 +3,10 @@ import { inject, injectable } from "inversify";
 import { IWebSocket } from "../api/socket/server";
 import { TConnectAPI, TEventConnect } from "../common-types/socket/client-to-server";
 import { Pointer } from "../entities/pointer/pointer";
-import { Sector } from "../entities/pointer/sector";
 import { PointerService } from "../services/pointer.service";
 import { WeaponService } from "../services/weapon.service";
 import { TYPES } from "../types";
 import { IRoute } from "./handlers";
-import { Broadcast } from "./libs/broadcast";
 
 @injectable()
 class ConnectHandler implements IRoute {
@@ -58,7 +56,7 @@ class ConnectHandler implements IRoute {
             userId: USER_ID,
             health: DEFAULT_HEALTH,
             pos: message.payload.position,
-            // sector: '',
+            // areal: '',
             weapons: [weapon.id]
         })
 

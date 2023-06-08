@@ -2,7 +2,7 @@ import { injectable, inject } from 'inversify'
 import { IWeaponRepository } from '../../../../entities/repository'
 import { UnmarshalledWeapon, Weapon } from '../../../../entities/weapon/weapon'
 import { TYPES } from '../../../../types'
-import { WeaponMapper } from '../mappers.ts/weapon'
+import { WeaponMapper } from '../mappers/weapon'
 import { MemoryData } from '../memory-data'
 
 @injectable()

@@ -4,7 +4,7 @@ import { pointerMapModel } from "entities/pointer";
 import { TPointer } from "entities/pointer/model/pointer-map";
 import { userModel } from "entities/user";
 
-import { fire } from "shared/api/fire";
+import { fireAPI } from "shared/api/fire";
 import { comparePos } from "../lib/compare-pos";
 import { firesAPI, pointersAPI } from "shared/api/events";
 import { TJoystickDirection, TLatLng } from "shared/types";
@@ -15,6 +15,9 @@ import { IJoystickUpdateEvent } from "react-joystick-component/build/lib/Joystic
 import { THitPointer, TWeapon } from '@ctypes/model'
 import { weaponModel } from "entities/weapon"
 import { WeaponType } from "entities/weapon/lib/gun"
+import { arenaModel } from "entities/arena";
+import { TBattleStatus } from "shared/api/events/battle";
+import { battleFireAPI } from "shared/api/battle-fire";
 
 //--------
 
@@ -48,6 +51,9 @@ const hitPointersFx = createEffect(({
     let to_pos: TLatLng = fromToDirectionPos(source.userPos, fire.direction, source.featureWeapon?.distance || 0)
 
     source.pointers.sort(comparePos(fire.direction)).every(pointer => {
+
+        if(pointer.health < 1) return true
+
         let isFire = isHitFireTarget({
             from: source.userPos,
             to: to_pos,
@@ -74,18 +80,12 @@ const hitPointersFx = createEffect(({
 })
 
 type TFireControlFx = {
-    user: {
+    source: {
         userId: number
-        userPos: TLatLng
+        battleStatus: TBattleStatus
     }
     clock: {
-        params: {
-            source: {
-                pointers: TPointer[]
-                userPos: TLatLng
-            }
-            fire: TFireDirection
-        }
+        params: THitPointersFxProps
         result: {
             hitPointer: THitPointer
             toPos: TLatLng
@@ -96,19 +96,15 @@ type TFireControlFx = {
 }
 
 const fireControlFx = createEffect(({
-    user,
+    source,
     clock
 }: TFireControlFx) => {
 
-    console.log('fireControlFx.....................................')
-
     const FIRE_ID = Date.now()
-
-    // let to_pos = fromToDirectionPos(user.userPos, hitPointer.params.fire.direction, DISTANCE)
 
     let _fire: TFire = {
         id: FIRE_ID,
-        from_pos: user.userPos,
+        from_pos: clock.params.source.userPos,
         to_pos: clock.result.toPos,
         direction: clock.params.fire.direction
     }
@@ -121,13 +117,29 @@ const fireControlFx = createEffect(({
 
     firesAPI.events.addFire(_fire)
 
-    clock.result.usedWeapon?.id && fire(
-        user.userPos,
-        clock.params.fire.direction,
-        user.userId,
-        clock.result.hitPointer,
-        clock.result.usedWeapon.id
-    )
+    if (clock.result.usedWeapon?.id) {
+        if (
+            source.battleStatus === 'default' ||
+            source.battleStatus === 'over'
+        ) {
+            fireAPI(
+                clock.params.source.userPos,
+                clock.params.fire.direction,
+                source.userId,
+                clock.result.hitPointer,
+                clock.result.usedWeapon.id
+            )
+        } else {
+            battleFireAPI(
+                clock.params.source.userPos,
+                clock.params.fire.direction,
+                source.userId,
+                clock.result.hitPointer,
+                clock.result.usedWeapon.id
+            )
+        }
+
+    }
 
     setTimeout(() => {
         firesAPI.events.delFireById({ fire_id: FIRE_ID })
@@ -144,10 +156,11 @@ const fireControlFx = createEffect(({
 sample({
     clock: hitPointersFx.done,
     source: {
+        battleStatus: arenaModel.$battleStatusStore,
         userId: userModel.$userIdStore,
-        userPos: userModel.$userPositionStore,
+        // userPos: userModel.$userPositionStore,
     },
-    fn: (user, clock) => ({ user, clock }),
+    fn: (source, clock) => ({ source, clock }),
     target: fireControlFx
 })
 

@@ -55,6 +55,11 @@ export class Arena {
         return instance
     }
 
+    public battleStart() {
+        this._registr = 'close'
+        this._status = "start"
+    }
+
     public unmarshal(): UnmarshalledArena {
         return {
             id: this._id,
@@ -71,15 +76,20 @@ export class Arena {
         return this.teamList.every(team => team.getMembersNumber() === this._teamMembersNumber)
     }
 
-    addPointer(pointer: Member): boolean {
-        let is_add = false
-        this._teamList.forEach(team => {
-            if (team.getMembersNumber() < this._teamMembersNumber) {
-                team.addPointer(pointer)
-                is_add = true
-            }
-        })
-        return is_add
+    addPointer(pointer: number): Team {
+        const team = this._teamList.find(team => team.getMembersNumber() < this._teamMembersNumber)
+        // const team = this._teamList.filter(team => {
+        //     if (team.getMembersNumber() < this._teamMembersNumber) {
+        //         team.addPointer(pointer)
+        //         return 
+        //     }
+        // })
+        if(team instanceof Team) {
+            team.addPointer(pointer)
+            return team
+        }
+
+        throw new Error('ssdsdsd')
         // let is_add = false
         // this.teams = this.teams.map(team => {
         //     if (!is_add && team.pointers.length < this._teamMembersNumber) {
@@ -98,8 +108,8 @@ export class Arena {
         const team = this.teamList.filter(team => {
             if (team.id === teamId) {
                 team.members.forEach(member => {
-                    if (member.pointerId === pointerId) {
-                        member.kill()
+                    if (member === pointerId) {
+                        // member.kill()
                         team.killTeamMember()
                     }
                 })
@@ -156,7 +166,7 @@ export class Arena {
     get pointers(): number[] {
         let pointers: number[] = []
         this.teamList.forEach(team => {
-            pointers = [...pointers, ...team.members.map(member => member.pointerId)]
+            pointers = [...pointers, ...team.members.map(member => member)]
         })
         return pointers
     }

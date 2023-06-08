@@ -3,7 +3,7 @@ import { TJoystickDirection, TLatLng } from "shared/types"
 import { TFireAPI } from "../../../../common-types/socket/client-to-server"
 import { THitPointer } from '@ctypes/model'
 
-export const fire = (
+export const fireAPI = (
     position: TLatLng,
     direction: TJoystickDirection | null,
     userId: number,

@@ -16,7 +16,7 @@ import { battleEvents } from 'features/battle/battle-connect'
 
 const App = () => {
 
-  const userId = userModel.useUserId()
+  const userId = userModel.selectors.useUserId()
 
   console.log('App')
 

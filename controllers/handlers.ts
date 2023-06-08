@@ -38,9 +38,11 @@ export class Handlers {
 
     constructor(
         @inject(TYPES.FireHandler) private fire: IRoute,
-        @inject(TYPES.BattleJoinHandler) private battleJoin: IRoute,
         @inject(TYPES.DirectHandler) private direct: IRoute,
         @inject(TYPES.ConnectHandler) private connect: IRoute,
+        @inject(TYPES.BattleJoinHandler) private battleJoin: IRoute,
+        @inject(TYPES.BattleFireHandler) private battleFire: IRoute,
+        @inject(TYPES.BattleDirectHandler) private battleDirect: IRoute,
     ) { }
 
     handle(

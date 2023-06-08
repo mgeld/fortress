@@ -7,9 +7,9 @@ export class PointerMapper {
       health: pointer.health,
       pos: pointer.pos,
       weapons: pointer.weapons,
-      sector: pointer.sector,
-      arena: pointer.arena,
-      arenaTeam: pointer.arenaTeam,
+      areal: pointer.areal,
+      // arena: pointer.arena,
+      // arenaTeam: pointer.arenaTeam,
     })
   }
 }

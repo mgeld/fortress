@@ -54,24 +54,9 @@ export class Server {
             res.end("Nice");
         })
 
-        console.log('0000000')
-
         const wss = new WebSocket.Server({ server })
 
-        // wss.broadcast = (
-        //     message: TMessage,
-        //     ws?: IWebSocket
-        // ) => {
-        //     wss.clients.forEach(client => {
-        //         if (client === ws) return
-        //         client.send(JSON.stringify(message));
-        //     })
-        // }
-        // const pointers = new Map<number, TPointer>()
-
         const connected_clients = new Map()
-
-        // const broadcast = new Broadcast(wss)
 
         wss.on('error', (err) => {
             console.log('err', err)
@@ -119,8 +104,6 @@ export class Server {
         const hostname = '192.168.43.90'
 
         server.listen(8080, hostname, () => console.log('Htpsssss'));
-
-
 
     }
 }
