@@ -5,43 +5,62 @@ import { TBattleStatus } from "shared/api/events/battle";
 import { Map } from "leaflet";
 import { userModel } from "entities/user";
 import { TLatLng } from "shared/types";
+import { popoutModel } from "shared/ui/PopoutRoot";
 
 const changeBattleFx = createEffect(({
     source,
     battleStatus
 }: {
     source: {
-        map: Map | null
+        map: Map
         userPos: TLatLng
     },
     battleStatus: TBattleStatus
 }) => {
 
-    function arenaFlyTo(zoomChange?: number) {
-        if (!source.map) return
-        source.map.flyTo(source.userPos, source.map.getZoom() - (zoomChange || 0))
+    function arenaFlyTo(zoom?: number) {
+        // if (!source.map) return
+        source.map.flyTo(source.userPos, zoom)
+        // source.map.setZoom(1)
     }
 
-    console.log('////////////// battleStatus', battleStatus)
-
     if (battleStatus === 'pending') {
-        arenaFlyTo()
+        // setTimeout(() => arenaFlyTo(3), 1000)
+        arenaFlyTo(3)
+        popoutModel.events.setPopout('battle-pending')
+    }
+
+    else if (battleStatus === 'start') {
+        arenaFlyTo(15)
+        setTimeout(() => popoutModel.events.setPopout(null), 2000)
     }
 
     else if (battleStatus === 'over') {
-        arenaFlyTo(2)
+        arenaFlyTo(13)
+        popoutModel.events.setPopout('battle-over')
     }
 })
 
+type TMap = {
+    map: Map
+    userPos: TLatLng
+}
+
 export const changeBattleStatusListener = () => {
-    console.log('..........changeBattleStatusListener')
     sample({
         clock: battleAPI.events.setBattleStatus,
         source: {
             map: mapModel.$mapStore,
             userPos: userModel.$userPositionStore,
         },
-        fn: (source, clock) => ({ source, battleStatus: clock }),
+        filter: (source: {
+            map: Map | null
+            userPos: TLatLng | null
+        }): source is TMap => source.map !== null,
+        fn: (source, clock) => ({
+            source,
+            battleStatus: clock
+        }),
         target: changeBattleFx
     })
 }

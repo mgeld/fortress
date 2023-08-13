@@ -1,0 +1,44 @@
+.snackbarRoot {
+    position: absolute;
+    bottom: 120px;
+    right: 10px;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    font-size: 14px;
+    font-weight: normal;
+    z-index: 4000;
+
+    .snackbar {
+        margin-top: 10px;
+
+        & > div {
+            padding: 4px 8px;
+            background-color: rgba(0, 0, 0, 0.450);
+            border-radius: 5px;
+            color: white;
+            animation: 4s linear new-toast;
+        }
+    }
+}
+
+@keyframes new-toast {
+    0% {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    5% {
+        opacity: 1;
+        transform: translateX(0px);
+    }
+    95% {
+        opacity: 1;
+        transform: translateX(0px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(100%);
+    }
+}

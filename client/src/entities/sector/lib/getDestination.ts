@@ -1,10 +1,13 @@
+import { TLatLng } from "shared/types";
+
 let index = 0
+
 export const getDestination = (
     lat: number,
     long: number,
     distance: number,
     bearing: number
-) => {
+): TLatLng => {
 
     index ++
 

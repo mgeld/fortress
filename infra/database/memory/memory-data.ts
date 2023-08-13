@@ -16,7 +16,7 @@ class Collection {
     return ids.map(id => this.data[id] as T)
   }
 
-  async insert<T extends { id: string }>(value: T): Promise<T> {
+  async insert<T extends { id: string | number }>(value: T): Promise<T> {
     this.data[value.id] = value
     return value
   }
@@ -39,8 +39,12 @@ class Collection {
 @injectable()
 export class MemoryData {
   public pointer = new Collection()
+  public zone = new Collection()
+  public citadel = new Collection()
+  public areal = new Collection()
   public arena = new Collection()
   // public arenaTeam = new Collection()
   public arenaTeamMember = new Collection()
   public weapon = new Collection()
+  public sector = new Collection()
 }

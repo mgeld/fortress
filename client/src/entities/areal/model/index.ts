@@ -3,16 +3,16 @@ import { TLatLng } from "shared/types"
 export class Areal {
 
     public static getArealId(_pos: TLatLng) {
-        const lat = Math.floor(_pos[0] * 100) / 100
-        const long = Math.floor(_pos[1] * 100) / 100
+        const lat = _pos[0] - (_pos[0] % 0.02)
+        const long = _pos[1] - (_pos[1] % 0.03)
         const areal = String(lat) + String(long)
         return areal
     }
 
     private static getArealPlace(pos: TLatLng): TLatLng {
         return [
-            Math.floor(pos[0] * 100) / 100,
-            Math.floor(pos[1] * 100) / 100,
+            pos[0] - (pos[0] % 0.02),
+            pos[1] - (pos[1] % 0.03)
         ]
     }
 
@@ -20,7 +20,7 @@ export class Areal {
         const latlng = Areal.getArealPlace(areal)
         return [
             latlng,
-            [latlng[0] + 0.01, latlng[1] + 0.01]
+            [latlng[0] + 0.02, latlng[1] + 0.03],
         ]
     }
 

@@ -28,11 +28,13 @@ sample({
     target: movePointFx
 })
 
-const directFx = createEffect((source: {
+type TSource = {
+    battleStatus: TBattleStatus
     userId: number
     userPos: TLatLng
-    battleStatus: TBattleStatus
-}) => {
+}
+
+const directFx = createEffect((source: TSource) => {
     if (
         source.battleStatus === 'default' ||
         source.battleStatus === 'over'
@@ -45,16 +47,14 @@ const directFx = createEffect((source: {
 
 sample({
     clock: movePointFx,
-    target: attach({
-        source: {
-            battleStatus: arenaModel.$battleStatusStore,
-            userId: userModel.$userIdStore,
-            userPos: userModel.$userPositionStore
-        },
-        effect: directFx
-    })
+    source: {
+        battleStatus: arenaModel.$battleStatusStore,
+        userId: userModel.$userIdStore,
+        userPos: userModel.$userPositionStore
+    },
+    // filter: (source): source is TSource => source.userPos !== null,
+    target: directFx
 })
-
 
 // effectorThrottle({
 //     source: movePointFx.doneData,

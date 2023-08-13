@@ -1,63 +1,95 @@
-import { useEffect } from 'react'
+import { Profiler, useEffect } from 'react'
 
+import 'app/assets/styles/leaflet.css'
 import 'app/assets/styles/App.scss'
-import 'app/assets/styles//leaflet.css'
 
 import Canvas from 'shared/ui/Canvas/Canvas'
 import MapLayout from 'widgets/map-layout/ui/map-layout'
 import LoadFonts from 'shared/ui/LoadFonts'
 import { Counters } from 'widgets/counters/counters'
-import { userModel } from 'entities/user'
-import ControlFire from 'features/fire/control-fire/ui'
-import ControlPointer from 'features/pointer/control-pointer/ui'
-import { userEvents } from 'features/user/connect-user'
-import { useSocket } from 'shared/api/socket/model'
-import { battleEvents } from 'features/battle/battle-connect'
+
+import { NavBattle } from 'widgets/menu/battle'
+import { PopoutRoot } from 'shared/ui/PopoutRoot'
+import { Popout } from 'shared/ui/Popout'
+import { BattlePending } from 'entities/arena/ui/battle-pending'
+import { selectors } from 'shared/ui/PopoutRoot/model'
+
+import { Snackbar } from 'shared/ui/Snackbar/ui'
+import { BattleOver } from 'entities/arena/ui/battle-over'
+import { UserDead } from 'entities/user/ui/user-dead'
+import { SelectPlace } from 'features/user/select-place/ui/popout'
+import { useApp } from './hooks/useApp'
+import { MapBottom } from 'widgets/map-bottom'
 
 const App = () => {
 
-  const userId = userModel.selectors.useUserId()
+  const popout = selectors.usePopout().data
 
   console.log('App')
 
-  const socketStatus = useSocket()
+  const {
+    userId,
+    socketStatus
+  } = useApp()
 
-  useEffect(() => {
-    userModel.events.setUser(Date.now())
-  }, [])
-
-  useEffect(() => {
-    console.log('useEffect userId', userId)
-    console.log('useEffect socketStatus', socketStatus)
-    userId > 0 && socketStatus === 'open' && userEvents.events.connectUser()
-  }, [userId, socketStatus])
+  if (!userId) return <>load...</>
 
   return (
-    <div className='app'>
+      <div className='app'>
 
-      <LoadFonts fontFamily='Lolita' />
+        <PopoutRoot activePopout={popout}>
 
-      <Canvas width={50} height={86} />
+          <Popout
+            id='battle-pending'
+            fill='#5a166480'
+          >
+            <BattlePending />
+          </Popout>
 
-      {socketStatus && <div className='mapPage'>
+          <Popout
+            id='battle-over'
+            fill='#5a166480'
+          >
+            <BattleOver />
+          </Popout>
 
-        <Counters />
+          <Popout
+            id='user-dead'
+            fill='#5a166480'
+          >
+            <UserDead />
+          </Popout>
 
-        <MapLayout />
+          <Popout
+            id='select-place'
+            fill='#5a166480'
+          >
+            <SelectPlace />
+          </Popout>
 
-        <ControlPointer />
+        </PopoutRoot>
 
-        <ControlFire />
-        
-        <div
-          className='aaaa'
-          onClick={() => battleEvents.events.battleConnect()}
-        >
-        </div>
+        <LoadFonts fontFamily='Lolita' />
 
-      </div>}
+        <Canvas width={50} height={86} />
 
-    </div >
+        <Snackbar />
+
+        {socketStatus ? (
+          <div className='mapPage'>
+
+            <NavBattle />
+
+            <Counters />
+
+            <MapLayout />
+
+            <MapBottom />
+
+          </div>
+        ) : null}
+
+      </div >
   );
 }
 

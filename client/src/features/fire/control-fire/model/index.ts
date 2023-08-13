@@ -12,12 +12,13 @@ import { isHitFireTarget } from "shared/lib/isHitFireTarget";
 import { fromToDirectionPos } from "shared/lib/fromToDirectionPos";
 import { IJoystickUpdateEvent } from "react-joystick-component/build/lib/Joystick";
 
-import { THitPointer, TWeapon } from '@ctypes/model'
+import { THitPointer } from '@ctypes/model'
 import { weaponModel } from "entities/weapon"
 import { WeaponType } from "entities/weapon/lib/gun"
 import { arenaModel } from "entities/arena";
 import { TBattleStatus } from "shared/api/events/battle";
 import { battleFireAPI } from "shared/api/battle-fire";
+import { TWeaponStore } from "entities/weapon/model/weapon";
 
 //--------
 
@@ -29,7 +30,7 @@ type THitPointersFxProps = {
     source: {
         pointers: TPointer[]
         userPos: TLatLng
-        usedWeapon: TWeapon | null
+        usedWeapon: TWeaponStore | null
         featureWeapon: WeaponType | null
     },
     fire: TFireDirection
@@ -39,8 +40,6 @@ const hitPointersFx = createEffect(({
     source,
     fire
 }: THitPointersFxProps) => {
-
-    console.log('hitPointersFx source.featureWeapon.distance', source.featureWeapon?.distance)
 
     let hitPointer: THitPointer = {
         userId: 0,
@@ -90,7 +89,7 @@ type TFireControlFx = {
             hitPointer: THitPointer
             toPos: TLatLng
             featureWeapon: WeaponType | null
-            usedWeapon: TWeapon | null
+            usedWeapon: TWeaponStore | null
         }
     }
 }

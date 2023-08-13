@@ -1,5 +1,6 @@
-import { FC } from "react";
-import { useMap } from "react-leaflet";
+import { FC, useEffect, useState } from "react";
+import { Pane, useMap, useMapEvents } from "react-leaflet";
+import { throttle } from "shared/lib/throttle";
 import { TLatLng } from "shared/types";
 
 import styles from './styles.module.scss'
@@ -18,28 +19,46 @@ const Health: FC<THealth> = ({
 }) => {
 
     const map = useMap()
-    const coords = map.latLngToContainerPoint(position)
+
+    const [coords, setCoords] = useState(map.latLngToLayerPoint(position))
+
+    useEffect(() => {
+        setCoords(map.latLngToLayerPoint(position))
+    }, [map, position])
+
+    // const throttleSetCoords = () => {
+    //     console.log('throttleSetCoords')
+    //     setCoords(map.latLngToLayerPoint(position))
+    // }
+
+    const __ = useMapEvents({
+        zoomend: () => setCoords(map.latLngToLayerPoint(position)),
+        // moveend: throttle(throttleSetCoords, 50)
+    })
 
     return (
-        <div
-            className={styles.markerHealth}
-            style={{
-                top: `${coords.y - Y_BACK}px`,
-                left: `${coords.x - X_BACK}px`,
-            }}
-        >
+        <>
             <div
-                className={styles.__health}
+                className={styles.markerHealth}
                 style={{
-                    width: `${health}%`,
-                    backgroundColor: '#3FF672'
+                    // transform: `translate3d(${coords.x - X_BACK}px, ${coords.y - Y_BACK}px, 0px)`
+                    top: `${coords.y - Y_BACK}px`,
+                    left: `${coords.x - X_BACK}px`,
                 }}
-            />
-            <div className={styles.__whiteEffect}><div /></div>
-            <div className={styles.__count}>
-                {health}
+            >
+                <div
+                    className={styles.__health}
+                    style={{
+                        width: `${health}%`,
+                        backgroundColor: '#3FF672'
+                    }}
+                />
+                <div className={styles.__whiteEffect}><div /></div>
+                <div className={styles.__count}>
+                    {health}
+                </div>
             </div>
-        </div>
+        </>
     )
 }
 

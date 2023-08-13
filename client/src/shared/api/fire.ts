@@ -14,7 +14,6 @@ export const fireAPI = (
     const data: TFireAPI = {
         event: 'fire',
         payload: {
-
             position,
             direction,
             userId,

@@ -2,20 +2,18 @@ import { TLatLng } from "../../common-types/model"
 
 export type TTeamMember = {
     userId: number
-    killed?: number
-    damage?: number
+    killed?: number // Сколько противников убито
+    damage?: number // Сколько нанесено урона противнику
     pos: TLatLng
     health: number
     arena: string
     arenaTeam: number
-    // status?: 'alive' | 'dead'
 }
 
 export type UnmarshalledMember = {
     id: string
     killed: number
     damage: number
-    // status: 'alive' | 'dead'
 } & Omit<TTeamMember, 'killed' | 'damage'>
 
 class Member {
@@ -28,8 +26,6 @@ class Member {
     private _arenaId: string
     private _arenaTeamId: number
     
-    // private _status:  'alive' | 'dead'
-
     private constructor(props: TTeamMember) {
         this._userId = props.userId
         this._killed = props.killed || 0
@@ -38,7 +34,6 @@ class Member {
         this._health = props.health || 100
         this._arenaId = props.arena || ''
         this._arenaTeamId = props.arenaTeam || 0
-        // this._status = props.status || 'alive'
     }
 
     public static create(props: TTeamMember) {
@@ -55,7 +50,6 @@ class Member {
             health: this.health,
             arena: this.arena,
             arenaTeam: this.arenaTeam,
-            // status: this.status,
         }
     }
 
@@ -105,8 +99,8 @@ class Member {
         return this._damage
     }
 
-    set damage(damage: number) {
-        this._damage = damage
+    makeDamage(damage: number) {
+        this._damage = this._damage + damage
     }
 
     exitArena() {

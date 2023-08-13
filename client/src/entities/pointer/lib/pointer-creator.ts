@@ -13,13 +13,24 @@ export class PointerCreator {
         if (!this.canvas) console.error('Не удалось найти элемент Canvas, для отрисовки поинтов')
     }
 
-    public async createPoint(pointIcon: string): Promise<string> {
+    private clearCanvas() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    }
+
+    public async createPoint(pointIcon: string, userIcon: string): Promise<string> {
+        console.log("createPoint userIcon", userIcon)
         let img = this.pasteImageOnPointer(50, 86, pointIcon)
-        const UserIcon = 'https://sun2-17.userapi.com/s/v1/ig2/gdaDjou5jcnvOqKrJ5bDtV6RMVAkCxm0asqd4pz76PawCAU-qkT6xChOWNlqyEBIz2D_BbH7-u_7QZJ0YvQ1TMlr.jpg?size=100x100&quality=95&crop=0,231,728,728&ava=1%22'
+        return this.addUserImageToPoint(img, userIcon)
+    }
 
-        let imgU = this.pasteImageOnPointer(36, 36, UserIcon)
-
-        return this.loadImages([img, imgU]).then(() => this.addImageToPoint(img, imgU))
+    private async addUserImageToPoint(img: HTMLImageElement, icon: string): Promise<string> {
+        let imgU = this.pasteImageOnPointer(36, 36, icon)
+        return this.loadImages([img, imgU])
+            .then(() => {
+                const draw = this.addImageToPoint(img, imgU)
+                this.clearCanvas()
+                return draw
+            })
     }
 
     private pasteImageOnPointer(w: number, h: number, image: string) {

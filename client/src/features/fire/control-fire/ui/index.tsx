@@ -17,7 +17,7 @@ const ControlFire: FC = () => {
                     stickSize={52}
                     sticky={false}
                     baseColor="#ffffff00"
-                    stickImage='icons/gun.png'
+                    stickImage='icons/control-fire.png'
                     minDistance={80}
                     throttle={500}
                     move={fireControl}

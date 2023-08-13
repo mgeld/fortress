@@ -1,35 +1,45 @@
 import { inject, injectable } from "inversify";
 import { EntityIdGenerator } from "../domain/entityId";
-import { IWeaponRepository } from "../entities/repository";
-import { Gun } from "../entities/weapon/gun";
-import { Weapon } from "../entities/weapon/weapon";
+import { IWeaponMemoryRepository, IWeaponRepository } from "../entities/repository";
+import { Weapon, WeaponType } from "../entities/weapon/weapon";
 import { TYPES } from "../types";
 
 @injectable()
 export class WeaponService {
-    @inject(TYPES.WeaponMemoryRepository) private _repository!: IWeaponRepository
+    @inject(TYPES.WeaponMemoryRepository) private _memoryRepository!: IWeaponMemoryRepository
+    @inject(TYPES.WeaponRepository) private _baseRepository!: IWeaponRepository
     @inject(TYPES.Base64EntityIdGenerator) private _entityId!: EntityIdGenerator
 
-    createGun(): Promise<Weapon> {
-        const weapon = Weapon.create({
+    createGun(weapon: WeaponType): Weapon {
+        const _weapon = Weapon.create({
             id: this._entityId.nextIdEntity().id,
-            weapon: Gun.level(1),
+            weapon: weapon,
             bullets: 100
         })
-        return this._repository.insert(weapon)
+        return _weapon
     }
 
-    getById(id: string): Promise<Weapon> {
-        return this._repository.getById(id)
+    async memoryGetById(id: string): Promise<Weapon> {
+        return this._memoryRepository.getById(id)
     }
 
-    async update(weapon: Weapon) {
-        const _weapon = await this._repository.update(weapon)
-        // pointer.health = pointer.health - 
-
+    async memoryInsert(weapon: Weapon): Promise<Weapon> {
+        return this._memoryRepository.insert(weapon)
     }
 
-    remove(id: string) {
-        this._repository.delete(id)
+    async baseInsert(weapon: Weapon): Promise<Weapon> {
+        return this._baseRepository.insert(weapon)
+    }
+
+    async baseGetById(id: string): Promise<Weapon> {
+        return this._baseRepository.getById(id)
+    }
+
+    async memoryUpdate(weapon: Weapon) {
+        const _weapon = await this._memoryRepository.update(weapon)
+    }
+
+    async baseUpdate(weapon: Weapon) {
+        const _weapon = await this._baseRepository.update(weapon)
     }
 }

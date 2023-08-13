@@ -8,6 +8,13 @@ import { DelPointerHandler } from "shared/api/handlers/del-pointer"
 import { DirectPointerHandler } from "shared/api/handlers/direct"
 import { FireHandler } from "shared/api/handlers/fire"
 import { PointersHandler } from "shared/api/handlers/pointers"
+import { SectorHandler } from "shared/api/handlers/sector"
+import { SectorsHandler } from "shared/api/handlers/sectors"
+import { SetCitadelHandler } from "shared/api/handlers/set-citadel"
+import { SetUserHandler } from "shared/api/handlers/set-user"
+import { TakeHandler } from "shared/api/handlers/take"
+import { TakeHitHandler } from "shared/api/handlers/take-hit"
+import { TakeSectorHandler } from "shared/api/handlers/take-sector"
 import { Socket } from "shared/api/socket"
 import { events as socket } from "shared/api/socket/model"
 import { API_BASE_URL } from "shared/config"
@@ -20,10 +27,17 @@ const callbacks = {
     [DelPointerHandler.EVENT]: new DelPointerHandler(),
     [DirectPointerHandler.EVENT]: new DirectPointerHandler(),
     [PointersHandler.EVENT]: new PointersHandler(),
-    [FireHandler.EVENT]: new FireHandler(),
+    [TakeHandler.EVENT]: new TakeHandler(),
     [BattleStartHandler.EVENT]: new BattleStartHandler(),
     [BattleOverHandler.EVENT]: new BattleOverHandler(),
+    [FireHandler.EVENT]: new FireHandler(),
     [BattleJoinHandler.EVENT]: new BattleJoinHandler(),
+    [SectorsHandler.EVENT]: new SectorsHandler(),
+    [SectorHandler.EVENT]: new SectorHandler(),
+    [TakeHitHandler.EVENT]: new TakeHitHandler(),
+    [TakeSectorHandler.EVENT]: new TakeSectorHandler(),
+    [SetUserHandler.EVENT]: new SetUserHandler(),
+    [SetCitadelHandler.EVENT]: new SetCitadelHandler(),
 } as THandlers
 
 const handlers = new Handlers(callbacks)

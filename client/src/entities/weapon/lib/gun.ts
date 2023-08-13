@@ -59,19 +59,19 @@ export class Gun implements WeaponType {
 
     get distance(): number {
         if (this._level === 1) {
-            return 300
+            return 600
         }
         if (this._level === 2) {
-            return 300
+            return 900
         }
         if (this._level === 3) {
-            return 300
+            return 1200
         }
         if (this._level === 4) {
-            return 300
+            return 1500
         }
         if (this._level === 5) {
-            return 300
+            return 1800
         }
         return 0
     }

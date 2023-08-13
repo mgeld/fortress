@@ -2,10 +2,12 @@ import { injectable } from "inversify"
 import { TMessage } from "../../../common-types/socket/server-to-client"
 import { IWebSocket } from "../server"
 
+type TRoomId = string | number
+
 class CollectionRooms {
     private data: Record<string, Record<number, IWebSocket>> = {}
 
-    getRoom(roomId: string) {
+    getRoom(roomId: string | number) {
         try {
             this.data[roomId]
             return roomId
@@ -15,16 +17,16 @@ class CollectionRooms {
         }
     }
 
-    createRoom(roomId: string) {
+    createRoom(roomId: TRoomId) {
         this.data[roomId] = {}
         return this.data[roomId]
     }
 
-    deleteRoom(roomId: string) {
+    deleteRoom(roomId: TRoomId) {
         delete this.data[roomId]
     }
 
-    addClientToRoom(clientId: number, roomId: string, uSocket: IWebSocket) {
+    addClientToRoom(clientId: number, roomId: TRoomId, uSocket: IWebSocket) {
         try {
             const room = this.data[roomId]
             room[clientId] = uSocket
@@ -34,12 +36,11 @@ class CollectionRooms {
         }
     }
 
-    deleteClient(clientId: number, roomId: string) {
-        console.log('deleteClient this.data[roomId]', this.data[roomId])
+    deleteClient(clientId: number, roomId: TRoomId) {
         delete this.data[roomId][clientId]
     }
 
-    getClients(roomId: string): number[] {
+    getClients(roomId: TRoomId): number[] {
         try {
             const roomClients = this.data[roomId]
             return Object.keys(roomClients).map(key => Number(key))
@@ -48,7 +49,24 @@ class CollectionRooms {
         }
     }
 
-    getClientsSocket(roomId: string): IWebSocket[] {
+    getInactiveRooms(): number[] {
+        try {
+            return Object.entries(this.data)
+                .filter(([key, value]) => Object.keys(value).length === 0)
+                .map(([key, _]) => +key)
+            // .map(value => value[1])
+        } catch (e) {
+            return []
+        }
+    }
+
+    clearRooms(rooms: Array<string | number>) {
+        rooms.forEach(roomId => {
+            delete this.data[roomId]
+        })
+    }
+
+    getClientsSocket(roomId: TRoomId): IWebSocket[] {
         try {
             const roomClients = this.data[roomId]
             return Object.values(roomClients)
@@ -58,7 +76,7 @@ class CollectionRooms {
     }
 
     broadcast(
-        roomId: string,
+        roomId: TRoomId,
         message: TMessage,
         exceptionClient?: number
     ) {

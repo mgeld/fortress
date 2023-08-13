@@ -1,0 +1,105 @@
+.userDead {
+    width: 100%;
+    padding: 0 12px;
+    box-sizing: border-box;
+
+    --stroke-color: black;
+    --stroke-width: 3px;
+
+    --text-stroke: var(--stroke-width) 0 0 var(--stroke-color),
+        calc(var(--stroke-width) * -1) 0 0 var(--stroke-color),
+        0 var(--stroke-width) 0 var(--stroke-color),
+        0 calc(var(--stroke-width) * -1) 0 var(--stroke-color);
+
+    color: white;
+
+    .__content {
+        width: 100%;
+
+        border-radius: 10px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+
+        position: relative;
+
+        color: white;
+
+        .__dead {
+            background: linear-gradient(0deg, #A81010, #DB6D6D, #A81010);
+
+            width: 100%;
+            box-sizing: border-box;
+            border: 2px solid black;
+
+            padding: 22px 12px;
+            box-shadow: 0px 4px 3px black;
+            border-radius: 10px;
+        }
+
+        .__header {
+            width: 100%;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding-bottom: 4px;
+
+            .__left {
+                font-size: 24px;
+                color: white;
+                text-shadow: var(--text-stroke);
+            }
+
+            .__right {
+                display: flex;
+                align-items: center;
+
+                .__icon {
+                    transform: rotate(20deg);
+                }
+
+                .__text {
+                    padding-left: 6px;
+                    text-shadow: var(--text-stroke);
+                }
+
+            }
+
+        }
+
+        .__main {
+
+            position: relative;
+            display: flex;
+
+            padding-top: 12px;
+            padding-bottom: 16px;
+
+            .__swords {
+                width: 64px;
+                height: 64px;
+            }
+
+            .__info {
+                width: 100%;
+                padding-left: 12px;
+            }
+
+        }
+
+        .__bottom {
+            display: flex;
+            align-items: center;
+            justify-content: end;
+
+            .__button {
+                margin-left: 12px;
+            }
+        }
+
+    }
+}

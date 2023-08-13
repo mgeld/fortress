@@ -1,5 +1,5 @@
 import { TWeaponSymbol } from "../../common-types/model"
-import { Weapon, WeaponType } from "./weapon"
+import { WeaponType } from "./weapon"
 
 export class Gun implements WeaponType {
 

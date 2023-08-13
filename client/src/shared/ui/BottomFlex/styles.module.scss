@@ -1,0 +1,35 @@
+.bottomFlex {
+    width: 100%;
+
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+
+    --stroke-color: black;
+    --stroke-width: 2px;
+
+    --text-stroke: var(--stroke-width) 0 0 var(--stroke-color),
+        calc(var(--stroke-width) * -1) 0 0 var(--stroke-color),
+        0 var(--stroke-width) 0 var(--stroke-color),
+        0 calc(var(--stroke-width) * -1) 0 var(--stroke-color);
+
+    .__content {
+        padding: 10px;
+        width: 100%;
+        box-sizing: border-box;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .__nameMode {
+            z-index: 100;
+            color: #de89fd;
+            text-shadow: var(--text-stroke);
+        }
+
+        .__buttonMode {
+            z-index: 100;
+        }
+    }
+}

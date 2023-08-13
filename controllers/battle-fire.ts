@@ -8,6 +8,7 @@ import { Rooms } from "../api/socket/socket/rooms";
 import { ArenaService } from "../services/arena.service";
 import { WeaponService } from "../services/weapon.service";
 import { MemberService } from "../services/member.service";
+import { Member } from "../entities/arena/arena-team-member";
 
 @injectable()
 class BattleFireHandler extends IRoute {
@@ -26,7 +27,7 @@ class BattleFireHandler extends IRoute {
         console.log('FireHandler handle')
 
         const _member = await this._memberService.getById(message.payload.userId)
-        const weapon = await this._weaponService.getById(message.payload.weapon)
+        const weapon = await this._weaponService.memoryGetById(message.payload.weapon)
 
         const arena = await this._arenaService.getById(_member.arena)
 
@@ -40,7 +41,7 @@ class BattleFireHandler extends IRoute {
         }
 
         weapon.bullets = weapon.bullets - 1
-        await this._weaponService.update(weapon)
+        await this._weaponService.memoryUpdate(weapon)
 
         const fire: TFirePayload = {
             position: message.payload.position,
@@ -56,18 +57,19 @@ class BattleFireHandler extends IRoute {
 
             fire['hitPointer'] = message.payload.hitPointer
 
+            // Противник
             const hitPointer = await this._memberService.getById(message.payload.hitPointer.userId)
 
             hitPointer.health = hitPointer.health - weapon.weapon.damage
 
-            if (hitPointer.health < 1) {
+            _member.makeDamage(weapon.weapon.damage)
 
-                console.log('1111111111111111111111')
+            if (hitPointer.health < 1) {
 
                 const killPointerTeam = arena.killPointer(hitPointer.userId, hitPointer.arenaTeam)
                 await this._arenaService.update(arena)
 
-                console.log('killPointerTeam.alive_members', killPointerTeam.alive_members)
+                _member.addKilledPointer()
 
                 if (killPointerTeam.alive_members === 0) {
 
@@ -79,15 +81,32 @@ class BattleFireHandler extends IRoute {
                         }
                     })
 
-                    setTimeout(() => {
+                    setTimeout(async () => {
+
+                        const members: Member[][] = []
+
+                        members[0] = await this._memberService.getByIds(arena.teamList[0].members)
+                        members[1] = await this._memberService.getByIds(arena.teamList[1].members)
+
                         this._rooms.arenas.broadcast(arena.id, {
                             event: 'battle-over',
                             payload: {
-                                teams: arena.teamList.map(team => ({
-                                    teamId: team.id,
-                                    status: team.status,
-                                    pointers: team.members,
-                                }))
+                                teams: arena.teamList.map((team, index) => {
+
+                                    const minTrophies = team.status === 'victory' ? 10 : -10
+
+                                    return {
+                                        teamId: team.id,
+                                        status: team.status,
+                                        members: members[index].map(member => {
+                                            return {
+                                                userId: member.userId,
+                                                trophies: minTrophies + (member.damage / 5)
+                                            }
+                                        }),
+                                    }
+                                })
+
                             }
                         })
                     }, 2000)
@@ -99,13 +118,13 @@ class BattleFireHandler extends IRoute {
             }
 
             await this._memberService.update(hitPointer)
+            await this._memberService.update(_member)
         }
 
         this._rooms.arenas.broadcast(_member.arena, {
             event: 'fire',
             payload: fire
         }, _member.userId)
-
 
     }
 }

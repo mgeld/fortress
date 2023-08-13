@@ -1,23 +1,50 @@
+import { TLatLng, TZone } from "../common-types/model"
+import { Areal } from "./areal/areal"
 import { Arena, TRegistr } from "./arena/arena"
 import { Team } from "./arena/arena-team"
 import { Member } from "./arena/arena-team-member"
+import { Citadel } from "./citadel/citadel"
 import { Pointer } from "./pointer/pointer"
+import { Sector, UnmarshalledSector } from "./sector/sector"
 import { Weapon } from "./weapon/weapon"
+import { Zone } from "./zone/zone"
 
-export interface IPointerRepository {
-    // findAll(arenaId: number): Promise<Pointer[]>
+export interface IPointerMemoryRepository {
     getById(userId: number): Promise<Pointer>
     getByIds(userIds: number[]): Promise<Pointer[]>
     insert(pointer: Pointer): Promise<Pointer>
     update(pointer: Pointer): Promise<Pointer>
     delete(userId: number): Promise<Boolean>
 }
+export interface IZoneMemoryRepository {
+    getById(userId: number): Promise<Zone>
+    getByIds(userIds: number[]): Promise<Zone[]>
+    insert(zone: Zone): Promise<Zone>
+    update(zone: Zone): Promise<Zone>
+    delete(userId: number): Promise<Boolean>
+}
+
+export interface IPointerRepository {
+    getById(userId: number): Promise<Pointer>
+    getZoneByIds(_ids: number[]): Promise<TZone[]>
+    insert(pointer: Pointer): Promise<Pointer>
+    update(pointer: Pointer): Promise<Pointer>
+    delete(userId: number): Promise<Boolean>
+}
+export interface IZoneRepository {
+    getById(userId: number): Promise<Zone>
+    // getZoneByIds(_ids: number[]): Promise<TZone[]>
+    insert(zone: Zone): Promise<Zone>
+    update(zone: Zone): Promise<Zone>
+    delete(userId: number): Promise<Boolean>
+}
+
 
 export interface IArenaRepository {
     insert(arena: Arena): Promise<Arena>
     count(): Promise<number>
     getById(arenaId: string): Promise<Arena>
-    getForRegistrArena(registr: TRegistr): Promise<Arena> 
+    getForRegistrArena(registr: TRegistr): Promise<Arena>
     update(arena: Arena): Promise<Arena>
     delete(arenaId: string): Promise<Boolean>
 }
@@ -38,10 +65,59 @@ export interface IArenaTeamMemberRepository {
     delete(userId: number): Promise<Boolean>
 }
 
-export interface IWeaponRepository {
+export interface IWeaponMemoryRepository {
     getWeapons(ids: string[]): Promise<Weapon[]>
     getById(id: string): Promise<Weapon>
     insert(weapon: Weapon): Promise<Weapon>
     update(weapon: Weapon): Promise<Weapon>
     delete(userId: string): Promise<Boolean>
+}
+export interface IWeaponRepository {
+    getWeapons(ids: string[]): Promise<Weapon[]>
+    getById(id: string): Promise<Weapon>
+    insert(weapon: Weapon): Promise<Weapon>
+    update(weapon: Weapon): Promise<Weapon>
+    // delete(userId: string): Promise<Boolean>
+}
+
+
+export interface ISectorMemoryRepository {
+    insert(sector: Sector): Promise<Sector>
+    inserts(sectors: UnmarshalledSector[]): Promise<Boolean>
+    getById(sectorId: string): Promise<Sector>
+    getByIds(sectorIds: string[]): Promise<Sector[]>
+    getBoundsSectors(bounds: [TLatLng, TLatLng]): Promise<UnmarshalledSector[]>
+    update(sector: Sector): Promise<Sector>
+    delete(sectorId: string): Promise<Boolean>
+    deleteByAreals(areals: number[]): Promise<Boolean>
+}
+
+export interface ISectorRepository {
+    insert(sector: Sector): Promise<Sector>
+    inserts(sectors: Sector[]): Promise<Boolean>
+    getById(sectorId: string): Promise<Sector>
+    getById(sectorId: string): Promise<Sector>
+    getByIds(sectorIds: string[]): Promise<Sector[]>
+    getBoundsSectors(bounds: [TLatLng, TLatLng]): Promise<UnmarshalledSector[]>
+    update(sector: Sector): Promise<Sector>
+    delete(sectorId: string): Promise<Boolean>
+}
+
+export interface IArealMemoryRepository {
+    insert(areal: Areal): Promise<Areal>
+    getById(arealId: number): Promise<Areal>
+}
+
+export interface ICitadelMemoryRepository {
+    insert(citadel: Citadel): Promise<Citadel>
+    getById(userId: number): Promise<Citadel>
+    update(citadel: Citadel): Promise<Citadel>
+    delete(userId: number): Promise<Boolean>
+}
+
+export interface ICitadelRepository {
+    insert(citadel: Citadel): Promise<Citadel>
+    getById(userId: number): Promise<Citadel>
+    update(citadel: Citadel): Promise<Citadel>
+    delete(userId: number): Promise<Boolean>
 }

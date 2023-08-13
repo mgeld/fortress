@@ -6,7 +6,6 @@ export const battleDirectAPI = (
     position: TLatLng,
     userId: number,
 ) => {
-    console.log('?????? battleDirectAPI')
     const data: TBattleDirectAPI = {
         event: 'battleDirect',
         payload: {

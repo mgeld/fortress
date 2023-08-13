@@ -31,6 +31,11 @@ const $firesStore = createStore<TFire[]>(DEFAULT_STORE)
     })))
 
 $firesStore.watch(data => console.log('$firesStore', data))
+
+setFires.watch(data => console.log('йййййййййй setFires'))
+addFire.watch(data => console.log('йййййййййййй addFire'))
+delFireById.watch(data => console.log('йййййййййййй delFireById'))
+
 setFires.watch(() => console.log('setFires'))
 addFire.watch(() => console.log('addFire'))
 delFireById.watch(() => console.log('delFireById'))

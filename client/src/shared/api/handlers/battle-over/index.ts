@@ -4,8 +4,7 @@ import { TBattleOver } from "@ctypes/socket/server-to-client"
 
 class BattleOverHandler extends Handler {
     handle(message: TBattleOver) {
-
-        console.log('BattleOverHandler//////////////////////')
+        console.log('*************************** BattleOverHandler', message.payload.teams)
 
         battleAPI.events.setTeams(message.payload.teams)
         battleAPI.events.setBattleStatus('over')

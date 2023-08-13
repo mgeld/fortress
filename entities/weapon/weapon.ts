@@ -10,21 +10,28 @@ export interface WeaponType {
     radius: number
 }
 
-type TWeaponStatus =  'used' | 'stock'
+type TWeaponStatus = 'used' | 'stock'
 
 export type UnmarshalledWeapon = {
     id: string
-    weapon: TWeaponSymbol
+    weapon: number
     bullets: number
     level: number
-    status:TWeaponStatus
+    status: 1 | 0
 }
 
 export type TWeaponProps = {
-    weapon: WeaponType,
     id: string,
+    weapon: WeaponType,
     bullets: number
-    status?: TWeaponStatus
+    status?: 1 | 0
+}
+
+type TSymbolForNumber = {
+    [symbol: string]: number
+}
+type TNumberForSymbol = {
+    [number: number]: TWeaponSymbol
 }
 
 export class Weapon {
@@ -38,7 +45,7 @@ export class Weapon {
         this.weapon = props.weapon
         this._id = props.id
         this._bullets = props.bullets
-        this._status = props?.status || 'stock'
+        this._status = props?.status ? 'used' : 'stock'
     }
 
     public static create(props: TWeaponProps) {
@@ -48,11 +55,26 @@ export class Weapon {
     public unmarshal(): UnmarshalledWeapon {
         return {
             id: this._id,
-            weapon: this.weapon.symbol,
+            weapon: this.symbolToNumber(this.weapon.symbol),
             level: this.weapon.level,
             bullets: this.bullets,
-            status: this.status
+            // status: this.status === 'used' ? 1 : 0
+            status: this.status === 'used' ? 1 : 0
         }
+    }
+
+    symbolToNumber(symbol: TWeaponSymbol): number {
+        const symbols: TSymbolForNumber = {
+            'gun': 1
+        }
+        return symbols[symbol]
+    }
+
+    numberToSymbol(number: number): TWeaponSymbol {
+        const numbers: TNumberForSymbol = {
+            1: 'gun'
+        }
+        return numbers[number]
     }
 
     get id() {

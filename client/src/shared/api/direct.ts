@@ -6,7 +6,6 @@ export const directAPI = (
     position: TLatLng,
     userId: number,
 ) => {
-    console.log('?????? directAPI')
     const data: TDirectAPI = {
         event: 'direct',
         payload: {

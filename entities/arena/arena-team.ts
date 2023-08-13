@@ -1,5 +1,3 @@
-// import { Member, TTeamMember } from "./arena-team-member"
-
 import { TLatLng } from "../../common-types/model"
 
 type TTeamStatus = 'default' | 'victory' | 'defeat'
@@ -8,19 +6,16 @@ export type TTeamProps = {
     id: number
     status?: TTeamStatus
     alive_members?: number
-    // members?: Member[]
     members?: number[]
 }
 
 export type UnmarshalledTeam = {
     members: number[]
-    // members: TTeamMember[]
 } & Omit<TTeamProps, 'members'>
 
 class Team {
     private _id: number
     private _status: TTeamStatus
-    // private _members: Record<number, Member>
     private _members: number[]
     private _alive_members: number
 
@@ -55,7 +50,6 @@ class Team {
             status: this._status,
             members: this._members,
             alive_members: this._alive_members
-            // members: Object.values(this._members).map(member => member.unmarshal())
         }
     }
 

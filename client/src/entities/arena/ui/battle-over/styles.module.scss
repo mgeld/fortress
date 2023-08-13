@@ -1,0 +1,260 @@
+.battleOver {
+    width: 100%;
+    padding: 0 12px;
+    box-sizing: border-box;
+
+    --stroke-color: black;
+    --stroke-width: 3px;
+    --text-stroke: var(--stroke-width) 0 0 var(--stroke-color),
+        calc(var(--stroke-width) * -1) 0 0 var(--stroke-color),
+        0 var(--stroke-width) 0 var(--stroke-color),
+        0 calc(var(--stroke-width) * -1) 0 var(--stroke-color);
+
+    color: white;
+
+    // -webkit-text-fill-color: transparent;
+
+    .__content {
+        width: 100%;
+
+        border-radius: 10px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+
+        position: relative;
+
+        color: white;
+
+        .__shield {
+            width: 100%;
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            top: -36px;
+            z-index: 7;
+        }
+
+        .__button {
+            width: 100%;
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            bottom: -19px;
+        }
+
+
+        .__team {
+
+            background: linear-gradient(0deg, #9934C9, #E85AFF, #9934C9);
+
+            &.defeat {
+                background: linear-gradient(0deg, #A81010, #DB6D6D, #A81010);
+            }
+
+            width: 100%;
+            box-sizing: border-box;
+            border: 2px solid black;
+
+            &.team0 {
+                padding: 20px 12px;
+                padding-bottom: calc(32px + 4px);
+            }
+
+            &.team1 {
+                padding: 22px 12px;
+                padding-bottom: calc(32px + 0px);
+                border-top: none;
+                box-shadow: 0px 4px 3px black;
+            }
+
+            border-radius: 10px;
+
+            position: relative;
+
+            .__swords {
+                width: 64px;
+                height: 64px;
+                position: absolute;
+                bottom: 0px;
+                left: 50%;
+                margin-bottom: -32px;
+                margin-left: -32px;
+                z-index: 5;
+            }
+
+            .__header {
+                width: 100%;
+
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                padding-bottom: 4px;
+
+                .__left {
+                    font-size: 24px;
+                    color: white;
+                    text-shadow: var(--text-stroke);
+                }
+
+                .__right {
+                    display: flex;
+                    align-items: center;
+
+                    .__icon {
+                        transform: rotate(20deg);
+                    }
+
+                    .__text {
+                        padding-left: 6px;
+                        text-shadow: var(--text-stroke);
+                    }
+
+                }
+
+            }
+
+            .__users {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                .__user {
+                    display: flex;
+                    align-items: center;
+                    flex-direction: column;
+
+                    color: white;
+                    padding: 12px 12px;
+                    text-shadow: var(--text-stroke);
+
+                    // -webkit-text-stroke: 2px black;
+                    // paint-order: stroke fill;
+
+                    .__icon {
+
+                        img {
+                            border-radius: 50%;
+                            border: 3px solid white;
+                        }
+                    }
+
+                    .__username {
+                        padding: 12px 0;
+                    }
+
+                    .__trophies {
+                        display: flex;
+                        align-items: center;
+
+                        height: 30px;
+                        background-color: rgba(0, 0, 0, 0.100);
+
+                        border: 2px solid black;
+                        border-radius: 6px;
+                        box-sizing: border-box;
+
+                        position: relative;
+
+                        z-index: 6;
+
+                        .__icon {
+                            position: relative;
+                            z-index: 4;
+                            width: 38px;
+
+                            &>svg {
+                                position: absolute;
+                                top: 50%;
+                                margin-top: -15px;
+                                transform: rotate(20deg);
+                            }
+                        }
+
+                        .__text {
+                            padding: 0 12px;
+                            padding-left: 8px;
+                            color: white;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            z-index: 1;
+
+                            &>span {
+                                white-space: nowrap;
+                                font-size: 18px;
+                                // -webkit-text-stroke: 1px black;
+                            }
+                        }
+
+                        &>.__whiteEffect {
+                            width: 100%;
+                            height: 100%;
+                            box-sizing: border-box;
+
+                            position: absolute;
+                            top: 3px;
+                            left: 0px;
+
+                            &>div {
+                                width: 100%;
+                                height: 50%;
+                                background-color: rgba(255, 255, 255, 0.5);
+                                border-radius: 12px;
+                            }
+                        }
+
+                    }
+
+                }
+            }
+
+        }
+
+        .__team:first-child {
+            background: linear-gradient(0deg, #9934C9, #E85AFF, #9934C9);
+        }
+
+        // .__text {
+        //     color: white;
+        //     font-size: 26px;
+        //     -webkit-text-stroke: 2px black;
+        //     padding: 24px 0px;
+
+        //     span {
+        //         font-size: 26px;
+        //         clip-path: inset(0 3ch 0 0);
+        //         animation: l 1.5s steps(10) infinite;
+        //     }
+        // }
+    }
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes rotate-loupe {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(-360deg);
+    }
+}
+
+@keyframes l {
+    to {
+        clip-path: inset(0 -1ch 0 0)
+    }
+}

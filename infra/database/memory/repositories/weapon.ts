@@ -1,12 +1,12 @@
 import { injectable, inject } from 'inversify'
-import { IWeaponRepository } from '../../../../entities/repository'
+import { IWeaponMemoryRepository } from '../../../../entities/repository'
 import { UnmarshalledWeapon, Weapon } from '../../../../entities/weapon/weapon'
 import { TYPES } from '../../../../types'
-import { WeaponMapper } from '../mappers/weapon'
+import { WeaponMapper } from '../../mappers/weapon'
 import { MemoryData } from '../memory-data'
 
 @injectable()
-export class WeaponMemoryRepository implements IWeaponRepository {
+export class WeaponMemoryRepository implements IWeaponMemoryRepository {
     @inject(TYPES.Database) private _database!: MemoryData
 
     // async findAll(arenaId: number): Promise<Pointer[]> {

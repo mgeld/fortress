@@ -1,18 +1,19 @@
 
 .markerHealth {
     // transform: scale(3,3);
-    position: relative;
+    transition: 0.1s;
+    position: absolute;
     width: 70px;
     height: 16px;
     box-sizing: border-box;
     z-index: 3000;
-    position: absolute;
     border-radius: 10px;
     border: 1px solid black;
     border-bottom-width: 3px;
     border-right-width: 3px;
     color: white;
     background-color: #373b39;
+    // transition: 0.05s;
   
     &>.__whiteEffect {
       width: 100%;

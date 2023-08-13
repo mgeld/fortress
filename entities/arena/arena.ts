@@ -1,4 +1,5 @@
 import { TLatLng } from "../../common-types/model"
+import { ArenaPlace } from "./arena-place"
 import { Team, UnmarshalledTeam } from "./arena-team"
 import { Member } from "./arena-team-member"
 
@@ -7,7 +8,7 @@ type TArenaStatus = 'pending' | 'start' | 'over'
 
 export type TArenaProps = {
     id: string
-    place: TLatLng
+    place: ArenaPlace
     registr: TRegistr
     status: TArenaStatus
     teams: Team[]
@@ -16,7 +17,8 @@ export type TArenaProps = {
 
 export type UnmarshalledArena = {
     teams: UnmarshalledTeam[]
-} & Omit<TArenaProps, 'teams'>
+    place: TLatLng
+} & Omit<TArenaProps, 'teams' | 'place'>
 
 // pointers: number[]
 // pointers: UnmarshalledPointer[]
@@ -28,7 +30,7 @@ export class Arena {
 
     private _id: string
 
-    private _place: TLatLng
+    private _place: ArenaPlace
     private _registr: TRegistr // открыта ли вступление на арену
     private _status: TArenaStatus
 
@@ -63,7 +65,7 @@ export class Arena {
     public unmarshal(): UnmarshalledArena {
         return {
             id: this._id,
-            place: this._place,
+            place: this._place.place,
             registr: this.registr,
             status: this._status,
             teams: this._teamList.map(team => team.unmarshal())

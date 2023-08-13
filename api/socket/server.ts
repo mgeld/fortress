@@ -4,15 +4,11 @@ import WebSocket from 'ws'
 
 import 'reflect-metadata'
 
-import { ConnectHandler } from '../../controllers/connect'
-import { DirectHandler } from '../../controllers/direct'
-import { FireHandler } from '../../controllers/fire'
-import { BattleJoinHandler } from '../../controllers/battle-join'
-import { Broadcast } from '../../controllers/libs/broadcast'
-import { Handlers, TRoutes } from '../../controllers/handlers'
+import { Handlers } from '../../controllers/handlers'
 import { inject, injectable } from 'inversify'
 import { TYPES } from '../../types'
-
+import { SnapshotSectors } from '../../controllers/snapshot-sectors'
+import { PingPong } from './socket/ping-pong'
 
 // const https = require('https');
 // const WebSocket = require('ws');
@@ -26,6 +22,7 @@ import { TYPES } from '../../types'
 
 export interface IWebSocket extends WebSocket {
     is_alive?: boolean
+    user_id?: number
 }
 
 export interface IServer {
@@ -35,9 +32,8 @@ export interface IServer {
 @injectable()
 export class Server {
 
-    constructor(
-        @inject(TYPES.Handlers) private _handlers: Handlers
-    ) { }
+    @inject(TYPES.Handlers) private _handlers!: Handlers
+    @inject(TYPES.SnapshotSectors) private _snapshot!: SnapshotSectors
 
     serverContext = this
 
@@ -50,13 +46,21 @@ export class Server {
             cert: fs.readFileSync('./api/cert/certificate.crt'),
             key: fs.readFileSync('./api/cert/privateKey.key')
         }, (req, res) => {
+
+            console.log('req.url', req.url)
+
+            if (req.url === '/snapchot-sectors') {
+                console.log('snapchot-sectors')
+                this._snapshot.saveSectorsToBase()
+                this._snapshot.clearInactiveAreals()
+            }
             console.log("Request");
             res.end("Nice");
         })
 
         const wss = new WebSocket.Server({ server })
 
-        const connected_clients = new Map()
+        // const connected_clients = new Map()
 
         wss.on('error', (err) => {
             console.log('err', err)
@@ -64,7 +68,6 @@ export class Server {
         wss.on('close', () => {
             console.log('close')
         })
-
 
         wss.on('connection', function connection(ws: IWebSocket) {
 
@@ -75,31 +78,27 @@ export class Server {
             ws.is_alive = true;
 
             ws.on('pong', () => {
+                console.log('POOOOOOOOOOOOOONG!')
                 ws.is_alive = true
             })
 
             ws.on('close', function () {
                 ws.is_alive = false
-                connected_clients.delete(ws);
+
+                // connected_clients.delete(ws);
             });
 
-            ws.ping()
-
-            // const routes: TRoutes = {
-            //     [ConnectHandler.EVENT]: new ConnectHandler(),
-            //     [DirectHandler.EVENT]: new DirectHandler(),
-            //     [FireHandler.EVENT]: new FireHandler(),
-            //     [BattleJoinHandler.EVENT]: new BattleJoinHandler()
-            // } as TRoutes
-
-            // let router = new Handlers(routes).handle(ws, broadcast)
-
+            // ws.ping()
 
             let router = serverContext._handlers.handle(ws)
 
             ws.on('message', router)
 
         })
+        
+        const connection = new PingPong(wss)
+
+        // const interval = setInterval(() => connection.pingPong(), 5000);
 
         const hostname = '192.168.43.90'
 

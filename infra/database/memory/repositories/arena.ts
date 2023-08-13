@@ -2,7 +2,7 @@ import { injectable, inject } from 'inversify'
 import { Arena, TRegistr, UnmarshalledArena } from '../../../../entities/arena/arena'
 import { IArenaRepository } from '../../../../entities/repository'
 import { TYPES } from '../../../../types'
-import { ArenaMapper } from '../mappers/arena'
+import { ArenaMapper } from '../../mappers/arena'
 import { MemoryData } from '../memory-data'
 
 @injectable()

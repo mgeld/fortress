@@ -15,7 +15,6 @@ import { IRoute } from "./handlers";
 @injectable()
 class BattleJoinHandler extends IRoute {
     @inject(TYPES.Rooms) private _rooms!: Rooms
-    // @inject(TYPES.PointerService) private _pointerService!: PointerService
     @inject(TYPES.ArenaService) private _arenaService!: ArenaService
     @inject(TYPES.MemberService) private _memberService!: MemberService
 
@@ -30,12 +29,9 @@ class BattleJoinHandler extends IRoute {
 
         const arena = await this._arenaService.getArena()
 
-        // const pointer = await this._pointerService.getById(message.payload.userId)
-        // pointer.arena = arena.id
-
         const team = arena.addPointer(message.payload.userId)
 
-        const teamPlace = team.getPlace(arena.place)
+        const teamPlace = team.getPlace(arena.place.place)
 
         const _member = Member.create({
             userId: message.payload.userId,
@@ -45,11 +41,7 @@ class BattleJoinHandler extends IRoute {
             arenaTeam: team.id
         })
 
-        console.log('!!!!!!!!!!!!!_member.pos', _member.pos)
-
         const member = await this._memberService.insert(_member)
-
-        // await this._pointerService.update(pointer)
 
         const roomId = this._rooms.arenas.getRoom(arena.id)
         this._rooms.arenas.addClientToRoom(message.payload.userId, roomId, uSocket)
@@ -74,22 +66,22 @@ class BattleJoinHandler extends IRoute {
                 event: 'battle-start',
                 payload: {
                     battleId: arena.id,
-                    place: arena.place,
+                    place: arena.place.place,
                     timeStart: +new Date(),
                     teams: arena.teamList.map(team => ({
                         teamId: team.id,
                         status: team.status,
-                        pointers: team.members,
+                        members: team.members.map(member => ({
+                            userId: member,
+                            trophies: 0
+                        })),
                     })),
                     pointers: members
-                        // .filter(member => member.userId !== _member.userId)
                         .map(member => member.pointerUnmarshal())
                 }
             })
 
         }
-
-        console.log('arena.teamList[0].alive_members', arena.teamList[0].alive_members)
 
         await this._arenaService.update(arena)
 

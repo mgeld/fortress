@@ -1,3 +1,4 @@
+import { TTeam } from "@ctypes/socket/server-to-client";
 import { createEvent } from "effector";
 import { TLatLng } from "shared/types";
 
@@ -10,11 +11,11 @@ export type TDeadEvent = {
 }
 const killPointer = createEvent<TDeadEvent>()
 
-export type TTeam = {
-    teamId: number
-    status: 'default' | 'victory' | 'defeat'
-    pointers: number[]
-}
+// export type TTeam = {
+//     teamId: number
+//     status: 'default' | 'victory' | 'defeat'
+//     pointers: number[]
+// }
 const setTeams = createEvent<TTeam[]>()
 
 export type TArena = {

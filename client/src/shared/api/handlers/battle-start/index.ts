@@ -1,16 +1,17 @@
 import { Handler } from ".."
-import { battleAPI, pointersAPI } from "shared/api/events"
+import { battleAPI, mapAPI, pointersAPI } from "shared/api/events"
 import { TBattleStart } from '@ctypes/socket/server-to-client'
-import { filterPointersStore } from "widgets/map-layout/model"
+// import { filterPointersStore } from "widgets/map-layout/model"
 
 class BattleStartHandler extends Handler {
     handle(message: TBattleStart) {
         
-        filterPointersStore()
+        // filterPointersStore()
 
         // VK BRIDGE GET AVATARS FOR POINTERS
 
         pointersAPI.events.setPointers(message.payload.pointers)
+        
         battleAPI.events.setArena({
             id: message.payload.battleId,
             time_start: message.payload.timeStart,

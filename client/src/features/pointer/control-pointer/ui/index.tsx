@@ -10,7 +10,7 @@ const ControlPointer: FC = () => {
         stopPoint,
         moveControl
     } = useControl()
-
+    
     return (
         <div className={styles.controlDirections}>
             <div className={styles.__circle}>

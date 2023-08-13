@@ -1,0 +1,1 @@
+export * as invaderMapModel from './model/invader'

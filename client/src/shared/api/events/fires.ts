@@ -14,6 +14,8 @@ export type THealthChange = {
 }
 const hitFireInTarget = createEvent<THealthChange>()
 
+hitFireInTarget.watch(() => console.log('hitFireInTarget hitFireInTarget hitFireInTarget hitFireInTarget'))
+
 export const events = {
     addFire,
     setFires,

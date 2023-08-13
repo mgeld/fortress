@@ -6,7 +6,6 @@ import { inject, injectable } from "inversify";
 import { TYPES } from "../types";
 import { Rooms } from "../api/socket/socket/rooms";
 import { PointerService } from "../services/pointer.service";
-import { ArenaService } from "../services/arena.service";
 import { WeaponService } from "../services/weapon.service";
 
 @injectable()
@@ -14,7 +13,6 @@ class FireHandler extends IRoute {
     @inject(TYPES.Rooms) private _rooms!: Rooms
     @inject(TYPES.PointerService) private _pointerService!: PointerService
     @inject(TYPES.WeaponService) private _weaponService!: WeaponService
-    @inject(TYPES.ArenaService) private _arenaService!: ArenaService
 
     public static EVENT: TEventFire = "fire"
 
@@ -24,10 +22,8 @@ class FireHandler extends IRoute {
     ) {
 
         console.log('FireHandler handle')
-        const _pointer = await this._pointerService.getById(message.payload.userId)
-        const weapon = await this._weaponService.getById(message.payload.weapon)
-
-        console.log('')
+        const _pointer = await this._pointerService.memoryGetById(message.payload.userId)
+        const weapon = await this._weaponService.memoryGetById(message.payload.weapon)
 
         // Если я умер
         if (_pointer.health < 1) {
@@ -39,7 +35,7 @@ class FireHandler extends IRoute {
         }
 
         weapon.bullets = weapon.bullets - 1
-        await this._weaponService.update(weapon)
+        await this._weaponService.memoryUpdate(weapon)
 
         const fire: TFirePayload = {
             position: message.payload.position,
@@ -55,21 +51,19 @@ class FireHandler extends IRoute {
 
             fire['hitPointer'] = message.payload.hitPointer
 
-            const hitPointer = await this._pointerService.getById(message.payload.hitPointer.userId)
+            const hitPointer = await this._pointerService.memoryGetById(message.payload.hitPointer.userId)
 
             hitPointer.health = hitPointer.health - weapon.weapon.damage
 
-            if (hitPointer.health < 1) {
+            if (hitPointer.health < 1) {}
 
-            }
-
-            await this._pointerService.update(hitPointer)
+            await this._pointerService.memoryUpdate(hitPointer)
         }
 
         this._rooms.areals.broadcast(_pointer.areal, {
             event: 'fire',
             payload: fire
-        }, _pointer.userId)
+        }, _pointer.id)
 
     }
 }

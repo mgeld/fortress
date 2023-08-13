@@ -1,5 +1,4 @@
 export const throttle = (func: (args?: any) => any, timeout: number) => {
-    console.log('throttle')
     // Таймер будет определять,
     // надо ли нам пропускать текущий вызов.
     let timer: ReturnType<typeof setTimeout> | null = null
@@ -8,12 +7,14 @@ export const throttle = (func: (args?: any) => any, timeout: number) => {
     // Это нужно, чтобы мы могли не менять другие части кода,
     // чуть позже мы увидим, как это помогает.
     return function perform(...args: any) {
+        // console.log('throttle')
         // Если таймер есть, то функция уже была вызвана,
         // и значит новый вызов следует пропустить.
         if (timer) return
 
         // Если таймера нет, значит мы можем вызвать функцию:
         timer = setTimeout(() => {
+
             // Аргументы передаём неизменными в функцию-аргумент:
             func(...args)
 

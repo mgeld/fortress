@@ -7,14 +7,10 @@ import { sample } from "effector";
 import { userModel } from "entities/user";
 import { changeHealthFx } from "features/fire/hit-fire-in";
 
-sample({
-    clock: firesAPI.events.hitFireInTarget,
-    source: { userId: userModel.$userIdStore },
-    fn: (source, clock) => ({ clock, source }),
-    target: changeHealthFx
-})
+const __ = () => {
 
-console.log('377777777777777777777777777777777777777')
+}
+__()
 
 class FireHandler extends Handler {
 
@@ -23,7 +19,6 @@ class FireHandler extends Handler {
         console.log('FireHandler handle')
 
         const FIRE_ID: number = Date.now()
-        // const FIRE_DISTANCE = 300
 
         const from_pos = message.payload.position
 

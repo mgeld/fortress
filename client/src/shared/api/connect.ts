@@ -4,6 +4,7 @@ import { TConnectAPI } from "../../../../common-types/socket/client-to-server"
 
 export const connectAPI = (
     userId: number,
+    name: string,
     position: TLatLng,
 ) => {
     console.log('connectUser userId', userId)
@@ -11,6 +12,7 @@ export const connectAPI = (
         event: 'connect',
         payload: {
             position,
+            name,
             userId
         }
     }

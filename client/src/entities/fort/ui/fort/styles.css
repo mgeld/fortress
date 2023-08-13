@@ -1,0 +1,39 @@
+.black-fort {
+    animation: 0.4s linear scale-fort;
+    transform-box: fill-box;
+    transform-origin: center center;
+}
+
+.fort-stroke {
+    animation: 0.4s linear translate-fort;
+    transform-box: fill-box;
+}
+
+.fort-fill {
+    animation: 0.4s linear translate-fort;
+    transform-box: fill-box;
+}
+
+@keyframes scale-fort {
+    from {
+        opacity: 0.5;
+        transform: scale(0.8);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes translate-fort {
+    from {
+        opacity: 0.5;
+        transform: translate(-8%, 8%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(0px, 0px);
+    }
+}

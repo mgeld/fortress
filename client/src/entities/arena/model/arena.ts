@@ -1,7 +1,8 @@
-import { createStore } from "effector"
+import { TTeam } from "@ctypes/socket/server-to-client"
+import { createEvent, createStore } from "effector"
 import { useStore } from "effector-react"
 import { battleAPI } from "shared/api/events"
-import { TArena, TBattleStatus, TDeadEvent, TTeam } from "shared/api/events/battle"
+import { TArena, TBattleStatus, TDeadEvent } from "shared/api/events/battle"
 
 const DEFAULT_STORE: TArena | null = null
 
@@ -44,12 +45,18 @@ const $teamStore = createStore<TTeam[]>([])
         if (team.teamId === dead.team) {
             return {
                 ...team,
-                pointers: team.pointers.filter(item => item !== dead.pointer)
+                members: team.members.filter(item => item.userId !== dead.pointer)
             }
         }
         return team
     }))
 
+
+// const setUserTeamId = createEvent<number>()
+// const $userTeamId = createStore<number>(0)
+//     .on(setTeams, (_, teams) => {
+//         teams.find(team => team.members.find())
+//     })
 
 export const selectors = {
     useArena,

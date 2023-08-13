@@ -18,7 +18,7 @@ export const usePointer = () => {
 
     useEffect(() => {
         async function fetchData() {
-            let IconUserPoint = await createPointer('Musa G')
+            let IconUserPoint = await createPointer('Musa G', '')
             setPoint({
                 icon: IconUserPoint,
                 load: true
