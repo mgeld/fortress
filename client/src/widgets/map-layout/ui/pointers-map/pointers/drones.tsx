@@ -5,6 +5,7 @@ import Drone from "entities/pointer/ui/drone"
 type DronesProps = {
     size: number
 }
+
 export const Drones: FC<DronesProps> = ({ size }) => {
 
     const pointers = pointerMapModel.selectors.usePointers().data

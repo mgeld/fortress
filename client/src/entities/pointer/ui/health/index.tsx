@@ -26,14 +26,8 @@ const Health: FC<THealth> = ({
         setCoords(map.latLngToLayerPoint(position))
     }, [map, position])
 
-    // const throttleSetCoords = () => {
-    //     console.log('throttleSetCoords')
-    //     setCoords(map.latLngToLayerPoint(position))
-    // }
-
     const __ = useMapEvents({
         zoomend: () => setCoords(map.latLngToLayerPoint(position)),
-        // moveend: throttle(throttleSetCoords, 50)
     })
 
     return (
@@ -41,7 +35,6 @@ const Health: FC<THealth> = ({
             <div
                 className={styles.markerHealth}
                 style={{
-                    // transform: `translate3d(${coords.x - X_BACK}px, ${coords.y - Y_BACK}px, 0px)`
                     top: `${coords.y - Y_BACK}px`,
                     left: `${coords.x - X_BACK}px`,
                 }}

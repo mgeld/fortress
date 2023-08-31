@@ -3,6 +3,7 @@ import { Areal } from "./areal/areal"
 import { Arena, TRegistr } from "./arena/arena"
 import { Team } from "./arena/arena-team"
 import { Member } from "./arena/arena-team-member"
+import { Bomb } from "./bomb/bomb"
 import { Citadel } from "./citadel/citadel"
 import { Pointer } from "./pointer/pointer"
 import { Sector, UnmarshalledSector } from "./sector/sector"
@@ -77,9 +78,22 @@ export interface IWeaponRepository {
     getById(id: string): Promise<Weapon>
     insert(weapon: Weapon): Promise<Weapon>
     update(weapon: Weapon): Promise<Weapon>
-    // delete(userId: string): Promise<Boolean>
 }
 
+
+export interface IBombMemoryRepository {
+    getBombs(ids: string[]): Promise<Bomb[]>
+    getById(id: string): Promise<Bomb>
+    insert(bomb: Bomb): Promise<Bomb>
+    update(bomb: Bomb): Promise<Bomb>
+    delete(userId: string): Promise<Boolean>
+}
+export interface IBombRepository {
+    getBombs(ids: string[]): Promise<Bomb[]>
+    getById(id: string): Promise<Bomb>
+    insert(bomb: Bomb): Promise<Bomb>
+    update(bomb: Bomb): Promise<Bomb>
+}
 
 export interface ISectorMemoryRepository {
     insert(sector: Sector): Promise<Sector>

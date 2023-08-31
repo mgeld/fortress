@@ -25,7 +25,7 @@ class Member {
 
     private _arenaId: string
     private _arenaTeamId: number
-    
+
     private constructor(props: TTeamMember) {
         this._userId = props.userId
         this._killed = props.killed || 0
@@ -61,21 +61,38 @@ class Member {
         }
     }
 
-    get userId() {
-        return this._userId
-    }
+    removeHealth(damage: number): number {
+        this.health = this.health - damage
 
-    public kill() {
-        // this._status = 'dead'
-        this._health = 0
-    }
+        // if (this.health < 1) {
+        //     this.leaveArena()
+        // }
 
-    get killed() {
-        return this._killed
+        return this.health
     }
 
     addKilledPointer() {
         this._killed = this._killed + 1
+        return this._killed
+    }
+
+    public kill() {
+        this._health = 0
+    }
+
+    leaveArena() {
+        this._arenaId = ''
+        this._arenaTeamId = 0
+    }
+
+    makeDamage(damage: number) {
+        this._damage = this._damage + damage
+    }
+
+    get userId() {
+        return this._userId
+    }
+    get killed() {
         return this._killed
     }
 
@@ -99,15 +116,6 @@ class Member {
         return this._damage
     }
 
-    makeDamage(damage: number) {
-        this._damage = this._damage + damage
-    }
-
-    exitArena() {
-        this._arenaId = ''
-        this._arenaTeamId = 0
-    }
-
     get arena(): string {
         return this._arenaId
     }
@@ -124,9 +132,6 @@ class Member {
         this._arenaTeamId = teamId
     }
 
-    // get status() {
-    //     return this._status
-    // }
 }
 
 export {

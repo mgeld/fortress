@@ -20,10 +20,6 @@ const Drone: FC<TDroneProps> = ({
 
     const { fireHitTarget } = useHitFirePointer(health)
 
-    console.log('zooooooooooooom', size)
-
-    if (health < 1) return <></>
-
     const p = size * 3.14 / 3
     const a = p * 0.7
     const b = p * 0.3
@@ -35,7 +31,7 @@ const Drone: FC<TDroneProps> = ({
                 className="drone-circle"
                 pathOptions={{
                     dashArray: `${a} ${b}`,
-                    weight: 8,
+                    weight: 10,
                     fillColor: fireHitTarget || health < 1 ? 'red' : '#3FF672',
                     fillOpacity: 0.7,
                     color: fireHitTarget || health < 1 ? 'red' : '#3FF672'

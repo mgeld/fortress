@@ -3,7 +3,7 @@ import { PointIcon } from "entities/pointer/ui/point-icon";
 import { userModel } from "entities/user";
 import { CoordPair, cellToBoundary, latLngToCell, } from "h3-js";
 import { FC, useEffect, useState } from "react";
-import { Polygon, useMapEvent } from "react-leaflet";
+import { Polygon, useMap, useMapEvent } from "react-leaflet";
 import { TLatLng } from "shared/types";
 
 type TSector = {
@@ -33,11 +33,14 @@ export const MapSelectPlace: FC = () => {
     }
 
     useEffect(() => {
-        if (sector === null && clickPos.latlng)
+        if (sector === null && clickPos.latlng) {
             setPolygon(clickPos.latlng)
+        }
     }, [clickPos, sector])
 
-    useMapEvent('click', (e) => setPolygon([e.latlng.lat, e.latlng.lng]))
+    useMapEvent('click', (e) => {
+        setPolygon([e.latlng.lat, e.latlng.lng])
+    })
 
     if (!sector) return <></>
 

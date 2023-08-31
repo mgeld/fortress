@@ -14,8 +14,17 @@ export const BottomSelectPlace: FC = () => {
     const selectPosition = (pos: TLatLng | null) => {
         if (!pos) return
         mapAPI.events.setMapMode('invade')
-        userAPI.events.setPos(pos)
+
         map?.flyTo(pos, 15)
+
+        console.log('flyTo 0000')
+
+        setTimeout(() => {
+            userAPI.events.setPos(pos)
+            // map?.setMinZoom(15)
+        }, 3000)
+
+        console.log('pos', pos)
     }
 
     return (

@@ -33,6 +33,8 @@ const TYPES = {
     TakeHandler: Symbol.for('TakeHandler'),
     FireHandler: Symbol.for('FireHandler'),
     BattleJoinHandler: Symbol.for('BattleJoinHandler'),
+    BattleLeaveHandler: Symbol.for('BattleLeaveHandler'),
+    
     BattleFireHandler: Symbol.for('BattleFireHandler'),
     BattleDirectHandler: Symbol.for('BattleDirectHandler'),
     GetSectorsHandler: Symbol.for('GetSectorsHandler'),

@@ -1,8 +1,6 @@
 import { TTakeHitPayload } from "@ctypes/socket/server-to-client";
 import { FC, useEffect, useState } from "react";
-import { Pane, useMap, useMapEvents } from "react-leaflet";
-import { throttle } from "shared/lib/throttle";
-import { TLatLng } from "shared/types";
+import { useMap, useMapEvents } from "react-leaflet";
 
 import styles from './styles.module.scss'
 
@@ -24,25 +22,14 @@ const DefenseCounter: FC<TTakeHitPayload> = ({
         setCoords(map.latLngToLayerPoint(fort))
     }, [map, fort])
 
-    // const throttleSetCoords = () => {
-    //     console.log('throttleSetCoords')
-    //     setCoords(map.latLngToLayerPoint(position))
-    // }
-
     const __ = useMapEvents({
         zoomend: () => setCoords(map.latLngToLayerPoint(fort)),
-        // moveend: throttle(throttleSetCoords, 50)
     })
 
     const p100 = (defenders + invaders)
 
     const pDefenders = defenders * 100 / p100
     const pInvaders = invaders * 100 / p100
-
-    console.log('p100', p100)
-    console.log('pDefenders', pDefenders)
-    console.log('pInvaders', pInvaders)
-    console.log('map.getZoom()', map.getZoom())
 
     let sizeFort = 0
     switch (map.getZoom()) {
@@ -72,37 +59,35 @@ const DefenseCounter: FC<TTakeHitPayload> = ({
     }
 
     return (
-        <>
-            <div
-                className={styles.defenseCounter}
+        <div
+            className={styles.defenseCounter}
+            style={{
+                top: `${coords.y - (0) - 37}px`,
+                left: `${coords.x - X_BACK}px`,
+            }}
+        >
+            {defenders > 0 ? <div
+                className={styles.__defenders}
                 style={{
-                    top: `${coords.y - (0) - 37}px`,
-                    left: `${coords.x - X_BACK}px`,
+                    width: `${pDefenders}%`
                 }}
             >
-                {defenders > 0 ? <div
-                    className={styles.__defenders}
-                    style={{
-                        width: `${pDefenders}%`
-                    }}
-                >
-                    <div className={styles.__count}>
-                        <span>{defenders}</span>
-                    </div>
-                </div> : null}
-                {invaders > 0 ? <div
-                    className={styles.__invaders}
-                    style={{
-                        width: `${pInvaders}%`
-                    }}
-                >
-                    <div className={styles.__count}>
-                        <span>{invaders}</span>
-                    </div>
-                </div> : null}
-                <div className={styles.__whiteEffect}><div /></div>
-            </div>
-        </>
+                <div className={styles.__count}>
+                    <span>{defenders}</span>
+                </div>
+            </div> : null}
+            {invaders > 0 ? <div
+                className={styles.__invaders}
+                style={{
+                    width: `${pInvaders}%`
+                }}
+            >
+                <div className={styles.__count}>
+                    <span>{invaders}</span>
+                </div>
+            </div> : null}
+            <div className={styles.__whiteEffect}><div /></div>
+        </div>
     )
 }
 

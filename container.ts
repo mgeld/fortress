@@ -33,6 +33,7 @@ import { FireHandler } from './controllers/fire'
 import { Rooms } from './api/socket/socket/rooms'
 import { WeaponMemoryRepository } from './infra/database/memory/repositories/weapon'
 import { MemberService } from './services/member.service'
+
 import { BattleJoinHandler } from './controllers/battle-join'
 import { BattleFireHandler } from './controllers/battle-fire'
 import { BattleDirectHandler } from './controllers/battle-direct'
@@ -56,6 +57,7 @@ import { ZoneRepository } from './infra/database/mysql2/repositories/zone'
 import { ZoneService } from './services/zone.service'
 import { CitadelRepository } from './infra/database/mysql2/repositories/citadel'
 import { CitadelService } from './services/citadel.service'
+import { BattleLeaveHandler } from './controllers/battle-leave'
 
 // import { Handlers } from './controllers/handlers'
 
@@ -73,6 +75,7 @@ container.bind(TYPES.DirectHandler).to(DirectHandler)
 container.bind(TYPES.FireHandler).to(FireHandler)
 container.bind(TYPES.TakeHandler).to(TakeHandler)
 container.bind(TYPES.BattleJoinHandler).to(BattleJoinHandler)
+container.bind(TYPES.BattleLeaveHandler).to(BattleLeaveHandler)
 container.bind(TYPES.BattleFireHandler).to(BattleFireHandler)
 container.bind(TYPES.BattleDirectHandler).to(BattleDirectHandler)
 container.bind(TYPES.GetSectorsHandler).to(GetSectorsHandler)

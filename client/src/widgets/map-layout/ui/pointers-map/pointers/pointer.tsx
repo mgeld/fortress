@@ -1,17 +1,15 @@
 import { FC } from "react";
-import Health from "./health";
 import { TPointer } from "entities/pointer/model/pointer-map";
-import { PointIcon } from "./point-icon";
+import { PointIcon } from "entities/pointer/ui/point-icon";
+import Health from "entities/pointer/ui/health";
 
 type TPointProps = {
     pointer: TPointer
 }
 
-const Point: FC<TPointProps> = ({ pointer }) => {
+const Pointer: FC<TPointProps> = ({ pointer }) => {
 
     if (pointer.health < 1) return <></>
-
-    console.log('11 Point')
 
     return (
         <>
@@ -29,4 +27,4 @@ const Point: FC<TPointProps> = ({ pointer }) => {
     )
 }
 
-export default Point
+export default Pointer

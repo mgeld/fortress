@@ -20,6 +20,7 @@ type TTypeTost =
     | 3 // 'killed-fort-defenders'
     | 4 // 'killed-invader'
     | 5 // 'you-zone-fit'
+    | 6 // 'mine-explosion'
 
 type TTostProps = {
     text: string

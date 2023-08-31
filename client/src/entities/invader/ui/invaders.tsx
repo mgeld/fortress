@@ -1,10 +1,7 @@
 import { FC } from "react";
-import { useMap } from "react-leaflet";
 import { invaderMapModel } from "..";
 import { Take } from "./take";
-import { getSizeInvaderForZoom } from "../lib/get-size-invader-for-zoom";
-import { getSizeDroneForZoom } from "entities/pointer/lib/get-size-drone-for-zoom";
-// import { fireMapModel } from "..";
+import { droneMapModel } from "entities/pointer";
 
 type InvadersMapProps = {
 }
@@ -13,10 +10,8 @@ const Invaders: FC<InvadersMapProps> = () => {
 
     const takes = invaderMapModel.selectors.useInvader().takes
 
-    const map = useMap()
-
-    let sizeDrone = getSizeDroneForZoom(map.getZoom())
-    let sizeInvader = getSizeInvaderForZoom(map.getZoom())
+    let sizeDrone = droneMapModel.selectors.useDroneSize()
+    let sizeInvader = sizeDrone / 2
 
     return (
         <>

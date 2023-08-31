@@ -16,7 +16,7 @@ export const UserDead: FC = () => {
 
     const { mode } = mapModel.selectors.useMapMode()
 
-    const map = mapModel.selectors.useMapLayout()
+    // const map = mapModel.selectors.useMapLayout()
 
     const latlng = citadelModel.selectors.useCitadel()?.latlng || null
 
@@ -25,7 +25,7 @@ export const UserDead: FC = () => {
         if (!pos) return
         mode === 'battle' && mapAPI.events.setMapMode('invade')
         userAPI.events.setPos(pos)
-        map?.flyTo(pos, 15)
+        // map?.setView(pos)
         popoutModel.events.setPopout(null)
     }
 
@@ -55,7 +55,7 @@ export const UserDead: FC = () => {
                             <IconShieldSword width={64} height={64} />
                         </div>
                         <div className={styles.__info}>
-                            Ваш дрон был уничтожен. Вернитесь в цитадель или продолжите наблюдать за областью
+                            Ваш дрон потерпел крушение. Вернуться в цитадель или продолжить наблюдать за областью?
                         </div>
                     </div>
 

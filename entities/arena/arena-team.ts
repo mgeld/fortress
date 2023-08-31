@@ -54,16 +54,26 @@ class Team {
     }
 
     addPointer(member: number) {
-        // this._members[member.pointerId] = member
         this._members = [...this._members, member]
         this._alive_members = this._alive_members + 1
     }
 
+    // Получить кол-во участников команды
     getMembersNumber() {
         return this._members.length
-        // return Object.values(this._members).length
     }
 
+    // Убить одного участника с команды
+    killTeamMember(): number {
+        this._alive_members = this.alive_members - 1
+        return this._alive_members
+    }
+
+    delTeamMember(memberId: number): number {
+        this._alive_members = this.alive_members - 1
+        this._members = this._members.filter(member => memberId !== member)
+        return this._alive_members
+    }
     get id() {
         return this._id
     }
@@ -76,14 +86,9 @@ class Team {
         return this._status
     }
 
-    killTeamMember() {
-        this._alive_members = this.alive_members - 1
-    }
-
     get alive_members() {
         return this._alive_members
     }
-
 
     getMember(pointerId: number) {
         this._members[pointerId]

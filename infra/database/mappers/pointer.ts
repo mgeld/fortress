@@ -25,6 +25,7 @@ export class PointerMapper {
       pos: pointer.pos,
       
       weapons: pointer.weapons,
+      bombs: pointer.bombs,
       areal: pointer.areal,
     })
   }

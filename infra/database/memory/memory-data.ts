@@ -46,5 +46,6 @@ export class MemoryData {
   // public arenaTeam = new Collection()
   public arenaTeamMember = new Collection()
   public weapon = new Collection()
+  public bomb = new Collection()
   public sector = new Collection()
 }

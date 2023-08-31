@@ -1,8 +1,6 @@
 import { TZone, TZoneColor, TZoneItem } from "@ctypes/model";
 import { FC, useEffect, useState } from "react";
 
-import { Popup, useMapEvents } from "react-leaflet";
-
 import styles from './styles.module.scss'
 import { AboutSectorItem } from "./about-sector-item";
 import { IconFort, IconLocation, IconSector, IconTarget } from "./icons/_icons";
@@ -12,8 +10,6 @@ import { latLngToCell } from "h3-js";
 import { mapModel } from "entities/map";
 
 type TAboutSectorProps = TZone
-
-
 
 export const AboutSector: FC<TAboutSectorProps> = ({
     name,
@@ -30,8 +26,6 @@ export const AboutSector: FC<TAboutSectorProps> = ({
             getAboutSectorAPI(h3Index)
         }
     }, [latlng])
-
-    console.log('AboutSector')
 
     if (!sector) return <>Загрузка...</>
 

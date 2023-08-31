@@ -42,6 +42,7 @@ export class Handlers {
         @inject(TYPES.DirectHandler) private direct: IRoute,
         @inject(TYPES.ConnectHandler) private connect: IRoute,
         @inject(TYPES.BattleJoinHandler) private battleJoin: IRoute,
+        @inject(TYPES.BattleLeaveHandler) private battleLeave: IRoute,
         @inject(TYPES.BattleFireHandler) private battleFire: IRoute,
         @inject(TYPES.BattleDirectHandler) private battleDirect: IRoute,
         @inject(TYPES.GetSectorsHandler) private getSectors: IRoute,

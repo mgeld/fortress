@@ -46,7 +46,7 @@ const directFx = createEffect((source: TSource) => {
 })
 
 sample({
-    clock: movePointFx,
+    clock: movePointFx.done,
     source: {
         battleStatus: arenaModel.$battleStatusStore,
         userId: userModel.$userIdStore,

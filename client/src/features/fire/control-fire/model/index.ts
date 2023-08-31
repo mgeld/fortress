@@ -148,7 +148,7 @@ const fireControlFx = createEffect(({
                 userId: clock.result.hitPointer.userId,
             })
         }
-    }, 500)
+    }, 550)
 
 })
 

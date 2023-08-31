@@ -16,11 +16,7 @@ export const PointIcon: FC<TPointIconProps> = ({
     position
 }) => {
 
-    console.log('PointIcon userName', userName)
-
     const [icon, setIcon] = useState<string | null>(null)
-
-    console.log('16 PointIcon icon', icon)
 
     if (!icon && userIcon) {
         console.log('Чё как? icon userIcon', icon, userIcon)

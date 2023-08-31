@@ -65,7 +65,7 @@ const invaderControlFx = createEffect(({
 
     setTimeout(() => {
         takesAPI.events.delTakeById({ take_id: TAKE_ID })
-    }, 10000)
+    }, 2000)
 
 })
 

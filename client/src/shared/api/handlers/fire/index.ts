@@ -3,14 +3,6 @@ import { fromToDirectionPos } from "shared/lib/fromToDirectionPos";
 import { Handler } from "..";
 import { TFire } from '@ctypes/socket/server-to-client'
 import { determinantWeapon } from "entities/weapon/lib/determinant-weapon";
-import { sample } from "effector";
-import { userModel } from "entities/user";
-import { changeHealthFx } from "features/fire/hit-fire-in";
-
-const __ = () => {
-
-}
-__()
 
 class FireHandler extends Handler {
 

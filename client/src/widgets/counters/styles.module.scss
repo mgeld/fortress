@@ -4,14 +4,28 @@
     top: 6px;
 }
 
-.__trophy {
-    position: absolute;
-    left: 10px;
-    top: 56px;
-}
 
+
+
+
+// RIGHT NAV
 .__sector {
     position: absolute;
-    left: 10px;
-    top: 106px;
+    right: 10px;
+    top: 10px;
+}
+.__trophy {
+    position: absolute;
+    right: 10px;
+    top: 46px;
+}
+.__coin {
+    position: absolute;
+    right: 10px;
+    top: 108px;
+}
+.__sapphire {
+    position: absolute;
+    right: 10px;
+    top: 144px;
 }

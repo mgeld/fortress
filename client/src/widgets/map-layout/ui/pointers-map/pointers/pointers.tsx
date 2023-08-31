@@ -1,6 +1,6 @@
 import { FC, useMemo } from "react"
-import Point from "entities/pointer/ui/point"
 import { pointerMapModel } from "entities/pointer"
+import Pointer from "./pointer"
 
 export const Pointers: FC = () => {
 
@@ -9,7 +9,7 @@ export const Pointers: FC = () => {
     console.log('12 Pointers')
 
     const memoPointers = useMemo(() => pointers.map(pointer => (
-        <Point
+        <Pointer
             key={pointer.userId}
             pointer={pointer}
         />

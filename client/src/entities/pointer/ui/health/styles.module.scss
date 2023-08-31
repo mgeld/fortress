@@ -7,7 +7,7 @@
     height: 16px;
     box-sizing: border-box;
     z-index: 3000;
-    border-radius: 10px;
+    border-radius: 6px;
     border: 1px solid black;
     border-bottom-width: 3px;
     border-right-width: 3px;
@@ -36,7 +36,7 @@
   
     &>.__health {
       height: 14px;
-      border-radius: 10px;
+      border-radius: 6px;
     }
   
     &>.__count {

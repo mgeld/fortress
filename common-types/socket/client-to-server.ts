@@ -14,6 +14,7 @@ export type TEventGetSectors = 'getSectors'
 export type TEventGetAboutSector = 'getAboutSector'
 
 export type TEventBattleJoin = 'battleJoin'
+export type TEventBattleLeave = 'battleLeave'
 export type TEventBattleFire = 'battleFire'
 export type TEventBattleDirect = 'battleDirect'
 
@@ -28,6 +29,7 @@ export type TEventsAPI =
     | TEventGetAboutSector
     | TEventDirect
     | TEventBattleJoin
+    | TEventBattleLeave
     | TEventBattleFire
     | TEventBattleDirect
     | TEventGetUser
@@ -40,6 +42,7 @@ export type TSendEvent =
     | TGetAboutSectorAPI
     | TDirectAPI
     | TBattleJoinAPI
+    | TBattleLeaveAPI
     | TBattleFireAPI
     | TBattleDirectAPI
     | TGetUserAPI
@@ -129,6 +132,12 @@ export type TBattleDirectAPI = {
 
 export type TBattleJoinAPI = {
     event: TEventBattleJoin
+    payload: {
+        userId: number
+    }
+}
+export type TBattleLeaveAPI = {
+    event: TEventBattleLeave
     payload: {
         userId: number
     }

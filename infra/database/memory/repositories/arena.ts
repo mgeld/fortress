@@ -43,11 +43,11 @@ export class ArenaMemoryRepository implements IArenaRepository {
     }
 
     async update(arena: Arena): Promise<Arena> {
-        const dtoCart = arena.unmarshal()
+        const dtoArena = arena.unmarshal()
         try {
             const updated = await this._database.arena.update<UnmarshalledArena>(
-                dtoCart.id,
-                dtoCart,
+                dtoArena.id,
+                dtoArena,
             )
             return ArenaMapper.toDomain(updated)
         } catch (e) {

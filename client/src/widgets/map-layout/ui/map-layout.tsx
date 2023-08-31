@@ -17,6 +17,7 @@ import Fires from "entities/fire/ui/fires";
 import { PointersMap } from "./pointers-map";
 
 import './styles.scss'
+
 import { mapModel } from "entities/map";
 import { changeBattleStatusListener } from "features/battle/battle-change-status/model";
 // import { Test } from "./test";
@@ -24,16 +25,19 @@ import { ArealRectangle } from "entities/areal/ui";
 import Invaders from "entities/invader/ui/invaders";
 import { SectorsMap } from "./sectors-map";
 import { scrollMapPointerListener } from "features/map/scroll-map-pointer/model";
-import { sample } from "effector";
-import { pointerMapModel } from "entities/pointer";
+
 import { userModel } from "entities/user";
 import { FortCounter } from "./defense-counter";
 import { FortMap } from "./fort-map";
 import { MapSelectPlace } from "features/map/select-place";
 import { Citadel } from "entities/citadel";
 import { filterPointers } from "features/pointer/filter-pointers/model";
-import { firesAPI } from "shared/api/events";
 import { isFireHitMe } from "features/fire/hit-fire-in";
+import { isBombHitMe } from "features/bomb/mine-explosion";
+import Bombs from "entities/bomb/ui/bombs";
+import { ArenaRectangle } from "./arena-rectangle/ui";
+import { setMapPosListener } from "features/user/set-map-pos/model";
+import { setMaxBoundsListener } from "features/map/set-max-bounds/model";
 
 type TMapProps = {}
 
@@ -44,8 +48,11 @@ type TMapProps = {}
 
 changeBattleStatusListener()
 scrollMapPointerListener()
+setMapPosListener()
+setMaxBoundsListener()
 filterPointers()
 isFireHitMe()
+isBombHitMe()
 
 const MapLayout: FC<TMapProps> = () => {
 
@@ -53,6 +60,11 @@ const MapLayout: FC<TMapProps> = () => {
 
     const areal = userModel.selectors.useAreal()
 
+    if (areal) {
+
+        console.log('LATLAT', areal[0][0] + ((areal[1][0] - areal[0][0]) / 2))
+        console.log('LATLAT', areal[0][1] + ((areal[1][1] - areal[0][1]) / 2))
+    }
     // const { point } = usePointer()
 
     // if (!point.load) return <>Load...</>
@@ -67,9 +79,12 @@ const MapLayout: FC<TMapProps> = () => {
                 zoom={9}
                 maxZoom={16}
                 zoomControl={false}
+                // fadeAnimation={true}
                 doubleClickZoom={false}
                 // boxZoom={true}
                 scrollWheelZoom={true}
+                // maxBoundsViscosity={0.1}
+                // worldCopyJump={true}
             >
                 <TileLayer
                     // attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -80,7 +95,7 @@ const MapLayout: FC<TMapProps> = () => {
 
                 {mode === 'select-place' ? <MapSelectPlace /> : null}
 
-                <ArealRectangle />
+                {mode === 'invade' ? <ArealRectangle /> : <ArenaRectangle />}
 
                 <Pane name="fort" style={{ zIndex: 3001 }}>
                     <FortMap />
@@ -103,6 +118,8 @@ const MapLayout: FC<TMapProps> = () => {
                 </Pane>
 
                 <Fires />
+
+                <Bombs />
 
                 <SectorsMap />
 

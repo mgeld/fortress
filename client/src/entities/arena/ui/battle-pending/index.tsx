@@ -3,8 +3,20 @@ import { IconLoupe, IconShieldSword, IconSwords } from "shared/assets/icons/_ico
 import { Button } from "shared/ui/Button/ui";
 
 import styles from './styles.module.scss'
+import { battleAPI, mapAPI } from "shared/api/events";
+import { battleLeaveEvent } from "features/battle";
+import { popoutModel } from "shared/ui/PopoutRoot";
+import { mapModel } from "entities/map";
 
 export const BattlePending: FC = () => {
+
+    const breakBattlePending = () => {
+        mapAPI.events.setMapMode('invade')
+        battleAPI.events.setBattleStatus("default")
+        popoutModel.events.setPopout(null)
+        battleLeaveEvent.battleLeave()
+    }
+
     return (
         <div className={styles.battlePending}>
             <div className={styles.__content}>
@@ -27,7 +39,7 @@ export const BattlePending: FC = () => {
                     <Button
                         className=""
                         text="Прервать"
-                        onClick={() => { }}
+                        onClick={breakBattlePending}
                     />
                 </div>
 

@@ -9,18 +9,14 @@ export type TPointerProps = {
     color: number
     health: number
 
-    // sectors: number
-    // trophies: number
-
-    // coins: number
-    // rubies: number
-
     invaders: number
     defenders: number
 
     pos: TLatLng
     areal?: number
+
     weapons?: string[]
+    bombs?: string[]
 }
 
 export type UnmarshalledPointer = Required<TPointerProps>
@@ -41,18 +37,13 @@ export class Pointer {
     private _icon: string
     private _name: string
 
-    // private _sectors: number
-    // private _trophies: number
-
-    // private _coins: number
-    // private _rubies: number
-
     private _color: number
 
     private _invaders: number
     private _defenders: number
 
     private _weapons: string[]
+    private _bombs: string[]
 
     private _pos: TLatLng
     private _areal: number
@@ -64,12 +55,6 @@ export class Pointer {
         this._icon = pointer?.icon || ''
         this._name = pointer?.name || ''
 
-        // this._sectors = pointer?.sectors || 0
-        // this._trophies = pointer?.trophies || 0
-
-        // this._coins = pointer?.coins || 0
-        // this._rubies = pointer?.rubies || 0
-
         console.log('Pointer create pointer?.color', pointer?.color)
 
         this._color = pointer?.color || 1
@@ -80,9 +65,11 @@ export class Pointer {
         this._defenders = pointer.defenders
 
         this._weapons = pointer.weapons || []
+        this._bombs = []
 
         this._pos = pointer.pos
         this._areal = pointer.areal || 0
+
     }
 
     public static create(pointer: TPointerProps) {
@@ -99,10 +86,6 @@ export class Pointer {
             color: this.color,
             icon: this._icon,
             name: this._name,
-            // sectors: this._sectors,
-            // trophies: this._trophies,
-            // coins: this._coins,
-            // rubies: this._rubies,
 
             invaders: this.invaders,
             defenders: this.defenders,
@@ -110,6 +93,7 @@ export class Pointer {
             pos: this.pos,
 
             weapons: this.weapons,
+            bombs: [], // ВРЕМЕННО
 
             areal: this.areal,
         }

@@ -4,6 +4,7 @@ type TMemberPlaceProps = {
     teamPlace: TLatLng
     memberIndex: number
 }
+
 class MemberPlace {
     public static generate(
         teamPlace: TLatLng,

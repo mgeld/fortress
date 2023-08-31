@@ -3,7 +3,7 @@ import { TFire } from "entities/fire/model/fire"
 
 const setFires = createEvent<TFire[]>()
 const addFire = createEvent<TFire>()
-const addFireHitMarket = createEvent<TFire>()
+// const addFireHitMarket = createEvent<TFire>()
 
 export type TFireId = { fire_id: number }
 const delFireById = createEvent<TFireId>()
@@ -21,5 +21,5 @@ export const events = {
     setFires,
     delFireById,
     hitFireInTarget,
-    addFireHitMarket,
+    // addFireHitMarket,
 }

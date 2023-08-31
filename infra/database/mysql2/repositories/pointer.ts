@@ -77,19 +77,14 @@ export class PointerRepository implements IPointerRepository {
             icon,
             name,
 
-            // sectors,
-            // trophies,
-
             color,
-
-            // coins,
-            // rubies,
 
             health,
             invaders,
             defenders,
             pos: [pos_lat, pos_lng],
             weapons: weapons && JSON.parse(weapons) || '',
+            bombs: [],
             areal: areal
         })
     }
@@ -140,13 +135,7 @@ export class PointerRepository implements IPointerRepository {
                 icon,
                 name,
 
-                // sectors,
-                // trophies,
-
                 color,
-
-                // coins,
-                // rubies,
 
                 health,
                 invaders,
@@ -164,13 +153,7 @@ export class PointerRepository implements IPointerRepository {
                 icon,
                 name,
 
-                // sectors,
-                // trophies,
-
                 color,
-
-                // coins,
-                // rubies,
 
                 health,
                 invaders,
@@ -178,6 +161,7 @@ export class PointerRepository implements IPointerRepository {
 
                 pos: [pos_lat, pos_lng],
                 weapons: weapons && JSON.parse(weapons) || '',
+                bombs: [],
                 areal: areal
             })
         })

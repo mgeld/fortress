@@ -3,8 +3,8 @@ import { Areal } from "../pointer/areal";
 
 class Place {
     static readonly _places: TLatLng[] = [
-        [55.52, 37.53],
-        [55.58, 37.50],
+        [55.53, 37.545],
+        [59.79, 30.255],
     ]
     public static random() {
         return Place._places[Math.floor(Math.random() * Place._places.length)]

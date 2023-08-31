@@ -19,24 +19,26 @@ const changeBattleFx = createEffect(({
 }) => {
 
     function arenaFlyTo(zoom?: number) {
-        // if (!source.map) return
         source.map.flyTo(source.userPos, zoom)
-        // source.map.setZoom(1)
     }
 
     if (battleStatus === 'pending') {
-        // setTimeout(() => arenaFlyTo(3), 1000)
-        arenaFlyTo(3)
+        source.map.setMinZoom(6)
+        // source.map.setMaxBounds([[-90,-180], [90, 180]])
+        // arenaFlyTo(6)
         popoutModel.events.setPopout('battle-pending')
     }
 
     else if (battleStatus === 'start') {
-        arenaFlyTo(15)
-        setTimeout(() => popoutModel.events.setPopout(null), 2000)
+        // arenaFlyTo(15)
+        setTimeout(() => {
+            // source.map.setMinZoom(15)
+            popoutModel.events.setPopout(null)
+        }, 2000)
     }
 
     else if (battleStatus === 'over') {
-        arenaFlyTo(13)
+        // arenaFlyTo(13)
         popoutModel.events.setPopout('battle-over')
     }
 })

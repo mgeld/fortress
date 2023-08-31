@@ -2,6 +2,7 @@ import { Handlers, THandlers } from "shared/api/handlers"
 import { BattleJoinHandler } from "shared/api/handlers/battle-join"
 import { BattleOverHandler } from "shared/api/handlers/battle-over"
 import { BattleStartHandler } from "shared/api/handlers/battle-start"
+import { BombHandler } from "shared/api/handlers/bomb"
 import { ConnectHandler } from "shared/api/handlers/connect"
 import { ConnectPointerHandler } from "shared/api/handlers/connect-pointer"
 import { DelPointerHandler } from "shared/api/handlers/del-pointer"
@@ -31,6 +32,7 @@ const callbacks = {
     [BattleStartHandler.EVENT]: new BattleStartHandler(),
     [BattleOverHandler.EVENT]: new BattleOverHandler(),
     [FireHandler.EVENT]: new FireHandler(),
+    [BombHandler.EVENT]: new BombHandler(),
     [BattleJoinHandler.EVENT]: new BattleJoinHandler(),
     [SectorsHandler.EVENT]: new SectorsHandler(),
     [SectorHandler.EVENT]: new SectorHandler(),

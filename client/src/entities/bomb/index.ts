@@ -1,0 +1,1 @@
+export * as bombMapModel from './model/bomb'

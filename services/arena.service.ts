@@ -36,6 +36,7 @@ export class ArenaService {
         return _arena
     }
 
+
     async getById(arenaId: string): Promise<Arena> {
         const arena = await this._repository.getById(arenaId)
         return arena

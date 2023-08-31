@@ -1,5 +1,7 @@
-import Point from "entities/pointer/ui/point"
+import Health from "entities/pointer/ui/health"
+import { PointIcon } from "entities/pointer/ui/point-icon"
 import { userModel } from "entities/user"
+import RecoverDroneButton from "features/user/recover-drone-button/ui"
 import { FC } from "react"
 
 const UserPoint: FC = () => {
@@ -7,15 +9,21 @@ const UserPoint: FC = () => {
     const { userId, pos, health, userIcon, userName } = userModel.selectors.useUser()
 
     return (
-        <Point
-            pointer={{
-                userId,
-                pos,
-                health,
-                userName,
-                icon: userIcon
-            }}
-        />
+        <>
+            {health > 0 ? (
+                <Health
+                    position={pos}
+                    health={health}
+                />
+            ) : (
+                <RecoverDroneButton position={pos} />
+            )}
+            <PointIcon
+                position={pos}
+                userIcon={userIcon || ''}
+                userName={userName || ''}
+            />
+        </>
     )
 
 

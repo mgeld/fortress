@@ -55,31 +55,29 @@ class BattleFireHandler extends IRoute {
 
         if (message.payload?.hitPointer) {
 
+            // Сохраняем в свою стату нанесенный противнику урон
+            _member.makeDamage(weapon.weapon.damage)
+
             fire['hitPointer'] = message.payload.hitPointer
 
             // Противник
             const hitPointer = await this._memberService.getById(message.payload.hitPointer.userId)
 
-            hitPointer.health = hitPointer.health - weapon.weapon.damage
+            // Отнимаем здоровье в зависимости от Урона Оружия
+            const health = hitPointer.removeHealth(weapon.weapon.damage)
 
-            _member.makeDamage(weapon.weapon.damage)
-
-            if (hitPointer.health < 1) {
+            // Если противник погиб
+            if (health < 1) {
 
                 const killPointerTeam = arena.killPointer(hitPointer.userId, hitPointer.arenaTeam)
                 await this._arenaService.update(arena)
 
+                hitPointer.leaveArena()
+
+                // Сохраняем в свою стату убитого противника
                 _member.addKilledPointer()
 
                 if (killPointerTeam.alive_members === 0) {
-
-                    arena.teamList.forEach(team => {
-                        if (team.id === killPointerTeam.id) {
-                            team.defeatTeam()
-                        } else {
-                            team.victoryTeam()
-                        }
-                    })
 
                     setTimeout(async () => {
 
@@ -88,32 +86,32 @@ class BattleFireHandler extends IRoute {
                         members[0] = await this._memberService.getByIds(arena.teamList[0].members)
                         members[1] = await this._memberService.getByIds(arena.teamList[1].members)
 
+                        const p = {
+                            teams: arena.teamList.map((team, index) => {
+                                const minTrophies = team.status === 'victory' ? 10 : -10
+                                return {
+                                    teamId: team.id,
+                                    status: team.status,
+                                    members: members[index].map(member => {
+                                        const wonTrophies = member.damage / 5
+                                        return {
+                                            userId: member.userId,
+                                            trophies: minTrophies + wonTrophies
+                                        }
+                                    }),
+                                }
+                            })
+                        }
+
                         this._rooms.arenas.broadcast(arena.id, {
                             event: 'battle-over',
-                            payload: {
-                                teams: arena.teamList.map((team, index) => {
-
-                                    const minTrophies = team.status === 'victory' ? 10 : -10
-
-                                    return {
-                                        teamId: team.id,
-                                        status: team.status,
-                                        members: members[index].map(member => {
-                                            return {
-                                                userId: member.userId,
-                                                trophies: minTrophies + (member.damage / 5)
-                                            }
-                                        }),
-                                    }
-                                })
-
-                            }
+                            payload: p
                         })
+
                     }, 2000)
 
                 }
 
-                hitPointer.exitArena()
 
             }
 

@@ -1,5 +1,6 @@
 export * as pointersAPI from './pointers'
 export * as firesAPI from './fires'
+export * as bombsAPI from './bombs'
 export * as takesAPI from './takes'
 export * as weaponsAPI from './weapons'
 export * as userAPI from './user'

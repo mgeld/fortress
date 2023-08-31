@@ -6,8 +6,7 @@ export const filterPointersStore = () => {
     sample({
         clock: pointerMapModel.effects.getUsersFx.doneData,
         source: {
-            userId: userModel.$userIdStore,
-            // pointers: pointerMapModel.$pointersStore,
+            userId: userModel.$userIdStore
         },
         fn: ({ userId }, pointers) => pointers.filter(pointer => pointer.userId !== userId),
         target: pointerMapModel.$pointersStore

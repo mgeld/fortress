@@ -46,6 +46,9 @@ class BattleJoinHandler extends IRoute {
         const roomId = this._rooms.arenas.getRoom(arena.id)
         this._rooms.arenas.addClientToRoom(message.payload.userId, roomId, uSocket)
 
+        const roomValues = Object.values(this._rooms.arenas.getClients(roomId))
+        console.log('roomValuesJoin', roomValues)
+
         uSocket.send(JSON.stringify({
             event: 'battle-join',
             payload: {
@@ -57,6 +60,8 @@ class BattleJoinHandler extends IRoute {
         }))
 
         if (arena.isFullTeams()) {
+
+            console.log('ISFULL TEAMS!!!!!!!!!!!!!')
 
             arena.battleStart()
 

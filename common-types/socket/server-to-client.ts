@@ -1,4 +1,4 @@
-import { THitPointer, TJoystickDirection, TLatLng, TPointer, TWeapon, TWeaponSymbol, TZoneItem } from "../model"
+import { TBombSymbol, THitPointer, TJoystickDirection, TLatLng, TPointer, TWeapon, TWeaponSymbol, TZoneItem } from "../model"
 
 export type TEventConnect = 'connect'
 export type TEventSetUser = 'set-user'
@@ -9,6 +9,7 @@ export type TEventDelPointer = 'del-pointer'
 export type TEventDirect = 'direct'
 export type TEventPointers = 'pointers'
 export type TEventFire = 'fire'
+export type TEventBomb = 'bomb'
 export type TEventTake = 'take'
 export type TEventTakeHit = 'take-hit'
 export type TEventTakeSector = 'take-sector'
@@ -25,6 +26,7 @@ export type TEventsMessage =
     | TEventSetUser
     | TEventSetCitadel
     | TEventFire
+    | TEventBomb
     | TEventTake
     | TEventTakeHit
     | TEventTakeSector
@@ -70,8 +72,8 @@ export type TSetCitadel = {
 
 
 export type TResetUser = {
-    pos: TLatLng
-    health: number
+    pos?: TLatLng
+    health?: number
 }
 type TSetUserPayload = {
     user: TResetUser
@@ -189,6 +191,19 @@ export type TFire = {
     payload: TFirePayload
 }
 
+export type TBombPayload = {
+    position: TLatLng
+    userId: number
+    bomb: {
+        symbol: TBombSymbol
+        level: number
+    }
+}
+export type TBomb = {
+    event: TEventBomb
+    payload: TBombPayload
+}
+
 
 export type TBattleStartPayload = {
     battleId: string
@@ -245,6 +260,7 @@ export type TMessage =
     | TSectors
     | TSector
     | TFire
+    | TBomb
     | TTake
     | TTakeHit
     | TTakeSector

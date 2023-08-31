@@ -18,6 +18,8 @@ export const SelectPlace: FC = () => {
         mapModel.events.setLatLngMap(pos)
         popoutModel.events.setPopout(null)
         map?.flyTo(pos, 15)
+        
+        console.log('flyTo 1111')
     }
 
     return (

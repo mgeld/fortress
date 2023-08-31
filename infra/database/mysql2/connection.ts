@@ -73,11 +73,26 @@ const connection = mysql.createPool({
 // weapon
 // 1 - GUN
 // connection.query(`
-// 	CREATE TABLE weapons(
+// CREATE TABLE weapons(
+//     id VARCHAR(50) primary key,
+//     number INT NOT NULL auto_increment unique,
+//     weapon tinyint NOT NULL DEFAULT 0,
+//     bullets smallint NOT NULL DEFAULT 0,
+//     status tinyint NOT NULL DEFAULT 0,
+//     level tinyint NOT NULL DEFAULT 0
+// )
+// character set='utf8mb4';
+// `)
+
+
+// bomb
+// 1 - AERIAL
+// connection.query(`
+// 	CREATE TABLE bombs(
 // 		id VARCHAR(50) primary key,
 // 		number INT NOT NULL auto_increment unique,
-// 		weapon tinyint NOT NULL DEFAULT 0,
-// 		bullets smallint NOT NULL DEFAULT 0,
+// 		bomb tinyint NOT NULL DEFAULT 0,
+// 		counter smallint NOT NULL DEFAULT 0,
 // 		status tinyint NOT NULL DEFAULT 0,
 // 		level tinyint NOT NULL DEFAULT 0
 // 	)

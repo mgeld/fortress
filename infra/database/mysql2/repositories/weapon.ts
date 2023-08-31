@@ -19,13 +19,6 @@ type IWeaponRowData = {
 export class WeaponRepository implements IWeaponRepository {
     @inject(TYPES.connection) private _connection!: Pool
 
-    // async findAll(arenaId: number): Promise<Pointer[]> {
-    //     const pointers = await (<Promise<UnmarshalledPointer[]>>(
-    //         this._database.pointer.findAll()
-    //     ))
-    //     return pointers.map((item) => PointerMapper.toDomain(item)).filter(item => item.unmarshal().userId)
-    // }
-
     async getWeapons(ids: string[]): Promise<Weapon[]> {
         const [result] = await this._connection.query<UnmarshalledWeapon[] & RowDataPacket[]>(
             `SELECT
@@ -109,10 +102,5 @@ export class WeaponRepository implements IWeaponRepository {
 
         return weapon
     }
-
-    // async delete(userId: string): Promise<Boolean> {
-    //     const deleted = await this._connection.execute(`DELETE FROM weapons SET ${arrQuerySet.join(',')}`, arr)
-    //     return await this._database.weapon.delete(userId)
-    // }
 
 }

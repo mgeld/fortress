@@ -1,7 +1,6 @@
 import { TLatLng } from "../../common-types/model"
 import { ArenaPlace } from "./arena-place"
 import { Team, UnmarshalledTeam } from "./arena-team"
-import { Member } from "./arena-team-member"
 
 export type TRegistr = 'open' | 'close'
 type TArenaStatus = 'pending' | 'start' | 'over'
@@ -12,7 +11,6 @@ export type TArenaProps = {
     registr: TRegistr
     status: TArenaStatus
     teams: Team[]
-    // pointers?: number[]
 }
 
 export type UnmarshalledArena = {
@@ -20,13 +18,7 @@ export type UnmarshalledArena = {
     place: TLatLng
 } & Omit<TArenaProps, 'teams' | 'place'>
 
-// pointers: number[]
-// pointers: UnmarshalledPointer[]
-
 export class Arena {
-
-    // _pointers: Map<number, Pointer> = new Map()
-    // private _arenaPointers: number[]
 
     private _id: string
 
@@ -47,9 +39,6 @@ export class Arena {
         this._status = arena.status
 
         this._teamList = arena.teams
-        // || this.createTeams()
-
-        // this._arenaPointers = arena.pointers || []
     }
 
     public static create(arena: TArenaProps) {
@@ -69,8 +58,6 @@ export class Arena {
             registr: this.registr,
             status: this._status,
             teams: this._teamList.map(team => team.unmarshal())
-            // pointers: this.pointers
-            // pointers: mapToArray<Pointer>(this.pointers).map(item => item.unmarshal())
         }
     }
 
@@ -80,30 +67,24 @@ export class Arena {
 
     addPointer(pointer: number): Team {
         const team = this._teamList.find(team => team.getMembersNumber() < this._teamMembersNumber)
-        // const team = this._teamList.filter(team => {
-        //     if (team.getMembersNumber() < this._teamMembersNumber) {
-        //         team.addPointer(pointer)
-        //         return 
-        //     }
-        // })
+
         if(team instanceof Team) {
             team.addPointer(pointer)
             return team
         }
 
         throw new Error('ssdsdsd')
-        // let is_add = false
-        // this.teams = this.teams.map(team => {
-        //     if (!is_add && team.pointers.length < this._teamMembersNumber) {
-        //         is_add = true
-        //         return {
-        //             ...team,
-        //             pointers: [...team.pointers, pointerId]
-        //         }
-        //     }
-        //     return team
-        // })
-        // return is_add
+
+    }
+
+    completeBattle(defeatTeamId: number) {
+        this.teamList.forEach(team => {
+            if (team.id === defeatTeamId) {
+                team.defeatTeam()
+            } else {
+                team.victoryTeam()
+            }
+        })
     }
 
     killPointer(pointerId: number, teamId: number): Team {
@@ -111,8 +92,31 @@ export class Arena {
             if (team.id === teamId) {
                 team.members.forEach(member => {
                     if (member === pointerId) {
-                        // member.kill()
                         team.killTeamMember()
+                    }
+                })
+                return true
+            }
+        })
+
+        if(team[0].alive_members === 0) {
+            this.completeBattle(teamId)
+        }
+
+        try {
+            return team[0]
+        } catch(e) {
+            throw new Error('======')
+        }
+
+    }
+
+    delPointer(pointerId: number, teamId: number): Team {
+        const team = this.teamList.filter(team => {
+            if (team.id === teamId) {
+                team.members.forEach(member => {
+                    if (member === pointerId) {
+                        team.delTeamMember(pointerId)
                     }
                 })
                 return true
@@ -125,21 +129,6 @@ export class Arena {
             throw new Error('======')
         }
 
-        // let killPointerTeam: Team | null = null
-
-        // this.teams = this.teams.map(team => {
-        //     const pointers = team.pointers.filter(pointer => pointer !== pointerId)
-
-        //     if (pointers.length === 0) {
-        //         killPointerTeam = team
-        //     }
-        //     return {
-        //         ...team,
-        //         // status: pointers.length === 0 ? 'defeat' : team.status,
-        //         pointers
-        //     }
-        // })
-        // return (killPointerTeam as unknown) as TTeam
     }
 
     // Метод не используется нигде. Возможно когда-нибудь пригодится. А может и нетв
@@ -155,15 +144,6 @@ export class Arena {
         // })
     }
 
-    // createTeams(): Team[] {
-    // return new Array(this._teamsNumber).map((_, index) =>
-    //     Team.create({
-    //         teamId: index + 1,
-    //         status: 'default',
-    //         pointers: []
-    //     })
-    // )
-    // }
 
     get pointers(): number[] {
         let pointers: number[] = []
@@ -173,25 +153,9 @@ export class Arena {
         return pointers
     }
 
-    // set pointers(p: number[]) {
-    //     this._arenaPointers = p
-    // }
-
     get teamList() {
         return this._teamList
     }
-
-    // get pointers(): number[] {
-    //     let pointers: number[] = []
-    //     this.teams.forEach(team => {
-    //         pointers = [...pointers, ...team.pointers]
-    //     })
-    //     return pointers
-    // }
-
-    // set teams(t: TTeam[]) {
-    //     this._teams = t
-    // }
 
     get id() {
         return this._id

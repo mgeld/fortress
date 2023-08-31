@@ -22,8 +22,9 @@ export const BattleOver: FC = () => {
 
     const pointers = pointerMapModel.selectors.usePointers().data
 
-    const exitBattle = () => {
+    const leaveBattle = () => {
         mapAPI.events.setMapMode('invade')
+        
         popoutModel.events.setPopout(null)
         userModel.events.resetUser()
         battleAPI.events.setTeams([])
@@ -108,7 +109,7 @@ export const BattleOver: FC = () => {
                     <Button
                         className=""
                         text="Ок"
-                        onClick={exitBattle}
+                        onClick={leaveBattle}
                     />
                 </div>
 

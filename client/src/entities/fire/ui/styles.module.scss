@@ -1,15 +1,10 @@
 .__fire {
-    z-index: 3000;
-    position: absolute;
-    border-radius: 50%;
-    background-color: #3FF672;
-    box-shadow: 0px 0px 2px #8cf7aa;
-    // border: 2px solid #8cf7aa;
-    transition: transform 0.2s ease;
-  
-    // transform: translate3d(0px, 0px, 0px);
-  
-    // border: 1px solid rgba(63, 246, 114, 1);
-    // background-color: radial-gradient(circle, #3FF672, rgba(255, 255, 255, 0));
-  
-  }
+  z-index: 3000;
+  box-shadow: 0px 0px 2px #8cf7aa;
+  // border: 2px solid #8cf7aa;
+  // transform: translate3d(0px, 0px, 0px);
+
+  // border: 1px solid rgba(63, 246, 114, 1);
+  // background-color: radial-gradient(circle, #3FF672, rgba(255, 255, 255, 0));
+
+}

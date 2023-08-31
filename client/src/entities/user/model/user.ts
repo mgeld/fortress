@@ -32,8 +32,9 @@ const setUserIcon = createEvent<string>()
 
 const resetUser = createEvent()
 
+const setAreal = createEvent<[TLatLng, TLatLng] | null>()
+
 const getUserFx = createEffect((userId: number) => {
-    console.log('444444444444444 getUserFx')
     getUserAPI(userId)
     return 0
 })
@@ -42,18 +43,23 @@ export const $userPositionStore = createStore<TLatLng>(DEFAULT_STORE_POSITION)
     .on(movePoint, reducer)
     .on(setPos, (_, pos) => pos)
 
-const $arealStore = createStore<[TLatLng, TLatLng] | null>(null)
+export const $arealStore = createStore<[TLatLng, TLatLng] | null>(null)
+    .on(setAreal, (_, areal) => areal)
 
+type TPosAreal = {
+    areal: [TLatLng, TLatLng] | null
+    pos: TLatLng
+}
 sample({
-    clock: $userPositionStore,
-    source: $arealStore,
-    filter: (areal, pos): pos is TLatLng => !!pos[0] && (areal?.toString() !== Areal.getBounds(pos).toString()),
-    fn: (_, pos) => Areal.getBounds(pos),
+    clock: movePoint,
+    source: {
+        areal: $arealStore,
+        pos: $userPositionStore
+    },
+    filter: (source: TPosAreal): source is TPosAreal => !!source.pos[0] && (source.areal?.toString() !== Areal.getBounds(source.pos).toString()),
+    fn: (source, _) => Areal.getBounds(source.pos),
     target: $arealStore
 })
-
-$arealStore.watch(areal => console.log('>>>>>>>>>>>>//////////////// arealStore watch', areal))
-$userPositionStore.watch(pos => console.log('>>>>>>>>>>>>//////////////// userPositionStore watch', pos))
 
 export const $userNameStore = createStore<string>('')
     .on(setName, (_, name) => name)
@@ -85,7 +91,8 @@ export const events = {
     setUser,
     setName,
     setUserIcon,
-    resetUser
+    resetUser,
+    setAreal
 }
 
 const useUser = () => {
