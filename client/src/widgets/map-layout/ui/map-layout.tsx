@@ -27,17 +27,21 @@ import { SectorsMap } from "./sectors-map";
 import { scrollMapPointerListener } from "features/map/scroll-map-pointer/model";
 
 import { userModel } from "entities/user";
-import { FortCounter } from "./defense-counter";
+import { FortCounter } from "./fort-counter";
 import { FortMap } from "./fort-map";
 import { MapSelectPlace } from "features/map/select-place";
 import { Citadel } from "entities/citadel";
-import { filterPointers } from "features/pointer/filter-pointers/model";
 import { isFireHitMe } from "features/fire/hit-fire-in";
 import { isBombHitMe } from "features/bomb/mine-explosion";
 import Bombs from "entities/bomb/ui/bombs";
 import { ArenaRectangle } from "./arena-rectangle/ui";
 import { setMapPosListener } from "features/user/set-map-pos/model";
 import { setMaxBoundsListener } from "features/map/set-max-bounds/model";
+import { filterPointers } from "features/pointer/filter-pointers/model";
+import { BootyMap } from "./booty-map";
+import { TestExtr } from "./test-extr";
+import { TractorBeam } from "entities/projector/ui/tractor-beam";
+import Booty from "entities/projector/ui/booty";
 
 type TMapProps = {}
 
@@ -50,9 +54,25 @@ changeBattleStatusListener()
 scrollMapPointerListener()
 setMapPosListener()
 setMaxBoundsListener()
-filterPointers()
+// filterPointers()
 isFireHitMe()
 isBombHitMe()
+
+// type LatLng_ = LatLng & bearingTo: () => numb
+
+// LatLng.prototype.bearingTo = function(other) {
+//     var d2r  = L.LatLng.DEG_TO_RAD;
+//     var r2d  = L.LatLng.RAD_TO_DEG;
+//     var lat1 = this.lat * d2r;
+//     var lat2 = other.lat * d2r;
+//     var dLon = (other.lng-this.lng) * d2r;
+//     var y    = Math.sin(dLon) * Math.cos(lat2);
+//     var x    = Math.cos(lat1)*Math.sin(lat2) - Math.sin(lat1)*Math.cos(lat2)*Math.cos(dLon);
+//     var brng = Math.atan2(y, x);
+//     brng = parseInt( brng * r2d );
+//     brng = (brng + 360) % 360;
+//     return brng;
+// };
 
 const MapLayout: FC<TMapProps> = () => {
 
@@ -77,19 +97,22 @@ const MapLayout: FC<TMapProps> = () => {
                 className='_MapContainer'
                 center={[55.74953, 37.61581]}
                 zoom={9}
-                maxZoom={16}
+                maxZoom={17}
                 zoomControl={false}
                 // fadeAnimation={true}
                 doubleClickZoom={false}
-                // boxZoom={true}
-                scrollWheelZoom={true}
-                // maxBoundsViscosity={0.1}
-                // worldCopyJump={true}
+            // boxZoom={true}
+            // scrollWheelZoom={true}
+            // preferCanvas={true}
+            // maxBoundsViscosity={0.1}
+            // worldCopyJump={true}
             >
                 <TileLayer
                     // attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
+
+                <TestExtr />
 
                 {/* <Test /> */}
 
@@ -97,26 +120,39 @@ const MapLayout: FC<TMapProps> = () => {
 
                 {mode === 'invade' ? <ArealRectangle /> : <ArenaRectangle />}
 
-                <Pane name="fort" style={{ zIndex: 3001 }}>
-                    <FortMap />
-                </Pane>
+                <Pane name="zoom-anim-map">
 
-                <Pane name="citadel" style={{ zIndex: 3001 }}>
-                    <Citadel />
-                </Pane>
+                    <Pane name="fort" style={{ zIndex: 3001 }}>
+                        <FortMap />
+                    </Pane>
 
-                <Pane name="fort-counter" style={{ zIndex: 3005 }}>
-                    <FortCounter />
-                </Pane>
+                    <Pane name="citadel" style={{ zIndex: 3001 }}>
+                        <Citadel />
+                    </Pane>
 
-                <Pane name="invaders" style={{ zIndex: 3000 }}>
-                    <Invaders />
-                </Pane>
+                    <Pane name="fort-counter" style={{ zIndex: 3005 }}>
+                        <FortCounter />
+                    </Pane>
 
-                <Pane name="map-pointers" style={{ zIndex: 3002 }}>
-                    <PointersMap />
-                </Pane>
 
+                    <Pane name="booty-map" style={{ zIndex: 3005 }}>
+                        <BootyMap />
+                    </Pane>
+
+                    <Pane name="invaders" style={{ zIndex: 3000 }}>
+                        <Invaders />
+                    </Pane>
+
+                    <Pane name="map-pointers" style={{ zIndex: 3002 }}>
+                        <PointersMap />
+                    </Pane>
+
+                    <Pane name="beam" style={{ zIndex: 3001 }}>
+                        <Booty />
+                        <TractorBeam />
+                    </Pane>
+
+                </Pane>
                 <Fires />
 
                 <Bombs />

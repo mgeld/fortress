@@ -2,6 +2,7 @@ export type TPointer = {
     userId: number
     health: number,
     icon?: string,
+    name?: string,
     pos: TLatLng
 }
 
@@ -53,3 +54,20 @@ export type TZoneItem = {
     zone: TZone
     sectors: TSectors
 }
+
+// Типы добыч
+export type TExtrTypes = 1 | 2 | 3 | 4
+
+export type TTypeToastNotice =
+    | 'common' // common
+    | 'coins' // coins
+    | 'rubies' // rubies
+    | 'exp-rank' // exp-rank
+    // | 'exp-storm' // exp-storm
+    // | 'exp-guard' // exp-guard
+    | 'level-rank' // level-rank
+    | 'level-storm' // level-storm
+    | 'level-guard' // level-guard
+    | 'level-zone' // level-zone
+
+export type TFindContType = 1 | 2 | 3

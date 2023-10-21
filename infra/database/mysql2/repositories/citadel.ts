@@ -8,7 +8,7 @@ import { Citadel } from '../../../../entities/citadel/citadel'
 import { CitadelMapper } from '../../mappers/citadel'
 
 interface ICitadelRowData {
-    userId?: number
+    zone_id?: number
     sectorId?: string
     latlng?: TLatLng
     level?: number
@@ -28,14 +28,14 @@ export class CitadelRepository implements ICitadelMemoryRepository {
         }
 
         const {
-            userId,
+            zone_id,
             sectorId,
             latlng,
             level,
         } = result
 
         return CitadelMapper.toDomain({
-            id: userId,
+            id: zone_id,
             sectorId,
             latlng,
             level
@@ -47,7 +47,7 @@ export class CitadelRepository implements ICitadelMemoryRepository {
 
         const inserted = await this._connection.query(`
             INSERT INTO citadels(
-                userId,
+                zone_id,
                 sectorId,
                 latlng,
                 level
@@ -82,7 +82,7 @@ export class CitadelRepository implements ICitadelMemoryRepository {
         })
 
         const updated = await this._connection.execute(`
-            UPDATE citadels SET ${arrQuerySet.join(',')} WHERE userId = ?
+            UPDATE citadels SET ${arrQuerySet.join(',')} WHERE zone_id = ?
         `, [...arr, citadel.id])
 
         return citadel
@@ -90,7 +90,7 @@ export class CitadelRepository implements ICitadelMemoryRepository {
 
     async delete(userId: number): Promise<Boolean> {
         try {
-            const updated = await this._connection.execute(`DELETE FROM citadels userId = ?`, [userId])
+            const updated = await this._connection.execute(`DELETE FROM citadels zone_id = ?`, [userId])
             return true
         } catch (e) {
             return false

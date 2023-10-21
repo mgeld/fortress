@@ -2,8 +2,6 @@ import { createEffect, createEvent, sample } from "effector";
 
 import { userModel } from "entities/user";
 
-import { IJoystickUpdateEvent } from "react-joystick-component/build/lib/Joystick";
-
 import { cellToLatLng, latLngToCell } from "h3-js";
 import { TTake } from "entities/invader/model/invader";
 import { takeAPI } from "shared/api/take";

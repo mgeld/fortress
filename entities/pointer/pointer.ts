@@ -1,16 +1,17 @@
 import { TLatLng } from "../../common-types/model"
 
 export type TPointerProps = {
-    id: number
+    // id: number
     zoneId: number
 
     icon?: string
     name?: string
     color: number
+
     health: number
 
-    invaders: number
-    defenders: number
+    // invaders: number
+    // defenders: number
 
     pos: TLatLng
     areal?: number
@@ -19,7 +20,7 @@ export type TPointerProps = {
     bombs?: string[]
 }
 
-export type UnmarshalledPointer = Required<TPointerProps>
+export type UnmarshalledPointer = { id: number } & Omit<Required<TPointerProps>, 'zoneId'>
 
 // {
 //     id: number
@@ -28,7 +29,7 @@ export type UnmarshalledPointer = Required<TPointerProps>
 
 export class Pointer {
 
-    private _id: number
+    // private _id: number
 
     private _zoneId: number
 
@@ -39,8 +40,8 @@ export class Pointer {
 
     private _color: number
 
-    private _invaders: number
-    private _defenders: number
+    // private _invaders: number
+    // private _defenders: number
 
     private _weapons: string[]
     private _bombs: string[]
@@ -49,20 +50,18 @@ export class Pointer {
     private _areal: number
 
     private constructor(pointer: TPointerProps) {
-        this._id = pointer.id
+        // this._id = pointer.id
         this._zoneId = pointer.zoneId
 
         this._icon = pointer?.icon || ''
         this._name = pointer?.name || ''
 
-        console.log('Pointer create pointer?.color', pointer?.color)
-
         this._color = pointer?.color || 1
 
         this._health = pointer.health
 
-        this._invaders = pointer.invaders
-        this._defenders = pointer.defenders
+        // this._invaders = pointer.invaders
+        // this._defenders = pointer.defenders
 
         this._weapons = pointer.weapons || []
         this._bombs = []
@@ -79,16 +78,16 @@ export class Pointer {
 
     public unmarshal(): UnmarshalledPointer {
         return {
-            id: this._id,
+            id: this._zoneId,
 
-            zoneId: this._zoneId,
+            // zoneId: this._zoneId,
             health: this.health,
             color: this.color,
             icon: this._icon,
             name: this._name,
 
-            invaders: this.invaders,
-            defenders: this.defenders,
+            // invaders: this.invaders,
+            // defenders: this.defenders,
 
             pos: this.pos,
 
@@ -101,7 +100,10 @@ export class Pointer {
 
     public pointerUnmarshal() {
         return {
-            userId: this._id,
+            userId: this._zoneId,
+            // zoneId: this._zoneId,
+            icon: this._icon,
+            name: this._name,
             pos: this.pos,
             health: this.health,
         }
@@ -115,13 +117,22 @@ export class Pointer {
     //     this._sectors = this._sectors - 1
     // }
 
-    killInvader(): number {
-        this._invaders = this._invaders - 1
-        return this._invaders
-    }
+    // arriveInvader(): number {
+    //     this._invaders = this._invaders + 1
+    //     return this._invaders
+    // }
 
-    get id(): number {
-        return this._id
+    // leaveInvader(): number {
+    //     this._invaders = this._invaders - 1
+    //     return this._invaders
+    // }
+
+    // get id(): number {
+    //     return this._id
+    // }
+
+    get zoneId(): number {
+        return this._zoneId
     }
 
     get areal(): number {
@@ -130,10 +141,6 @@ export class Pointer {
 
     set areal(areal: number) {
         this._areal = areal
-    }
-
-    get zoneId(): number {
-        return this._zoneId
     }
 
     get pos() {
@@ -152,13 +159,21 @@ export class Pointer {
         return this._color
     }
 
-    get invaders() {
-        return this._invaders
+    // get invaders() {
+    //     return this._invaders
+    // }
+
+    get icon() {
+        return this._icon
     }
 
-    get defenders() {
-        return this._defenders
+    get name() {
+        return this._name
     }
+
+    // get defenders() {
+    //     return this._defenders
+    // }
 
     set health(health: number) {
         this._health = health

@@ -1,4 +1,4 @@
-import { TBombSymbol, THitPointer, TJoystickDirection, TLatLng, TPointer, TWeapon, TWeaponSymbol, TZoneItem } from "../model"
+import { TBombSymbol, TExtrTypes, TFindContType, THitPointer, TJoystickDirection, TLatLng, TPointer, TTypeToastNotice, TWeapon, TWeaponSymbol, TZoneItem } from "../model"
 
 export type TEventConnect = 'connect'
 export type TEventSetUser = 'set-user'
@@ -12,6 +12,9 @@ export type TEventFire = 'fire'
 export type TEventBomb = 'bomb'
 export type TEventTake = 'take'
 export type TEventTakeHit = 'take-hit'
+export type TEventFindCont = 'find-cont'
+export type TEventTractorExtr = 'attraction'
+export type TEventUseExtraction = 'use-extraction'
 export type TEventTakeSector = 'take-sector'
 
 export type TEventSectors = 'sectors'
@@ -29,6 +32,9 @@ export type TEventsMessage =
     | TEventBomb
     | TEventTake
     | TEventTakeHit
+    | TEventFindCont
+    | TEventTractorExtr
+    | TEventUseExtraction
     | TEventTakeSector
     | TEventPointers
     | TEventConnectPointer
@@ -48,6 +54,7 @@ export type TCitadel = {
 
 export type TConnectPayload = {
     user: {
+        zoneId: number
         pos: TLatLng
         health: number
     },
@@ -84,14 +91,16 @@ export type TSetUser = {
 }
 
 
-type TConnectPointerPayload = {
-    userId: number
-    pos: TLatLng
-    health: number
-}
+// type TConnectPointerPayload = {
+//     userId: number
+//     icon: string
+//     name: string
+//     pos: TLatLng
+//     health: number
+// }
 export type TConnectPointer = {
     event: TEventConnectPointer
-    payload: TConnectPointerPayload
+    payload: TPointer
 }
 
 
@@ -142,7 +151,39 @@ export type TTakeHitPayload = {
 }
 export type TTakeHit = {
     event: TEventTakeHit
-    payload: TTakeHitPayload
+    payload: {
+        hit: TTakeHitPayload
+        extr?: number
+    }
+}
+
+export type TFindContPayload = {
+    fort: TLatLng
+    cont: TFindContType
+}
+export type TFindCont = {
+    event: TEventFindCont
+    payload: TFindContPayload
+}
+
+
+export type TTractorExtr = {
+    event: TEventTractorExtr
+    payload: {
+        extr: TExtrTypes | null
+        cont: TFindContType | 0
+        fort: TLatLng
+        pos: TLatLng
+    }
+}
+
+export type TUseExtraction = {
+    event: TEventUseExtraction
+    payload: {
+        type: TTypeToastNotice
+        amount: number
+        index: number
+    }
 }
 
 
@@ -248,7 +289,6 @@ export type TBattleJoin = {
     payload: TBattleJoinPayload
 }
 
-
 export type TMessage =
     | TConnectPointer
     | TConnect
@@ -263,6 +303,9 @@ export type TMessage =
     | TBomb
     | TTake
     | TTakeHit
+    | TFindCont
+    | TTractorExtr
+    | TUseExtraction
     | TTakeSector
     | TBattleStart
     | TBattleOver

@@ -19,10 +19,9 @@ export const MenuNav: FC<TMenuNavProps> = ({
             onClick={onClick}
             className={`${styles.menuNav} ${className}`}
         >
-
-            <div className={styles.__icon}>
+            {icon ? <div className={styles.__icon}>
                 {icon}
-            </div>
+            </div> : null}
             <div className={styles.__text}>
                 <span>
                     {text}

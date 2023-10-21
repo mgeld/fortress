@@ -1,3 +1,5 @@
+import IconI from '../assets/icons/not-image-pointer.png'
+
 export class PointerCreator {
 
     private name: string
@@ -19,17 +21,42 @@ export class PointerCreator {
 
     public async createPoint(pointIcon: string, userIcon: string): Promise<string> {
         console.log("createPoint userIcon", userIcon)
-        let img = this.pasteImageOnPointer(50, 86, pointIcon)
+        let img = this.pasteImageOnPointer(54, 70, pointIcon)
         return this.addUserImageToPoint(img, userIcon)
     }
 
-    private async addUserImageToPoint(img: HTMLImageElement, icon: string): Promise<string> {
-        let imgU = this.pasteImageOnPointer(36, 36, icon)
+    private async addUserImageToPoint(img: HTMLImageElement, userIcon: string): Promise<string> {
+
+        let imgU = this.pasteImageOnPointer(36, 36, userIcon)
+
         return this.loadImages([img, imgU])
             .then(() => {
+                console.log('1')
                 const draw = this.addImageToPoint(img, imgU)
                 this.clearCanvas()
                 return draw
+            })
+            .catch(async () => {
+                console.log('2')
+                return import('../assets/icons/not-image-pointer.png')
+                    .then(async icon => {
+
+                        let imgUserNotImage = this.pasteImageOnPointer(36, 36, icon.default)
+
+                        return this.loadImages([imgUserNotImage])
+                            .then(() => {
+                                console.log('NUUUUUU')
+                                const draw = this.addImageToPoint(img, imgUserNotImage)
+                                this.clearCanvas()
+                                return draw
+                            })
+                            .catch(() => {
+                                throw new Error('ХУУУЙ')
+                                // return new Promise((resolve) => {
+                                //     resolve('')
+                                // })
+                            })
+                    })
             })
     }
 
@@ -41,13 +68,30 @@ export class PointerCreator {
     }
 
     private loadImages(images: HTMLImageElement[]): Promise<Boolean> {
-        return new Promise((resolve) => {
-            let loades = 0
-            images.forEach(img => {
-                img.onload = () => {
+        let loades = 0
+        console.log('loades', loades)
+        return new Promise((resolve, reject) => {
+
+            images.forEach((image, i) => {
+                console.log('iiiiii', i)
+
+                image.onload = () => {
+
                     loades++
-                    if (loades === images.length) resolve(true)
+                    console.log('loadImages onload', i)
+                    console.log('loades onload', loades)
+
+                    if (loades === images.length) {
+                        console.log('989898989898989898989898989898989898989898989898')
+                        resolve(true)
+                    }
                 }
+
+                image.onerror = () => {
+                    console.log('loadImages onerror i', i)
+                    reject(true)
+                }
+
             })
         })
     }
@@ -66,9 +110,9 @@ export class PointerCreator {
 
         this.ctx.strokeStyle = 'black'
         this.ctx.lineWidth = 1
-        this.ctx.strokeText(String(this.name), center_x, 15)
+        this.ctx.strokeText(String(this.name), center_x, 13)
 
-        this.ctx.fillText(textString, center_x, 15)
+        this.ctx.fillText(textString, center_x, 13)
 
         this.ctx.save()
         this.ctx.beginPath()

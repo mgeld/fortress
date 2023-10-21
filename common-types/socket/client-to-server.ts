@@ -2,6 +2,7 @@ import {
     TLatLng,
     THitPointer,
     TJoystickDirection,
+    TExtrTypes,
 } from "../model"
 
 export type TEventConnect = 'connect'
@@ -9,6 +10,9 @@ export type TEventConnect = 'connect'
 export type TEventDirect = 'direct'
 export type TEventFire = 'fire'
 export type TEventTake = 'take'
+export type TEventBeam = 'beam'
+
+export type TEventUseExtraction = 'useExtraction'
 
 export type TEventGetSectors = 'getSectors'
 export type TEventGetAboutSector = 'getAboutSector'
@@ -25,6 +29,8 @@ export type TEventsAPI =
     | TEventConnect
     | TEventFire
     | TEventTake
+    | TEventBeam
+    | TEventUseExtraction
     | TEventGetSectors
     | TEventGetAboutSector
     | TEventDirect
@@ -38,6 +44,8 @@ export type TSendEvent =
     | TConnectAPI
     | TFireAPI
     | TTakeAPI
+    | TBeamAPI
+    | TUseExtractionAPI
     | TGetSectorsAPI
     | TGetAboutSectorAPI
     | TDirectAPI
@@ -52,9 +60,10 @@ export type TSendEvent =
 export type TConnectAPI = {
     event: TEventConnect
     payload: {
-        position: TLatLng
+        vkUserId: number
         name: string
-        userId: number
+        icon: string
+        position: TLatLng
     }
 }
 
@@ -100,6 +109,26 @@ export type TTakeAPI = {
         userId: number
     }
 }
+
+export type TBeamAPI = {
+    event: TEventBeam
+    payload: {
+        position: TLatLng
+        fort: TLatLng
+        sector: string
+        userId: number
+    }
+}
+
+export type TUseExtractionAPI = {
+    event: TEventUseExtraction
+    payload: {
+        id: TExtrTypes
+        index: number
+    }
+}
+
+
 
 export type TDirectAPI = {
     event: TEventDirect

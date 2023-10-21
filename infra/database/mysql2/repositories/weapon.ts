@@ -7,8 +7,8 @@ import { Pool, RowDataPacket } from 'mysql2/promise'
 import { entries } from '../../../../libs/object-entries'
 
 type IWeaponRowData = {
-    number?: number
     id?: string
+    number?: number
     weapon?: number
     bullets?: number
     level?: number

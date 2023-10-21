@@ -1,0 +1,1 @@
+export * as beamMapModel from './model/tractor-beam'

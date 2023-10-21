@@ -1,7 +1,7 @@
 
 import { inject, injectable } from "inversify";
 import { IWebSocket } from "../api/socket/server";
-import { TConnectAPI, TEventGetUser } from "../common-types/socket/client-to-server";
+import { TEventGetUser, TGetUserAPI } from "../common-types/socket/client-to-server";
 import { Pointer } from "../entities/pointer/pointer";
 import { PointerService } from "../services/pointer.service";
 import { TYPES } from "../types";
@@ -19,7 +19,7 @@ class GetUserHandler implements IRoute {
     public static EVENT: TEventGetUser = "getUser"
 
     async handle(
-        message: TConnectAPI,
+        message: TGetUserAPI,
         uSocket: IWebSocket,
     ) {
 

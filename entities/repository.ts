@@ -19,7 +19,7 @@ export interface IPointerMemoryRepository {
 }
 export interface IZoneMemoryRepository {
     getById(userId: number): Promise<Zone>
-    getByIds(userIds: number[]): Promise<Zone[]>
+    // getByIds(userIds: number[]): Promise<Zone[]>
     insert(zone: Zone): Promise<Zone>
     update(zone: Zone): Promise<Zone>
     delete(userId: number): Promise<Boolean>
@@ -30,7 +30,7 @@ export interface IPointerRepository {
     getZoneByIds(_ids: number[]): Promise<TZone[]>
     insert(pointer: Pointer): Promise<Pointer>
     update(pointer: Pointer): Promise<Pointer>
-    delete(userId: number): Promise<Boolean>
+    // delete(userId: number): Promise<Boolean>
 }
 export interface IZoneRepository {
     getById(userId: number): Promise<Zone>

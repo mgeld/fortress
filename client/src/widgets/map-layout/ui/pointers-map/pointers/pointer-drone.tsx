@@ -8,7 +8,7 @@ type TDroneProps = {
     size: number
 }
 export const PointerDrone: FC<TDroneProps> = ({ size, health, pos }) => {
-    if (health < 1) return <></>
+    // if (health < 1) return <></>
     return (
         <Drone
             health={health}

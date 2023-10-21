@@ -24,6 +24,7 @@ class DirectHandler extends IRoute {
     ) {
 
         console.log('DirectHandler handle')
+        console.log('DirectHandler message.payload.userId', message.payload.userId)
 
         const _pointer = await this._pointerService.memoryGetById(message.payload.userId)
 
@@ -35,6 +36,9 @@ class DirectHandler extends IRoute {
 
         const areal = Areal.generator(message.payload.position)
 
+        console.log('______areal', areal)
+        console.log('_______pointer.areal', _pointer.areal)
+
         if (_pointer.areal && _pointer.areal === areal) {
 
             this._rooms.areals.broadcast(_pointer.areal, {
@@ -43,17 +47,17 @@ class DirectHandler extends IRoute {
                     userId: message.payload.userId,
                     pos: message.payload.position
                 }
-            }, _pointer.id)
+            }, _pointer.zoneId)
 
         } else {
 
             if (_pointer.areal) {
-                this._rooms.areals.deleteClient(_pointer.id, _pointer.areal)
+                this._rooms.areals.deleteClient(_pointer.zoneId, _pointer.areal)
 
                 this._rooms.areals.broadcast(_pointer.areal, {
                     event: 'del-pointer',
                     payload: {
-                        userId: _pointer.id
+                        userId: _pointer.zoneId
                     }
                 })
             }
@@ -62,9 +66,9 @@ class DirectHandler extends IRoute {
 
             console.log('2 _pointer.areal', _pointer.areal)
 
-            this._rooms.areals.addClientToRoom(_pointer.id, _pointer.areal, uSocket)
+            this._rooms.areals.addClientToRoom(_pointer.zoneId, _pointer.areal, uSocket)
 
-            const clients = this._rooms.areals.getClients(_pointer.areal).filter(p => p !== _pointer.id)
+            const clients = this._rooms.areals.getClients(_pointer.areal).filter(p => p !== _pointer.zoneId)
             const pointers = await this._repository.getByIds(clients)
 
             uSocket.send(JSON.stringify({
@@ -107,14 +111,18 @@ class DirectHandler extends IRoute {
             }
             /** */
 
+
+
             this._rooms.areals.broadcast(_pointer.areal, {
                 event: 'connect-pointer',
                 payload: {
-                    health: _pointer.health,
                     userId: message.payload.userId,
+                    icon: _pointer.icon,
+                    name: _pointer.name,
+                    health: _pointer.health,
                     pos: message.payload.position
                 }
-            }, _pointer.id)
+            }, _pointer.zoneId)
 
         }
 

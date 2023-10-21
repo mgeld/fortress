@@ -1,7 +1,6 @@
 import { createEffect, createEvent, sample } from "effector";
 import { TFire } from "entities/fire/model/fire";
 import { pointerMapModel } from "entities/pointer";
-import { TPointer } from "entities/pointer/model/pointer-map";
 import { userModel } from "entities/user";
 
 import { fireAPI } from "shared/api/fire";
@@ -12,7 +11,7 @@ import { isHitFireTarget } from "shared/lib/isHitFireTarget";
 import { fromToDirectionPos } from "shared/lib/fromToDirectionPos";
 import { IJoystickUpdateEvent } from "react-joystick-component/build/lib/Joystick";
 
-import { THitPointer } from '@ctypes/model'
+import { THitPointer, TPointer } from '@ctypes/model'
 import { weaponModel } from "entities/weapon"
 import { WeaponType } from "entities/weapon/lib/gun"
 import { arenaModel } from "entities/arena";

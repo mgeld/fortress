@@ -12,6 +12,7 @@ export class PointerMemoryRepository implements IPointerMemoryRepository {
     async getById(userId: number): Promise<Pointer> {
         const pointer = await this._database.pointer.getById<UnmarshalledPointer>(userId)
         if (!pointer) {
+            console.log('____________userId', userId)
             throw new Error('----------')
         }
         return PointerMapper.toDomain(pointer)
@@ -22,6 +23,8 @@ export class PointerMemoryRepository implements IPointerMemoryRepository {
         if (!pointers) {
             throw new Error('----------')
         }
+
+        console.log('____getByIds pointers', pointers)
 
         return pointers.map(pointer => PointerMapper.toDomain(pointer))
     }

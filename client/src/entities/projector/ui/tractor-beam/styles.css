@@ -1,0 +1,29 @@
+.beam-block {
+    position: absolute;
+    transform-origin: center center;
+    transform-box: fill-box;
+
+    transform-origin: center center;
+    transform-box: fill-box;
+
+}
+
+.beam-box {
+    position: relative;
+
+    background-color: blueviolet;
+    /* z-index: 1000; */
+}
+
+.beam {
+    position: absolute;
+    border-radius: 50%;
+    transition: 0.4s;
+    width: 20px;
+    height: 20px;
+}
+
+.zoom-anim-map .beam {
+    /* transition: 0s !important; */
+    /* color: #f9fd0777; */
+}

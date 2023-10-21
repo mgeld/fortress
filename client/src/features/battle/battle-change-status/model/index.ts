@@ -18,9 +18,9 @@ const changeBattleFx = createEffect(({
     battleStatus: TBattleStatus
 }) => {
 
-    function arenaFlyTo(zoom?: number) {
-        source.map.flyTo(source.userPos, zoom)
-    }
+    // function arenaFlyTo(zoom?: number) {
+    //     source.map.flyTo(source.userPos, zoom)
+    // }
 
     if (battleStatus === 'pending') {
         source.map.setMinZoom(6)

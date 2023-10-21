@@ -1,4 +1,5 @@
 import { Handlers, THandlers } from "shared/api/handlers"
+import { AttractionHandler } from "shared/api/handlers/attraction"
 import { BattleJoinHandler } from "shared/api/handlers/battle-join"
 import { BattleOverHandler } from "shared/api/handlers/battle-over"
 import { BattleStartHandler } from "shared/api/handlers/battle-start"
@@ -7,6 +8,7 @@ import { ConnectHandler } from "shared/api/handlers/connect"
 import { ConnectPointerHandler } from "shared/api/handlers/connect-pointer"
 import { DelPointerHandler } from "shared/api/handlers/del-pointer"
 import { DirectPointerHandler } from "shared/api/handlers/direct"
+import { FindContHandler } from "shared/api/handlers/find-cont"
 import { FireHandler } from "shared/api/handlers/fire"
 import { PointersHandler } from "shared/api/handlers/pointers"
 import { SectorHandler } from "shared/api/handlers/sector"
@@ -16,6 +18,7 @@ import { SetUserHandler } from "shared/api/handlers/set-user"
 import { TakeHandler } from "shared/api/handlers/take"
 import { TakeHitHandler } from "shared/api/handlers/take-hit"
 import { TakeSectorHandler } from "shared/api/handlers/take-sector"
+import { UseExtractionHandler } from "shared/api/handlers/use-extraction"
 import { Socket } from "shared/api/socket"
 import { events as socket } from "shared/api/socket/model"
 import { API_BASE_URL } from "shared/config"
@@ -40,6 +43,9 @@ const callbacks = {
     [TakeSectorHandler.EVENT]: new TakeSectorHandler(),
     [SetUserHandler.EVENT]: new SetUserHandler(),
     [SetCitadelHandler.EVENT]: new SetCitadelHandler(),
+    [UseExtractionHandler.EVENT]: new UseExtractionHandler(),
+    [AttractionHandler.EVENT]: new AttractionHandler(),
+    [FindContHandler.EVENT]: new FindContHandler(),
 } as THandlers
 
 const handlers = new Handlers(callbacks)

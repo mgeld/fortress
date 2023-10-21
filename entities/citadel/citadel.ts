@@ -10,13 +10,13 @@ export type TCitadelProps = {
 export type UnmarshalledCitadel = TCitadelProps
 
 export class Citadel {
-    private _userId: number
+    private _zoneId: number
     private _sectorId: string
     private _latlng: TLatLng
     private _level: number
 
     constructor(props: TCitadelProps) {
-        this._userId = props.id
+        this._zoneId = props.id
         this._sectorId = props.sectorId
         this._latlng = props.latlng
         this._level = props.level
@@ -28,7 +28,7 @@ export class Citadel {
 
     unmarshal(): UnmarshalledCitadel {
         return {
-            id: this._userId,
+            id: this._zoneId,
             sectorId: this._sectorId,
             latlng: this._latlng,
             level: this._level
@@ -36,7 +36,7 @@ export class Citadel {
     }
 
     get id() {
-        return this._userId
+        return this._zoneId
     }
 
     get sectorId() {

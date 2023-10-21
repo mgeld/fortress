@@ -1,4 +1,4 @@
-import { TPointer } from "entities/pointer/model/pointer-map"
+import { TPointer } from "@ctypes/model"
 import { TJoystickDirection } from "shared/types"
 
 let left_lat = (a: TPointer, b: TPointer) => b.pos[1] - a.pos[1]

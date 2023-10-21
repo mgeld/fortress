@@ -14,6 +14,7 @@ import { Zone } from "../entities/zone/zone";
 import { CitadelService } from "../services/citadel.service";
 import { Citadel } from "../entities/citadel/citadel";
 import { TConnectPayload } from "../common-types/socket/server-to-client";
+import { VkUserRepository } from "../infra/database/mysql2/repositories/vk-user";
 
 @injectable()
 class ConnectHandler implements IRoute {
@@ -22,9 +23,9 @@ class ConnectHandler implements IRoute {
     @inject(TYPES.ZoneService) private _zoneService!: ZoneService
     @inject(TYPES.PointerService) private _pointerService!: PointerService
     @inject(TYPES.WeaponService) private _weaponService!: WeaponService
+    @inject(TYPES.VkUserRepository) private _vkUserRepository!: VkUserRepository
 
-    constructor(
-    ) {
+    constructor() {
         console.log('ConnectHandler')
     }
 
@@ -37,10 +38,9 @@ class ConnectHandler implements IRoute {
 
         console.log('------ConnectHandler handle -----------')
 
-        const USER_ID = message.payload.userId
+        const VK_USER_ID = message.payload.vkUserId
         const USER_NAME = message.payload.name
-
-        uSocket.user_id = USER_ID
+        const USER_ICON = message.payload.icon
 
         let pointer: Pointer
         let weapon: Weapon
@@ -49,17 +49,19 @@ class ConnectHandler implements IRoute {
 
         try {
 
-            pointer = await this._pointerService.baseGetById(USER_ID)
+            const { zone_id: zoneId } = await this._vkUserRepository.getById(VK_USER_ID)
+
+            pointer = await this._pointerService.baseGetById(zoneId)
             weapon = await this._weaponService.baseGetById(pointer.weapons[0])
 
-            zone = await this._zoneService.getById(USER_ID)
+            zone = await this._zoneService.getById(zoneId)
 
             this._pointerService.memoryInsert(pointer)
             this._weaponService.memoryInsert(weapon)
             this._zoneService.memoryInsert(zone)
 
-            if (zone.sectors > 0) {
-                citadel = await this._citadelService.getById(pointer.id)
+            if (zone.terrain.sectors > 0) {
+                citadel = await this._citadelService.getById(zoneId)
             }
 
         } catch (e) {
@@ -70,26 +72,44 @@ class ConnectHandler implements IRoute {
             this._weaponService.memoryInsert(weapon)
             this._weaponService.baseInsert(weapon)
 
-            pointer = this._pointerService.create(USER_ID, [0, 0], USER_NAME, weapon)
-            zone = this._zoneService.create(USER_ID, pointer.color)
+            zone = this._zoneService.create(0)
+            zone = await this._zoneService.baseInsert(zone)
 
+            await this._vkUserRepository.insert({
+                user_id: VK_USER_ID,
+                zone_id: zone.id
+            })
+
+            pointer = this._pointerService.create(
+                zone.id,
+                [0, 0],
+                USER_NAME,
+                USER_ICON,
+                weapon
+            )
+
+            console.log('_______pointer', pointer.unmarshal())
             this._pointerService.baseInsert(pointer)
             this._pointerService.memoryInsert(pointer)
 
-            this._zoneService.baseInsert(zone)
+            console.log('_______zone.id', zone.id)
+
             this._zoneService.memoryInsert(zone)
 
         }
+
+        uSocket.user_id = zone.id
 
         const dtoZone = zone.unmarshal()
 
         const payload: TConnectPayload = {
             user: {
+                zoneId: zone.id,
                 pos: pointer.pos,
                 health: pointer.health,
             },
             zone: {
-                sectors: dtoZone.sectors,
+                sectors: dtoZone.terrain.sectors,
                 trophies: dtoZone.trophies,
                 coins: dtoZone.coins,
                 rubies: dtoZone.rubies,

@@ -22,6 +22,7 @@ const TYPES = {
     ArealMemoryRepository: Symbol.for('ArealMemoryRepository'),
     CitadelMemoryRepository: Symbol.for('CitadelMemoryRepository'),
     CitadelRepository: Symbol.for('CitadelRepository'),
+    VkUserRepository: Symbol.for('VkUserRepository'),
     
     
     Base64EntityIdGenerator: Symbol.for('Base64EntityIdGenerator'),
@@ -31,6 +32,7 @@ const TYPES = {
     ConnectHandler: Symbol.for('ConnectHandler'),
     DirectHandler: Symbol.for('DirectHandler'),
     TakeHandler: Symbol.for('TakeHandler'),
+    BeamHandler: Symbol.for('BeamHandler'),
     FireHandler: Symbol.for('FireHandler'),
     BattleJoinHandler: Symbol.for('BattleJoinHandler'),
     BattleLeaveHandler: Symbol.for('BattleLeaveHandler'),
@@ -40,6 +42,7 @@ const TYPES = {
     GetSectorsHandler: Symbol.for('GetSectorsHandler'),
     GetAboutSectorHandler: Symbol.for('GetAboutSectorHandler'),
     GetUserHandler: Symbol.for('GetUserHandler'),
+    UseExtractionHandler: Symbol.for('UseExtractionHandler'),
     
     PointerRepository: Symbol.for('PointerRepository'),
     ZoneRepository: Symbol.for('ZoneRepository'),

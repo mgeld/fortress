@@ -1,19 +1,24 @@
+import { TConnectAPI } from "@ctypes/socket/client-to-server"
 import { WS } from "processes/socket"
 import { TLatLng } from "shared/types"
-import { TConnectAPI } from "../../../../common-types/socket/client-to-server"
 
 export const connectAPI = (
-    userId: number,
+    vkUserId: number,
     name: string,
+    icon: string,
     position: TLatLng,
 ) => {
-    console.log('connectUser userId', userId)
+
+    console.log('connectAPI vkUserId', vkUserId)
+    console.log('connectAPI name', name)
+    console.log('connectAPI icon', icon)
     const data: TConnectAPI = {
         event: 'connect',
         payload: {
-            position,
+            vkUserId,
             name,
-            userId
+            icon,
+            position,
         }
     }
     WS.sendData(data)

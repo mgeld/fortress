@@ -24,6 +24,9 @@ export const PointIcon: FC<TPointIconProps> = ({
             .then(icon => {
                 setIcon(icon)
             })
+            .catch(icon => {
+                setIcon(icon)
+            })
     }
 
     if (!icon) return <></>

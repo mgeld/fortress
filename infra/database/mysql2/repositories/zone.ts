@@ -1,17 +1,13 @@
 import { injectable, inject } from 'inversify'
-import { Pointer, UnmarshalledPointer } from '../../../../entities/pointer/pointer'
-import { Pool, RowDataPacket } from 'mysql2/promise'
-import { entries } from '../../../../libs/object-entries'
+import { Pool, ResultSetHeader, RowDataPacket } from 'mysql2/promise'
 import { TYPES } from '../../../../types'
 import { IZoneRepository } from '../../../../entities/repository'
-import { TZone } from '../../../../common-types/model'
 import { Zone } from '../../../../entities/zone/zone'
 import { ZoneMapper } from '../../mappers/zone'
 
 interface IZoneRowData {
     id?: number
 
-    sectors?: number
     trophies?: number
 
     color?: number
@@ -27,7 +23,34 @@ export class ZoneRepository implements IZoneRepository {
 
     async getById(_id: number): Promise<Zone> {
         const [[result]] = await this._connection.query<Required<IZoneRowData>[] & RowDataPacket[]>(
-            `SELECT * FROM zones WHERE id = ?;`, [_id]
+            `
+                SELECT
+                    zones.id,
+
+                    zones.color,
+                    zones.trophies,
+                    zones.coins,
+                    zones.rubies,
+
+                    zones.extraction,
+
+                    terrain.level as zone_level,
+                    terrain.sectors as zone_sectors,
+                    terrain.defenders as zone_defenders,
+
+                    storm.level as storm_level,
+                    storm.power,
+                    storm.invaders,
+
+                    rc.level as rank_level,
+                    rc.exp as rank_exp
+                FROM
+                    zones
+                LEFT JOIN terrain ON terrain.zone_id = zones.zone_id
+                LEFT JOIN stormtrooper_corps AS storm ON storm.zone_id = zones.zone_id
+                LEFT JOIN rank_conquests as rc ON rc.zone_id = zones.zone_id
+                WHERE zones.id = ?;
+            `, [_id]
         )
         if (!result) {
             throw new Error('----------')
@@ -35,26 +58,61 @@ export class ZoneRepository implements IZoneRepository {
 
         const {
             id,
-
-            sectors,
-            trophies,
-
             color,
 
+            trophies,
             coins,
-            rubies
+            rubies,
+
+            extraction,
+
+            zone_level,
+            zone_sectors,
+            zone_defenders,
+
+            storm_level,
+            power,
+            // storm_exp,
+            invaders,
+
+            // guard_level,
+            // guard_exp,
+            // defenders,
+
+            rank_level,
+            rank_exp
         } = result
 
         return ZoneMapper.toDomain({
             id,
-
-            sectors,
-            trophies,
-
             color,
 
+            trophies,
             coins,
             rubies,
+
+            rank: {
+                rank: rank_level,
+                exp: rank_exp,
+                tempExp: 0
+            },
+            terrain: {
+                level: zone_level,
+                sectors: zone_sectors,
+                defenders: zone_defenders
+            },
+            // guard_corps: {
+            //     // level: guard_level,
+            //     // exp: guard_exp,
+            //     defenders
+            // },
+            stormtrooper_corps: {
+                level: storm_level,
+                power,
+                // exp: storm_exp,
+                invaders
+            },
+            extraction,
         })
     }
 
@@ -88,58 +146,62 @@ export class ZoneRepository implements IZoneRepository {
 
     // }
 
-    async getByIds(_ids: number[]): Promise<Zone[]> {
-        const [result] = await this._connection.query<Required<IZoneRowData>[] & RowDataPacket[]>(
-            `SELECT * FROM zones WHERE id IN (?);`, [_ids]
-        )
-        if (!result) {
-            throw new Error('----------')
-        }
+    // async getByIds(_ids: number[]): Promise<Zone[]> {
+    //     const [result] = await this._connection.query<Required<IZoneRowData>[] & RowDataPacket[]>(
+    //         `SELECT * FROM zones WHERE id IN (?);`, [_ids]
+    //     )
+    //     if (!result) {
+    //         throw new Error('----------')
+    //     }
 
-        return result.map(pointer => {
-            const {
-                id,
+    //     return result.map(zone => {
+    //         const {
+    //             id,
+    //             color,
+    //             trophies,
+    //             coins,
+    //             rubies,
+    //             extraction,
 
-                sectors,
-                trophies,
+    //             zone_level,
+    //             zone_sectors,
 
-                color,
+    //             storm_level,
+    //             invaders,
 
-                coins,
-                rubies,
-            } = pointer
+    //             guard_level,
+    //             defenders,
 
-            return ZoneMapper.toDomain({
-                id,
+    //             rank,
+    //             exp
+    //         } = zone
 
-                sectors,
-                trophies,
+    //         return ZoneMapper.toDomain({
+    //             id,
 
-                color,
+    //             // sectors,
+    //             trophies,
 
-                coins,
-                rubies,
-            })
-        })
+    //             color,
 
-    }
+    //             coins,
+    //             rubies,
+    //         })
+    //     })
+
+    // }
 
     async insert(zone: Zone): Promise<Zone> {
         const dtoZone = zone.unmarshal()
 
-        const inserted = await this._connection.query(`
+        const addZone = await this._connection.query<ResultSetHeader>(`
             INSERT INTO zones(
-                id,
-
-                sectors,
-                trophies,
-
                 color,
-
+                trophies,
                 coins,
-                rubies
+                rubies,
+                extraction
             )VALUES(
-                ?,
                 ?,
                 ?,
                 ?,
@@ -147,33 +209,115 @@ export class ZoneRepository implements IZoneRepository {
                 ?
             );
         `, [
-            dtoZone.id,
-
-            dtoZone.sectors,
-            dtoZone.trophies,
-
             dtoZone.color,
-
+            dtoZone.trophies,
             dtoZone.coins,
-            dtoZone.rubies
+            dtoZone.rubies,
+            JSON.stringify(dtoZone.extraction)
         ])
+
+        const zoneId = addZone[0].insertId
+        console.log('INSERT ID???', zoneId)
+
+        const inserted = await this._connection.query(`
+            INSERT INTO terrain(zone_id,level,sectors,defenders)VALUES(?,?,?,?);
+            INSERT INTO stormtrooper_corps(zone_id,level,invaders,power)VALUES(?,?,?,?);
+            INSERT INTO rank_conquests(zone_id,level,exp)VALUES(?,?,?);
+        `, [
+            zoneId,
+            dtoZone.terrain.level,
+            dtoZone.terrain.sectors,
+            dtoZone.terrain.defenders,
+
+            zoneId,
+            dtoZone.stormtrooper_corps.level,
+            dtoZone.stormtrooper_corps.invaders,
+            dtoZone.stormtrooper_corps.power,
+            // dtoZone.stormtrooper_corps.exp,
+
+            // zoneId,
+            // dtoZone.guard_corps.level,
+            // dtoZone.guard_corps.exp,
+            // dtoZone.guard_corps.defenders,
+
+            zoneId,
+            dtoZone.rank.rank,
+            dtoZone.rank.exp
+        ])
+
+        zone.id = zoneId
 
         return zone
     }
 
     async update(zone: Zone): Promise<Zone> {
         const dtoZone = zone.unmarshal()
-        let arr: any[] = []
-        const arrQuerySet = entries(dtoZone).map((item) => {
-            if (!item) return ''
-
-            arr.push(item[1])
-            return `${item[0]} = ?`
-        })
 
         const updated = await this._connection.execute(`
-            UPDATE zones SET ${arrQuerySet.join(',')} WHERE id = ?
-        `, [...arr, zone.id])
+            UPDATE
+                zones,
+                terrain,
+                stormtrooper_corps,
+                rank_conquests
+                -- guard_corps,
+            SET
+                zones.color = ?,
+                
+                zones.trophies = ?,
+                zones.coins = ?,
+                zones.rubies = ?,
+
+                zones.extraction = ?,
+
+                terrain.level = ?,
+                terrain.sectors = ?,
+                terrain.defenders = ?,
+
+                stormtrooper_corps.level = ?,
+                stormtrooper_corps.invaders = ?,
+                stormtrooper_corps.power = ?,
+
+                rank_conquests.level = ?,
+                rank_conquests.exp = ?
+
+            WHERE
+                zones.id = ? and
+                terrain.zone_id = ? and
+                stormtrooper_corps.zone_id = ? and
+                rank_conquests.zone_id = ?
+
+        `, [
+            dtoZone.color,
+
+            dtoZone.trophies,
+            dtoZone.coins,
+            dtoZone.rubies,
+
+            dtoZone.extraction,
+
+            dtoZone.terrain.level,
+            dtoZone.terrain.sectors,
+            dtoZone.terrain.defenders,
+
+            dtoZone.stormtrooper_corps.level,
+            dtoZone.stormtrooper_corps.invaders,
+            dtoZone.stormtrooper_corps.power,
+
+            // dtoZone.stormtrooper_corps.exp,
+
+            // dtoZone.guard_corps.level,
+            // dtoZone.guard_corps.exp,
+            // dtoZone.guard_corps.defenders,
+
+            dtoZone.rank.rank,
+            dtoZone.rank.exp,
+
+            zone.id,
+            zone.id,
+            zone.id,
+            zone.id
+            // zone.id,
+        ])
 
         return ZoneMapper.toDomain(dtoZone)
     }

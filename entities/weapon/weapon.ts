@@ -42,8 +42,8 @@ export class Weapon {
     private _status: TWeaponStatus
 
     private constructor(props: TWeaponProps) {
-        this.weapon = props.weapon
         this._id = props.id
+        this.weapon = props.weapon
         this._bullets = props.bullets
         this._status = props?.status ? 'used' : 'stock'
     }
@@ -58,7 +58,6 @@ export class Weapon {
             weapon: this.symbolToNumber(this.weapon.symbol),
             level: this.weapon.level,
             bullets: this.bullets,
-            // status: this.status === 'used' ? 1 : 0
             status: this.status === 'used' ? 1 : 0
         }
     }

@@ -13,7 +13,7 @@ export class WeaponService {
     createGun(weapon: WeaponType): Weapon {
         const _weapon = Weapon.create({
             id: this._entityId.nextIdEntity().id,
-            weapon: weapon,
+            weapon,
             bullets: 100
         })
         return _weapon

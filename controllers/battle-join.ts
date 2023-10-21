@@ -81,8 +81,7 @@ class BattleJoinHandler extends IRoute {
                             trophies: 0
                         })),
                     })),
-                    pointers: members
-                        .map(member => member.pointerUnmarshal())
+                    pointers: members.map(member => member.pointerUnmarshal())
                 }
             })
 

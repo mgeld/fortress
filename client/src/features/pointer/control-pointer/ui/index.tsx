@@ -15,8 +15,8 @@ const ControlPointer: FC = () => {
         <div className={styles.controlDirections}>
             <div className={styles.__circle}>
                 <Control
-                    size={94}
-                    stickSize={52}
+                    size={84}
+                    stickSize={48}
                     sticky={false}
                     baseColor="#ffffff00"
                     stickImage='icons/control_directions.png'

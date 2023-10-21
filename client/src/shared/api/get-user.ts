@@ -1,10 +1,9 @@
+import { TGetUserAPI } from "@ctypes/socket/client-to-server"
 import { WS } from "processes/socket"
-import { TGetUserAPI } from "../../../../common-types/socket/client-to-server"
 
 export const getUserAPI = (
     userId: number
 ) => {
-    console.log('getUserAPI userId', userId)
     const data: TGetUserAPI = {
         event: 'getUser',
         payload: {

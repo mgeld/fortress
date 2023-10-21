@@ -1,14 +1,17 @@
 import { inject, injectable } from "inversify";
-import { TZone } from "../common-types/model";
+import { TExtrTypes, TZone } from "../common-types/model";
 import { IZoneMemoryRepository, IZoneRepository } from "../entities/repository";
 import { TYPES } from "../types";
 import { randomNumber } from "../libs/random-number";
 import { Zone } from "../entities/zone/zone";
+import { ZoneMapper } from "../infra/database/mappers/zone";
+import { EntityIdGenerator } from "../domain/entityId";
 
 @injectable()
 export class ZoneService {
     @inject(TYPES.ZoneMemoryRepository) private _memoryRepository!: IZoneMemoryRepository
     @inject(TYPES.ZoneRepository) private _baseRepository!: IZoneRepository
+    @inject(TYPES.Base64EntityIdGenerator) private _entityId!: EntityIdGenerator
 
     memoryInsert(zone: Zone): Promise<Zone> {
         return this._memoryRepository.insert(zone)
@@ -37,7 +40,7 @@ export class ZoneService {
     }
 
     create(
-        userId: number,
+        // userId: number,
         color: number,
     ): Zone {
 
@@ -46,30 +49,67 @@ export class ZoneService {
         const DEFAULT_RUBIES = 100
         const DEFAULT_COINS = 100
 
-        const DEFAULT_SECTORS = 0
         const DEFAULT_TROPHIES = 100
 
-        const zone = Zone.create({
-            id: userId,
-            color: DEFAULT_COLOR,
+        const DEFAULT_RANK = 1
+        const DEFAULT_EXP = 0
+        const DEFAULT_TEMP_EXP = 0
 
+        const DEFAULT_LEVEL = 1
+        const DEFAULT_SECTORS = 0
+
+        const stormtrooper_corps = {
+            level: 1,
+            // exp: 0,
+            invaders: 0,
+            power: 0,
+        }
+        
+        const guard_corps = {
+            level: 1,
+            exp: 0,
+            defenders: 0
+        }
+
+        // const defenders = 0
+
+        const extraction: TExtrTypes[] = []
+
+        const rank = {
+            rank: 1,
+            exp: 0,
+            tempExp: 0
+        }
+
+        const terrain = {
+            level: 1,
+            sectors: 0,
+            defenders: 0
+        }
+
+        const zone = ZoneMapper.toDomain({
+            // id: this._entityId.nextIdEntity().id,
+            id: 0,
+            color: DEFAULT_COLOR,
             rubies: DEFAULT_RUBIES,
             coins: DEFAULT_COINS,
-
-            sectors: DEFAULT_SECTORS,
             trophies: DEFAULT_TROPHIES,
+            rank,
+            terrain,
+            stormtrooper_corps,
+            // guard_corps,
+            // defenders,
+            extraction
         })
 
         return zone
     }
 
-    getByIds(userIds: number[]): Promise<Zone[]> {
-        console.log('getByIds')
-        return this._memoryRepository.getByIds(userIds)
-    }
 
-    // getZoneByIds(_ids: number[]): Promise<TZone[]> {
-    //     return this._baseRepository.getZoneByIds(_ids)
+
+    // getByIds(userIds: number[]): Promise<Zone[]> {
+    //     console.log('getByIds')
+    //     return this._memoryRepository.getByIds(userIds)
     // }
 
     async memoryUpdate(zone: Zone) {

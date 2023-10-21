@@ -63,7 +63,7 @@ class FireHandler extends IRoute {
         this._rooms.areals.broadcast(_pointer.areal, {
             event: 'fire',
             payload: fire
-        }, _pointer.id)
+        }, _pointer.zoneId)
 
     }
 }

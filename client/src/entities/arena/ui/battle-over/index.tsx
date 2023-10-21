@@ -1,6 +1,5 @@
 import { FC } from "react";
 import { arenaModel } from "entities/arena";
-import { IconShieldSword, IconSwords, IconTrophy } from "shared/assets/icons/_icons";
 import { Button } from "shared/ui/Button/ui";
 
 import { pointerMapModel } from "entities/pointer";
@@ -9,14 +8,17 @@ import { userModel } from "entities/user";
 import styles from './styles.module.scss'
 import { battleAPI, mapAPI } from "shared/api/events";
 import { popoutModel } from "shared/ui/PopoutRoot";
+import { IconBattleShield, IconBattleSwords } from "shared/assets/icons/_icons";
+import { IconTrophy } from "widgets/counters/icons/_icons";
 
 export const BattleOver: FC = () => {
 
-    const userId = userModel.selectors.useUserId()
+    // const userId = userModel.selectors.useUserId()
+    const user = userModel.selectors.useUser()
 
     const teams = arenaModel.selectors.useTeams().data
 
-    const userTeam = teams.find(team => team.members.find(member => member.userId === userId))
+    const userTeam = teams.find(team => team.members.find(member => member.userId === user.userId))
 
     teams.sort((a,b) => a.teamId === userTeam?.teamId ? -1 : 1)
 
@@ -31,12 +33,14 @@ export const BattleOver: FC = () => {
         battleAPI.events.setBattleStatus('default')
     }
 
+    const myTrophies = userTeam ? userTeam.members.find(pointer => pointer.userId === user.userId)?.trophies || 0 : 0
+
     return (
         <div className={styles.battleOver}>
             <div className={styles.__content}>
 
                 <div className={styles.__shield}>
-                    <IconShieldSword />
+                    <IconBattleShield width={68} height={68} />
                 </div>
 
                 {teams.map((team, i) => {
@@ -45,7 +49,7 @@ export const BattleOver: FC = () => {
 
                             {team.teamId === userTeam?.teamId && (<>
                                 <div className={styles.__swords}>
-                                    <IconSwords width={64} height={64} />
+                                    <IconBattleSwords width={52} height={52} />
                                 </div>
                                 <div className={styles.__header}>
                                     <div className={styles.__left}>
@@ -61,7 +65,8 @@ export const BattleOver: FC = () => {
                                             <IconTrophy width={34} height={34} />
                                         </div>
                                         <div className={styles.__text}>
-                                            {team.status === 'victory' ? '+' : ''}{userTeam.members.find(pointer => pointer.userId === userId)?.trophies}
+                                            {/* {team.status === 'victory' ? '+' : ''} */}
+                                            {myTrophies > 0 ? `+${myTrophies}` : myTrophies}
                                         </div>
                                     </div>
                                 </div>
@@ -71,7 +76,10 @@ export const BattleOver: FC = () => {
 
                                 {team.members.map(member => {
 
-                                    const pointer = pointers.find(pointer => pointer.userId === member.userId)
+                                    const pointer = (member.userId === user.userId) ? {
+                                        userName: user.userName,
+                                        icon: user.userIcon
+                                    } : pointers.find(pointer => pointer.userId === member.userId)
 
                                     return (
                                         <div className={styles.__user}>
@@ -81,7 +89,7 @@ export const BattleOver: FC = () => {
                                             </div>
 
                                             <div className={styles.__username}>
-                                                {pointer?.userName}
+                                                {pointer?.icon}
                                             </div>
 
                                             <div className={styles.__trophies}>
@@ -105,9 +113,9 @@ export const BattleOver: FC = () => {
                     )
                 })}
 
-                <div className={styles.__button}>
+                <div className={styles.button}>
                     <Button
-                        className=""
+                        className={styles.__button}
                         text="Ок"
                         onClick={leaveBattle}
                     />

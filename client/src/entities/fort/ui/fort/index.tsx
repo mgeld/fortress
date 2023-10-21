@@ -20,7 +20,7 @@ export const Fort: FC<FortProps> = ({ pos }) => {
                 key={1+h3Index}
                 className={`fort black-fort`}
                 center={[
-                    hexCenterCoordinates[0] - 0.00016,
+                    hexCenterCoordinates[0] - 0.00010,
                     hexCenterCoordinates[1] - 0.00002
                 ]}
                 pathOptions={{
@@ -28,7 +28,7 @@ export const Fort: FC<FortProps> = ({ pos }) => {
                     fillOpacity: 1,
                     stroke: false,
                 }}
-                radius={44}
+                radius={30}
             />
             <Circle
                 key={2+h3Index}
@@ -39,7 +39,7 @@ export const Fort: FC<FortProps> = ({ pos }) => {
                     fillOpacity: 1,
                     stroke: false,
                 }}
-                radius={44}
+                radius={30}
             />
             <Circle
                 key={3+h3Index}
@@ -50,7 +50,7 @@ export const Fort: FC<FortProps> = ({ pos }) => {
                     fillOpacity: 1,
                     stroke: false,
                 }}
-                radius={38}
+                radius={26}
             />
         </>
     )

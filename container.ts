@@ -58,6 +58,9 @@ import { ZoneService } from './services/zone.service'
 import { CitadelRepository } from './infra/database/mysql2/repositories/citadel'
 import { CitadelService } from './services/citadel.service'
 import { BattleLeaveHandler } from './controllers/battle-leave'
+import { VkUserRepository } from './infra/database/mysql2/repositories/vk-user'
+import { UseExtractionHandler } from './controllers/use-extraction'
+import { BeamHandler } from './controllers/beam'
 
 // import { Handlers } from './controllers/handlers'
 
@@ -73,6 +76,8 @@ container.bind(TYPES.Handlers).to(Handlers)
 container.bind(TYPES.ConnectHandler).to(ConnectHandler)
 container.bind(TYPES.DirectHandler).to(DirectHandler)
 container.bind(TYPES.FireHandler).to(FireHandler)
+container.bind(TYPES.BeamHandler).to(BeamHandler)
+
 container.bind(TYPES.TakeHandler).to(TakeHandler)
 container.bind(TYPES.BattleJoinHandler).to(BattleJoinHandler)
 container.bind(TYPES.BattleLeaveHandler).to(BattleLeaveHandler)
@@ -81,6 +86,8 @@ container.bind(TYPES.BattleDirectHandler).to(BattleDirectHandler)
 container.bind(TYPES.GetSectorsHandler).to(GetSectorsHandler)
 container.bind(TYPES.GetAboutSectorHandler).to(GetAboutSectorHandler)
 container.bind(TYPES.GetUserHandler).to(GetUserHandler)
+container.bind(TYPES.UseExtractionHandler).to(UseExtractionHandler)
+
 
 container.bind(TYPES.ArenaService).to(ArenaService)
 container.bind(TYPES.PointerService).to(PointerService)
@@ -105,6 +112,8 @@ container.bind<ISectorRepository>(TYPES.SectorRepository).to(SectorRepository)
 container.bind<IArealMemoryRepository>(TYPES.ArealMemoryRepository).to(ArealMemoryRepository)
 container.bind<ICitadelMemoryRepository>(TYPES.CitadelMemoryRepository).to(CitadelMemoryRepository)
 container.bind<ICitadelRepository>(TYPES.CitadelRepository).to(CitadelRepository)
+
+container.bind(TYPES.VkUserRepository).to(VkUserRepository)
 
 
 container.bind<IPointerRepository>(TYPES.PointerRepository).to(PointerRepository)

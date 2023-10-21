@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 import { Circle } from "react-leaflet";
 import { useHitFirePointer } from "../../hooks/use-hit-fire-pointer";
 
@@ -15,33 +15,38 @@ type TDroneProps = {
 const Drone: FC<TDroneProps> = ({
     health,
     pos,
-    size
+    size,
 }) => {
 
     const { fireHitTarget } = useHitFirePointer(health)
 
     const p = size * 3.14 / 3
-    const a = p * 0.7
-    const b = p * 0.3
+    const a = p * 0.6
+    const b = p * 0.4
+
+    const dashArrayDroneCircle = `${a} ${b}`
+    const weightDroneCircle = Math.ceil(p / 5)
+    const colorDroneCircle = fireHitTarget || health < 1 ? 'red' : '#7a29cc'
 
     return (
         <>
-            <Circle
+            {<Circle
+                // key={z ? '1' : '2'}
                 center={pos}
-                className="drone-circle"
+                className={"drone-circle"}
                 pathOptions={{
-                    dashArray: `${a} ${b}`,
-                    weight: 10,
-                    fillColor: fireHitTarget || health < 1 ? 'red' : '#3FF672',
-                    fillOpacity: 0.7,
-                    color: fireHitTarget || health < 1 ? 'red' : '#3FF672'
+                    dashArray: dashArrayDroneCircle,
+                    weight: weightDroneCircle,
+                    fillColor: colorDroneCircle,
+                    fillOpacity: 0.8,
+                    color: colorDroneCircle
                 }}
-                radius={48} // стало так
-            />
+                radius={30} // стало так
+            />}
             <Circle
                 center={pos}
                 className="drone-center"
-                radius={24}
+                radius={15}
                 color="white"
                 opacity={0.8}
                 fillColor="white"

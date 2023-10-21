@@ -13,11 +13,29 @@
     animation: 4s linear drone-rotate infinite;
     transform-box: fill-box;
     transform-origin: center center;
-    box-shadow: 2 2 5px black;
-    transition: 0.1s;
+    /* box-shadow: 2 2 5px black; */
+    transition: 0.3s;
 }
+.zoom-anim-map .drone-circle {
+    transition: 0s !important;
+}
+
 .drone-center {
-    transition: 0.1s;
+    transition: 0.3s;
+}
+
+.zoom-anim-map .drone-center {
+    transition: 0s !important;
+}
+/* .leaflet-zoom-anim .drone-circle {
+    transition: 0s !important;
+}
+.leaflet-zoom-anim .drone-center {
+    transition: 0s !important;
+} */
+
+.a {
+    color: #7a29cc;;
 }
 
 @keyframes drone-rotate {

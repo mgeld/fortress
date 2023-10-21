@@ -33,16 +33,24 @@
             position: absolute;
             display: flex;
             justify-content: center;
-            top: -36px;
+            top: -34px;
             z-index: 7;
         }
 
-        .__button {
+        .button {
             width: 100%;
             position: absolute;
             display: flex;
             justify-content: center;
-            bottom: -19px;
+            bottom: -18px;
+
+
+            .__button {
+                border: 2px solid black;
+                border-radius: 8px;
+                background-color: #9934C9;
+                // text-shadow: var(--text-stroke);
+            }
         }
 
 
@@ -64,10 +72,10 @@
             }
 
             &.team1 {
-                padding: 22px 12px;
+                padding: 28px 12px;
                 padding-bottom: calc(32px + 0px);
                 border-top: none;
-                box-shadow: 0px 4px 3px black;
+                box-shadow: 0px 2px 4px black;
             }
 
             border-radius: 10px;
@@ -75,8 +83,8 @@
             position: relative;
 
             .__swords {
-                width: 64px;
-                height: 64px;
+                width: 54px;
+                height: 54px;
                 position: absolute;
                 bottom: 0px;
                 left: 50%;
@@ -95,7 +103,7 @@
                 padding-bottom: 4px;
 
                 .__left {
-                    font-size: 24px;
+                    font-size: 22px;
                     color: white;
                     text-shadow: var(--text-stroke);
                 }
@@ -109,7 +117,8 @@
                     }
 
                     .__text {
-                        padding-left: 6px;
+                        font-size: 20px;
+                        padding-left: 8px;
                         text-shadow: var(--text-stroke);
                     }
 
@@ -131,12 +140,13 @@
                     padding: 12px 12px;
                     text-shadow: var(--text-stroke);
 
-                    // -webkit-text-stroke: 2px black;
-                    // paint-order: stroke fill;
-
                     .__icon {
+                        width: 56px;
+                        height: 56px;
 
                         img {
+                            width: 50px;
+                            height: 50px;
                             border-radius: 50%;
                             border: 3px solid white;
                         }
@@ -151,10 +161,10 @@
                         align-items: center;
 
                         height: 30px;
-                        background-color: rgba(0, 0, 0, 0.100);
+                        // background-color: rgba(0, 0, 0, 0.200);
 
-                        border: 2px solid black;
-                        border-radius: 6px;
+                        border: 2px solid rgba(255, 255, 255, 0.267);
+                        border-radius: 4px;
                         box-sizing: border-box;
 
                         position: relative;
@@ -175,19 +185,19 @@
                         }
 
                         .__text {
+                            z-index: 1;
+                            display: flex;
+                            color: white;
                             padding: 0 12px;
                             padding-left: 8px;
-                            color: white;
-                            display: flex;
                             justify-content: center;
                             align-items: center;
-                            z-index: 1;
 
                             &>span {
-                                white-space: nowrap;
                                 font-size: 18px;
-                                // -webkit-text-stroke: 1px black;
+                                white-space: nowrap;
                             }
+
                         }
 
                         &>.__whiteEffect {
@@ -196,14 +206,14 @@
                             box-sizing: border-box;
 
                             position: absolute;
-                            top: 3px;
+                            top: 0px;
                             left: 0px;
 
                             &>div {
                                 width: 100%;
                                 height: 50%;
-                                background-color: rgba(255, 255, 255, 0.5);
-                                border-radius: 12px;
+                                background-color: rgba(255, 255, 255, 0.4);
+                                border-radius: 3px;
                             }
                         }
 
@@ -218,18 +228,6 @@
             background: linear-gradient(0deg, #9934C9, #E85AFF, #9934C9);
         }
 
-        // .__text {
-        //     color: white;
-        //     font-size: 26px;
-        //     -webkit-text-stroke: 2px black;
-        //     padding: 24px 0px;
-
-        //     span {
-        //         font-size: 26px;
-        //         clip-path: inset(0 3ch 0 0);
-        //         animation: l 1.5s steps(10) infinite;
-        //     }
-        // }
     }
 }
 

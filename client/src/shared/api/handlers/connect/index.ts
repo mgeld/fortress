@@ -14,6 +14,8 @@ class ConnectHandler extends Handler {
         zoneAPI.events.setZoneRubies(message.payload.zone.rubies)
         zoneAPI.events.setZoneSectors(message.payload.zone.sectors)
         zoneAPI.events.setZoneTrophies(message.payload.zone.trophies)
+        
+        userAPI.events.setUser(message.payload.user.zoneId)
 
         if(message.payload.citadel) citadelAPI.events.setCitadel(message.payload.citadel)
 

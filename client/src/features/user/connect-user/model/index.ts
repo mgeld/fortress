@@ -10,12 +10,17 @@ sample({
   clock: connectUser,
   target: attach({
     source: {
-      userId: userModel.$userIdStore,
+      userVkId: userModel.$userVkIdStore,
       userName: userModel.$userNameStore,
+      userIcon: userModel.$userIconStore,
       pos: userModel.$userPositionStore,
     },
     effect: (user) => {
-      connectAPI(user.userId, user.userName, user.pos)
+      connectAPI(
+        user.userVkId, 
+        user.userName, 
+        user.userIcon,
+        user.pos)
     }
   })
 })

@@ -5,14 +5,15 @@ import { TDelPointer, THealthPointer, TUpdatePos } from "shared/api/events/point
 import { TLatLng } from 'shared/types'
 
 import bridge from "@vkontakte/vk-bridge";
+import { TPointer } from '@ctypes/model'
 
-export type TPointer = {
-    userId: number
-    userName?: string
-    health: number,
-    icon?: string,
-    pos: TLatLng
-}
+// export type TPointer = {
+//     userId: number
+//     health: number,
+//     name?: string
+//     icon?: string,
+//     pos: TLatLng
+// }
 
 const DEFAULT_STORE: TPointer[] = []
 
@@ -49,12 +50,15 @@ const getUsersFx = createEffect(async ({
 
     const user_ids: number[] = pointers.map(item => item.userId)
 
+    console.log('________user_ids', user_ids)
+    console.log('________pointers', pointers)
+
     return bridge.send('VKWebAppCallAPIMethod', {
         method: 'users.get',
         params: {
             user_ids: user_ids.join(','),
             v: '5.131',
-            fields: 'photo_50,photo_100',
+            fields: 'photo_50',
             access_token: '10811a2f10811a2f10811a2fdf1395cae51108110811a2f7425604c5854e1fbf0d0110c'
         }
     })
@@ -87,21 +91,21 @@ const getUsersFx = createEffect(async ({
 
 // getUsersFx.watch(values => console.log('IIIIIIIIIIIII getUsersFx', values))
 
-sample({
-    clock: setPointers,
-    fn: (clock) => ({
-        pointers: clock,
-        prevPointers: []
-    }),
-    target: getUsersFx
-})
+// sample({
+//     clock: setPointers,
+//     fn: (clock) => ({
+//         pointers: clock,
+//         prevPointers: []
+//     }),
+//     target: getUsersFx
+// })
 
 export const $pointersStore = createStore<TPointer[]>(DEFAULT_STORE)
-    // .on(getUsersFx.doneData, (_, pointers: TPointer[]) => {
-    //     console.log('IIIIIIIIIIIII getUsersFx.doneData', pointers)
-    //     return pointers
-    // })
-    // .on(newPointer, (prevPointers: TPointer[], pointer: TPointer) => ([...prevPointers, pointer]))
+    .on(setPointers, (_, pointers: TPointer[]) => {
+        // console.log('IIIIIIIIIIIII getUsersFx.doneData', pointers)
+        return pointers
+    })
+    .on(newPointer, (prevPointers: TPointer[], pointer: TPointer) => ([...prevPointers, pointer]))
     .on(delPointer, (prevPointers: TPointer[], data: TDelPointer) => prevPointers.filter(pointer => pointer.userId !== data.userId))
     .on(updatePositionPointer, (prevPointers: TPointer[], data: TUpdatePos) => (prevPointers.map(pointer => {
         if (pointer.userId === data.userId)
@@ -123,15 +127,15 @@ export const $pointersStore = createStore<TPointer[]>(DEFAULT_STORE)
 
 getUsersFx.doneData.watch(val => console.log('getUsersFx.doneData watch', val))
 
-sample({
-    clock: newPointer,
-    source: $pointersStore,
-    fn: (source, clock) => ({
-        pointers: [clock],
-        prevPointers: source
-    }),
-    target: getUsersFx
-})
+// sample({
+//     clock: newPointer,
+//     source: $pointersStore,
+//     fn: (source, clock) => ({
+//         pointers: [clock],
+//         prevPointers: source
+//     }),
+//     target: getUsersFx
+// })
 
 // $pointerStore = $pointersStore.map(getById,
 

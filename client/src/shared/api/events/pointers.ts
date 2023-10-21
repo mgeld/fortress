@@ -1,5 +1,6 @@
+import { TPointer } from "@ctypes/model";
 import { createEvent } from "effector";
-import { TPointer } from "entities/pointer/model/pointer-map";
+// import { TPointer } from "entities/pointer/model/pointer-map";
 import { TLatLng } from "shared/types";
 
 const setPointers = createEvent<TPointer[]>()

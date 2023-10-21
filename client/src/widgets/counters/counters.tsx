@@ -1,63 +1,12 @@
-import ProgressIcon from "shared/ui/ProgressIcon/ProgressIcon"
-import { ProgressBarCounter } from "shared/ui/ProgressBarCounter"
-import ProgressCounter from "shared/ui/ProgressCounter/ProgressCounter"
-import { IconLevelProgressBar, IconTrophyProgressBar } from "shared/assets/icons/_icons"
+import { Counter } from "shared/ui/Counter"
+import { IconCoin, IconExperience, IconSapphire, IconSector, IconTrophy, IconZone } from "./icons/_icons"
+import { CounterProgress } from "shared/ui/CounterProgress"
 
 import styles from './styles.module.scss'
-import { Counter } from "shared/ui/Counter"
-import { IconCoin, IconSapphire, IconSector, IconTrophy } from "./icons/_icons"
 
 export const Counters = () => {
     return (
         <>
-            <ProgressBarCounter
-                className={styles.__level}
-                icon={(
-                    <ProgressIcon fill="#50B3FB">
-                        <IconLevelProgressBar />
-                    </ProgressIcon>
-                )}
-                progress={(
-                    <ProgressCounter
-                        width={110}
-                        progress={70}
-                        progress_color="#50B3FB"
-                    />
-                )}
-            />
-
-            {/* <ProgressBarCounter
-                className={styles.__trophy}
-                icon={(
-                    <ProgressIcon fill="#BC69D9">
-                        <IconTrophyProgressBar />
-                    </ProgressIcon>
-                )}
-                progress={(
-                    <ProgressCounter
-                        width={100}
-                        progress={80}
-                        progress_color="#BC69D9"
-                    />
-                )}
-            /> */}
-
-            {/* <ProgressBarCounter
-                className={styles.__sector}
-                icon={(
-                    <ProgressIcon fill="#BC69D9">
-                        <IconSectorProgressBar />
-                    </ProgressIcon>
-                )}
-                progress={(
-                    <ProgressCounter
-                        width={100}
-                        progress={50}
-                        progress_color="#BC69D9"
-                    />
-                )}
-            /> */}
-
             <Counter
                 onClick={() => { }}
                 width={74}
@@ -97,6 +46,30 @@ export const Counters = () => {
                 )}
                 text="90"
             />
+
+            <CounterProgress
+                className={styles.__experience}
+                icon={(
+                    <IconExperience />
+                )}
+                progress={80}
+                color="#C163E0"
+                counter={332}
+                width={73}
+            />
+
+            <CounterProgress
+                className={styles.__zone}
+                icon={(
+                    <IconZone />
+                )}
+                progress={40}
+                color="#C163E0"
+                name={"Зона: 21 ур"}
+                counter={245}
+                width={73}
+            />
+
         </>
     )
 }

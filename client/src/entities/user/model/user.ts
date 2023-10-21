@@ -19,18 +19,21 @@ export type TActionPos = {
 const {
     setPos,
     setHealth,
-    changeHealth
+    changeHealth,
+
+    setUser
 } = userAPI.events
 
 // const DEFAULT_STORE_POSITION: TLatLng = [43.31, 45.68];
 const DEFAULT_STORE_POSITION: TLatLng = [0, 0]
 
 const movePoint = createEvent<TActionPos>()
-const setUser = createEvent<number>()
+
 const setName = createEvent<string>()
 const setUserIcon = createEvent<string>()
 
 const resetUser = createEvent()
+const setVkUser = createEvent<number>()
 
 const setAreal = createEvent<[TLatLng, TLatLng] | null>()
 
@@ -72,12 +75,13 @@ export const $userHealthStore = createStore(DEFAULT_STORE_HEALTH)
     .on(setHealth, (_, health) => health)
     .on(changeHealth, (health, damage) => health - damage)
 
-
 const DEFAULT_STORE_USER: number = 0
 export const $userIdStore = createStore(DEFAULT_STORE_USER)
     .on(setUser, (_, state) => state)
-
-
+    
+const DEFAULT_STORE_VK_USER: number = 0
+export const $userVkIdStore = createStore(DEFAULT_STORE_VK_USER)
+    .on(setVkUser, (_, state) => state)
 
 sample({
     clock: resetUser,
@@ -88,7 +92,7 @@ sample({
 
 export const events = {
     movePoint,
-    setUser,
+    setVkUser,
     setName,
     setUserIcon,
     resetUser,
@@ -98,6 +102,7 @@ export const events = {
 const useUser = () => {
     return {
         userId: useStore($userIdStore),
+        vkUserId: useStore($userIdStore),
         userName: useStore($userNameStore),
         userIcon: useStore($userIconStore),
         pos: useStore($userPositionStore),
@@ -105,6 +110,7 @@ const useUser = () => {
     }
 }
 
+const useVkUserId = () => useStore($userVkIdStore)
 const useUserId = () => useStore($userIdStore)
 const useUserPos = () => useStore($userPositionStore)
 const useUserHealth = () => useStore($userHealthStore)
@@ -114,6 +120,7 @@ const useAreal = () => useStore($arealStore)
 export const selectors = {
     useUser,
     useUserId,
+    useVkUserId,
     useUserPos,
     useUserHealth,
 

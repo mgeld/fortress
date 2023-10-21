@@ -12,6 +12,7 @@ type TPopout =
     | 'battle-over'
     | 'user-dead'
     | 'select-place'
+    | 'select-extraction'
     
 const setPopout = createEvent<TPopout | null>()
 

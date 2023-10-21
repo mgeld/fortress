@@ -33,7 +33,7 @@ export class SectorRepository implements ISectorRepository {
             defenders,
             lat,
             lng,
-            user_id,
+            zone_id,
             areal
         )VALUES(
             ?,
@@ -50,7 +50,7 @@ export class SectorRepository implements ISectorRepository {
             dtoSector.defenders,
             dtoSector.latlng[0],
             dtoSector.latlng[1],
-            dtoSector.user_id,
+            dtoSector.zone_id,
             // dtoSector.areal
         ])
 
@@ -67,7 +67,7 @@ export class SectorRepository implements ISectorRepository {
                 dtoSector.defenders,
                 dtoSector.latlng[0],
                 dtoSector.latlng[1],
-                dtoSector.user_id,
+                dtoSector.zone_id,
                 dtoSector.areal
             ]
         })
@@ -83,13 +83,13 @@ export class SectorRepository implements ISectorRepository {
                     defenders,
                     lat,
                     lng,
-                    user_id,
+                    zone_id,
                     areal
                 )VALUES ?
                 ON DUPLICATE KEY UPDATE
                     invaders=VALUES(invaders),
                     defenders=VALUES(defenders),
-                    user_id=VALUES(user_id);
+                    zone_id=VALUES(zone_id);
             `, [sqlSectors])
 
             return true
@@ -115,7 +115,7 @@ export class SectorRepository implements ISectorRepository {
                     id,
                     number,
                     CONCAT("[",lat,",",lng,"]") as latlng,
-                    user_id,
+                    zone_id,
                     invaders,
                     defenders,
                     areal
@@ -153,7 +153,7 @@ export class SectorRepository implements ISectorRepository {
                 id,
                 number,
                 CONCAT("[",lat,",",lng,"]") as latlng,
-                user_id,
+                zone_id,
                 invaders,
                 defenders,
                 areal
@@ -173,7 +173,7 @@ export class SectorRepository implements ISectorRepository {
                 id,
                 number,
                 CONCAT("[",lat,",",lng,"]") as latlng,
-                user_id,
+                zone_id,
                 invaders,
                 defenders,
                 areal

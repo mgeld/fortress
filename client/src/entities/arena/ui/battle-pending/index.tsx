@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { IconLoupe, IconShieldSword, IconSwords } from "shared/assets/icons/_icons";
+import { IconBattleShield, IconLoupe, IconBattleSwords, IconBattleLoupe } from "shared/assets/icons/_icons";
 import { Button } from "shared/ui/Button/ui";
 
 import styles from './styles.module.scss'
@@ -22,22 +22,22 @@ export const BattlePending: FC = () => {
             <div className={styles.__content}>
 
                 <div className={styles.__shield}>
-                    <IconShieldSword />
+                    <IconBattleShield width={68} height={68} />
                 </div>
 
                 <div className={styles.__swords}>
-                    <IconSwords width={76} height={76} />
+                    <IconBattleSwords width={56} height={56} />
                 </div>
                 <div className={styles.__text}>
                     Поиск противников<span>...</span>
                 </div>
                 <div className={styles.__search}>
-                    <IconLoupe />
+                    <IconBattleLoupe />
                 </div>
 
-                <div className={styles.__button}>
+                <div className={styles.button}>
                     <Button
-                        className=""
+                        className={styles.__button}
                         text="Прервать"
                         onClick={breakBattlePending}
                     />

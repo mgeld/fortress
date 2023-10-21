@@ -39,6 +39,7 @@ export class Handlers {
     constructor(
         @inject(TYPES.FireHandler) private fire: IRoute,
         @inject(TYPES.TakeHandler) private take: IRoute,
+        @inject(TYPES.BeamHandler) private beam: IRoute,
         @inject(TYPES.DirectHandler) private direct: IRoute,
         @inject(TYPES.ConnectHandler) private connect: IRoute,
         @inject(TYPES.BattleJoinHandler) private battleJoin: IRoute,
@@ -48,6 +49,7 @@ export class Handlers {
         @inject(TYPES.GetSectorsHandler) private getSectors: IRoute,
         @inject(TYPES.GetAboutSectorHandler) private getAboutSector: IRoute,
         @inject(TYPES.GetUserHandler) private getUser: IRoute,
+        @inject(TYPES.UseExtractionHandler) private useExtraction: IRoute,
     ) { }
 
     handle(

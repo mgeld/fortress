@@ -28,9 +28,10 @@ export class PointerService {
     }
 
     create(
-        userId: number,
+        zoneId: number,
         pos: TLatLng,
         name: string,
+        icon: string,
         weapon: Weapon
     ): Pointer {
 
@@ -42,29 +43,16 @@ export class PointerService {
         const DEFAULT_INVADERS = 100
         const DEFAULT_DEFENDERS = 100
 
-        // const DEFAULT_RUBIES = 100
-        // const DEFAULT_COINS = 100
-
-        // const DEFAULT_SECTORS = 0
-        // const DEFAULT_TROPHIES = 100
-
         const pointer = Pointer.create({
-            id: userId,
-            zoneId: 0,
+            zoneId,
             
-            name: name,
+            name,
+            icon,
 
             health: DEFAULT_HEALTH,
             color: DEFAULT_COLOR,
 
-            // rubies: DEFAULT_RUBIES,
-            // coins: DEFAULT_COINS,
-
-            // sectors: DEFAULT_SECTORS,
-            // trophies: DEFAULT_TROPHIES,
-
-            invaders: DEFAULT_INVADERS,
-            defenders: DEFAULT_DEFENDERS,
+            // invaders: DEFAULT_INVADERS,
 
             weapons: [weapon.id],
 
@@ -72,6 +60,10 @@ export class PointerService {
         })
 
         return pointer
+    }
+
+    increaseExperience() {
+        
     }
 
     getByIds(userIds: number[]): Promise<Pointer[]> {

@@ -1,6 +1,6 @@
+import { TTakeAPI } from "@ctypes/socket/client-to-server"
 import { WS } from "processes/socket"
 import { TLatLng } from "shared/types"
-import { TTakeAPI } from "../../../../common-types/socket/client-to-server"
 
 export const takeAPI = (
     position: TLatLng,
@@ -8,6 +8,7 @@ export const takeAPI = (
     sector: string,
     userId: number,
 ) => {
+    
     const data: TTakeAPI = {
         event: 'take',
         payload: {
@@ -17,6 +18,6 @@ export const takeAPI = (
             userId,
         }
     }
-    
+
     WS.sendData(data)
 }

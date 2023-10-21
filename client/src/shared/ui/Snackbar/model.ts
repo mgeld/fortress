@@ -14,17 +14,19 @@ type TToast = {
     text: string
 }
 
-type TTypeTost =
+type TTypeToast =
     | 1 // 'take-sector'
     | 2 // 'add-sector-invader'
     | 3 // 'killed-fort-defenders'
     | 4 // 'killed-invader'
     | 5 // 'you-zone-fit'
     | 6 // 'mine-explosion'
+    | 7 // 'container-found
+    | 8 // 'container-not-found
 
 type TTostProps = {
     text: string
-    t: TTypeTost
+    t: TTypeToast
 }
 const newToast = createEvent<TTostProps>()
 

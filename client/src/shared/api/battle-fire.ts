@@ -1,7 +1,7 @@
 import { WS } from "processes/socket"
 import { TJoystickDirection, TLatLng } from "shared/types"
-import { TBattleFireAPI, TFireAPI } from "../../../../common-types/socket/client-to-server"
 import { THitPointer } from '@ctypes/model'
+import { TBattleFireAPI } from "@ctypes/socket/client-to-server"
 
 export const battleFireAPI = (
     position: TLatLng,

@@ -1,5 +1,5 @@
 import { PointerCreator } from "./pointer-creator";
-import IconPointer from '../assets/icons/pointer.png';
+import IconPointer from '../assets/icons/3pointer.png';
 
 export const createPointer = (
     username: string,

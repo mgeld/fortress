@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { IconShieldSword, IconTrophy } from "shared/assets/icons/_icons";
+import { IconBattleShield } from "shared/assets/icons/_icons";
 import { Button } from "shared/ui/Button/ui";
 
 import { arenaModel } from "entities/arena";
@@ -11,6 +11,7 @@ import { mapAPI, userAPI } from "shared/api/events";
 import { citadelModel } from "entities/citadel";
 import { TLatLng } from "shared/types";
 import { popoutModel } from "shared/ui/PopoutRoot";
+import { IconTrophy } from "widgets/counters/icons/_icons";
 
 export const UserDead: FC = () => {
 
@@ -52,7 +53,7 @@ export const UserDead: FC = () => {
 
                     <div className={styles.__main}>
                         <div className={styles.__swords}>
-                            <IconShieldSword width={64} height={64} />
+                            <IconBattleShield width={64} height={64} />
                         </div>
                         <div className={styles.__info}>
                             Ваш дрон потерпел крушение. Вернуться в цитадель или продолжить наблюдать за областью?

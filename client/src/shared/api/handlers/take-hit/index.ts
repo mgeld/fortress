@@ -1,4 +1,4 @@
-import { sectorsAPI } from "shared/api/events";
+import { extractionAPI, sectorsAPI } from "shared/api/events";
 import { Handler } from "..";
 import { TTakeHit } from '@ctypes/socket/server-to-client'
 import { snackbarModel } from "shared/ui/Snackbar";
@@ -7,11 +7,15 @@ let timeId: ReturnType<typeof setTimeout>
 
 class TakeHitHandler extends Handler {
     handle(message: TTakeHit) {
-        sectorsAPI.events.setTakeFort(message.payload)
 
-        switch (message.payload.status) {
+        console.log('TakeHitHandler message', message)
+
+        const hit = message.payload.hit
+        sectorsAPI.events.setTakeFort(hit)
+
+        switch (hit.status) {
             case 'defense':
-                if (message.payload.defenders === 1) {
+                if (hit.defenders === 1) {
                     snackbarModel.events.newToast({
                         text: 'Сектор захвачен!',
                         t: 1
@@ -23,7 +27,7 @@ class TakeHitHandler extends Handler {
                     })
                 break;
             case 'victory':
-                if (message.payload.defenders === 0)
+                if (hit.defenders === 0)
                     snackbarModel.events.newToast({
                         text: 'Сектор захвачен!',
                         t: 1

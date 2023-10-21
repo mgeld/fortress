@@ -1,6 +1,5 @@
 import { injectable, inject } from 'inversify'
 import { TYPES } from '../../../../types'
-import { PointerMapper } from '../../mappers/pointer'
 import { MemoryData } from '../memory-data'
 import { UnmarshalledZone, Zone } from '../../../../entities/zone/zone'
 import { ZoneMapper } from '../../mappers/zone'

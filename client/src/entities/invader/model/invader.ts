@@ -15,13 +15,13 @@ const DEFAULT_STORE: TTake[] = []
 // const setTake = createEvent()
 
 const {
-    setTakes,
+    // setTakes,
     addTake,
     delTakeById,
 } = takesAPI.events
 
 const $invadersStore = createStore<TTake[]>(DEFAULT_STORE)
-    .on(setTakes, (_, invaders: TTake[]) => invaders)
+    // .on(setTakes, (_, invaders: TTake[]) => invaders)
     .on(addTake, (invaders: TTake[], invader: TTake) => ([...invaders, invader]))
     .on(delTakeById, (invaders: TTake[], invader: TTakeId) => (invaders.slice().filter(item => {
         if (item.id === invader.take_id)

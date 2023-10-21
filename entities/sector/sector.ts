@@ -1,17 +1,21 @@
-import { TLatLng } from "../../common-types/model"
+import { TFindContType, TLatLng } from "../../common-types/model"
 
 export type TSectorProps = {
     id: string
     number?: number
     latlng: TLatLng
-    user_id: number
+    zone_id: number
     defenders?: number
     invaders?: number
+
+    booty?: TFindContType | 0
 
     areal: number
 }
 
 export type UnmarshalledSector = Required<TSectorProps>
+
+type LeaveSectorStatus = 'invader' | 'defender' | null
 
 export class Sector {
 
@@ -20,9 +24,12 @@ export class Sector {
     private _number: number
     
     private _latlng: TLatLng
-    private _user_id: number
+    private _zone_id: number
+    
     private _defenders: number
     private _invaders: number
+
+    private _booty: TFindContType | 0
 
     private _areal: number
 
@@ -30,9 +37,10 @@ export class Sector {
         this._id = sector.id
         this._number = sector?.number || 0
         this._latlng = sector.latlng
-        this._user_id = sector.user_id
+        this._zone_id = sector.zone_id
         this._defenders = sector.defenders || 0
         this._invaders = sector.invaders || 0
+        this._booty = sector.booty || 0
         this._areal = sector.areal
     }
 
@@ -45,44 +53,66 @@ export class Sector {
             id: this._id,
             number: this._number,
             latlng: this._latlng,
-            user_id: this._user_id,
+            zone_id: this._zone_id,
             defenders: this._defenders,
             invaders: this._invaders,
+            booty: this._booty,
             areal: this._areal
         }
     }
 
-    invade(
-        invader_user: number,
-        invaders: number
-    ): 'defense' | 'victory' | 'defeat' {
+    generateBooty(): TFindContType {
+        const container = Math.random() < 0.2 ? 3 : Math.random() < 0.6 ? 2 : 1
+        this._booty = container
+        return container
+    }
 
+    takenBooty() {
+        this._booty = 0
+    }
+
+    public static probabilityGettingExtractionInFort(pos: TLatLng): boolean {
+        const probabilityNumber = Math.ceil((+pos[0].toString().slice(-1) + +pos[1].toString().slice(-1)))
+
+        console.log('pos', pos)
+        console.log('probabilityNumber', probabilityNumber)
+
+        return probabilityNumber <= 6
+
+    }
+
+    invade(invader_user: number): 'defense' | 'victory' | 'defeat' {
+
+        // Если это мой сектор
+        // И на секторе нет чужих штурмовиков
         if (
-            invader_user === this._user_id &&
+            invader_user === this._zone_id &&
             this._invaders === 0
         ) {
+            // Добавляет стража
             this.addDefender()
             return 'defense'
         } else {
             const winner = this.fightWinner()
 
+            // Если это мой сектор
             // Если победил мой защитник (внешний защитник (захватчик)) на моем секторе
             // И на секторе есть чужие захватчики
-            if (winner === 'defender' && invader_user === this._user_id) {
+            if (invader_user === this._zone_id && winner === 'defender') {
 
                 this.killInvader()
                 this.addDefender()
 
                 return 'victory'
-            } else if (winner === 'invader' && invader_user === this._user_id) {
+            } else if (invader_user === this._zone_id && winner === 'invader') {
 
                 return 'defeat'
 
-            } else if (winner === 'defender' && invader_user !== this._user_id) {
+            } else if (invader_user !== this._zone_id && winner === 'defender') {
 
                 return 'defeat'
 
-            } else if (winner === 'invader' && invader_user !== this._user_id) {
+            } else if (invader_user !== this._zone_id && winner === 'invader') {
 
                 this.killDefender()
                 this.addInvader()
@@ -90,17 +120,30 @@ export class Sector {
                 return 'victory'
 
             }
-
             return 'defense'
 
         }
 
     }
 
+    leaveGuard(user: number): LeaveSectorStatus {
+        let isLeave: LeaveSectorStatus = null
+        if (user === this._zone_id) {
+            if(this._invaders > 0) {
+                this.killInvader()
+                isLeave = 'invader'
+            } else if(this._defenders > 1) {
+                this.killDefender()
+                isLeave = 'defender'
+            }
+        }
+        return isLeave
+    }
+
     // Меняем владельца
     public setOwner(new_owner_id: number) {
         if (this._defenders === 0) {
-            this._user_id = new_owner_id
+            this._zone_id = new_owner_id
             this._defenders = this._invaders
             this._invaders = 0
         }
@@ -139,8 +182,8 @@ export class Sector {
         return this._invaders
     }
 
-    get user_id(): number {
-        return this._user_id
+    get zone_id(): number {
+        return this._zone_id
     }
 
     get defenders(): number {
@@ -149,6 +192,10 @@ export class Sector {
 
     get latlng(): TLatLng {
         return this._latlng
+    }
+
+    get booty() {
+        return this._booty
     }
 
 }

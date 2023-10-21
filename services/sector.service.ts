@@ -15,12 +15,12 @@ export class SectorService {
     create({
         id,
         latlng,
-        user_id,
+        zone_id,
     }: TCreateSectorProps): Sector {
         return Sector.create({
             id,
             latlng,
-            user_id,
+            zone_id,
             areal: Areal.generator(latlng)
         })
     }
@@ -39,16 +39,16 @@ export class SectorService {
     async getZonesAroundPosition(position: TLatLng): Promise<Record<number, TZoneItem>> {
         const _sectors = await this.getBoundsSectors(position)
         const sectors: Record<number, TZoneItem> = _sectors.reduce((zoneItems, item) => {
-            if (!zoneItems[item.user_id]) {
-                zoneItems[item.user_id] = {} as TZoneItem
-                zoneItems[item.user_id]['zone'] = {
-                    zone_id: item.user_id,
+            if (!zoneItems[item.zone_id]) {
+                zoneItems[item.zone_id] = {} as TZoneItem
+                zoneItems[item.zone_id]['zone'] = {
+                    zone_id: item.zone_id,
                     name: '',
                     color: 1
                 }
-                zoneItems[item.user_id]['sectors'] = []
+                zoneItems[item.zone_id]['sectors'] = []
             }
-            zoneItems[item.user_id]['sectors'].push(item.id)
+            zoneItems[item.zone_id]['sectors'].push(item.id)
             return zoneItems
 
         }, {} as Record<number, TZoneItem>)

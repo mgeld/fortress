@@ -24,7 +24,7 @@ export const Citadel: FC = () => {
     const h3Index = latLngToCell(pos[0], pos[1], 9)
 
     const rebro = originToDirectedEdges(h3Index)
-    const w = Math.ceil(edgeLength(rebro[0], UNITS.m) / 2)
+    const w = Math.ceil(edgeLength(rebro[0], UNITS.m) / 4)
 
     console.log('//////////// mmmmmmmmmmmmmmmmm', w)
 

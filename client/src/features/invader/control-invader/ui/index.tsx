@@ -1,6 +1,5 @@
 import { FC } from "react";
 
-import { Joystick as Control } from 'react-joystick-component';
 import { invaderControl } from "../model";
 
 import styles from './styles.module.scss'

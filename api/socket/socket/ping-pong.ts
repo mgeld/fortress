@@ -20,7 +20,7 @@ export class PingPong {
 
     public async deleteUser(userId: number) {
         const _pointer = await this._pointerService.memoryGetById(userId)
-        this._rooms.areals.deleteClient(_pointer.id, _pointer.areal)
+        this._rooms.areals.deleteClient(_pointer.zoneId, _pointer.areal)
         await this._pointerService.baseInsert(_pointer)
     }
 

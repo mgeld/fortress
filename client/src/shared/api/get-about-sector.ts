@@ -5,7 +5,6 @@ export const getAboutSectorAPI = (
     id: string
 ) => {
 
-    console.log('qqqqqqqqqqqqqqqqqqqqqqqq getAboutSectorAPI')
     const data: TGetAboutSectorAPI = {
         event: 'getAboutSector',
         payload: {

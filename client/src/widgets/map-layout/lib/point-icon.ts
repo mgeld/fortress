@@ -8,7 +8,7 @@ export const pointIcon = (iconUrl: string) => {
     return createIcon({
         className: "__iconPointer",
         iconUrl,
-        iconSize: [50, 86],
-        iconAnchor: [25, 78],
+        iconSize: [54, 70],
+        iconAnchor: [27, 70],
     })
 }

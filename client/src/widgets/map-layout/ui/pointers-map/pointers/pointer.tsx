@@ -1,7 +1,8 @@
 import { FC } from "react";
-import { TPointer } from "entities/pointer/model/pointer-map";
+// import { TPointer } from "entities/pointer/model/pointer-map";
 import { PointIcon } from "entities/pointer/ui/point-icon";
 import Health from "entities/pointer/ui/health";
+import { TPointer } from "@ctypes/model";
 
 type TPointProps = {
     pointer: TPointer
@@ -20,7 +21,7 @@ const Pointer: FC<TPointProps> = ({ pointer }) => {
             <PointIcon
                 position={pointer.pos}
                 userIcon={pointer.icon || ''}
-                userName={pointer.userName || ''}
+                userName={pointer.name || ''}
             />
         </>
 
