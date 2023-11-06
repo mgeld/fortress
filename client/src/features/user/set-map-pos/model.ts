@@ -19,7 +19,7 @@ const setPosFx = createEffect(({
     pos: TLatLng
 }) => {
     source.map.setMaxBounds([[-90, -180], [90, 180]])
-    source.map.flyTo(pos, 15, {
+    source.map.flyTo(pos, 16, {
         animate: true,
         duration: 2
     })

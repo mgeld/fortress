@@ -11,8 +11,7 @@ import { Sector } from "../entities/sector/sector";
 import { Logs } from "../infra/logs/takes";
 import { ZoneService } from "../services/zone.service";
 import { CitadelService } from "../services/citadel.service";
-import { TExtrTypes, TFindContType } from "../common-types/model";
-import { Extraction } from "../entities/zone/extraction";
+import { TFindContType } from "../common-types/model";
 
 @injectable()
 class TakeHandler extends IRoute {
@@ -34,11 +33,13 @@ class TakeHandler extends IRoute {
     ) {
         console.log('TakeHandler handle')
 
-        const _pointer = await this._pointerService.memoryGetById(message.payload.userId)
+        if (!uSocket.user_id) return
+
+        const _pointer = await this._pointerService.memoryGetById(uSocket.user_id)
         // _pointer.leaveInvader()
 
         let _sector: Sector
-        let _invaders: number = 0
+        let prevZoneId: number = 0
 
         let takeHit: TTakeHitPayload = {} as TTakeHitPayload
         let takeSector: TTakeSectorPayload | null = null
@@ -59,7 +60,7 @@ class TakeHandler extends IRoute {
                 defenders: _sector.defenders
             } as TTakeHitPayload
 
-            // Если я победил и на секторе больше нет защитников
+            // Если я победил
             if (status === 'victory') {
 
                 const _prevZone = await this._zoneService.getById(_sector.zone_id)
@@ -67,11 +68,14 @@ class TakeHandler extends IRoute {
 
                 zone.terrain.newDefender()
 
+                // Если на секторе больше нет защитников
                 if (_sector.defenders === 0) {
 
-                    // const pos = message.payload.position
+                    prevZoneId = _prevZone.id
 
+                    // Убираем один сектор у пред-го владельца
                     _prevZone.terrain.loseSector()
+
                     zone.terrain.addSector()
 
                     takeSector = {
@@ -191,11 +195,6 @@ class TakeHandler extends IRoute {
         setTimeout(() => {
             if (takeSector) {
 
-                // if (c) {
-                //     takeHitResp.payload.extr = extr.id
-                //     uSocket.send(JSON.stringify(takeHitResp))
-                // }
-
                 if (isBooty) {
                     const resp: TFindCont = {
                         event: 'find-cont',
@@ -207,10 +206,24 @@ class TakeHandler extends IRoute {
                     uSocket.send(JSON.stringify(resp))
                 }
 
+                // Отправляем себе
+                uSocket.send(JSON.stringify({
+                    event: 'y-take-sector',
+                    payload: takeSector
+                }))
+
+                // Отправляем остальным игрокам из области
                 this._rooms.areals.broadcast(_pointer.areal, {
                     event: 'take-sector',
                     payload: takeSector
-                })
+                }, _pointer.zoneId)
+
+                if (prevZoneId) {
+                    this._rooms.areals.clientSocket(prevZoneId, _pointer.areal, {
+                        event: 'yr-take-sector',
+                        payload: takeSector
+                    })
+                }
 
             } else {
                 uSocket.send(JSON.stringify(takeHitResp))
@@ -220,9 +233,9 @@ class TakeHandler extends IRoute {
         this._sectorService.memoryInsert(_sector)
 
         const take: TTakePayload = {
-            position: message.payload.position,
+            position: _pointer.pos,
             fort: message.payload.fort,
-            userId: message.payload.userId,
+            userId: _pointer.zoneId,
         }
 
         this._rooms.areals.broadcast(_pointer.areal, {

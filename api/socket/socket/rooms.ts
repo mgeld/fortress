@@ -75,6 +75,17 @@ class CollectionRooms {
         }
     }
 
+    clientSocket(
+        clientId: number, 
+        roomId: TRoomId,
+        message: TMessage
+    ) {
+        const client = this.data[roomId][clientId]
+        if(client) {
+            client.send(JSON.stringify((message)))
+        }
+    }
+
     broadcast(
         roomId: TRoomId,
         message: TMessage,

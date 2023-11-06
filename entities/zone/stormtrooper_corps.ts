@@ -35,6 +35,11 @@ export class StormtrooperCorps {
         }
     }
 
+    increasePower(power: number): number {
+        this._power = this._power + power
+        return this._power
+    }
+
     arriveInvader(): number {
         this._invaders = this._invaders + 1
         return this._invaders

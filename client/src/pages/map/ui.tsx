@@ -6,14 +6,18 @@ import { NavBattle, NavBooty, NavShop } from "widgets/map-buttons";
 import { NavMenu } from "widgets/map-buttons/menu";
 import MapLayout from "widgets/map-layout/ui/map-layout";
 
+import styles from './styles.module.scss'
+
 export const MapPage: FC = () => {
     return (
         <div className='mapPage'>
-            <NavBooty />
 
-            <NavShop />
+            {/* <NavShop /> */}
 
-            <NavBattle />
+            <div className={styles.nav}>
+                <NavBattle />
+                <NavBooty />
+            </div>
 
             <NavMenu />
 

@@ -61,8 +61,8 @@ export class ZoneService {
         const stormtrooper_corps = {
             level: 1,
             // exp: 0,
-            invaders: 0,
-            power: 0,
+            invaders: 100,
+            power: 1,
         }
         
         const guard_corps = {

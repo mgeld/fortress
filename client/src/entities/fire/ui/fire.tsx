@@ -26,6 +26,8 @@ export const Fire: FC<TFireProps> = ({
 
     const fireClassName = `l${time_fire}`
 
+    console.log('fireClassName', fireClassName)
+
     console.log('time_fire', time_fire)
 
     useEffect(() => {
@@ -34,9 +36,6 @@ export const Fire: FC<TFireProps> = ({
 
     return (
         <>
-            {/* <Rectangle
-                bounds={bounds}
-            /> */}
             <Circle
                 center={pos}
                 className={`${styles.__fire} ${fireClassName}`}
@@ -45,7 +44,7 @@ export const Fire: FC<TFireProps> = ({
                     stroke: false,
                     fillOpacity: 1
                 }}
-                radius={18}
+                radius={15}
             />
         </>
     )

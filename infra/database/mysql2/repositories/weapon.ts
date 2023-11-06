@@ -1,10 +1,10 @@
 import { injectable, inject } from 'inversify'
 import { IWeaponRepository } from '../../../../entities/repository'
-import { UnmarshalledWeapon, Weapon } from '../../../../entities/weapon/weapon'
 import { TYPES } from '../../../../types'
 import { WeaponMapper } from '../../mappers/weapon'
 import { Pool, RowDataPacket } from 'mysql2/promise'
 import { entries } from '../../../../libs/object-entries'
+import { UnmarshalledWeapon, WeaponType } from '../../../../entities/weapon/types'
 
 type IWeaponRowData = {
     id?: string
@@ -19,13 +19,15 @@ type IWeaponRowData = {
 export class WeaponRepository implements IWeaponRepository {
     @inject(TYPES.connection) private _connection!: Pool
 
-    async getWeapons(ids: string[]): Promise<Weapon[]> {
+    async getWeapons(ids: string[]): Promise<WeaponType[]> {
         const [result] = await this._connection.query<UnmarshalledWeapon[] & RowDataPacket[]>(
             `SELECT
                 id,
                 weapon,
-                bullets,
                 level,
+                power,
+                distance,
+                bullets,
                 status
             FROM
                 weapons
@@ -38,13 +40,15 @@ export class WeaponRepository implements IWeaponRepository {
         return result.map(weapon => WeaponMapper.toDomain(weapon))
     }
 
-    async getById(_id: string): Promise<Weapon> {
+    async getById(_id: string): Promise<WeaponType> {
         const [[result]] = await this._connection.query<UnmarshalledWeapon[] & RowDataPacket[]>(
             `SELECT
                 id,
                 weapon,
-                bullets,
                 level,
+                power,
+                distance,
+                bullets,
                 status
             FROM
                 weapons
@@ -59,17 +63,21 @@ export class WeaponRepository implements IWeaponRepository {
 
     }
 
-    async insert(weapon: Weapon): Promise<Weapon> {
+    async insert(weapon: WeaponType): Promise<WeaponType> {
         const dtoWeapon = weapon.unmarshal()
         console.log('WEAPON ID ///// ', dtoWeapon.id)
         const inserted = await this._connection.execute(`
             INSERT INTO weapons(
                 id,
                 weapon,
-                bullets,
                 level,
+                power,
+                distance,
+                bullets,
                 status
             )VALUES(
+                ?,
+                ?,
                 ?,
                 ?,
                 ?,
@@ -79,14 +87,16 @@ export class WeaponRepository implements IWeaponRepository {
         `, [
             dtoWeapon.id,
             dtoWeapon.weapon,
-            dtoWeapon.bullets,
             dtoWeapon.level,
+            dtoWeapon.power,
+            dtoWeapon.distance,
+            dtoWeapon.bullets,
             dtoWeapon.status,
         ])
         return weapon
     }
 
-    async update(weapon: Weapon): Promise<Weapon> {
+    async update(weapon: WeaponType): Promise<WeaponType> {
         
         const dtoWeapon = weapon.unmarshal()
 

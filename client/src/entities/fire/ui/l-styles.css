@@ -1,5 +1,5 @@
 .l1 {
-    transition: 0.1s;
+    transition: 0.2s;
 }
 .l2 {
     transition: 0.2s;
@@ -15,4 +15,10 @@
 }
 .l6 {
     transition: 0.6s;
+}
+.l7 {
+    transition: 0.6s;
+}
+.l8 {
+    transition: 0.8s;
 }

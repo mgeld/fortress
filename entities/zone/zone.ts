@@ -19,6 +19,7 @@ export type TZoneProps = {
     extraction: Extraction
 
     trophies: number
+
     coins: number
     rubies: number
 }
@@ -44,6 +45,7 @@ export type UnmarshalledZone = {
 export class Zone {
 
     // private _id: string
+
     private _id: number
 
     private _trophies: number
@@ -58,17 +60,11 @@ export class Zone {
     private _rank: Rank
 
     private _stormtrooper_corps: StormtrooperCorps
-    // private _guard_corps: GuardCorps
-    
-    // private _defenders: number
 
     private _extraction: Extraction
 
     private constructor(zone: TZoneProps) {
         this._id = zone.id || 0
-        // this._zoneId = zone?.zoneId || 0
-
-        // this._sectors = zone.sectors
 
         this._trophies = zone.trophies
 
@@ -80,8 +76,6 @@ export class Zone {
         this._rank = zone.rank
         this._terrain = zone.terrain
 
-        // this._guard_corps = zone.guard_corps
-        // this._defenders = zone.defenders
         this._stormtrooper_corps = zone.stormtrooper_corps
         
         this._extraction = zone.extraction
@@ -96,7 +90,6 @@ export class Zone {
     public unmarshal(): UnmarshalledZone {
         return {
             id: this._id,
-            // zoneId: this._zoneId,
 
             color: this.color,
 
@@ -105,18 +98,10 @@ export class Zone {
             coins: this._coins,
             rubies: this._rubies,
 
-            // // Terrain
-            // level: this._terrain.level,
-            // sectors: this._terrain.sectors,
-            // exp: this._rank.exp,
-            // tempExp: this._rank.tempExp,
-
             terrain: this._terrain.unmarshal(),
             rank: this._rank.unmarshal(),
 
             stormtrooper_corps: this._stormtrooper_corps.unmarshal(),
-            // guard_corps: this._guard_corps.unmarshal(),
-            // defenders: this._defenders,
 
             extraction: this._extraction.unmarshal()
 
@@ -126,10 +111,6 @@ export class Zone {
     get id(): number {
         return this._id
     }
-
-    // get zoneId(): number {
-    //     return this._zoneId
-    // }
 
     set id(id: number) {
         this._id = id
@@ -151,16 +132,13 @@ export class Zone {
         return this._stormtrooper_corps
     }
 
-    // get guard_corps() {
-    //     return this._guard_corps
-    // }
-
     get extraction() {
         return this._extraction
     }
 
-    // get sectors() {
-    //     return this._sectors
-    // }
+    spendСoins(coins: number): number {
+        this._coins = this._coins - coins
+        return this._coins
+    }
 
 }

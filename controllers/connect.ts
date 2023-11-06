@@ -3,8 +3,6 @@ import { inject, injectable } from "inversify";
 import { IWebSocket } from "../api/socket/server";
 import { TConnectAPI, TEventConnect } from "../common-types/socket/client-to-server";
 import { Pointer } from "../entities/pointer/pointer";
-import { Gun } from "../entities/weapon/gun";
-import { Weapon } from "../entities/weapon/weapon";
 import { PointerService } from "../services/pointer.service";
 import { WeaponService } from "../services/weapon.service";
 import { TYPES } from "../types";
@@ -15,6 +13,7 @@ import { CitadelService } from "../services/citadel.service";
 import { Citadel } from "../entities/citadel/citadel";
 import { TConnectPayload } from "../common-types/socket/server-to-client";
 import { VkUserRepository } from "../infra/database/mysql2/repositories/vk-user";
+import { WeaponType } from "../entities/weapon/types";
 
 @injectable()
 class ConnectHandler implements IRoute {
@@ -43,7 +42,7 @@ class ConnectHandler implements IRoute {
         const USER_ICON = message.payload.icon
 
         let pointer: Pointer
-        let weapon: Weapon
+        let weapon: WeaponType
         let zone: Zone
         let citadel: Citadel | null = null
 
@@ -66,8 +65,7 @@ class ConnectHandler implements IRoute {
 
         } catch (e) {
 
-            weapon = this._weaponService.createGun(Gun.level(1))
-            weapon.status = 'used'
+            weapon = this._weaponService.createGun()
 
             this._weaponService.memoryInsert(weapon)
             this._weaponService.baseInsert(weapon)
@@ -107,6 +105,11 @@ class ConnectHandler implements IRoute {
                 zoneId: zone.id,
                 pos: pointer.pos,
                 health: pointer.health,
+            },
+            storm: {
+                level: dtoZone.stormtrooper_corps.level,
+                power: dtoZone.stormtrooper_corps.power,
+                invaders: dtoZone.stormtrooper_corps.invaders
             },
             zone: {
                 sectors: dtoZone.terrain.sectors,

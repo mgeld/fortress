@@ -16,8 +16,6 @@ interface IPointerRowData {
 
     health?: number
 
-    invaders?: number
-
     pos_lat?: number
     pos_lng?: number
     areal?: number
@@ -46,7 +44,6 @@ export class PointerRepository implements IPointerRepository {
             color,
 
             health,
-            // invaders,
 
             pos_lat,
             pos_lng,
@@ -57,13 +54,14 @@ export class PointerRepository implements IPointerRepository {
         return PointerMapper.toDomain({
             id: zone_id,
 
-            icon,
-            name,
+            user: {
+                icon,
+                name
+            },
 
             color,
 
             health,
-            // invaders,
 
             pos: [pos_lat, pos_lng],
             weapons: weapons && JSON.parse(weapons) || '',
@@ -127,13 +125,13 @@ export class PointerRepository implements IPointerRepository {
             return PointerMapper.toDomain({
                 id: zone_id,
 
-                icon,
-                name,
+                user: {
+                    icon,
+                    name,
+                },
 
                 color,
-
                 health,
-                // invaders,
 
                 pos: [pos_lat, pos_lng],
                 weapons: weapons && JSON.parse(weapons) || '',
@@ -172,8 +170,8 @@ export class PointerRepository implements IPointerRepository {
         `, [
             dtoPointer.id,
 
-            dtoPointer.icon,
-            dtoPointer.name,
+            dtoPointer.user.icon,
+            dtoPointer.user.name,
 
             dtoPointer.color,
 
@@ -225,10 +223,9 @@ export class PointerRepository implements IPointerRepository {
             WHERE zone_id = ?
         `, [
             dtoPointer.health,
-            dtoPointer.icon,
-            dtoPointer.name,
+            dtoPointer.user.icon,
+            dtoPointer.user.name,
             dtoPointer.color,
-            // dtoPointer.invaders,
             dtoPointer.pos[0],
             dtoPointer.pos[1],
             dtoPointer.weapons,

@@ -18,8 +18,10 @@ export type UnmarshalledMember = {
 
 class Member {
     private _userId: number
+
     private _killed: number
     private _damage: number
+
     private _pos: TLatLng
     private _health: number
 
@@ -28,10 +30,13 @@ class Member {
 
     private constructor(props: TTeamMember) {
         this._userId = props.userId
+
         this._killed = props.killed || 0
         this._damage = props.damage || 0
+        
         this._pos = props.pos
-        this._health = props.health || 100
+        this._health = props.health
+
         this._arenaId = props.arena || ''
         this._arenaTeamId = props.arenaTeam || 0
     }
@@ -44,10 +49,13 @@ class Member {
         return {
             id: String(this._userId),
             userId: this._userId,
+
             killed: this.killed,
             damage: this.damage,
+
             pos: this.pos,
             health: this.health,
+            
             arena: this.arena,
             arenaTeam: this.arenaTeam,
         }
@@ -63,10 +71,6 @@ class Member {
 
     removeHealth(damage: number): number {
         this.health = this.health - damage
-
-        // if (this.health < 1) {
-        //     this.leaveArena()
-        // }
 
         return this.health
     }

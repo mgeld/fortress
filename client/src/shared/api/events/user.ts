@@ -13,6 +13,5 @@ export const events = {
     setPos,
     setHealth,
     changeHealth,
-
     setUser
 }

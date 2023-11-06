@@ -19,8 +19,15 @@
 .zoom-anim-map .drone-circle {
     transition: 0s !important;
 }
+.zoom-anim-map .drone-border {
+    transition: 0s !important;
+}
 
 .drone-center {
+    transition: 0.3s;
+}
+
+.drone-border {
     transition: 0.3s;
 }
 
@@ -35,7 +42,8 @@
 } */
 
 .a {
-    color: #7a29cc;;
+    color: #caa5f0;
+    color: #322a35;
 }
 
 @keyframes drone-rotate {

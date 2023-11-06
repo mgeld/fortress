@@ -13,6 +13,15 @@ type TPopout =
     | 'user-dead'
     | 'select-place'
     | 'select-extraction'
+    | 'select-unit'
+    | 'ship'
+    | 'storm-corps'
+    | 'gun'
+    | 'hold'
+    | 'gun-improve-distance'
+    | 'gun-improve-power'
+    | 'panel'
+    // | 'use-item'
     
 const setPopout = createEvent<TPopout | null>()
 

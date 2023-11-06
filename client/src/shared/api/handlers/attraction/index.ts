@@ -4,6 +4,7 @@ import { TTractorExtr } from '@ctypes/socket/server-to-client'
 import { TBooty } from "entities/projector/model/tractor-beam";
 import { noticeModel } from "shared/ui/Notice";
 import { snackbarModel } from "shared/ui/Snackbar";
+import { TConts } from "@ctypes/model";
 
 class AttractionHandler extends Handler {
 
@@ -18,13 +19,15 @@ class AttractionHandler extends Handler {
         const cont = message.payload.cont
         const extr = message.payload.extr
 
-        if(!cont || !extr) {
+        if (!cont || !extr) {
             snackbarModel.events.newToast({
                 text: 'Ничего не притянулось',
                 t: 8
             })
             return
         }
+
+        let typeNotice = ('cont_' + cont) as TConts
 
         let _booty: TBooty = {
             id: BOOTY_ID,
@@ -41,7 +44,7 @@ class AttractionHandler extends Handler {
             noticeModel.events.newToast({
                 name: 'Получен контейнер',
                 text: 'Контейнер добавлен в инвентарь добычи',
-                t: 'common'
+                t: typeNotice
             })
         }, 2200)
 

@@ -34,6 +34,13 @@ export class Rank {
         }
     }
 
+
+    addExp(exp: number): number {
+        this._exp = this._exp + exp
+        return this._exp
+    }
+
+
     increaseExperience(exp: number) {
         this._tempExp = this._tempExp + exp
     }

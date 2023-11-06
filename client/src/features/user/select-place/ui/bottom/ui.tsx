@@ -15,7 +15,7 @@ export const BottomSelectPlace: FC = () => {
         if (!pos) return
         mapAPI.events.setMapMode('invade')
 
-        map?.flyTo(pos, 15)
+        map?.flyTo(pos, 16)
 
         console.log('flyTo 0000')
 

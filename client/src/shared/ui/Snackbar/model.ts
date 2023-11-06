@@ -23,6 +23,8 @@ type TTypeToast =
     | 6 // 'mine-explosion'
     | 7 // 'container-found
     | 8 // 'container-not-found
+    | 9 // 'not-invaders
+    | 10 // 'your-sector-take'
 
 type TTostProps = {
     text: string

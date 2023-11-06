@@ -1,4 +1,4 @@
-import { createStore } from "effector"
+import { createEvent, createStore } from "effector"
 import { useStore } from "effector-react"
 import { zoneAPI } from "shared/api/events"
 
@@ -9,8 +9,13 @@ const {
     setZoneRubies,
 } = zoneAPI.events
 
+const addSector = createEvent()
+const delSector = createEvent()
+
 export const $zoneSectorsStore = createStore<number>(0)
     .on(setZoneSectors, (_, sectors) => sectors)
+    .on(addSector, (sectors) => sectors + 1)
+    .on(delSector, (sectors) => sectors - 1)
 
 export const $zoneTrophiesStore = createStore<number>(0)
     .on(setZoneTrophies, (_, trophies) => trophies)
@@ -31,4 +36,9 @@ export const selectors = {
     useZoneTrophies,
     useZoneCoins,
     useZoneRubies,
+}
+
+export const events = {
+    addSector,
+    delSector,
 }

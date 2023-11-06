@@ -1,0 +1,60 @@
+.unitCard {
+
+    width: 33%;
+    padding: 8px;
+    box-sizing: border-box;
+
+    .item {
+        margin: 0 auto;
+        width: 100%;
+        // box-shadow: -4px 4px 0px #d990f3;
+        border: 2px solid #f1ba68a2;
+        border-radius: 4px;
+        // background-color: #bc69d9;
+
+        .__icon {
+            display: flex;
+            justify-content: center;
+            padding: 8px;
+            border-radius: 4px 4px 0 0;
+        }
+
+        .__name {
+            box-sizing: border-box;
+            padding: 8px 8px;
+            color: #fff;
+            border-radius: 0 0 4px 4px;
+            text-align: center;
+            font-size: 16px;
+            background-color: #0000001a;
+
+            div {
+                margin: 0 auto;
+                width: min-content;
+            }
+        }
+
+        .__price {
+            background-color: #fff7c7;
+
+            .__flex {
+
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                .__number {
+                    color: #ff9a38;
+                }
+
+                .__icon {
+                    padding-left: 6px;
+                }
+
+            }
+        }
+
+    }
+
+
+
+}

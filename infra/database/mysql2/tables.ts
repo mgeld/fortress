@@ -109,8 +109,6 @@ const pointers = `
 
 		color tinyint NOT NULL DEFAULT 0,
 
-		invaders INT NOT NULL DEFAULT 0,
-
         pos_lat DECIMAL(10, 6) NOT NULL DEFAULT 0,
 		pos_lng DECIMAL(10, 6) NOT NULL DEFAULT 0,
 
@@ -127,9 +125,14 @@ const weapons = `
         id VARCHAR(50) primary key,
         number INT NOT NULL auto_increment unique,
         weapon tinyint NOT NULL DEFAULT 0,
+        level tinyint NOT NULL DEFAULT 0,
+
+        power smallint NOT NULL DEFAULT 0,
+        distance smallint NOT NULL DEFAULT 0,
+
         bullets smallint NOT NULL DEFAULT 0,
-        status tinyint NOT NULL DEFAULT 0,
-        level tinyint NOT NULL DEFAULT 0
+        status tinyint NOT NULL DEFAULT 0
+
     )
     character set='utf8mb4';
 `

@@ -5,8 +5,8 @@ type TTeamStatus = 'default' | 'victory' | 'defeat'
 export type TTeamProps = {
     id: number
     status?: TTeamStatus
-    alive_members?: number
     members?: number[]
+    alive_members?: number
 }
 
 export type UnmarshalledTeam = {
@@ -16,8 +16,8 @@ export type UnmarshalledTeam = {
 class Team {
     private _id: number
     private _status: TTeamStatus
-    private _members: number[]
-    private _alive_members: number
+    private _members: number[] // Участники
+    private _alive_members: number // Кол-во живых участников
 
     private constructor(props: TTeamProps) {
         this._id = props.id

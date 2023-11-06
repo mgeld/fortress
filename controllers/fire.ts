@@ -34,6 +34,8 @@ class FireHandler extends IRoute {
             return
         }
 
+        console.log('fire weapon.distance', weapon.distance)
+
         weapon.bullets = weapon.bullets - 1
         await this._weaponService.memoryUpdate(weapon)
 
@@ -42,8 +44,8 @@ class FireHandler extends IRoute {
             direction: message.payload.direction,
             userId: message.payload.userId,
             weapon: {
-                symbol: weapon.weapon.symbol,
-                level: weapon.weapon.level
+                symbol: weapon.symbol,
+                level: weapon.level
             }
         }
 
@@ -53,7 +55,7 @@ class FireHandler extends IRoute {
 
             const hitPointer = await this._pointerService.memoryGetById(message.payload.hitPointer.userId)
 
-            hitPointer.health = hitPointer.health - weapon.weapon.damage
+            hitPointer.health = hitPointer.health - weapon.power
 
             if (hitPointer.health < 1) {}
 

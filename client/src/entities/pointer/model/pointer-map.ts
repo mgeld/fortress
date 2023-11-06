@@ -1,11 +1,11 @@
-import { createStore, createEvent, sample, createEffect } from 'effector'
+import { createStore, createEvent, createEffect } from 'effector'
 import { useStore } from 'effector-react'
 import { pointersAPI } from "shared/api/events"
 import { TDelPointer, THealthPointer, TUpdatePos } from "shared/api/events/pointers"
-import { TLatLng } from 'shared/types'
+
+import { TPointer } from '@ctypes/model'
 
 import bridge from "@vkontakte/vk-bridge";
-import { TPointer } from '@ctypes/model'
 
 // export type TPointer = {
 //     userId: number
@@ -74,7 +74,7 @@ const getUsersFx = createEffect(async ({
                         return {
                             ...pointer,
                             icon: user?.photo_50,
-                            userName: user?.first_name
+                            name: user?.first_name
                         }
                     })
                 ]
@@ -125,7 +125,7 @@ export const $pointersStore = createStore<TPointer[]>(DEFAULT_STORE)
         ...DEFAULT_STORE
     }))
 
-getUsersFx.doneData.watch(val => console.log('getUsersFx.doneData watch', val))
+$pointersStore.watch(val => console.log('pointersStore watch', val))
 
 // sample({
 //     clock: newPointer,

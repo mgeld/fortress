@@ -1,4 +1,4 @@
-import { TBombSymbol, TExtrTypes, TFindContType, THitPointer, TJoystickDirection, TLatLng, TPointer, TTypeToastNotice, TWeapon, TWeaponSymbol, TZoneItem } from "../model"
+import { TBombSymbol, TExtrTypes, TExtrTypesName, TFindContType, THitPointer, TJoystickDirection, TLatLng, TPointer, TTypeToastNotice, TWeapon, TWeaponSymbol, TZoneItem } from "../model"
 
 export type TEventConnect = 'connect'
 export type TEventSetUser = 'set-user'
@@ -15,7 +15,11 @@ export type TEventTakeHit = 'take-hit'
 export type TEventFindCont = 'find-cont'
 export type TEventTractorExtr = 'attraction'
 export type TEventUseExtraction = 'use-extraction'
+export type TEventBuyUnit = 'buy-unit'
+
 export type TEventTakeSector = 'take-sector'
+export type TEventYTakeSector = 'y-take-sector'
+export type TEventYrTakeSector = 'yr-take-sector'
 
 export type TEventSectors = 'sectors'
 export type TEventSector = 'sector'
@@ -35,7 +39,10 @@ export type TEventsMessage =
     | TEventFindCont
     | TEventTractorExtr
     | TEventUseExtraction
+    | TEventBuyUnit
     | TEventTakeSector
+    | TEventYTakeSector
+    | TEventYrTakeSector
     | TEventPointers
     | TEventConnectPointer
     | TEventDelPointer
@@ -57,6 +64,11 @@ export type TConnectPayload = {
         zoneId: number
         pos: TLatLng
         health: number
+    },
+    storm: {
+        level: number
+        power: number
+        invaders: number
     },
     zone: {
         sectors: number
@@ -187,13 +199,24 @@ export type TUseExtraction = {
 }
 
 
+export type TBuyUnit = {
+    event: TEventBuyUnit
+    payload: {
+        type: TTypeToastNotice
+        cost: number
+        currency: 'coins' | 'rubies'
+        unit: TExtrTypes
+    }
+}
+
+
 export type TTakeSectorPayload = {
     prev_owner_id: number
     new_owner_id: number
     sector_id: string
 }
 export type TTakeSector = {
-    event: TEventTakeSector
+    event: TEventTakeSector | TEventYTakeSector | TEventYrTakeSector
     payload: TTakeSectorPayload
 }
 
@@ -306,6 +329,7 @@ export type TMessage =
     | TFindCont
     | TTractorExtr
     | TUseExtraction
+    | TBuyUnit
     | TTakeSector
     | TBattleStart
     | TBattleOver

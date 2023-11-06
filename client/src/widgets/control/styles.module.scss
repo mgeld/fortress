@@ -1,0 +1,29 @@
+.controlCenter {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 101;
+
+
+    .buttons {
+
+        background-color: red;
+        position: absolute;
+        left: 50%;
+        // margin-left: -50%;
+        bottom: 0px;
+
+        display: flex;
+    }
+
+    // .__circle {
+    //   width: 80px;
+    //   height: 80px;
+    //   border: 3px solid #e5adffa6;
+    //   box-sizing: border-box;
+    //   border-radius: 50%;
+
+    //   position: relative;
+    // }
+}

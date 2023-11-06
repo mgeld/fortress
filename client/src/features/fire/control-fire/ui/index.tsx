@@ -13,12 +13,12 @@ const ControlFire: FC = () => {
         <div className={styles.controlFire}>
             <div className={styles.__circle}>
                 <Control
-                    size={84}
+                    size={74}
                     stickSize={48}
                     sticky={false}
                     baseColor="#ffffff00"
                     stickImage='icons/control-fire.png'
-                    minDistance={80}
+                    minDistance={70}
                     throttle={500}
                     move={fireControl}
                     stop={() => { }}

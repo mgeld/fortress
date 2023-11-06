@@ -1,4 +1,4 @@
-import { citadelAPI, mapAPI, userAPI, weaponsAPI, zoneAPI } from "shared/api/events";
+import { citadelAPI, mapAPI, stormAPI, userAPI, weaponsAPI, zoneAPI } from "shared/api/events";
 import { Handler } from "..";
 import { TConnect } from '@ctypes/socket/server-to-client'
 import { popoutModel } from "shared/ui/PopoutRoot";
@@ -14,6 +14,12 @@ class ConnectHandler extends Handler {
         zoneAPI.events.setZoneRubies(message.payload.zone.rubies)
         zoneAPI.events.setZoneSectors(message.payload.zone.sectors)
         zoneAPI.events.setZoneTrophies(message.payload.zone.trophies)
+
+        stormAPI.events.setStormLevel(message.payload.storm.level)
+        stormAPI.events.setStormPower(message.payload.storm.power)
+        stormAPI.events.setStormInvaders(message.payload.storm.invaders)
+
+        console.log('message.payload.weapon', message.payload.weapon)
         
         userAPI.events.setUser(message.payload.user.zoneId)
 

@@ -30,7 +30,7 @@ type THitPointersFxProps = {
         pointers: TPointer[]
         userPos: TLatLng
         usedWeapon: TWeaponStore | null
-        featureWeapon: WeaponType | null
+        // featureWeapon: WeaponType | null
     },
     fire: TFireDirection
 }
@@ -46,7 +46,9 @@ const hitPointersFx = createEffect(({
     }
 
     // Место, куда попадёт пуля (моя позиция, направление, расстояние)
-    let to_pos: TLatLng = fromToDirectionPos(source.userPos, fire.direction, source.featureWeapon?.distance || 0)
+    let to_pos: TLatLng = fromToDirectionPos(source.userPos, fire.direction, source.usedWeapon?.distance || 0)
+
+    console.log('source.usedWeapon?.', source.usedWeapon)
 
     source.pointers.sort(comparePos(fire.direction)).every(pointer => {
 
@@ -56,7 +58,8 @@ const hitPointersFx = createEffect(({
             from: source.userPos,
             to: to_pos,
             marker: pointer.pos,
-            radius: source.featureWeapon?.radius || 0,
+            // radius: source.usedWeapon?.radius || 0,
+            radius: 0.0004,
             direction: fire.direction
         })
         if (isFire) {
@@ -72,7 +75,7 @@ const hitPointersFx = createEffect(({
     return {
         hitPointer,
         toPos: to_pos,
-        featureWeapon: source.featureWeapon,
+        // featureWeapon: source.featureWeapon,
         usedWeapon: source.usedWeapon
     }
 })
@@ -87,7 +90,7 @@ type TFireControlFx = {
         result: {
             hitPointer: THitPointer
             toPos: TLatLng
-            featureWeapon: WeaponType | null
+            // featureWeapon: WeaponType | null
             usedWeapon: TWeaponStore | null
         }
     }
@@ -143,7 +146,7 @@ const fireControlFx = createEffect(({
         firesAPI.events.delFireById({ fire_id: FIRE_ID })
         if (clock.result.hitPointer.userId) {
             pointersAPI.events.changeHealthPointer({
-                health: clock.result.featureWeapon?.damage || 0,
+                health: clock.result.usedWeapon?.power || 0,
                 userId: clock.result.hitPointer.userId,
             })
         }
@@ -156,7 +159,6 @@ sample({
     source: {
         battleStatus: arenaModel.$battleStatusStore,
         userId: userModel.$userIdStore,
-        // userPos: userModel.$userPositionStore,
     },
     fn: (source, clock) => ({ source, clock }),
     target: fireControlFx
@@ -174,7 +176,7 @@ sample({
         pointers: pointerMapModel.$pointersStore,
         userPos: userModel.$userPositionStore,
         usedWeapon: weaponModel.$usedWeaponStore,
-        featureWeapon: weaponModel.$featureWeaponStore,
+        // featureWeapon: weaponModel.$featureWeaponStore,
     },
     fn: (source, clock) => ({ source, fire: clock }),
     target: hitPointersFx,

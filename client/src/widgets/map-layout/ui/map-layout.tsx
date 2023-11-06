@@ -54,7 +54,7 @@ changeBattleStatusListener()
 scrollMapPointerListener()
 setMapPosListener()
 setMaxBoundsListener()
-// filterPointers()
+filterPointers()
 isFireHitMe()
 isBombHitMe()
 
@@ -96,7 +96,7 @@ const MapLayout: FC<TMapProps> = () => {
                 ref={mapModel.events.setMap}
                 className='_MapContainer'
                 center={[55.74953, 37.61581]}
-                zoom={9}
+                zoom={16}
                 maxZoom={17}
                 zoomControl={false}
                 // fadeAnimation={true}

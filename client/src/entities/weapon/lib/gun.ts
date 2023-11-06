@@ -10,13 +10,15 @@ export interface WeaponType {
     radius: number
 }
 
-
+// Можно убрать всё. Наверное...
 export class Gun implements WeaponType {
 
     public name = 'Пушка'
     public symbol: TWeaponSymbol = 'gun'
 
     private _level: number
+    // private _power: number
+    // private _distance: number
 
     private constructor(lvl: number) {
         this._level = lvl

@@ -1,1 +1,0 @@
-export { ReactComponent as IconModuleExp } from './module-exp.svg';

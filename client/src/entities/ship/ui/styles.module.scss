@@ -1,0 +1,238 @@
+.ship {
+    width: 100%;
+    // padding: 0 14px;
+    box-sizing: border-box;
+
+    .header {
+        width: 100%;
+        padding: 3px 3px;
+        box-sizing: border-box;
+        background-color: #bc69d9;
+        border-radius: 4px 4px 0 0;
+        border-top: 2px solid #ad5bca;
+        border-bottom: 2px solid #ad5bca;
+
+        .__border {
+            width: 100%;
+            padding: 6px;
+            box-sizing: border-box;
+            border: 2px solid #ad5bca;
+            border-radius: 2px;
+
+            color: white;
+            font-size: 18px;
+        }
+    }
+
+    .__content {
+        width: 100%;
+        border-bottom: 2px solid #b6b2ae;
+        box-sizing: border-box;
+
+        .__ship {
+            width: 100%;
+            background-color: #9e6faf;
+            padding: 14px 14px;
+            box-sizing: border-box;
+
+            .__flex {
+                width: 100%;
+                padding: 10px 0px;
+                display: flex;
+                align-items: center;
+
+                .__icon {
+                    padding: 0 12px;
+                }
+
+                .__info {
+                    width: 100%;
+                    padding-right: 12px;
+
+                    .head {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+
+                        background-color: #ffffff21;
+                        padding: 6px 0px;
+                        margin-left: -14px;
+                        padding-left: 14px;
+
+                        background: linear-gradient(90deg, #89589b 0%, #ffffff00 70%);
+                        color: rgba(255, 255, 255, 0.795);
+
+                        .name {
+                            padding-left: 4px;
+                            font-size: 19px;
+                            flex: 1;
+                        }
+
+                        .level {
+                            display: flex;
+                            background-color: #89589bad;
+                            border-radius: 4px;
+                            align-items: center;
+
+                            span {
+                                color: white;
+                                padding: 4px 6px;
+                                border-right: 2px solid #9e6faf;
+                            }
+
+                            .levelUp {
+                                padding: 0 6px;
+                            }
+                        }
+                    }
+
+                    .description {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+
+                        padding-top: 8px;
+
+                        font-weight: normal;
+                        color: rgba(255, 255, 255, 0.795);
+
+                        .name {
+                            display: flex;
+                            align-items: center;
+
+                            .icon {
+                                padding-right: 8px;
+                            }
+                        }
+
+                        .counter {
+                            display: flex;
+                            background-color: #89589bad;
+                            border-radius: 4px;
+                            align-items: center;
+
+                            span {
+                                color: white;
+                                padding: 4px 6px;
+                                border-right: 2px solid #9e6faf;
+                            }
+
+                            .levelUp {
+                                padding: 0 6px;
+                            }
+                        }
+
+                    }
+                }
+            }
+
+
+        }
+
+        .items {
+            padding: 10px 14px;
+            background-color: #dfdad4;
+
+            .item {
+
+                &:first-child {
+                    border-top: none;
+                }
+
+                width: 100%;
+                display: flex;
+                align-items: center;
+                padding: 14px 0px;
+                box-sizing: border-box;
+                border-top: 2px solid #b6b2ae;
+
+                .__icon {
+                    display: flex;
+                    justify-content: center;
+                    width: 44px;
+                }
+
+                .__info {
+                    width: 100%;
+                    padding-left: 12px;
+
+                    .head {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+
+                        color: #4a5467;
+                        padding-bottom: 4px;
+
+                        .name {}
+
+                        .level {
+                            span {
+                                background-color: #9e6fafc9;
+                                padding: 1px 4px;
+                                border-radius: 4px;
+                                color: white;
+                            }
+                        }
+                    }
+
+                    .description {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        background: linear-gradient(90deg, #9e6faf21 0%, #9e6faf21 50%, #ffffff00 90%);
+
+                        padding: 4px 0px;
+                        font-weight: normal;
+
+                        .name {
+                            color: #9e6faf;
+                        }
+
+                        .counter {
+                            color: #4a5467;
+                        }
+                    }
+
+                }
+            }
+
+        }
+
+
+        .actions {
+            width: 100%;
+            padding: 0 12px;
+            box-sizing: border-box;
+            background-color: #dfdad4;
+
+            .inside {
+
+                width: 100%;
+                border-top: 2px solid #b6b2ae;
+
+                display: flex;
+                justify-content: center;
+
+                padding: 12px 0;
+
+                .button {
+                    margin-left: 12px;
+                    font-size: 16px;
+                    line-height: 16px;
+                    padding: 10px 14px;
+                    border-radius: 19px;
+                    border: 2px solid #9e6faf;
+                    background-color: #9e6faf;
+                    color: #ffffff;
+
+                    &.__white {
+                        color: #4a5467;
+                        border: 2px solid #4a5467;
+                        background-color: #dfdad4;
+                    }
+                }
+            }
+        }
+    }
+}

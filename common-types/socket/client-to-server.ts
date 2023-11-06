@@ -13,6 +13,7 @@ export type TEventTake = 'take'
 export type TEventBeam = 'beam'
 
 export type TEventUseExtraction = 'useExtraction'
+export type TEventBuyUnit = 'buyUnit'
 
 export type TEventGetSectors = 'getSectors'
 export type TEventGetAboutSector = 'getAboutSector'
@@ -31,6 +32,7 @@ export type TEventsAPI =
     | TEventTake
     | TEventBeam
     | TEventUseExtraction
+    | TEventBuyUnit
     | TEventGetSectors
     | TEventGetAboutSector
     | TEventDirect
@@ -46,6 +48,7 @@ export type TSendEvent =
     | TTakeAPI
     | TBeamAPI
     | TUseExtractionAPI
+    | TBuyUnitAPI
     | TGetSectorsAPI
     | TGetAboutSectorAPI
     | TDirectAPI
@@ -103,10 +106,10 @@ export type TGetAboutSectorAPI = {
 export type TTakeAPI = {
     event: TEventTake
     payload: {
-        position: TLatLng
+        // position: TLatLng
         fort: TLatLng
         sector: string
-        userId: number
+        // userId: number
     }
 }
 
@@ -125,6 +128,13 @@ export type TUseExtractionAPI = {
     payload: {
         id: TExtrTypes
         index: number
+    }
+}
+
+export type TBuyUnitAPI = {
+    event: TEventBuyUnit
+    payload: {
+        id: TExtrTypes
     }
 }
 

@@ -10,6 +10,7 @@ const usePage = () => {
 type TPage =
     | 'map'
     | 'extraction'
+    | 'gun-shop'
 
 const setPage = createEvent<TPage>()
 

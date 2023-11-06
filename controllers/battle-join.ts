@@ -11,11 +11,13 @@ import { MemberService } from "../services/member.service";
 
 import { TYPES } from "../types";
 import { IRoute } from "./handlers";
+import { PointerService } from "../services/pointer.service";
 
 @injectable()
 class BattleJoinHandler extends IRoute {
     @inject(TYPES.Rooms) private _rooms!: Rooms
     @inject(TYPES.ArenaService) private _arenaService!: ArenaService
+    @inject(TYPES.PointerService) private _pointerService!: PointerService
     @inject(TYPES.MemberService) private _memberService!: MemberService
 
     public static EVENT: TEventBattleJoin = "battleJoin"
@@ -66,6 +68,19 @@ class BattleJoinHandler extends IRoute {
             arena.battleStart()
 
             const members = await this._memberService.getByIds(arena.pointers)
+            const pointers = await this._pointerService.getByIds(arena.pointers)
+
+            const users: Record<number, {
+                icon: string
+                name: string
+            }> = {}
+
+            pointers.forEach(pointer => {
+                users[pointer.zoneId] = {
+                    icon: pointer.icon,
+                    name: pointer.name
+                }
+            })
 
             this._rooms.arenas.broadcast(roomId, {
                 event: 'battle-start',
@@ -81,7 +96,13 @@ class BattleJoinHandler extends IRoute {
                             trophies: 0
                         })),
                     })),
-                    pointers: members.map(member => member.pointerUnmarshal())
+                    pointers: members.map(member => {
+                        const memb = member.pointerUnmarshal()
+                        return {
+                            ...memb,
+                            ...users[member.userId]
+                        }
+                    })
                 }
             })
 

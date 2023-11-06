@@ -87,10 +87,12 @@ export const Beam: FC<TBeamProps> = ({ beam }) => {
                         className='beam'
                         style={{
                             ...takeStyle,
+                            // width: '20px',
+                            // height: '20px',
                             border: `${sizeDrone}px solid transparent`,
                             borderRight: `${dist}px solid #f9fd0777`,
-                            marginTop: `-${(sizeDrone / 2) + 10}px`,
-                            marginLeft: `-20px`,
+                            marginTop: `-${(sizeDrone / 2)}px`,
+                            marginLeft: `-0px`,
                         }}
                     />
                 </div>

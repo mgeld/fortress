@@ -22,7 +22,9 @@ export type TWeaponSymbol =
 
 export type TWeapon = {
     id: string
-    weapon: number
+    weapon: TWeaponSymbol
+    power: number
+    distance: number
     bullets: number
     level: number
     status: 1 | 0
@@ -56,18 +58,27 @@ export type TZoneItem = {
 }
 
 // Типы добыч
-export type TExtrTypes = 1 | 2 | 3 | 4
+export type TExtrTypes =
+    | 10 | 11 | 12
+    | 20 | 21 | 22
+    | 30 | 31 | 32
+    | 40 | 41 | 42
+    | 50 | 51 | 52
+    | 100 | 101
+
 
 export type TTypeToastNotice =
+    | TExtrTypesName
+    | TConts
     | 'common' // common
-    | 'coins' // coins
-    | 'rubies' // rubies
-    | 'exp-rank' // exp-rank
-    // | 'exp-storm' // exp-storm
-    // | 'exp-guard' // exp-guard
-    | 'level-rank' // level-rank
-    | 'level-storm' // level-storm
-    | 'level-guard' // level-guard
-    | 'level-zone' // level-zone
+    | 'error' // error
+
+export type TConts = 'cont_1' | 'cont_2' | 'cont_3'
+export type TExtrTypesName =
+    | 'rank_exp'
+    | 'storm_power'
+    | 'ship_health'
+    | 'gun_power'
+    | 'gun_distance'
 
 export type TFindContType = 1 | 2 | 3

@@ -77,7 +77,7 @@ export const BattleOver: FC = () => {
                                 {team.members.map(member => {
 
                                     const pointer = (member.userId === user.userId) ? {
-                                        userName: user.userName,
+                                        name: user.userName,
                                         icon: user.userIcon
                                     } : pointers.find(pointer => pointer.userId === member.userId)
 
@@ -89,7 +89,7 @@ export const BattleOver: FC = () => {
                                             </div>
 
                                             <div className={styles.__username}>
-                                                {pointer?.icon}
+                                                {pointer?.name}
                                             </div>
 
                                             <div className={styles.__trophies}>

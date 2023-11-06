@@ -19,7 +19,7 @@ const getDroneSizefx = createEffect(({
 }: TGetDroneSizefxProps): number => {
 
     // const toPosLatLng = getDestination(userPos[0], userPos[1], 96, 90)
-    const toPosLatLng = getDestination(userPos[0], userPos[1], 60, 90)
+    const toPosLatLng = getDestination(userPos[0], userPos[1], 48, 90)
 
     const fromPoint = map.latLngToLayerPoint(userPos)
     const toPoint = map.latLngToLayerPoint(toPosLatLng)

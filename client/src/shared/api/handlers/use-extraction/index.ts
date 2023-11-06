@@ -3,7 +3,8 @@ import { TUseExtraction } from '@ctypes/socket/server-to-client'
 import { noticeModel } from "shared/ui/Notice";
 import { pageModel } from "shared/ui/PageRoot";
 import { popoutModel } from "shared/ui/PopoutRoot";
-import { extractionAPI } from "shared/api/events";
+import { extractionAPI, weaponsAPI } from "shared/api/events";
+import { weaponModel } from "entities/weapon";
 
 class UseExtractionHandler extends Handler {
     handle(message: TUseExtraction) {
@@ -18,12 +19,33 @@ class UseExtractionHandler extends Handler {
         let text = ''
 
         switch (message.payload.type) {
-            case 'coins':
-                name = `Получены монеты`
+            case 'rank_exp':
+                name = `Опыт завоеваний`
+                
                 text = `Вы получили ${amount} монет`
                 break;
-            case 'rubies':
-                name = `Получены рубины`
+            case 'gun_distance':
+                name = `Дальность удара`
+                weaponsAPI.events.setDistance({
+                    dist: amount,
+                    symbol: 'gun'
+                })
+                text = `Вы получили ${amount} рубин`
+                break;
+            case 'gun_power':
+                name = `Мощность удара`
+                text = `Вы получили ${amount} рубин`
+                break;
+            case 'ship_health':
+                name = `Состояние корабля`
+                text = `Вы получили ${amount} рубин`
+                break;
+            case 'storm_power':
+                name = `Сила штурмовиков`
+                text = `Вы получили ${amount} рубин`
+                break;
+            case 'common':
+                name = `Что-то общее`
                 text = `Вы получили ${amount} рубин`
                 break;
             default:

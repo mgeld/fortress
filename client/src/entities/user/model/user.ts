@@ -20,11 +20,9 @@ const {
     setPos,
     setHealth,
     changeHealth,
-
     setUser
 } = userAPI.events
 
-// const DEFAULT_STORE_POSITION: TLatLng = [43.31, 45.68];
 const DEFAULT_STORE_POSITION: TLatLng = [0, 0]
 
 const movePoint = createEvent<TActionPos>()

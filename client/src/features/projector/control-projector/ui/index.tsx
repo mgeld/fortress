@@ -8,12 +8,12 @@ const ControlProjector: FC = () => {
     console.log('ControlInvader---------')
 
     return (
-        <div className={styles.controlInvader}>
+        <div className={styles.controlProjector}>
             <div className={styles.__circle}>
                 <div
                     onClick={projectorControl}
                     className={styles.__button}>
-                    <img src={'icons/control-invaders.png'} alt="<>" />
+                    <img src={'icons/control-beam.png'} alt="<>" width={50} height={50}/>
                 </div>
                 {/* <Control
                     size={94}

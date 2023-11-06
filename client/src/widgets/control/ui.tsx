@@ -6,6 +6,8 @@ import ControlProjector from "features/projector/control-projector/ui";
 import { ObserveMode } from "features/user/observe-mode";
 import { FC } from "react";
 
+import styles from './styles.module.scss'
+
 export const Control: FC = () => {
 
     const userHealth = userModel.selectors.useUserHealth()
@@ -14,10 +16,14 @@ export const Control: FC = () => {
 
     return (
         <>
-            <ControlPointer />
-            <ControlFire />
-            <ControlInvader />
             <ControlProjector />
+            {/* <div className={styles.controlCenter}>
+                <div className={styles.buttons}> */}
+                    <ControlPointer />
+                    <ControlFire />
+                {/* </div>
+            </div> */}
+            <ControlInvader />
         </>
     )
 

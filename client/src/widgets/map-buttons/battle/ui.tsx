@@ -16,7 +16,7 @@ export const NavBattle = () => {
             onClick={() => battleConnectEvent.events.battleConnect()}
             className={styles.__battle}
             icon={<IconSwords />}
-            text="В БОЙ"
+            text="Арена"
         />
     )
 }

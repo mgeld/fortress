@@ -1,5 +1,4 @@
 import { TFindContType } from "@ctypes/model"
-import { TFindContPayload } from "@ctypes/socket/server-to-client"
 import { createStore } from "effector"
 import { useStore } from "effector-react"
 import { projectorAPI } from "shared/api/events"

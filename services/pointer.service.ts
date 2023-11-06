@@ -2,9 +2,10 @@ import { inject, injectable } from "inversify";
 import { TLatLng, TZone } from "../common-types/model";
 import { Pointer } from "../entities/pointer/pointer";
 import { IPointerMemoryRepository, IPointerRepository } from "../entities/repository";
-import { Weapon } from "../entities/weapon/weapon";
 import { TYPES } from "../types";
 import { randomNumber } from "../libs/random-number";
+import { User } from "../entities/pointer/user";
+import { WeaponType } from "../entities/weapon/types";
 
 @injectable()
 export class PointerService {
@@ -32,7 +33,7 @@ export class PointerService {
         pos: TLatLng,
         name: string,
         icon: string,
-        weapon: Weapon
+        weapon: WeaponType
     ): Pointer {
 
         const DEFAULT_HEALTH = 100
@@ -45,14 +46,14 @@ export class PointerService {
 
         const pointer = Pointer.create({
             zoneId,
-            
-            name,
-            icon,
+
+            user: User.create({
+                icon,
+                name,
+            }),
 
             health: DEFAULT_HEALTH,
             color: DEFAULT_COLOR,
-
-            // invaders: DEFAULT_INVADERS,
 
             weapons: [weapon.id],
 
@@ -63,7 +64,7 @@ export class PointerService {
     }
 
     increaseExperience() {
-        
+
     }
 
     getByIds(userIds: number[]): Promise<Pointer[]> {

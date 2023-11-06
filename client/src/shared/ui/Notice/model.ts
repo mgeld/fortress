@@ -1,4 +1,4 @@
-import { TTypeToastNotice } from "@ctypes/model"
+import { TExtrTypesName, TTypeToastNotice } from "@ctypes/model"
 import { createEffect, createEvent, createStore, sample } from "effector"
 import { useStore } from "effector-react"
 

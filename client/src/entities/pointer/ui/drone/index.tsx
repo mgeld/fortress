@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Circle } from "react-leaflet";
+import { Circle, useMapEvents } from "react-leaflet";
 import { useHitFirePointer } from "../../hooks/use-hit-fire-pointer";
 
 import { TLatLng } from "shared/types";
@@ -20,37 +20,54 @@ const Drone: FC<TDroneProps> = ({
 
     const { fireHitTarget } = useHitFirePointer(health)
 
-    const p = size * 3.14 / 3
-    const a = p * 0.6
-    const b = p * 0.4
+    const p = size * 3.14 / 6
+    const a = p * 0.1
+    const b = p * 0.9
 
     const dashArrayDroneCircle = `${a} ${b}`
-    const weightDroneCircle = Math.ceil(p / 5)
-    const colorDroneCircle = fireHitTarget || health < 1 ? 'red' : '#7a29cc'
+    const weightDroneCircle = Math.ceil(p / 4)
+    const colorDroneCircle = fireHitTarget || health < 1 ? 'red' : '#393e46'
 
     return (
         <>
             {<Circle
-                // key={z ? '1' : '2'}
+                center={pos}
+                className={"drone-border"}
+                pathOptions={{
+                    fillColor: colorDroneCircle,
+                    opacity: 1,
+                    fillOpacity: 0.9,
+                    color: colorDroneCircle
+                }}
+                radius={30} // стало так
+            />}
+            {<Circle
                 center={pos}
                 className={"drone-circle"}
                 pathOptions={{
                     dashArray: dashArrayDroneCircle,
                     weight: weightDroneCircle,
                     fillColor: colorDroneCircle,
-                    fillOpacity: 0.8,
-                    color: colorDroneCircle
+                    fillOpacity: 0.9,
+                    opacity: 1,
+                    lineCap: 'round',
+                    // strokeLocation: 'inside',
+                    lineJoin: "miter",
+                    color: '#ffc536'
                 }}
-                radius={30} // стало так
+                radius={24} // стало так
             />}
             <Circle
                 center={pos}
                 className="drone-center"
-                radius={15}
-                color="white"
-                opacity={0.8}
-                fillColor="white"
-                fillOpacity={0.5}
+                pathOptions={{
+                    opacity: 0.9,
+                    color: '#2a2e33',
+                    weight: 2,
+                    fillColor: '#63dafc',
+                    fillOpacity: 0.9
+                }}
+                radius={14}
             />
         </>
 

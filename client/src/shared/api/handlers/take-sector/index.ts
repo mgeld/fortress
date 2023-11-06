@@ -1,7 +1,6 @@
 import { sectorsAPI } from "shared/api/events";
 import { Handler } from "..";
 import { TTakeSector } from '@ctypes/socket/server-to-client'
-import { snackbarModel } from "shared/ui/Snackbar";
 
 class TakeSectorHandler extends Handler {
     handle(message: TTakeSector) {

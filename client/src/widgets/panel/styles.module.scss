@@ -1,0 +1,110 @@
+.panel {
+    width: 100%;
+    box-sizing: border-box;
+
+    .__header {
+        width: 100%;
+        padding: 3px 3px;
+        box-sizing: border-box;
+        background-color: #564971;
+        border-radius: 4px 4px 0 0;
+        // border-top: 2px solid #ad5bca;
+        border-bottom: 2px solid #685a83;
+
+        .__border {
+            width: 100%;
+            padding: 6px;
+            box-sizing: border-box;
+            border: 2px solid #685a83;
+            border-radius: 2px;
+
+            color: white;
+            font-size: 18px;
+        }
+    }
+
+    .__content {
+
+        width: 100%;
+        border-radius: 0 0 4px 4px;
+        overflow: hidden;
+
+        .profile {
+            background-color: #564971;
+            padding: 24px 0px;
+            box-sizing: border-box;
+            color: #dfdad4;
+            border-bottom: 2px solid #685a83;
+
+            display: flex;
+
+            .left {
+                padding: 0 24px;
+
+                .image {
+                    img {
+                        border: 2px solid #e6e3d1;
+                        border-radius: 50%;
+                    }
+                }
+            }
+
+            .right {
+                flex: 1;
+
+                .name {
+                    margin-top: -2px;
+                    font-size: 18px;
+                    padding: 6px 0;
+                    background: linear-gradient(90deg, #ffffff00 0%, #9e6faf21 50%, #9e6faf21 100%);
+                }
+
+                .status {}
+            }
+        }
+
+        .sections {
+            padding: 10px 10px;
+            box-sizing: border-box;
+            background-color: #e6e3d1a8;
+            // background: linear-gradient(180deg, #e6e3d1 0%, #e6e3d1 70%, #e6e3d17a 90%);
+
+            .__flex {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                flex-wrap: wrap;
+
+                .section {
+                    width: 33%;
+                    padding: 4px;
+                    box-sizing: border-box;
+
+                    .item {
+                        margin: 0 auto;
+                        border: 1px solid #f1ba68a2;
+                        background-color: #564971;
+                        border-radius: 4px;
+                        overflow: hidden;
+
+                        .icon {
+                            padding: 8px 0;
+                            display: flex;
+                            justify-content: center;
+                            background-color: #725d9b;
+                            svg {
+                            }
+                        }
+
+                        .name {
+                            padding: 8px 0;
+                            text-align: center;
+                            color: #dfdad4;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}

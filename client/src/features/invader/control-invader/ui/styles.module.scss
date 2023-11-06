@@ -1,8 +1,9 @@
 
 .controlInvader {
     position: absolute;
-    right: 34px;
+    left: 87%;
     bottom: 34px;
+    margin-left: -25px;
   
     z-index: 101;
   
@@ -17,7 +18,6 @@
 
       .__button {
         transition: 0.2s;
-        // background-color: #ffffff00;
         &:active {
           transform: scale(0.9)
         }

@@ -1,8 +1,9 @@
 import { inject, injectable } from "inversify";
 import { EntityIdGenerator } from "../domain/entityId";
 import { IWeaponMemoryRepository, IWeaponRepository } from "../entities/repository";
-import { Weapon, WeaponType } from "../entities/weapon/weapon";
 import { TYPES } from "../types";
+import { WeaponType } from "../entities/weapon/types";
+import { Gun } from "../entities/weapon/gun";
 
 @injectable()
 export class WeaponService {
@@ -10,36 +11,35 @@ export class WeaponService {
     @inject(TYPES.WeaponRepository) private _baseRepository!: IWeaponRepository
     @inject(TYPES.Base64EntityIdGenerator) private _entityId!: EntityIdGenerator
 
-    createGun(weapon: WeaponType): Weapon {
-        const _weapon = Weapon.create({
+    createGun(): WeaponType {
+        const _weapon = Gun.create({
             id: this._entityId.nextIdEntity().id,
-            weapon,
-            bullets: 100
+            status: 1
         })
         return _weapon
     }
 
-    async memoryGetById(id: string): Promise<Weapon> {
+    async memoryGetById(id: string): Promise<WeaponType> {
         return this._memoryRepository.getById(id)
     }
 
-    async memoryInsert(weapon: Weapon): Promise<Weapon> {
+    async memoryInsert(weapon: WeaponType): Promise<WeaponType> {
         return this._memoryRepository.insert(weapon)
     }
 
-    async baseInsert(weapon: Weapon): Promise<Weapon> {
+    async baseInsert(weapon: WeaponType): Promise<WeaponType> {
         return this._baseRepository.insert(weapon)
     }
 
-    async baseGetById(id: string): Promise<Weapon> {
+    async baseGetById(id: string): Promise<WeaponType> {
         return this._baseRepository.getById(id)
     }
 
-    async memoryUpdate(weapon: Weapon) {
+    async memoryUpdate(weapon: WeaponType) {
         const _weapon = await this._memoryRepository.update(weapon)
     }
 
-    async baseUpdate(weapon: Weapon) {
+    async baseUpdate(weapon: WeaponType) {
         const _weapon = await this._baseRepository.update(weapon)
     }
 }

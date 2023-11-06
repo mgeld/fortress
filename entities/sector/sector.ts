@@ -38,7 +38,7 @@ export class Sector {
         this._number = sector?.number || 0
         this._latlng = sector.latlng
         this._zone_id = sector.zone_id
-        this._defenders = sector.defenders || 0
+        this._defenders = sector.defenders || 5
         this._invaders = sector.invaders || 0
         this._booty = sector.booty || 0
         this._areal = sector.areal

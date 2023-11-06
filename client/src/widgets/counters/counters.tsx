@@ -3,6 +3,8 @@ import { IconCoin, IconExperience, IconSapphire, IconSector, IconTrophy, IconZon
 import { CounterProgress } from "shared/ui/CounterProgress"
 
 import styles from './styles.module.scss'
+// import { stormModel } from "entities/storm-corps"
+import { zoneModel } from "entities/zone"
 
 export const Counters = () => {
     return (
@@ -14,7 +16,7 @@ export const Counters = () => {
                 icon={(
                     <IconSector />
                 )}
-                text="364"
+                text={String(zoneModel.selectors.useZoneSectors())}
             />
 
             <Counter

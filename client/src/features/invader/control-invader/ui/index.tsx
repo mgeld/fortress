@@ -14,7 +14,7 @@ const ControlInvader: FC = () => {
                 <div
                     onClick={invaderControl}
                     className={styles.__button}>
-                    <img src={'icons/control-invaders.png'} alt="<>" />
+                    <img src={'icons/control-invaders.png'} alt="<>" width={50} height={50}/>
                 </div>
                 {/* <Control
                     size={94}

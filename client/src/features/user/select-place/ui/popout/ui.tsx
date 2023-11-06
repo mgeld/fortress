@@ -11,13 +11,16 @@ export const SelectPlace: FC = () => {
 
     const map = mapModel.selectors.useMapLayout()
 
-    const selectPlace = () => popoutModel.events.setPopout(null)
+    const selectPlace = () => {
+        map?.flyTo(map.getCenter(), 8)
+        popoutModel.events.setPopout(null)
+    }
 
     const setRandPos = () => {
         const pos = getRandomPosition()
         mapModel.events.setLatLngMap(pos)
         popoutModel.events.setPopout(null)
-        map?.flyTo(pos, 15)
+        map?.flyTo(pos, 16)
         
         console.log('flyTo 1111')
     }

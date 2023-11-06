@@ -1,8 +1,9 @@
 import { FC } from "react";
-import { Pane, useMap, useMapEvents } from "react-leaflet";
+import { FeatureGroup, Pane, useMap, useMapEvents } from "react-leaflet";
 import { UserDrone } from "../user-pointer/drone";
 import { Drones } from "../pointers/drones";
 import { droneMapModel } from "entities/pointer";
+import { popoutModel } from "shared/ui/PopoutRoot";
 
 export const MapDrones: FC = () => {
 
@@ -31,9 +32,18 @@ export const MapDrones: FC = () => {
         }
     })
 
+    const onShip = () => {
+        popoutModel.events.setPopout('ship')
+    }
+
     return (
         <Pane name={`drones`} style={{ zIndex: 3001 }}>
-            <UserDrone size={size} />
+            <FeatureGroup eventHandlers={{
+                click: onShip
+            }}>
+
+                <UserDrone size={size} />
+            </FeatureGroup>
             <Drones size={size} />
         </Pane>
     )

@@ -1,13 +1,16 @@
 import { Gun } from '../../../entities/weapon/gun'
-import { UnmarshalledWeapon, Weapon } from '../../../entities/weapon/weapon'
+import { UnmarshalledWeapon, WeaponType } from '../../../entities/weapon/types'
+// import { UnmarshalledWeapon, Weapon } from '../../../entities/weapon/weapon'
 
 export class WeaponMapper {
 
-  public static toDomain(weapon: UnmarshalledWeapon): Weapon {
-    if (weapon.weapon === 1) {
-      return Weapon.create({
+  public static toDomain(weapon: UnmarshalledWeapon): WeaponType {
+    if (weapon.weapon === 'gun') {
+      return Gun.create({
         id: weapon.id,
-        weapon: Gun.level(weapon.level),
+        level: weapon.level,
+        distance: weapon.distance,
+        power: weapon.power,
         bullets: weapon.bullets,
         status: weapon.status
       })

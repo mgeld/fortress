@@ -25,8 +25,18 @@ import { ExtractionPage } from 'pages/extraction'
 // import { NavMenu } from 'widgets/map-buttons/menu'
 // import { Extraction } from 'widgets/extraction/ui'
 import { BattleOver } from 'entities/arena'
-import { ExtractionPopout } from 'features/extraction/use/ui'
 import { Notice } from 'shared/ui/Notice/ui'
+import { ShipPopout } from 'entities/ship/ui'
+import { UseItemPopout } from 'widgets/use-item/ui'
+import { StormCorpsPopout } from 'entities/storm-corps/ui'
+import { GunPopout } from 'entities/weapon/ui'
+import { HoldPopout } from 'entities/hold/ui'
+import { GunImproveDistance } from 'features/storm-corps/gun-improve-distance/ui'
+import { GunImprovePower } from 'features/storm-corps/gun-improve-power/ui'
+import { Panel } from 'widgets/panel/ui'
+import { ExtractionPopout } from 'features/unit/use-extraction/ui'
+import { GunShopPage } from 'pages/gun-shop/ui'
+import { UnitPopout } from 'features/unit/buy-unit/ui'
 
 const App = () => {
 
@@ -78,8 +88,73 @@ const App = () => {
         <Popout
           id='select-extraction'
           fill='#5a166480'
+          edge={28}
         >
           <ExtractionPopout />
+        </Popout>
+
+        <Popout
+          id='ship'
+          fill='#5a166480'
+          edge={14}
+        >
+          <ShipPopout />
+        </Popout>
+
+        <Popout
+          id='storm-corps'
+          fill='#5a166480'
+          edge={14}
+        >
+          <StormCorpsPopout />
+        </Popout>
+
+        <Popout
+          id='gun'
+          fill='#5a166480'
+          edge={14}
+        >
+          <GunPopout />
+        </Popout>
+
+        <Popout
+          id='hold'
+          fill='#5a166480'
+          edge={14}
+        >
+          <HoldPopout />
+        </Popout>
+
+        <Popout
+          id='gun-improve-distance'
+          fill='#5a166480'
+          edge={14}
+        >
+          <GunImproveDistance />
+        </Popout>
+
+        <Popout
+          id='gun-improve-power'
+          fill='#5a166480'
+          edge={14}
+        >
+          <GunImprovePower />
+        </Popout>
+
+        <Popout
+          id='panel'
+          fill='#5a166480'
+          edge={14}
+        >
+          <Panel />
+        </Popout>
+
+        <Popout
+          id='select-unit'
+          fill='#5a166480'
+          edge={28}
+        >
+          <UnitPopout />
         </Popout>
 
       </PopoutRoot>
@@ -100,6 +175,12 @@ const App = () => {
           <Page id='extraction'>
             <ExtractionPage />
           </Page>
+
+          <Page id='gun-shop'>
+            <GunShopPage />
+          </Page>
+
+
         </PageRoot>
 
       ) : null}

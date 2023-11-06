@@ -1,11 +1,14 @@
 import { TLatLng } from "../../common-types/model"
+import { UnmarshalledUser, User } from "./user"
 
 export type TPointerProps = {
     // id: number
     zoneId: number
 
-    icon?: string
-    name?: string
+    user: User
+
+    // icon?: string
+    // name?: string
     color: number
 
     health: number
@@ -20,7 +23,10 @@ export type TPointerProps = {
     bombs?: string[]
 }
 
-export type UnmarshalledPointer = { id: number } & Omit<Required<TPointerProps>, 'zoneId'>
+export type UnmarshalledPointer = {
+    id: number
+    user: UnmarshalledUser
+} & Omit<Required<TPointerProps>, 'zoneId' | 'user'>
 
 // {
 //     id: number
@@ -35,8 +41,10 @@ export class Pointer {
 
     private _health: number
 
-    private _icon: string
-    private _name: string
+    private _user: User
+
+    // private _icon: string
+    // private _name: string
 
     private _color: number
 
@@ -53,8 +61,9 @@ export class Pointer {
         // this._id = pointer.id
         this._zoneId = pointer.zoneId
 
-        this._icon = pointer?.icon || ''
-        this._name = pointer?.name || ''
+        this._user = pointer.user
+        // this._icon = pointer?.icon || ''
+        // this._name = pointer?.name || ''
 
         this._color = pointer?.color || 1
 
@@ -80,14 +89,14 @@ export class Pointer {
         return {
             id: this._zoneId,
 
-            // zoneId: this._zoneId,
-            health: this.health,
-            color: this.color,
-            icon: this._icon,
-            name: this._name,
+            user: this._user.unmarshal(),
 
-            // invaders: this.invaders,
-            // defenders: this.defenders,
+            // icon: this._icon,
+            // name: this._name,
+
+            color: this.color,
+
+            health: this.health,
 
             pos: this.pos,
 
@@ -101,9 +110,8 @@ export class Pointer {
     public pointerUnmarshal() {
         return {
             userId: this._zoneId,
-            // zoneId: this._zoneId,
-            icon: this._icon,
-            name: this._name,
+            icon: this._user.icon,
+            name: this._user.name,
             pos: this.pos,
             health: this.health,
         }
@@ -164,11 +172,11 @@ export class Pointer {
     // }
 
     get icon() {
-        return this._icon
+        return this._user.icon
     }
 
     get name() {
-        return this._name
+        return this._user.name
     }
 
     // get defenders() {
@@ -179,6 +187,11 @@ export class Pointer {
         this._health = health
     }
 
+    addHealth(h: number): number {
+        this._health = this._health + h
+        return this._health
+    }
+    
     get weapons() {
         return this._weapons
     }

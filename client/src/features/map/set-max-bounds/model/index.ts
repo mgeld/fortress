@@ -26,7 +26,6 @@ export const setMaxBoundsListener = () => {
         clock: $arealStore,
         source: {
             map: mapModel.$mapStore,
-
         },
         filter: (source, areal): areal is TAreal => areal !== null,
         fn: (source, areal) => ({

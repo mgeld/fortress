@@ -1,5 +1,3 @@
-import { LatLngBounds } from "leaflet"
-import { TFire } from "../model/fire"
 import { fireLimitLeft } from "./fire-limit-left"
 import { firetLimitRigh } from "./fire-limit-right"
 import { fireLimitForward } from "./fire-limit-forward"

@@ -48,15 +48,15 @@ class BattleFireHandler extends IRoute {
             direction: message.payload.direction,
             userId: message.payload.userId,
             weapon: {
-                symbol: weapon.weapon.symbol,
-                level: weapon.weapon.level
+                symbol: weapon.symbol,
+                level: weapon.level
             }
         }
 
         if (message.payload?.hitPointer) {
 
             // Сохраняем в свою стату нанесенный противнику урон
-            _member.makeDamage(weapon.weapon.damage)
+            _member.makeDamage(weapon.power)
 
             fire['hitPointer'] = message.payload.hitPointer
 
@@ -64,7 +64,7 @@ class BattleFireHandler extends IRoute {
             const hitPointer = await this._memberService.getById(message.payload.hitPointer.userId)
 
             // Отнимаем здоровье в зависимости от Урона Оружия
-            const health = hitPointer.removeHealth(weapon.weapon.damage)
+            const health = hitPointer.removeHealth(weapon.power)
 
             // Если противник погиб
             if (health < 1) {

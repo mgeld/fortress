@@ -10,17 +10,16 @@
 
 .beam-box {
     position: relative;
-
     background-color: blueviolet;
-    /* z-index: 1000; */
 }
 
 .beam {
     position: absolute;
     border-radius: 50%;
-    transition: 0.4s;
-    width: 20px;
-    height: 20px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    /* transition: border-right 0.4s; */
+
 }
 
 .zoom-anim-map .beam {

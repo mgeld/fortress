@@ -1,4 +1,4 @@
-import { TExtrTypes, TLatLng, TTypeToastNotice } from "../../common-types/model"
+import { TExtrTypes, TExtrTypesName, TLatLng, TTypeToastNotice } from "../../common-types/model"
 import { randomNumber } from "../../libs/random-number"
 
 type TExtractionProps = {
@@ -8,10 +8,16 @@ type TExtractionProps = {
 export type UnmarshalledExtraction = TExtrTypes[]
 
 type TExtrItem = {
-    id: TExtrTypes
-    class: string
-    gives: TTypeToastNotice
+    gives: TExtrTypesName
     quantity: number
+}
+
+type TExtrTypesTens = 10 | 20 | 30 | 40 | 50
+
+type TExtrGroups = {
+    [k: string]: {
+        [k: number]: number
+    }
 }
 
 export class Extraction {
@@ -51,7 +57,7 @@ export class Extraction {
         this._list.splice(index, 1)
         return Extraction.getExtraction(id)
     }
-    
+
     addExtrToList(probabilityNumber: TExtrTypes) {
         this._list.push(probabilityNumber)
     }
@@ -59,43 +65,61 @@ export class Extraction {
     public static getContainerExtr(cont_id: 1 | 2 | 3): TExtrTypes {
         const __containers = {
             // Контейнер: [список добыч]
-            1: [1,2],
-            2: [3],
-            3: [4],
+            1: [10, 20, 30, 40, 50],
+            2: [11, 21, 31, 41, 51],
+            3: [12, 22, 32, 42, 52],
         }
         const cont: number[] = __containers[cont_id]
         return cont[randomNumber(0, cont.length - 1)] as TExtrTypes
     }
 
-    private static __extr: { [key: number]: TExtrItem } = {
-        1: {
-            id: 1,
-            class: 'resource',
-            gives: 'coins',
-            quantity: 1000
-        },
-        2: {
-            id: 2,
-            class: 'resource',
-            gives: 'coins',
-            quantity: 1500
-        },
-        3: {
-            id: 3,
-            class: 'resource',
-            gives: 'rubies',
-            quantity: 20
-        },
-        4: {
-            id: 4,
-            class: 'module',
-            gives: 'exp-rank',
-            quantity: 150
+    public static getTypeModuleNumber(number: TExtrTypes): TExtrTypesName {
+        const types: { [k: number]: TExtrTypesName } = {
+            10: 'rank_exp',
+            20: 'storm_power',
+            30: 'ship_health',
+            40: 'gun_power',
+            50: 'gun_distance',
         }
+        const id: TExtrTypesTens = Math.floor(number / 10) * 10 as TExtrTypesTens
+        return types[id]
+    }
+
+    private static __list: TExtrGroups = {
+        rank_exp: {
+            10: 100,
+            11: 100,
+            12: 100,
+        },
+        storm_power: {
+            20: 100,
+            21: 100,
+            22: 100,
+        },
+        ship_health: {
+            30: 100,
+            31: 100,
+            32: 100,
+        },
+        gun_power: {
+            40: 100,
+            41: 100,
+            42: 100,
+        },
+        gun_distance: {
+            50: 100,
+            51: 100,
+            52: 100,
+        },
     }
 
     private static getExtraction(id: TExtrTypes): TExtrItem {
-        return Extraction.__extr[id]
+        const gives = Extraction.getTypeModuleNumber(id)
+        const quantity = Extraction.__list[gives][id]
+        return {
+            gives,
+            quantity
+        }
     }
 
 }

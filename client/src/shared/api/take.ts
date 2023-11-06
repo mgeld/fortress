@@ -3,19 +3,19 @@ import { WS } from "processes/socket"
 import { TLatLng } from "shared/types"
 
 export const takeAPI = (
-    position: TLatLng,
+    // position: TLatLng,
     fort: TLatLng,
     sector: string,
-    userId: number,
+    // userId: number,
 ) => {
     
     const data: TTakeAPI = {
         event: 'take',
         payload: {
-            position,
+            // position,
             fort,
             sector,
-            userId,
+            // userId,
         }
     }
 

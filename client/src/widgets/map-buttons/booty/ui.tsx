@@ -11,7 +11,7 @@ export const NavBooty = () => {
             onClick={() => pageModel.events.setPage('extraction')}
             className={styles.__booty}
             icon={<IconBooty />}
-            text="Добыча"
+            text="Трюм"
         />
     )
 }

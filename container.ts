@@ -61,6 +61,7 @@ import { BattleLeaveHandler } from './controllers/battle-leave'
 import { VkUserRepository } from './infra/database/mysql2/repositories/vk-user'
 import { UseExtractionHandler } from './controllers/use-extraction'
 import { BeamHandler } from './controllers/beam'
+import { BuyUnitHandler } from './controllers/buy-unit'
 
 // import { Handlers } from './controllers/handlers'
 
@@ -87,6 +88,7 @@ container.bind(TYPES.GetSectorsHandler).to(GetSectorsHandler)
 container.bind(TYPES.GetAboutSectorHandler).to(GetAboutSectorHandler)
 container.bind(TYPES.GetUserHandler).to(GetUserHandler)
 container.bind(TYPES.UseExtractionHandler).to(UseExtractionHandler)
+container.bind(TYPES.BuyUnitHandler).to(BuyUnitHandler)
 
 
 container.bind(TYPES.ArenaService).to(ArenaService)

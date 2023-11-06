@@ -6,11 +6,13 @@ import styles from './styles.module.scss'
 type PopoutProps = {
     id: string
     fill: string
+    edge?: number
     children: ReactNode
 }
 export const Popout: FC<PopoutProps> = ({
     id,
     fill,
+    edge,
     children
 }) => {
 
@@ -23,7 +25,12 @@ export const Popout: FC<PopoutProps> = ({
             style={{ backgroundColor: fill }}
             className={styles.popout}
         >
-            {children}
+            <div
+                className={styles.__size}
+                style={{ padding: `0 ${edge || 12}px` }}
+            >
+                {children}
+            </div>
         </div>
     )
 }
