@@ -66,7 +66,8 @@ let Server = class Server {
             let router = serverContext._handlers.handle(ws);
             ws.on('message', router);
         });
-        const hostname = '192.168.43.90';
+        const hostname = '89.108.71.67';
+        console.log('hostname', hostname);
         server.listen(8080, hostname, () => console.log('Htpsssss'));
     }
 };
