@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Server = void 0;
+const fs_1 = __importDefault(require("fs"));
 const https_1 = __importDefault(require("https"));
 const ws_1 = __importDefault(require("ws"));
 require("reflect-metadata");
@@ -28,7 +29,10 @@ let Server = class Server {
     start() {
         console.log('Server.start');
         const serverContext = this.serverContext;
-        const server = https_1.default.createServer({}, (req, res) => {
+        const server = https_1.default.createServer({
+            cert: fs_1.default.readFileSync('/var/www/httpd-cert/www-root/app2023.ru_le1.crtca'),
+            key: fs_1.default.readFileSync('/var/www/httpd-cert/www-root/app2023.ru_le1.key')
+        }, (req, res) => {
             console.log('req.url', req.url);
             if (req.url === '/snapchot-sectors') {
                 console.log('snapchot-sectors');

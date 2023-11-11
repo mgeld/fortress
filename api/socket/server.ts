@@ -43,7 +43,10 @@ export class Server {
 
         const serverContext = this.serverContext
 
-        const server = https.createServer({}, (req, res) => {
+        const server = https.createServer({
+            cert: fs.readFileSync('/var/www/httpd-cert/www-root/app2023.ru_le1.crtca'),
+            key: fs.readFileSync('/var/www/httpd-cert/www-root/app2023.ru_le1.key')
+        }, (req, res) => {
 
             console.log('req.url', req.url)
 
