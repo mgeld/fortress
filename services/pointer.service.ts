@@ -25,6 +25,7 @@ export class PointerService {
     }
 
     baseGetById(userId: number): Promise<Pointer> {
+        console.log('baseGetById userId', userId)
         return this._baseRepository.getById(userId)
     }
 
@@ -46,6 +47,7 @@ export class PointerService {
 
         const pointer = Pointer.create({
             zoneId,
+            level: 1,
 
             user: User.create({
                 icon,
@@ -57,14 +59,10 @@ export class PointerService {
 
             weapons: [weapon.id],
 
-            pos: pos
+            pos
         })
 
         return pointer
-    }
-
-    increaseExperience() {
-
     }
 
     getByIds(userIds: number[]): Promise<Pointer[]> {
@@ -77,7 +75,12 @@ export class PointerService {
     }
 
     async memoryUpdate(pointer: Pointer) {
+        console.log('memoryUpdate pointer.level', pointer.level)
         await this._memoryRepository.update(pointer)
+    }
+
+    async baseUpdate(pointer: Pointer) {
+        await this._baseRepository.update(pointer)
     }
 
     remove(userId: number) {

@@ -16,10 +16,18 @@ import { TWeaponProps, TWeaponStatus, UnmarshalledWeapon } from "./types"
 //     status: 1 | 0
 // }
 
+type TSymbolForNumber = {
+    [symbol: string]: number
+}
+type TNumberForSymbol = {
+    [number: number]: TWeaponSymbol
+}
+
+
 export class Gun {
 
     public name = 'Пушка'
-    public symbol: TWeaponSymbol = 'gun'
+    public symbol: TWeaponSymbol = 1 // gun
 
     private _id: string
     private _level: number
@@ -40,6 +48,7 @@ export class Gun {
         this._status = props?.status ? 'used' : 'stock'
     }
 
+    
     public static create(props: TWeaponProps) {
         return new Gun(props)
     }
@@ -55,6 +64,51 @@ export class Gun {
             status: this._status === 'used' ? 1 : 0
         }
     }
+    
+    private static levelMaxPower(): { [key: number]: number } {
+        return {
+            1: 100,
+            2: 100,
+            3: 100,
+            4: 100,
+            5: 100,
+            6: 100
+        }
+    }
+
+    private static levelMaxDistance(): { [key: number]: number } {
+        return {
+            1: 100,
+            2: 100,
+            3: 100,
+            4: 100,
+            5: 100,
+            6: 100
+        }
+    }
+
+    private static levelMaxBullets(): { [key: number]: number } {
+        return {
+            1: 100,
+            2: 100,
+            3: 100,
+            4: 100,
+            5: 100,
+            6: 100
+        }
+    }
+
+    public static getLevelUpPrice(level: number): number {
+        const levels: { [key: number]: number } = {
+            1: 100,
+            2: 100,
+            3: 100,
+            4: 100,
+            5: 100,
+            6: 100
+        }
+        return levels[level]
+    }
 
     upLevel(): number {
         if (!Gun.validLevel(this._level + 1)) {
@@ -65,7 +119,7 @@ export class Gun {
     }
 
     public static validLevel(level: number) {
-        return level > 0 && level <= 5
+        return level > 0 && level <= 6
     }
 
     get damage(): number {

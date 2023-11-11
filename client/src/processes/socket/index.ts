@@ -11,6 +11,9 @@ import { DelPointerHandler } from "shared/api/handlers/del-pointer"
 import { DirectPointerHandler } from "shared/api/handlers/direct"
 import { FindContHandler } from "shared/api/handlers/find-cont"
 import { FireHandler } from "shared/api/handlers/fire"
+import { LevelUpHandler } from "shared/api/handlers/level-up"
+import { NewRankHandler } from "shared/api/handlers/new-rank"
+import { NewZoneHandler } from "shared/api/handlers/new-zone"
 import { PointersHandler } from "shared/api/handlers/pointers"
 import { SectorHandler } from "shared/api/handlers/sector"
 import { SectorsHandler } from "shared/api/handlers/sectors"
@@ -28,7 +31,36 @@ import { API_BASE_URL } from "shared/config"
 
 export const WS = new Socket(API_BASE_URL, socket.setSocketStatus)
 
-const callbacks = {
+// const callbacks = {
+//     [ConnectHandler.EVENT]: new ConnectHandler(),
+//     [ConnectPointerHandler.EVENT]: new ConnectPointerHandler(),
+//     [DelPointerHandler.EVENT]: new DelPointerHandler(),
+//     [DirectPointerHandler.EVENT]: new DirectPointerHandler(),
+//     [PointersHandler.EVENT]: new PointersHandler(),
+//     [TakeHandler.EVENT]: new TakeHandler(),
+//     [BattleStartHandler.EVENT]: new BattleStartHandler(),
+//     [BattleOverHandler.EVENT]: new BattleOverHandler(),
+//     [FireHandler.EVENT]: new FireHandler(),
+//     [BombHandler.EVENT]: new BombHandler(),
+//     [BattleJoinHandler.EVENT]: new BattleJoinHandler(),
+//     [SectorsHandler.EVENT]: new SectorsHandler(),
+//     [SectorHandler.EVENT]: new SectorHandler(),
+//     [TakeHitHandler.EVENT]: new TakeHitHandler(),
+//     [YTakeSectorHandler.EVENT]: new YTakeSectorHandler(),
+//     [YrTakeSectorHandler.EVENT]: new YrTakeSectorHandler(),
+//     [TakeSectorHandler.EVENT]: new TakeSectorHandler(),
+//     [SetUserHandler.EVENT]: new SetUserHandler(),
+//     [SetCitadelHandler.EVENT]: new SetCitadelHandler(),
+//     [UseExtractionHandler.EVENT]: new UseExtractionHandler(),
+//     [AttractionHandler.EVENT]: new AttractionHandler(),
+//     [FindContHandler.EVENT]: new FindContHandler(),
+//     [BuyUnitHandler.EVENT]: new BuyUnitHandler(),
+//     [LevelUpHandler.EVENT]: new LevelUpHandler(),
+//     [NewRankHandler.EVENT]: new NewRankHandler(),
+//     [NewZoneHandler.EVENT]: new NewZoneHandler(),
+// } as THandlers
+
+const handlers = new Handlers({
     [ConnectHandler.EVENT]: new ConnectHandler(),
     [ConnectPointerHandler.EVENT]: new ConnectPointerHandler(),
     [DelPointerHandler.EVENT]: new DelPointerHandler(),
@@ -52,9 +84,10 @@ const callbacks = {
     [AttractionHandler.EVENT]: new AttractionHandler(),
     [FindContHandler.EVENT]: new FindContHandler(),
     [BuyUnitHandler.EVENT]: new BuyUnitHandler(),
-} as THandlers
-
-const handlers = new Handlers(callbacks)
+    [LevelUpHandler.EVENT]: new LevelUpHandler(),
+    [NewRankHandler.EVENT]: new NewRankHandler(),
+    [NewZoneHandler.EVENT]: new NewZoneHandler(),
+} as THandlers)
 
 WS.setHandlers(handlers.handle())
 

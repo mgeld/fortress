@@ -27,7 +27,7 @@ export class WeaponMemoryRepository implements IWeaponMemoryRepository {
     async getById(id: string): Promise<WeaponType> {
         const weapon = await this._database.weapon.getById<UnmarshalledWeapon>(id)
         if (!weapon) {
-            throw new Error('----------')
+            throw new Error('WeaponMemoryRepository getById Error')
         }
         return WeaponMapper.toDomain(weapon)
 

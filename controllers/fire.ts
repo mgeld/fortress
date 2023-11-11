@@ -21,10 +21,13 @@ class FireHandler extends IRoute {
         uSocket: IWebSocket,
     ) {
 
-        console.log('FireHandler handle')
-        const _pointer = await this._pointerService.memoryGetById(message.payload.userId)
-        const weapon = await this._weaponService.memoryGetById(message.payload.weapon)
+        if (!uSocket.user_id) return
 
+        // console.log('FireHandler handle message.payload.weapon', message.payload.weapon)
+        const _pointer = await this._pointerService.memoryGetById(uSocket.user_id)
+        const weapon = await this._weaponService.memoryGetById(_pointer.weapons[0])
+
+        console.log('FireHandler weapon.distance', weapon.distance)
         // Если я умер
         if (_pointer.health < 1) {
             return
@@ -34,19 +37,21 @@ class FireHandler extends IRoute {
             return
         }
 
-        console.log('fire weapon.distance', weapon.distance)
+        // console.log('fire weapon.distance', weapon.distance)
 
         weapon.bullets = weapon.bullets - 1
         await this._weaponService.memoryUpdate(weapon)
 
         const fire: TFirePayload = {
-            position: message.payload.position,
+            pos: message.payload.pos,
+            to_pos: message.payload.to_pos,
             direction: message.payload.direction,
-            userId: message.payload.userId,
-            weapon: {
-                symbol: weapon.symbol,
-                level: weapon.level
-            }
+            userId: _pointer.zoneId,
+            // weapon: {
+            //     power: weapon.power,
+            //     dist: weapon.symbol,
+            //     // level: weapon.level
+            // }
         }
 
         if (message.payload?.hitPointer) {
@@ -55,7 +60,12 @@ class FireHandler extends IRoute {
 
             const hitPointer = await this._pointerService.memoryGetById(message.payload.hitPointer.userId)
 
-            hitPointer.health = hitPointer.health - weapon.power
+            // hitPointer.health = hitPointer.health - weapon.power
+            hitPointer.removeHealth(weapon.power)
+
+            fire.hitPointer.health = hitPointer.health
+
+            console.log('fire.hitPointer.health', fire.hitPointer.health)
 
             if (hitPointer.health < 1) {}
 

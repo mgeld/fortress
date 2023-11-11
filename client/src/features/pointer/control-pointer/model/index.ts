@@ -1,5 +1,6 @@
-import { attach, createEffect, createEvent, sample } from "effector"
+import { createEffect, createEvent, sample } from "effector"
 import { arenaModel } from "entities/arena"
+import { shipModel } from "entities/ship"
 import { userModel } from "entities/user"
 import { battleDirectAPI } from "shared/api/battle-direct"
 import { directAPI } from "shared/api/direct"
@@ -12,7 +13,7 @@ type TMovePointFx = {
     }
 }
 const movePointFx = createEffect(({ payload }: TMovePointFx) => {
-    userModel.events.movePoint({ type: payload.direction })
+    shipModel.events.movePoint({ type: payload.direction })
 })
 
 export const direction = createEvent<TJoystickDirection | null>()
@@ -30,7 +31,7 @@ sample({
 
 type TSource = {
     battleStatus: TBattleStatus
-    userId: number
+    // userId: number
     userPos: TLatLng
 }
 
@@ -39,9 +40,9 @@ const directFx = createEffect((source: TSource) => {
         source.battleStatus === 'default' ||
         source.battleStatus === 'over'
     ) {
-        directAPI(source.userPos, source.userId)
+        directAPI(source.userPos)
     } else {
-        battleDirectAPI(source.userPos, source.userId)
+        battleDirectAPI(source.userPos)
     }
 })
 
@@ -49,8 +50,8 @@ sample({
     clock: movePointFx.done,
     source: {
         battleStatus: arenaModel.$battleStatusStore,
-        userId: userModel.$userIdStore,
-        userPos: userModel.$userPositionStore
+        // userId: userModel.$userIdStore,
+        userPos: shipModel.$userPositionStore
     },
     // filter: (source): source is TSource => source.userPos !== null,
     target: directFx

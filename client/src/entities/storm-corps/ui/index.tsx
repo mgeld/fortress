@@ -1,26 +1,38 @@
 import { FC } from "react";
 
-import { ShipCell } from "shared/ui/ShipCell/ui";
+import { ShipCell } from "shared/ui/ship-cell/ui";
 import { IconStorm } from "entities/ship/ui/assets/icons";
+import { popoutModel } from "shared/ui/popout-root";
+import { StormCorpsLevel, TStormCorpsLevel } from "../lib/storm-corps-level";
+import { stormModel } from "..";
 
 export const StormCorpsPopout: FC = () => {
+
+    const invaders = stormModel.selectors.useStormInvaders()
+    const power = stormModel.selectors.useStormPower()
+    const level = stormModel.selectors.useStormLevel()
 
     return (
         <ShipCell
             head={{
                 icon: <IconStorm width={54} height={54} />,
-                level: 2,
+                level: level,
                 name: 'Штурмовой корпус',
-                level_name: 'Уровень ШК'
+                level_name: 'Уровень ШК',
+                _click: () => {
+                    popoutModel.events.setPopout('storm-level-up')
+                }
             }}
             items={[
                 {
                     name: 'Штурмовики',
-                    counter: '87 / 100'
+                    counter: `${invaders} / ${StormCorpsLevel.getMaxInvaders(level as TStormCorpsLevel)}`,
+                    _click: () => popoutModel.events.setPopout('storm-add-invaders')
                 },
                 {
                     name: 'Сила штурмовиков',
-                    counter: '87 / 100',
+                    counter: `${power} / ${StormCorpsLevel.getMaxpower(level as TStormCorpsLevel)}`,
+                    _click: () => popoutModel.events.setPopout('storm-improve-power')
                 },
             ]}
         />

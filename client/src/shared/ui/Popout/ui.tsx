@@ -1,5 +1,5 @@
 import { FC, ReactNode, useContext } from "react";
-import { PopoutRootContext } from "../PopoutRoot";
+import { PopoutRootContext, popoutModel } from "../popout-root";
 
 import styles from './styles.module.scss'
 
@@ -7,12 +7,14 @@ type PopoutProps = {
     id: string
     fill: string
     edge?: number
+    close?: boolean
     children: ReactNode
 }
 export const Popout: FC<PopoutProps> = ({
     id,
     fill,
     edge,
+    close,
     children
 }) => {
 
@@ -20,8 +22,14 @@ export const Popout: FC<PopoutProps> = ({
 
     if (activePopout !== id) return null
 
+    const _close = () => {
+        if (close === false) return
+        popoutModel.events.setPopout(null)
+    }
+
     return (
         <div
+            onClick={_close}
             style={{ backgroundColor: fill }}
             className={styles.popout}
         >

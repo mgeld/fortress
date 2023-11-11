@@ -1,6 +1,6 @@
 import { createEffect, createEvent, sample } from "effector";
 
-import { userModel } from "entities/user";
+// import { userModel } from "entities/user";
 import { stormModel } from "entities/storm-corps";
 
 import { cellToLatLng, latLngToCell } from "h3-js";
@@ -8,7 +8,9 @@ import { TTake } from "entities/invader/model/invader";
 import { takeAPI } from "shared/api/take";
 import { TLatLng } from "shared/types";
 import { stormAPI, takesAPI } from "shared/api/events";
-import { snackbarModel } from "shared/ui/Snackbar";
+import { snackbarModel } from "shared/ui/snackbar";
+import { throttle } from "shared/lib/throttle";
+import { shipModel } from "entities/ship";
 
 //--------
 
@@ -93,12 +95,11 @@ const hitTakeOutSector = createEvent()
 sample({
     clock: hitTakeOutSector,
     source: {
-        userPos: userModel.$userPositionStore,
+        userPos: shipModel.$userPositionStore,
         stormInvaders: stormModel.$stormInvadersStore
     },
-    // 
     target: hitSectorFx,
 })
 
 // Точка входа
-export const invaderControl = () => hitTakeOutSector()
+export const invaderControl = throttle(hitTakeOutSector, 500)

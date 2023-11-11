@@ -42,4 +42,8 @@ export class WeaponService {
     async baseUpdate(weapon: WeaponType) {
         const _weapon = await this._baseRepository.update(weapon)
     }
+
+    remove(id: string) {
+        return this._memoryRepository.delete(id)
+    }
 }

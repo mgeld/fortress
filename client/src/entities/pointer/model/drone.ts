@@ -2,7 +2,7 @@ import { createEffect, createEvent, createStore, sample } from "effector"
 import { useStore } from "effector-react"
 import { $mapStore } from "entities/map/model"
 import { getDestination } from "entities/sector/lib/getDestination"
-import { $arealStore, $userPositionStore } from "entities/user/model/user"
+import { $arealStore, $userPositionStore } from "entities/ship/model"
 import { Map } from "leaflet"
 import { TLatLng } from "shared/types"
 
@@ -24,8 +24,6 @@ const getDroneSizefx = createEffect(({
     const fromPoint = map.latLngToLayerPoint(userPos)
     const toPoint = map.latLngToLayerPoint(toPosLatLng)
 
-    console.log('fromPoint', fromPoint)
-    console.log('toPoint', toPoint)
     return toPoint.x - fromPoint.x
 })
 
@@ -40,8 +38,6 @@ sample({
 })
 
 const setSizeDrone = createEvent()
-
-setSizeDrone.watch(() => console.log('............setSizeDrone'))
 
 sample({
     clock: setSizeDrone,
@@ -61,7 +57,7 @@ sample({
     target: $sizeDroneStore
 })
 
-$sizeDroneStore.watch(value => 'sizeDroneStore: ' + value)
+// $sizeDroneStore.watch(value => 'sizeDroneStore: ' + value)
 
 const useDroneSize = () => useStore($sizeDroneStore)
 

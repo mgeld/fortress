@@ -22,11 +22,14 @@ export type THealthPointer = {
     health: number
 }
 const changeHealthPointer = createEvent<THealthPointer>()
+const setHealthPointer = createEvent<THealthPointer>()
+
 
 export const events = {
     newPointer,
     delPointer,
     setPointers,
     updatePositionPointer,
-    changeHealthPointer
+    changeHealthPointer,
+    setHealthPointer
 }

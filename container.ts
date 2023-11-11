@@ -62,12 +62,15 @@ import { VkUserRepository } from './infra/database/mysql2/repositories/vk-user'
 import { UseExtractionHandler } from './controllers/use-extraction'
 import { BeamHandler } from './controllers/beam'
 import { BuyUnitHandler } from './controllers/buy-unit'
+import { LevelUpHandler } from './controllers/level-up'
+import { PingPong } from './api/socket/socket/ping-pong'
 
 // import { Handlers } from './controllers/handlers'
 
 const container = new Container()
 
 container.bind<IServer>(TYPES.Server).to(Server).inSingletonScope()
+container.bind(TYPES.PingPong).to(PingPong).inSingletonScope()
 container.bind(TYPES.Rooms).to(Rooms).inSingletonScope()
 
 // container.bind(TYPES.HTTPController).to(HTTPController).inSingletonScope()
@@ -89,6 +92,7 @@ container.bind(TYPES.GetAboutSectorHandler).to(GetAboutSectorHandler)
 container.bind(TYPES.GetUserHandler).to(GetUserHandler)
 container.bind(TYPES.UseExtractionHandler).to(UseExtractionHandler)
 container.bind(TYPES.BuyUnitHandler).to(BuyUnitHandler)
+container.bind(TYPES.LevelUpHandler).to(LevelUpHandler)
 
 
 container.bind(TYPES.ArenaService).to(ArenaService)

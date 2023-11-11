@@ -1,6 +1,7 @@
 import { userModel } from "entities/user"
 import { FC } from "react"
 import Drone from "entities/pointer/ui/drone"
+import { shipModel } from "entities/ship"
 // import { Fort } from "entities/fort"
 
 type UserDroneProps = {
@@ -9,7 +10,8 @@ type UserDroneProps = {
 
 const UserDrone: FC<UserDroneProps> = ({ size }) => {
 
-    const { pos, health } = userModel.selectors.useUser()
+    const pos = shipModel.selectors.useShipPos()
+    const health = shipModel.selectors.useShipHealth()
 
     return (
         <Drone

@@ -1,20 +1,21 @@
 import { FC } from "react";
 
-import { extractionModel } from "entities/unit";
-import { TExtrTypes } from "@ctypes/model";
+import { popoutModel } from "shared/ui/popout-root";
+import { IconHealth, IconLevelUp, IconPlus, IconShip } from "./assets/icons";
+import { StormCorps } from "./storm-corps";
+import { Gun } from "./gun";
+import { Hold } from "./hold";
 
 import styles from './styles.module.scss'
-
-import { popoutModel } from "shared/ui/PopoutRoot";
-import { IconGun, IconHealth, IconHold, IconLevelUp, IconPlus, IconShip, IconStorm } from "./assets/icons";
+import { shipModel } from "..";
+import { ShipLevel, TShipLevel } from "../lib/ship-level";
 
 export const ShipPopout: FC = () => {
 
-    const extr: TExtrTypes | null = extractionModel.selectors.useExtraction()?.id || null
-
-    // if (!extr) return <></>
-
     const closePopout = () => popoutModel.events.setPopout(null)
+
+    const health = shipModel.selectors.useShipHealth()
+    const level = shipModel.selectors.useShipLevel()
 
     return (
         <div className={styles.ship}>
@@ -33,8 +34,11 @@ export const ShipPopout: FC = () => {
                             <div className={styles.head}>
                                 <div className={`${styles.name}`}>Корабль</div>
                                 <div className={styles.level}>
-                                    <span>2 ур.</span>
-                                    <div className={styles.levelUp}>
+                                    <span>{level} ур.</span>
+                                    <div
+                                        onClick={() => popoutModel.events.setPopout('ship-level-up')}
+                                        className={styles.levelUp}
+                                    >
                                         <IconLevelUp width={18} height={18} />
                                     </div>
                                 </div>
@@ -48,8 +52,11 @@ export const ShipPopout: FC = () => {
                                         Здоровье
                                     </div></div>
                                 <div className={styles.counter}>
-                                    <span>87 / 100</span>
-                                    <div className={styles.levelUp}>
+                                    <span>{health} / {ShipLevel.getMaxHealth(level as TShipLevel)}</span>
+                                    <div
+                                        onClick={() => popoutModel.events.setPopout('ship-improve-health')}
+                                        className={styles.levelUp}
+                                    >
                                         <IconPlus width={18} height={18} />
                                     </div>
                                 </div>
@@ -63,73 +70,9 @@ export const ShipPopout: FC = () => {
                 </div>
 
                 <div className={styles.items}>
-
-                    <div
-                        onClick={() => popoutModel.events.setPopout('storm-corps')}
-                        className={styles.item}
-                    >
-                        <div className={styles.__icon}>
-                            <IconStorm width={36} height={36} />
-                        </div>
-                        <div className={styles.__info}>
-                            <div className={styles.head}>
-                                <div className={styles.name}>Штурмой корпус</div>
-                                <div className={styles.level}>
-                                    <span>3 ур.</span>
-                                </div>
-                            </div>
-                            <div className={styles.description}>
-                                <div className={styles.name}>Штурмовики</div>
-                                <div className={styles.counter}>87 / 100</div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div
-                        onClick={() => popoutModel.events.setPopout('gun')}
-                        className={styles.item}
-                    >
-                        <div className={styles.__icon}>
-                            <IconGun width={40} height={40} />
-                        </div>
-                        <div className={styles.__info}>
-                            <div className={styles.head}>
-                                <div className={styles.name}>Плазменная пушка</div>
-                                <div
-                                    // onClick={() => popoutModel.events.setPopout('use-item')}
-                                    className={styles.level}
-                                >
-                                    <span>2 ур.</span>
-                                </div>
-                            </div>
-                            <div className={styles.description}>
-                                <div className={styles.name}>Снаряды</div>
-                                <div className={styles.counter}>90 / 150</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div
-                        onClick={() => popoutModel.events.setPopout('hold')}
-                        className={styles.item}
-                    >
-                        <div className={styles.__icon}>
-                            <IconHold width={32} height={32} />
-                        </div>
-                        <div className={styles.__info}>
-                            <div className={styles.head}>
-                                <div className={styles.name}>Загрузочный трюм</div>
-                                <div className={styles.level}>
-                                    <span>1 ур.</span>
-                                </div>
-                            </div>
-                            <div className={styles.description}>
-                                <div className={styles.name}>Загруженность</div>
-                                <div className={styles.counter}>80 / 100</div>
-                            </div>
-                        </div>
-                    </div>
+                    <StormCorps />
+                    <Gun />
+                    <Hold />
                 </div>
 
                 <div className={styles.actions}>

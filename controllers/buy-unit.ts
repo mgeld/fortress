@@ -23,20 +23,22 @@ class BuyUnitHandler extends IRoute {
 
         const zone = await this._zoneService.getById(uSocket.user_id)
 
-        const cost = Units.getUnit(message.payload.id)
+        const cost = Units.getUnitPrice(message.payload.id)
 
         if (cost.currency === 'coins') {
             zone.spendСoins(cost.price)
+        } else if (cost.currency === 'rubies') {
+            zone.spendRubies(cost.price)
         }
 
-        const extr = zone.extraction.addExtrToList(message.payload.id)
+        const extr = zone.hold.addExtrToList(message.payload.id)
 
         this._zoneService.memoryUpdate(zone)
 
         const extrResp: TBuyUnit = {
             event: 'buy-unit',
             payload: {
-                type: 'common',
+                type: cost.currency,
                 currency: cost.currency,
                 cost: cost.price,
                 unit: message.payload.id

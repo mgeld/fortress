@@ -1,4 +1,5 @@
-import { TFindContType, TLatLng } from "../../common-types/model"
+import { TExtrTypes, TFindContType, TLatLng } from "../../common-types/model"
+import { randomNumber } from "../../libs/random-number"
 
 export type TSectorProps = {
     id: string
@@ -89,11 +90,13 @@ export class Sector {
             invader_user === this._zone_id &&
             this._invaders === 0
         ) {
-            // Добавляет стража
+            // Добавляем стража
             this.addDefender()
             return 'defense'
         } else {
             const winner = this.fightWinner()
+
+            console.log('winner', winner)
 
             // Если это мой сектор
             // Если победил мой защитник (внешний защитник (захватчик)) на моем секторе
@@ -147,6 +150,17 @@ export class Sector {
             this._defenders = this._invaders
             this._invaders = 0
         }
+    }
+
+    public static getContainerExtr(cont_id: 1 | 2 | 3): TExtrTypes {
+        const __containers = {
+            // Контейнер: [список добыч]
+            1: [10, 20, 30, 40, 50, 110, 111],
+            2: [11, 21, 31, 41, 51, 111, 121],
+            3: [12, 22, 32, 42, 52],
+        }
+        const cont: number[] = __containers[cont_id]
+        return cont[randomNumber(0, cont.length - 1)] as TExtrTypes
     }
 
     addDefender() {

@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
 
-import { LocationEvent, LatLng } from 'leaflet'
+import { LocationEvent, LatLng, LatLngExpression } from 'leaflet'
 
 import {
     MapContainer,
@@ -26,7 +26,6 @@ import Invaders from "entities/invader/ui/invaders";
 import { SectorsMap } from "./sectors-map";
 import { scrollMapPointerListener } from "features/map/scroll-map-pointer/model";
 
-import { userModel } from "entities/user";
 import { FortCounter } from "./fort-counter";
 import { FortMap } from "./fort-map";
 import { MapSelectPlace } from "features/map/select-place";
@@ -42,6 +41,8 @@ import { BootyMap } from "./booty-map";
 import { TestExtr } from "./test-extr";
 import { TractorBeam } from "entities/projector/ui/tractor-beam";
 import Booty from "entities/projector/ui/booty";
+import { shipModel } from "entities/ship";
+import { mapStartPosition } from "../model";
 
 type TMapProps = {}
 
@@ -76,15 +77,17 @@ isBombHitMe()
 
 const MapLayout: FC<TMapProps> = () => {
 
+    const center: LatLngExpression = mapModel.selectors.useMapCenter()
+
     const mode = mapModel.selectors.useMapMode().mode
 
-    const areal = userModel.selectors.useAreal()
+    // const areal = shipModel.selectors.useAreal()
 
-    if (areal) {
+    // if (areal) {
 
-        console.log('LATLAT', areal[0][0] + ((areal[1][0] - areal[0][0]) / 2))
-        console.log('LATLAT', areal[0][1] + ((areal[1][1] - areal[0][1]) / 2))
-    }
+    //     console.log('LATLAT', areal[0][0] + ((areal[1][0] - areal[0][0]) / 2))
+    //     console.log('LATLAT', areal[0][1] + ((areal[1][1] - areal[0][1]) / 2))
+    // }
     // const { point } = usePointer()
 
     // if (!point.load) return <>Load...</>
@@ -95,7 +98,7 @@ const MapLayout: FC<TMapProps> = () => {
             <MapContainer
                 ref={mapModel.events.setMap}
                 className='_MapContainer'
-                center={[55.74953, 37.61581]}
+                center={center}
                 zoom={16}
                 maxZoom={17}
                 zoomControl={false}

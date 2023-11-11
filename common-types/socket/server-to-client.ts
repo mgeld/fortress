@@ -1,4 +1,4 @@
-import { TBombSymbol, TExtrTypes, TExtrTypesName, TFindContType, THitPointer, TJoystickDirection, TLatLng, TPointer, TTypeToastNotice, TWeapon, TWeaponSymbol, TZoneItem } from "../model"
+import { TBombSymbol, TExtrTypes, TFindContType, TGameUnit, THitPointer, TJoystickDirection, TLatLng, TPointer, TTypeToastNotice, TWeapon, TWeaponSymbol, TZoneItem } from "../model"
 
 export type TEventConnect = 'connect'
 export type TEventSetUser = 'set-user'
@@ -15,6 +15,10 @@ export type TEventTakeHit = 'take-hit'
 export type TEventFindCont = 'find-cont'
 export type TEventTractorExtr = 'attraction'
 export type TEventUseExtraction = 'use-extraction'
+export type TEventNewRank = 'new-rank'
+export type TEventNewZone = 'new-zone'
+
+export type TEventLevelUp = 'level-up'
 export type TEventBuyUnit = 'buy-unit'
 
 export type TEventTakeSector = 'take-sector'
@@ -39,6 +43,9 @@ export type TEventsMessage =
     | TEventFindCont
     | TEventTractorExtr
     | TEventUseExtraction
+    | TEventNewRank
+    | TEventNewZone
+    | TEventLevelUp
     | TEventBuyUnit
     | TEventTakeSector
     | TEventYTakeSector
@@ -62,19 +69,33 @@ export type TCitadel = {
 export type TConnectPayload = {
     user: {
         zoneId: number
-        pos: TLatLng
-        health: number
     },
+    ship: {
+        pos: TLatLng
+        level: number
+        health: number
+    }
     storm: {
         level: number
         power: number
         invaders: number
-    },
-    zone: {
+    }
+    rank: {
+        level: number
+        exp: number
+    }
+    terrain: {
+        level: number
         sectors: number
+    }
+    zone: {
         trophies: number
         coins: number
         rubies: number
+    }
+    hold: {
+        level: number
+        items: TExtrTypes[]
     }
     citadel: TCitadel
     weapon: TWeapon[]
@@ -198,6 +219,30 @@ export type TUseExtraction = {
     }
 }
 
+export type TNewRank = {
+    event: TEventNewRank
+    payload: {
+        rank: number
+    }
+}
+export type TNewZone = {
+    event: TEventNewZone
+    payload: {
+        level: number
+    }
+}
+
+
+export type TLevelUp = {
+    event: TEventLevelUp
+    payload: {
+        type: TGameUnit
+        cost: number
+        new_level: number
+        currency: 'coins' | 'rubies'
+    }
+}
+
 
 export type TBuyUnit = {
     event: TEventBuyUnit
@@ -241,13 +286,16 @@ export type TSector = {
 
 
 export type TFirePayload = {
-    position: TLatLng
+    pos: TLatLng
+    to_pos: TLatLng
     direction: TJoystickDirection | null
     userId: number
-    weapon: {
-        symbol: TWeaponSymbol
-        level: number
-    }
+    // weapon: {
+    //     // symbol: TWeaponSymbol
+    //     // level: number
+    //     power: number
+    //     dist: number
+    // }
     hitPointer?: THitPointer
 }
 export type TFire = {
@@ -329,6 +377,9 @@ export type TMessage =
     | TFindCont
     | TTractorExtr
     | TUseExtraction
+    | TNewRank
+    | TNewZone
+    | TLevelUp
     | TBuyUnit
     | TTakeSector
     | TBattleStart

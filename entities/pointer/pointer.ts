@@ -1,25 +1,21 @@
-import { TLatLng } from "../../common-types/model"
+import { TLatLng, TPointer } from "../../common-types/model"
 import { UnmarshalledUser, User } from "./user"
 
 export type TPointerProps = {
-    // id: number
     zoneId: number
+
+    level: number
 
     user: User
 
-    // icon?: string
-    // name?: string
     color: number
 
     health: number
 
-    // invaders: number
-    // defenders: number
-
     pos: TLatLng
     areal?: number
 
-    weapons?: string[]
+    weapons: string[]
     bombs?: string[]
 }
 
@@ -38,18 +34,13 @@ export class Pointer {
     // private _id: number
 
     private _zoneId: number
+    private _level: number
 
     private _health: number
 
     private _user: User
 
-    // private _icon: string
-    // private _name: string
-
     private _color: number
-
-    // private _invaders: number
-    // private _defenders: number
 
     private _weapons: string[]
     private _bombs: string[]
@@ -58,19 +49,14 @@ export class Pointer {
     private _areal: number
 
     private constructor(pointer: TPointerProps) {
-        // this._id = pointer.id
         this._zoneId = pointer.zoneId
+        this._level = pointer.level
 
         this._user = pointer.user
-        // this._icon = pointer?.icon || ''
-        // this._name = pointer?.name || ''
 
         this._color = pointer?.color || 1
 
         this._health = pointer.health
-
-        // this._invaders = pointer.invaders
-        // this._defenders = pointer.defenders
 
         this._weapons = pointer.weapons || []
         this._bombs = []
@@ -89,16 +75,15 @@ export class Pointer {
         return {
             id: this._zoneId,
 
+            level: this._level,
+
             user: this._user.unmarshal(),
 
-            // icon: this._icon,
-            // name: this._name,
-
-            color: this.color,
+            color: this._color,
 
             health: this.health,
 
-            pos: this.pos,
+            pos: this._pos,
 
             weapons: this.weapons,
             bombs: [], // ВРЕМЕННО
@@ -107,8 +92,9 @@ export class Pointer {
         }
     }
 
-    public pointerUnmarshal() {
+    public pointerUnmarshal(): TPointer {
         return {
+            lvl: this._level,
             userId: this._zoneId,
             icon: this._user.icon,
             name: this._user.name,
@@ -117,27 +103,48 @@ export class Pointer {
         }
     }
 
-    // addSector() {
-    //     this._sectors = this._sectors + 1
-    // }
+    upLevel(): number {
+        if (!Pointer.validLevel(this._level + 1)) {
+            throw new Error('')
+        }
+        this._level = this._level + 1
+        return this._level
+    }
 
-    // loseSector() {
-    //     this._sectors = this._sectors - 1
-    // }
+    public static validLevel(level: number) {
+        return level > 0 && level <= 6
+    }
 
-    // arriveInvader(): number {
-    //     this._invaders = this._invaders + 1
-    //     return this._invaders
-    // }
+    private static levelMaxHealth(): { [key: number]: number } {
+        return {
+            1: 100,
+            2: 100,
+            3: 100,
+            4: 100,
+            5: 100,
+            6: 100,
+        }
+    }
 
-    // leaveInvader(): number {
-    //     this._invaders = this._invaders - 1
-    //     return this._invaders
-    // }
+    public static getLevelUpPrice(level: number): number {
+        const levels: { [key: number]: number } = {
+            1: 100,
+            2: 100,
+            3: 100,
+            4: 100,
+            5: 100,
+            6: 100,
+        }
+        return levels[level]
+    }
 
-    // get id(): number {
-    //     return this._id
-    // }
+    get icon() {
+        return this._user.icon
+    }
+
+    get name() {
+        return this._user.name
+    }
 
     get zoneId(): number {
         return this._zoneId
@@ -145,6 +152,10 @@ export class Pointer {
 
     get areal(): number {
         return this._areal
+    }
+
+    get level(): number {
+        return this._level
     }
 
     set areal(areal: number) {
@@ -163,26 +174,6 @@ export class Pointer {
         return this._health
     }
 
-    get color() {
-        return this._color
-    }
-
-    // get invaders() {
-    //     return this._invaders
-    // }
-
-    get icon() {
-        return this._user.icon
-    }
-
-    get name() {
-        return this._user.name
-    }
-
-    // get defenders() {
-    //     return this._defenders
-    // }
-
     set health(health: number) {
         this._health = health
     }
@@ -191,7 +182,12 @@ export class Pointer {
         this._health = this._health + h
         return this._health
     }
-    
+
+    removeHealth(h: number): number {
+        this._health = this._health - h
+        return this._health
+    }
+
     get weapons() {
         return this._weapons
     }

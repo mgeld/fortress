@@ -6,9 +6,13 @@ import {
     IconExpRank1,
     IconExpRank2,
     IconExpRank3,
+    IconGoldBar,
+    IconGoldStone,
     IconHealthShip1,
     IconHealthShip2,
     IconHealthShip3,
+    IconLavenderIngot,
+    IconLavenderStone,
     IconPowerGun1,
     IconPowerGun2,
     IconPowerGun3,
@@ -48,7 +52,7 @@ export const modules: {
         name: 'Модуль ОЗ-3',
         icon: <IconExpRank3 width={66} height={66} />,
         feature_name: 'Опыт завоеваний',
-        feature_amount: 500,
+        feature_amount: 100,
         description: 'Модуль опыта  повышает общий опыт завоеваний на 150 очков.\n\n' +
         'Можно находить в фортах при завоеваний территорий, а также купить в магазине.',
     },
@@ -56,7 +60,7 @@ export const modules: {
         name: 'Модуль ШС-1',
         icon: <IconPowerStorm1 width={66} height={66} />,
         feature_name: 'Сила штурмовиков',
-        feature_amount: 500,
+        feature_amount: 5,
         description: 'Модуль силы улучшает харктеристику штурмовиков, увеличивая тем самым вероятность победы в сражениях за форты\n\n' +
         'Можно находить в фортах при завоеваний территорий, а также купить в магазине.',
     },
@@ -64,7 +68,7 @@ export const modules: {
         name: 'Модуль ШС-2',
         icon: <IconPowerStorm2 width={66} height={66} />,
         feature_name: 'Сила штурмовиков',
-        feature_amount: 500,
+        feature_amount: 10,
         description: 'Модуль силы улучшает харктеристику штурмовиков, увеличивая тем самым вероятность победы в сражениях за форты\n\n' +
         'Можно находить в фортах при завоеваний территорий, а также купить в магазине.',
     },
@@ -72,7 +76,7 @@ export const modules: {
         name: 'Модуль ШС-3',
         icon: <IconPowerStorm3 width={66} height={66} />,
         feature_name: 'Сила штурмовиков',
-        feature_amount: 500,
+        feature_amount: 15,
         description: 'Модуль силы улучшает харктеристику штурмовиков, увеличивая тем самым вероятность победы в сражениях за форты\n\n' +
         'Можно находить в фортах при завоеваний территорий, а также купить в магазине.',
     },
@@ -80,7 +84,7 @@ export const modules: {
         name: 'Модуль ЗК-1',
         icon: <IconHealthShip1 width={66} height={66} />,
         feature_name: 'Здоровье',
-        feature_amount: 500,
+        feature_amount: 100,
         description: 'Модуль состояния увеличивает здоровье корабля, усиливая тем самым возможность бесперебойных завоеваний.\n\n' +
         'Можно находить в фортах при завоеваний территорий, а также купить в магазине.',
     },
@@ -88,7 +92,7 @@ export const modules: {
         name: 'Модуль ЗК-2',
         icon: <IconHealthShip2 width={66} height={66} />,
         feature_name: 'Здоровье',
-        feature_amount: 500,
+        feature_amount: 100,
         description: 'Модуль состояния увеличивает здоровье корабля, усиливая тем самым возможность бесперебойных завоеваний.\n\n' +
         'Можно находить в фортах при завоеваний территорий, а также купить в магазине.',
     },
@@ -104,7 +108,7 @@ export const modules: {
         name: 'Модуль МЗ-1',
         icon: <IconPowerGun1 width={66} height={66} />,
         feature_name: 'Пушка',
-        feature_amount: 500,
+        feature_amount: 100,
         description: 'Модуль мощности улучшает харктеристику пушки, увеличивая тем самым наносимый урон.\n\n' +
         'Можно находить в фортах при завоеваний территорий, а также купить в магазине.',
     },
@@ -162,4 +166,33 @@ export const modules: {
         feature_amount: 200,
         description: 'Эскадрон состоит из 150 штурмовиков.',
     },
+    110: {
+        name: 'Сиреневый камень',
+        icon: <IconLavenderStone width={66} height={66} />,
+        feature_name: 'Кристаллы',
+        feature_amount: 50,
+        description: 'Эскадрон состоит из 150 штурмовиков.',
+    },
+    111: {
+        name: 'Сиреневый слиток',
+        icon: <IconLavenderIngot width={66} height={66} />,
+        feature_name: 'Кристаллы',
+        feature_amount: 80,
+        description: 'Эскадрон состоит из 150 штурмовиков.',
+    },
+    120: {
+        name: 'Золотой камень',
+        icon: <IconGoldStone width={66} height={66} />,
+        feature_name: 'Монеты',
+        feature_amount: 80,
+        description: 'Эскадрон состоит из 150 штурмовиков.',
+    },
+    121: {
+        name: 'Слиток золота',
+        icon: <IconGoldBar width={66} height={66} />,
+        feature_name: 'Монеты',
+        feature_amount: 80,
+        description: 'Эскадрон состоит из 150 штурмовиков.',
+    },
+
 }

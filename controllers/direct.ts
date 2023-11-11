@@ -23,10 +23,12 @@ class DirectHandler extends IRoute {
         uSocket: IWebSocket,
     ) {
 
-        console.log('DirectHandler handle')
-        console.log('DirectHandler message.payload.userId', message.payload.userId)
+        if (!uSocket.user_id) return
 
-        const _pointer = await this._pointerService.memoryGetById(message.payload.userId)
+        console.log('DirectHandler handle')
+        // console.log('DirectHandler message.payload.userId', message.payload.userId)
+
+        const _pointer = await this._pointerService.memoryGetById(uSocket.user_id)
 
         if (_pointer.health < 1) {
             return
@@ -36,15 +38,12 @@ class DirectHandler extends IRoute {
 
         const areal = Areal.generator(message.payload.position)
 
-        console.log('______areal', areal)
-        console.log('_______pointer.areal', _pointer.areal)
-
         if (_pointer.areal && _pointer.areal === areal) {
 
             this._rooms.areals.broadcast(_pointer.areal, {
                 event: 'direct',
                 payload: {
-                    userId: message.payload.userId,
+                    userId: _pointer.zoneId,
                     pos: message.payload.position
                 }
             }, _pointer.zoneId)
@@ -63,8 +62,6 @@ class DirectHandler extends IRoute {
             }
 
             _pointer.areal = areal
-
-            console.log('2 _pointer.areal', _pointer.areal)
 
             this._rooms.areals.addClientToRoom(_pointer.zoneId, _pointer.areal, uSocket)
 
@@ -90,9 +87,7 @@ class DirectHandler extends IRoute {
                 })
                 const _pointers = await this._pointerService.getZoneByIds(Object.values(zones))
                 const sectors = array_sectors.map(zone => {
-
                     const user = _pointers.find(pointer => pointer.zone_id === zone.zone.zone_id)
-
                     return {
                         zone: {
                             ...zone.zone,
@@ -111,12 +106,11 @@ class DirectHandler extends IRoute {
             }
             /** */
 
-
-
             this._rooms.areals.broadcast(_pointer.areal, {
                 event: 'connect-pointer',
                 payload: {
-                    userId: message.payload.userId,
+                    lvl: _pointer.level,
+                    userId: _pointer.zoneId,
                     icon: _pointer.icon,
                     name: _pointer.name,
                     health: _pointer.health,

@@ -3,6 +3,7 @@ import {
     THitPointer,
     TJoystickDirection,
     TExtrTypes,
+    TGameUnit,
 } from "../model"
 
 export type TEventConnect = 'connect'
@@ -13,6 +14,7 @@ export type TEventTake = 'take'
 export type TEventBeam = 'beam'
 
 export type TEventUseExtraction = 'useExtraction'
+export type TEventLevelUp= 'levelUp'
 export type TEventBuyUnit = 'buyUnit'
 
 export type TEventGetSectors = 'getSectors'
@@ -32,6 +34,7 @@ export type TEventsAPI =
     | TEventTake
     | TEventBeam
     | TEventUseExtraction
+    | TEventLevelUp
     | TEventBuyUnit
     | TEventGetSectors
     | TEventGetAboutSector
@@ -48,6 +51,7 @@ export type TSendEvent =
     | TTakeAPI
     | TBeamAPI
     | TUseExtractionAPI
+    | TLevelUpAPI
     | TBuyUnitAPI
     | TGetSectorsAPI
     | TGetAboutSectorAPI
@@ -72,18 +76,17 @@ export type TConnectAPI = {
 
 export type TGetUserAPI = {
     event: TEventGetUser
-    payload: {
-        userId: number
-    }
+    payload: {}
 }
 
 export type TFireAPI = {
     event: TEventFire
     payload: {
-        position: TLatLng
+        pos: TLatLng
+        to_pos: TLatLng
         direction: TJoystickDirection | null
-        weapon: string
-        userId: number
+        // weapon: string
+        // userId: number
         hitPointer?: THitPointer
     }
 }
@@ -131,6 +134,13 @@ export type TUseExtractionAPI = {
     }
 }
 
+export type TLevelUpAPI = {
+    event: TEventLevelUp
+    payload: {
+        type: TGameUnit
+    }
+}
+
 export type TBuyUnitAPI = {
     event: TEventBuyUnit
     payload: {
@@ -144,7 +154,7 @@ export type TDirectAPI = {
     event: TEventDirect
     payload: {
         position: TLatLng
-        userId: number
+        // userId: number
     }
 }
 
@@ -153,11 +163,12 @@ export type TDirectAPI = {
 export type TBattleFireAPI = {
     event: TEventBattleFire
     payload: {
-        position: TLatLng
+        pos: TLatLng
+        to_pos: TLatLng
         direction: TJoystickDirection | null
-        weapon: string
-        userId: number
         hitPointer?: THitPointer
+        // weapon: string
+        // userId: number
     }
 }
 
@@ -165,19 +176,19 @@ export type TBattleDirectAPI = {
     event: TEventBattleDirect
     payload: {
         position: TLatLng
-        userId: number
+        // userId: number
     }
 }
 
 export type TBattleJoinAPI = {
     event: TEventBattleJoin
     payload: {
-        userId: number
+        // userId: number
     }
 }
 export type TBattleLeaveAPI = {
     event: TEventBattleLeave
     payload: {
-        userId: number
+        // userId: number
     }
 }

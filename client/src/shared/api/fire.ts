@@ -4,20 +4,22 @@ import { TFireAPI } from "../../../../common-types/socket/client-to-server"
 import { THitPointer } from '@ctypes/model'
 
 export const fireAPI = (
-    position: TLatLng,
+    pos: TLatLng,
+    toPos: TLatLng,
     direction: TJoystickDirection | null,
-    userId: number,
+    // userId: number,
     
     hitPointer: THitPointer,
-    weapon: string
+    // weapon: string
 ) => {
     const data: TFireAPI = {
         event: 'fire',
         payload: {
-            position,
+            pos,
+            to_pos: toPos,
             direction,
-            userId,
-            weapon
+            // userId,
+            // weapon
         }
     }
     if (hitPointer.userId) {

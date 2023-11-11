@@ -1,9 +1,9 @@
 import { createEffect, sample } from "effector"
 import { Areal } from "entities/areal/model"
 import { mapModel } from "entities/map"
-import { userModel } from "entities/user"
+import { shipModel } from "entities/ship"
 import { Map } from "leaflet"
-import { userAPI } from "shared/api/events"
+import { shipAPI } from "shared/api/events"
 import { TLatLng } from "shared/types"
 type TMap = {
     map: Map
@@ -28,14 +28,14 @@ const setPosFx = createEffect(({
     setTimeout(() => {
         console.log('ВЫЫЫЫЫЫЫЫЫЫЫЫЫЫЗЗЗЗЗЗЗОООООООООВ')
         const areal = Areal.getBounds(pos)
-        userModel.events.setAreal(areal)
+        shipModel.events.setAreal(areal)
         source.map?.setMinZoom(15)
     }, 2000)
 })
 
 export const setMapPosListener = () => {
     sample({
-        clock: userAPI.events.setPos,
+        clock: shipAPI.events.setPos,
         source: {
             map: mapModel.$mapStore,
         },

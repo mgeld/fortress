@@ -34,6 +34,7 @@ export class Server {
 
     @inject(TYPES.Handlers) private _handlers!: Handlers
     @inject(TYPES.SnapshotSectors) private _snapshot!: SnapshotSectors
+    @inject(TYPES.PingPong) private _pingPong!: PingPong
 
     serverContext = this
 
@@ -69,6 +70,9 @@ export class Server {
             console.log('close')
         })
 
+        const Connection = this._pingPong
+        Connection.start(wss)
+
         wss.on('connection', function connection(ws: IWebSocket) {
 
             console.log('connection')
@@ -83,8 +87,10 @@ export class Server {
             })
 
             ws.on('close', function () {
-                ws.is_alive = false
 
+                console.log('------ ws close')
+                ws.is_alive = false
+                Connection.deleteUser(ws?.user_id || 0)
                 // connected_clients.delete(ws);
             });
 
@@ -96,8 +102,8 @@ export class Server {
 
         })
         
-        const connection = new PingPong(wss)
 
+        // connection.start()
         // const interval = setInterval(() => connection.pingPong(), 5000);
 
         const hostname = '192.168.43.90'

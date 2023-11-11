@@ -1,16 +1,12 @@
 import { FC } from "react";
 import { IconBattleShield } from "shared/assets/icons/_icons";
-import { Button } from "shared/ui/Button/ui";
-
-import { arenaModel } from "entities/arena";
-import { userModel } from "entities/user";
-
+import { Button } from "shared/ui/button/ui";
 import styles from './styles.module.scss'
 import { mapModel } from "entities/map";
-import { mapAPI, userAPI } from "shared/api/events";
+import { mapAPI, shipAPI } from "shared/api/events";
 import { citadelModel } from "entities/citadel";
 import { TLatLng } from "shared/types";
-import { popoutModel } from "shared/ui/PopoutRoot";
+import { popoutModel } from "shared/ui/popout-root";
 import { IconTrophy } from "widgets/counters/icons/_icons";
 
 export const UserDead: FC = () => {
@@ -22,10 +18,9 @@ export const UserDead: FC = () => {
     const latlng = citadelModel.selectors.useCitadel()?.latlng || null
 
     const selectPosition = (pos: TLatLng | null) => {
-        console.log('selectPosition pos', pos)
         if (!pos) return
         mode === 'battle' && mapAPI.events.setMapMode('invade')
-        userAPI.events.setPos(pos)
+        shipAPI.events.setPos(pos)
         // map?.setView(pos)
         popoutModel.events.setPopout(null)
     }
@@ -56,7 +51,7 @@ export const UserDead: FC = () => {
                             <IconBattleShield width={64} height={64} />
                         </div>
                         <div className={styles.__info}>
-                            Ваш дрон потерпел крушение. Вернуться в цитадель или продолжить наблюдать за областью?
+                            Ваш корабль потерпел крушение. Вернуться в цитадель или продолжить наблюдение за областью?
                         </div>
                     </div>
 

@@ -1,11 +1,14 @@
 import { FC, useEffect, useState } from "react";
 import { useMap, useMapEvents } from "react-leaflet";
+
 import { TLatLng } from "shared/types";
 
 import styles from './styles.module.scss'
+import { ShipLevel, TShipLevel } from "entities/ship/lib/ship-level";
 
 type THealth = {
     position: TLatLng
+    lvl: number
     health: number
 }
 
@@ -14,6 +17,7 @@ const X_BACK = 32
 
 const Health: FC<THealth> = ({
     position,
+    lvl,
     health
 }) => {
 
@@ -29,6 +33,8 @@ const Health: FC<THealth> = ({
         zoomend: () => setCoords(map.latLngToLayerPoint(position)),
     })
 
+    const progressHealth = health * 100 / ShipLevel.getMaxHealth(lvl as TShipLevel)
+
     return (
         <div
             className={styles.markerHealth}
@@ -40,7 +46,7 @@ const Health: FC<THealth> = ({
             <div
                 className={styles.__health}
                 style={{
-                    width: `${health}%`,
+                    width: `${progressHealth}%`,
                     backgroundColor: '#3FF672'
                 }}
             />

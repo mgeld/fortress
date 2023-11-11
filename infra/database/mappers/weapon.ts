@@ -5,7 +5,7 @@ import { UnmarshalledWeapon, WeaponType } from '../../../entities/weapon/types'
 export class WeaponMapper {
 
   public static toDomain(weapon: UnmarshalledWeapon): WeaponType {
-    if (weapon.weapon === 'gun') {
+    if (weapon.weapon === 1) {
       return Gun.create({
         id: weapon.id,
         level: weapon.level,
@@ -15,7 +15,7 @@ export class WeaponMapper {
         status: weapon.status
       })
     }
-    throw new Error('------------')
+    throw new Error('WeaponMapper Error')
 
   }
 

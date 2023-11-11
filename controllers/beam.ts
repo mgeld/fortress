@@ -9,7 +9,6 @@ import { SectorService } from "../services/sector.service";
 import { Sector } from "../entities/sector/sector";
 import { Logs } from "../infra/logs/takes";
 import { ZoneService } from "../services/zone.service";
-import { Extraction } from "../entities/zone/extraction";
 import { TExtrTypes } from "../common-types/model";
 
 @injectable()
@@ -45,11 +44,11 @@ class BeamHandler extends IRoute {
 
             if (_sector.booty) {
 
-                extr = Extraction.getContainerExtr(_sector.booty)
-                zone.extraction.addExtrToList(extr)
+                extr = Sector.getContainerExtr(_sector.booty)
+                zone.hold.addExtrToList(extr)
 
                 console.log('EXTRRRRRRRRRRRR', extr)
-                console.log('zone extraction', zone.extraction.unmarshal())
+                console.log('zone extraction', zone.hold.unmarshal())
 
             }
 

@@ -10,9 +10,9 @@ export class PointerMemoryRepository implements IPointerMemoryRepository {
     @inject(TYPES.Database) private _database!: MemoryData
 
     async getById(userId: number): Promise<Pointer> {
+        console.log('PointerMemoryRepository getById')
         const pointer = await this._database.pointer.getById<UnmarshalledPointer>(userId)
         if (!pointer) {
-            console.log('____________userId', userId)
             throw new Error('----------')
         }
         return PointerMapper.toDomain(pointer)
@@ -23,8 +23,6 @@ export class PointerMemoryRepository implements IPointerMemoryRepository {
         if (!pointers) {
             throw new Error('----------')
         }
-
-        console.log('____getByIds pointers', pointers)
 
         return pointers.map(pointer => PointerMapper.toDomain(pointer))
     }
@@ -37,7 +35,7 @@ export class PointerMemoryRepository implements IPointerMemoryRepository {
 
     async update(pointer: Pointer): Promise<Pointer> {
 
-        console.log('-----update pointer')
+        console.log('PointerMemoryRepository update pointer')
         const dtoPointer = pointer.unmarshal()
         const updated = await this._database.pointer.update<UnmarshalledPointer>(
             dtoPointer.id,

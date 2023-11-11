@@ -5,14 +5,16 @@ import { IWebSocket } from "../api/socket/server"
 import { Rooms } from "../api/socket/socket/rooms"
 import { MemberService } from "../services/member.service"
 import { TBattleDirectAPI, TEventBattleDirect } from "../common-types/socket/client-to-server"
-import { TBombPayload, TFirePayload } from "../common-types/socket/server-to-client"
+import { TBombPayload } from "../common-types/socket/server-to-client"
 import { ArenaService } from "../services/arena.service"
 import { Member } from "../entities/arena/arena-team-member"
+import { PointerService } from "../services/pointer.service"
 
 @injectable()
 class BattleDirectHandler extends IRoute {
     @inject(TYPES.Rooms) private _rooms!: Rooms
     @inject(TYPES.MemberService) private _memberService!: MemberService
+    @inject(TYPES.PointerService) private _pointerService!: PointerService
     @inject(TYPES.ArenaService) private _arenaService!: ArenaService
 
     public static EVENT: TEventBattleDirect = "battleDirect"
@@ -24,11 +26,14 @@ class BattleDirectHandler extends IRoute {
 
         console.log('BattleDirectHandler handle')
 
-        const _member = await this._memberService.getById(message.payload.userId)
+        if (!uSocket.user_id) return
 
-        if (_member.health < 1) {
-            return
-        }
+        const _pointer = await this._pointerService.memoryGetById(uSocket.user_id)
+        const _member = await this._memberService.getById(_pointer.zoneId)
+
+        // if (_member.health < 1) {
+        //     return
+        // }
 
         _member.pos = message.payload.position
 
@@ -45,7 +50,7 @@ class BattleDirectHandler extends IRoute {
 
                 const bomb: TBombPayload = {
                     position: message.payload.position,
-                    userId: message.payload.userId,
+                    userId: _pointer.zoneId,
                     bomb: {
                         symbol: 'aerial',
                         level: 1
@@ -57,7 +62,7 @@ class BattleDirectHandler extends IRoute {
                     payload: bomb
                 })
 
-                const health = _member.removeHealth(10)
+                const health = _pointer.removeHealth(10)
 
                 if (health < 1) {
 
@@ -110,7 +115,7 @@ class BattleDirectHandler extends IRoute {
         this._rooms.arenas.broadcast(_member.arena, {
             event: 'direct',
             payload: {
-                userId: message.payload.userId,
+                userId: _pointer.zoneId,
                 pos: message.payload.position
             }
         }, _member.userId)

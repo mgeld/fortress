@@ -9,11 +9,13 @@ import { ArenaService } from "../services/arena.service";
 import { WeaponService } from "../services/weapon.service";
 import { MemberService } from "../services/member.service";
 import { Member } from "../entities/arena/arena-team-member";
+import { PointerService } from "../services/pointer.service";
 
 @injectable()
 class BattleFireHandler extends IRoute {
     @inject(TYPES.Rooms) private _rooms!: Rooms
     @inject(TYPES.MemberService) private _memberService!: MemberService
+    @inject(TYPES.PointerService) private _pointerService!: PointerService
     @inject(TYPES.WeaponService) private _weaponService!: WeaponService
     @inject(TYPES.ArenaService) private _arenaService!: ArenaService
 
@@ -24,15 +26,18 @@ class BattleFireHandler extends IRoute {
         uSocket: IWebSocket,
     ) {
 
+        if (!uSocket.user_id) return
+
         console.log('FireHandler handle')
 
-        const _member = await this._memberService.getById(message.payload.userId)
-        const weapon = await this._weaponService.memoryGetById(message.payload.weapon)
+        const _pointer = await this._pointerService.memoryGetById(uSocket.user_id)
+        const _member = await this._memberService.getById(_pointer.zoneId)
+        const weapon = await this._weaponService.memoryGetById(_pointer.weapons[0])
 
         const arena = await this._arenaService.getById(_member.arena)
 
         // Если я умер
-        if (_member.health < 1) {
+        if (_pointer.health < 1) {
             return
         }
         // Если у меня нет патронов
@@ -44,13 +49,15 @@ class BattleFireHandler extends IRoute {
         await this._weaponService.memoryUpdate(weapon)
 
         const fire: TFirePayload = {
-            position: message.payload.position,
+            pos: message.payload.pos,
+            to_pos: message.payload.to_pos,
             direction: message.payload.direction,
-            userId: message.payload.userId,
-            weapon: {
-                symbol: weapon.symbol,
-                level: weapon.level
-            }
+            userId: _pointer.zoneId,
+            // userId: message.payload.userId,
+            // weapon: {
+            //     symbol: weapon.symbol,
+            //     level: weapon.level
+            // }
         }
 
         if (message.payload?.hitPointer) {
@@ -61,18 +68,23 @@ class BattleFireHandler extends IRoute {
             fire['hitPointer'] = message.payload.hitPointer
 
             // Противник
-            const hitPointer = await this._memberService.getById(message.payload.hitPointer.userId)
+            const hitMember = await this._memberService.getById(message.payload.hitPointer.userId)
+            const hitPointer = await this._pointerService.memoryGetById(message.payload.hitPointer.userId)
 
             // Отнимаем здоровье в зависимости от Урона Оружия
-            const health = hitPointer.removeHealth(weapon.power)
+            // const health = hitPointer.removeHealth(weapon.power)
+
+            hitPointer.health = hitPointer.health - weapon.power
+
+            fire.hitPointer.health = hitPointer.health
 
             // Если противник погиб
-            if (health < 1) {
+            if (hitPointer.health < 1) {
 
-                const killPointerTeam = arena.killPointer(hitPointer.userId, hitPointer.arenaTeam)
+                const killPointerTeam = arena.killPointer(hitPointer.zoneId, hitMember.arenaTeam)
                 await this._arenaService.update(arena)
 
-                hitPointer.leaveArena()
+                hitMember.leaveArena()
 
                 // Сохраняем в свою стату убитого противника
                 _member.addKilledPointer()
@@ -115,7 +127,7 @@ class BattleFireHandler extends IRoute {
 
             }
 
-            await this._memberService.update(hitPointer)
+            await this._memberService.update(hitMember)
             await this._memberService.update(_member)
         }
 

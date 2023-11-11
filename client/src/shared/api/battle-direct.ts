@@ -4,13 +4,13 @@ import { TLatLng } from "shared/types"
 
 export const battleDirectAPI = (
     position: TLatLng,
-    userId: number,
+    // userId: number,
 ) => {
     const data: TBattleDirectAPI = {
         event: 'battleDirect',
         payload: {
             position,
-            userId,
+            // userId,
         }
     }
     WS.sendData(data)

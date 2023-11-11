@@ -25,13 +25,15 @@ class BattleLeaveHandler extends IRoute {
         message: TBattleLeaveAPI,
         uSocket: IWebSocket,
     ) {
-
-        console.log('BattleLeaveHandler handle')
         
-        const member = await this._memberService.getById(message.payload.userId)
+        console.log('BattleLeaveHandler handle')
+
+        if (!uSocket.user_id) return
+        
+        const member = await this._memberService.getById(uSocket.user_id)
         const arena = await this._arenaService.getById(member.arena)
 
-        const pointer = await this._pointerService.memoryGetById(message.payload.userId)
+        const pointer = await this._pointerService.memoryGetById(uSocket.user_id)
 
         const team = arena.delPointer(member.userId, member.arenaTeam)
         this._rooms.arenas.deleteClient(member.userId, arena.id)

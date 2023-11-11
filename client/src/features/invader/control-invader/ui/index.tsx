@@ -13,6 +13,7 @@ const ControlInvader: FC = () => {
             <div className={styles.__circle}>
                 <div
                     onClick={invaderControl}
+                    // onClick={throttle(invaderControl, 500)}
                     className={styles.__button}>
                     <img src={'icons/control-invaders.png'} alt="<>" width={50} height={50}/>
                 </div>

@@ -14,6 +14,8 @@ class TakeHandler extends Handler {
 
         // const weapon = determinantWeapon(weaponSymbolLevel.symbol, weaponSymbolLevel.level)
 
+        console.log('TakeHandler addTake')
+
         takesAPI.events.addTake({
             id: TAKE_ID,
             from_pos,

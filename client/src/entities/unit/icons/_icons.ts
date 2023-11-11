@@ -20,3 +20,10 @@ export { ReactComponent as IconExpRank3 } from './exp-rank-3.svg';
 
 export { ReactComponent as IconStorm1 } from './storm-1.svg';
 export { ReactComponent as IconStorm2 } from './storm-2.svg';
+
+
+export { ReactComponent as IconGoldBar } from './gold-bar.svg';
+export { ReactComponent as IconGoldStone } from './gold-stone.svg';
+
+export { ReactComponent as IconLavenderIngot } from './lavender-ingot.svg';
+export { ReactComponent as IconLavenderStone } from './lavender-stone.svg';

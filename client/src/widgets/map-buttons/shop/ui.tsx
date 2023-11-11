@@ -1,4 +1,4 @@
-import { MenuNav } from "shared/ui/MenuNav"
+import { MenuNav } from "shared/ui/menu-nav"
 
 import { battleConnectEvent } from "features/battle"
 

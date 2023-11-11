@@ -1,8 +1,7 @@
-import { extractionAPI, sectorsAPI, zoneAPI } from "shared/api/events";
+import { sectorsAPI } from "shared/api/events";
 import { Handler } from "..";
 import { TTakeHit } from '@ctypes/socket/server-to-client'
-import { snackbarModel } from "shared/ui/Snackbar";
-import { zoneModel } from "entities/zone";
+import { snackbarModel } from "shared/ui/snackbar";
 
 let timeId: ReturnType<typeof setTimeout>
 
@@ -36,13 +35,13 @@ class TakeHitHandler extends Handler {
                     })
                 else
                     snackbarModel.events.newToast({
-                        text: 'Уничтожен защитник форта!',
+                        text: 'Уничтожен страж форта!',
                         t: 3
                     })
                 break;
             case 'defeat':
                 snackbarModel.events.newToast({
-                    text: 'Захватчик погиб!',
+                    text: 'Ваш штурмовик уничтожен!',
                     t: 4
                 })
                 break;

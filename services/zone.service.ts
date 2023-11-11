@@ -6,6 +6,7 @@ import { randomNumber } from "../libs/random-number";
 import { Zone } from "../entities/zone/zone";
 import { ZoneMapper } from "../infra/database/mappers/zone";
 import { EntityIdGenerator } from "../domain/entityId";
+import { THoldLevel } from "../entities/zone/extraction";
 
 @injectable()
 export class ZoneService {
@@ -23,20 +24,26 @@ export class ZoneService {
 
     async getById(userId: number): Promise<Zone> {
         try {
-            return this.memoryGetById(userId)
-        } catch(e) {
+            const zone = await this.memoryGetById(userId)
+            return zone
+        } catch (e) {
+            console.log('WORKIN!!!!!!!')
             const zone = await this.baseGetById(userId)
             this.memoryInsert(zone)
             return zone
         }
     }
 
-    memoryGetById(userId: number): Promise<Zone> {
-        return this._memoryRepository.getById(userId)
+    async memoryGetById(userId: number): Promise<Zone> {
+        const zone = await this._memoryRepository.getById(userId)
+        return zone
+
     }
 
-    baseGetById(userId: number): Promise<Zone> {
-        return this._baseRepository.getById(userId)
+    async baseGetById(userId: number): Promise<Zone> {
+        console.log('baseGetById userId', userId)
+        const zone = await this._baseRepository.getById(userId)
+        return zone
     }
 
     create(
@@ -64,7 +71,7 @@ export class ZoneService {
             invaders: 100,
             power: 1,
         }
-        
+
         const guard_corps = {
             level: 1,
             exp: 0,
@@ -73,7 +80,7 @@ export class ZoneService {
 
         // const defenders = 0
 
-        const extraction: TExtrTypes[] = []
+        // const extraction: TExtrTypes[] = []
 
         const rank = {
             rank: 1,
@@ -87,8 +94,15 @@ export class ZoneService {
             defenders: 0
         }
 
+        const hold: {
+            level: THoldLevel
+            items: TExtrTypes[]
+        } = {
+            level: 1,
+            items: []
+        }
+
         const zone = ZoneMapper.toDomain({
-            // id: this._entityId.nextIdEntity().id,
             id: 0,
             color: DEFAULT_COLOR,
             rubies: DEFAULT_RUBIES,
@@ -97,23 +111,18 @@ export class ZoneService {
             rank,
             terrain,
             stormtrooper_corps,
-            // guard_corps,
-            // defenders,
-            extraction
+            hold
         })
 
         return zone
     }
 
-
-
-    // getByIds(userIds: number[]): Promise<Zone[]> {
-    //     console.log('getByIds')
-    //     return this._memoryRepository.getByIds(userIds)
-    // }
-
     async memoryUpdate(zone: Zone) {
         await this._memoryRepository.update(zone)
+    }
+
+    async baseUpdate(zone: Zone) {
+        await this._baseRepository.update(zone)
     }
 
     remove(userId: number) {

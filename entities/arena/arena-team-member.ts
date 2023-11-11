@@ -5,7 +5,8 @@ export type TTeamMember = {
     killed?: number // Сколько противников убито
     damage?: number // Сколько нанесено урона противнику
     pos: TLatLng
-    health: number
+    // health: number
+
     arena: string
     arenaTeam: number
 }
@@ -23,7 +24,7 @@ class Member {
     private _damage: number
 
     private _pos: TLatLng
-    private _health: number
+    // private _health: number
 
     private _arenaId: string
     private _arenaTeamId: number
@@ -35,7 +36,7 @@ class Member {
         this._damage = props.damage || 0
         
         this._pos = props.pos
-        this._health = props.health
+        // this._health = props.health
 
         this._arenaId = props.arena || ''
         this._arenaTeamId = props.arenaTeam || 0
@@ -54,7 +55,7 @@ class Member {
             damage: this.damage,
 
             pos: this.pos,
-            health: this.health,
+            // health: this.health,
             
             arena: this.arena,
             arenaTeam: this.arenaTeam,
@@ -65,24 +66,24 @@ class Member {
         return {
             userId: this._userId,
             pos: this.pos,
-            health: this.health,
+            // health: this.health,
         }
     }
 
-    removeHealth(damage: number): number {
-        this.health = this.health - damage
+    // removeHealth(damage: number): number {
+    //     this.health = this.health - damage
 
-        return this.health
-    }
+    //     return this.health
+    // }
 
     addKilledPointer() {
         this._killed = this._killed + 1
         return this._killed
     }
 
-    public kill() {
-        this._health = 0
-    }
+    // public kill() {
+    //     this._health = 0
+    // }
 
     leaveArena() {
         this._arenaId = ''
@@ -108,13 +109,13 @@ class Member {
         this._pos = pos
     }
 
-    get health() {
-        return this._health
-    }
+    // get health() {
+    //     return this._health
+    // }
 
-    set health(health: number) {
-        this._health = health
-    }
+    // set health(health: number) {
+    //     this._health = health
+    // }
 
     get damage() {
         return this._damage

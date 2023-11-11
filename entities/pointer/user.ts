@@ -11,12 +11,9 @@ export class User {
     private _icon: string
     private _name: string
 
-    // private _color: number
-
     private constructor(user: TUserProps) {
         this._icon = user.icon
         this._name = user.name
-        // this._color = pointer.color
     }
 
     public static create(user: TUserProps) {
@@ -26,7 +23,6 @@ export class User {
 
     public unmarshal(): UnmarshalledUser {
         return {
-            // color: this.color,
             icon: this._icon,
             name: this._name,
         }

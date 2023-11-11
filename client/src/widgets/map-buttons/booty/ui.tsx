@@ -1,9 +1,9 @@
-import { MenuNav } from "shared/ui/MenuNav"
+import { MenuNav } from "shared/ui/menu-nav"
 
 import styles from './styles.module.scss'
 
 import { ReactComponent as IconBooty } from './booty.svg'
-import { pageModel } from "shared/ui/PageRoot"
+import { pageModel } from "shared/ui/page-root"
 
 export const NavBooty = () => {
     return (

@@ -9,13 +9,14 @@ type SectorsProps = {
 }
 
 const colors = {
-    1: '#6f302d',
-    2: '#132841',
-    3: '#746085',
-    4: '#37e04d',
-    5: '#375ee0',
-    6: '#e0379a',
+    1: '#b670d1',
+    2: '#b670d1',
+    3: '#b670d1',
+    4: '#b670d1',
+    5: '#b670d1',
+    6: '#b670d1',
 }
+
 const Sectors: FC<SectorsProps> = ({ zones }) => {
     return <>
         {zones.map(zoneItem => {

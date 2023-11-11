@@ -69,7 +69,7 @@ const newToastFx = createEffect(({
 
     setTimeout(() => {
         delToastById({ toast_id: TOAST_ID })
-    }, 4000)
+    }, 6000)
 
 })
 

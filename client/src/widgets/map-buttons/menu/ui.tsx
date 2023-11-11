@@ -1,5 +1,5 @@
 
-import { popoutModel } from 'shared/ui/PopoutRoot'
+import { popoutModel } from 'shared/ui/popout-root'
 import { ReactComponent as IconMenu } from './menu.svg'
 
 import styles from './styles.module.scss'

@@ -1,9 +1,9 @@
 import { mapModel } from "entities/map"
 import { FC } from "react"
-import { mapAPI, userAPI } from "shared/api/events"
+import { mapAPI, shipAPI } from "shared/api/events"
 import { TLatLng } from "shared/types"
-import { BottomFlex } from "shared/ui/BottomFlex"
-import { Button } from "shared/ui/Button/ui"
+import { BottomFlex } from "shared/ui/bottom-flex"
+import { Button } from "shared/ui/button/ui"
 
 export const BottomSelectPlace: FC = () => {
 
@@ -20,7 +20,7 @@ export const BottomSelectPlace: FC = () => {
         console.log('flyTo 0000')
 
         setTimeout(() => {
-            userAPI.events.setPos(pos)
+            shipAPI.events.setPos(pos)
             // map?.setMinZoom(15)
         }, 3000)
 

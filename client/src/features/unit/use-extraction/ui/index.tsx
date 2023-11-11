@@ -1,17 +1,17 @@
 import { FC } from "react";
 
-import { extractionModel } from "entities/unit";
 import { TExtrTypes } from "@ctypes/model";
 import { onUseExtraction } from "../model";
 
 import styles from './styles.module.scss'
 
-import { popoutModel } from "shared/ui/PopoutRoot";
+import { popoutModel } from "shared/ui/popout-root";
 import { modules } from "entities/unit/lib/modules";
+import { holdModel } from "entities/hold";
 
 export const ExtractionPopout: FC = () => {
 
-    const extr: TExtrTypes | null = extractionModel.selectors.useExtraction()?.id || null
+    const extr: TExtrTypes | null = holdModel.selectors.useExtraction()?.id || null
 
     if (!extr) return <></>
 
@@ -38,7 +38,7 @@ export const ExtractionPopout: FC = () => {
                         </div>
 
                         <div className={styles.__amount}>
-                            {extraction.feature_amount}
+                            +{extraction.feature_amount}
                         </div>
                     </div>
 

@@ -1,9 +1,11 @@
 import { FC } from "react";
-import { noticeModel } from ".";
 
 import styles from './styles.module.scss'
 
 import { IconCoin, IconSapphire } from "widgets/counters/icons/_icons";
+
+import { ReactComponent as IconWarning } from './warning.svg';
+import { noticeModel } from ".";
 
 const icons = {
     'rank_exp': <IconCoin width={30} height={30} />,
@@ -11,13 +13,17 @@ const icons = {
     'ship_health': <IconSapphire width={30} height={30} />,
     'gun_power': <IconCoin width={30} height={30} />,
     'gun_distance': <IconSapphire width={30} height={30} />,
+    'stormtroopers': <IconSapphire width={30} height={30} />,
 
     'cont_1': <IconCoin width={30} height={30} />,
     'cont_2': <IconCoin width={30} height={30} />,
     'cont_3': <IconCoin width={30} height={30} />,
 
+    'coins': <IconCoin width={30} height={30} />,
+    'rubies': <IconSapphire width={30} height={30} />,
+
     'common': <IconCoin width={30} height={30} />,
-    'error': <IconCoin width={30} height={30} />,
+    'warning': <IconWarning width={34} height={34} />,
     
     // 'coins': <IconCoin width={30} height={30} />,
     // 'rubies': <IconCoin width={30} height={30} />,

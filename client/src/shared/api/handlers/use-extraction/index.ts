@@ -1,19 +1,18 @@
 import { Handler } from "..";
 import { TUseExtraction } from '@ctypes/socket/server-to-client'
-import { noticeModel } from "shared/ui/Notice";
-import { pageModel } from "shared/ui/PageRoot";
-import { popoutModel } from "shared/ui/PopoutRoot";
-import { extractionAPI, weaponsAPI } from "shared/api/events";
-import { weaponModel } from "entities/weapon";
+import { noticeModel } from "shared/ui/notice";
+import { popoutModel } from "shared/ui/popout-root";
+import { holdAPI, shipAPI, stormAPI, userAPI, weaponsAPI, zoneAPI } from "shared/api/events";
+import { pageModel } from "shared/ui/page-root";
 
 class UseExtractionHandler extends Handler {
     handle(message: TUseExtraction) {
 
         console.log('UseExtractionHandler message', message)
 
-        // sectorsAPI.events.setTakeFort(hit)
-
         const amount = message.payload.amount
+
+        console.log('UseExtractionHandler message', message)
 
         let name = ''
         let text = ''
@@ -21,42 +20,59 @@ class UseExtractionHandler extends Handler {
         switch (message.payload.type) {
             case 'rank_exp':
                 name = `Опыт завоеваний`
-                
-                text = `Вы получили ${amount} монет`
+                text = `Получен ${amount} единиц опыта завоеваний!`
+                userAPI.events.addRankExp(amount)
                 break;
             case 'gun_distance':
                 name = `Дальность удара`
-                weaponsAPI.events.setDistance({
-                    dist: amount,
-                    symbol: 'gun'
-                })
-                text = `Вы получили ${amount} рубин`
+                text = `Дальность удара пушки увеличена на ${amount} метров!`
+                weaponsAPI.events.increaseDistance(amount)
                 break;
             case 'gun_power':
                 name = `Мощность удара`
-                text = `Вы получили ${amount} рубин`
+                text = `Сила пушечного залпа увеличена на ${amount} единиц!`
+                weaponsAPI.events.increasePower(amount)
                 break;
             case 'ship_health':
                 name = `Состояние корабля`
-                text = `Вы получили ${amount} рубин`
+                text = `Здоровье корабля увеличено на ${amount} единиц!`
+                shipAPI.events.addHealth(amount)
                 break;
             case 'storm_power':
                 name = `Сила штурмовиков`
-                text = `Вы получили ${amount} рубин`
+                text = `Сила штурмовиков повышена на ${amount} единиц!`
+                stormAPI.events.improveStormPower(amount)
+                break;
+            case 'stormtroopers':
+                name = `Штурмовики`
+                text = `В штурмовой корпус пополнен на ${amount} штурмовиков!`
+                stormAPI.events.addInvaders(amount)
+                break;
+            case 'coins':
+                name = `Монеты`
+                text = `Вы получили ${amount} монет!`
+                console.log('coins amout', amount)
+                zoneAPI.events.addCoins(amount)
+                break;
+            case 'rubies':
+                name = `Кристаллы`
+                text = `Вы получили ${amount} кристаллов!`
+                console.log('rubies amout', amount)
+                zoneAPI.events.addRubies(amount)
                 break;
             case 'common':
-                name = `Что-то общее`
-                text = `Вы получили ${amount} рубин`
+                name = `Ошибка типа common`
+                text = `Обратитесь в поддержку что ли`
                 break;
             default:
-                name = `Нечто`
-                text = `Нечто зачислено в ${amount} кол-ве`
+                name = `Default`
+                text = `Что-то видимо пошло не так...`
         }
 
         popoutModel.events.setPopout(null)
         pageModel.events.setPage('map')
 
-        extractionAPI.events.delExtraction(message.payload.index)
+        holdAPI.events.delExtraction(message.payload.index)
 
         noticeModel.events.newToast({
             name,

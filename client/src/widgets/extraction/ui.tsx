@@ -1,27 +1,26 @@
 import { TExtrTypes } from "@ctypes/model";
-import { extractionModel } from "entities/unit";
-import { ExtractionCard, ExtractionList } from "entities/unit/ui";
+import { ExtractionCard, ExtractionList, holdModel } from "entities/hold";
 import { FC } from "react";
 
 import { modules } from "entities/unit/lib/modules";
 
-import { pageModel } from "shared/ui/PageRoot";
 import { IconHold } from "entities/ship/ui/assets/icons";
 
 import styles from './styles.module.scss'
+import { HoldLevel, THoldLevel } from "entities/hold/lib/hold-level";
+import { pageModel } from "shared/ui/page-root";
+import { BackMap } from "widgets/back-button";
 
 export const Extraction: FC = () => {
 
-    const list = extractionModel.selectors.useExtractionList()
-
-    console.log('Extraction list', list)
+    const list = holdModel.selectors.useHoldItems()
+    const level = holdModel.selectors.useHoldLevel()
 
     return (
         <ExtractionList>
             <>
                 <div
                     className={styles.__header}
-                    onClick={() => pageModel.events.setPage('map')}
                 >
                     <div className={styles.name}>
                         <div className={styles.icon}>
@@ -29,12 +28,11 @@ export const Extraction: FC = () => {
                         </div>
                         <div className={styles.text}>Трюм</div>
                     </div>
-                    <div className={styles.details}>80 / 100</div>
+                    <div className={styles.details}>{list.length} / {HoldLevel.getMaxItems(level as THoldLevel)}</div>
                 </div>
                 {list.length > 0 ?
                     <>
-
-                        {list.map((item, i) => {
+                        {list.reverse().map((item, i) => {
                             console.log('item', item)
                             if (item in modules)
                                 return (
@@ -55,6 +53,7 @@ export const Extraction: FC = () => {
                             <div>Трюм пустой</div>
                         </div>
                     </>}
+                <BackMap />
             </>
         </ExtractionList>
     )

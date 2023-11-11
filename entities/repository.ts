@@ -7,7 +7,7 @@ import { Bomb } from "./bomb/bomb"
 import { Citadel } from "./citadel/citadel"
 import { Pointer } from "./pointer/pointer"
 import { Sector, UnmarshalledSector } from "./sector/sector"
-import { Weapon } from "./weapon/weapon"
+import { WeaponType } from "./weapon/types"
 import { Zone } from "./zone/zone"
 
 export interface IPointerMemoryRepository {
@@ -37,7 +37,7 @@ export interface IZoneRepository {
     // getZoneByIds(_ids: number[]): Promise<TZone[]>
     insert(zone: Zone): Promise<Zone>
     update(zone: Zone): Promise<Zone>
-    delete(userId: number): Promise<Boolean>
+    // delete(userId: number): Promise<Boolean>
 }
 
 
@@ -67,17 +67,17 @@ export interface IArenaTeamMemberRepository {
 }
 
 export interface IWeaponMemoryRepository {
-    getWeapons(ids: string[]): Promise<Weapon[]>
-    getById(id: string): Promise<Weapon>
-    insert(weapon: Weapon): Promise<Weapon>
-    update(weapon: Weapon): Promise<Weapon>
+    getWeapons(ids: string[]): Promise<WeaponType[]>
+    getById(id: string): Promise<WeaponType>
+    insert(weapon: WeaponType): Promise<WeaponType>
+    update(weapon: WeaponType): Promise<WeaponType>
     delete(userId: string): Promise<Boolean>
 }
 export interface IWeaponRepository {
-    getWeapons(ids: string[]): Promise<Weapon[]>
-    getById(id: string): Promise<Weapon>
-    insert(weapon: Weapon): Promise<Weapon>
-    update(weapon: Weapon): Promise<Weapon>
+    getWeapons(ids: string[]): Promise<WeaponType[]>
+    getById(id: string): Promise<WeaponType>
+    insert(weapon: WeaponType): Promise<WeaponType>
+    update(weapon: WeaponType): Promise<WeaponType>
 }
 
 

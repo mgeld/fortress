@@ -4,8 +4,9 @@ import { mapModel } from "entities/map";
 import { Map } from "leaflet";
 import { userModel } from "entities/user";
 import { TLatLng } from "shared/types";
-import { popoutModel } from "shared/ui/PopoutRoot";
+import { popoutModel } from "shared/ui/popout-root";
 import { TMapModes } from "shared/api/events/map";
+import { shipModel } from "entities/ship";
 
 const changeModeFx = createEffect(({
     source,
@@ -64,9 +65,9 @@ export const changeModeStatusListener = () => {
     sample({
         clock: mapAPI.events.setMapMode,
         source: {
-            areal: userModel.$arealStore,
+            areal: shipModel.$arealStore,
             map: mapModel.$mapStore,
-            userPos: userModel.$userPositionStore,
+            userPos: shipModel.$userPositionStore,
         },
         filter: (source: {
             map: Map | null

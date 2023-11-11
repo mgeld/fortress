@@ -30,7 +30,8 @@ const {
     newPointer,
     delPointer,
     updatePositionPointer,
-    changeHealthPointer
+    changeHealthPointer,
+    setHealthPointer
 } = pointersAPI.events
 
 type TUserApi = {
@@ -102,7 +103,6 @@ const getUsersFx = createEffect(async ({
 
 export const $pointersStore = createStore<TPointer[]>(DEFAULT_STORE)
     .on(setPointers, (_, pointers: TPointer[]) => {
-        // console.log('IIIIIIIIIIIII getUsersFx.doneData', pointers)
         return pointers
     })
     .on(newPointer, (prevPointers: TPointer[], pointer: TPointer) => ([...prevPointers, pointer]))
@@ -119,6 +119,12 @@ export const $pointersStore = createStore<TPointer[]>(DEFAULT_STORE)
         prevPointer.userId === data.userId ? {
             ...prevPointer,
             health: prevPointer.health - data.health
+        } : prevPointer)
+    ))
+    .on(setHealthPointer, (prevPointers: TPointer[], data: THealthPointer) => (prevPointers.map(prevPointer =>
+        prevPointer.userId === data.userId ? {
+            ...prevPointer,
+            health: data.health
         } : prevPointer)
     ))
     .on(clearStore, () => ({

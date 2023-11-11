@@ -2,7 +2,7 @@ import { FC, ReactNode } from "react";
 
 import { TExtrTypes } from "@ctypes/model";
 import { unitModel } from "entities/unit";
-import { popoutModel } from "shared/ui/PopoutRoot";
+import { popoutModel } from "shared/ui/popout-root";
 import { IconCoin, IconSapphire } from "widgets/counters/icons/_icons";
 
 import styles from './styles.module.scss'
@@ -24,10 +24,8 @@ export const UnitCard: FC<TUnitCardProps> = ({
     unit
 }) => {
 
-    const { selectUnit } = unitModel.events
-
     const onUnit = (id: TExtrTypes) => {
-        selectUnit(id)
+        unitModel.events.selectUnit(id)
         popoutModel.events.setPopout('select-unit')
     }
 

@@ -3,7 +3,7 @@ import { PointIcon } from "entities/pointer/ui/point-icon";
 import { userModel } from "entities/user";
 import { CoordPair, cellToBoundary, latLngToCell, } from "h3-js";
 import { FC, useEffect, useState } from "react";
-import { Polygon, useMap, useMapEvent } from "react-leaflet";
+import { Polygon, useMapEvent } from "react-leaflet";
 import { TLatLng } from "shared/types";
 
 type TSector = {

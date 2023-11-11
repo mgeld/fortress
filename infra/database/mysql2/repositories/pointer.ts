@@ -8,6 +8,7 @@ import { TZone } from '../../../../common-types/model'
 
 interface IPointerRowData {
     zone_id?: number
+    level: number
 
     icon?: string
     name?: string
@@ -19,7 +20,7 @@ interface IPointerRowData {
     pos_lat?: number
     pos_lng?: number
     areal?: number
-    weapons?: string
+    weapons?: string[]
 }
 
 @injectable()
@@ -28,46 +29,55 @@ export class PointerRepository implements IPointerRepository {
     @inject(TYPES.connection) private _connection!: Pool
 
     async getById(_id: number): Promise<Pointer> {
+
+        console.log('MySqlPointerRepository Pointer getById _id', _id)
         const [[result]] = await this._connection.query<Required<IPointerRowData>[] & RowDataPacket[]>(
-            `SELECT * FROM pointers WHERE id = ?;`, [_id]
+            `SELECT * FROM pointers WHERE zone_id = ?;`, [_id]
         )
         if (!result) {
-            throw new Error('----------')
+            throw new Error('ERROR PointerRepository----------')
         }
+        try {
 
-        const {
-            zone_id,
+            const {
+                zone_id,
 
-            icon,
-            name,
+                level,
+                health,
 
-            color,
-
-            health,
-
-            pos_lat,
-            pos_lng,
-            weapons,
-            areal
-        } = result
-
-        return PointerMapper.toDomain({
-            id: zone_id,
-
-            user: {
                 icon,
-                name
-            },
+                name,
 
-            color,
+                color,
 
-            health,
+                pos_lat,
+                pos_lng,
 
-            pos: [pos_lat, pos_lng],
-            weapons: weapons && JSON.parse(weapons) || '',
-            bombs: [],
-            areal: areal
-        })
+                weapons,
+                areal
+            } = result
+
+            return PointerMapper.toDomain({
+                id: zone_id,
+                level,
+
+                user: {
+                    icon,
+                    name
+                },
+
+                color,
+                health,
+
+                pos: [+pos_lat, +pos_lng],
+                weapons,
+                bombs: [],
+                areal
+            })
+
+        } catch (e) {
+            throw new Error('Вот она та самая ошибка')
+        }
     }
 
     async getZoneByIds(_ids: number[]): Promise<TZone[]> {
@@ -108,13 +118,14 @@ export class PointerRepository implements IPointerRepository {
             const {
                 zone_id,
 
+                level,
+
                 icon,
                 name,
 
                 color,
 
                 health,
-                // invaders,
 
                 pos_lat,
                 pos_lng,
@@ -125,6 +136,8 @@ export class PointerRepository implements IPointerRepository {
             return PointerMapper.toDomain({
                 id: zone_id,
 
+                level,
+
                 user: {
                     icon,
                     name,
@@ -134,7 +147,7 @@ export class PointerRepository implements IPointerRepository {
                 health,
 
                 pos: [pos_lat, pos_lng],
-                weapons: weapons && JSON.parse(weapons) || '',
+                weapons,
                 bombs: [],
                 areal: areal
             })
@@ -148,6 +161,7 @@ export class PointerRepository implements IPointerRepository {
         const inserted = await this._connection.query(`
             INSERT INTO pointers(
                 zone_id,
+                level,
                 icon,
                 name,
                 color,
@@ -165,10 +179,12 @@ export class PointerRepository implements IPointerRepository {
                 ?,
                 ?,
                 ?,
+                ?,
                 ?
             );
         `, [
             dtoPointer.id,
+            dtoPointer.level,
 
             dtoPointer.user.icon,
             dtoPointer.user.name,
@@ -176,8 +192,7 @@ export class PointerRepository implements IPointerRepository {
             dtoPointer.color,
 
             dtoPointer.health,
-            // dtoPointer.invaders,
-            
+
             dtoPointer.pos[0],
             dtoPointer.pos[1],
             JSON.stringify(dtoPointer.weapons),
@@ -189,29 +204,11 @@ export class PointerRepository implements IPointerRepository {
 
     async update(pointer: Pointer): Promise<Pointer> {
         const dtoPointer = pointer.unmarshal()
-        // let arr: any[] = []
-        // const arrQuerySet = entries(dtoPointer).map((item) => {
-        //     if (!item) return ''
-
-        //     if (item[0] === 'pos') {
-        //         arr.push(item[1][0])
-        //         arr.push(item[1][1])
-        //         return [
-        //             `'pos_lat' = ?`,
-        //             `'pos_lng' = ?`
-        //         ]
-
-        //     }
-        //     if (item[0] === 'weapons') {
-        //         arr.push(JSON.stringify(item[1]))
-        //         return `${item[0]} = '?'`
-        //     }
-        //     arr.push(item[1])
-        //     return `${item[0]} = ?`
-        // })
-
         const updated = await this._connection.execute(`
-            UPDATE pointers SET
+            UPDATE
+                pointers
+            SET
+                level = ?,
                 health = ?,
                 icon = ?,
                 name = ?,
@@ -222,28 +219,20 @@ export class PointerRepository implements IPointerRepository {
                 areal = ?
             WHERE zone_id = ?
         `, [
+            dtoPointer.level,
             dtoPointer.health,
             dtoPointer.user.icon,
             dtoPointer.user.name,
             dtoPointer.color,
             dtoPointer.pos[0],
             dtoPointer.pos[1],
-            dtoPointer.weapons,
-            JSON.stringify(dtoPointer.areal),
-            
+            JSON.stringify(dtoPointer.weapons),
+            dtoPointer.areal,
+
             pointer.zoneId
         ])
 
         return PointerMapper.toDomain(dtoPointer)
     }
-
-    // async delete(userId: number): Promise<Boolean> {
-    //     try {
-    //         const updated = await this._connection.execute(`DELETE FROM pointers zoneId = ?`, [userId])
-    //         return true
-    //     } catch (e) {
-    //         return false
-    //     }
-    // }
 
 }

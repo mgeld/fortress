@@ -1,5 +1,6 @@
 import { createEffect, sample } from "effector"
 import { mapModel } from "entities/map"
+import { shipModel } from "entities/ship"
 import { userModel } from "entities/user"
 import { Map } from "leaflet"
 import { TLatLng } from "shared/types"
@@ -45,10 +46,10 @@ const scrollMapPointer = createEffect(({
 
 export const scrollMapPointerListener = () => {
     sample({
-        clock: userModel.events.movePoint,
+        clock: shipModel.events.movePoint,
         source: {
             map: mapModel.$mapStore,
-            userPos: userModel.$userPositionStore,
+            userPos: shipModel.$userPositionStore,
         },
         fn: (source) => source,
         target: scrollMapPointer

@@ -5,11 +5,11 @@ import { TExtrTypes } from "@ctypes/model";
 
 import styles from './styles.module.scss'
 
-import { popoutModel } from "shared/ui/PopoutRoot";
+import { popoutModel } from "shared/ui/popout-root";
 import { modules } from "entities/unit/lib/modules";
 import { onBuyUnit } from "../model";
 
-export const UnitPopout: FC = () => {
+export const BuyUnit: FC = () => {
 
     const _unit: TExtrTypes | null = unitModel.selectors.useUnit()
 
@@ -39,7 +39,7 @@ export const UnitPopout: FC = () => {
                         </div>
 
                         <div className={styles.__amount}>
-                            {unit.feature_amount}
+                            +{unit.feature_amount}
                         </div>
                     </div>
 

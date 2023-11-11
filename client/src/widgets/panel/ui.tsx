@@ -5,18 +5,46 @@ import { IconChat, IconFaq, IconFort, IconNews, IconShip, IconShop } from "./ass
 // import { IconGun, IconShip } from "entities/ship/ui/assets/icons";
 
 import styles from './styles.module.scss'
-import { pageModel } from "shared/ui/PageRoot";
-import { popoutModel } from "shared/ui/PopoutRoot";
+import { popoutModel } from "shared/ui/popout-root";
+import { pageModel } from "shared/ui/page-root";
+import Link from "shared/ui/link/ui";
+import { TLatLng } from "@ctypes/model";
+import { mapAPI, shipAPI } from "shared/api/events";
+import { citadelModel } from "entities/citadel";
+import { IconClose } from "shared/assets/icons/_icons";
 
 export const Panel: FC = () => {
 
-    const photo = userModel.selectors.useUser().userIcon
+    // const photo = userModel.selectors.useUser().userIcon
+
+    const latlng = citadelModel.selectors.useCitadel()?.latlng || null
+
+    const selectCitadel = (pos: TLatLng | null) => {
+        if (!pos) return
+        mapAPI.events.setMapMode('invade')
+        shipAPI.events.setPos(pos)
+        popoutModel.events.setPopout(null)
+    }
+
+    const selectShip = () => {
+        popoutModel.events.setPopout('ship')
+    }
+
+    const close = () => popoutModel.events.setPopout(null)
 
     return (
         <div className={styles.panel}>
             <div className={styles.__header}>
                 <div className={styles.__border}>
-                    Навигатор
+                    <div className={styles.name}>
+                        Навигатор
+                    </div>
+                    <div
+                        onClick={close}
+                        className={styles.close}
+                    >
+                        <IconClose width={16} height={16} fill="#867aa0" />
+                    </div>
                 </div>
             </div>
             <div className={styles.__content}>
@@ -49,7 +77,10 @@ export const Panel: FC = () => {
                             </div>
                         </div>
 
-                        <div className={styles.section}>
+                        <div
+                            onClick={selectShip}
+                            className={styles.section}
+                        >
                             <div className={styles.item}>
                                 <div className={styles.icon}>
                                     <IconShip width={44} height={44} />
@@ -58,7 +89,10 @@ export const Panel: FC = () => {
                             </div>
                         </div>
 
-                        <div className={styles.section}>
+                        <div
+                            onClick={() => selectCitadel(latlng)}
+                            className={styles.section}
+                        >
                             <div className={styles.item}>
                                 <div className={styles.icon}>
                                     <IconFort width={44} height={44} />
@@ -67,32 +101,49 @@ export const Panel: FC = () => {
                             </div>
                         </div>
 
-                        <div className={styles.section}>
+                        <Link
+                            className={styles.section}
+                            link='https://vk.me/join/P10Woc9dcjIul09klvEP2MKEOrsy/T0hFvI='
+                        >
+                            {/* <div className={styles.section}> */}
+
                             <div className={styles.item}>
                                 <div className={styles.icon}>
                                     <IconChat width={44} height={44} />
                                 </div>
                                 <div className={styles.name}>Чат</div>
                             </div>
-                        </div>
+                            {/* </div> */}
+                        </Link>
 
-                        <div className={styles.section}>
+                        <Link
+                            className={styles.section}
+                            link='https://vk.com/club223383803'
+                        >
+                            {/* <div className=> */}
                             <div className={styles.item}>
                                 <div className={styles.icon}>
                                     <IconNews width={44} height={44} />
                                 </div>
                                 <div className={styles.name}>Новости</div>
                             </div>
-                        </div>
+                            {/* </div> */}
+                        </Link>
 
-                        <div className={styles.section}>
+
+                        <Link
+                            className={styles.section}
+                            link='vk.com/@-223383803-faq'
+                        >
+                            {/* <div className={styles.section}> */}
                             <div className={styles.item}>
                                 <div className={styles.icon}>
                                     <IconFaq width={44} height={44} />
                                 </div>
                                 <div className={styles.name}>FAQ</div>
                             </div>
-                        </div>
+                            {/* </div> */}
+                        </Link>
 
                     </div>
                 </div>

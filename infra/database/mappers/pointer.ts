@@ -3,8 +3,11 @@ import { User } from '../../../entities/pointer/user'
 
 export class PointerMapper {
   public static toDomain(pointer: UnmarshalledPointer): Pointer {
+    console.log('PointerMapper toDomain')
     return Pointer.create({
       zoneId: pointer.id,
+
+      level: pointer.level,
 
       user: User.create({
         icon: pointer.user.icon,
@@ -15,11 +18,10 @@ export class PointerMapper {
 
       health: pointer.health,
 
-      // invaders: pointer.invaders,
-
       pos: pointer.pos,
       
       weapons: pointer.weapons,
+
       bombs: pointer.bombs,
       areal: pointer.areal,
     })

@@ -7,9 +7,13 @@ import { TLatLng } from "shared/types";
 
 const setMap = createEvent<Map>()
 const setLatLngMap = createEvent<TLatLng>()
+const setMapCenter = createEvent<TLatLng>()
 
 export const $mapStore = createStore<null | Map>(null)
     .on(setMap, (_, map) => map)
+
+export const $mapCenterDefaultStore = createStore<TLatLng>([55.74953, 37.61581])
+    .on(setMapCenter, (_, latlng) => latlng)
 
 const $mapClickLatLng = createStore<TLatLng | null>(null)
     .on(setLatLngMap, (_, latlng) => latlng)
@@ -44,9 +48,11 @@ const useMapMode = () => {
     }
 }
 const useMapLayout = () => useStore($mapStore)
+const useMapCenter = () => useStore($mapCenterDefaultStore)
 
 export const selectors = {
     useMapMode,
+    useMapCenter,
     useMapClickLatLng,
     useMapLayout
 }

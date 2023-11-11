@@ -20,6 +20,14 @@
 
             color: white;
             font-size: 18px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .close {
+                padding: 0 6px;
+            }
         }
     }
 

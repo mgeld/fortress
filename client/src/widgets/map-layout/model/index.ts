@@ -1,6 +1,8 @@
+import { TLatLng } from "@ctypes/model";
 import { sample } from "effector";
-import { pointerMapModel } from "entities/pointer";
-import { userModel } from "entities/user";
+import { mapModel } from "entities/map";
+import { shipModel } from "entities/ship";
+import { pageModel } from "shared/ui/page-root";
 
 // export const filterPointersStore = () => {
 //     sample({
@@ -12,4 +14,15 @@ import { userModel } from "entities/user";
 //         target: pointerMapModel.$pointersStore
 //     })
 // }
-export {}
+
+type T = {
+    pos: TLatLng
+}
+export const mapStartPosition = () => {
+    sample({
+        clock: pageModel.events.setPage,
+        source: shipModel.$userPositionStore,
+        filter: (pos: TLatLng, page) => page === 'map',
+        target: mapModel.$mapCenterDefaultStore
+    })
+}

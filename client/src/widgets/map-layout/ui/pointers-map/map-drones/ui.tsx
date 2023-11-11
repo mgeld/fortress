@@ -3,7 +3,7 @@ import { FeatureGroup, Pane, useMap, useMapEvents } from "react-leaflet";
 import { UserDrone } from "../user-pointer/drone";
 import { Drones } from "../pointers/drones";
 import { droneMapModel } from "entities/pointer";
-import { popoutModel } from "shared/ui/PopoutRoot";
+import { popoutModel } from "shared/ui/popout-root";
 
 export const MapDrones: FC = () => {
 

@@ -2,8 +2,8 @@ import { FC } from "react";
 
 import styles from './styles.module.scss'
 import { IconLocation, IconTouch } from "./icons/_icons";
-import { Button } from "shared/ui/Button/ui";
-import { popoutModel } from "shared/ui/PopoutRoot";
+import { Button } from "shared/ui/button/ui";
+import { popoutModel } from "shared/ui/popout-root";
 import { mapModel } from "entities/map";
 import { getRandomPosition } from "shared/lib/get-random-position";
 

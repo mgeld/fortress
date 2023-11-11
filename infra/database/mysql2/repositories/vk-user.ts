@@ -22,6 +22,8 @@ export class VkUserRepository {
             throw new Error('-НУ ну сработал запрос.---------')
         }
 
+        console.log('result', result)
+
         return result
     }
 

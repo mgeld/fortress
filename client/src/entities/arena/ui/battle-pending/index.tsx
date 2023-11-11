@@ -1,12 +1,11 @@
 import { FC } from "react";
-import { IconBattleShield, IconLoupe, IconBattleSwords, IconBattleLoupe } from "shared/assets/icons/_icons";
-import { Button } from "shared/ui/Button/ui";
+import { IconBattleShield, IconBattleSwords, IconBattleLoupe } from "shared/assets/icons/_icons";
+import { Button } from "shared/ui/button/ui";
 
 import styles from './styles.module.scss'
 import { battleAPI, mapAPI } from "shared/api/events";
 import { battleLeaveEvent } from "features/battle";
-import { popoutModel } from "shared/ui/PopoutRoot";
-import { mapModel } from "entities/map";
+import { popoutModel } from "shared/ui/popout-root";
 
 export const BattlePending: FC = () => {
 

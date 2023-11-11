@@ -6,6 +6,7 @@ import { cellToLatLng, latLngToCell } from "h3-js";
 import { TLatLng } from "shared/types";
 import { projectorAPI } from "shared/api/events";
 import { beamAPI } from "shared/api/beam";
+import { shipModel } from "entities/ship";
 
 const hitSectorFx = createEffect((userPos: TLatLng) => {
 
@@ -92,7 +93,7 @@ const attractBooty = createEvent()
 
 sample({
     clock: attractBooty,
-    source: userModel.$userPositionStore,
+    source: shipModel.$userPositionStore,
     target: hitSectorFx,
 })
 

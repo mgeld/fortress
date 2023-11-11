@@ -16,7 +16,6 @@ export class Terrain {
 
     private _sectors: number
     private _defenders: number
-    // private _temporaryLastSector: string | null
 
     constructor(props: TTerrainProps) {
         this._level = props.level
@@ -41,14 +40,14 @@ export class Terrain {
         this._defenders = this._defenders - 1
         return this._defenders
     }
-    
+
     public addSector(): {
         level: number
         sectors: number
     } {
         this._sectors = this._sectors + 1
-        
-        if (this._sectors >= Terrain.levels()[this._level]) {
+
+        if (this._sectors >= Terrain.levelAllSectors()[this._level]) {
             this._level += 1
         }
 
@@ -62,12 +61,37 @@ export class Terrain {
         this._sectors = this._sectors - 1
     }
 
-    private static levels(): { [key: number]: number } {
+    private static levelSectors(): { [key: number]: number } {
         return {
             1: 50,
             2: 150,
-            3: 255,
-            4: 365,
+            3: 300,
+            4: 500,
+            5: 750,
+            6: 1050,
+            7: 1400,
+            8: 1800,
+            9: 2250,
+            10: 2750,
+            11: 3300,
+            12: 3900,
+        }
+    }
+
+    private static levelAllSectors(): { [key: number]: number } {
+        return {
+            1: 50,
+            2: 150,
+            3: 300,
+            4: 500,
+            5: 750,
+            6: 1050,
+            7: 1400,
+            8: 1800,
+            9: 2250,
+            10: 2750,
+            11: 3300,
+            12: 3900,
         }
     }
 

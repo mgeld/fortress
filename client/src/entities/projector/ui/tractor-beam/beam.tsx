@@ -1,14 +1,14 @@
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useMap, useMapEvents } from "react-leaflet";
 
 import { Keyframes } from "shared/ui/Keyframes/Keyframes";
 
 import { droneMapModel } from "entities/pointer";
 
-import { userModel } from "entities/user";
 import { TBeam } from "entities/projector/model/tractor-beam";
 
 import './styles.css'
+import { shipModel } from "entities/ship";
 
 type TStyle = {
     transition?: string,
@@ -24,7 +24,7 @@ export const Beam: FC<TBeamProps> = ({ beam }) => {
 
     let sizeDrone = droneMapModel.selectors.useDroneSize()
 
-    const myPos = userModel.selectors.useUserPos()
+    const myPos = shipModel.selectors.useShipPos()
 
     const map = useMap()
 

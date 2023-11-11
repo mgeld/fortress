@@ -2,7 +2,7 @@ import { Handler } from "..";
 import { TTakeSector } from '@ctypes/socket/server-to-client'
 import { zoneModel } from "entities/zone";
 import { sectorsAPI } from "shared/api/events";
-import { snackbarModel } from "shared/ui/Snackbar";
+import { snackbarModel } from "shared/ui/snackbar";
 
 class YTakeSectorHandler extends Handler {
     handle(message: TTakeSector) {

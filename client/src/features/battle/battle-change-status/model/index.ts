@@ -3,9 +3,9 @@ import { createEffect, sample } from "effector";
 import { mapModel } from "entities/map";
 import { TBattleStatus } from "shared/api/events/battle";
 import { Map } from "leaflet";
-import { userModel } from "entities/user";
 import { TLatLng } from "shared/types";
-import { popoutModel } from "shared/ui/PopoutRoot";
+import { popoutModel } from "shared/ui/popout-root";
+import { shipModel } from "entities/ship";
 
 const changeBattleFx = createEffect(({
     source,
@@ -53,7 +53,7 @@ export const changeBattleStatusListener = () => {
         clock: battleAPI.events.setBattleStatus,
         source: {
             map: mapModel.$mapStore,
-            userPos: userModel.$userPositionStore,
+            userPos: shipModel.$userPositionStore,
         },
         filter: (source: {
             map: Map | null

@@ -21,7 +21,7 @@ export class CitadelRepository implements ICitadelMemoryRepository {
 
     async getById(_id: number): Promise<Citadel> {
         const [[result]] = await this._connection.query<Required<ICitadelRowData>[] & RowDataPacket[]>(
-            `SELECT * FROM citadels WHERE id = ?;`, [_id]
+            `SELECT * FROM citadels WHERE zone_id = ?;`, [_id]
         )
         if (!result) {
             throw new Error('----------')

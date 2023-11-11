@@ -1,15 +1,17 @@
 import { FC } from "react";
 import { arenaModel } from "entities/arena";
-import { Button } from "shared/ui/Button/ui";
+import { Button } from "shared/ui/button/ui";
 
 import { pointerMapModel } from "entities/pointer";
 import { userModel } from "entities/user";
 
 import styles from './styles.module.scss'
+
 import { battleAPI, mapAPI } from "shared/api/events";
-import { popoutModel } from "shared/ui/PopoutRoot";
+import { popoutModel } from "shared/ui/popout-root";
 import { IconBattleShield, IconBattleSwords } from "shared/assets/icons/_icons";
 import { IconTrophy } from "widgets/counters/icons/_icons";
+import { shipModel } from "entities/ship";
 
 export const BattleOver: FC = () => {
 
@@ -28,7 +30,7 @@ export const BattleOver: FC = () => {
         mapAPI.events.setMapMode('invade')
         
         popoutModel.events.setPopout(null)
-        userModel.events.resetUser()
+        shipModel.events.resetUser()
         battleAPI.events.setTeams([])
         battleAPI.events.setBattleStatus('default')
     }

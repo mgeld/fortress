@@ -34,7 +34,7 @@ export const AboutSector: FC<TAboutSectorProps> = ({
             <div className={[styles.__container, styles.__one].join(' ')}>
                 <AboutSectorItem
                     icon={<IconSector width={16} height={16} />}
-                    name="Сектор:"
+                    name="Ячейка:"
                     text={sector.number > 0 ? `${sector.number}` : 'Новый'}
                 />
                 <AboutSectorItem

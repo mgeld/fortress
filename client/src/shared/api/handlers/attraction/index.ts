@@ -1,9 +1,9 @@
 import { Handler } from "..";
-import { extractionAPI, projectorAPI } from "shared/api/events";
+import { holdAPI, projectorAPI } from "shared/api/events";
 import { TTractorExtr } from '@ctypes/socket/server-to-client'
 import { TBooty } from "entities/projector/model/tractor-beam";
-import { noticeModel } from "shared/ui/Notice";
-import { snackbarModel } from "shared/ui/Snackbar";
+import { noticeModel } from "shared/ui/notice";
+import { snackbarModel } from "shared/ui/snackbar";
 import { TConts } from "@ctypes/model";
 
 class AttractionHandler extends Handler {
@@ -40,7 +40,7 @@ class AttractionHandler extends Handler {
 
         setTimeout(() => {
             projectorAPI.events.delBootyById({ booty_id: BOOTY_ID })
-            extractionAPI.events.addExtraction(extr);
+            holdAPI.events.addExtraction(extr);
             noticeModel.events.newToast({
                 name: 'Получен контейнер',
                 text: 'Контейнер добавлен в инвентарь добычи',

@@ -29,24 +29,25 @@ class BattleJoinHandler extends IRoute {
 
         console.log('BattleJoinHandler handle')
 
+        if (!uSocket.user_id) return
+
         const arena = await this._arenaService.getArena()
 
-        const team = arena.addPointer(message.payload.userId)
+        const team = arena.addPointer(uSocket.user_id)
 
         const teamPlace = team.getPlace(arena.place.place)
 
         const _member = Member.create({
-            userId: message.payload.userId,
+            userId: uSocket.user_id,
             pos: MemberPlace.generate(teamPlace, team.getMembersNumber()),
-            health: 100,
+            // health: 100,
             arena: arena.id,
             arenaTeam: team.id
         })
-
         const member = await this._memberService.insert(_member)
 
         const roomId = this._rooms.arenas.getRoom(arena.id)
-        this._rooms.arenas.addClientToRoom(message.payload.userId, roomId, uSocket)
+        this._rooms.arenas.addClientToRoom(uSocket.user_id, roomId, uSocket)
 
         const roomValues = Object.values(this._rooms.arenas.getClients(roomId))
         console.log('roomValuesJoin', roomValues)
@@ -56,7 +57,7 @@ class BattleJoinHandler extends IRoute {
             payload: {
                 user: {
                     pos: _member.pos,
-                    health: _member.health,
+                    // health: _member.health,
                 },
             }
         }))
@@ -71,14 +72,18 @@ class BattleJoinHandler extends IRoute {
             const pointers = await this._pointerService.getByIds(arena.pointers)
 
             const users: Record<number, {
+                lvl: number
                 icon: string
                 name: string
+                health: number
             }> = {}
 
             pointers.forEach(pointer => {
                 users[pointer.zoneId] = {
+                    lvl: pointer.level,
                     icon: pointer.icon,
-                    name: pointer.name
+                    name: pointer.name,
+                    health: pointer.health,
                 }
             })
 

@@ -1,5 +1,6 @@
 export type TPointer = {
     userId: number
+    lvl: number,
     health: number,
     icon?: string,
     name?: string,
@@ -9,16 +10,16 @@ export type TPointer = {
 export type THitPointer = {
     userId: number
     pos: TLatLng
+    health?: number
 }
 
 export type TJoystickDirection = "FORWARD" | "RIGHT" | "LEFT" | "BACKWARD"
 
 export type TLatLng = [number, number]
 
-
 // Оружие дрона
 export type TWeaponSymbol =
-    | 'gun'
+    | 1
 
 export type TWeapon = {
     id: string
@@ -65,13 +66,17 @@ export type TExtrTypes =
     | 40 | 41 | 42
     | 50 | 51 | 52
     | 100 | 101
+    | 110 | 111
+    | 120 | 121
 
 
 export type TTypeToastNotice =
     | TExtrTypesName
     | TConts
+    | 'coins' // coins
+    | 'rubies' // rubies
     | 'common' // common
-    | 'error' // error
+    | 'warning' // warning
 
 export type TConts = 'cont_1' | 'cont_2' | 'cont_3'
 export type TExtrTypesName =
@@ -80,5 +85,14 @@ export type TExtrTypesName =
     | 'ship_health'
     | 'gun_power'
     | 'gun_distance'
+    | 'stormtroopers' 
+    | 'coins' 
+    | 'rubies' 
 
 export type TFindContType = 1 | 2 | 3
+
+export type TGameUnit =
+    | 'ship'
+    | 'hold'
+    | 'gun'
+    | 'storm-corps'

@@ -1,84 +1,83 @@
 import { FC } from "react";
-import { modules } from "entities/unit/lib/modules";
 import { UnitsList } from "entities/unit/ui/unit/units-list/ui";
 import { TUnitShop, UnitCard } from "entities/unit/ui/unit/unit-card/ui";
 
-import styles from './styles.module.scss'
-import { pageModel } from "shared/ui/PageRoot";
 import { IconCoin, IconSapphire } from "widgets/counters/icons/_icons";
-
 import { ReactComponent as IconShop } from './shop.svg';
+
+import { BackMap } from "widgets/back-button";
+
 import { zoneModel } from "entities/zone";
+
+import { modules } from "entities/unit/lib/modules";
+
+import styles from './styles.module.scss'
 
 const units: TUnitShop[] = [{
     id: 100,
     currency: 'coins',
-    price: 100
+    price: 50
 }, {
     id: 101,
     currency: 'coins',
     price: 100
 }, {
-    id: 10,
-    currency: 'coins',
-    price: 100
-}, {
     id: 11,
     currency: 'coins',
-    price: 90
+    price: 50
 }, {
     id: 12,
-    currency: 'coins',
-    price: 80
-}, {
-    id: 20,
     currency: 'coins',
     price: 100
 }, {
     id: 21,
-    currency: 'rubies',
-    price: 25
+    currency: 'coins',
+    price: 100
 }, {
     id: 22,
     currency: 'coins',
-    price: 100
-}, {
-    id: 30,
-    currency: 'coins',
-    price: 100
-}, {
+    price: 150
+},
+{
     id: 31,
     currency: 'rubies',
-    price: 15
-}, {
+    price: 50
+},
+{
     id: 32,
-    currency: 'coins',
-    price: 100
-}, {
-    id: 40,
-    currency: 'coins',
-    price: 100
-}, {
+    currency: 'rubies',
+    price: 80
+},
+{
     id: 41,
     currency: 'coins',
-    price: 100
+    price: 50
 }, {
     id: 42,
-    currency: 'coins',
-    price: 100
-}, {
-    id: 50,
     currency: 'rubies',
-    price: 25
-}, {
+    price: 70
+},
+{
     id: 51,
     currency: 'coins',
-    price: 100
+    price: 50
 }, {
-    id: 52,
+    id: 110,
     currency: 'coins',
     price: 100
-},]
+}, {
+    id: 111,
+    currency: 'coins',
+    price: 100
+}, {
+    id: 120,
+    currency: 'coins',
+    price: 100
+}, {
+    id: 121,
+    currency: 'coins',
+    price: 100
+}]
 
 export const GunShop: FC = () => {
 
@@ -90,7 +89,6 @@ export const GunShop: FC = () => {
             <>
                 <div
                     className={styles.__header}
-                    onClick={() => pageModel.events.setPage('map')}
                 >
                     <div className={styles.name}>
                         <div className={styles.icon}>
@@ -124,6 +122,8 @@ export const GunShop: FC = () => {
                         />
                     )
                 })}
+
+                <BackMap />
             </>
         </UnitsList>
     )

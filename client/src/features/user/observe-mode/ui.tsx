@@ -1,8 +1,7 @@
 import { FC } from "react";
-import { Button } from "shared/ui/Button/ui";
+import { Button } from "shared/ui/button/ui";
 
-import { userModel } from "entities/user";
-import { BottomFlex } from "shared/ui/BottomFlex";
+import { BottomFlex } from "shared/ui/bottom-flex";
 
 export const ObserveMode: FC = () => {
 

@@ -34,12 +34,14 @@ export const Take: FC<TTakeProps> = ({ take, sizeInvader, sizeDrone }) => {
     ])
 
     useEffect(() => {
-        setPos(take.to_pos)
+        setTimeout(() => setPos(take.to_pos), 50)
     }, [take.to_pos])
 
     const p = sizeInvader * 3.14 / 3
-    const a = p * 0.6
-    const b = p * 0.4
+    const a = p * 0.2
+    const b = p * 0.8
+    
+    const weightDroneCircle = Math.ceil(p / 4)
 
     return (
         <>
@@ -48,12 +50,12 @@ export const Take: FC<TTakeProps> = ({ take, sizeInvader, sizeDrone }) => {
                 className={`${styles.__invader} ${take.id}`}
                 pathOptions={{
                     dashArray: `${a} ${b}`,
-                    weight: 6,
-                    fillColor: '#3FF672',
+                    weight: weightDroneCircle,
+                    fillColor: '#fa3226',
                     fillOpacity: 0.7,
-                    color: '#3FF672'
+                    color: '#3c505a'
                 }}
-                radius={15}
+                radius={12}
             />
         </>
     )

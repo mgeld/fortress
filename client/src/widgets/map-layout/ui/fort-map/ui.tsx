@@ -1,9 +1,9 @@
 import { Fort } from "entities/fort";
-import { userModel } from "entities/user";
+import { shipModel } from "entities/ship";
 import { FC } from "react";
 
 export const FortMap: FC = () => {
-    const { pos } = userModel.selectors.useUser()
+    const pos = shipModel.selectors.useShipPos()
     return (
         <Fort pos={pos} />
     )

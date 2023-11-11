@@ -37,9 +37,14 @@ export class ZoneMapper {
             //     defenders: zone.guard_corps.defenders
             // }),
 
-            extraction: new Extraction({
-                list: zone.extraction
+            hold: new Extraction({
+                level: zone.hold.level,
+                items: zone.hold.items
             }),
+
+            // extraction: new Extraction({
+            //     list: zone.extraction
+            // }),
 
             color: zone.color,
 

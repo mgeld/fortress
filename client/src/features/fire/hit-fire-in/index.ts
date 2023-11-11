@@ -1,14 +1,15 @@
 import { createEffect, sample } from "effector"
+// import { shipModel } from "entities/ship"
 import { userModel } from "entities/user"
-import { firesAPI, pointersAPI, userAPI } from "shared/api/events"
+import { firesAPI, pointersAPI, shipAPI } from "shared/api/events"
 import { THealthChange } from "shared/api/events/fires"
-import { popoutModel } from "shared/ui/PopoutRoot"
-import { snackbarModel } from "shared/ui/Snackbar"
+import { popoutModel } from "shared/ui/popout-root"
+import { snackbarModel } from "shared/ui/snackbar"
 
 type TChangeHealthFxProps = {
     source: {
         userId: number
-        userHealth: number
+        // userHealth: number
     }
     clock: THealthChange
 }
@@ -19,13 +20,14 @@ export const changeHealthFx = createEffect(({ source, clock }: TChangeHealthFxPr
             text: 'Вас атакуют!',
             t: 5
         })
-        userAPI.events.changeHealth(clock.damage)
+        shipAPI.events.setHealth(clock.health)
 
-        if (source.userHealth - clock.damage < 1) setTimeout(() => popoutModel.events.setPopout('user-dead'), 1000)
+        // if (source.userHealth - clock.damage < 1) setTimeout(() => popoutModel.events.setPopout('user-dead'), 1000)
+        if (clock.health < 1) setTimeout(() => popoutModel.events.setPopout('user-dead'), 1000)
 
     } else {
-        pointersAPI.events.changeHealthPointer({
-            health: clock.damage,
+        pointersAPI.events.setHealthPointer({
+            health: clock.health,
             userId: clock.hitUserId
         })
     }
@@ -37,7 +39,7 @@ export const isFireHitMe = () => {
         clock: firesAPI.events.hitFireInTarget,
         source: {
             userId: userModel.$userIdStore,
-            userHealth: userModel.$userHealthStore,
+            // userHealth: shipModel.$userHealthStore,
         },
         fn: (source, clock) => ({ clock, source }),
         target: changeHealthFx

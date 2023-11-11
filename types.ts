@@ -1,5 +1,6 @@
 const TYPES = {
     Server: Symbol.for('Server'),
+    PingPong: Symbol.for('PingPong'),
     Rooms: Symbol.for('Rooms'),
 
     Database: Symbol.for('Database'),
@@ -42,6 +43,7 @@ const TYPES = {
     GetUserHandler: Symbol.for('GetUserHandler'),
     UseExtractionHandler: Symbol.for('UseExtractionHandler'),
     BuyUnitHandler: Symbol.for('BuyUnitHandler'),
+    LevelUpHandler: Symbol.for('LevelUpHandler'),
     
     PointerRepository: Symbol.for('PointerRepository'),
     ZoneRepository: Symbol.for('ZoneRepository'),

@@ -1,6 +1,6 @@
 import { FC } from "react";
-import { snackbarModel } from ".";
 import styles from './styles.module.scss'
+import { snackbarModel } from ".";
 
 export const Snackbar: FC = () => {
 

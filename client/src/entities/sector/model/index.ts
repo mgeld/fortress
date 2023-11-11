@@ -1,12 +1,8 @@
-import { TGetAboutSectorAPI } from "@ctypes/socket/client-to-server"
 import { TSectorPayload } from "@ctypes/socket/server-to-client"
-import { createEffect, createStore, sample } from "effector"
+import { createStore } from "effector"
 import { useStore } from "effector-react"
-import { userModel } from "entities/user"
-import { zoneModel } from "entities/zone"
-import { sectorsAPI, zoneAPI } from "shared/api/events"
+import { sectorsAPI } from "shared/api/events"
 import { TSetSectorById, TSetSectorZone, TZoneItem } from "shared/api/events/sectors"
-import { snackbarModel } from "shared/ui/Snackbar"
 
 const {
     addSector,

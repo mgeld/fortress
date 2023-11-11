@@ -11,8 +11,9 @@ export class ZoneMemoryRepository implements IZoneMemoryRepository {
 
     async getById(userId: number): Promise<Zone> {
         const zone = await this._database.zone.getById<UnmarshalledZone>(userId)
+
         if (!zone) {
-            throw new Error('----------')
+            throw new Error('ERROOR ZoneMemoryRepository----------')
         }
         return ZoneMapper.toDomain(zone)
     }

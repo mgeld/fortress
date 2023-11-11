@@ -1,6 +1,7 @@
-import { userModel } from "entities/user"
+import { shipModel } from "entities/ship"
+import { LatLng, LatLngBounds } from "leaflet"
 import { FC, useEffect } from "react"
-import { Rectangle, useMap } from "react-leaflet"
+import { Circle, Polygon, Rectangle, useMap } from "react-leaflet"
 
 // type TArealProps = {
 //     bounds: [TLatLng, TLatLng]
@@ -12,7 +13,7 @@ const ArealRectangle: FC = () => {
 
     // const map = useMap()
 
-    const areal = userModel.selectors.useAreal()
+    const areal = shipModel.selectors.useAreal()
 
     // useEffect(() => {
     //     if (areal) {
@@ -27,6 +28,27 @@ const ArealRectangle: FC = () => {
 
     return (
         <>
+        {/* <Circle
+            center={areal[0]}
+            radius={30}
+        />
+        <Circle
+            center={areal[1]}
+            radius={30}
+        />
+            <Polygon
+                positions={[
+                    [areal[0][0], areal[0][1]],
+                    [areal[0][0] + 0.02, areal[0][1]],
+                    [areal[1][0], areal[1][1]],
+                    [areal[0][0], areal[0][1] + 0.03],
+                ]}
+                pathOptions={{
+                    fillColor: 'green',
+                    fillOpacity: 0.2,
+                    stroke: false
+                }}
+            /> */}
             <Rectangle
                 bounds={[
                     [areal[0][0] - 0.01, areal[0][1]],

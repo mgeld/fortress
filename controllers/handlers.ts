@@ -51,6 +51,8 @@ export class Handlers {
         @inject(TYPES.GetUserHandler) private getUser: IRoute,
         @inject(TYPES.UseExtractionHandler) private useExtraction: IRoute,
         @inject(TYPES.BuyUnitHandler) private buyUnit: IRoute,
+        @inject(TYPES.LevelUpHandler) private levelUp: IRoute,
+        
     ) { }
 
     handle(

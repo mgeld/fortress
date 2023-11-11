@@ -15,6 +15,7 @@ const Pointer: FC<TPointProps> = ({ pointer }) => {
     return (
         <>
             <Health
+                lvl={pointer.lvl}
                 position={pointer.pos}
                 health={pointer.health}
             />

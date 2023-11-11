@@ -1,4 +1,5 @@
 import { attach, createEvent, sample } from "effector"
+import { shipModel } from "entities/ship"
 import { userModel } from "entities/user"
 import { connectAPI } from "shared/api/connect"
 
@@ -13,7 +14,7 @@ sample({
       userVkId: userModel.$userVkIdStore,
       userName: userModel.$userNameStore,
       userIcon: userModel.$userIconStore,
-      pos: userModel.$userPositionStore,
+      pos: shipModel.$userPositionStore,
     },
     effect: (user) => {
       connectAPI(

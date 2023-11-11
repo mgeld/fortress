@@ -41,6 +41,7 @@ export class WeaponRepository implements IWeaponRepository {
     }
 
     async getById(_id: string): Promise<WeaponType> {
+        console.log('WeaponRepository getById _id', _id)
         const [[result]] = await this._connection.query<UnmarshalledWeapon[] & RowDataPacket[]>(
             `SELECT
                 id,
@@ -56,7 +57,7 @@ export class WeaponRepository implements IWeaponRepository {
                 id = ?;`, [_id]
         )
         if (!result) {
-            throw new Error('----------')
+            throw new Error('GET WEAPON ERROR----------')
         }
 
         return WeaponMapper.toDomain(result)
@@ -97,6 +98,8 @@ export class WeaponRepository implements IWeaponRepository {
     }
 
     async update(weapon: WeaponType): Promise<WeaponType> {
+
+        console.log('MysqlWeaponRepository')
         
         const dtoWeapon = weapon.unmarshal()
 
@@ -105,6 +108,8 @@ export class WeaponRepository implements IWeaponRepository {
             arr.push(item[1])
             return `${item[0]} = ?`
         })
+        
+        console.log('MysqlWeaponRepository arr', arr)
 
         const updated = await this._connection.execute(`
             UPDATE weapons SET ${arrQuerySet.join(',')} WHERE id = ?

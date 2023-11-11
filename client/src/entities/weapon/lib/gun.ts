@@ -14,7 +14,7 @@ export interface WeaponType {
 export class Gun implements WeaponType {
 
     public name = 'Пушка'
-    public symbol: TWeaponSymbol = 'gun'
+    public symbol: TWeaponSymbol = 1
 
     private _level: number
     // private _power: number

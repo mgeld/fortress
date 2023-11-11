@@ -51,13 +51,14 @@ class ConnectHandler implements IRoute {
             const { zone_id: zoneId } = await this._vkUserRepository.getById(VK_USER_ID)
 
             pointer = await this._pointerService.baseGetById(zoneId)
+
             weapon = await this._weaponService.baseGetById(pointer.weapons[0])
 
             zone = await this._zoneService.getById(zoneId)
 
-            this._pointerService.memoryInsert(pointer)
-            this._weaponService.memoryInsert(weapon)
             this._zoneService.memoryInsert(zone)
+            this._weaponService.memoryInsert(weapon)
+            this._pointerService.memoryInsert(pointer)
 
             if (zone.terrain.sectors > 0) {
                 citadel = await this._citadelService.getById(zoneId)
@@ -86,15 +87,12 @@ class ConnectHandler implements IRoute {
                 weapon
             )
 
-            console.log('_______pointer', pointer.unmarshal())
             this._pointerService.baseInsert(pointer)
             this._pointerService.memoryInsert(pointer)
 
-            console.log('_______zone.id', zone.id)
-
             this._zoneService.memoryInsert(zone)
-
         }
+
 
         uSocket.user_id = zone.id
 
@@ -103,7 +101,10 @@ class ConnectHandler implements IRoute {
         const payload: TConnectPayload = {
             user: {
                 zoneId: zone.id,
+            },
+            ship: {
                 pos: pointer.pos,
+                level: pointer.level,
                 health: pointer.health,
             },
             storm: {
@@ -111,16 +112,24 @@ class ConnectHandler implements IRoute {
                 power: dtoZone.stormtrooper_corps.power,
                 invaders: dtoZone.stormtrooper_corps.invaders
             },
-            zone: {
+            rank: {
+                exp: dtoZone.rank.exp,
+                level: dtoZone.rank.rank,
+            },
+            terrain: {
+                level: dtoZone.terrain.level,
                 sectors: dtoZone.terrain.sectors,
-                trophies: dtoZone.trophies,
+            },
+            zone: {
                 coins: dtoZone.coins,
                 rubies: dtoZone.rubies,
+                trophies: dtoZone.trophies,
             },
+            hold: dtoZone.hold,
             citadel: citadel ? {
                 id: citadel.id,
+                level: citadel.level,
                 latlng: citadel.latlng,
-                level: citadel.level
             } : null,
             weapon: [weapon.unmarshal()]
         }

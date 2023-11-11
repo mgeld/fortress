@@ -12,11 +12,9 @@ export type TZoneProps = {
     rank: Rank
     terrain: Terrain
 
-    // guard_corps: GuardCorps
-    // defenders: number
     stormtrooper_corps: StormtrooperCorps
 
-    extraction: Extraction
+    hold: Extraction
 
     trophies: number
 
@@ -26,19 +24,14 @@ export type TZoneProps = {
 
 export type UnmarshalledZone = {
 
-    // level: number
-    // exp: number
-    // tempExp: number
-    
     terrain: UnmarshalledTerrain
     rank: UnmarshalledRank
 
     stormtrooper_corps: UnmarshalledStormtrooperCorps
-    // guard_corps: UnmarshalledGuardCorps
 
-    extraction: UnmarshalledExtraction
+    hold: UnmarshalledExtraction
 
-} & Omit<Required<TZoneProps>, 'rank' | 'terrain' | "guard_corps" | "stormtrooper_corps" | 'extraction'>
+} & Omit<Required<TZoneProps>, 'rank' | 'terrain' | "guard_corps" | "stormtrooper_corps" | 'hold'>
 
 // class User считай. Просто исторически сложилось, что название Zone
 // Да и поменять лень
@@ -61,7 +54,7 @@ export class Zone {
 
     private _stormtrooper_corps: StormtrooperCorps
 
-    private _extraction: Extraction
+    private _hold: Extraction
 
     private constructor(zone: TZoneProps) {
         this._id = zone.id || 0
@@ -77,8 +70,8 @@ export class Zone {
         this._terrain = zone.terrain
 
         this._stormtrooper_corps = zone.stormtrooper_corps
-        
-        this._extraction = zone.extraction
+
+        this._hold = zone.hold
 
     }
 
@@ -103,7 +96,7 @@ export class Zone {
 
             stormtrooper_corps: this._stormtrooper_corps.unmarshal(),
 
-            extraction: this._extraction.unmarshal()
+            hold: this._hold.unmarshal()
 
         }
     }
@@ -132,13 +125,31 @@ export class Zone {
         return this._stormtrooper_corps
     }
 
-    get extraction() {
-        return this._extraction
+    get hold() {
+        return this._hold
     }
 
     spendСoins(coins: number): number {
         this._coins = this._coins - coins
         return this._coins
+    }
+
+    addCoins(coins: number): number {
+        this._coins = this._coins + coins
+
+        console.log('addCoins this._coins', this._coins)
+        return this._coins
+    }
+
+    spendRubies(rubies: number): number {
+        this._rubies = this._rubies - rubies
+        return this._rubies
+    }
+
+    addRubies(rubies: number): number {
+        this._rubies = this._rubies + rubies
+        console.log('addRubies this._rubies', this._rubies)
+        return this._rubies
     }
 
 }

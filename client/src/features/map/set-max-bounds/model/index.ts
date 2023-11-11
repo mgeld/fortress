@@ -1,7 +1,7 @@
 import { createEffect, sample } from "effector";
 import { mapModel } from "entities/map";
-import { $arealStore } from "entities/user/model/user";
-import { LatLngBounds, Map } from "leaflet";
+import { shipModel } from "entities/ship";
+import { Map } from "leaflet";
 import { TLatLng } from "shared/types";
 
 const setMaxBoundsFx = createEffect(({
@@ -23,7 +23,7 @@ type TAreal = [TLatLng, TLatLng]
 
 export const setMaxBoundsListener = () => {
     sample({
-        clock: $arealStore,
+        clock: shipModel.$arealStore,
         source: {
             map: mapModel.$mapStore,
         },

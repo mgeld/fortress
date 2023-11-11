@@ -21,9 +21,9 @@ export const useApp = () => {
 
     useEffect(() => {
         // bridge.send('VKWebAppGetUserInfo').then(user => {
-        //     const _user = randomNumber(38574839 - 100000, 250449525 + 100000)
+        //     // const _user = randomNumber(38574839 - 100000, 250449525 + 100000)
         //     console.log('VKWebAppGetUserInfo user', user)
-        //     userModel.events.setVkUser(_user)
+        //     userModel.events.setVkUser(user.id)
         //     userModel.events.setName(user.first_name)
         //     userModel.events.setUserIcon(user.photo_100)
         // })

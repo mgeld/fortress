@@ -15,7 +15,7 @@ class GetUserHandler implements IRoute {
     ) {
         console.log('GetUserHandler')
     }
-
+    
     public static EVENT: TEventGetUser = "getUser"
 
     async handle(
@@ -24,8 +24,10 @@ class GetUserHandler implements IRoute {
     ) {
 
         console.log('------GetUserHandler handle -----------')
+        
+        if (!uSocket.user_id) return
 
-        const USER_ID = message.payload.userId
+        const USER_ID = uSocket.user_id
 
         let pointer: Pointer = await this._pointerService.memoryGetById(USER_ID)
 
@@ -41,8 +43,6 @@ class GetUserHandler implements IRoute {
 
     }
 }
-
-// ConnectHandler.EVENT = "connect"
 
 export {
     GetUserHandler

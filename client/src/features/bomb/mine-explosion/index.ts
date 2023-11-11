@@ -1,9 +1,10 @@
 import { createEffect, sample } from "effector"
+import { shipModel } from "entities/ship"
 import { userModel } from "entities/user"
-import { bombsAPI, pointersAPI, userAPI } from "shared/api/events"
-import { THealthChange } from "shared/api/events/fires"
-import { popoutModel } from "shared/ui/PopoutRoot"
-import { snackbarModel } from "shared/ui/Snackbar"
+import { bombsAPI, pointersAPI, shipAPI } from "shared/api/events"
+import { THealthChange } from "shared/api/events/bombs"
+import { popoutModel } from "shared/ui/popout-root"
+import { snackbarModel } from "shared/ui/snackbar"
 
 type TChangeHealthFxProps = {
     source: {
@@ -19,7 +20,7 @@ export const changeHealthFx = createEffect(({ source, clock }: TChangeHealthFxPr
             text: 'Подрыв на мине!',
             t: 6
         })
-        userAPI.events.changeHealth(clock.damage)
+        shipAPI.events.changeHealth(clock.damage)
         // userAPI.events.changeHealth(1)
 
         if (source.userHealth - clock.damage < 1) setTimeout(() => popoutModel.events.setPopout('user-dead'), 1000)
@@ -39,7 +40,7 @@ export const isBombHitMe = () => {
         clock: bombsAPI.events.hitBombInTarget,
         source: {
             userId: userModel.$userIdStore,
-            userHealth: userModel.$userHealthStore,
+            userHealth: shipModel.$userHealthStore,
         },
         fn: (source, clock) => ({ clock, source }),
         target: changeHealthFx

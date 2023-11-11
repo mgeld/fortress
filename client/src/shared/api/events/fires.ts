@@ -10,11 +10,9 @@ const delFireById = createEvent<TFireId>()
 
 export type THealthChange = {
     hitUserId: number,
-    damage: number
+    health: number
 }
 const hitFireInTarget = createEvent<THealthChange>()
-
-hitFireInTarget.watch(() => console.log('hitFireInTarget hitFireInTarget hitFireInTarget hitFireInTarget'))
 
 export const events = {
     addFire,
