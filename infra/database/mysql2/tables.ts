@@ -1,4 +1,3 @@
-
 const citadels = `
     CREATE TABLE citadels(
 		zone_id INT NOT NULL DEFAULT 0,
@@ -151,6 +150,8 @@ const bombs = `
 
 const drop = `
     DROP TABLE hold;
+    DROP TABLE sectors;
+    DROP TABLE bombs;
     DROP TABLE pointers;
     DROP TABLE weapons;
     DROP TABLE rank_conquests;
@@ -163,6 +164,31 @@ const drop = `
 
 
 const TABLES = `
+    CREATE TABLE sectors(
+        id VARCHAR(15) NOT NULL primary key,
+        
+        number INT NOT NULL auto_increment unique,
+
+        zone_id INT NOT NULL DEFAULT 0,
+
+        invaders INT NOT NULL DEFAULT 0,
+        defenders INT NOT NULL DEFAULT 0,
+
+        lat DECIMAL(10, 6) NOT NULL,
+        lng DECIMAL(10, 6) NOT NULL,
+
+        areal INT NOT NULL DEFAULT 0
+    )
+    character set='utf8mb4';
+    CREATE TABLE bombs(
+		id VARCHAR(50) primary key,
+		number INT NOT NULL auto_increment unique,
+		bomb tinyint NOT NULL DEFAULT 0,
+		counter smallint NOT NULL DEFAULT 0,
+		status tinyint NOT NULL DEFAULT 0,
+		level tinyint NOT NULL DEFAULT 0
+	)
+	character set='utf8mb4';
     CREATE TABLE hold(
         zone_id INT NOT NULL primary key,
 
