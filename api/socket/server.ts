@@ -44,8 +44,8 @@ export class Server {
         const serverContext = this.serverContext
 
         const server = https.createServer({
-            cert: fs.readFileSync('/var/www/httpd-cert/www-root/app2023.ru_le1.crtca'),
-            key: fs.readFileSync('/var/www/httpd-cert/www-root/app2023.ru_le1.key')
+            cert: fs.readFileSync('./api/cert/certificate.crt'),
+            key: fs.readFileSync('./api/cert/privateKey.key')
         }, (req, res) => {
 
             console.log('req.url', req.url)
@@ -106,8 +106,7 @@ export class Server {
         // connection.start()
         // const interval = setInterval(() => connection.pingPong(), 5000);
 
-        const hostname = '89.108.71.67'
-        console.log('hostname', hostname)
+        const hostname = '192.168.43.90'
 
         server.listen(8080, hostname, () => console.log('Htpsssss'));
 

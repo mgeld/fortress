@@ -30,8 +30,8 @@ let Server = class Server {
         console.log('Server.start');
         const serverContext = this.serverContext;
         const server = https_1.default.createServer({
-            cert: fs_1.default.readFileSync('/var/www/httpd-cert/www-root/app2023.ru_le1.crtca'),
-            key: fs_1.default.readFileSync('/var/www/httpd-cert/www-root/app2023.ru_le1.key')
+            cert: fs_1.default.readFileSync('./api/cert/certificate.crt'),
+            key: fs_1.default.readFileSync('./api/cert/privateKey.key')
         }, (req, res) => {
             console.log('req.url', req.url);
             if (req.url === '/snapchot-sectors') {
@@ -66,8 +66,7 @@ let Server = class Server {
             let router = serverContext._handlers.handle(ws);
             ws.on('message', router);
         });
-        const hostname = '89.108.71.67';
-        console.log('hostname', hostname);
+        const hostname = '192.168.43.90';
         server.listen(8080, hostname, () => console.log('Htpsssss'));
     }
 };
