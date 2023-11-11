@@ -43,10 +43,7 @@ export class Server {
 
         const serverContext = this.serverContext
 
-        const server = https.createServer({
-            cert: fs.readFileSync('./api/cert/certificate.crt'),
-            key: fs.readFileSync('./api/cert/privateKey.key')
-        }, (req, res) => {
+        const server = https.createServer({}, (req, res) => {
 
             console.log('req.url', req.url)
 
