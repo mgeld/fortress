@@ -8,7 +8,7 @@ export class PointerCreator {
 
     constructor(name: string) {
 
-        name = name.length > 6 ? name.slice(0, 6) + '.' : name
+        name = name.length > 5 ? name.slice(0, 6) + '.' : name
 
         this.canvas = document.getElementById("draw") as HTMLCanvasElement
         this.ctx = this.canvas.getContext("2d") as CanvasRenderingContext2D
@@ -48,7 +48,6 @@ export class PointerCreator {
 
                         return this.loadImages([imgUserNotImage])
                             .then(() => {
-                                console.log('NUUUUUU')
                                 const draw = this.addImageToPoint(img, imgUserNotImage)
                                 this.clearCanvas()
                                 return draw
@@ -85,13 +84,11 @@ export class PointerCreator {
                     console.log('loades onload', loades)
 
                     if (loades === images.length) {
-                        console.log('989898989898989898989898989898989898989898989898')
                         resolve(true)
                     }
                 }
 
                 image.onerror = () => {
-                    console.log('loadImages onerror i', i)
                     reject(true)
                 }
 

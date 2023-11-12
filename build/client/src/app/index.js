@@ -40,20 +40,23 @@ const ui_18 = require("features/hold/hold-level-up/ui");
 const unit_out_hold_1 = require("entities/unit/ui/unit-out-hold");
 const go_back_1 = require("processes/go-back");
 const primes_1 = require("widgets/primes");
-const react_1 = require("react");
+const get_platform_1 = require("shared/lib/get-platform");
+const get_platform_native_1 = require("shared/lib/get-platform-native");
 (0, model_1.mapStartPosition)();
 window.addEventListener('popstate', () => (0, go_back_1.goBack)());
+let platform = (0, get_platform_1.getPlatform)();
+const _platform = (0, get_platform_native_1.getPlatformNative)();
 const App = () => {
+    console.log('platform', platform);
+    console.log('_platform', _platform);
+    console.log('Version 0.4');
     const popout = popout_root_1.popoutModel.selectors.usePopout().data;
     const page = page_root_1.pageModel.selectors.usePage().data;
     console.log('App');
     const { vkUserId, socketStatus } = (0, useApp_1.useApp)();
-    (0, react_1.useEffect)(() => {
-        popout_root_1.popoutModel.events.setPopout('primes');
-    }, []);
     if (!vkUserId)
         return <>load...</>;
-    return (<div className='app'>
+    return (<div className={`app ${_platform}`}>
 
       <popout_root_1.PopoutRoot activePopout={popout}>
 
@@ -130,8 +133,6 @@ const App = () => {
           <ui_18.HoldLevelUp />
         </popout_1.Popout>
 
-
-
         <popout_1.Popout id='panel' fill='#5a166480' edge={14}>
           <ui_8.Panel />
         </popout_1.Popout>
@@ -143,7 +144,6 @@ const App = () => {
         <popout_1.Popout id='unit-out-hold' fill='#5a166480' edge={28}>
           <unit_out_hold_1.UnitOutHold />
         </popout_1.Popout>
-
 
         <popout_1.Popout id='primes' fill='#5a166480' edge={12}>
           <primes_1.Primes />
@@ -157,9 +157,9 @@ const App = () => {
 
       <ui_1.Snackbar />
       <ui_2.Notice />
-      
 
       {socketStatus ? (<page_root_1.PageRoot activePage={page}>
+          
           <page_root_1.Page id='map'>
             <map_1.MapPage />
           </page_root_1.Page>
@@ -171,7 +171,6 @@ const App = () => {
           <page_root_1.Page id='gun-shop'>
             <ui_10.GunShopPage />
           </page_root_1.Page>
-
 
         </page_root_1.PageRoot>) : null}
 

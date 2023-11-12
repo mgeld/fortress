@@ -40,12 +40,12 @@ const units = [{
     {
         id: 31,
         currency: 'rubies',
-        price: 50
+        price: 15
     },
     {
         id: 32,
         currency: 'rubies',
-        price: 80
+        price: 30
     },
     {
         id: 41,
@@ -54,12 +54,17 @@ const units = [{
     }, {
         id: 42,
         currency: 'rubies',
-        price: 70
+        price: 25
     },
     {
         id: 51,
         currency: 'coins',
-        price: 50
+        price: 120
+    },
+    {
+        id: 52,
+        currency: 'coins',
+        price: 150
     },
 ];
 const GunShop = () => {
@@ -68,24 +73,27 @@ const GunShop = () => {
     return (<ui_1.UnitsList>
             <>
                 <div className={styles_module_scss_1.default.__header}>
-                    <div className={styles_module_scss_1.default.name}>
-                        <div className={styles_module_scss_1.default.icon}>
-                            <shop_svg_1.ReactComponent width={30} height={30}/>
-                        </div>
-                        <div className={styles_module_scss_1.default.text}>Магазин</div>
-                    </div>
-                    <div className={styles_module_scss_1.default.details}>
-                        <div className={styles_module_scss_1.default.coins}>
+                    <div className={styles_module_scss_1.default.iosTop}/>
+                    <div className={styles_module_scss_1.default.__main}>
+                        <div className={styles_module_scss_1.default.name}>
                             <div className={styles_module_scss_1.default.icon}>
-                                <_icons_1.IconCoin />
+                                <shop_svg_1.ReactComponent width={30} height={30}/>
                             </div>
-                            <div className={styles_module_scss_1.default.text}>{coins}</div>
+                            <div className={styles_module_scss_1.default.text}>Магазин</div>
                         </div>
-                        <div className={styles_module_scss_1.default.sapphires}>
-                            <div className={styles_module_scss_1.default.icon}>
-                                <_icons_1.IconSapphire />
+                        <div className={styles_module_scss_1.default.details}>
+                            <div className={styles_module_scss_1.default.coins}>
+                                <div className={styles_module_scss_1.default.icon}>
+                                    <_icons_1.IconCoin />
+                                </div>
+                                <div className={styles_module_scss_1.default.text}>{coins}</div>
                             </div>
-                            <div className={styles_module_scss_1.default.text}>{sapphires}</div></div>
+                            <div className={styles_module_scss_1.default.sapphires}>
+                                <div className={styles_module_scss_1.default.icon}>
+                                    <_icons_1.IconSapphire />
+                                </div>
+                                <div className={styles_module_scss_1.default.text}>{sapphires}</div></div>
+                        </div>
                     </div>
                 </div>
 

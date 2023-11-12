@@ -9,7 +9,8 @@
 .__sector {
     position: absolute;
     right: 10px;
-    top: 10px;
+    // top: 10px;
+    top: var(--header_height);
 }
 .__trophy {
     position: absolute;
@@ -20,12 +21,16 @@
     position: absolute;
     right: 10px;
     // top: 108px;
-    top: 46px;
+    // top: 46px;
+    margin-top: 36px;
+    top: var(--header_height);
 }
 .__sapphire {
     position: absolute;
     right: 10px;
-    top: 82px;
+    // top: 82px;
+    margin-top: 72px;
+    top: var(--header_height);
     // top: 144px;
 }
 

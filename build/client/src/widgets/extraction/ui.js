@@ -16,13 +16,18 @@ const Extraction = () => {
     return (<hold_1.ExtractionList>
             <>
                 <div className={styles_module_scss_1.default.__header}>
-                    <div className={styles_module_scss_1.default.name}>
-                        <div className={styles_module_scss_1.default.icon}>
-                            <icons_1.IconHold width={24} height={24}/>
+                    <div className={styles_module_scss_1.default.iosTop}/>
+                    <div className={styles_module_scss_1.default.__main}>
+                        <div className={styles_module_scss_1.default.name}>
+                            <div className={styles_module_scss_1.default.icon}>
+                                <icons_1.IconHold width={24} height={24}/>
+                            </div>
+                            <div className={styles_module_scss_1.default.text}>Трюм</div>
                         </div>
-                        <div className={styles_module_scss_1.default.text}>Трюм</div>
+                        <div className={styles_module_scss_1.default.details}>
+                            {list.length} / {hold_level_1.HoldLevel.getMaxItems(level)}
+                        </div>
                     </div>
-                    <div className={styles_module_scss_1.default.details}>{list.length} / {hold_level_1.HoldLevel.getMaxItems(level)}</div>
                 </div>
                 {list.length > 0 ?
             <>

@@ -1,6 +1,6 @@
 .snackbarRoot {
     position: absolute;
-    bottom: 120px;
+    bottom: calc(120px + var(--inset_bottom));
     right: 10px;
     overflow: hidden;
 

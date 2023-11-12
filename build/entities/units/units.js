@@ -29,19 +29,19 @@ class Units {
     }
 }
 Units.sale_units = {
-    10: {
+    100: {
         currency: 'coins',
         price: 50
+    },
+    101: {
+        currency: 'coins',
+        price: 100
     },
     11: {
         currency: 'coins',
         price: 50
     },
     12: {
-        currency: 'coins',
-        price: 100
-    },
-    20: {
         currency: 'coins',
         price: 100
     },
@@ -53,21 +53,13 @@ Units.sale_units = {
         currency: 'coins',
         price: 150
     },
-    30: {
-        currency: 'rubies',
-        price: 50
-    },
     31: {
         currency: 'rubies',
-        price: 50
+        price: 15
     },
     32: {
         currency: 'rubies',
-        price: 80
-    },
-    40: {
-        currency: 'coins',
-        price: 50
+        price: 30
     },
     41: {
         currency: 'coins',
@@ -75,66 +67,54 @@ Units.sale_units = {
     },
     42: {
         currency: 'rubies',
-        price: 70
-    },
-    50: {
-        currency: 'coins',
-        price: 50
+        price: 25
     },
     51: {
         currency: 'coins',
-        price: 50
+        price: 120
     },
     52: {
         currency: 'coins',
-        price: 100
-    },
-    100: {
-        currency: 'coins',
-        price: 50
-    },
-    101: {
-        currency: 'coins',
-        price: 100
+        price: 150
     },
 };
 Units.__list = {
     rank_exp: {
-        10: 100,
+        10: 50,
         11: 100,
-        12: 100,
+        12: 150,
     },
     storm_power: {
-        20: 100,
-        21: 100,
-        22: 100,
+        20: 5,
+        21: 10,
+        22: 15,
     },
     ship_health: {
-        30: 100,
+        30: 50,
         31: 100,
-        32: 100,
+        32: 150,
     },
     gun_power: {
-        40: 100,
-        41: 100,
-        42: 100,
+        40: 5,
+        41: 10,
+        42: 15,
     },
     gun_distance: {
-        50: 100,
-        51: 100,
-        52: 100,
+        50: 15,
+        51: 20,
+        52: 25,
     },
     stormtroopers: {
-        100: 100,
-        101: 100,
+        100: 70,
+        101: 120,
     },
     rubies: {
-        110: 100,
-        111: 100,
+        110: 50,
+        111: 80,
     },
     coins: {
-        120: 100,
-        121: 100,
+        120: 500,
+        121: 900,
     },
 };
 exports.Units = Units;

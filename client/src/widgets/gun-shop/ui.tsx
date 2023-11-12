@@ -41,12 +41,12 @@ const units: TUnitShop[] = [{
 {
     id: 31,
     currency: 'rubies',
-    price: 50
+    price: 15
 },
 {
     id: 32,
     currency: 'rubies',
-    price: 80
+    price: 30
 },
 {
     id: 41,
@@ -55,30 +55,35 @@ const units: TUnitShop[] = [{
 }, {
     id: 42,
     currency: 'rubies',
-    price: 70
+    price: 25
 },
 {
     id: 51,
     currency: 'coins',
-    price: 50
+    price: 120
 },
-// {
-//     id: 110,
-//     currency: 'coins',
-//     price: 100
-// }, {
-//     id: 111,
-//     currency: 'coins',
-//     price: 100
-// }, {
-//     id: 120,
-//     currency: 'coins',
-//     price: 100
-// }, {
-//     id: 121,
-//     currency: 'coins',
-//     price: 100
-// }
+{
+    id: 52,
+    currency: 'coins',
+    price: 150
+},
+    // {
+    //     id: 110,
+    //     currency: 'coins',
+    //     price: 100
+    // }, {
+    //     id: 111,
+    //     currency: 'coins',
+    //     price: 100
+    // }, {
+    //     id: 120,
+    //     currency: 'coins',
+    //     price: 100
+    // }, {
+    //     id: 121,
+    //     currency: 'coins',
+    //     price: 100
+    // }
 ]
 
 export const GunShop: FC = () => {
@@ -92,24 +97,27 @@ export const GunShop: FC = () => {
                 <div
                     className={styles.__header}
                 >
-                    <div className={styles.name}>
-                        <div className={styles.icon}>
-                            <IconShop width={30} height={30} />
-                        </div>
-                        <div className={styles.text}>Магазин</div>
-                    </div>
-                    <div className={styles.details}>
-                        <div className={styles.coins}>
+                    <div className={styles.iosTop} />
+                    <div className={styles.__main}>
+                        <div className={styles.name}>
                             <div className={styles.icon}>
-                                <IconCoin />
+                                <IconShop width={30} height={30} />
                             </div>
-                            <div className={styles.text}>{coins}</div>
+                            <div className={styles.text}>Магазин</div>
                         </div>
-                        <div className={styles.sapphires}>
-                            <div className={styles.icon}>
-                                <IconSapphire />
+                        <div className={styles.details}>
+                            <div className={styles.coins}>
+                                <div className={styles.icon}>
+                                    <IconCoin />
+                                </div>
+                                <div className={styles.text}>{coins}</div>
                             </div>
-                            <div className={styles.text}>{sapphires}</div></div>
+                            <div className={styles.sapphires}>
+                                <div className={styles.icon}>
+                                    <IconSapphire />
+                                </div>
+                                <div className={styles.text}>{sapphires}</div></div>
+                        </div>
                     </div>
                 </div>
 
@@ -118,7 +126,7 @@ export const GunShop: FC = () => {
                     return (
                         <UnitCard
                             key={String(i)}
-                            icon={modules[item.id].icon(66,66)}
+                            icon={modules[item.id].icon(66, 66)}
                             name={modules[item.id].name}
                             unit={item}
                         />

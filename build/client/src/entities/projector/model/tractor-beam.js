@@ -8,7 +8,6 @@ const DEFAULT_STORE = null;
 const { setBeam, } = events_1.projectorAPI.events;
 const $beamStore = (0, effector_1.createStore)(DEFAULT_STORE)
     .on(setBeam, (_, beam) => beam);
-$beamStore.watch(() => console.log('$beamStore'));
 const useBeam = () => {
     return {
         beam: (0, effector_react_1.useStore)($beamStore)

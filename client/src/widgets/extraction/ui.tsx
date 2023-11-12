@@ -8,7 +8,7 @@ import { IconHold } from "entities/ship/ui/assets/icons";
 
 import styles from './styles.module.scss'
 import { HoldLevel, THoldLevel } from "entities/hold/lib/hold-level";
-import { pageModel } from "shared/ui/page-root";
+// import { pageModel } from "shared/ui/page-root";
 import { BackMap } from "widgets/back-button";
 
 export const Extraction: FC = () => {
@@ -22,13 +22,18 @@ export const Extraction: FC = () => {
                 <div
                     className={styles.__header}
                 >
-                    <div className={styles.name}>
-                        <div className={styles.icon}>
-                            <IconHold width={24} height={24} />
+                    <div className={styles.iosTop} />
+                    <div className={styles.__main}>
+                        <div className={styles.name}>
+                            <div className={styles.icon}>
+                                <IconHold width={24} height={24} />
+                            </div>
+                            <div className={styles.text}>Трюм</div>
                         </div>
-                        <div className={styles.text}>Трюм</div>
+                        <div className={styles.details}>
+                            {list.length} / {HoldLevel.getMaxItems(level as THoldLevel)}
+                        </div>
                     </div>
-                    <div className={styles.details}>{list.length} / {HoldLevel.getMaxItems(level as THoldLevel)}</div>
                 </div>
                 {list.length > 0 ?
                     <>
@@ -42,7 +47,7 @@ export const Extraction: FC = () => {
                                             id: item as TExtrTypes,
                                             index: i
                                         }}
-                                        icon={modules[item].icon(66,66)}
+                                        icon={modules[item].icon(66, 66)}
                                         name={modules[item].name}
                                     />
                                 )

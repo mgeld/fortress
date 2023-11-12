@@ -13,8 +13,6 @@ export type THealthChange = {
 }
 const hitBombInTarget = createEvent<THealthChange>()
 
-hitBombInTarget.watch(() => console.log('hitBombInTarget hitBombInTarget hitBombInTarget hitBombInTarget'))
-
 export const events = {
     addBomb,
     setBombs,

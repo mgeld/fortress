@@ -35,7 +35,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PointerCreator = void 0;
 class PointerCreator {
     constructor(name) {
-        name = name.length > 6 ? name.slice(0, 6) + '.' : name;
+        name = name.length > 5 ? name.slice(0, 6) + '.' : name;
         this.canvas = document.getElementById("draw");
         this.ctx = this.canvas.getContext("2d");
         this.name = name;
@@ -68,7 +68,6 @@ class PointerCreator {
                     let imgUserNotImage = this.pasteImageOnPointer(36, 36, icon.default);
                     return this.loadImages([imgUserNotImage])
                         .then(() => {
-                        console.log('NUUUUUU');
                         const draw = this.addImageToPoint(img, imgUserNotImage);
                         this.clearCanvas();
                         return draw;
@@ -97,12 +96,10 @@ class PointerCreator {
                     console.log('loadImages onload', i);
                     console.log('loades onload', loades);
                     if (loades === images.length) {
-                        console.log('989898989898989898989898989898989898989898989898');
                         resolve(true);
                     }
                 };
                 image.onerror = () => {
-                    console.log('loadImages onerror i', i);
                     reject(true);
                 };
             });

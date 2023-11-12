@@ -1,7 +1,7 @@
 .noticeRoot {
     width: 100%;
     position: absolute;
-    bottom: 120px;
+    bottom: calc(120px + var(--inset_bottom));
     left: 0px;
     overflow: hidden;
     padding: 0 14px;

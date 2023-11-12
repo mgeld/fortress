@@ -17,8 +17,6 @@ const Fire = ({ fire }) => {
         bounds
     });
     const fireClassName = `l${time_fire}`;
-    console.log('fireClassName', fireClassName);
-    console.log('time_fire', time_fire);
     (0, react_1.useEffect)(() => {
         setTimeout(() => setPos(limit_to_pos), 50);
     }, [limit_to_pos]);

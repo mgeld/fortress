@@ -20,8 +20,6 @@ const {
 const $beamStore = createStore<TBeam | null>(DEFAULT_STORE)
     .on(setBeam, (_, beam: TBeam | null) => beam)
 
-$beamStore.watch(() => console.log('$beamStore'))
-
 const useBeam = () => {
     return {
         beam: useStore($beamStore)

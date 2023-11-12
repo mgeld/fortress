@@ -1,37 +1,48 @@
 .__header {
     width: 100%;
-    padding: 14px 12px;
-    box-sizing: border-box;
-
-    font-size: 18px;
-    line-height: 18px;
-
     position: absolute;
     top: 0;
     left: 0;
 
-    height: 46px;
+    .iosTop {
+        width: 100%;
+        height: var(--inset_top);
+        background-color: #a55cc0;
+    }
 
-    background-color: #a55cc0;
-    border-bottom: 2px solid #f1ba688c;
+    .__main {
+        width: 100%;
+        padding: 0px 0px;
+        box-sizing: border-box;
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+        font-size: 18px;
+        line-height: 18px;
 
-    .name {
+        background-color: #a55cc0;
+        border-bottom: 2px solid #f1ba688c;
+        height: var(--header_height);
+
         display: flex;
         align-items: center;
+        justify-content: space-between;
 
-        .text {
+        .name {
+            display: flex;
+            align-items: center;
             padding-left: 12px;
-            margin-bottom: -3px;
+
+            .text {
+                padding-left: 12px;
+                margin-bottom: -3px;
+            }
         }
+
     }
 
     .details {
         display: flex;
         align-items: center;
+        margin-right: calc(18px + var(--vk_app_header_width));
 
         .coins {
             display: flex;

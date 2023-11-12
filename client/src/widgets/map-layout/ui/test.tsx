@@ -70,8 +70,8 @@ export function Test() {
         const h3Index = latLngToCell(e.latlng.lat, e.latlng.lng, 9);
         // -> '87283472bffffff'
 
-        console.log('getHexagonAreaAvg 8', getHexagonAreaAvg(8, UNITS.m2))
-        console.log('getHexagonAreaAvg 9', getHexagonAreaAvg(9, UNITS.m2))
+        // console.log('getHexagonAreaAvg 8', getHexagonAreaAvg(8, UNITS.m2))
+        // console.log('getHexagonAreaAvg 9', getHexagonAreaAvg(9, UNITS.m2))
 
         // Get the center of the hexagon
         const hexCenterCoordinates = cellToLatLng(h3Index);

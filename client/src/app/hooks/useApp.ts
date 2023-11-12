@@ -20,28 +20,27 @@ export const useApp = () => {
     const socketStatus = useSocket()
 
     useEffect(() => {
-        // bridge.send('VKWebAppGetUserInfo').then(user => {
-        //     // const _user = randomNumber(38574839 - 100000, 250449525 + 100000)
-        //     console.log('VKWebAppGetUserInfo user', user)
-        //     userModel.events.setVkUser(user.id)
-        //     userModel.events.setName(user.first_name)
-        //     userModel.events.setUserIcon(user.photo_100)
-        // })
-        const _user = randomNumber(38574839 - 100000, 250449525 + 100000)
-
-        bridge.send('VKWebAppCallAPIMethod', {
-            method: 'users.get',
-            params: {
-                user_ids: _user,
-                v: '5.131',
-                fields: 'photo_50',
-                access_token: '10811a2f10811a2f10811a2fdf1395cae51108110811a2f7425604c5854e1fbf0d0110c'
-            }
-        }).then((data: { response: TVkUserApi[] }) => {
-            userModel.events.setVkUser(_user)
-            userModel.events.setName(data.response[0].first_name)
-            userModel.events.setUserIcon(data.response[0].photo_50)
+        bridge.send('VKWebAppGetUserInfo').then(user => {
+            console.log('VKWebAppGetUserInfo user', user)
+            userModel.events.setVkUser(user.id)
+            userModel.events.setName(user.first_name)
+            userModel.events.setUserIcon(user.photo_100)
         })
+        // const _user = randomNumber(38574839 - 100000, 250449525 + 100000)
+
+        // bridge.send('VKWebAppCallAPIMethod', {
+        //     method: 'users.get',
+        //     params: {
+        //         user_ids: _user,
+        //         v: '5.131',
+        //         fields: 'photo_50',
+        //         access_token: '10811a2f10811a2f10811a2fdf1395cae51108110811a2f7425604c5854e1fbf0d0110c'
+        //     }
+        // }).then((data: { response: TVkUserApi[] }) => {
+        //     userModel.events.setVkUser(_user)
+        //     userModel.events.setName(data.response[0].first_name)
+        //     userModel.events.setUserIcon(data.response[0].photo_50)
+        // })
     }, [])
 
     useEffect(() => {
@@ -49,7 +48,6 @@ export const useApp = () => {
         console.log('useEffect socketStatus', socketStatus)
         if (vkUserId > 0 && socketStatus === 'open') {
             const url = window.location.search;
-            console.log('mmmmmmmmmmmmmmmmmmmmmmmmmmmm url', url)
             userEvents.events.connectUser(url)
             // sectorEvents.events.getSectorsStart()
             return

@@ -41,17 +41,27 @@ import { UnitOutHold } from 'entities/unit/ui/unit-out-hold'
 import { goBack } from 'processes/go-back'
 import { Primes } from 'widgets/primes'
 import { useEffect } from 'react'
+import { getPlatform } from 'shared/lib/get-platform'
+import { getPlatformNative } from 'shared/lib/get-platform-native'
 
 mapStartPosition()
 
 window.addEventListener('popstate', () => goBack());
 
+let platform = getPlatform()
+const _platform = getPlatformNative()
+
 const App = () => {
+
+  console.log('platform', platform)
+  console.log('_platform', _platform)
+  console.log('Version 0.4')
 
   const popout = popoutModel.selectors.usePopout().data
   const page = pageModel.selectors.usePage().data
 
   console.log('App')
+  
 
   const {
     vkUserId,
@@ -59,15 +69,16 @@ const App = () => {
   } = useApp()
 
   
-  useEffect(() => {
-    popoutModel.events.setPopout('primes')
-  }, [])
+  // useEffect(() => {
+  //   // window.alert('Version 1.0')
+  //   // popoutModel.events.setPopout('primes')
+  // }, [])
 
 
   if (!vkUserId) return <>load...</>
 
   return (
-    <div className='app'>
+    <div className={`app ${_platform}`}>
 
       <PopoutRoot activePopout={popout}>
 
@@ -215,8 +226,6 @@ const App = () => {
           <HoldLevelUp />
         </Popout>
 
-
-
         <Popout
           id='panel'
           fill='#5a166480'
@@ -241,7 +250,6 @@ const App = () => {
           <UnitOutHold />
         </Popout>
 
-
         <Popout
           id='primes'
           fill='#5a166480'
@@ -258,10 +266,10 @@ const App = () => {
 
       <Snackbar />
       <Notice />
-      {/* <Tooltip /> */}
 
       {socketStatus ? (
         <PageRoot activePage={page}>
+          
           <Page id='map'>
             <MapPage />
           </Page>
@@ -273,7 +281,6 @@ const App = () => {
           <Page id='gun-shop'>
             <GunShopPage />
           </Page>
-
 
         </PageRoot>
 

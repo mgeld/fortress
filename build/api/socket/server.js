@@ -55,7 +55,6 @@ let Server = class Server {
             console.log('connection');
             ws.is_alive = true;
             ws.on('pong', () => {
-                console.log('POOOOOOOOOOOOOONG!');
                 ws.is_alive = true;
             });
             ws.on('close', function () {
@@ -67,7 +66,6 @@ let Server = class Server {
             ws.on('message', router);
         });
         const hostname = '89.108.71.67';
-        console.log('hostname', hostname);
         server.listen(8080, hostname, () => console.log('Htpsssss'));
     }
 };

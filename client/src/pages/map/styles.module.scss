@@ -4,3 +4,18 @@
     top: 50%;
     margin-top: -54px;
 }
+
+.mapPage {
+    width: 100%;
+    height: 100%;
+    padding-top: var(--inset_top);
+    padding-bottom: var(--inset_bottom);
+
+    box-sizing: border-box;
+
+    .__page {
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+  }

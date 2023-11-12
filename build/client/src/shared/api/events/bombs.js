@@ -6,7 +6,6 @@ const setBombs = (0, effector_1.createEvent)();
 const addBomb = (0, effector_1.createEvent)();
 const delBombById = (0, effector_1.createEvent)();
 const hitBombInTarget = (0, effector_1.createEvent)();
-hitBombInTarget.watch(() => console.log('hitBombInTarget hitBombInTarget hitBombInTarget hitBombInTarget'));
 exports.events = {
     addBomb,
     setBombs,

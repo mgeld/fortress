@@ -12,23 +12,25 @@ const menu_1 = require("widgets/map-buttons/menu");
 const map_layout_1 = __importDefault(require("widgets/map-layout/ui/map-layout"));
 const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
 const MapPage = () => {
-    return (<div className='mapPage'>
+    return (<div className={styles_module_scss_1.default.mapPage}>
+            <div className={styles_module_scss_1.default.__page}>
 
-            <div className={styles_module_scss_1.default.nav}>
-                
-                <map_buttons_1.NavShop />
-                <map_buttons_1.NavBooty />
+                <div className={styles_module_scss_1.default.nav}>
+                    
+                    <map_buttons_1.NavShop />
+                    <map_buttons_1.NavBooty />
+                </div>
+
+                <menu_1.NavMenu />
+
+                <map_rang_1.MapRang />
+
+                <counters_1.Counters />
+
+                <map_layout_1.default />
+
+                <map_bottom_1.MapBottom />
             </div>
-
-            <menu_1.NavMenu />
-
-            <map_rang_1.MapRang />
-
-            <counters_1.Counters />
-
-            <map_layout_1.default />
-
-            <map_bottom_1.MapBottom />
         </div>);
 };
 exports.MapPage = MapPage;

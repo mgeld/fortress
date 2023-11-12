@@ -10,6 +10,7 @@ const BackMap = () => {
     return (<>
             <div className={styles_module_scss_1.default.back} onClick={() => page_root_1.pageModel.events.setPage('map')}>
                 <div className={styles_module_scss_1.default.__main}>Вернуться в игру</div>
+                <div className={styles_module_scss_1.default.iosBottom}/>
             </div>
             <div className={styles_module_scss_1.default.__after}/>
         </>);

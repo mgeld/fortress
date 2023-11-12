@@ -10,23 +10,25 @@ import styles from './styles.module.scss'
 
 export const MapPage: FC = () => {
     return (
-        <div className='mapPage'>
+        <div className={styles.mapPage}>
+            <div className={styles.__page}>
 
-            <div className={styles.nav}>
-                {/* <NavBattle /> */}
-                <NavShop />
-                <NavBooty />
+                <div className={styles.nav}>
+                    {/* <NavBattle /> */}
+                    <NavShop />
+                    <NavBooty />
+                </div>
+
+                <NavMenu />
+
+                <MapRang />
+
+                <Counters />
+
+                <MapLayout />
+
+                <MapBottom />
             </div>
-
-            <NavMenu />
-
-            <MapRang />
-
-            <Counters />
-
-            <MapLayout />
-
-            <MapBottom />
         </div>
     )
 }

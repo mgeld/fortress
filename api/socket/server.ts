@@ -82,7 +82,6 @@ export class Server {
             ws.is_alive = true;
 
             ws.on('pong', () => {
-                console.log('POOOOOOOOOOOOOONG!')
                 ws.is_alive = true
             })
 
@@ -108,7 +107,6 @@ export class Server {
 
         const hostname = '89.108.71.67'
         // const hostname = '192.168.43.90'
-        console.log('hostname', hostname)
 
         server.listen(8080, hostname, () => console.log('Htpsssss'));
 

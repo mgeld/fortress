@@ -26,8 +26,6 @@ function Test() {
     const map = (0, react_leaflet_1.useMapEvent)('click', (e) => {
         const __start = +new Date();
         const h3Index = (0, h3_js_1.latLngToCell)(e.latlng.lat, e.latlng.lng, 9);
-        console.log('getHexagonAreaAvg 8', (0, h3_js_1.getHexagonAreaAvg)(8, h3_js_1.UNITS.m2));
-        console.log('getHexagonAreaAvg 9', (0, h3_js_1.getHexagonAreaAvg)(9, h3_js_1.UNITS.m2));
         const hexCenterCoordinates = (0, h3_js_1.cellToLatLng)(h3Index);
         console.log('h3Index', h3Index);
         const hexBoundary = (0, h3_js_1.cellToBoundary)(h3Index);

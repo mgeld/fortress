@@ -27,11 +27,8 @@ const setPosFx = createEffect(({
     source.map.setView(pos, 16)
 
     // source.map.setZoom(16)
-
     
-    console.log('flyTo 2222')
     setTimeout(() => {
-        console.log('ВЫЫЫЫЫЫЫЫЫЫЫЫЫЫЗЗЗЗЗЗЗОООООООООВ')
         const areal = Areal.getBounds(pos)
         shipModel.events.setAreal(areal)
         source.map?.setMinZoom(15)

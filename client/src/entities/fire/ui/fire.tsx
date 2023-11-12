@@ -26,10 +26,6 @@ export const Fire: FC<TFireProps> = ({
 
     const fireClassName = `l${time_fire}`
 
-    console.log('fireClassName', fireClassName)
-
-    console.log('time_fire', time_fire)
-
     useEffect(() => {
         setTimeout(() => setPos(limit_to_pos), 50)
     }, [limit_to_pos])

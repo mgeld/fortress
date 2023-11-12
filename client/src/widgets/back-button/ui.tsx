@@ -11,6 +11,7 @@ export const BackMap: FC = () => {
                 onClick={() => pageModel.events.setPage('map')}
             >
                 <div className={styles.__main}>Вернуться в игру</div>
+                <div className={styles.iosBottom} />
             </div>
             <div className={styles.__after} />
         </>

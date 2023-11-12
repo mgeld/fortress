@@ -15,6 +15,7 @@
 
     .__content {
         padding: 10px;
+        padding-bottom: (10px + var(--inset_bottom));
         width: 100%;
         box-sizing: border-box;
 
