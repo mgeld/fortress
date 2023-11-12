@@ -61,23 +61,25 @@ const units: TUnitShop[] = [{
     id: 51,
     currency: 'coins',
     price: 50
-}, {
-    id: 110,
-    currency: 'coins',
-    price: 100
-}, {
-    id: 111,
-    currency: 'coins',
-    price: 100
-}, {
-    id: 120,
-    currency: 'coins',
-    price: 100
-}, {
-    id: 121,
-    currency: 'coins',
-    price: 100
-}]
+},
+// {
+//     id: 110,
+//     currency: 'coins',
+//     price: 100
+// }, {
+//     id: 111,
+//     currency: 'coins',
+//     price: 100
+// }, {
+//     id: 120,
+//     currency: 'coins',
+//     price: 100
+// }, {
+//     id: 121,
+//     currency: 'coins',
+//     price: 100
+// }
+]
 
 export const GunShop: FC = () => {
 
@@ -116,7 +118,7 @@ export const GunShop: FC = () => {
                     return (
                         <UnitCard
                             key={String(i)}
-                            icon={modules[item.id].icon}
+                            icon={modules[item.id].icon(66,66)}
                             name={modules[item.id].name}
                             unit={item}
                         />

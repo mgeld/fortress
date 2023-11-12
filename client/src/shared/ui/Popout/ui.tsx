@@ -35,6 +35,7 @@ export const Popout: FC<PopoutProps> = ({
         >
             <div
                 className={styles.__size}
+                onClick={(e) => e.stopPropagation()}
                 style={{ padding: `0 ${edge || 12}px` }}
             >
                 {children}

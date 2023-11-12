@@ -7,6 +7,9 @@ export class PointerCreator {
     private ctx: CanvasRenderingContext2D
 
     constructor(name: string) {
+
+        name = name.length > 6 ? name.slice(0, 6) + '.' : name
+
         this.canvas = document.getElementById("draw") as HTMLCanvasElement
         this.ctx = this.canvas.getContext("2d") as CanvasRenderingContext2D
 

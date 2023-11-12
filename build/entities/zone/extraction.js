@@ -15,12 +15,12 @@ class Extraction {
     }
     static getLevelUpPrice(level) {
         const levels = {
-            1: 100,
+            1: 0,
             2: 100,
-            3: 100,
-            4: 100,
-            5: 100,
-            6: 100
+            3: 300,
+            4: 600,
+            5: 1000,
+            6: 1500
         };
         return levels[level];
     }
@@ -41,7 +41,7 @@ class Extraction {
             3: 20,
             4: 25,
             5: 30,
-            6: 35,
+            6: 35
         };
     }
     use(id, index) {

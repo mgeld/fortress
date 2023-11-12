@@ -44,8 +44,10 @@ class ConnectHandler extends Handler {
             shipAPI.events.setPos(message.payload.ship.pos)
             mapAPI.events.setMapMode('invade')
         } else {
-            popoutModel.events.setPopout('select-place')
-            mapAPI.events.setMapMode('select-place')
+            // popoutModel.events.setPopout('select-place')
+            // mapAPI.events.setMapMode('select-place')
+            popoutModel.events.setPopout('primes')
+            mapAPI.events.setMapMode('start')
         }
     }
 }

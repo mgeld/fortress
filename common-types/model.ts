@@ -71,14 +71,16 @@ export type TExtrTypes =
 
 
 export type TTypeToastNotice =
-    | TExtrTypesName
+    | TExtrTypes
     | TConts
-    | 'coins' // coins
-    | 'rubies' // rubies
+    | 'rank'
+    | 'level-zone'
+    | 'level-up'
     | 'common' // common
     | 'warning' // warning
 
 export type TConts = 'cont_1' | 'cont_2' | 'cont_3'
+
 export type TExtrTypesName =
     | 'rank_exp'
     | 'storm_power'

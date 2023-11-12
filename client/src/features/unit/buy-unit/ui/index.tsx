@@ -44,7 +44,7 @@ export const BuyUnit: FC = () => {
                     </div>
 
                     <div className={`${styles.icon} e${_unit}`}>
-                        {unit.icon}
+                        {unit.icon(66,66)}
                     </div>
                 </div>
 

@@ -20,9 +20,9 @@ const changeModeFx = createEffect(({
     mode: TMapModes
 }) => {
 
-    function arenaFlyTo(zoom?: number) {
-        source.map.flyTo(source.userPos, zoom)
-    }
+    // function arenaFlyTo(zoom?: number) {
+    //     source.map.flyTo(source.userPos, zoom)
+    // }
 
     const { areal, map } = source
 
@@ -31,7 +31,8 @@ const changeModeFx = createEffect(({
         map.setMinZoom(6)
         map.setMaxBounds([[-90, -180], [90, 180]])
 
-        arenaFlyTo(6)
+        // arenaFlyTo(6)
+        map.setZoom(6)
         popoutModel.events.setPopout('battle-pending')
     }
 
@@ -43,14 +44,17 @@ const changeModeFx = createEffect(({
                 [areal[1][0] + 0.01, areal[1][1] + 0.01],
             ])
         }
-        arenaFlyTo(6)
+        // arenaFlyTo(6)
+        map.setZoom(6)
         popoutModel.events.setPopout('battle-pending')
     }
 
     if (mode === 'battle') {
         source.map.setMinZoom(6)
         source.map.setMaxBounds([[-90, -180], [90, 180]])
-        arenaFlyTo(6)
+        // arenaFlyTo(6)
+        
+        map.setZoom(6)
         popoutModel.events.setPopout('battle-pending')
     }
 })

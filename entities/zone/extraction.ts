@@ -42,12 +42,12 @@ export class Extraction {
 
     public static getLevelUpPrice(level: number): number {
         const levels: { [key: number]: number } = {
-            1: 100,
+            1: 0,
             2: 100,
-            3: 100,
-            4: 100,
-            5: 100,
-            6: 100
+            3: 300,
+            4: 600,
+            5: 1000,
+            6: 1500
         }
         return levels[level]
     }
@@ -64,7 +64,6 @@ export class Extraction {
         return level > 0 && level <= 6
     }
 
-
     private static levelMaxItems(): { [key: number]: number } {
         return {
             1: 10,
@@ -72,7 +71,7 @@ export class Extraction {
             3: 20,
             4: 25,
             5: 30,
-            6: 35,
+            6: 35
         }
     }
 

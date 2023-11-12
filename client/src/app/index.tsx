@@ -39,6 +39,8 @@ import { StormLevelUp } from 'features/storm-corps/storm-level-up/ui'
 import { HoldLevelUp } from 'features/hold/hold-level-up/ui'
 import { UnitOutHold } from 'entities/unit/ui/unit-out-hold'
 import { goBack } from 'processes/go-back'
+import { Primes } from 'widgets/primes'
+import { useEffect } from 'react'
 
 mapStartPosition()
 
@@ -55,6 +57,12 @@ const App = () => {
     vkUserId,
     socketStatus
   } = useApp()
+
+  
+  useEffect(() => {
+    popoutModel.events.setPopout('primes')
+  }, [])
+
 
   if (!vkUserId) return <>load...</>
 
@@ -231,6 +239,15 @@ const App = () => {
           edge={28}
         >
           <UnitOutHold />
+        </Popout>
+
+
+        <Popout
+          id='primes'
+          fill='#5a166480'
+          edge={12}
+        >
+          <Primes />
         </Popout>
 
       </PopoutRoot>

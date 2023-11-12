@@ -67,7 +67,7 @@ export type TSendEvent =
 export type TConnectAPI = {
     event: TEventConnect
     payload: {
-        vkUserId: number
+        url: string
         name: string
         icon: string
         position: TLatLng

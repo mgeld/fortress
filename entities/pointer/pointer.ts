@@ -111,29 +111,30 @@ export class Pointer {
         return this._level
     }
 
+
     public static validLevel(level: number) {
         return level > 0 && level <= 6
     }
 
     private static levelMaxHealth(): { [key: number]: number } {
         return {
-            1: 100,
-            2: 100,
-            3: 100,
-            4: 100,
-            5: 100,
-            6: 100,
+            1: 150,
+            2: 250,
+            3: 360,
+            4: 480,
+            5: 610,
+            6: 750
         }
     }
 
     public static getLevelUpPrice(level: number): number {
         const levels: { [key: number]: number } = {
-            1: 100,
-            2: 100,
-            3: 100,
-            4: 100,
-            5: 100,
-            6: 100,
+            1: 0,
+            2: 20,
+            3: 40,
+            4: 70,
+            5: 110,
+            6: 160
         }
         return levels[level]
     }

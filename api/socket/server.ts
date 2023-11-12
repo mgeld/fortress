@@ -107,6 +107,7 @@ export class Server {
         // const interval = setInterval(() => connection.pingPong(), 5000);
 
         const hostname = '89.108.71.67'
+        // const hostname = '192.168.43.90'
         console.log('hostname', hostname)
 
         server.listen(8080, hostname, () => console.log('Htpsssss'));

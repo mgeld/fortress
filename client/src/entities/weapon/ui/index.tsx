@@ -5,6 +5,7 @@ import { IconGun } from "entities/ship/ui/assets/icons";
 import { weaponModel } from "..";
 import { popoutModel } from "shared/ui/popout-root";
 import { GunLevel, TGunLevel } from "../lib/gun-level";
+import { IconShipGun } from "shared/assets/icons/_icons";
 
 export const GunPopout: FC = () => {
 
@@ -16,13 +17,13 @@ export const GunPopout: FC = () => {
     return (
         <ShipCell
             head={{
-                icon: <IconGun width={54} height={54} />,
+                icon: <IconShipGun width={54} height={54} />,
                 level,
                 name: 'Обычная пушка',
                 level_name: 'Уровень пушки',
-                _click: () => {
-                    popoutModel.events.setPopout('gun-level-up')
-                }
+                up: GunLevel.isUpLevel(level) ? {
+                    _click: () => popoutModel.events.setPopout('gun-level-up')
+                } : null
             }}
             items={[
                 {

@@ -52,23 +52,23 @@ let LevelUpHandler = class LevelUpHandler extends handlers_1.IRoute {
             if (message.payload.type === 'gun') {
                 newLevel = weapon.upLevel();
                 cost = gun_1.Gun.getLevelUpPrice(newLevel);
-                zone.spendRubies(cost);
-                currency = 'rubies';
+                zone.spendСoins(cost);
+                currency = 'coins';
                 yield this._zoneService.memoryUpdate(zone);
                 yield this._weaponService.memoryUpdate(weapon);
             }
             if (message.payload.type === 'storm-corps') {
                 newLevel = zone.stormtrooper_corps.upLevel();
                 cost = stormtrooper_corps_1.StormtrooperCorps.getLevelUpPrice(newLevel);
-                zone.spendRubies(cost);
-                currency = 'rubies';
+                zone.spendСoins(cost);
+                currency = 'coins';
                 this._zoneService.memoryUpdate(zone);
             }
             if (message.payload.type === 'hold') {
                 newLevel = zone.hold.upLevel();
                 cost = extraction_1.Extraction.getLevelUpPrice(newLevel);
-                zone.spendRubies(cost);
-                currency = 'rubies';
+                zone.spendСoins(cost);
+                currency = 'coins';
                 this._zoneService.memoryUpdate(zone);
             }
             if (currency) {

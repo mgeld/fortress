@@ -37,13 +37,16 @@
                 border-radius: 8px;
 
                 display: flex;
-                align-items: center;
+                align-items: flex-start;
             }
 
-            .icon {}
+            .icon {
+                padding: 8px;
+                border-radius: 4px;
+            }
 
             .data {
-                padding-left: 8px;
+                padding-left: 12px;
 
                 .__name {
                     font-size: 16px;

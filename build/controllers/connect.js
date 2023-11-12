@@ -26,6 +26,7 @@ const types_1 = require("../types");
 const zone_service_1 = require("../services/zone.service");
 const citadel_service_1 = require("../services/citadel.service");
 const vk_user_1 = require("../infra/database/mysql2/repositories/vk-user");
+const verify_launch_params_1 = require("../libs/verify-launch-params");
 let ConnectHandler = class ConnectHandler {
     constructor() {
         console.log('ConnectHandler');
@@ -33,15 +34,27 @@ let ConnectHandler = class ConnectHandler {
     handle(message, uSocket) {
         return __awaiter(this, void 0, void 0, function* () {
             console.log('------ConnectHandler handle -----------');
-            const VK_USER_ID = message.payload.vkUserId;
+            const VK_URL = message.payload.url;
             const USER_NAME = message.payload.name;
             const USER_ICON = message.payload.icon;
+            console.log('VK_URL', VK_URL);
             let pointer;
             let weapon;
             let zone;
             let citadel = null;
+            const clientSecret = 'D1m0YtrP8D0nd7dvdkEO';
+            const launchParams = decodeURIComponent(VK_URL.slice(VK_URL.indexOf('?') + 1));
+            const result = (0, verify_launch_params_1.verifyLaunchParams)(launchParams, clientSecret);
+            console.log('result', result);
+            if (!result)
+                return;
+            const { is_valid, vk_id } = result;
+            if (!is_valid || !vk_id)
+                return 'ERROR SECRET KEY';
+            console.log('is_valid', is_valid);
+            console.log('vk_id', vk_id);
             try {
-                const { zone_id: zoneId } = yield this._vkUserRepository.getById(VK_USER_ID);
+                const { zone_id: zoneId } = yield this._vkUserRepository.getById(vk_id);
                 pointer = yield this._pointerService.baseGetById(zoneId);
                 weapon = yield this._weaponService.baseGetById(pointer.weapons[0]);
                 zone = yield this._zoneService.getById(zoneId);
@@ -59,7 +72,7 @@ let ConnectHandler = class ConnectHandler {
                 zone = this._zoneService.create(0);
                 zone = yield this._zoneService.baseInsert(zone);
                 yield this._vkUserRepository.insert({
-                    user_id: VK_USER_ID,
+                    user_id: vk_id,
                     zone_id: zone.id
                 });
                 pointer = this._pointerService.create(zone.id, [0, 0], USER_NAME, USER_ICON, weapon);

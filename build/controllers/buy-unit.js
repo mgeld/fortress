@@ -43,7 +43,7 @@ let BuyUnitHandler = class BuyUnitHandler extends handlers_1.IRoute {
             const extrResp = {
                 event: 'buy-unit',
                 payload: {
-                    type: cost.currency,
+                    type: message.payload.id,
                     currency: cost.currency,
                     cost: cost.price,
                     unit: message.payload.id

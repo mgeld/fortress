@@ -12,8 +12,6 @@ class UseExtractionHandler extends Handler {
 
         const amount = message.payload.amount
 
-        console.log('UseExtractionHandler message', message)
-
         let name = ''
         let text = ''
 
@@ -60,15 +58,13 @@ class UseExtractionHandler extends Handler {
                 console.log('rubies amout', amount)
                 zoneAPI.events.addRubies(amount)
                 break;
-            case 'common':
+            default:
                 name = `Ошибка типа common`
                 text = `Обратитесь в поддержку что ли`
                 break;
-            default:
-                name = `Default`
-                text = `Что-то видимо пошло не так...`
         }
 
+        console.log('message.payload.unit', message.payload.unit)
         popoutModel.events.setPopout(null)
         pageModel.events.setPage('map')
 
@@ -77,7 +73,7 @@ class UseExtractionHandler extends Handler {
         noticeModel.events.newToast({
             name,
             text,
-            t: message.payload.type
+            t: message.payload.unit
         })
 
     }

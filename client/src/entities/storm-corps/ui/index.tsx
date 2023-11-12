@@ -19,9 +19,9 @@ export const StormCorpsPopout: FC = () => {
                 level: level,
                 name: 'Штурмовой корпус',
                 level_name: 'Уровень ШК',
-                _click: () => {
-                    popoutModel.events.setPopout('storm-level-up')
-                }
+                up: StormCorpsLevel.isUpLevel(level) ? {
+                    _click: () => popoutModel.events.setPopout('storm-level-up')
+                } : null
             }}
             items={[
                 {

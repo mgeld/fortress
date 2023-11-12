@@ -64,7 +64,7 @@ class BuyUnitHandler extends Handler {
         noticeModel.events.newToast({
             name,
             text,
-            t: message.payload.type
+            t: unit
         })
 
     }

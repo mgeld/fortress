@@ -48,7 +48,9 @@ export const useApp = () => {
         console.log('useEffect vkUserId', vkUserId)
         console.log('useEffect socketStatus', socketStatus)
         if (vkUserId > 0 && socketStatus === 'open') {
-            userEvents.events.connectUser()
+            const url = window.location.search;
+            console.log('mmmmmmmmmmmmmmmmmmmmmmmmmmmm url', url)
+            userEvents.events.connectUser(url)
             // sectorEvents.events.getSectorsStart()
             return
         }

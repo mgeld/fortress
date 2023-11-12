@@ -14,6 +14,7 @@ import { Citadel } from "../entities/citadel/citadel";
 import { TConnectPayload } from "../common-types/socket/server-to-client";
 import { VkUserRepository } from "../infra/database/mysql2/repositories/vk-user";
 import { WeaponType } from "../entities/weapon/types";
+import { verifyLaunchParams } from "../libs/verify-launch-params";
 
 @injectable()
 class ConnectHandler implements IRoute {
@@ -37,18 +38,38 @@ class ConnectHandler implements IRoute {
 
         console.log('------ConnectHandler handle -----------')
 
-        const VK_USER_ID = message.payload.vkUserId
+        const VK_URL = message.payload.url
         const USER_NAME = message.payload.name
         const USER_ICON = message.payload.icon
+
+        console.log('VK_URL', VK_URL)
 
         let pointer: Pointer
         let weapon: WeaponType
         let zone: Zone
         let citadel: Citadel | null = null
 
+        const clientSecret = 'D1m0YtrP8D0nd7dvdkEO'
+
+        // Берём только параметры запуска.
+        const launchParams = decodeURIComponent(VK_URL.slice(VK_URL.indexOf('?') + 1));
+
+        // Проверяем, валидны ли параметры запуска.
+        const result = verifyLaunchParams(launchParams, clientSecret);
+        console.log('result', result)
+
+        if (!result) return
+
+        const { is_valid, vk_id } = result
+
+        if (!is_valid || !vk_id) return 'ERROR SECRET KEY'
+
+        console.log('is_valid', is_valid)
+        console.log('vk_id', vk_id)
+
         try {
 
-            const { zone_id: zoneId } = await this._vkUserRepository.getById(VK_USER_ID)
+            const { zone_id: zoneId } = await this._vkUserRepository.getById(vk_id)
 
             pointer = await this._pointerService.baseGetById(zoneId)
 
@@ -75,7 +96,7 @@ class ConnectHandler implements IRoute {
             zone = await this._zoneService.baseInsert(zone)
 
             await this._vkUserRepository.insert({
-                user_id: VK_USER_ID,
+                user_id: vk_id,
                 zone_id: zone.id
             })
 

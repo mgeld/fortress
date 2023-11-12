@@ -43,7 +43,7 @@ export const ExtractionPopout: FC = () => {
                     </div>
 
                     <div className={`${styles.icon} e${extr}`}>
-                        {extraction.icon}
+                        {extraction.icon(66,66)}
                     </div>
                 </div>
 

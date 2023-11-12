@@ -42,7 +42,7 @@ export const Extraction: FC = () => {
                                             id: item as TExtrTypes,
                                             index: i
                                         }}
-                                        icon={modules[item].icon}
+                                        icon={modules[item].icon(66,66)}
                                         name={modules[item].name}
                                     />
                                 )

@@ -49,8 +49,8 @@ class LevelUpHandler extends IRoute {
         if (message.payload.type === 'gun') {
             newLevel = weapon.upLevel()
             cost = Gun.getLevelUpPrice(newLevel)
-            zone.spendRubies(cost)
-            currency = 'rubies'
+            zone.spendСoins(cost)
+            currency = 'coins'
             await this._zoneService.memoryUpdate(zone)
             await this._weaponService.memoryUpdate(weapon)
         }
@@ -58,16 +58,16 @@ class LevelUpHandler extends IRoute {
         if (message.payload.type === 'storm-corps') {
             newLevel = zone.stormtrooper_corps.upLevel()
             cost = StormtrooperCorps.getLevelUpPrice(newLevel)
-            zone.spendRubies(cost)
-            currency = 'rubies'
+            zone.spendСoins(cost)
+            currency = 'coins'
             this._zoneService.memoryUpdate(zone)
         }
 
         if (message.payload.type === 'hold') {
             newLevel = zone.hold.upLevel()
             cost = Extraction.getLevelUpPrice(newLevel)
-            zone.spendRubies(cost)
-            currency = 'rubies'
+            zone.spendСoins(cost)
+            currency = 'coins'
             this._zoneService.memoryUpdate(zone)
         }
 

@@ -56,7 +56,7 @@ export const Counters = () => {
                 /> : <></>}
             </Counter>
 
-            <Counter
+            {/* <Counter
                 onClick={() => setTooltip(2)}
                 width={74}
                 className={styles.__trophy}
@@ -69,7 +69,7 @@ export const Counters = () => {
                     pos="right"
                     message="Трофеи за сражения на арене"
                 /> : <></>}
-            </Counter>
+            </Counter> */}
 
             <Counter
                 onClick={() => setTooltip(3)}

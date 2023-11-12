@@ -67,45 +67,45 @@ export class Gun {
     
     private static levelMaxPower(): { [key: number]: number } {
         return {
-            1: 100,
-            2: 100,
-            3: 100,
-            4: 100,
-            5: 100,
-            6: 100
+            1: 30,
+            2: 50,
+            3: 72,
+            4: 96,
+            5: 122,
+            6: 150
         }
     }
 
     private static levelMaxDistance(): { [key: number]: number } {
         return {
-            1: 100,
-            2: 100,
-            3: 100,
-            4: 100,
-            5: 100,
-            6: 100
+            1: 250,
+            2: 300,
+            3: 380,
+            4: 490,
+            5: 630,
+            6: 800
         }
     }
 
     private static levelMaxBullets(): { [key: number]: number } {
         return {
-            1: 100,
-            2: 100,
-            3: 100,
-            4: 100,
-            5: 100,
-            6: 100
+            1: 200,
+            2: 300,
+            3: 410,
+            4: 530,
+            5: 660,
+            6: 800
         }
     }
 
     public static getLevelUpPrice(level: number): number {
         const levels: { [key: number]: number } = {
-            1: 100,
+            1: 0,
             2: 100,
-            3: 100,
-            4: 100,
-            5: 100,
-            6: 100
+            3: 300,
+            4: 600,
+            5: 1000,
+            6: 1500
         }
         return levels[level]
     }

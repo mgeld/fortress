@@ -1,0 +1,1 @@
+export const getPlatform = () => new URL(window.location.href).searchParams.get('vk_platform');

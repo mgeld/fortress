@@ -68,18 +68,18 @@ export class StormtrooperCorps {
 
     public static getLevelUpPrice(level: number): number {
         const levels: { [key: number]: number } = {
-            1: 100,
+            1: 0,
             2: 100,
-            3: 100,
-            4: 100,
-            5: 100,
-            6: 100,
-            7: 100,
-            8: 100,
-            9: 100,
-            10: 100,
-            11: 100,
-            12: 100,
+            3: 300,
+            4: 600,
+            5: 1000,
+            6: 1500,
+            7: 2100,
+            8: 2800,
+            9: 3600,
+            10: 4500,
+            11: 5500,
+            12: 6600
         }
         return levels[level]
     }
@@ -120,7 +120,6 @@ export class StormtrooperCorps {
             10: 680,
             11: 775,
             12: 875
-
         }
     }
 

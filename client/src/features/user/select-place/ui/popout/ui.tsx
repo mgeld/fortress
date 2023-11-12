@@ -6,13 +6,17 @@ import { Button } from "shared/ui/button/ui";
 import { popoutModel } from "shared/ui/popout-root";
 import { mapModel } from "entities/map";
 import { getRandomPosition } from "shared/lib/get-random-position";
+import bridge from "@vkontakte/vk-bridge";
+import { TLatLng } from "@ctypes/model";
+import { noticeModel } from "shared/ui/notice";
 
 export const SelectPlace: FC = () => {
 
     const map = mapModel.selectors.useMapLayout()
 
     const selectPlace = () => {
-        map?.flyTo(map.getCenter(), 8)
+        // map?.flyTo(map.getCenter(), 8)
+        map?.setView(map.getCenter(), 8)
         popoutModel.events.setPopout(null)
     }
 
@@ -20,9 +24,38 @@ export const SelectPlace: FC = () => {
         const pos = getRandomPosition()
         mapModel.events.setLatLngMap(pos)
         popoutModel.events.setPopout(null)
-        map?.flyTo(pos, 16)
-        
+        // map?.flyTo(pos, 16)
+        map?.setView(pos, 16)
+
         console.log('flyTo 1111')
+    }
+
+    const getGeo = async () => {
+        await bridge
+            .send("VKWebAppGetGeodata")
+            .then(data => {
+
+                if (data.available) {
+                    const pos: TLatLng = [data.lat, data.long]
+                    mapModel.events.setLatLngMap(pos)
+                    popoutModel.events.setPopout(null)
+                    map?.setView(pos, 16)
+                } else {
+                    noticeModel.events.newToast({
+                        name: 'Ошибка',
+                        text: 'Не удалось определить ваше местопложение!',
+                        t: 'common'
+                    })
+                }
+
+            }).catch(error => {
+                noticeModel.events.newToast({
+                    name: 'Ошибка',
+                    text: 'Не удалось определить ваше местопложение!',
+                    t: 'common'
+                })
+            })
+
     }
 
     return (
@@ -39,8 +72,8 @@ export const SelectPlace: FC = () => {
                     <div className={styles.geoPlace}>
                         <Button
                             className=""
-                            text="Геолокация"
-                            onClick={() => { }}
+                            text="Местоположение"
+                            onClick={getGeo}
                         />
                     </div>
                 </div>
@@ -60,7 +93,7 @@ export const SelectPlace: FC = () => {
                             <div className={styles.__randomPlace}>
                                 <Button
                                     className=""
-                                    text="Рандом"
+                                    text="Случайное"
                                     onClick={setRandPos}
                                 />
                             </div>

@@ -1,9 +1,9 @@
 {
   // "include": ["*"],
-  "exclude": [
-    "node_modules",
-    "client"
-  ],
+  // "exclude": [
+  //   "node_modules",
+  //   "client"
+  // ],
   "compilerOptions": {
     "outDir": "build",
     "removeComments": true,

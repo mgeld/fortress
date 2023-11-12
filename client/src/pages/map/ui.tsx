@@ -12,10 +12,9 @@ export const MapPage: FC = () => {
     return (
         <div className='mapPage'>
 
-            {/* <NavShop /> */}
-
             <div className={styles.nav}>
-                <NavBattle />
+                {/* <NavBattle /> */}
+                <NavShop />
                 <NavBooty />
             </div>
 

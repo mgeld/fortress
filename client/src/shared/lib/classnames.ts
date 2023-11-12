@@ -1,0 +1,1 @@
+export const _classNames = (_classNames: any[]) => _classNames.filter(name => name).join(' ');

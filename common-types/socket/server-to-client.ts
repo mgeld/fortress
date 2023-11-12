@@ -1,4 +1,4 @@
-import { TBombSymbol, TExtrTypes, TFindContType, TGameUnit, THitPointer, TJoystickDirection, TLatLng, TPointer, TTypeToastNotice, TWeapon, TWeaponSymbol, TZoneItem } from "../model"
+import { TBombSymbol, TExtrTypes, TExtrTypesName, TFindContType, TGameUnit, THitPointer, TJoystickDirection, TLatLng, TPointer, TTypeToastNotice, TWeapon, TWeaponSymbol, TZoneItem } from "../model"
 
 export type TEventConnect = 'connect'
 export type TEventSetUser = 'set-user'
@@ -213,7 +213,8 @@ export type TTractorExtr = {
 export type TUseExtraction = {
     event: TEventUseExtraction
     payload: {
-        type: TTypeToastNotice
+        unit: TExtrTypes
+        type: TExtrTypesName
         amount: number
         index: number
     }

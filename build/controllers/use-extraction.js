@@ -77,9 +77,11 @@ let UseExtractionHandler = class UseExtractionHandler extends handlers_1.IRoute 
                 }
                 this._zoneService.memoryUpdate(zone);
             }
+            console.log('message.payload.id', message.payload.id);
             const extrResp = {
                 event: 'use-extraction',
                 payload: {
+                    unit: message.payload.id,
                     amount: extr.quantity,
                     type: extr.gives,
                     index: message.payload.index

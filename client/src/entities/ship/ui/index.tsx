@@ -35,12 +35,12 @@ export const ShipPopout: FC = () => {
                                 <div className={`${styles.name}`}>Корабль</div>
                                 <div className={styles.level}>
                                     <span>{level} ур.</span>
-                                    <div
+                                    {ShipLevel.isUpLevel(level) ? <div
                                         onClick={() => popoutModel.events.setPopout('ship-level-up')}
                                         className={styles.levelUp}
                                     >
                                         <IconLevelUp width={18} height={18} />
-                                    </div>
+                                    </div> : null}
                                 </div>
                             </div>
                             <div className={styles.description}>
@@ -85,9 +85,10 @@ export const ShipPopout: FC = () => {
                         </div>
                         <div
                             // onClick={() => onUseExtraction()}
+                            onClick={() => popoutModel.events.setPopout('ship-level-up')}
                             className={styles.button}
                         >
-                            Закрыть
+                            Улучшить
                         </div>
                     </div>
                 </div>

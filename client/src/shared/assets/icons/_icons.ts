@@ -11,3 +11,9 @@ export { ReactComponent as IconBattleLoupe } from './battle-loupe.svg';
 
 export { ReactComponent as IconArrow } from './arrow.svg';
 export { ReactComponent as IconClose } from './close.svg';
+
+export { ReactComponent as IconRank } from './rank.svg';
+export { ReactComponent as IconLevelUp } from './level-up.svg';
+export { ReactComponent as IconZoneLevel } from './zone-level.svg';
+
+export { ReactComponent as IconShipGun } from './ship-gun.svg';

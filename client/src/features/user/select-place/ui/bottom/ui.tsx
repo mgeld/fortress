@@ -15,14 +15,16 @@ export const BottomSelectPlace: FC = () => {
         if (!pos) return
         mapAPI.events.setMapMode('invade')
 
-        map?.flyTo(pos, 16)
+        // map?.flyTo(pos, 16)
+        map?.setView(pos, 16)
 
         console.log('flyTo 0000')
 
-        setTimeout(() => {
+        // Убрал таймер, т.к. убрал FlyTo
+        // setTimeout(() => {
             shipAPI.events.setPos(pos)
             // map?.setMinZoom(15)
-        }, 3000)
+        // }, 3000)
 
         console.log('pos', pos)
     }
