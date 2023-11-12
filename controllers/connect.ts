@@ -49,7 +49,9 @@ class ConnectHandler implements IRoute {
         let zone: Zone
         let citadel: Citadel | null = null
 
-        const clientSecret = 'D1m0YtrP8D0nd7dvdkEO'
+        // const clientSecret = 'D1m0YtrP8D0nd7dvdkEO'
+        const clientSecret = 'SCecuoQxDCCS0hdTSuhe'
+        
 
         // Берём только параметры запуска.
         const launchParams = decodeURIComponent(VK_URL.slice(VK_URL.indexOf('?') + 1));

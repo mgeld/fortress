@@ -42,7 +42,7 @@ let ConnectHandler = class ConnectHandler {
             let weapon;
             let zone;
             let citadel = null;
-            const clientSecret = 'D1m0YtrP8D0nd7dvdkEO';
+            const clientSecret = 'SCecuoQxDCCS0hdTSuhe';
             const launchParams = decodeURIComponent(VK_URL.slice(VK_URL.indexOf('?') + 1));
             const result = (0, verify_launch_params_1.verifyLaunchParams)(launchParams, clientSecret);
             console.log('result', result);
