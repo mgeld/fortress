@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.IconShip = exports.IconFort = exports.IconFaq = exports.IconNews = exports.IconChat = exports.IconShop = void 0;
+var shop_svg_1 = require("./shop.svg");
+Object.defineProperty(exports, "IconShop", { enumerable: true, get: function () { return shop_svg_1.ReactComponent; } });
+var chat_svg_1 = require("./chat.svg");
+Object.defineProperty(exports, "IconChat", { enumerable: true, get: function () { return chat_svg_1.ReactComponent; } });
+var news_svg_1 = require("./news.svg");
+Object.defineProperty(exports, "IconNews", { enumerable: true, get: function () { return news_svg_1.ReactComponent; } });
+var faq_svg_1 = require("./faq.svg");
+Object.defineProperty(exports, "IconFaq", { enumerable: true, get: function () { return faq_svg_1.ReactComponent; } });
+var fort_svg_1 = require("./fort.svg");
+Object.defineProperty(exports, "IconFort", { enumerable: true, get: function () { return fort_svg_1.ReactComponent; } });
+var ship_svg_1 = require("./ship.svg");
+Object.defineProperty(exports, "IconShip", { enumerable: true, get: function () { return ship_svg_1.ReactComponent; } });
