@@ -75,6 +75,7 @@ let DirectHandler = class DirectHandler extends handlers_1.IRoute {
                         zones[item.zone.zone_id] = item.zone.zone_id;
                     });
                     const _pointers = yield this._pointerService.getZoneByIds(Object.values(zones));
+                    console.log('_pointers', _pointers);
                     const sectors = array_sectors.map(zone => {
                         const user = _pointers.find(pointer => pointer.zone_id === zone.zone.zone_id);
                         return {

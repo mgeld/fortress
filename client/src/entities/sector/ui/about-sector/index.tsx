@@ -1,5 +1,5 @@
-import { TZone, TZoneColor, TZoneItem } from "@ctypes/model";
-import { FC, useEffect, useState } from "react";
+import { TZone } from "@ctypes/model";
+import { FC, useEffect } from "react";
 
 import styles from './styles.module.scss'
 import { AboutSectorItem } from "./about-sector-item";
@@ -32,29 +32,25 @@ export const AboutSector: FC<TAboutSectorProps> = ({
     return (
         <div className={styles.aboutSector}>
             <div className={[styles.__container, styles.__one].join(' ')}>
-                <AboutSectorItem
+                {/* <AboutSectorItem
                     icon={<IconSector width={16} height={16} />}
                     name="Ячейка:"
                     text={sector.number > 0 ? `${sector.number}` : 'Новый'}
-                />
+                /> */}
                 <AboutSectorItem
                     icon={<IconTarget width={18} height={18} />}
                     name="Область:"
                     text={`${sector.areal}`}
                 />
-            {/* </div>
-            <div className={[styles.__container, styles.__two].join(' ')}> */}
                 <AboutSectorItem
                     icon={<IconFort width={16} height={16} />}
-                    name="Форт:"
+                    name="Башня:"
                     text={`${sector.defenders} стражей`}
                 />
-            {/* </div>
-            <div className={[styles.__container, styles.__three].join(' ')}> */}
                 <AboutSectorItem
                     icon={<IconLocation width={16} height={16} />}
                     name="Владелец:"
-                    text={`${name}`}
+                    text={`${sector.owner}`}
                 />
             </div>
         </div>

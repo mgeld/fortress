@@ -9,6 +9,7 @@ import { getRandomPosition } from "shared/lib/get-random-position";
 import bridge from "@vkontakte/vk-bridge";
 import { TLatLng } from "@ctypes/model";
 import { noticeModel } from "shared/ui/notice";
+import { tutorialModel } from "shared/ui/tutorial";
 
 export const SelectPlace: FC = () => {
 

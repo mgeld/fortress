@@ -1,13 +1,13 @@
 import { FC, useState } from "react";
 
-import styles from './styles.module.scss'
 import { Prime } from "shared/ui/prime";
-import { IconFort, IconShip } from "widgets/panel/assets/icons";
-import { IconGun } from "entities/ship/ui/assets/icons";
+import { IconShip } from "widgets/panel/assets/icons";
 import { popoutModel } from "shared/ui/popout-root";
 import { mapAPI } from "shared/api/events";
-import { IconRank, IconShipGun } from "shared/assets/icons/_icons";
+import { IconShipGun } from "shared/assets/icons/_icons";
 import { IconStorm2 } from "entities/unit/icons/_icons";
+
+import styles from './styles.module.scss'
 
 export const Primes: FC = () => {
     const [card, setCard] = useState(1)

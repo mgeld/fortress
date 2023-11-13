@@ -20,6 +20,14 @@ export class PointerService {
         return this._baseRepository.insert(pointer)
     }
 
+    getById(userId: number): Promise<Pointer> {
+        try {
+            return this._memoryRepository.getById(userId)
+        } catch (e) {
+            return this._baseRepository.getById(userId)
+        }
+    }
+
     memoryGetById(userId: number): Promise<Pointer> {
         return this._memoryRepository.getById(userId)
     }

@@ -18,12 +18,8 @@ export const Control: FC = () => {
     return (
         <>
             <ControlProjector />
-            {/* <div className={styles.controlCenter}>
-                <div className={styles.buttons}> */}
-                    <ControlPointer />
-                    <ControlFire />
-                {/* </div>
-            </div> */}
+            <ControlPointer />
+            <ControlFire />
             <ControlInvader />
         </>
     )

@@ -15,7 +15,7 @@ const colors = {
 const Sectors = ({ zones }) => {
     return <>
         {zones.map(zoneItem => {
-            console.log('zoneItem.zone.color', zoneItem.zone.color);
+            console.log('zoneItem.zone', zoneItem.zone);
             return (<react_leaflet_1.Polygon key={zoneItem.zone.zone_id} weight={0.9} pathOptions={{
                     fillColor: colors[zoneItem.zone.color],
                     color: colors[zoneItem.zone.color],

@@ -158,53 +158,52 @@ class TakeHandler extends IRoute {
         this._logs.takes.add(_sector.id)
         this._sectorService.update(_sector)
 
+        // if (0) {
 
-        if (0) {
+        //     _sector.addDefender()
 
-            _sector.addDefender()
+        //     takeHit = {
+        //         status: 'defense',
+        //         invaders: 0,
+        //         fort: message.payload.fort,
+        //         defenders: _sector.defenders
+        //     } as TTakeHitPayload
 
-            takeHit = {
-                status: 'defense',
-                invaders: 0,
-                fort: message.payload.fort,
-                defenders: _sector.defenders
-            } as TTakeHitPayload
+        //     takeSector = {
+        //         new_owner_id: _pointer.zoneId,
+        //         prev_owner_id: 0,
+        //         sector_id: message.payload.sector
+        //     } as TTakeSectorPayload
 
-            takeSector = {
-                new_owner_id: _pointer.zoneId,
-                prev_owner_id: 0,
-                sector_id: message.payload.sector
-            } as TTakeSectorPayload
+        //     this._logs.takes.add(_sector.id)
 
-            this._logs.takes.add(_sector.id)
+        //     zone.terrain.newDefender()
+        //     zone.terrain.addSector()
 
-            zone.terrain.newDefender()
-            zone.terrain.addSector()
+        //     if (zone.terrain.sectors === 1) {
 
-            if (zone.terrain.sectors === 1) {
+        //         const citadel = this._citadelService.create({
+        //             id: _pointer.zoneId,
+        //             sectorId: _sector.id,
+        //             latlng: _sector.latlng
+        //         })
+        //         this._citadelService.baseInsert(citadel)
 
-                const citadel = this._citadelService.create({
-                    id: _pointer.zoneId,
-                    sectorId: _sector.id,
-                    latlng: _sector.latlng
-                })
-                this._citadelService.baseInsert(citadel)
+        //         const payload: TCitadel = {
+        //             id: citadel.id,
+        //             latlng: citadel.latlng,
+        //             level: citadel.level
+        //         }
 
-                const payload: TCitadel = {
-                    id: citadel.id,
-                    latlng: citadel.latlng,
-                    level: citadel.level
-                }
+        //         setTimeout(() => {
+        //             uSocket.send(JSON.stringify({
+        //                 event: 'set-citadel',
+        //                 payload: payload
+        //             }))
+        //         }, 2000)
 
-                setTimeout(() => {
-                    uSocket.send(JSON.stringify({
-                        event: 'set-citadel',
-                        payload: payload
-                    }))
-                }, 2000)
-
-            }
-        }
+        //     }
+        // }
 
         this._zoneService.memoryUpdate(zone)
         this._pointerService.memoryUpdate(_pointer)

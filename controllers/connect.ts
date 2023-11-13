@@ -64,7 +64,7 @@ class ConnectHandler implements IRoute {
 
         let { is_valid, vk_id } = result
 
-        // vk_id = vk_id - randomNumber(10,1000)
+        // vk_id = vk_id - randomNumber(10,1000) Убрать в проде!!!!!!!!!!!!
 
         if (!is_valid || !vk_id) return 'ERROR SECRET KEY'
 

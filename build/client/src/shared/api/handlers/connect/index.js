@@ -29,7 +29,6 @@ class ConnectHandler extends __1.Handler {
         events_1.holdAPI.events.setLevel(message.payload.hold.level);
         if (message.payload.citadel)
             events_1.citadelAPI.events.setCitadel(message.payload.citadel);
-        console.log('message.payload.ship.pos', message.payload.ship.pos);
         if (message.payload.ship.pos[0] && message.payload.ship.pos[1]) {
             events_1.shipAPI.events.setPos(message.payload.ship.pos);
             events_1.mapAPI.events.setMapMode('invade');

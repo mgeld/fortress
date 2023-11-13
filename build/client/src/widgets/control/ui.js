@@ -16,10 +16,8 @@ const Control = () => {
         return <observe_mode_1.ObserveMode />;
     return (<>
             <ui_4.default />
-            
-                    <ui_3.default />
-                    <ui_1.default />
-                
+            <ui_3.default />
+            <ui_1.default />
             <ui_2.default />
         </>);
 };

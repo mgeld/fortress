@@ -31,6 +31,14 @@ let PointerService = class PointerService {
     baseInsert(pointer) {
         return this._baseRepository.insert(pointer);
     }
+    getById(userId) {
+        try {
+            return this._memoryRepository.getById(userId);
+        }
+        catch (e) {
+            return this._baseRepository.getById(userId);
+        }
+    }
     memoryGetById(userId) {
         return this._memoryRepository.getById(userId);
     }

@@ -289,6 +289,7 @@ export type TSectorPayload = {
     areal: number
     invaders: number
     defenders: number
+    owner: string
 }
 export type TSector = {
     event: TEventSector

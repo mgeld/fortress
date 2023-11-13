@@ -96,7 +96,7 @@ const Panel = () => {
                         </ui_1.default>
 
 
-                        <ui_1.default className={styles_module_scss_1.default.section} link='vk.com/@-223383803-faq'>
+                        <ui_1.default className={styles_module_scss_1.default.section} link='https://vk.com/@-223383803-faq'>
                             
                             <div className={styles_module_scss_1.default.item}>
                                 <div className={styles_module_scss_1.default.icon}>

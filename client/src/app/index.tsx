@@ -42,6 +42,7 @@ import { Primes } from 'widgets/primes'
 import { getPlatform } from 'shared/lib/get-platform'
 import { getPlatformNative } from 'shared/lib/get-platform-native'
 import { Alert } from 'shared/ui/alert'
+import { Tutorial } from 'shared/ui/tutorial/ui'
 
 mapStartPosition()
 
@@ -272,6 +273,8 @@ const App = () => {
 
       <Snackbar />
       <Notice />
+
+      <Tutorial />
 
       {socketStatus ? (
         <PageRoot activePage={page}>

@@ -5648,8 +5648,13 @@ else {
     var to = function () { return { data: Tt(eo) }; }, no = { newToast: JA }, ro = L(), io = L(), Ao = L(), oo = L(), ao = k([]).on(io, (function (e, t) { return [t].concat(l(e.splice(0, 4))); })).on(Ao, (function (e, t) { return e.map((function (e) { return e.type === t.type ? p(p({}, e), {}, { count: e.count + 1 }) : e; })); })).on(io, (function (e, t) { return [t].concat(l(e.splice(0, 4))); })).on(oo, (function (e, t) { return e.filter((function (e) { return e.id !== t.toast_id; })); })), so = O((function (e) { var t = e.toast, n = e.toasts, r = Date.now(); ~n.findIndex((function (e) { return e.type === t.t; })) ? Ao({ id: r, type: t.t, text: t.text }) : io({ id: r, count: 1, type: t.t, text: t.text }), setTimeout((function () { oo({ toast_id: r }); }), 4e3); }));
     I({ clock: ro, source: ao, fn: function (e, t) { return { toast: t, toasts: e }; }, target: so });
     var lo = function () { return { data: Tt(ao) }; }, uo = { newToast: ro }, co = function (e) { GA(n, e); var t = qA(n); function n() { return HA(this, n), t.apply(this, arguments); } return RA(n, [{ key: "handle", value: function (e) { console.log("AttractionHandler"); var t = Date.now(), n = e.payload.pos, r = e.payload.fort, i = e.payload.cont, A = e.payload.extr; if (i && A) {
-                var o = "cont_" + i, a = { id: t, cont: i, to_pos: n, from_pos: r };
-                yA.addBooty(a), setTimeout((function () { yA.delBootyById({ booty_id: t }), _A.addExtraction(A), no.newToast({ name: "\u041f\u043e\u043b\u0443\u0447\u0435\u043d \u043a\u043e\u043d\u0442\u0435\u0439\u043d\u0435\u0440", text: "\u041a\u043e\u043d\u0442\u0435\u0439\u043d\u0435\u0440 \u0434\u043e\u0431\u0430\u0432\u043b\u0435\u043d \u0432 \u0438\u043d\u0432\u0435\u043d\u0442\u0430\u0440\u044c \u0434\u043e\u0431\u044b\u0447\u0438", t: o }); }), 2200);
+                var o = "cont_" + i;
+                if (r) {
+                    var a = { id: t, cont: i, to_pos: n, from_pos: r };
+                    yA.addBooty(a), setTimeout((function () { yA.delBootyById({ booty_id: t }), _A.addExtraction(A), no.newToast({ name: "\u041f\u043e\u043b\u0443\u0447\u0435\u043d \u043a\u043e\u043d\u0442\u0435\u0439\u043d\u0435\u0440", text: "\u041a\u043e\u043d\u0442\u0435\u0439\u043d\u0435\u0440 \u0434\u043e\u0431\u0430\u0432\u043b\u0435\u043d \u0432 \u0438\u043d\u0432\u0435\u043d\u0442\u0430\u0440\u044c \u0434\u043e\u0431\u044b\u0447\u0438", t: o }); }), 2200);
+                }
+                else
+                    uo.newToast({ text: "\u041d\u0438\u0447\u0435\u0433\u043e \u043d\u0435 \u043f\u0440\u0438\u0442\u044f\u043d\u0443\u043b\u043e\u0441\u044c", t: 8 });
             }
             else
                 uo.newToast({ text: "\u041d\u0438\u0447\u0435\u0433\u043e \u043d\u0435 \u043f\u0440\u0438\u0442\u044f\u043d\u0443\u043b\u043e\u0441\u044c", t: 8 }); } }]), n; }(QA);

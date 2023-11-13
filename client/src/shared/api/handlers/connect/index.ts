@@ -38,8 +38,6 @@ class ConnectHandler extends Handler {
 
         if (message.payload.citadel) citadelAPI.events.setCitadel(message.payload.citadel)
 
-        console.log('message.payload.ship.pos', message.payload.ship.pos)
-
         if (message.payload.ship.pos[0] && message.payload.ship.pos[1]) {
             shipAPI.events.setPos(message.payload.ship.pos)
             mapAPI.events.setMapMode('invade')

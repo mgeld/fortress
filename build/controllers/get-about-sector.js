@@ -23,16 +23,19 @@ const handlers_1 = require("./handlers");
 const inversify_1 = require("inversify");
 const types_1 = require("../types");
 const sector_service_1 = require("../services/sector.service");
+const pointer_service_1 = require("../services/pointer.service");
 let GetAboutSectorHandler = class GetAboutSectorHandler extends handlers_1.IRoute {
     handle(message, uSocket) {
         return __awaiter(this, void 0, void 0, function* () {
             const _sector = yield this._sectorService.getById(message.payload.id);
+            const _pointer = yield this._pointerService.getById(_sector.zone_id);
             const dtoSector = _sector.unmarshal();
             const sector = {
                 number: dtoSector.number,
                 areal: dtoSector.areal,
                 invaders: dtoSector.invaders,
                 defenders: dtoSector.defenders,
+                owner: _pointer.name
             };
             uSocket.send(JSON.stringify({
                 event: 'sector',
@@ -46,6 +49,10 @@ __decorate([
     (0, inversify_1.inject)(types_1.TYPES.SectorService),
     __metadata("design:type", sector_service_1.SectorService)
 ], GetAboutSectorHandler.prototype, "_sectorService", void 0);
+__decorate([
+    (0, inversify_1.inject)(types_1.TYPES.PointerService),
+    __metadata("design:type", pointer_service_1.PointerService)
+], GetAboutSectorHandler.prototype, "_pointerService", void 0);
 GetAboutSectorHandler = __decorate([
     (0, inversify_1.injectable)()
 ], GetAboutSectorHandler);

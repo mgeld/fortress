@@ -42,6 +42,7 @@ const primes_1 = require("widgets/primes");
 const get_platform_1 = require("shared/lib/get-platform");
 const get_platform_native_1 = require("shared/lib/get-platform-native");
 const alert_1 = require("shared/ui/alert");
+const ui_19 = require("shared/ui/tutorial/ui");
 (0, model_1.mapStartPosition)();
 window.addEventListener('popstate', () => (0, go_back_1.goBack)());
 let platform = (0, get_platform_1.getPlatform)();
@@ -160,6 +161,8 @@ const App = () => {
 
       <ui_1.Snackbar />
       <ui_2.Notice />
+
+      <ui_19.Tutorial />
 
       {socketStatus ? (<page_root_1.PageRoot activePage={page}>
 

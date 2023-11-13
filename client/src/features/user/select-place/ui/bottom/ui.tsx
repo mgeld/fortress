@@ -4,6 +4,7 @@ import { mapAPI, shipAPI } from "shared/api/events"
 import { TLatLng } from "shared/types"
 import { BottomFlex } from "shared/ui/bottom-flex"
 import { Button } from "shared/ui/button/ui"
+import { tutorialModel } from "shared/ui/tutorial"
 
 export const BottomSelectPlace: FC = () => {
 
@@ -27,6 +28,10 @@ export const BottomSelectPlace: FC = () => {
         // }, 3000)
 
         console.log('pos', pos)
+
+        setTimeout(() => {
+            tutorialModel.events.setTutorial('ship')
+        }, 2000)
     }
 
     return (

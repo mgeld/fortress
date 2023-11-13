@@ -133,7 +133,7 @@ export const Panel: FC = () => {
 
                         <Link
                             className={styles.section}
-                            link='vk.com/@-223383803-faq'
+                            link='https://vk.com/@-223383803-faq'
                         >
                             {/* <div className={styles.section}> */}
                             <div className={styles.item}>

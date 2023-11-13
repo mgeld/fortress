@@ -21,7 +21,7 @@ const Sectors: FC<SectorsProps> = ({ zones }) => {
     return <>
         {zones.map(zoneItem => {
 
-            console.log('zoneItem.zone.color', zoneItem.zone.color)
+            console.log('zoneItem.zone', zoneItem.zone)
             return (
                 <Polygon
                     key={zoneItem.zone.zone_id}

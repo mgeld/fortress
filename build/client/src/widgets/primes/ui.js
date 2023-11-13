@@ -5,13 +5,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Primes = void 0;
 const react_1 = require("react");
-const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
 const prime_1 = require("shared/ui/prime");
 const icons_1 = require("widgets/panel/assets/icons");
 const popout_root_1 = require("shared/ui/popout-root");
 const events_1 = require("shared/api/events");
 const _icons_1 = require("shared/assets/icons/_icons");
 const _icons_2 = require("entities/unit/icons/_icons");
+const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
 const Primes = () => {
     const [card, setCard] = (0, react_1.useState)(1);
     const cards = [
