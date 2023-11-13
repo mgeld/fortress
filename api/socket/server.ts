@@ -4,11 +4,11 @@ import WebSocket from 'ws'
 
 import 'reflect-metadata'
 
-import { Handlers } from '../../controllers/handlers'
-import { inject, injectable } from 'inversify'
 import { TYPES } from '../../types'
-import { SnapshotSectors } from '../../controllers/snapshot-sectors'
 import { PingPong } from './socket/ping-pong'
+import { inject, injectable } from 'inversify'
+import { Handlers } from '../../controllers/handlers'
+import { SnapshotSectors } from '../../controllers/snapshot-sectors'
 
 // const https = require('https');
 // const WebSocket = require('ws');

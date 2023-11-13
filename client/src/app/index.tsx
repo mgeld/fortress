@@ -37,12 +37,11 @@ import { ShipLevelUp } from 'features/ship/ship-level-up/ui'
 import { GunLevelUp } from 'features/weapon/gun-level-up/ui'
 import { StormLevelUp } from 'features/storm-corps/storm-level-up/ui'
 import { HoldLevelUp } from 'features/hold/hold-level-up/ui'
-import { UnitOutHold } from 'entities/unit/ui/unit-out-hold'
 import { goBack } from 'processes/go-back'
 import { Primes } from 'widgets/primes'
-import { useEffect } from 'react'
 import { getPlatform } from 'shared/lib/get-platform'
 import { getPlatformNative } from 'shared/lib/get-platform-native'
+import { Alert } from 'shared/ui/alert'
 
 mapStartPosition()
 
@@ -61,14 +60,12 @@ const App = () => {
   const page = pageModel.selectors.usePage().data
 
   console.log('App')
-  
 
   const {
     vkUserId,
     socketStatus
   } = useApp()
 
-  
   // useEffect(() => {
   //   // window.alert('Version 1.0')
   //   // popoutModel.events.setPopout('primes')
@@ -243,12 +240,21 @@ const App = () => {
         </Popout>
 
         <Popout
+          id='alert'
+          fill='#5a166480'
+          edge={28}
+        >
+          <Alert />
+        </Popout>
+
+        {/* <Popout
           id='unit-out-hold'
           fill='#5a166480'
           edge={28}
         >
           <UnitOutHold />
-        </Popout>
+        </Popout> */}
+
 
         <Popout
           id='primes'
@@ -269,7 +275,7 @@ const App = () => {
 
       {socketStatus ? (
         <PageRoot activePage={page}>
-          
+
           <Page id='map'>
             <MapPage />
           </Page>

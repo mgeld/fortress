@@ -4,6 +4,7 @@ import { fireMapModel } from "..";
 import { Fire } from "./fire";
 
 import './l-styles.css'
+import { FireIOS } from "./fire-ios";
 
 type FiresMapProps = {
 }
@@ -17,7 +18,7 @@ const Fires: FC<FiresMapProps> = () => {
             {fires.map(fire => {
                 console.log(`'q' + fire.id`, 'q' + fire.id)
                 return (
-                    <Fire
+                    <FireIOS
                         key={'q' + fire.id}
                         fire={fire}
                     />

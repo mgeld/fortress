@@ -130,7 +130,11 @@ export class Zone {
     }
 
     spendСoins(coins: number): number {
-        this._coins = this._coins - coins
+        const nCoins = this._coins - coins
+        if(nCoins < 0) {
+            return -1
+        }
+        this._coins = nCoins
         return this._coins
     }
 
@@ -142,13 +146,16 @@ export class Zone {
     }
 
     spendRubies(rubies: number): number {
-        this._rubies = this._rubies - rubies
+        const nRubies = this._rubies - rubies
+        if(nRubies < 0) {
+            return -1
+        }
+        this._rubies = nRubies
         return this._rubies
     }
 
     addRubies(rubies: number): number {
         this._rubies = this._rubies + rubies
-        console.log('addRubies this._rubies', this._rubies)
         return this._rubies
     }
 

@@ -1,4 +1,4 @@
-import { TBuyUnit } from "../common-types/socket/server-to-client"
+import { TBuyUnit, TLimit } from "../common-types/socket/server-to-client"
 import { TBuyUnitAPI, TEventBuyUnit } from "../common-types/socket/client-to-server"
 import { IWebSocket } from "../api/socket/server";
 import { IRoute } from "./handlers"
@@ -25,10 +25,23 @@ class BuyUnitHandler extends IRoute {
 
         const cost = Units.getUnitPrice(message.payload.id)
 
+        let isSpend = 0
+
         if (cost.currency === 'coins') {
-            zone.spendСoins(cost.price)
+            isSpend = zone.spendСoins(cost.price)
         } else if (cost.currency === 'rubies') {
-            zone.spendRubies(cost.price)
+            isSpend = zone.spendRubies(cost.price)
+        }
+
+        if(isSpend < 0) {
+            const limitResp: TLimit = {
+                event: 'limit',
+                payload: {
+                    gives: cost.currency
+                }
+            }
+            uSocket.send(JSON.stringify(limitResp))
+            return
         }
 
         const extr = zone.hold.addExtrToList(message.payload.id)

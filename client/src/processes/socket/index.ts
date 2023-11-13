@@ -12,6 +12,7 @@ import { DirectPointerHandler } from "shared/api/handlers/direct"
 import { FindContHandler } from "shared/api/handlers/find-cont"
 import { FireHandler } from "shared/api/handlers/fire"
 import { LevelUpHandler } from "shared/api/handlers/level-up"
+import { LimitHandler } from "shared/api/handlers/limit"
 import { NewRankHandler } from "shared/api/handlers/new-rank"
 import { NewZoneHandler } from "shared/api/handlers/new-zone"
 import { PointersHandler } from "shared/api/handlers/pointers"
@@ -87,6 +88,7 @@ const handlers = new Handlers({
     [LevelUpHandler.EVENT]: new LevelUpHandler(),
     [NewRankHandler.EVENT]: new NewRankHandler(),
     [NewZoneHandler.EVENT]: new NewZoneHandler(),
+    [LimitHandler.EVENT]: new LimitHandler(),
 } as THandlers)
 
 WS.setHandlers(handlers.handle())

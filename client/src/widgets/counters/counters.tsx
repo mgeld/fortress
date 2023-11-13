@@ -1,14 +1,25 @@
 import { Counter } from "shared/ui/counter"
-import { IconCoin, IconExperience, IconSapphire, IconSector, IconTrophy, IconZone } from "./icons/_icons"
+
+import {
+    IconCoin,
+    IconExperience,
+    IconSapphire,
+    IconSector,
+    IconZone
+} from "./icons/_icons"
+
+import { useEffect, useRef, useState } from "react"
+
 import { CounterProgress } from "shared/ui/counter-progress"
 
-import styles from './styles.module.scss'
 import { zoneModel } from "entities/zone"
 import { userModel } from "entities/user"
 import { ExpRank, TRank } from "entities/user/lib/exp-rank"
 import { Tooltip } from "shared/ui/tooltip/ui"
-import { useEffect, useRef, useState } from "react"
+
 import { TZoneLevel, ZoneLevel } from "entities/zone/lib/zone-level"
+
+import styles from './styles.module.scss'
 
 export const Counters = () => {
 
@@ -16,7 +27,8 @@ export const Counters = () => {
 
     const rankLevel = userModel.selectors.useRankLevel()
     const sects = zoneModel.selectors.useZoneSectors()
-    const trophy = zoneModel.selectors.useZoneTrophies()
+
+    // const trophy = zoneModel.selectors.useZoneTrophies()
 
     const rankExp = userModel.selectors.useRankExp()
     const progressExp = rankExp * 100 / ExpRank.getExp(rankLevel as TRank)
@@ -26,36 +38,34 @@ export const Counters = () => {
     const tId = useRef<ReturnType<typeof setTimeout>>()
 
     useEffect(() => {
+
         clearTimeout(tId.current);
-        tId.current = setTimeout(() => setTooltip(null), 6000)
+
+        tId.current = setTimeout(() => {
+            setTooltip(null)
+        }, 6000)
+
     }, [tooltip])
 
     const zoneSects = sects - (ZoneLevel.getMaxLevelAllSectors(zoneLevel - 1 as TZoneLevel) || 0)
-
-    console.log('!!!!!!!!!!sects', sects)
-    console.log('!!!!!!!!!!zoneSects', zoneSects)
     const zoneProgress = zoneSects * 100 / ZoneLevel.getMaxLevelSectors(zoneLevel as TZoneLevel)
-    
-    console.log('!!!!!!!!!!zoneProgress', zoneProgress)
 
     return (
         <>
             <Counter
-                onClick={() => setTooltip(1)}
                 width={74}
+                onClick={() => setTooltip(1)}
                 className={styles.__sector}
-                icon={(
-                    <IconSector />
-                )}
+                icon={<IconSector />}
                 text={String(zoneModel.selectors.useZoneSectors())}
-
             >
-                {tooltip === 1 ? <Tooltip
-                    pos="right"
-                    message="Все завоеванные территории"
-                /> : <></>}
+                {tooltip === 1 ? (
+                    <Tooltip
+                        pos="right"
+                        message="Все завоеванные территории"
+                    />
+                ) : <></>}
             </Counter>
-
             {/* <Counter
                 onClick={() => setTooltip(2)}
                 width={74}
@@ -72,8 +82,8 @@ export const Counters = () => {
             </Counter> */}
 
             <Counter
-                onClick={() => setTooltip(3)}
                 width={74}
+                onClick={() => setTooltip(3)}
                 className={styles.__coin}
                 icon={(
                     <IconCoin />
@@ -81,19 +91,20 @@ export const Counters = () => {
                 text={String(zoneModel.selectors.useZoneCoins())}
             >
 
-                {tooltip === 3 ? <Tooltip
-                    pos="right"
-                    message="Монеты"
-                /> : <></>}
+                {tooltip === 3 ? (
+                    <Tooltip
+                        pos="right"
+                        message="Монеты"
+                    />
+                ) : <></>}
+
             </Counter>
 
             <Counter
-                onClick={() => setTooltip(4)}
                 width={74}
+                onClick={() => setTooltip(4)}
                 className={styles.__sapphire}
-                icon={(
-                    <IconSapphire />
-                )}
+                icon={<IconSapphire />}
                 text={String(zoneModel.selectors.useZoneRubies())}
             >
 
@@ -106,36 +117,36 @@ export const Counters = () => {
             <CounterProgress
                 onClick={() => setTooltip(5)}
                 className={styles.__experience}
-                icon={(
-                    <IconExperience />
-                )}
+                icon={<IconExperience />}
                 progress={progressExp}
                 color="#C163E0"
                 counter={rankExp}
                 width={73}
             >
-                {tooltip === 5 ? <Tooltip
-                    pos="left"
-                    message="Опыт завоеваний"
-                /> : <></>}
+                {tooltip === 5 ? (
+                    <Tooltip
+                        pos="left"
+                        message="Опыт завоеваний"
+                    />
+                ) : <></>}
             </CounterProgress>
 
             <CounterProgress
                 onClick={() => setTooltip(6)}
                 className={styles.__zone}
-                icon={(
-                    <IconZone />
-                )}
+                icon={<IconZone />}
                 progress={zoneProgress}
                 color="#C163E0"
                 name={`Зона: ${zoneLevel} ур`}
                 counter={zoneSects}
                 width={73}
             >
-                {tooltip === 6 ? <Tooltip
-                    pos="left"
-                    message="Гексы текущего уровня зоны"
-                /> : <></>}
+                {tooltip === 6 ? (
+                    <Tooltip
+                        pos="left"
+                        message="Гексы текущего уровня зоны"
+                    />
+                ) : <></>}
             </CounterProgress>
 
         </>

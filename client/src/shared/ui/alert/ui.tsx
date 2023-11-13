@@ -3,21 +3,15 @@ import { FC } from "react";
 import { popoutModel } from "shared/ui/popout-root";
 
 import styles from './styles.module.scss'
+import { alertModel } from ".";
 
-type TAlertProps = {
-    alert: string,
-    message: string,
-    action: {
-        text: string
-        _click: () => void
-    }
-}
 
-export const Alert: FC<TAlertProps> = ({
-    alert,
-    message,
-    action
-}) => {
+export const Alert: FC = () => {
+
+    const data = alertModel.selectors.useAlert()
+
+    if (!data) return <></>
+    
     const closePopout = () => popoutModel.events.setPopout(null)
 
     return (
@@ -25,13 +19,13 @@ export const Alert: FC<TAlertProps> = ({
 
             <div className={styles.header}>
                 <div className={styles.__border}>
-                    {alert}
+                    {data?.alert}
                 </div>
             </div>
 
             <div className={styles.__content}>
                 <div className={styles.message}>
-                    {message}
+                    {data?.message}
                 </div>
 
             </div>
@@ -45,10 +39,10 @@ export const Alert: FC<TAlertProps> = ({
                         Отмена
                     </div>
                     <div
-                        onClick={action._click}
+                        onClick={data.action._click}
                         className={styles.button}
                     >
-                        {action.text}
+                        {data.action.text}
                     </div>
                 </div>
             </div>

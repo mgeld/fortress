@@ -48,7 +48,7 @@ export class Gun {
         this._status = props?.status ? 'used' : 'stock'
     }
 
-    
+
     public static create(props: TWeaponProps) {
         return new Gun(props)
     }
@@ -64,9 +64,9 @@ export class Gun {
             status: this._status === 'used' ? 1 : 0
         }
     }
-    
-    private static levelMaxPower(): { [key: number]: number } {
-        return {
+
+    private static getLevelMaxPower(level: number): number {
+        const levels: { [key: number]: number } = {
             1: 30,
             2: 50,
             3: 72,
@@ -74,10 +74,11 @@ export class Gun {
             5: 122,
             6: 150
         }
+        return levels[level]
     }
 
-    private static levelMaxDistance(): { [key: number]: number } {
-        return {
+    private static getLevelMaxDistance(level: number): number {
+        const levels: { [key: number]: number } = {
             1: 250,
             2: 300,
             3: 380,
@@ -85,10 +86,11 @@ export class Gun {
             5: 630,
             6: 800
         }
+        return levels[level]
     }
 
-    private static levelMaxBullets(): { [key: number]: number } {
-        return {
+    private static getLevelMaxBullets(level: number): number {
+        const levels: { [key: number]: number } = {
             1: 200,
             2: 300,
             3: 410,
@@ -96,6 +98,7 @@ export class Gun {
             5: 660,
             6: 800
         }
+        return levels[level]
     }
 
     public static getLevelUpPrice(level: number): number {
@@ -122,24 +125,24 @@ export class Gun {
         return level > 0 && level <= 6
     }
 
-    get damage(): number {
-        if (this._level === 1) {
-            return 10
-        }
-        if (this._level === 2) {
-            return 15
-        }
-        if (this._level === 3) {
-            return 20
-        }
-        if (this._level === 4) {
-            return 25
-        }
-        if (this._level === 5) {
-            return 30
-        }
-        return 0
-    }
+    // get damage(): number {
+    //     if (this._level === 1) {
+    //         return 10
+    //     }
+    //     if (this._level === 2) {
+    //         return 15
+    //     }
+    //     if (this._level === 3) {
+    //         return 20
+    //     }
+    //     if (this._level === 4) {
+    //         return 25
+    //     }
+    //     if (this._level === 5) {
+    //         return 30
+    //     }
+    //     return 0
+    // }
 
     get distance() {
         return this._distance
@@ -149,14 +152,20 @@ export class Gun {
         return this._power
     }
 
-    increasePower(power: number): number {
-        this._power = this._power + power
-        return this._power
+    increasePower(power: number): number | 'limit' {
+        if (Gun.getLevelMaxPower(this._level) > this._power) {
+            this._power = this._power + power
+            return this._power
+        }
+        return 'limit'
     }
 
-    increaseDistance(dist: number): number {
-        this._distance = this._distance + dist
-        return this._distance
+    increaseDistance(dist: number): number | 'limit' {
+        if (Gun.getLevelMaxDistance(this._level) > this._distance) {
+            this._distance = this._distance + dist
+            return this._distance
+        }
+        return 'limit'
     }
 
     // get distance(): number {
@@ -178,24 +187,24 @@ export class Gun {
     //     return 0
     // }
 
-    get radius(): number {
-        if (this._level === 1) {
-            return 10
-        }
-        if (this._level === 2) {
-            return 15
-        }
-        if (this._level === 3) {
-            return 20
-        }
-        if (this._level === 4) {
-            return 25
-        }
-        if (this._level === 5) {
-            return 30
-        }
-        return 0
-    }
+    // get radius(): number {
+    //     if (this._level === 1) {
+    //         return 10
+    //     }
+    //     if (this._level === 2) {
+    //         return 15
+    //     }
+    //     if (this._level === 3) {
+    //         return 20
+    //     }
+    //     if (this._level === 4) {
+    //         return 25
+    //     }
+    //     if (this._level === 5) {
+    //         return 30
+    //     }
+    //     return 0
+    // }
 
     get level() {
         return this._level

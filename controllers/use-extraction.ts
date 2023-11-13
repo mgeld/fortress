@@ -1,4 +1,4 @@
-import { TNewRank, TUseExtraction } from "../common-types/socket/server-to-client"
+import { TLimit, TNewRank, TUseExtraction } from "../common-types/socket/server-to-client"
 import { TEventUseExtraction, TUseExtractionAPI } from "../common-types/socket/client-to-server"
 import { IWebSocket } from "../api/socket/server";
 import { IRoute } from "./handlers"
@@ -29,31 +29,33 @@ class UseExtractionHandler extends IRoute {
 
         const extr = zone.hold.use(message.payload.id, message.payload.index)
 
+        let resultIncrese: number | 'limit' = 0
+
         if (extr.gives === 'gun_distance') {
             const weapon = await this._weaponService.memoryGetById(pointer.weapons[0])
-            weapon.increaseDistance(extr.quantity)
+            resultIncrese = weapon.increaseDistance(extr.quantity)
+
             await this._weaponService.memoryUpdate(weapon)
         }
 
         if (extr.gives === 'gun_power') {
             const weapon = await this._weaponService.memoryGetById(pointer.weapons[0])
-            weapon.increasePower(extr.quantity)
+            resultIncrese =weapon.increasePower(extr.quantity)
             await this._weaponService.memoryUpdate(weapon)
         }
 
         if (extr.gives === 'ship_health') {
-            pointer.addHealth(extr.quantity)
+            resultIncrese = pointer.addHealth(extr.quantity)
             this._pointerService.memoryUpdate(pointer)
         }
 
-
         if (extr.gives === 'storm_power') {
-            zone.stormtrooper_corps.increasePower(extr.quantity)
+            resultIncrese = zone.stormtrooper_corps.increasePower(extr.quantity)
             this._zoneService.memoryUpdate(zone)
         }
 
         if (extr.gives === 'stormtroopers') {
-            zone.stormtrooper_corps.addInvaders(extr.quantity)
+            resultIncrese = zone.stormtrooper_corps.addInvaders(extr.quantity)
             this._zoneService.memoryUpdate(zone)
         }
 
@@ -67,9 +69,24 @@ class UseExtractionHandler extends IRoute {
             this._zoneService.memoryUpdate(zone)
         }
 
+
+        console.log('resultIncrese', resultIncrese)
+        console.log('extr.gives', extr.gives)
+
+        if (resultIncrese === 'limit') {
+            const limitResp: TLimit = {
+                event: 'limit',
+                payload: {
+                    gives: extr.gives
+                }
+            }
+            uSocket.send(JSON.stringify(limitResp))
+            return
+        }
+
         if (extr.gives === 'rank_exp') {
             const exp = zone.rank.addExp(extr.quantity)
-            if(exp === 0) {
+            if (exp === 0) {
                 const newRank: TNewRank = {
                     event: 'new-rank',
                     payload: {

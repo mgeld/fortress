@@ -1,12 +1,11 @@
 import { FC, useEffect, useRef, useState } from "react";
-import { Circle, ImageOverlay, useMap, useMapEvents } from "react-leaflet";
+import { Circle, useMap, useMapEvents } from "react-leaflet";
 import { randomNumber } from "shared/lib/randomNumber"
 // import { Keyframes } from "shared/ui/Keyframes/Keyframes";
 import { TTake } from "../model/invader";
 import styles from './styles.module.scss'
 import { getDestination } from "entities/sector/lib/getDestination";
 import { TLatLng } from "shared/types";
-import { latLng } from "leaflet";
 
 // type TStyle = {
 //     top: number,
@@ -38,17 +37,15 @@ export const Take: FC<TTakeProps> = ({ take, sizeInvader, sizeDrone }) => {
         setTimeout(() => setPos(take.to_pos), 50)
     }, [take.to_pos])
 
-    // const p = sizeInvader * 3.14 / 3
-    // const a = p * 0.2
-    // const b = p * 0.8
+    const p = sizeInvader * 3.14 / 3
+    const a = p * 0.2
+    const b = p * 0.8
 
-    // const weightDroneCircle = Math.ceil(p / 4)
+    const weightDroneCircle = Math.ceil(p / 4)
 
-    const bounds = latLng(pos[0], pos[1]).toBounds(30);
-    
     return (
         <>
-            {/* <Circle
+            <Circle
                 center={pos}
                 className={`${styles.__invader} ${take.id}`}
                 pathOptions={{
@@ -59,12 +56,6 @@ export const Take: FC<TTakeProps> = ({ take, sizeInvader, sizeDrone }) => {
                     color: '#3c505a',
                 }}
                 radius={12}
-            /> */}
-
-            <ImageOverlay
-                className={`${styles.__invader} ${take.id}`}
-                url="icons/invader.svg"
-                bounds={bounds}
             />
         </>
     )

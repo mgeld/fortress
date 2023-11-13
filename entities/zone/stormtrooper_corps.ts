@@ -32,14 +32,20 @@ export class StormtrooperCorps {
         }
     }
 
-    increasePower(power: number): number {
-        this._power = this._power + power
-        return this._power
+    increasePower(power: number): number | 'limit' {
+        if (StormtrooperCorps.getLevelMaxPower(this._level) > this._power) {
+            this._power = this._power + power
+            return this._power
+        }
+        return 'limit'
     }
 
-    addInvaders(invaders: number): number {
-        this._invaders = this._invaders + invaders
-        return this._invaders
+    addInvaders(invaders: number): number | 'limit' {
+        if (StormtrooperCorps.getLevelMaxInvaders(this._level) > this._invaders) {
+            this._invaders = this._invaders + invaders
+            return this._invaders
+        }
+        return 'limit'
     }
 
     arriveInvader(): number {
@@ -89,8 +95,8 @@ export class StormtrooperCorps {
         return level > 0 && level <= 6
     }
 
-    private static levelMaxPower(): { [key: number]: number } {
-        return {
+    private static getLevelMaxPower(level: number): number {
+        const levels: { [key: number]: number } = {
             1: 15,
             2: 25,
             3: 40,
@@ -104,10 +110,11 @@ export class StormtrooperCorps {
             11: 340,
             12: 400,
         }
+        return levels[level]
     }
 
-    private static levelMaxInvaders(): { [key: number]: number } {
-        return {
+    private static getLevelMaxInvaders(level: number): number {
+        const levels: { [key: number]: number } = {
             1: 50,
             2: 100,
             3: 155,
@@ -121,6 +128,7 @@ export class StormtrooperCorps {
             11: 775,
             12: 875
         }
+        return levels[level]
     }
 
     get level(): number {

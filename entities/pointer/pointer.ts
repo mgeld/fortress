@@ -116,8 +116,8 @@ export class Pointer {
         return level > 0 && level <= 6
     }
 
-    private static levelMaxHealth(): { [key: number]: number } {
-        return {
+    private static getLevelMaxHealth(level: number): number {
+        const levels: { [key: number]: number } = {
             1: 150,
             2: 250,
             3: 360,
@@ -125,6 +125,7 @@ export class Pointer {
             5: 610,
             6: 750
         }
+        return levels[level]
     }
 
     public static getLevelUpPrice(level: number): number {
@@ -179,9 +180,12 @@ export class Pointer {
         this._health = health
     }
 
-    addHealth(h: number): number {
-        this._health = this._health + h
-        return this._health
+    addHealth(h: number): number | 'limit' {
+        if (Pointer.getLevelMaxHealth(this._level) > this._health) {
+            this._health = this._health + h
+            return this._health
+        }
+        return 'limit'
     }
 
     removeHealth(h: number): number {

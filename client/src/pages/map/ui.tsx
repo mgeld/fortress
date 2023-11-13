@@ -1,5 +1,5 @@
-import { MapRang } from "entities/user/ui/map-rang";
 import { FC } from "react";
+import { MapRang } from "entities/user/ui/map-rang";
 import { Counters } from "widgets/counters/counters";
 import { MapBottom } from "widgets/map-bottom";
 import { NavBattle, NavBooty, NavShop } from "widgets/map-buttons";
@@ -20,14 +20,11 @@ export const MapPage: FC = () => {
                 </div>
 
                 <NavMenu />
-
                 <MapRang />
-
                 <Counters />
-
                 <MapLayout />
-
                 <MapBottom />
+
             </div>
         </div>
     )

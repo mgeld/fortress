@@ -1,28 +1,29 @@
 
 import { inject, injectable } from "inversify";
 import { IWebSocket } from "../api/socket/server";
-import { TConnectAPI, TEventConnect } from "../common-types/socket/client-to-server";
-import { Pointer } from "../entities/pointer/pointer";
-import { PointerService } from "../services/pointer.service";
-import { WeaponService } from "../services/weapon.service";
 import { TYPES } from "../types";
 import { IRoute } from "./handlers";
-import { ZoneService } from "../services/zone.service";
 import { Zone } from "../entities/zone/zone";
-import { CitadelService } from "../services/citadel.service";
 import { Citadel } from "../entities/citadel/citadel";
+import { Pointer } from "../entities/pointer/pointer";
+import { WeaponType } from "../entities/weapon/types";
+import { ZoneService } from "../services/zone.service";
+import { WeaponService } from "../services/weapon.service";
+import { CitadelService } from "../services/citadel.service";
+import { PointerService } from "../services/pointer.service";
+import { verifyLaunchParams } from "../libs/verify-launch-params";
 import { TConnectPayload } from "../common-types/socket/server-to-client";
 import { VkUserRepository } from "../infra/database/mysql2/repositories/vk-user";
-import { WeaponType } from "../entities/weapon/types";
-import { verifyLaunchParams } from "../libs/verify-launch-params";
+import { TConnectAPI, TEventConnect } from "../common-types/socket/client-to-server";
+import { randomNumber } from "../libs/random-number";
 
 @injectable()
 class ConnectHandler implements IRoute {
 
-    @inject(TYPES.CitadelService) private _citadelService!: CitadelService
     @inject(TYPES.ZoneService) private _zoneService!: ZoneService
-    @inject(TYPES.PointerService) private _pointerService!: PointerService
     @inject(TYPES.WeaponService) private _weaponService!: WeaponService
+    @inject(TYPES.CitadelService) private _citadelService!: CitadelService
+    @inject(TYPES.PointerService) private _pointerService!: PointerService
     @inject(TYPES.VkUserRepository) private _vkUserRepository!: VkUserRepository
 
     constructor() {
@@ -51,7 +52,6 @@ class ConnectHandler implements IRoute {
 
         // const clientSecret = 'D1m0YtrP8D0nd7dvdkEO'
         const clientSecret = 'SCecuoQxDCCS0hdTSuhe'
-        
 
         // Берём только параметры запуска.
         const launchParams = decodeURIComponent(VK_URL.slice(VK_URL.indexOf('?') + 1));
@@ -62,12 +62,14 @@ class ConnectHandler implements IRoute {
 
         if (!result) return
 
-        const { is_valid, vk_id } = result
+        let { is_valid, vk_id } = result
+
+        // vk_id = vk_id - randomNumber(10,1000)
 
         if (!is_valid || !vk_id) return 'ERROR SECRET KEY'
 
-        console.log('is_valid', is_valid)
         console.log('vk_id', vk_id)
+        console.log('is_valid', is_valid)
 
         try {
 

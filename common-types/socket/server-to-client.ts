@@ -15,6 +15,8 @@ export type TEventTakeHit = 'take-hit'
 export type TEventFindCont = 'find-cont'
 export type TEventTractorExtr = 'attraction'
 export type TEventUseExtraction = 'use-extraction'
+export type TEventLimit = 'limit'
+
 export type TEventNewRank = 'new-rank'
 export type TEventNewZone = 'new-zone'
 
@@ -43,6 +45,7 @@ export type TEventsMessage =
     | TEventFindCont
     | TEventTractorExtr
     | TEventUseExtraction
+    | TEventLimit
     | TEventNewRank
     | TEventNewZone
     | TEventLevelUp
@@ -220,6 +223,13 @@ export type TUseExtraction = {
     }
 }
 
+export type TLimit = {
+    event: TEventLimit
+    payload: {
+        gives: TExtrTypesName
+    }
+}
+
 export type TNewRank = {
     event: TEventNewRank
     payload: {
@@ -378,6 +388,7 @@ export type TMessage =
     | TFindCont
     | TTractorExtr
     | TUseExtraction
+    | TLimit
     | TNewRank
     | TNewZone
     | TLevelUp

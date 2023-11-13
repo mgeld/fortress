@@ -10,6 +10,7 @@ import { IconArrow } from "shared/assets/icons/_icons";
 import { unitModel } from "entities/unit";
 
 import styles from './styles.module.scss'
+import { alertModel } from "shared/ui/alert";
 
 type TUseItemProps = {
     item: string,
@@ -55,7 +56,15 @@ export const UseItem: FC<TUseItemProps> = ({
             //     t: 'warning'
             // })
             unitModel.events.selectUnit(card)
-            popoutModel.events.setPopout('unit-out-hold')
+            popoutModel.events.setPopout('alert')
+            alertModel.events.setAlert({
+                alert: list_modules[card].name,
+                message: `В трюме нет нужного предмета для использования. Перейти к покупке?`,
+                action: {
+                    text: 'Подтвердить',
+                    _click: () => popoutModel.events.setPopout('select-unit')
+                }
+            })
         }
     }
 
@@ -108,7 +117,7 @@ export const UseItem: FC<TUseItemProps> = ({
                                 >
                                     <div className={styles.module}>
                                         <div className={`${styles.__icon} e${module}`}>
-                                            {list_modules[module].icon(66,66)}
+                                            {list_modules[module].icon(66, 66)}
                                         </div>
                                         <div className={styles.__name}>
                                             <div>

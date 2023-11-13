@@ -51,7 +51,6 @@ const Drone: FC<TDroneProps> = ({
                     fillOpacity: 0.9,
                     opacity: 1,
                     lineCap: 'round',
-                    // strokeLocation: 'inside',
                     lineJoin: "miter",
                     color: '#ffc536'
                 }}

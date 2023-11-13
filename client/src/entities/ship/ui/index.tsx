@@ -31,8 +31,11 @@ export const ShipPopout: FC = () => {
                 <div className={styles.__ship}>
                     <div className={styles.__flex}>
                         <div className={styles.__info}>
+
                             <div className={styles.head}>
-                                <div className={`${styles.name}`}>Корабль</div>
+                                <div className={`${styles.name}`}>
+                                    Корабль
+                                </div>
                                 <div className={styles.level}>
                                     <span>{level} ур.</span>
                                     {ShipLevel.isUpLevel(level) ? <div
@@ -43,16 +46,22 @@ export const ShipPopout: FC = () => {
                                     </div> : null}
                                 </div>
                             </div>
+
                             <div className={styles.description}>
+
                                 <div className={styles.name}>
                                     <div className={styles.icon}>
                                         <IconHealth width={24} height={24} />
                                     </div>
                                     <div className={styles.text}>
                                         Здоровье
-                                    </div></div>
+                                    </div>
+                                </div>
+
                                 <div className={styles.counter}>
-                                    <span>{health} / {ShipLevel.getMaxHealth(level as TShipLevel)}</span>
+                                    <span>
+                                        {health} / {ShipLevel.getMaxHealth(level as TShipLevel)}
+                                    </span>
                                     <div
                                         onClick={() => popoutModel.events.setPopout('ship-improve-health')}
                                         className={styles.levelUp}
@@ -60,7 +69,9 @@ export const ShipPopout: FC = () => {
                                         <IconPlus width={18} height={18} />
                                     </div>
                                 </div>
+
                             </div>
+
                         </div>
                         <div className={styles.__icon}>
                             <IconShip width={64} height={64} />
@@ -84,7 +95,6 @@ export const ShipPopout: FC = () => {
                             Закрыть
                         </div>
                         <div
-                            // onClick={() => onUseExtraction()}
                             onClick={() => popoutModel.events.setPopout('ship-level-up')}
                             className={styles.button}
                         >

@@ -84,7 +84,6 @@ const MapLayout: FC<TMapProps> = () => {
     // const areal = shipModel.selectors.useAreal()
 
     // if (areal) {
-
     //     console.log('LATLAT', areal[0][0] + ((areal[1][0] - areal[0][0]) / 2))
     //     console.log('LATLAT', areal[0][1] + ((areal[1][1] - areal[0][1]) / 2))
     // }

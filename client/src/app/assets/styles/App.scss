@@ -9,6 +9,11 @@ img {
   display: block;
 }
 
+path {
+  transform-origin: center !important;
+  transform-box: fill-box !important;
+}
+
 #root {
   --header_height_android: 56px;
   --header_height_ios: 52px;
@@ -29,6 +34,7 @@ img {
   --inset_top: env(safe-area-inset-top) !important;
   --inset_bottom: env(safe-area-inset-bottom) !important;
 }
+
 .app.android {
   --vk_app_header_width: 88px;
   --header_height: var(--header_height_android);
