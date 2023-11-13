@@ -2,22 +2,28 @@ import { FC, ReactNode } from "react";
 
 import styles from './styles.module.scss'
 
-import { IconCoin, IconSapphire } from "widgets/counters/icons/_icons";
+import { IconCoin } from "widgets/counters/icons/_icons";
 
 import { ReactComponent as IconWarning } from './warning.svg';
+
+// import { ReactComponent as IconCont1 } from '/icons/cont_1.svg';
+// import { ReactComponent as IconCont2 } from '/icons/cont_2.svg';
+// import { ReactComponent as IconCont3 } from '/icons/cont_3.svg';
+
 import { noticeModel } from ".";
-import { IconLevelUp, IconRank, IconZoneLevel } from "shared/assets/icons/_icons";
+import { IconCont1, IconCont2, IconCont3, IconLevelUp, IconRank, IconZoneLevel } from "shared/assets/icons/_icons";
 import { modules } from "entities/unit/lib/modules";
-import { TExtrTypes, TTypeToastNotice } from "@ctypes/model";
+import { TExtrTypes } from "@ctypes/model";
+
 
 const _notice: { [k: string]: ReactNode } = {
 
     // 'coins': <IconCoin width={30} height={30} />,
     // 'rubies': <IconSapphire width={30} height={30} />,
 
-    'cont_1': <IconCoin width={30} height={30} />,
-    'cont_2': <IconCoin width={30} height={30} />,
-    'cont_3': <IconCoin width={30} height={30} />,
+    'cont_1': <IconCont1 width={30} height={30} />,
+    'cont_2': <IconCont2 width={30} height={30} />,
+    'cont_3': <IconCont3 width={30} height={30} />,
 
     'level-up': <IconLevelUp width={30} height={30} />,
     'level-zone': <IconZoneLevel width={34} height={34} />,

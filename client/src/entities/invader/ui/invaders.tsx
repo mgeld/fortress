@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { invaderMapModel } from "..";
-import { Take } from "./take";
 import { droneMapModel } from "entities/pointer";
+import { TakeIOS } from "./take-ios";
 
 type InvadersMapProps = {
 }
@@ -16,7 +16,7 @@ const Invaders: FC<InvadersMapProps> = () => {
     return (
         <>
             {takes.map(take => {
-                return <Take
+                return <TakeIOS
                     key={'q' + take.id}
                     take={take}
                     sizeInvader={sizeInvader}

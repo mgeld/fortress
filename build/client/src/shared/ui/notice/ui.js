@@ -5,18 +5,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Notice = void 0;
 const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
-const _icons_1 = require("widgets/counters/icons/_icons");
 const warning_svg_1 = require("./warning.svg");
 const _1 = require(".");
-const _icons_2 = require("shared/assets/icons/_icons");
+const _icons_1 = require("shared/assets/icons/_icons");
 const modules_1 = require("entities/unit/lib/modules");
 const _notice = {
-    'cont_1': <_icons_1.IconCoin width={30} height={30}/>,
-    'cont_2': <_icons_1.IconCoin width={30} height={30}/>,
-    'cont_3': <_icons_1.IconCoin width={30} height={30}/>,
-    'level-up': <_icons_2.IconLevelUp width={30} height={30}/>,
-    'level-zone': <_icons_2.IconZoneLevel width={34} height={34}/>,
-    'rank': <_icons_2.IconRank width={34} height={34}/>,
+    'cont_1': <_icons_1.IconCont1 width={30} height={30}/>,
+    'cont_2': <_icons_1.IconCont2 width={30} height={30}/>,
+    'cont_3': <_icons_1.IconCont3 width={30} height={30}/>,
+    'level-up': <_icons_1.IconLevelUp width={30} height={30}/>,
+    'level-zone': <_icons_1.IconZoneLevel width={34} height={34}/>,
+    'rank': <_icons_1.IconRank width={34} height={34}/>,
     'common': <warning_svg_1.ReactComponent width={34} height={34}/>,
     'warning': <warning_svg_1.ReactComponent width={34} height={34}/>,
 };

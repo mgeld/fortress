@@ -17,3 +17,7 @@ export { ReactComponent as IconLevelUp } from './level-up.svg';
 export { ReactComponent as IconZoneLevel } from './zone-level.svg';
 
 export { ReactComponent as IconShipGun } from './ship-gun.svg';
+
+export { ReactComponent as IconCont1 } from './cont_1.svg';
+export { ReactComponent as IconCont2 } from './cont_2.svg';
+export { ReactComponent as IconCont3 } from './cont_3.svg';

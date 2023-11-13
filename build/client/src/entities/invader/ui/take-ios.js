@@ -3,13 +3,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Take = void 0;
+exports.TakeIOS = void 0;
 const react_1 = require("react");
 const react_leaflet_1 = require("react-leaflet");
 const randomNumber_1 = require("shared/lib/randomNumber");
-const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
 const getDestination_1 = require("entities/sector/lib/getDestination");
-const Take = ({ take, sizeInvader, sizeDrone }) => {
+const leaflet_1 = require("leaflet");
+const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
+const TakeIOS = ({ take, sizeInvader, sizeDrone }) => {
     console.log('-------take', take);
     const toPosLatLng = (0, getDestination_1.getDestination)(take.from_pos[0], take.from_pos[1], sizeDrone / 2, 90);
     const aa = Math.round((toPosLatLng[1] - take.from_pos[1]) * 100000);
@@ -20,18 +21,9 @@ const Take = ({ take, sizeInvader, sizeDrone }) => {
     (0, react_1.useEffect)(() => {
         setTimeout(() => setPos(take.to_pos), 50);
     }, [take.to_pos]);
-    const p = sizeInvader * 3.14 / 3;
-    const a = p * 0.2;
-    const b = p * 0.8;
-    const weightDroneCircle = Math.ceil(p / 4);
+    const bounds = (0, leaflet_1.latLng)(pos[0], pos[1]).toBounds(30);
     return (<>
-            <react_leaflet_1.Circle center={pos} className={`${styles_module_scss_1.default.__invader} ${take.id}`} pathOptions={{
-            dashArray: `${a} ${b}`,
-            weight: weightDroneCircle,
-            fillColor: '#fa3226',
-            fillOpacity: 0.7,
-            color: '#3c505a',
-        }} radius={12}/>
+            <react_leaflet_1.ImageOverlay className={`${styles_module_scss_1.default.__invader} ${take.id}`} url="icons/invader.svg" bounds={bounds}/>
         </>);
 };
-exports.Take = Take;
+exports.TakeIOS = TakeIOS;
