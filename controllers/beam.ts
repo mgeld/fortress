@@ -35,6 +35,8 @@ class BeamHandler extends IRoute {
 
         const zone = await this._zoneService.getById(uSocket.user_id)
 
+        let extrResp: TTractorExtr
+
         try {
             _sector = await this._sectorService.getById(message.payload.sector)
 
@@ -52,7 +54,7 @@ class BeamHandler extends IRoute {
 
             }
 
-            const extrResp: TTractorExtr = {
+            extrResp = {
                 event: 'attraction',
                 payload: {
                     extr,
@@ -61,8 +63,6 @@ class BeamHandler extends IRoute {
                     pos: message.payload.position
                 }
             }
-
-            uSocket.send(JSON.stringify(extrResp))
             
             if(extr) {
                 _sector.takenBooty()
@@ -72,10 +72,19 @@ class BeamHandler extends IRoute {
             }
 
         } catch (e) {
+            extrResp = {
+                event: 'attraction',
+                payload: {
+                    extr: null,
+                    cont: 0,
+                    fort: null,
+                    pos: message.payload.position
+                }
+            }
 
         }
 
-        
+        uSocket.send(JSON.stringify(extrResp))
 
     }
 }

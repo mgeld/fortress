@@ -21,6 +21,13 @@ class AttractionHandler extends __1.Handler {
             return;
         }
         let typeNotice = ('cont_' + cont);
+        if (!from_pos) {
+            snackbar_1.snackbarModel.events.newToast({
+                text: 'Ничего не притянулось',
+                t: 8
+            });
+            return;
+        }
         let _booty = {
             id: BOOTY_ID,
             cont,

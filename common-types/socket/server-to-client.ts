@@ -208,7 +208,7 @@ export type TTractorExtr = {
     payload: {
         extr: TExtrTypes | null
         cont: TFindContType | 0
-        fort: TLatLng
+        fort: TLatLng | null
         pos: TLatLng
     }
 }

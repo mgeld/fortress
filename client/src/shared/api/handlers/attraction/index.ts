@@ -16,6 +16,7 @@ class AttractionHandler extends Handler {
 
         const to_pos = message.payload.pos
         const from_pos = message.payload.fort
+
         const cont = message.payload.cont
         const extr = message.payload.extr
 
@@ -28,6 +29,15 @@ class AttractionHandler extends Handler {
         }
 
         let typeNotice = ('cont_' + cont) as TConts
+
+
+        if(!from_pos) {
+            snackbarModel.events.newToast({
+                text: 'Ничего не притянулось',
+                t: 8
+            })
+            return
+        }
 
         let _booty: TBooty = {
             id: BOOTY_ID,

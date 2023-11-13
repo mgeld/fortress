@@ -35,6 +35,7 @@ let BeamHandler = class BeamHandler extends handlers_1.IRoute {
                 return;
             let _sector;
             const zone = yield this._zoneService.getById(uSocket.user_id);
+            let extrResp;
             try {
                 _sector = yield this._sectorService.getById(message.payload.sector);
                 let extr = null;
@@ -45,7 +46,7 @@ let BeamHandler = class BeamHandler extends handlers_1.IRoute {
                     console.log('EXTRRRRRRRRRRRR', extr);
                     console.log('zone extraction', zone.hold.unmarshal());
                 }
-                const extrResp = {
+                extrResp = {
                     event: 'attraction',
                     payload: {
                         extr,
@@ -54,7 +55,6 @@ let BeamHandler = class BeamHandler extends handlers_1.IRoute {
                         pos: message.payload.position
                     }
                 };
-                uSocket.send(JSON.stringify(extrResp));
                 if (extr) {
                     _sector.takenBooty();
                     this._logs.takes.add(_sector.id);
@@ -63,7 +63,17 @@ let BeamHandler = class BeamHandler extends handlers_1.IRoute {
                 }
             }
             catch (e) {
+                extrResp = {
+                    event: 'attraction',
+                    payload: {
+                        extr: null,
+                        cont: 0,
+                        fort: null,
+                        pos: message.payload.position
+                    }
+                };
             }
+            uSocket.send(JSON.stringify(extrResp));
         });
     }
 };
