@@ -1,6 +1,6 @@
 import { holdModel } from "entities/hold";
 import { HoldLevel, THoldLevel } from "entities/hold/lib/hold-level";
-import { ShipLevel, TShipLevel } from "entities/ship/lib/ship-level";
+import { TShipLevel } from "entities/ship/lib/ship-level";
 import { FC } from "react";
 import { levelUpAPI } from "shared/api/level-up";
 import { LevelUp } from "shared/ui/level-up";

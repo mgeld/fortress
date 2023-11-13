@@ -181,8 +181,10 @@ export class Pointer {
     }
 
     addHealth(h: number): number | 'limit' {
-        if (Pointer.getLevelMaxHealth(this._level) > this._health) {
-            this._health = this._health + h
+        const maxValueLevel = Pointer.getLevelMaxHealth(this._level)
+        if (maxValueLevel > this._health) {
+            const summ = this._health + h
+            this._health = summ > maxValueLevel ? maxValueLevel : summ
             return this._health
         }
         return 'limit'

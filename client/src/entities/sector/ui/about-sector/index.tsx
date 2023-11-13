@@ -27,7 +27,11 @@ export const AboutSector: FC<TAboutSectorProps> = ({
         }
     }, [latlng])
 
-    if (!sector) return <>Загрузка...</>
+    if (!sector) return (
+        <div className={styles.loading}>
+            Загружаем информацию...
+        </div>
+    )
 
     return (
         <div className={styles.aboutSector}>

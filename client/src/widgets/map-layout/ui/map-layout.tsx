@@ -40,9 +40,9 @@ import { filterPointers } from "features/pointer/filter-pointers/model";
 import { BootyMap } from "./booty-map";
 import { TestExtr } from "./test-extr";
 import { TractorBeam } from "entities/projector/ui/tractor-beam";
+
 import Booty from "entities/projector/ui/booty";
-import { shipModel } from "entities/ship";
-import { mapStartPosition } from "../model";
+import { FortDetailsMap } from "./fort-details-map";
 
 type TMapProps = {}
 
@@ -139,6 +139,11 @@ const MapLayout: FC<TMapProps> = () => {
 
                     <Pane name="booty-map" style={{ zIndex: 3005 }}>
                         <BootyMap />
+                    </Pane>
+
+
+                    <Pane name="fort-map" style={{ zIndex: 3005 }}>
+                        <FortDetailsMap />
                     </Pane>
 
                     <Pane name="invaders" style={{ zIndex: 3000 }}>

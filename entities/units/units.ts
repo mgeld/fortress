@@ -25,6 +25,10 @@ export class Units {
             currency: 'coins',
             price: 100
         },
+        10: { // Нет в магазине
+            currency: 'coins',
+            price: 40
+        },
         11: {
             currency: 'coins',
             price: 50
@@ -32,6 +36,10 @@ export class Units {
         12: {
             currency: 'coins',
             price: 100
+        },
+        20: { // Нет в магазине
+            currency: 'coins',
+            price: 80
         },
         21: {
             currency: 'coins',
@@ -41,6 +49,10 @@ export class Units {
             currency: 'coins',
             price: 150
         },
+        30: { // Нет в магазине
+            currency: 'rubies',
+            price: 10
+        },
         31: {
             currency: 'rubies',
             price: 15
@@ -49,6 +61,10 @@ export class Units {
             currency: 'rubies',
             price: 30
         },
+        40: { // Нет в магазине
+            currency: 'coins',
+            price: 40
+        },
         41: {
             currency: 'coins',
             price: 50
@@ -56,6 +72,10 @@ export class Units {
         42: {
             currency: 'rubies',
             price: 25
+        },
+        50: { // Нет в магазине
+            currency: 'coins',
+            price: 100
         },
         51: {
             currency: 'coins',

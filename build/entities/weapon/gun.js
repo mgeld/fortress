@@ -87,15 +87,19 @@ class Gun {
         return this._power;
     }
     increasePower(power) {
-        if (Gun.getLevelMaxPower(this._level) > this._power) {
-            this._power = this._power + power;
+        const maxValueLevel = Gun.getLevelMaxPower(this._level);
+        if (maxValueLevel > this._power) {
+            const summ = this._power + power;
+            this._power = summ > maxValueLevel ? maxValueLevel : summ;
             return this._power;
         }
         return 'limit';
     }
     increaseDistance(dist) {
+        const maxValueLevel = Gun.getLevelMaxDistance(this._level);
         if (Gun.getLevelMaxDistance(this._level) > this._distance) {
-            this._distance = this._distance + dist;
+            const summ = this._distance + dist;
+            this._distance = summ > maxValueLevel ? maxValueLevel : summ;
             return this._distance;
         }
         return 'limit';

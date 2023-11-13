@@ -22,7 +22,9 @@ const AboutSector = ({ name, zone_id }) => {
         }
     }, [latlng]);
     if (!sector)
-        return <>Загрузка...</>;
+        return (<div className={styles_module_scss_1.default.loading}>
+            Загружаем информацию...
+        </div>);
     return (<div className={styles_module_scss_1.default.aboutSector}>
             <div className={[styles_module_scss_1.default.__container, styles_module_scss_1.default.__one].join(' ')}>
                 

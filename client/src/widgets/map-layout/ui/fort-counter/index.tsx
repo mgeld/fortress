@@ -7,7 +7,6 @@ export const FortCounter: FC = () => {
     const data = fortModel.selectors.useTakeFort().data
 
     if(!data) return <></>
-    // else return <></>
     
     return (
         <DefenseCounter

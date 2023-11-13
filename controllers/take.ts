@@ -76,7 +76,8 @@ class TakeHandler extends IRoute {
             status,
             fort: message.payload.fort,
             invaders: _sector.invaders,
-            defenders: _sector.defenders
+            defenders: _sector.defenders,
+            owner: _sector.zone_id
         } as TTakeHitPayload
 
         // Если я победил

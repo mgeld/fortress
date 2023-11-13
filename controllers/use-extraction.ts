@@ -40,7 +40,7 @@ class UseExtractionHandler extends IRoute {
 
         if (extr.gives === 'gun_power') {
             const weapon = await this._weaponService.memoryGetById(pointer.weapons[0])
-            resultIncrese =weapon.increasePower(extr.quantity)
+            resultIncrese = weapon.increasePower(extr.quantity)
             await this._weaponService.memoryUpdate(weapon)
         }
 

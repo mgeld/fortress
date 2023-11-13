@@ -55,21 +55,21 @@
 }
 
 .projector {
-    background-image: radial-gradient(circle 1px at calc(13%) calc(100% - 100px - 25px), transparent 25px, #ffffff 40px, #000000c2 0);
+    background-image: radial-gradient(circle 1px at calc(13%) calc(100% - 100px - 25px - var(--inset_bottom)), transparent 25px, #ffffff 40px, #000000c2 0);
     transition: background-image 1s;
 }
 
 .gun {
-    background-image: radial-gradient(circle 1px at calc(35%) calc(100% - 30px - 40px), transparent 40px, #ffffff 50px, #000000c2 0);
+    background-image: radial-gradient(circle 1px at calc(35%) calc(100% - 30px - 40px - var(--inset_bottom)), transparent 40px, #ffffff 50px, #000000c2 0);
     transition: background-image 12s;
 }
 
 .ship {
-    background-image: radial-gradient(circle 1px at calc(62%) calc(100% - 16px - 40px), transparent 40px, #ffffff 50px, #000000c2 0);
+    background-image: radial-gradient(circle 1px at calc(62%) calc(100% - 16px - 40px - var(--inset_bottom)), transparent 40px, #ffffff 50px, #000000c2 0);
     transition: background-image 12s;
 }
 
 .storm {
-    background-image: radial-gradient(circle 1px at calc(87%) calc(100% - 34px - 25px), transparent 25px, #ffffff 40px, #000000c2 0);
+    background-image: radial-gradient(circle 1px at calc(87%) calc(100% - 34px - 25px - var(--inset_bottom)), transparent 25px, #ffffff 40px, #000000c2 0);
     transition: background-image 1s;
 }

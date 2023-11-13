@@ -1,8 +1,6 @@
 import { FC } from "react";
 
-import { userModel } from "entities/user";
 import { IconChat, IconFaq, IconFort, IconNews, IconShip, IconShop } from "./assets/icons";
-// import { IconGun, IconShip } from "entities/ship/ui/assets/icons";
 
 import styles from './styles.module.scss'
 import { popoutModel } from "shared/ui/popout-root";
@@ -12,15 +10,27 @@ import { TLatLng } from "@ctypes/model";
 import { mapAPI, shipAPI } from "shared/api/events";
 import { citadelModel } from "entities/citadel";
 import { IconClose } from "shared/assets/icons/_icons";
+import { alertModel } from "shared/ui/alert";
 
 export const Panel: FC = () => {
-
-    // const photo = userModel.selectors.useUser().userIcon
 
     const latlng = citadelModel.selectors.useCitadel()?.latlng || null
 
     const selectCitadel = (pos: TLatLng | null) => {
-        if (!pos) return
+        console.log('selectCitadel')
+        console.log('selectCitadel pos', pos)
+        if (!pos) {
+            popoutModel.events.setPopout('alert')
+            alertModel.events.setAlert({
+                alert: 'Цитадель',
+                message: 'Цитадель - это центр вашей зоны и первая захваченная башня. Вы еще не захватили ни одной башни!',
+                action: {
+                    text: 'Начать захват',
+                    _click: () => popoutModel.events.setPopout(null)
+                }
+            })
+            return
+        }
         mapAPI.events.setMapMode('invade')
         shipAPI.events.setPos(pos)
         popoutModel.events.setPopout(null)

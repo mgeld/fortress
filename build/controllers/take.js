@@ -64,7 +64,8 @@ let TakeHandler = class TakeHandler extends handlers_1.IRoute {
                 status,
                 fort: message.payload.fort,
                 invaders: _sector.invaders,
-                defenders: _sector.defenders
+                defenders: _sector.defenders,
+                owner: _sector.zone_id
             };
             if (status === 'victory') {
                 if (_sector.zone_id) {

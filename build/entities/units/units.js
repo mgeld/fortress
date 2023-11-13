@@ -37,6 +37,10 @@ Units.sale_units = {
         currency: 'coins',
         price: 100
     },
+    10: {
+        currency: 'coins',
+        price: 40
+    },
     11: {
         currency: 'coins',
         price: 50
@@ -44,6 +48,10 @@ Units.sale_units = {
     12: {
         currency: 'coins',
         price: 100
+    },
+    20: {
+        currency: 'coins',
+        price: 80
     },
     21: {
         currency: 'coins',
@@ -53,6 +61,10 @@ Units.sale_units = {
         currency: 'coins',
         price: 150
     },
+    30: {
+        currency: 'rubies',
+        price: 10
+    },
     31: {
         currency: 'rubies',
         price: 15
@@ -61,6 +73,10 @@ Units.sale_units = {
         currency: 'rubies',
         price: 30
     },
+    40: {
+        currency: 'coins',
+        price: 40
+    },
     41: {
         currency: 'coins',
         price: 50
@@ -68,6 +84,10 @@ Units.sale_units = {
     42: {
         currency: 'rubies',
         price: 25
+    },
+    50: {
+        currency: 'coins',
+        price: 100
     },
     51: {
         currency: 'coins',

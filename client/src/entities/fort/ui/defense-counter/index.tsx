@@ -3,6 +3,7 @@ import { FC, useEffect, useState } from "react";
 import { useMap, useMapEvents } from "react-leaflet";
 
 import styles from './styles.module.scss'
+import { userModel } from "entities/user";
 
 const Y_BACK = 37
 const X_BACK = 50
@@ -11,12 +12,15 @@ const DefenseCounter: FC<TTakeHitPayload> = ({
     fort,
     status,
     defenders,
-    invaders
+    invaders,
+    owner
 }) => {
 
     const map = useMap()
 
     const [coords, setCoords] = useState(map.latLngToLayerPoint(fort))
+
+    const zoneId = userModel.selectors.useUserId()
 
     useEffect(() => {
         setCoords(map.latLngToLayerPoint(fort))
@@ -31,6 +35,9 @@ const DefenseCounter: FC<TTakeHitPayload> = ({
     const pDefenders = defenders * 100 / p100
     const pInvaders = invaders * 100 / p100
 
+    const styleI = zoneId !== owner ? styles.__green : styles.__red
+    const styleD = zoneId !== owner ? styles.__red : styles.__green
+
     return (
         <div
             className={styles.defenseCounter}
@@ -39,8 +46,9 @@ const DefenseCounter: FC<TTakeHitPayload> = ({
                 left: `${coords.x - X_BACK}px`,
             }}
         >
+            
             {defenders > 0 ? <div
-                className={styles.__defenders}
+                className={styleD}
                 style={{
                     width: `${pDefenders}%`
                 }}
@@ -49,8 +57,9 @@ const DefenseCounter: FC<TTakeHitPayload> = ({
                     <span>{defenders}</span>
                 </div>
             </div> : null}
+
             {invaders > 0 ? <div
-                className={styles.__invaders}
+                className={styleI}
                 style={{
                     width: `${pInvaders}%`
                 }}
@@ -59,6 +68,7 @@ const DefenseCounter: FC<TTakeHitPayload> = ({
                     <span>{invaders}</span>
                 </div>
             </div> : null}
+            
             <div className={styles.__whiteEffect}><div /></div>
         </div>
     )

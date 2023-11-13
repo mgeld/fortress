@@ -26,10 +26,10 @@ export const GunPopout: FC = () => {
                 } : null
             }}
             items={[
-                {
-                    name: 'Снаряды',
-                    counter: `${bullets} / ${GunLevel.getMaxShells(level as TGunLevel)}`
-                },
+                // {
+                //     name: 'Снаряды',
+                //     counter: `${bullets} / ${GunLevel.getMaxShells(level as TGunLevel)}`
+                // },
                 {
                     name: 'Дальность удара',
                     counter: `${distance} / ${GunLevel.getMaxDistance(level as TGunLevel)}`,

@@ -51,7 +51,7 @@ class ConnectHandler implements IRoute {
         let citadel: Citadel | null = null
 
         // const clientSecret = 'D1m0YtrP8D0nd7dvdkEO'
-        const clientSecret = 'SCecuoQxDCCS0hdTSuhe' // FortRess Official
+        const clientSecret = 'SCecuonQxDCCS0hdTSuhe' // FortRess Official
 
         // Берём только параметры запуска.
         const launchParams = decodeURIComponent(VK_URL.slice(VK_URL.indexOf('?') + 1));
@@ -64,7 +64,7 @@ class ConnectHandler implements IRoute {
 
         let { is_valid, vk_id } = result
 
-        // vk_id = vk_id - randomNumber(10,1000) Убрать в проде!!!!!!!!!!!!
+        // vk_id = vk_id - randomNumber(10,1000) // Убрать в проде!!!!!!!!!!!!
 
         if (!is_valid || !vk_id) return 'ERROR SECRET KEY'
 

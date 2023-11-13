@@ -21,10 +21,6 @@ const GunPopout = () => {
             } : null
         }} items={[
             {
-                name: 'Снаряды',
-                counter: `${bullets} / ${gun_level_1.GunLevel.getMaxShells(level)}`
-            },
-            {
                 name: 'Дальность удара',
                 counter: `${distance} / ${gun_level_1.GunLevel.getMaxDistance(level)}`,
                 _click: () => popout_root_1.popoutModel.events.setPopout('gun-improve-distance')

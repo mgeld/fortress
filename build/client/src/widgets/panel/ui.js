@@ -12,12 +12,25 @@ const ui_1 = __importDefault(require("shared/ui/link/ui"));
 const events_1 = require("shared/api/events");
 const citadel_1 = require("entities/citadel");
 const _icons_1 = require("shared/assets/icons/_icons");
+const alert_1 = require("shared/ui/alert");
 const Panel = () => {
     var _a;
     const latlng = ((_a = citadel_1.citadelModel.selectors.useCitadel()) === null || _a === void 0 ? void 0 : _a.latlng) || null;
     const selectCitadel = (pos) => {
-        if (!pos)
+        console.log('selectCitadel');
+        console.log('selectCitadel pos', pos);
+        if (!pos) {
+            popout_root_1.popoutModel.events.setPopout('alert');
+            alert_1.alertModel.events.setAlert({
+                alert: 'Цитадель',
+                message: 'Цитадель - это центр вашей зоны и первая захваченная башня. Вы еще не захватили ни одной башни!',
+                action: {
+                    text: 'Начать захват',
+                    _click: () => popout_root_1.popoutModel.events.setPopout(null)
+                }
+            });
             return;
+        }
         events_1.mapAPI.events.setMapMode('invade');
         events_1.shipAPI.events.setPos(pos);
         popout_root_1.popoutModel.events.setPopout(null);

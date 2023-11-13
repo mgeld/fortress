@@ -39,6 +39,12 @@ class Zone {
     get color() {
         return this._color;
     }
+    get coins() {
+        return this._coins;
+    }
+    get rubies() {
+        return this._rubies;
+    }
     get rank() {
         return this._rank;
     }

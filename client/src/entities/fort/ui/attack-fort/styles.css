@@ -1,0 +1,15 @@
+.attack-fort {
+    animation: 0.4s linear scale-fort;
+    transform-box: fill-box;
+    transform-origin: center center;
+}
+
+@keyframes scale-fort {
+    0% {
+        transform: scale(0.8);
+    }
+
+    100% {
+        transform: scale(2);
+    }
+}

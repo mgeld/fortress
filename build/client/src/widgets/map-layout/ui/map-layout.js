@@ -29,6 +29,7 @@ const booty_map_1 = require("./booty-map");
 const test_extr_1 = require("./test-extr");
 const tractor_beam_1 = require("entities/projector/ui/tractor-beam");
 const booty_1 = __importDefault(require("entities/projector/ui/booty"));
+const fort_details_map_1 = require("./fort-details-map");
 (0, model_1.changeBattleStatusListener)();
 (0, model_2.scrollMapPointerListener)();
 (0, model_3.setMapPosListener)();
@@ -69,6 +70,11 @@ const MapLayout = () => {
 
                     <react_leaflet_1.Pane name="booty-map" style={{ zIndex: 3005 }}>
                         <booty_map_1.BootyMap />
+                    </react_leaflet_1.Pane>
+
+
+                    <react_leaflet_1.Pane name="fort-map" style={{ zIndex: 3005 }}>
+                        <fort_details_map_1.FortDetailsMap />
                     </react_leaflet_1.Pane>
 
                     <react_leaflet_1.Pane name="invaders" style={{ zIndex: 3000 }}>

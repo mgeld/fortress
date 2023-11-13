@@ -41,35 +41,52 @@ let LevelUpHandler = class LevelUpHandler extends handlers_1.IRoute {
             let newLevel = 0;
             let cost = 0;
             let currency = null;
+            let isSpend = 0;
             if (message.payload.type === 'ship') {
                 newLevel = pointer.upLevel();
                 cost = pointer_1.Pointer.getLevelUpPrice(newLevel);
-                zone.spendRubies(cost);
+                isSpend = zone.spendRubies(cost);
                 currency = 'rubies';
-                yield this._pointerService.memoryUpdate(pointer);
-                yield this._zoneService.memoryUpdate(zone);
+                if (~isSpend) {
+                    yield this._pointerService.memoryUpdate(pointer);
+                    yield this._zoneService.memoryUpdate(zone);
+                }
             }
             if (message.payload.type === 'gun') {
                 newLevel = weapon.upLevel();
                 cost = gun_1.Gun.getLevelUpPrice(newLevel);
-                zone.spendСoins(cost);
+                isSpend = zone.spendСoins(cost);
                 currency = 'coins';
-                yield this._zoneService.memoryUpdate(zone);
-                yield this._weaponService.memoryUpdate(weapon);
+                if (~isSpend) {
+                    yield this._zoneService.memoryUpdate(zone);
+                    yield this._weaponService.memoryUpdate(weapon);
+                }
             }
             if (message.payload.type === 'storm-corps') {
                 newLevel = zone.stormtrooper_corps.upLevel();
                 cost = stormtrooper_corps_1.StormtrooperCorps.getLevelUpPrice(newLevel);
-                zone.spendСoins(cost);
+                isSpend = zone.spendСoins(cost);
                 currency = 'coins';
-                this._zoneService.memoryUpdate(zone);
+                if (~isSpend)
+                    this._zoneService.memoryUpdate(zone);
             }
             if (message.payload.type === 'hold') {
                 newLevel = zone.hold.upLevel();
                 cost = extraction_1.Extraction.getLevelUpPrice(newLevel);
-                zone.spendСoins(cost);
+                isSpend = zone.spendСoins(cost);
                 currency = 'coins';
-                this._zoneService.memoryUpdate(zone);
+                if (~isSpend)
+                    this._zoneService.memoryUpdate(zone);
+            }
+            if (isSpend === -1 && currency) {
+                const limitResp = {
+                    event: 'limit',
+                    payload: {
+                        gives: currency
+                    }
+                };
+                uSocket.send(JSON.stringify(limitResp));
+                return;
             }
             if (currency) {
                 const extrResp = {

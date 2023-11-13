@@ -49,17 +49,24 @@
         }
     }
 
-    &>.__defenders {
+    &>.__defeat {
         position: relative;
         height: 22px;
         background-color: green;
         border-radius: 4px 4px 0 0;
     }
 
-    &>.__invaders {
+    &>.__red {
         position: relative;
         height: 22px;
-        background-color: blue;
+        background-color: red;
+        border-radius: 4px 4px 0 0;
+    }
+
+    &>.__green {
+        position: relative;
+        height: 22px;
+        background-color: green;
         border-radius: 0 0 4px 4px;
     }
 

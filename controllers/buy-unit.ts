@@ -23,7 +23,11 @@ class BuyUnitHandler extends IRoute {
 
         const zone = await this._zoneService.getById(uSocket.user_id)
 
+        console.log('message.payload.id', message.payload.id)
+
         const cost = Units.getUnitPrice(message.payload.id)
+
+        console.log('cost', cost)
 
         let isSpend = 0
 

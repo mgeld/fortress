@@ -1,6 +1,5 @@
 import { Handler } from "..";
 import { TLimit } from '@ctypes/socket/server-to-client'
-import { noticeModel } from "shared/ui/notice";
 import { alertModel } from "shared/ui/alert";
 import { popoutModel } from "shared/ui/popout-root";
 
@@ -35,11 +34,11 @@ class LimitHandler extends Handler {
                 break;
             case 'coins':
                 name = `Монеты`
-                text = `У вас недостаточно монет для покупки. Монетки могут выпадать после захвата башен, которые окружены золотым территорием!`
+                text = `У вас недостаточно монет. Вы можете получать монеты захватывая башни, которые окружены территорием c золотым оттенком!`
                 break;
             case 'rubies':
                 name = `Кристаллы`
-                text = `У вас недостаточно кристаллов для покупки. Кристаллы могут выпадать после захвата башен, которые окружены золотым территорием!`
+                text = `У вас недостаточно кристаллов. Вы можете получать кристаллы захватывая башни, которые окружены  территорием c золотым оттенком!`
                 break;
 
         }

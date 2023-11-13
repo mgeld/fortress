@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.selectors = void 0;
+exports.events = exports.selectors = void 0;
 const effector_1 = require("effector");
 const effector_react_1 = require("effector-react");
 const events_1 = require("shared/api/events");
@@ -20,7 +20,19 @@ const useContainerFort = () => {
         data: (0, effector_react_1.useStore)($containerFortStore)
     };
 };
+const useFort = () => {
+    return {
+        data: (0, effector_react_1.useStore)($fortStore)
+    };
+};
+const setFort = (0, effector_1.createEvent)();
+const $fortStore = (0, effector_1.createStore)(null)
+    .on(setFort, (_, payload) => payload);
 exports.selectors = {
     useTakeFort,
-    useContainerFort
+    useContainerFort,
+    useFort
+};
+exports.events = {
+    setFort
 };

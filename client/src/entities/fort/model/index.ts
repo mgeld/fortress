@@ -1,5 +1,6 @@
+import { TLatLng } from "@ctypes/model";
 import { TFindContPayload, TTakeHitPayload } from "@ctypes/socket/server-to-client";
-import { createStore } from "effector";
+import { createEvent, createStore } from "effector";
 import { useStore } from "effector-react";
 import { projectorAPI, sectorsAPI } from "shared/api/events";
 
@@ -29,7 +30,24 @@ const useContainerFort = () => {
     }
 }
 
+const useFort = () => {
+    return {
+        data: useStore($fortStore)
+    }
+}
+
+
+const setFort = createEvent<TLatLng | null>()
+
+const $fortStore = createStore<TLatLng | null>(null)
+    .on(setFort, (_, payload) => payload)
+
 export const selectors = {
     useTakeFort,
-    useContainerFort
+    useContainerFort,
+    useFort
+}
+
+export const events = {
+    setFort
 }

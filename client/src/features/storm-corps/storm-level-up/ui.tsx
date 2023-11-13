@@ -1,4 +1,5 @@
 import { shipModel } from "entities/ship";
+import { stormModel } from "entities/storm-corps";
 import { StormCorpsLevel, TStormCorpsLevel } from "entities/storm-corps/lib/storm-corps-level";
 import { FC } from "react";
 import { levelUpAPI } from "shared/api/level-up";
@@ -6,7 +7,7 @@ import { LevelUp } from "shared/ui/level-up";
 
 export const StormLevelUp: FC = () => {
 
-    const level = shipModel.selectors.useShipLevel()
+    const level = stormModel.selectors.useStormLevel()
 
     const click = () => levelUpAPI('storm-corps')
 

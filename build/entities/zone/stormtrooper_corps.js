@@ -15,15 +15,19 @@ class StormtrooperCorps {
         };
     }
     increasePower(power) {
-        if (StormtrooperCorps.getLevelMaxPower(this._level) > this._power) {
-            this._power = this._power + power;
+        const maxValueLevel = StormtrooperCorps.getLevelMaxPower(this._level);
+        if (maxValueLevel > this._power) {
+            const summ = this._power + power;
+            this._power = summ > maxValueLevel ? maxValueLevel : summ;
             return this._power;
         }
         return 'limit';
     }
     addInvaders(invaders) {
-        if (StormtrooperCorps.getLevelMaxInvaders(this._level) > this._invaders) {
-            this._invaders = this._invaders + invaders;
+        const maxValueLevel = StormtrooperCorps.getLevelMaxInvaders(this._level);
+        if (maxValueLevel > this._invaders) {
+            const summ = this._invaders + invaders;
+            this._invaders = summ > maxValueLevel ? maxValueLevel : summ;
             return this._invaders;
         }
         return 'limit';
@@ -65,7 +69,7 @@ class StormtrooperCorps {
         return levels[level];
     }
     static validLevel(level) {
-        return level > 0 && level <= 6;
+        return level > 0 && level <= 12;
     }
     static getLevelMaxPower(level) {
         const levels = {

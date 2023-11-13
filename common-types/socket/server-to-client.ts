@@ -184,6 +184,7 @@ export type TTakeHitPayload = {
     invaders: number
     defenders: number
     fort: TLatLng
+    owner: number
 }
 export type TTakeHit = {
     event: TEventTakeHit
@@ -296,18 +297,11 @@ export type TSector = {
     payload: TSectorPayload
 }
 
-
 export type TFirePayload = {
     pos: TLatLng
     to_pos: TLatLng
     direction: TJoystickDirection | null
     userId: number
-    // weapon: {
-    //     // symbol: TWeaponSymbol
-    //     // level: number
-    //     power: number
-    //     dist: number
-    // }
     hitPointer?: THitPointer
 }
 export type TFire = {
