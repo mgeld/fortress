@@ -42,7 +42,6 @@ import { TakeHandler } from './controllers/take'
 import { SectorMemoryRepository } from './infra/database/memory/repositories/sector'
 import { SectorService } from './services/sector.service'
 import { GetSectorsHandler } from './controllers/get-sectors'
-import connection from './infra/database/mysql2/connection'
 import { PointerRepository } from './infra/database/mysql2/repositories/pointer'
 import { WeaponRepository } from './infra/database/mysql2/repositories/weapon'
 import { SectorRepository } from './infra/database/mysql2/repositories/sector'
@@ -64,6 +63,8 @@ import { BeamHandler } from './controllers/beam'
 import { BuyUnitHandler } from './controllers/buy-unit'
 import { LevelUpHandler } from './controllers/level-up'
 import { PingPong } from './api/socket/socket/ping-pong'
+
+import connection from './infra/database/mysql2/connection'
 
 // import { Handlers } from './controllers/handlers'
 
