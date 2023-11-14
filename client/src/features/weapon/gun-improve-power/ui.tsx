@@ -7,7 +7,7 @@ export const GunImprovePower: FC = () => {
 
     const power = weaponModel.selectors.usePower()
 
-    const _modules: TExtrTypes[] = [50, 51, 52]
+    const _modules: TExtrTypes[] = [40,41,42]
 
     const details = [{
         name: 'Улучшение:',

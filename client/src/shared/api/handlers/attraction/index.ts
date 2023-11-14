@@ -53,7 +53,7 @@ class AttractionHandler extends Handler {
             holdAPI.events.addExtraction(extr);
             noticeModel.events.newToast({
                 name: 'Получен контейнер',
-                text: 'Контейнер добавлен в инвентарь добычи',
+                text: 'Предмет из контейнера добавлен в трюм корабля',
                 t: typeNotice
             })
         }, 2200)

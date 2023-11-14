@@ -69,10 +69,6 @@ class UseExtractionHandler extends IRoute {
             this._zoneService.memoryUpdate(zone)
         }
 
-
-        console.log('resultIncrese', resultIncrese)
-        console.log('extr.gives', extr.gives)
-
         if (resultIncrese === 'limit') {
             const limitResp: TLimit = {
                 event: 'limit',
@@ -98,13 +94,11 @@ class UseExtractionHandler extends IRoute {
             this._zoneService.memoryUpdate(zone)
         }
 
-        console.log('message.payload.id', message.payload.id)
-
         const extrResp: TUseExtraction = {
             event: 'use-extraction',
             payload: {
                 unit: message.payload.id,
-                amount: extr.quantity,
+                amount: resultIncrese - (resultIncrese - extr.quantity),
                 type: extr.gives,
                 index: message.payload.index
             }

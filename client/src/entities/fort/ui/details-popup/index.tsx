@@ -35,7 +35,7 @@ const DetailsPopup: FC<TBootyPopup> = ({
         >
                 Форт
 
-            <div className={styles.__whiteEffect}><div /></div>
+            {/* <div className={styles.__whiteEffect}><div /></div> */}
         </div>
     )
 }

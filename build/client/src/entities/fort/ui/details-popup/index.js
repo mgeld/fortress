@@ -22,7 +22,7 @@ const DetailsPopup = ({ fort }) => {
         }}>
                 Форт
 
-            <div className={styles_module_scss_1.default.__whiteEffect}><div /></div>
+            
         </div>);
 };
 exports.default = DetailsPopup;

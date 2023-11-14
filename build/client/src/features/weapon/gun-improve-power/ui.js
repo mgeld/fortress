@@ -5,7 +5,7 @@ const weapon_1 = require("entities/weapon");
 const ui_1 = require("features/unit/use-item/ui");
 const GunImprovePower = () => {
     const power = weapon_1.weaponModel.selectors.usePower();
-    const _modules = [50, 51, 52];
+    const _modules = [40, 41, 42];
     const details = [{
             name: 'Улучшение:',
             was: power,

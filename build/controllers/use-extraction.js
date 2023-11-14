@@ -65,8 +65,6 @@ let UseExtractionHandler = class UseExtractionHandler extends handlers_1.IRoute 
                 zone.addRubies(extr.quantity);
                 this._zoneService.memoryUpdate(zone);
             }
-            console.log('resultIncrese', resultIncrese);
-            console.log('extr.gives', extr.gives);
             if (resultIncrese === 'limit') {
                 const limitResp = {
                     event: 'limit',
@@ -90,12 +88,11 @@ let UseExtractionHandler = class UseExtractionHandler extends handlers_1.IRoute 
                 }
                 this._zoneService.memoryUpdate(zone);
             }
-            console.log('message.payload.id', message.payload.id);
             const extrResp = {
                 event: 'use-extraction',
                 payload: {
                     unit: message.payload.id,
-                    amount: extr.quantity,
+                    amount: resultIncrese - (resultIncrese - extr.quantity),
                     type: extr.gives,
                     index: message.payload.index
                 }
