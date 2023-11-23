@@ -37,7 +37,7 @@ class BuyUnitHandler extends IRoute {
             isSpend = zone.spendRubies(cost.price)
         }
 
-        if(isSpend < 0) {
+        if (isSpend < 0) {
             const limitResp: TLimit = {
                 event: 'limit',
                 payload: {
@@ -50,18 +50,29 @@ class BuyUnitHandler extends IRoute {
 
         const extr = zone.hold.addExtrToList(message.payload.id)
 
-        this._zoneService.memoryUpdate(zone)
-
-        const extrResp: TBuyUnit = {
-            event: 'buy-unit',
-            payload: {
-                type: message.payload.id,
-                currency: cost.currency,
-                cost: cost.price,
-                unit: message.payload.id
+        if (extr === 'limit') {
+            const limitResp: TLimit = {
+                event: 'limit',
+                payload: {
+                    gives: 'hold'
+                }
             }
+            uSocket.send(JSON.stringify(limitResp))
+        } else {
+
+            this._zoneService.memoryUpdate(zone)
+
+            const extrResp: TBuyUnit = {
+                event: 'buy-unit',
+                payload: {
+                    type: message.payload.id,
+                    currency: cost.currency,
+                    cost: cost.price,
+                    unit: message.payload.id
+                }
+            }
+            uSocket.send(JSON.stringify(extrResp))
         }
-        uSocket.send(JSON.stringify(extrResp))
 
     }
 }

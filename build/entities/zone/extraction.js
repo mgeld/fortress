@@ -34,8 +34,8 @@ class Extraction {
     static validLevel(level) {
         return level > 0 && level <= 6;
     }
-    static levelMaxItems() {
-        return {
+    static getLevelMaxItems(level) {
+        const levels = {
             1: 10,
             2: 15,
             3: 20,
@@ -43,13 +43,21 @@ class Extraction {
             5: 30,
             6: 35
         };
+        return levels[level];
     }
     use(id, index) {
-        this._items.splice(index, 1);
+        const items = this._items.slice();
+        items.splice(index, 1);
+        this._items = items;
         return units_1.Units.getUnitQuantity(id);
     }
     addExtrToList(probabilityNumber) {
-        this._items.push(probabilityNumber);
+        const maxValueLevel = Extraction.getLevelMaxItems(this._level);
+        if (this._items.length + 1 <= maxValueLevel) {
+            this._items.push(probabilityNumber);
+            return probabilityNumber;
+        }
+        return 'limit';
     }
 }
 exports.Extraction = Extraction;

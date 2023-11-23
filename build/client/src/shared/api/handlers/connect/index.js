@@ -30,8 +30,8 @@ class ConnectHandler extends __1.Handler {
         if (message.payload.citadel)
             events_1.citadelAPI.events.setCitadel(message.payload.citadel);
         if (message.payload.ship.pos[0] && message.payload.ship.pos[1]) {
-            events_1.shipAPI.events.setPos(message.payload.ship.pos);
             events_1.mapAPI.events.setMapMode('invade');
+            events_1.shipAPI.events.setPos(message.payload.ship.pos);
         }
         else {
             popout_root_1.popoutModel.events.setPopout('primes');

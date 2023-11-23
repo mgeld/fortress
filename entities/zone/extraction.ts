@@ -64,8 +64,8 @@ export class Extraction {
         return level > 0 && level <= 6
     }
 
-    private static levelMaxItems(): { [key: number]: number } {
-        return {
+    private static getLevelMaxItems(level: number): number {
+        const levels: { [key: number]: number } = {
             1: 10,
             2: 15,
             3: 20,
@@ -73,15 +73,28 @@ export class Extraction {
             5: 30,
             6: 35
         }
+        return levels[level]
     }
 
+
     use(id: TExtrTypes, index: number): TExtrItem {
-        this._items.splice(index, 1)
+        const items = this._items.slice()
+        items.splice(index, 1)
+        this._items = items
         return Units.getUnitQuantity(id)
     }
 
-    addExtrToList(probabilityNumber: TExtrTypes) {
-        this._items.push(probabilityNumber)
+    // addExtrToList(probabilityNumber: TExtrTypes) {
+    //     this._items.push(probabilityNumber)
+    // }
+    
+    addExtrToList(probabilityNumber: TExtrTypes): TExtrTypes | 'limit' {
+        const maxValueLevel = Extraction.getLevelMaxItems(this._level)
+        if (this._items.length + 1 <= maxValueLevel) {
+            this._items.push(probabilityNumber)
+            return probabilityNumber
+        }
+        return 'limit'
     }
 
 

@@ -27,16 +27,24 @@ class CollectionRooms {
     }
 
     addClientToRoom(clientId: number, roomId: TRoomId, uSocket: IWebSocket) {
+        console.log('addClientToRoom clientId', clientId)
+        console.log(' addClientToRoom roomId', roomId)
         try {
+            console.log('addClientToRoom try')
             const room = this.data[roomId]
             room[clientId] = uSocket
         } catch (e) {
+            console.log('addClientToRoom catch')
             const room = this.createRoom(roomId)
             room[clientId] = uSocket
         }
     }
 
     deleteClient(clientId: number, roomId: TRoomId) {
+
+        console.log('55503804', roomId)
+        console.log('clientId', clientId)
+        console.log(' deleteClientthis.data[roomId][clientId]', this.data[roomId])
         delete this.data[roomId][clientId]
     }
 
@@ -66,6 +74,15 @@ class CollectionRooms {
         })
     }
 
+    isCient(clientId: number): TRoomId | null {
+        const room = Object.entries(this.data) // Массив комнат
+            .filter(([key, room]) => Object.keys(room).findIndex(client => Number(client) === clientId) !== -1)
+            .map(room => room[0])
+
+        if (room.length > 0) return room[0]
+        return null
+    }
+
     getClientsSocket(roomId: TRoomId): IWebSocket[] {
         try {
             const roomClients = this.data[roomId]
@@ -76,12 +93,12 @@ class CollectionRooms {
     }
 
     clientSocket(
-        clientId: number, 
+        clientId: number,
         roomId: TRoomId,
         message: TMessage
     ) {
         const client = this.data[roomId][clientId]
-        if(client) {
+        if (client) {
             client.send(JSON.stringify((message)))
         }
     }

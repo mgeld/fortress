@@ -10,7 +10,7 @@ const reducer_1 = require("../lib/reducer");
 const DEFAULT_STORE_POSITION = [0, 0];
 const resetUser = (0, effector_1.createEvent)();
 const setAreal = (0, effector_1.createEvent)();
-const { setLevel, setPos, setHealth, changeHealth, addHealth, } = events_1.shipAPI.events;
+const { setPos, setLevel, addHealth, setHealth, changeHealth, } = events_1.shipAPI.events;
 const movePoint = (0, effector_1.createEvent)();
 const getUserFx = (0, effector_1.createEffect)(() => {
     (0, get_user_1.getUserAPI)();

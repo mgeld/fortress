@@ -11,12 +11,14 @@ export type TArenaProps = {
     registr: TRegistr
     status: TArenaStatus
     teams: Team[]
+    timeout?: NodeJS.Timeout | null
 }
 
 export type UnmarshalledArena = {
     teams: UnmarshalledTeam[]
     place: TLatLng
-} & Omit<TArenaProps, 'teams' | 'place'>
+    timeout: NodeJS.Timeout | null
+} & Omit<TArenaProps, 'teams' | 'place' | 'timeout'>
 
 export class Arena {
 
@@ -31,7 +33,7 @@ export class Arena {
     private _teamsNumber: number = 2
     private _teamMembersNumber: number = 1
 
-    private _timer?: ReturnType<typeof setTimeout>
+    private _timer: NodeJS.Timeout | null = null
 
     private constructor(arena: TArenaProps) {
 
@@ -41,6 +43,8 @@ export class Arena {
         this._status = arena.status
 
         this._teamList = arena.teams
+        this._timer = arena?.timeout || null
+
     }
 
     public static create(arena: TArenaProps) {
@@ -48,12 +52,17 @@ export class Arena {
         return instance
     }
 
-
-    set timer(t: ReturnType<typeof setTimeout>) {
+    set timeout(t: NodeJS.Timeout | null) {
+        console.log('arena set timer t', t)
         this._timer = t
     }
-    
+
+    get timeout(): NodeJS.Timeout | null {
+        return this._timer
+    }
+
     destroyTimer() {
+        console.log('destroyTimer this._timer', this._timer)
         this._timer && clearTimeout(this._timer)
     }
 
@@ -64,7 +73,8 @@ export class Arena {
             place: this._place.place,
             registr: this.registr,
             status: this._status,
-            teams: this._teamList.map(team => team.unmarshal())
+            teams: this._teamList.map(team => team.unmarshal()),
+            timeout: this._timer
         }
     }
 

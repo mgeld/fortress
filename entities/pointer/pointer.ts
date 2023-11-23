@@ -187,7 +187,7 @@ export class Pointer {
             const was_number = this._health
             const summ = was_number + h
             this._health = summ > maxValueLevel ? maxValueLevel : summ
-            
+
             return [was_number, this._health]
 
         }
@@ -195,7 +195,10 @@ export class Pointer {
     }
 
     removeHealth(h: number): number {
-        this._health = this._health - h
+        if (this._health > 0) {
+            const nh = this._health - h
+            this._health = nh < 0 ? 0 : nh
+        }
         return this._health
     }
 

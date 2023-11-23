@@ -27,6 +27,9 @@ const BottomSelectPlace = () => {
         if (pos[0] > 0 && pos[1] > 0) {
             events_1.mapAPI.events.setMapMode('invade');
             events_1.shipAPI.events.setPos(pos);
+            setTimeout(() => {
+                tutorial_1.tutorialModel.events.setTutorial('storm');
+            }, 2000);
         }
         else {
             notice_1.noticeModel.events.newToast({
@@ -35,9 +38,6 @@ const BottomSelectPlace = () => {
                 t: 'common'
             });
         }
-        setTimeout(() => {
-            tutorial_1.tutorialModel.events.setTutorial('storm');
-        }, 2000);
     };
     return (<bottom_flex_1.BottomFlex text="Выбор места дислокации" button={<ui_1.Button className="" radius={10} disabled={!pos} text="Сохранить" onClick={() => selectPosition(pos)}/>}/>);
 };

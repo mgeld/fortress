@@ -35,28 +35,36 @@ class UseExtractionHandler extends IRoute {
             const weapon = await this._weaponService.memoryGetById(pointer.weapons[0])
             resultIncrese = weapon.increaseDistance(extr.quantity)
 
-            await this._weaponService.memoryUpdate(weapon)
+            if (resultIncrese !== 'limit')
+                await this._weaponService.memoryUpdate(weapon)
         }
 
         if (extr.gives === 'gun_power') {
             const weapon = await this._weaponService.memoryGetById(pointer.weapons[0])
             resultIncrese = weapon.increasePower(extr.quantity)
-            await this._weaponService.memoryUpdate(weapon)
+            if (resultIncrese !== 'limit')
+                await this._weaponService.memoryUpdate(weapon)
         }
 
         if (extr.gives === 'ship_health') {
             resultIncrese = pointer.addHealth(extr.quantity)
-            this._pointerService.memoryUpdate(pointer)
+            if (resultIncrese !== 'limit')
+                this._pointerService.memoryUpdate(pointer)
         }
 
         if (extr.gives === 'storm_power') {
             resultIncrese = zone.stormtrooper_corps.increasePower(extr.quantity)
-            this._zoneService.memoryUpdate(zone)
+            if (resultIncrese !== 'limit')
+                this._zoneService.memoryUpdate(zone)
         }
 
         if (extr.gives === 'stormtroopers') {
             resultIncrese = zone.stormtrooper_corps.addInvaders(extr.quantity)
-            this._zoneService.memoryUpdate(zone)
+
+            console.log('resultIncrese', resultIncrese)
+            if (resultIncrese !== 'limit') {
+                this._zoneService.memoryUpdate(zone)
+            }
         }
 
         if (extr.gives === 'coins') {

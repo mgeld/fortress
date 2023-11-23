@@ -39,8 +39,8 @@ class ConnectHandler extends Handler {
         if (message.payload.citadel) citadelAPI.events.setCitadel(message.payload.citadel)
 
         if (message.payload.ship.pos[0] && message.payload.ship.pos[1]) {
-            shipAPI.events.setPos(message.payload.ship.pos)
             mapAPI.events.setMapMode('invade')
+            shipAPI.events.setPos(message.payload.ship.pos)
         } else {
             // popoutModel.events.setPopout('select-place')
             // mapAPI.events.setMapMode('select-place')

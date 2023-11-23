@@ -137,7 +137,6 @@ class BattleTakeHandler extends IRoute {
 
                 if (myTeam.sectors >= 5) {
                     arena.completeBattle(myTeam.id === 1 ? 2 : 1)
-                    arena.destroyTimer()
                     this._battleService.overGame(arena.id)
                 }
 

@@ -6,6 +6,8 @@ import { Rooms } from "./rooms";
 import { PointerService } from "../../../services/pointer.service";
 import { ZoneService } from "../../../services/zone.service";
 import { WeaponService } from "../../../services/weapon.service";
+import { ArenaService } from "../../../services/arena.service";
+import { MemberService } from "../../../services/member.service";
 
 @injectable()
 export class PingPong {
@@ -14,6 +16,8 @@ export class PingPong {
     @inject(TYPES.ZoneService) private _zoneService!: ZoneService
     @inject(TYPES.WeaponService) private _weaponService!: WeaponService
     @inject(TYPES.PointerService) private _pointerService!: PointerService
+    @inject(TYPES.ArenaService) private _arenaService!: ArenaService
+    @inject(TYPES.MemberService) private _memberService!: MemberService
 
     // @inject(TYPES.VkUserRepository) private _vkUserRepository!: VkUserRepository
     private _wss: WebSocket.Server | null = null
@@ -28,17 +32,33 @@ export class PingPong {
         console.log('deleteUser')
 
         const _pointer = await this._pointerService.memoryGetById(userId)
-        _pointer.areal = -1 // Типа удаляем ареал, чтобы в след заход появится у других в игре
         const _zone = await this._zoneService.memoryGetById(userId)
         const _weapon = await this._weaponService.memoryGetById(_pointer.weapons[0])
 
-        console.log('//////////////// /////////////deleteUser _pointer.pos', _pointer.pos)
+        try {
+            const member = await this._memberService.getById(userId)
+            const arena = await this._arenaService.getById(member.arena)
+            arena.delPointer(member.userId, member.arenaTeam)
+
+            this._rooms.arenas.deleteClient(member.userId, arena.id)
+
+            this._memberService.remove(member.userId)
+
+
+            await this._arenaService.update(arena)
+        } catch (e) {
+
+        }
+
+        console.log('//////////////// /////////////_zone _zone.hold', _zone.hold.unmarshal())
+
+        this._rooms.areals.deleteClient(_pointer.zoneId, _pointer.areal)
+        _pointer.areal = -1 // Типа удаляем ареал, чтобы в след заход появится у других в игре
 
         await this._pointerService.baseUpdate(_pointer)
         await this._zoneService.baseUpdate(_zone)
         await this._weaponService.baseUpdate(_weapon)
 
-        this._rooms.areals.deleteClient(_pointer.zoneId, _pointer.areal)
 
         await this._weaponService.remove(_pointer.weapons[0])
         this._pointerService.remove(userId)

@@ -111,6 +111,7 @@ export class ZoneService {
     }
 
     async memoryUpdate(zone: Zone) {
+        console.log('ZoneService memoryUpdate')
         await this._memoryRepository.update(zone)
     }
 

@@ -38,7 +38,7 @@ export class SectorMemoryRepository implements ISectorMemoryRepository {
             throw new Error('1 error sectors')
         }
         return sectors.filter(sector => {
-            return sector.latlng[0] > bounds[0][0] && sector.latlng[0] < bounds[1][0] &&
+            return (sector.zone_id > 0) && sector.latlng[0] > bounds[0][0] && sector.latlng[0] < bounds[1][0] &&
                 sector.latlng[1] > bounds[0][1] && sector.latlng[1] < bounds[1][1]
         })
     }

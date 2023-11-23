@@ -16,10 +16,11 @@ import { TConnectPayload } from "../common-types/socket/server-to-client";
 import { VkUserRepository } from "../infra/database/mysql2/repositories/vk-user";
 import { TConnectAPI, TEventConnect } from "../common-types/socket/client-to-server";
 import { randomNumber } from "../libs/random-number";
+import { Rooms } from "../api/socket/socket/rooms";
 
 @injectable()
 class ConnectHandler implements IRoute {
-
+    @inject(TYPES.Rooms) private _rooms!: Rooms
     @inject(TYPES.ZoneService) private _zoneService!: ZoneService
     @inject(TYPES.WeaponService) private _weaponService!: WeaponService
     @inject(TYPES.CitadelService) private _citadelService!: CitadelService
@@ -70,6 +71,18 @@ class ConnectHandler implements IRoute {
 
             const { zone_id: zoneId } = await this._vkUserRepository.getById(vk_id)
 
+            const isClient = this._rooms.areals.isCient(zoneId)
+
+            if (isClient) {
+                uSocket.send(JSON.stringify({
+                    event: 'session',
+                    payload: {}
+                }))
+                return
+            }
+
+            console.log('**** isClient', isClient)
+
             pointer = await this._pointerService.baseGetById(zoneId)
 
             weapon = await this._weaponService.baseGetById(pointer.weapons[0])
@@ -85,6 +98,8 @@ class ConnectHandler implements IRoute {
             }
 
         } catch (e) {
+
+            console.log('ERROR e', e)
 
             weapon = this._weaponService.createGun()
 

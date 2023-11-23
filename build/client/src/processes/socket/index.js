@@ -36,6 +36,7 @@ const tutorial_1 = require("shared/api/handlers/tutorial");
 const battle_take_sector_1 = require("shared/api/handlers/battle-take-sector");
 const battle_y_take_sector_1 = require("shared/api/handlers/battle-y-take-sector");
 const battle_yr_take_sector_1 = require("shared/api/handlers/battle-yr-take-sector");
+const session_1 = require("shared/api/handlers/session");
 exports.WS = socket_1.Socket.create(config_1.API_BASE_URL, model_1.events.setSocketStatus);
 const handlers = new handlers_1.Handlers({
     [connect_1.ConnectHandler.EVENT]: new connect_1.ConnectHandler(),
@@ -69,5 +70,6 @@ const handlers = new handlers_1.Handlers({
     [new_zone_1.NewZoneHandler.EVENT]: new new_zone_1.NewZoneHandler(),
     [limit_1.LimitHandler.EVENT]: new limit_1.LimitHandler(),
     [tutorial_1.TutorialHandler.EVENT]: new tutorial_1.TutorialHandler(),
+    [session_1.SessionHandler.EVENT]: new session_1.SessionHandler(),
 });
 exports.WS.setHandlers(handlers.handle());

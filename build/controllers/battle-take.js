@@ -93,7 +93,6 @@ let BattleTakeHandler = class BattleTakeHandler extends handlers_1.IRoute {
                     console.log('myTeam.sectors', myTeam.sectors);
                     if (myTeam.sectors >= 5) {
                         arena.completeBattle(myTeam.id === 1 ? 2 : 1);
-                        arena.destroyTimer();
                         this._battleService.overGame(arena.id);
                     }
                 }

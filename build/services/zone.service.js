@@ -107,6 +107,7 @@ let ZoneService = class ZoneService {
     }
     memoryUpdate(zone) {
         return __awaiter(this, void 0, void 0, function* () {
+            console.log('ZoneService memoryUpdate');
             yield this._memoryRepository.update(zone);
         });
     }

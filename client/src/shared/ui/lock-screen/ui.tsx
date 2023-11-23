@@ -12,7 +12,7 @@ export const LockScreen: FC = () => {
 
     if (!data) return <></>
     
-    const closePopout = () => popoutModel.events.setPopout(null)
+    // const closePopout = () => popoutModel.events.setPopout(null)
 
     return (
         <div className={styles.lockScreen}>

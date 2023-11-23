@@ -1,5 +1,5 @@
-import { FC, useEffect } from "react"
-import { Rectangle, useMap } from "react-leaflet"
+import { FC } from "react"
+import { Rectangle } from "react-leaflet"
 import { TLatLng } from "shared/types"
 
 type TArenaProps = {
@@ -26,8 +26,8 @@ export const ArenaBorder: FC<TArenaProps> = ({ bounds: areal }) => {
         <>
             <Rectangle
                 bounds={[
-                    [areal[0][0] - 0.01, areal[0][1]],
-                    [areal[1][0] + 0.01, areal[0][1] - 0.01],
+                    [areal[0][0] - 0.1, areal[0][1]],
+                    [areal[1][0] + 0.1, areal[0][1] - 0.1],
                 ]}
                 pathOptions={{
                     fillColor: '#db5e5e',
@@ -38,7 +38,7 @@ export const ArenaBorder: FC<TArenaProps> = ({ bounds: areal }) => {
             <Rectangle
                 bounds={[
                     [areal[1][0], areal[0][1]],
-                    [areal[1][0] + 0.01, areal[1][1]],
+                    [areal[1][0] + 0.1, areal[1][1]],
                 ]}
                 pathOptions={{
                     fillColor: '#db5e5e',
@@ -48,8 +48,8 @@ export const ArenaBorder: FC<TArenaProps> = ({ bounds: areal }) => {
             />
             <Rectangle
                 bounds={[
-                    [areal[0][0] - 0.01, areal[1][1]],
-                    [areal[1][0] + 0.01, areal[1][1] + 0.01],
+                    [areal[0][0] - 0.1, areal[1][1]],
+                    [areal[1][0] + 0.1, areal[1][1] + 0.1],
                 ]}
                 pathOptions={{
                     fillColor: '#db5e5e',
@@ -60,7 +60,7 @@ export const ArenaBorder: FC<TArenaProps> = ({ bounds: areal }) => {
             <Rectangle
                 bounds={[
                     [areal[0][0], areal[0][1]],
-                    [areal[0][0] - 0.01, areal[1][1]],
+                    [areal[0][0] - 0.1, areal[1][1]],
                 ]}
                 pathOptions={{
                     fillColor: '#db5e5e',

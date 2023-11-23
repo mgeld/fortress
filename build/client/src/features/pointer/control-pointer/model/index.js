@@ -1,11 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.battleDirection = exports.direction = void 0;
-const effector_1 = require("effector");
-const arena_1 = require("entities/arena");
 const ship_1 = require("entities/ship");
-const battle_direct_1 = require("shared/api/battle-direct");
+const arena_1 = require("entities/arena");
 const direct_1 = require("shared/api/direct");
+const battle_direct_1 = require("shared/api/battle-direct");
+const effector_1 = require("effector");
 const movePointFx = (0, effector_1.createEffect)(({ payload }) => {
     ship_1.shipModel.events.movePoint({ type: payload.direction });
 });

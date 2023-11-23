@@ -18,7 +18,7 @@ export const $mapCenterDefaultStore = createStore<TLatLng>([55.74953, 37.61581])
 const $mapClickLatLng = createStore<TLatLng | null>(null)
     .on(setLatLngMap, (_, latlng) => latlng)
 
-const $mapMode = createStore<TMapModes | null>(null)
+export const $mapMode = createStore<TMapModes | null>(null)
     .on(mapAPI.events.setMapMode, (_, mode) => mode)
 
 $mapClickLatLng.watch(value => console.log('mapClickLatLng value', value))

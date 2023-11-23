@@ -30,16 +30,23 @@ class CollectionRooms {
         delete this.data[roomId];
     }
     addClientToRoom(clientId, roomId, uSocket) {
+        console.log('addClientToRoom clientId', clientId);
+        console.log(' addClientToRoom roomId', roomId);
         try {
+            console.log('addClientToRoom try');
             const room = this.data[roomId];
             room[clientId] = uSocket;
         }
         catch (e) {
+            console.log('addClientToRoom catch');
             const room = this.createRoom(roomId);
             room[clientId] = uSocket;
         }
     }
     deleteClient(clientId, roomId) {
+        console.log('55503804', roomId);
+        console.log('clientId', clientId);
+        console.log(' deleteClientthis.data[roomId][clientId]', this.data[roomId]);
         delete this.data[roomId][clientId];
     }
     getClients(roomId) {
@@ -65,6 +72,14 @@ class CollectionRooms {
         rooms.forEach(roomId => {
             delete this.data[roomId];
         });
+    }
+    isCient(clientId) {
+        const room = Object.entries(this.data)
+            .filter(([key, room]) => Object.keys(room).findIndex(client => Number(client) === clientId) !== -1)
+            .map(room => room[0]);
+        if (room.length > 0)
+            return room[0];
+        return null;
     }
     getClientsSocket(roomId) {
         try {

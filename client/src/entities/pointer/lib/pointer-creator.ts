@@ -1,19 +1,19 @@
-import IconI from '../assets/icons/not-image-pointer.png'
+// import IconI from '../assets/icons/not-image-pointer.png'
 
 export class PointerCreator {
 
-    private name: string
+    // private name: string
     private canvas: HTMLCanvasElement
     private ctx: CanvasRenderingContext2D
 
-    constructor(name: string) {
+    constructor() {
 
-        name = name.length > 5 ? name.slice(0, 6) + '.' : name
+        // name = name.length > 5 ? name.slice(0, 6) + '.' : name
 
         this.canvas = document.getElementById("draw") as HTMLCanvasElement
         this.ctx = this.canvas.getContext("2d") as CanvasRenderingContext2D
 
-        this.name = name
+        // this.name = name
 
         if (!this.canvas) console.error('Не удалось найти элемент Canvas, для отрисовки поинтов')
     }
@@ -94,19 +94,19 @@ export class PointerCreator {
 
         this.ctx.drawImage(img, 0, 0)
 
-        this.ctx.font = 'bold 15px Lilita'
-        this.ctx.fillStyle = '#C642EA'
+        // this.ctx.font = 'bold 15px Lilita'
+        // this.ctx.fillStyle = '#C642EA'
 
-        var textString = this.name,
-            textWidth = this.ctx.measureText(textString).width
+        // var textString = this.name
+            // textWidth = this.ctx.measureText(textString).width
 
-        let center_x = (this.canvas.width / 2) - (textWidth / 2)
+        // let center_x = (this.canvas.width / 2) - (textWidth / 2)
 
-        this.ctx.strokeStyle = 'black'
+        // this.ctx.strokeStyle = 'black'
         this.ctx.lineWidth = 1
-        this.ctx.strokeText(String(this.name), center_x, 13)
+        // this.ctx.strokeText(String(this.name), center_x, 13)
 
-        this.ctx.fillText(textString, center_x, 13)
+        // this.ctx.fillText(textString, center_x, 13)
 
         this.ctx.save()
         this.ctx.beginPath()
@@ -128,6 +128,6 @@ export class PointerCreator {
 
         // x.fillText(String(name), 33, 15, 56);
 
-        return this.canvas.toDataURL()
+        return this.canvas.toDataURL("image/png", 1)
     }
 }

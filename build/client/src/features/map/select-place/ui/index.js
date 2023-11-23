@@ -34,7 +34,7 @@ const MapSelectPlace = () => {
     if (!sector)
         return <></>;
     return <>
-        <point_icon_1.PointIcon position={sector.latlng} userIcon={userIcon} userName={'Вы'}/>
+        <point_icon_1.PointIcon position={sector.latlng} userIcon={userIcon}/>
         <react_leaflet_1.Polygon weight={0.9} fillColor="#ff1c1c" pathOptions={{
             fillColor: 'red',
             color: 'red',

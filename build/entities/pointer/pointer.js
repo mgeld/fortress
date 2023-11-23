@@ -113,7 +113,10 @@ class Pointer {
         return 'limit';
     }
     removeHealth(h) {
-        this._health = this._health - h;
+        if (this._health > 0) {
+            const nh = this._health - h;
+            this._health = nh < 0 ? 0 : nh;
+        }
         return this._health;
     }
     get weapons() {

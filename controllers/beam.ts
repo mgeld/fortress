@@ -1,4 +1,4 @@
-import { TTractorExtr, TTutorial } from "../common-types/socket/server-to-client"
+import { TLimit, TTractorExtr, TTutorial } from "../common-types/socket/server-to-client"
 import { TBeamAPI, TEventBeam } from "../common-types/socket/client-to-server"
 import { IWebSocket } from "../api/socket/server";
 import { IRoute } from "./handlers"
@@ -61,9 +61,20 @@ class BeamHandler extends IRoute {
 
                 }
 
-                zone.hold.addExtrToList(extr)
+                const hold = zone.hold.addExtrToList(extr)
+
+                if (hold === 'limit') {
+                    const limitResp: TLimit = {
+                        event: 'limit',
+                        payload: {
+                            gives: 'hold'
+                        }
+                    }
+                    uSocket.send(JSON.stringify(limitResp))
+                    return
+                }
             }
-            
+
             extrResp = {
                 event: 'attraction',
                 payload: {
@@ -73,7 +84,7 @@ class BeamHandler extends IRoute {
                     pos: message.payload.position
                 }
             }
-            
+
             console.log('extr', extr)
 
             if (extr) {

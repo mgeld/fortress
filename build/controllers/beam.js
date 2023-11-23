@@ -54,7 +54,17 @@ let BeamHandler = class BeamHandler extends handlers_1.IRoute {
                         };
                         uSocket.send(JSON.stringify(tutorialResp));
                     }
-                    zone.hold.addExtrToList(extr);
+                    const hold = zone.hold.addExtrToList(extr);
+                    if (hold === 'limit') {
+                        const limitResp = {
+                            event: 'limit',
+                            payload: {
+                                gives: 'hold'
+                            }
+                        };
+                        uSocket.send(JSON.stringify(limitResp));
+                        return;
+                    }
                 }
                 extrResp = {
                     event: 'attraction',

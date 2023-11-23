@@ -3,19 +3,21 @@ import { Areal } from "entities/areal/model"
 import { mapModel } from "entities/map"
 import { shipModel } from "entities/ship"
 import { Map } from "leaflet"
+import { directAPI } from "shared/api/direct"
 import { shipAPI } from "shared/api/events"
+import { TMapModes } from "shared/api/events/map"
 import { TLatLng } from "shared/types"
+
 type TMap = {
     map: Map
+    mode: TMapModes
 }
 
 const setPosFx = createEffect(({
     source,
     pos
 }: {
-    source: {
-        map: Map
-    },
+    source: TMap
     pos: TLatLng
 }) => {
 
@@ -29,10 +31,12 @@ const setPosFx = createEffect(({
     shipModel.events.setAreal(areal)
 
     // setTimeout(() => {
-        source.map.setView(pos, 16)
+    source.map.setView(pos, 16)
     // }, 200)
     source.map.setZoom(16)
     source.map?.setMinZoom(15)
+
+    if (source.mode === 'invade') setTimeout(() => directAPI(pos), 200)
 
     // setTimeout(() => {
     // console.log('PPPPPPPPP setTimeout setPosFx')
@@ -48,6 +52,7 @@ export const setMapPosListener = () => {
         clock: shipAPI.events.setPos,
         source: {
             map: mapModel.$mapStore,
+            mode: mapModel.$mapMode,
         },
         filter: (source: {
             map: Map | null

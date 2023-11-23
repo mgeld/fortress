@@ -2,9 +2,9 @@ import { PointerCreator } from "./pointer-creator";
 import IconPointer from '../assets/icons/3pointer.png';
 
 export const createPointer = (
-    username: string,
+    // username: string,
     usericon: string
 ) => {
     console.log('99 createPointer')
-    return new PointerCreator(username).createPoint(IconPointer, usericon)
+    return new PointerCreator().createPoint(IconPointer, usericon)
 }

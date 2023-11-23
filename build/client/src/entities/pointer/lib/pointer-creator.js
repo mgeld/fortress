@@ -34,11 +34,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PointerCreator = void 0;
 class PointerCreator {
-    constructor(name) {
-        name = name.length > 5 ? name.slice(0, 6) + '.' : name;
+    constructor() {
         this.canvas = document.getElementById("draw");
         this.ctx = this.canvas.getContext("2d");
-        this.name = name;
         if (!this.canvas)
             console.error('Не удалось найти элемент Canvas, для отрисовки поинтов');
     }
@@ -101,14 +99,7 @@ class PointerCreator {
     }
     addImageToPoint(img, imgU) {
         this.ctx.drawImage(img, 0, 0);
-        this.ctx.font = 'bold 15px Lilita';
-        this.ctx.fillStyle = '#C642EA';
-        var textString = this.name, textWidth = this.ctx.measureText(textString).width;
-        let center_x = (this.canvas.width / 2) - (textWidth / 2);
-        this.ctx.strokeStyle = 'black';
         this.ctx.lineWidth = 1;
-        this.ctx.strokeText(String(this.name), center_x, 13);
-        this.ctx.fillText(textString, center_x, 13);
         this.ctx.save();
         this.ctx.beginPath();
         this.ctx.arc(this.canvas.width / 2, 22 + (36 / 2), (imgU.height) / 2, 0, Math.PI + (Math.PI / 2) * 2, true);
@@ -117,7 +108,7 @@ class PointerCreator {
         this.ctx.drawImage(imgU, (this.canvas.width - 36) / 2, 22, 36, 36);
         this.ctx.restore();
         this.ctx.save();
-        return this.canvas.toDataURL();
+        return this.canvas.toDataURL("image/png", 1);
     }
 }
 exports.PointerCreator = PointerCreator;

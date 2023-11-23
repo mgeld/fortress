@@ -27,6 +27,7 @@ const citadel_service_1 = require("../services/citadel.service");
 const pointer_service_1 = require("../services/pointer.service");
 const verify_launch_params_1 = require("../libs/verify-launch-params");
 const vk_user_1 = require("../infra/database/mysql2/repositories/vk-user");
+const rooms_1 = require("../api/socket/socket/rooms");
 let ConnectHandler = class ConnectHandler {
     constructor() {
         console.log('ConnectHandler');
@@ -52,6 +53,15 @@ let ConnectHandler = class ConnectHandler {
                 return 'ERROR_SECRET_KEY';
             try {
                 const { zone_id: zoneId } = yield this._vkUserRepository.getById(vk_id);
+                const isClient = this._rooms.areals.isCient(zoneId);
+                if (isClient) {
+                    uSocket.send(JSON.stringify({
+                        event: 'session',
+                        payload: {}
+                    }));
+                    return;
+                }
+                console.log('**** isClient', isClient);
                 pointer = yield this._pointerService.baseGetById(zoneId);
                 weapon = yield this._weaponService.baseGetById(pointer.weapons[0]);
                 zone = yield this._zoneService.getById(zoneId);
@@ -63,6 +73,7 @@ let ConnectHandler = class ConnectHandler {
                 }
             }
             catch (e) {
+                console.log('ERROR e', e);
                 weapon = this._weaponService.createGun();
                 this._weaponService.memoryInsert(weapon);
                 this._weaponService.baseInsert(weapon);
@@ -122,6 +133,10 @@ let ConnectHandler = class ConnectHandler {
     }
 };
 ConnectHandler.EVENT = "connect";
+__decorate([
+    (0, inversify_1.inject)(types_1.TYPES.Rooms),
+    __metadata("design:type", rooms_1.Rooms)
+], ConnectHandler.prototype, "_rooms", void 0);
 __decorate([
     (0, inversify_1.inject)(types_1.TYPES.ZoneService),
     __metadata("design:type", zone_service_1.ZoneService)

@@ -98,7 +98,6 @@ class BattleFireHandler extends IRoute {
 
                 if (killPointerTeam.alive_members === 0) {
                     arena.completeBattle(killPointerTeam.id)
-                    arena.destroyTimer()
                     this._battleService.overGame(arena.id)
                 }
 

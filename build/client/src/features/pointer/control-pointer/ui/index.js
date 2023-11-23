@@ -10,7 +10,7 @@ const ControlPointer = () => {
     const { stopPoint, moveControl } = (0, use_control_1.useControl)();
     return (<div className={styles_module_scss_1.default.controlDirections}>
             <div className={styles_module_scss_1.default.__circle}>
-                <react_joystick_component_1.Joystick size={74} stickSize={48} sticky={false} baseColor="#ffffff00" stickImage='icons/control_directions.png' minDistance={30} throttle={400} move={moveControl} stop={stopPoint}/>
+                <react_joystick_component_1.Joystick size={74} stickSize={48} sticky={false} baseColor="#ffffff00" stickImage='icons/control_directions.png' minDistance={30} throttle={200} move={moveControl} stop={stopPoint}/>
             </div>
         </div>);
 };

@@ -1,11 +1,10 @@
-import { createEffect, createEvent, sample } from "effector"
-import { arenaModel } from "entities/arena"
 import { shipModel } from "entities/ship"
-import { userModel } from "entities/user"
-import { battleDirectAPI } from "shared/api/battle-direct"
+import { arenaModel } from "entities/arena"
 import { directAPI } from "shared/api/direct"
 import { TBattleStatus } from "shared/api/events/battle"
 import { TJoystickDirection, TLatLng } from "shared/types"
+import { battleDirectAPI } from "shared/api/battle-direct"
+import { createEffect, createEvent, sample } from "effector"
 
 type TMovePointFx = {
     payload: {
@@ -31,7 +30,6 @@ sample({
 
 type TSource = {
     battleStatus: TBattleStatus
-    // userId: number
     userPos: TLatLng
 }
 
@@ -50,7 +48,6 @@ sample({
     clock: movePointFx.done,
     source: {
         battleStatus: arenaModel.$battleStatusStore,
-        // userId: userModel.$userIdStore,
         userPos: shipModel.$userPositionStore
     },
     // filter: (source): source is TSource => source.userPos !== null,

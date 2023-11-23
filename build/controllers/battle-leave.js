@@ -38,8 +38,6 @@ let BattleLeaveHandler = class BattleLeaveHandler extends handlers_1.IRoute {
             const team = arena.delPointer(member.userId, member.arenaTeam);
             this._rooms.arenas.deleteClient(member.userId, arena.id);
             this._memberService.remove(member.userId);
-            const roomValues = Object.values(this._rooms.arenas.getClients(arena.id));
-            console.log('roomValuesLeave', roomValues);
             uSocket.send(JSON.stringify({
                 event: 'set-user',
                 payload: {

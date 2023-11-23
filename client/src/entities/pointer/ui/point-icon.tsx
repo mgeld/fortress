@@ -5,13 +5,13 @@ import { createPointer } from "../lib/create-pointer";
 import { TLatLng } from "shared/types";
 
 type TPointIconProps = {
-    userName: string
+    // userName: string
     userIcon: string
     position: TLatLng
 }
 
 export const PointIcon: FC<TPointIconProps> = ({
-    userName,
+    // userName,
     userIcon,
     position
 }) => {
@@ -20,8 +20,9 @@ export const PointIcon: FC<TPointIconProps> = ({
 
     if (!icon && userIcon) {
         console.log('Чё как? icon userIcon', icon, userIcon)
-        createPointer(userName, userIcon)
+        createPointer(userIcon)
             .then(icon => {
+                console.log(icon)
                 setIcon(icon)
             })
             .catch(icon => {

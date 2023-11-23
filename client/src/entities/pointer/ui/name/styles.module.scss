@@ -1,0 +1,15 @@
+
+.markerName {
+    transition: 0.4s;
+    position: absolute;
+    // width: 64px;
+    height: 14px;
+    box-sizing: border-box;
+    z-index: 3001;
+    color: #C642EA;
+    font-size: 16px;
+
+    .__name {
+      margin-left: -50%;
+    }
+  }

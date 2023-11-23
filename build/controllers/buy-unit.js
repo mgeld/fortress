@@ -52,17 +52,28 @@ let BuyUnitHandler = class BuyUnitHandler extends handlers_1.IRoute {
                 return;
             }
             const extr = zone.hold.addExtrToList(message.payload.id);
-            this._zoneService.memoryUpdate(zone);
-            const extrResp = {
-                event: 'buy-unit',
-                payload: {
-                    type: message.payload.id,
-                    currency: cost.currency,
-                    cost: cost.price,
-                    unit: message.payload.id
-                }
-            };
-            uSocket.send(JSON.stringify(extrResp));
+            if (extr === 'limit') {
+                const limitResp = {
+                    event: 'limit',
+                    payload: {
+                        gives: 'hold'
+                    }
+                };
+                uSocket.send(JSON.stringify(limitResp));
+            }
+            else {
+                this._zoneService.memoryUpdate(zone);
+                const extrResp = {
+                    event: 'buy-unit',
+                    payload: {
+                        type: message.payload.id,
+                        currency: cost.currency,
+                        cost: cost.price,
+                        unit: message.payload.id
+                    }
+                };
+                uSocket.send(JSON.stringify(extrResp));
+            }
         });
     }
 };

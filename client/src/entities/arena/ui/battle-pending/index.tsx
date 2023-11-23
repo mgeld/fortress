@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect, useRef } from "react";
 import { IconBattleLoupe } from "shared/assets/icons/_icons";
 
 import { battleAPI, mapAPI } from "shared/api/events";
@@ -6,6 +6,7 @@ import { battleLeaveEvent } from "features/battle";
 import { popoutModel } from "shared/ui/popout-root";
 
 import styles from './styles.module.scss'
+import { noticeModel } from "shared/ui/notice";
 
 export const BattlePending: FC = () => {
 
@@ -15,6 +16,21 @@ export const BattlePending: FC = () => {
         popoutModel.events.setPopout(null)
         battleLeaveEvent.battleLeave()
     }
+    
+    const tId = useRef<ReturnType<typeof setTimeout>>()
+
+    useEffect(() => {
+        tId.current = setTimeout(() => {
+            noticeModel.events.newToast({
+                name: 'Тут такое дело...',
+                text: 'Время ожидания противника истекло. Попробуйте снова',
+                t: 'common'
+            })
+            setTimeout(breakBattlePending, 3000)
+        }, 20000)
+
+        return () => clearTimeout(tId.current);
+    }, [])
 
     return (
         <div className={styles.battleRoot}>

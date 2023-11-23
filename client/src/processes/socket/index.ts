@@ -35,6 +35,7 @@ import { TutorialHandler } from "shared/api/handlers/tutorial"
 import { BattleTakeSectorHandler } from "shared/api/handlers/battle-take-sector"
 import { BattleYTakeSectorHandler } from "shared/api/handlers/battle-y-take-sector"
 import { BattleYrTakeSectorHandler } from "shared/api/handlers/battle-yr-take-sector"
+import { SessionHandler } from "shared/api/handlers/session"
 
 export const WS = Socket.create(API_BASE_URL, socket.setSocketStatus)
 
@@ -102,7 +103,7 @@ const handlers = new Handlers({
     [NewZoneHandler.EVENT]: new NewZoneHandler(),
     [LimitHandler.EVENT]: new LimitHandler(),
     [TutorialHandler.EVENT]: new TutorialHandler(),
-    
+    [SessionHandler.EVENT]: new SessionHandler(),
 } as THandlers)
 
 WS.setHandlers(handlers.handle())

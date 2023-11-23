@@ -36,21 +36,35 @@ class LimitHandler extends Handler {
                 name = `Монеты`
                 text = `У вас недостаточно монет. Вы можете получать монеты захватывая башни, которые окружены территорием c золотым оттенком!`
                 break;
-            case 'rubies':
-                name = `Кристаллы`
-                text = `У вас недостаточно кристаллов. Вы можете получать кристаллы захватывая башни, которые окружены  территорием c золотым оттенком!`
+            case 'hold':
+                name = `Трюм переполнен`
+                text = `В трюме недостаточно места для новых предметов. Необходимо использовать предметы или повысить уровень трюма`
                 break;
 
         }
 
-        alertModel.events.setAlert({
-            alert: name,
-            message: text,
-            action: {
-                text: 'Подтвердить',
-                _click: () => popoutModel.events.setPopout('ship')
-            }
-        })
+        if (message.payload.gives === 'hold') {
+
+            alertModel.events.setAlert({
+                alert: name,
+                message: text,
+                action: {
+                    text: 'Подтвердить',
+                    _click: () => popoutModel.events.setPopout(null)
+                }
+            })
+            
+        } else {
+
+            alertModel.events.setAlert({
+                alert: name,
+                message: text,
+                action: {
+                    text: 'Подтвердить',
+                    _click: () => popoutModel.events.setPopout('ship')
+                }
+            })
+        }
 
         popoutModel.events.setPopout('alert')
 

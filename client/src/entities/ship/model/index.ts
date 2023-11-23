@@ -17,11 +17,11 @@ const resetUser = createEvent()
 const setAreal = createEvent<[TLatLng, TLatLng] | null>()
 
 const {
-    setLevel,
     setPos,
+    setLevel,
+    addHealth,
     setHealth,
     changeHealth,
-    addHealth,
 } = shipAPI.events
 
 const movePoint = createEvent<TActionPos>()

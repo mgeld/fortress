@@ -27,10 +27,14 @@ export const BottomSelectPlace: FC = () => {
             return
         }
 
-        
+
         if (pos[0] > 0 && pos[1] > 0) {
             mapAPI.events.setMapMode('invade')
             shipAPI.events.setPos(pos)
+
+            setTimeout(() => {
+                tutorialModel.events.setTutorial('storm')
+            }, 2000)
         } else {
             noticeModel.events.newToast({
                 name: 'Упс...',
@@ -48,9 +52,6 @@ export const BottomSelectPlace: FC = () => {
         // map?.setMinZoom(15)
         // }, 3000)
 
-        setTimeout(() => {
-            tutorialModel.events.setTutorial('storm')
-        }, 2000)
     }
 
     return (

@@ -19,7 +19,9 @@ const UserDead = () => {
     const selectPosition = (pos) => {
         if (!pos)
             return;
-        mode === 'battle' && events_1.mapAPI.events.setMapMode('invade');
+        if (mode === 'battle') {
+            events_1.mapAPI.events.setMapMode('invade');
+        }
         events_1.shipAPI.events.setPos(pos);
         popout_root_1.popoutModel.events.setPopout(null);
     };

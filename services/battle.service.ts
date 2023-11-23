@@ -19,6 +19,10 @@ class BattleService {
 
         const arena = await this._arenaService.getById(arenaId)
         console.log('BattleService overGame')
+
+        console.log('arena.timeout', arena.timeout)
+
+        arena.timeout && arena.destroyTimer()
         
         // Это всё запихнуть бы в EventEmitter
         // И обрабатывать в отдельном обработчике

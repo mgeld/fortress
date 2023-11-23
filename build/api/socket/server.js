@@ -66,7 +66,7 @@ let Server = class Server {
             ws.on('close', function () {
                 console.log('------ ws close');
                 ws.is_alive = false;
-                Connection.deleteUser((ws === null || ws === void 0 ? void 0 : ws.user_id) || 0);
+                (ws === null || ws === void 0 ? void 0 : ws.user_id) && Connection.deleteUser(ws.user_id);
             });
             let router = serverContext._handlers.handle(ws);
             ws.on('message', router);

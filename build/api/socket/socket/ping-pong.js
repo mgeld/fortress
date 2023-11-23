@@ -25,6 +25,8 @@ const rooms_1 = require("./rooms");
 const pointer_service_1 = require("../../../services/pointer.service");
 const zone_service_1 = require("../../../services/zone.service");
 const weapon_service_1 = require("../../../services/weapon.service");
+const arena_service_1 = require("../../../services/arena.service");
+const member_service_1 = require("../../../services/member.service");
 let PingPong = class PingPong {
     constructor() {
         this._wss = null;
@@ -35,14 +37,24 @@ let PingPong = class PingPong {
                 return;
             console.log('deleteUser');
             const _pointer = yield this._pointerService.memoryGetById(userId);
-            _pointer.areal = -1;
             const _zone = yield this._zoneService.memoryGetById(userId);
             const _weapon = yield this._weaponService.memoryGetById(_pointer.weapons[0]);
-            console.log('//////////////// /////////////deleteUser _pointer.pos', _pointer.pos);
+            try {
+                const member = yield this._memberService.getById(userId);
+                const arena = yield this._arenaService.getById(member.arena);
+                arena.delPointer(member.userId, member.arenaTeam);
+                this._rooms.arenas.deleteClient(member.userId, arena.id);
+                this._memberService.remove(member.userId);
+                yield this._arenaService.update(arena);
+            }
+            catch (e) {
+            }
+            console.log('//////////////// /////////////_zone _zone.hold', _zone.hold.unmarshal());
+            this._rooms.areals.deleteClient(_pointer.zoneId, _pointer.areal);
+            _pointer.areal = -1;
             yield this._pointerService.baseUpdate(_pointer);
             yield this._zoneService.baseUpdate(_zone);
             yield this._weaponService.baseUpdate(_weapon);
-            this._rooms.areals.deleteClient(_pointer.zoneId, _pointer.areal);
             yield this._weaponService.remove(_pointer.weapons[0]);
             this._pointerService.remove(userId);
             this._zoneService.remove(userId);
@@ -86,6 +98,14 @@ __decorate([
     (0, inversify_1.inject)(types_1.TYPES.PointerService),
     __metadata("design:type", pointer_service_1.PointerService)
 ], PingPong.prototype, "_pointerService", void 0);
+__decorate([
+    (0, inversify_1.inject)(types_1.TYPES.ArenaService),
+    __metadata("design:type", arena_service_1.ArenaService)
+], PingPong.prototype, "_arenaService", void 0);
+__decorate([
+    (0, inversify_1.inject)(types_1.TYPES.MemberService),
+    __metadata("design:type", member_service_1.MemberService)
+], PingPong.prototype, "_memberService", void 0);
 PingPong = __decorate([
     (0, inversify_1.injectable)(),
     __metadata("design:paramtypes", [])

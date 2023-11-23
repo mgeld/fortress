@@ -30,6 +30,8 @@ let BattleService = class BattleService {
         return __awaiter(this, void 0, void 0, function* () {
             const arena = yield this._arenaService.getById(arenaId);
             console.log('BattleService overGame');
+            console.log('arena.timeout', arena.timeout);
+            arena.timeout && arena.destroyTimer();
             const _trophies = {};
             const members = [];
             members[0] = yield this._memberService.getByIds(arena.teamList[0].members);

@@ -19,7 +19,8 @@ class ArenaMapper {
                     sectors: team.sectors,
                     alive_members: team.alive_members
                 });
-            })
+            }),
+            timeout: arena.timeout
         });
     }
 }

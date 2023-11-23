@@ -7,20 +7,27 @@ class Arena {
         this._teamList = [];
         this._teamsNumber = 2;
         this._teamMembersNumber = 1;
+        this._timer = null;
         this._id = arena.id;
         this._place = arena.place;
         this._registr = arena.registr;
         this._status = arena.status;
         this._teamList = arena.teams;
+        this._timer = (arena === null || arena === void 0 ? void 0 : arena.timeout) || null;
     }
     static create(arena) {
         const instance = new Arena(arena);
         return instance;
     }
-    set timer(t) {
+    set timeout(t) {
+        console.log('arena set timer t', t);
         this._timer = t;
     }
+    get timeout() {
+        return this._timer;
+    }
     destroyTimer() {
+        console.log('destroyTimer this._timer', this._timer);
         this._timer && clearTimeout(this._timer);
     }
     unmarshal() {
@@ -29,7 +36,8 @@ class Arena {
             place: this._place.place,
             registr: this.registr,
             status: this._status,
-            teams: this._teamList.map(team => team.unmarshal())
+            teams: this._teamList.map(team => team.unmarshal()),
+            timeout: this._timer
         };
     }
     getTeam(id) {

@@ -101,7 +101,7 @@ export class Server {
 
                 console.log('------ ws close')
                 ws.is_alive = false
-                Connection.deleteUser(ws?.user_id || 0)
+                ws?.user_id && Connection.deleteUser(ws.user_id)
                 // connected_clients.delete(ws);
             });
 

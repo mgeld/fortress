@@ -5,12 +5,13 @@ const react_1 = require("react");
 const point_icon_1 = require("widgets/map-layout/lib/point-icon");
 const react_leaflet_1 = require("react-leaflet");
 const create_pointer_1 = require("../lib/create-pointer");
-const PointIcon = ({ userName, userIcon, position }) => {
+const PointIcon = ({ userIcon, position }) => {
     const [icon, setIcon] = (0, react_1.useState)(null);
     if (!icon && userIcon) {
         console.log('Чё как? icon userIcon', icon, userIcon);
-        (0, create_pointer_1.createPointer)(userName, userIcon)
+        (0, create_pointer_1.createPointer)(userIcon)
             .then(icon => {
+            console.log(icon);
             setIcon(icon);
         })
             .catch(icon => {

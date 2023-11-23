@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "./static/css/main.9625c582.css",
-    "main.js": "./static/js/main.c2f91f06.js",
+    "main.css": "./static/css/main.44f284b4.css",
+    "main.js": "./static/js/main.c28e0e54.js",
     "static/js/59.5601a8a5.chunk.js": "./static/js/59.5601a8a5.chunk.js",
     "static/media/Lilita.ttf": "./static/media/Lilita.eb90369243a760389944.ttf",
     "static/media/swords.svg": "./static/media/swords.293f3e1147b39a1495115ed3f1f9195d.svg",
-    "static/media/battle-shield.svg": "./static/media/battle-shield.8e22cfdad674781d95602376d392a82a.svg",
     "static/media/storm.svg": "./static/media/storm.f617675bd21d604e03d6537004ba6f71.svg",
     "static/media/ship.svg": "./static/media/ship.f4d2398e80b436fb16243ea153b8446b.svg",
     "static/media/battle-swords.svg": "./static/media/battle-swords.1e4709d92577d9409211c7eefb25506a.svg",
     "static/media/storm-2.svg": "./static/media/storm-2.442bd78b5c01ffc3b382cc8f0b2cb33c.svg",
+    "static/media/glob5.svg": "./static/media/glob5.59d1c38b72d8750dd69f70dcb62b05e0.svg",
     "static/media/health.svg": "./static/media/health.c19c471aa7b0264ebb1c260a43d6bf16.svg",
     "static/media/dist-gun-3.svg": "./static/media/dist-gun-3.547acfc29cc4ca231ee1902c4a024979.svg",
     "static/media/dist-gun-1.svg": "./static/media/dist-gun-1.74a8e2d64478c0f879647fc52de13132.svg",
@@ -41,12 +41,13 @@
     "static/media/chat.svg": "./static/media/chat.1f94dfc76b698d973140fa791c78721f.svg",
     "static/media/touch.svg": "./static/media/touch.183f1176dbbf8057d2265b585c0b196c.svg",
     "static/media/news.svg": "./static/media/news.52870e502780d32442d6b370c729a91d.svg",
-    "static/media/shop.svg": "./static/media/shop.d815a6d25289205567d48ca1a19fdd33.svg",
     "static/media/level-up.svg": "./static/media/level-up.ab4a1dcfb683c527ead61ba6066b5000.svg",
     "static/media/battle-loupe.svg": "./static/media/battle-loupe.9d4abfe0757cff01dc38a97c88151039.svg",
     "static/media/hold.svg": "./static/media/hold.1a3d990b6788f9655dd8c84e8a593ada.svg",
+    "static/media/shop.svg": "./static/media/shop.d815a6d25289205567d48ca1a19fdd33.svg",
+    "static/media/zone-red.svg": "./static/media/zone-red.20b3ccece396efa198c9a705708e5884.svg",
     "static/media/sapphire.svg": "./static/media/sapphire.d890d11d312aae64b6e7e83750d2acc7.svg",
-    "static/media/zone.svg": "./static/media/zone.2c81a1a88b69fc61caa0c6dd91e317f2.svg",
+    "static/media/zone.svg": "./static/media/zone.a5d6dfd02a6e67cade5d96b4ff8a3c2b.svg",
     "static/media/gold-stone.svg": "./static/media/gold-stone.27e4d069916a771a8ee6f79fe7596065.svg",
     "static/media/lavender-stone.svg": "./static/media/lavender-stone.c2c65e9fc43f312137af9951a470f57f.svg",
     "static/media/close.svg": "./static/media/close.2b03bd9ed107da5dc4424f22f82584b5.svg",
@@ -62,11 +63,11 @@
     "static/media/cont_1.svg": "./static/media/cont_1.cef693995c524f30b994b08d0ffd6120.svg",
     "static/media/cont_2.svg": "./static/media/cont_2.f2772c6b0482a4bcdb28b5c0b4bea34b.svg",
     "static/media/cont_3.svg": "./static/media/cont_3.999ae689d628275380532601f4ff0962.svg",
-    "main.9625c582.css.map": "./static/css/main.9625c582.css.map",
-    "main.c2f91f06.js.map": "./static/js/main.c2f91f06.js.map"
+    "main.44f284b4.css.map": "./static/css/main.44f284b4.css.map",
+    "main.c28e0e54.js.map": "./static/js/main.c28e0e54.js.map"
   },
   "entrypoints": [
-    "static/css/main.9625c582.css",
-    "static/js/main.c2f91f06.js"
+    "static/css/main.44f284b4.css",
+    "static/js/main.c28e0e54.js"
   ]
 }

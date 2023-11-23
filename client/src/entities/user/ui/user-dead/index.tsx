@@ -20,7 +20,9 @@ export const UserDead: FC = () => {
 
     const selectPosition = (pos: TLatLng | null) => {
         if (!pos) return
-        mode === 'battle' && mapAPI.events.setMapMode('invade')
+        if(mode === 'battle') {
+            mapAPI.events.setMapMode('invade')
+        }
         shipAPI.events.setPos(pos)
         // map?.setView(pos)
         popoutModel.events.setPopout(null)

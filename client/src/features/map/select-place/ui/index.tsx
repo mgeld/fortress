@@ -56,7 +56,7 @@ export const MapSelectPlace: FC = () => {
         <PointIcon
             position={sector.latlng}
             userIcon={userIcon}
-            userName={'Вы'}
+            // userName={'Вы'}
         />
         <Polygon
             weight={0.9}
