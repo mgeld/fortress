@@ -28,13 +28,13 @@ export const Take: FC<TTakeProps> = ({ take, sizeInvader, sizeDrone }) => {
 
     const aa = Math.round((toPosLatLng[1] - take.from_pos[1]) * 100000)
 
-    const [pos, setPos] = useState<TLatLng>([
+    const [pos, setTakePos] = useState<TLatLng>([
         take.from_pos[0] + (randomNumber(-(aa), aa) / 100000),
         take.from_pos[1] + (randomNumber(-(aa), aa) / 100000)
     ])
 
     useEffect(() => {
-        setTimeout(() => setPos(take.to_pos), 50)
+        setTimeout(() => setTakePos(take.to_pos), 50)
     }, [take.to_pos])
 
     const p = sizeInvader * 3.14 / 3

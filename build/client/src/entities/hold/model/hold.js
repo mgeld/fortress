@@ -8,7 +8,7 @@ const selectExtraction = (0, effector_1.createEvent)();
 const { addExtraction, delExtraction, setItems, setLevel } = events_1.holdAPI.events;
 exports.$holdItemsStrore = (0, effector_1.createStore)([])
     .on(setItems, (_, items) => items)
-    .on(addExtraction, (extraction, newExtr) => [...extraction, newExtr])
+    .on(addExtraction, (extraction, newExtr) => [newExtr, ...extraction])
     .on(delExtraction, (extraction, index) => {
     extraction.splice(index, 1);
     return extraction;

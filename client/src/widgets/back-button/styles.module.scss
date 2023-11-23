@@ -8,13 +8,16 @@
     .__main {
         width: 100%;
         height: calc(40px);
-        padding: 12px;
-        padding-bottom: calc(12px + 4px);
 
-        text-align: center;
+        padding-bottom: 2px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
         box-sizing: border-box;
         color: white;
-        background-color: #a55cc0bd;
+        background-color: #a55cc0;
         border-top: 2px solid #f1ba688c;
     
         text-align: center;
@@ -25,11 +28,11 @@
 
     .iosBottom {
         height: var(--inset_bottom);
-        background-color: #a55cc0bd;
+        background-color: #a55cc0;
     }
 }
 
 .__after {
     width: 100%;
-    height: 40px;
+    height: calc(40px + var(--inset_bottom));
 }

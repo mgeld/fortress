@@ -33,7 +33,6 @@ const scrollMapPointer = createEffect(({
         );
 
         if (!isSect) {
-            console.log('----------------------------------------SETVIEW')
             map.setView({
                 lat: userPos[0],
                 lng: userPos[1],

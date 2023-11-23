@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Circle, useMapEvents } from "react-leaflet";
+import { Circle } from "react-leaflet";
 import { useHitFirePointer } from "../../hooks/use-hit-fire-pointer";
 
 import { TLatLng } from "shared/types";

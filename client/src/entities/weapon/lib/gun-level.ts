@@ -2,7 +2,7 @@
 export type TGunLevel = 1 | 2 | 3 | 4 | 5 | 6
 
 export class GunLevel {
-        
+
     public static isUpLevel(level: number) {
         return level < 6
     }
@@ -15,7 +15,7 @@ export class GunLevel {
         5: 660,
         6: 800
     }
-    
+
     private static _gunPower: Record<TGunLevel, number> = {
         1: 30,
         2: 50,
@@ -26,12 +26,12 @@ export class GunLevel {
     }
 
     private static _gunDistance: Record<TGunLevel, number> = {
-        1: 250,
-        2: 300,
-        3: 380,
-        4: 490,
-        5: 630,
-        6: 800
+        1: 300,
+        2: 350,
+        3: 430,
+        4: 540,
+        5: 680,
+        6: 850
     }
 
     private static _priceLevelUp: Record<TGunLevel, number> = {
@@ -58,5 +58,5 @@ export class GunLevel {
     public static getMaxDistance(level: TGunLevel) {
         return GunLevel._gunDistance[level]
     }
-    
+
 }

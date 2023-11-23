@@ -51,9 +51,6 @@ const getUsersFx = createEffect(async ({
 
     const user_ids: number[] = pointers.map(item => item.userId)
 
-    console.log('________user_ids', user_ids)
-    console.log('________pointers', pointers)
-
     return bridge.send('VKWebAppCallAPIMethod', {
         method: 'users.get',
         params: {

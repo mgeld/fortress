@@ -1,6 +1,7 @@
 .ship {
     width: 100%;
     box-sizing: border-box;
+    box-shadow: 0px 0px 8px #424242;
 
     .header {
         width: 100%;
@@ -223,6 +224,7 @@
                     border-radius: 19px;
                     border: 2px solid #9e6faf;
                     background-color: #9e6faf;
+
                     color: #ffffff;
 
                     &.__white {

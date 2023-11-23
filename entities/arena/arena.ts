@@ -29,7 +29,9 @@ export class Arena {
     private _teamList: Team[] = []
 
     private _teamsNumber: number = 2
-    private _teamMembersNumber: number = 2
+    private _teamMembersNumber: number = 1
+
+    private _timer?: ReturnType<typeof setTimeout>
 
     private constructor(arena: TArenaProps) {
 
@@ -46,10 +48,15 @@ export class Arena {
         return instance
     }
 
-    public battleStart() {
-        this._registr = 'close'
-        this._status = "start"
+
+    set timer(t: ReturnType<typeof setTimeout>) {
+        this._timer = t
     }
+    
+    destroyTimer() {
+        this._timer && clearTimeout(this._timer)
+    }
+
 
     public unmarshal(): UnmarshalledArena {
         return {
@@ -61,22 +68,35 @@ export class Arena {
         }
     }
 
+    getTeam(id: number): Team {
+        return this.teamList.filter(team => team.id === id)[0]
+    }
+
     isFullTeams(): boolean {
         return this.teamList.every(team => team.getMembersNumber() === this._teamMembersNumber)
+    }
+
+    public battleStart() {
+        this._registr = 'close'
+        this._status = 'start'
+    }
+
+    public battleOver() {
+        this._status = 'over'
     }
 
     addPointer(pointer: number): Team {
         const team = this._teamList.find(team => team.getMembersNumber() < this._teamMembersNumber)
 
-        if(team instanceof Team) {
+        if (team instanceof Team) {
             team.addPointer(pointer)
             return team
         }
 
         throw new Error('ssdsdsd')
-
     }
 
+    // Завершить битву типа
     completeBattle(defeatTeamId: number) {
         this.teamList.forEach(team => {
             if (team.id === defeatTeamId) {
@@ -85,6 +105,28 @@ export class Arena {
                 team.victoryTeam()
             }
         })
+        this.battleOver()
+    }
+
+    addSector(teamId: number) {
+        const team = this.teamList.filter(team => {
+            if (team.id === teamId) {
+                team.addSector()
+                return true
+            }
+        })
+
+        // Если секторов больше 5
+        // То указываем что другая команда проиграла
+        // if (team[0].sectors >= 5) {
+        //     this.completeBattle(team[0].id === 1 ? 2 : 1)
+        // }
+
+        try {
+            return team[0]
+        } catch (e) {
+            throw new Error('======')
+        }
     }
 
     killPointer(pointerId: number, teamId: number): Team {
@@ -99,13 +141,13 @@ export class Arena {
             }
         })
 
-        if(team[0].alive_members === 0) {
-            this.completeBattle(teamId)
-        }
+        // if (team[0].alive_members === 0) {
+        //     this.completeBattle(teamId)
+        // }
 
         try {
             return team[0]
-        } catch(e) {
+        } catch (e) {
             throw new Error('======')
         }
 
@@ -125,25 +167,10 @@ export class Arena {
 
         try {
             return team[0]
-        } catch(e) {
+        } catch (e) {
             throw new Error('======')
         }
-
     }
-
-    // Метод не используется нигде. Возможно когда-нибудь пригодится. А может и нетв
-    addPointerToTeam(pointerId: number, teamId: number) {
-        // this.teams = this.teams.map(team => {
-        //     if (team.teamId === teamId) {
-        //         return {
-        //             ...team,
-        //             pointers: [...team.pointers, pointerId]
-        //         }
-        //     }
-        //     return team
-        // })
-    }
-
 
     get pointers(): number[] {
         let pointers: number[] = []

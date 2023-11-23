@@ -6,6 +6,7 @@ import styles from './styles.module.scss'
 type PopoutProps = {
     id: string
     fill: string
+    screen?: 'full' | 'modal'
     edge?: number
     close?: boolean
     children: ReactNode
@@ -13,6 +14,7 @@ type PopoutProps = {
 export const Popout: FC<PopoutProps> = ({
     id,
     fill,
+    screen,
     edge,
     close,
     children
@@ -34,11 +36,13 @@ export const Popout: FC<PopoutProps> = ({
             className={styles.popout}
         >
             <div
-                className={styles.__size}
+                className={screen === 'full' ? styles.__full : styles.__size}
                 onClick={(e) => e.stopPropagation()}
-                style={{ padding: `0 ${edge || 12}px` }}
+                style={{ padding: `0 ${edge}px` }}
             >
-                {children}
+                {screen !== 'full' ? <div className={styles.main}>
+                    {children}
+                </div> : children}
             </div>
         </div>
     )

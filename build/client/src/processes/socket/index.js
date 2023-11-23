@@ -29,10 +29,14 @@ const take_sector_1 = require("shared/api/handlers/take-sector");
 const use_extraction_1 = require("shared/api/handlers/use-extraction");
 const y_take_sector_1 = require("shared/api/handlers/y-take-sector");
 const yr_take_sector_1 = require("shared/api/handlers/yr-take-sector");
-const socket_1 = require("shared/api/socket");
-const model_1 = require("shared/api/socket/model");
 const config_1 = require("shared/config");
-exports.WS = new socket_1.Socket(config_1.API_BASE_URL, model_1.events.setSocketStatus);
+const model_1 = require("shared/api/socket/model");
+const socket_1 = require("shared/api/socket/socket");
+const tutorial_1 = require("shared/api/handlers/tutorial");
+const battle_take_sector_1 = require("shared/api/handlers/battle-take-sector");
+const battle_y_take_sector_1 = require("shared/api/handlers/battle-y-take-sector");
+const battle_yr_take_sector_1 = require("shared/api/handlers/battle-yr-take-sector");
+exports.WS = socket_1.Socket.create(config_1.API_BASE_URL, model_1.events.setSocketStatus);
 const handlers = new handlers_1.Handlers({
     [connect_1.ConnectHandler.EVENT]: new connect_1.ConnectHandler(),
     [connect_pointer_1.ConnectPointerHandler.EVENT]: new connect_pointer_1.ConnectPointerHandler(),
@@ -48,9 +52,12 @@ const handlers = new handlers_1.Handlers({
     [sectors_1.SectorsHandler.EVENT]: new sectors_1.SectorsHandler(),
     [sector_1.SectorHandler.EVENT]: new sector_1.SectorHandler(),
     [take_hit_1.TakeHitHandler.EVENT]: new take_hit_1.TakeHitHandler(),
+    [take_sector_1.TakeSectorHandler.EVENT]: new take_sector_1.TakeSectorHandler(),
     [y_take_sector_1.YTakeSectorHandler.EVENT]: new y_take_sector_1.YTakeSectorHandler(),
     [yr_take_sector_1.YrTakeSectorHandler.EVENT]: new yr_take_sector_1.YrTakeSectorHandler(),
-    [take_sector_1.TakeSectorHandler.EVENT]: new take_sector_1.TakeSectorHandler(),
+    [battle_take_sector_1.BattleTakeSectorHandler.EVENT]: new battle_take_sector_1.BattleTakeSectorHandler(),
+    [battle_y_take_sector_1.BattleYTakeSectorHandler.EVENT]: new battle_y_take_sector_1.BattleYTakeSectorHandler(),
+    [battle_yr_take_sector_1.BattleYrTakeSectorHandler.EVENT]: new battle_yr_take_sector_1.BattleYrTakeSectorHandler(),
     [set_user_1.SetUserHandler.EVENT]: new set_user_1.SetUserHandler(),
     [set_citadel_1.SetCitadelHandler.EVENT]: new set_citadel_1.SetCitadelHandler(),
     [use_extraction_1.UseExtractionHandler.EVENT]: new use_extraction_1.UseExtractionHandler(),
@@ -61,5 +68,6 @@ const handlers = new handlers_1.Handlers({
     [new_rank_1.NewRankHandler.EVENT]: new new_rank_1.NewRankHandler(),
     [new_zone_1.NewZoneHandler.EVENT]: new new_zone_1.NewZoneHandler(),
     [limit_1.LimitHandler.EVENT]: new limit_1.LimitHandler(),
+    [tutorial_1.TutorialHandler.EVENT]: new tutorial_1.TutorialHandler(),
 });
 exports.WS.setHandlers(handlers.handle());

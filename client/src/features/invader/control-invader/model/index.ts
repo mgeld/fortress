@@ -11,6 +11,9 @@ import { stormAPI, takesAPI } from "shared/api/events";
 import { snackbarModel } from "shared/ui/snackbar";
 import { throttle } from "shared/lib/throttle";
 import { shipModel } from "entities/ship";
+import { arenaModel } from "entities/arena";
+import { TBattleStatus } from "shared/api/events/battle";
+import { battleTakeAPI } from "shared/api/battle-take";
 
 //--------
 
@@ -48,12 +51,18 @@ const hitSectorFx = createEffect((source: THitTakeSectorFxProps): TResult | null
     }
 })
 
-// type TInvaderControlFx = {
-//     params: THitTakeSectorFxProps
-//     result: TResult
-// }
+type TInvaderControlFx = {
+    source: {
+        battleStatus: TBattleStatus
+    }
+    clock: TResult | null
+}
 
-const invaderControlFx = createEffect((clock: TResult) => {
+const invaderControlFx = createEffect(({
+    source,
+    clock
+}: TInvaderControlFx) => {
+    if(!clock) return
 
     const TAKE_ID: number = Date.now()
 
@@ -64,13 +73,21 @@ const invaderControlFx = createEffect((clock: TResult) => {
     }
 
     takesAPI.events.addTake(_invader)
+    if (
+        source.battleStatus === 'default' ||
+        source.battleStatus === 'over'
+    ) {
+        takeAPI(
+            clock.toPos,
+            clock.sectorId,
+        )
+    } else {
 
-    takeAPI(
-        // clock.params.userPos,
-        clock.toPos,
-        clock.sectorId,
-        // userId,
-    )
+        battleTakeAPI(
+            clock.toPos,
+            clock.sectorId,
+        )
+    }
 
     setTimeout(() => {
         takesAPI.events.delTakeById({ take_id: TAKE_ID })
@@ -80,12 +97,14 @@ const invaderControlFx = createEffect((clock: TResult) => {
 
 sample({
     clock: hitSectorFx.doneData,
-    // source: userModel.$userIdStore,
-    filter: (result): result is TResult => result !== null,
+    source: {
+        battleStatus: arenaModel.$battleStatusStore
+    },
+    // filter: (_, clock: TResult | null): clock is TResult => clock !== null,
+    fn: (source, clock) => ({ source, clock }),
     // fn: (clock) => (clock),
     target: invaderControlFx
 })
-
 
 /*
 */

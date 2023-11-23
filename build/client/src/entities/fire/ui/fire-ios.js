@@ -5,9 +5,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FireIOS = void 0;
 const react_leaflet_1 = require("react-leaflet");
-const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
 const Keyframes_1 = require("shared/ui/Keyframes/Keyframes");
 const pointer_1 = require("entities/pointer");
+const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
 const FireIOS = ({ fire }) => {
     let sizeFire = pointer_1.droneMapModel.selectors.useDroneSize() / 2.5;
     const map = (0, react_leaflet_1.useMap)();
@@ -29,12 +29,13 @@ const FireIOS = ({ fire }) => {
         fireStyle['transform'] = `translate3d(${px_to_pos}px, 0px, 0px)`;
     }
     fireStyle.animation = `fire_${fire.id} ${Math.abs(time_fire) / 10}s alternate`;
+    console.log('Math.abs(time_fire) / 10', Math.abs(time_fire) / 10);
     return (<>
             <div key={fire.id}>
                 <Keyframes_1.Keyframes name={`fire_${fire.id}`} from={{
-            transform: 'translate3d(0px, 0px, 0px)'
+            transform: 'translate3d(0px, 0px, 0px)',
         }} to={{
-            transform: fireStyle['transform']
+            transform: fireStyle['transform'],
         }}/>
                 <div className={`${styles_module_scss_1.default.__fire}`} style={Object.assign(Object.assign({}, fireStyle), { width: `${sizeFire}px`, height: `${sizeFire}px` })}/>
             </div>

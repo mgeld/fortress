@@ -48,7 +48,7 @@ export const AboutSector: FC<TAboutSectorProps> = ({
                 />
                 <AboutSectorItem
                     icon={<IconFort width={16} height={16} />}
-                    name="Башня:"
+                    name="Форт:"
                     text={`${sector.defenders} стражей`}
                 />
                 <AboutSectorItem

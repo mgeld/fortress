@@ -17,8 +17,6 @@ export const Panel: FC = () => {
     const latlng = citadelModel.selectors.useCitadel()?.latlng || null
 
     const selectCitadel = (pos: TLatLng | null) => {
-        console.log('selectCitadel')
-        console.log('selectCitadel pos', pos)
         if (!pos) {
             popoutModel.events.setPopout('alert')
             alertModel.events.setAlert({

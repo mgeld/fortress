@@ -6,6 +6,7 @@ import { TLatLng } from "shared/types";
 import { fortModel } from "entities/fort";
 
 import './styles.css'
+import { randomNumber } from "shared/lib/randomNumber";
 
 type FortProps = {
     pos: TLatLng
@@ -17,16 +18,18 @@ export const AttackFort: FC<FortProps> = ({ pos }) => {
 
     if (!data || data?.status === 'defense' || data.fort[0] !== pos[0]) return <></>
 
+    const fill = data?.status === 'victory' ? 'green' : 'red'
+
     return (
         <Circle
-            key={String(Math.random())}
+            key={randomNumber(0,100)}
             className={`attack-fort`}
             center={[
                 pos[0] - 0.00005,
                 pos[1] - 0.00002
             ]}
             pathOptions={{
-                fillColor: data?.status === 'victory' ? 'green' : 'red',
+                fillColor: fill,
                 fillOpacity: 0.4,
                 stroke: false,
             }}

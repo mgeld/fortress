@@ -35,12 +35,12 @@ GunLevel._gunPower = {
     6: 150
 };
 GunLevel._gunDistance = {
-    1: 250,
-    2: 300,
-    3: 380,
-    4: 490,
-    5: 630,
-    6: 800
+    1: 300,
+    2: 350,
+    3: 430,
+    4: 540,
+    5: 680,
+    6: 850
 };
 GunLevel._priceLevelUp = {
     1: 0,

@@ -12,7 +12,8 @@ class BattleStartHandler extends __1.Handler {
             place: message.payload.place
         });
         events_1.battleAPI.events.setTeams(message.payload.teams);
-        events_1.battleAPI.events.setBattleStatus('start');
+        events_1.battleAPI.events.setTimer(120);
+        setTimeout(() => events_1.battleAPI.events.setBattleStatus('start'), 500);
     }
 }
 exports.BattleStartHandler = BattleStartHandler;

@@ -11,8 +11,10 @@ const setMaxBoundsFx = createEffect(({
     map: Map | null
     areal: TAreal
 }) => {
+    console.log('Блядь, работает!')
     if(!map) return
     // map.setMaxBounds([[-90,-180], [90,180]])
+    setTimeout(() => {})
     map.setMaxBounds([
         [areal[0][0] - 0.01, areal[0][1] - 0.01],
         [areal[1][0] + 0.01, areal[1][1] + 0.01],

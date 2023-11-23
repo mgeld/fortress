@@ -1,8 +1,9 @@
-import { TBombSymbol, TExtrTypes, TExtrTypesName, TFindContType, TGameUnit, THitPointer, TJoystickDirection, TLatLng, TPointer, TTypeToastNotice, TWeapon, TWeaponSymbol, TZoneItem } from "../model"
+import { TBombSymbol, TExtrTypes, TExtrTypesName, TFindContType, TGameUnit, THitPointer, TJoystickDirection, TLatLng, TPointer, TTutType, TTypeToastNotice, TWeapon, TWeaponSymbol, TZoneItem } from "../model"
 
 export type TEventConnect = 'connect'
 export type TEventSetUser = 'set-user'
 export type TEventSetCitadel = 'set-citadel'
+export type TEventTutorial = 'tutorial'
 
 export type TEventConnectPointer = 'connect-pointer'
 export type TEventDelPointer = 'del-pointer'
@@ -27,6 +28,10 @@ export type TEventTakeSector = 'take-sector'
 export type TEventYTakeSector = 'y-take-sector'
 export type TEventYrTakeSector = 'yr-take-sector'
 
+export type TEventBattleTakeSector = 'battle-take-sector'
+export type TEventBattleYTakeSector = 'battle-y-take-sector'
+export type TEventBattleYrTakeSector = 'battle-yr-take-sector'
+
 export type TEventSectors = 'sectors'
 export type TEventSector = 'sector'
 
@@ -38,6 +43,7 @@ export type TEventsMessage =
     | TEventConnect
     | TEventSetUser
     | TEventSetCitadel
+    | TEventTutorial
     | TEventFire
     | TEventBomb
     | TEventTake
@@ -50,9 +56,15 @@ export type TEventsMessage =
     | TEventNewZone
     | TEventLevelUp
     | TEventBuyUnit
+
     | TEventTakeSector
     | TEventYTakeSector
     | TEventYrTakeSector
+
+    | TEventBattleTakeSector
+    | TEventBattleYTakeSector
+    | TEventBattleYrTakeSector
+
     | TEventPointers
     | TEventConnectPointer
     | TEventDelPointer
@@ -113,6 +125,12 @@ export type TSetCitadel = {
     payload: TCitadel
 }
 
+export type TTutorial = {
+    event: TEventTutorial
+    payload: {
+        type: TTutType
+    }
+}
 
 export type TResetUser = {
     pos?: TLatLng
@@ -134,6 +152,7 @@ export type TSetUser = {
 //     pos: TLatLng
 //     health: number
 // }
+
 export type TConnectPointer = {
     event: TEventConnectPointer
     payload: TPointer
@@ -277,6 +296,11 @@ export type TTakeSector = {
     payload: TTakeSectorPayload
 }
 
+export type TBattleTakeSector = {
+    event: TEventBattleTakeSector | TEventBattleYTakeSector | TEventBattleYrTakeSector
+    payload: TTakeSectorPayload
+}
+
 
 
 export type TSectorsPayload = TZoneItem[]
@@ -344,6 +368,7 @@ export type TTeam = {
     teamId: number
     status: 'default' | 'victory' | 'defeat'
     members: TMember[]
+    sectors: number
 }
 
 export type TBattleOverPayload = {
@@ -358,7 +383,8 @@ export type TBattleOver = {
 type TBattleJoinPayload = {
     user: {
         pos: TLatLng
-        health: number
+        team: number
+        // health: number
     }
 }
 export type TBattleJoin = {
@@ -371,6 +397,7 @@ export type TMessage =
     | TConnect
     | TSetUser
     | TSetCitadel
+    | TTutorial
     | TDelPointer
     | TDirectPointer
     | TPointers
@@ -389,6 +416,7 @@ export type TMessage =
     | TLevelUp
     | TBuyUnit
     | TTakeSector
+    | TBattleTakeSector
     | TBattleStart
     | TBattleOver
     | TBattleJoin

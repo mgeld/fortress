@@ -19,21 +19,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FireHandler = void 0;
+const types_1 = require("../types");
 const handlers_1 = require("./handlers");
 const inversify_1 = require("inversify");
-const types_1 = require("../types");
 const rooms_1 = require("../api/socket/socket/rooms");
-const pointer_service_1 = require("../services/pointer.service");
 const weapon_service_1 = require("../services/weapon.service");
+const pointer_service_1 = require("../services/pointer.service");
 let FireHandler = class FireHandler extends handlers_1.IRoute {
     handle(message, uSocket) {
-        var _a;
+        var _a, _b;
         return __awaiter(this, void 0, void 0, function* () {
             if (!uSocket.user_id)
                 return;
             const _pointer = yield this._pointerService.memoryGetById(uSocket.user_id);
             const weapon = yield this._weaponService.memoryGetById(_pointer.weapons[0]);
-            console.log('FireHandler weapon.distance', weapon.distance);
             if (_pointer.health < 1) {
                 return;
             }
@@ -46,15 +45,17 @@ let FireHandler = class FireHandler extends handlers_1.IRoute {
                 pos: message.payload.pos,
                 to_pos: message.payload.to_pos,
                 direction: message.payload.direction,
-                userId: _pointer.zoneId,
+                userId: _pointer.zoneId
             };
             if ((_a = message.payload) === null || _a === void 0 ? void 0 : _a.hitPointer) {
+                if (((_b = message.payload.hitPointer) === null || _b === void 0 ? void 0 : _b.userId) === -1)
+                    return;
                 fire['hitPointer'] = message.payload.hitPointer;
                 const hitPointer = yield this._pointerService.memoryGetById(message.payload.hitPointer.userId);
                 hitPointer.removeHealth(weapon.power);
                 fire.hitPointer.health = hitPointer.health;
-                console.log('fire.hitPointer.health', fire.hitPointer.health);
-                if (hitPointer.health < 1) { }
+                if (hitPointer.health < 1) {
+                }
                 yield this._pointerService.memoryUpdate(hitPointer);
             }
             this._rooms.areals.broadcast(_pointer.areal, {

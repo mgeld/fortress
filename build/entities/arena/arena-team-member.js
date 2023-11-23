@@ -6,6 +6,7 @@ class Member {
         this._userId = props.userId;
         this._killed = props.killed || 0;
         this._damage = props.damage || 0;
+        this._sectors = props.sectors || 0;
         this._pos = props.pos;
         this._arenaId = props.arena || '';
         this._arenaTeamId = props.arenaTeam || 0;
@@ -17,8 +18,9 @@ class Member {
         return {
             id: String(this._userId),
             userId: this._userId,
-            killed: this.killed,
-            damage: this.damage,
+            killed: this._killed,
+            damage: this._damage,
+            sectors: this._sectors,
             pos: this.pos,
             arena: this.arena,
             arenaTeam: this.arenaTeam,
@@ -34,12 +36,15 @@ class Member {
         this._killed = this._killed + 1;
         return this._killed;
     }
+    makeDamage(damage) {
+        this._damage = this._damage + damage;
+    }
+    invadeSector() {
+        this._sectors = this._sectors + 1;
+    }
     leaveArena() {
         this._arenaId = '';
         this._arenaTeamId = 0;
-    }
-    makeDamage(damage) {
-        this._damage = this._damage + damage;
     }
     get userId() {
         return this._userId;
@@ -55,6 +60,9 @@ class Member {
     }
     get damage() {
         return this._damage;
+    }
+    get sectors() {
+        return this._sectors;
     }
     get arena() {
         return this._arenaId;

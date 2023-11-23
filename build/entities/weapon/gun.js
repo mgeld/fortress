@@ -8,8 +8,8 @@ class Gun {
         this._id = props.id;
         this._level = (props === null || props === void 0 ? void 0 : props.level) || 1;
         this._power = (props === null || props === void 0 ? void 0 : props.power) || 10;
-        this._distance = (props === null || props === void 0 ? void 0 : props.distance) || 510;
-        this._bullets = (props === null || props === void 0 ? void 0 : props.bullets) || 200;
+        this._distance = (props === null || props === void 0 ? void 0 : props.distance) || 290;
+        this._bullets = (props === null || props === void 0 ? void 0 : props.bullets) || 100;
         this._status = (props === null || props === void 0 ? void 0 : props.status) ? 'used' : 'stock';
     }
     static create(props) {
@@ -39,12 +39,12 @@ class Gun {
     }
     static getLevelMaxDistance(level) {
         const levels = {
-            1: 250,
-            2: 300,
-            3: 380,
-            4: 490,
-            5: 630,
-            6: 800
+            1: 300,
+            2: 350,
+            3: 430,
+            4: 540,
+            5: 680,
+            6: 850
         };
         return levels[level];
     }
@@ -89,18 +89,20 @@ class Gun {
     increasePower(power) {
         const maxValueLevel = Gun.getLevelMaxPower(this._level);
         if (maxValueLevel > this._power) {
-            const summ = this._power + power;
+            const was_number = this._power;
+            const summ = was_number + power;
             this._power = summ > maxValueLevel ? maxValueLevel : summ;
-            return this._power;
+            return [was_number, this._power];
         }
         return 'limit';
     }
     increaseDistance(dist) {
         const maxValueLevel = Gun.getLevelMaxDistance(this._level);
         if (Gun.getLevelMaxDistance(this._level) > this._distance) {
-            const summ = this._distance + dist;
+            const was_number = this._power;
+            const summ = was_number + dist;
             this._distance = summ > maxValueLevel ? maxValueLevel : summ;
-            return this._distance;
+            return [was_number, this._distance];
         }
         return 'limit';
     }

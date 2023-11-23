@@ -180,12 +180,16 @@ export class Pointer {
         this._health = health
     }
 
-    addHealth(h: number): number | 'limit' {
+    addHealth(h: number): [number, number] | 'limit' {
         const maxValueLevel = Pointer.getLevelMaxHealth(this._level)
         if (maxValueLevel > this._health) {
-            const summ = this._health + h
+
+            const was_number = this._health
+            const summ = was_number + h
             this._health = summ > maxValueLevel ? maxValueLevel : summ
-            return this._health
+            
+            return [was_number, this._health]
+
         }
         return 'limit'
     }

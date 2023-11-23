@@ -2,7 +2,8 @@
 
     position: absolute;
     right: 10px;
-    top: 216px;
+    top: var(--header_height);
+    margin-top: 196px;
     background-color: #000000;
 
     width: 38px;
@@ -16,11 +17,9 @@
     .__icon {
         width: 36px;
         height: 36px;
-        // position: absolute;
         display: flex;
         justify-content: center;
         align-items: center;
-        // z-index: 4;
     }
 
     &>.__whiteEffect {

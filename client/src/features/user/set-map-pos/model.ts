@@ -18,21 +18,29 @@ const setPosFx = createEffect(({
     },
     pos: TLatLng
 }) => {
-    source.map.setMaxBounds([[-90, -180], [90, 180]])
+
+    // source.map.setMaxBounds([[-90, -180], [90, 180]])
     // source.map.flyTo(pos, 16, {
     //     animate: true,
     //     duration: 2
     // })
 
-    source.map.setView(pos, 16)
+    const areal = Areal.getBounds(pos)
+    shipModel.events.setAreal(areal)
 
-    // source.map.setZoom(16)
-    
-    setTimeout(() => {
-        const areal = Areal.getBounds(pos)
-        shipModel.events.setAreal(areal)
-        source.map?.setMinZoom(15)
-    }, 2000)
+    // setTimeout(() => {
+        source.map.setView(pos, 16)
+    // }, 200)
+    source.map.setZoom(16)
+    source.map?.setMinZoom(15)
+
+    // setTimeout(() => {
+    // console.log('PPPPPPPPP setTimeout setPosFx')
+
+    //     const areal = Areal.getBounds(pos)
+    //     shipModel.events.setAreal(areal)
+    //     source.map?.setMinZoom(15)
+    // }, 2000)
 })
 
 export const setMapPosListener = () => {

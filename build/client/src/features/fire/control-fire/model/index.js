@@ -56,7 +56,6 @@ const fireControlFx = (0, effector_1.createEffect)(({ source, clock }) => {
         _fire['hit_pos'] = clock.result.hitPointer.pos;
     }
     events_1.firesAPI.events.addFire(_fire);
-    console.log('++++++++++++++++++++++++++++++++++++++source.', source);
     if (clock.result.distance) {
         if (source.battleStatus === 'default' ||
             source.battleStatus === 'over') {

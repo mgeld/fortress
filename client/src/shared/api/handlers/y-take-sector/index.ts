@@ -22,6 +22,7 @@ class YTakeSectorHandler extends Handler {
             })
 
         zoneModel.events.addSector()
+        
         snackbarModel.events.newToast({
             text: 'Сектор захвачен!',
             t: 1

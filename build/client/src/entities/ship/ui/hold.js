@@ -18,13 +18,13 @@ const Hold = () => {
             </div>
             <div className={styles_module_scss_1.default.__info}>
                 <div className={styles_module_scss_1.default.head}>
-                    <div className={styles_module_scss_1.default.name}>Загрузочный трюм</div>
+                    <div className={styles_module_scss_1.default.name}>Трюм корабля</div>
                     <div className={styles_module_scss_1.default.level}>
                         <span>{level} ур.</span>
                     </div>
                 </div>
                 <div className={styles_module_scss_1.default.description}>
-                    <div className={styles_module_scss_1.default.name}>Загруженность</div>
+                    <div className={styles_module_scss_1.default.name}>Предметы</div>
                     <div className={styles_module_scss_1.default.counter}>{lengthItems} / {hold_level_1.HoldLevel.getMaxItems(level)}</div>
                 </div>
             </div>

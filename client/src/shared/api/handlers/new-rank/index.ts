@@ -15,7 +15,7 @@ class NewRankHandler extends Handler {
 
         noticeModel.events.newToast({
             name: 'Новый Ранг Завоеваний!',
-            text: 'Вы достигли новый Ранг Завоеваний!',
+            text: 'Вы достигли нового Ранга Завоеваний!',
             t: 'rank'
         })
 

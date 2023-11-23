@@ -9,16 +9,16 @@ type TArenaProps = {
 
 export const ArenaBorder: FC<TArenaProps> = ({ bounds: areal }) => {
 
-    const map = useMap()
+    // const map = useMap()
 
-    useEffect(() => {
-        if (areal) {
-            setTimeout(() => map.setMaxBounds([
-                [areal[0][0] - 0.01, areal[0][1] - 0.01],
-                [areal[1][0] + 0.01, areal[1][1] + 0.01],
-            ]), 2000)
-        }
-    }, [map, areal])
+    // useEffect(() => {
+    //     if (areal) {
+    //         setTimeout(() => map.setMaxBounds([
+    //             [areal[0][0] - 0.01, areal[0][1] - 0.01],
+    //             [areal[1][0] + 0.01, areal[1][1] + 0.01],
+    //         ]), 300)
+    //     }
+    // }, [map, areal])
 
     if (!areal) return null
 

@@ -3,6 +3,7 @@ import { Areal } from "./areal/areal"
 import { Arena, TRegistr } from "./arena/arena"
 import { Team } from "./arena/arena-team"
 import { Member } from "./arena/arena-team-member"
+import { ArenaSector, UnmarshalledArenaSector } from "./arena/sector"
 import { Bomb } from "./bomb/bomb"
 import { Citadel } from "./citadel/citadel"
 import { Pointer } from "./pointer/pointer"
@@ -19,7 +20,7 @@ export interface IPointerMemoryRepository {
 }
 export interface IZoneMemoryRepository {
     getById(userId: number): Promise<Zone>
-    // getByIds(userIds: number[]): Promise<Zone[]>
+    getByIds(userIds: number[]): Promise<Zone[]>
     insert(zone: Zone): Promise<Zone>
     update(zone: Zone): Promise<Zone>
     delete(userId: number): Promise<Boolean>
@@ -50,13 +51,15 @@ export interface IArenaRepository {
     delete(arenaId: string): Promise<Boolean>
 }
 
-// export interface IArenaTeamRepository {
-//     insert(team: Team): Promise<Team>
-//     count(): Promise<number>
-//     getById(teamId: string): Promise<Team>
-//     update(team: Team): Promise<Team>
-//     delete(teamId: string): Promise<Boolean>
-// }
+export interface IArenaTeamRepository {
+    insert(team: Team): Promise<Team>
+    // count(): Promise<number>
+    getById(teamId: string): Promise<Team>
+    getByIds(teamIds: string[]): Promise<Team[]>
+    update(team: Team): Promise<Team>
+    delete(teamId: string): Promise<Boolean>
+    deleteByArenas(arenas: string[]): Promise<Boolean>
+}
 
 export interface IArenaTeamMemberRepository {
     insert(member: Member): Promise<Member>
@@ -104,6 +107,16 @@ export interface ISectorMemoryRepository {
     update(sector: Sector): Promise<Sector>
     delete(sectorId: string): Promise<Boolean>
     deleteByAreals(areals: number[]): Promise<Boolean>
+}
+
+export interface IArenaSectorMemoryRepository {
+    insert(sector: ArenaSector): Promise<ArenaSector>
+    inserts(sectors: UnmarshalledArenaSector[]): Promise<Boolean>
+    getById(sectorId: string): Promise<ArenaSector>
+    getByIds(sectorIds: string[]): Promise<ArenaSector[]>
+    update(sector: ArenaSector): Promise<ArenaSector>
+    delete(sectorId: string): Promise<Boolean>
+    deleteByArenas(arenas: string[]): Promise<Boolean>
 }
 
 export interface ISectorRepository {

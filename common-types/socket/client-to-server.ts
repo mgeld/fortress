@@ -10,7 +10,10 @@ export type TEventConnect = 'connect'
 
 export type TEventDirect = 'direct'
 export type TEventFire = 'fire'
+
 export type TEventTake = 'take'
+export type TEventBattleTake = 'battleTake'
+
 export type TEventBeam = 'beam'
 
 export type TEventUseExtraction = 'useExtraction'
@@ -32,6 +35,7 @@ export type TEventsAPI =
     | TEventConnect
     | TEventFire
     | TEventTake
+    | TEventBattleTake
     | TEventBeam
     | TEventUseExtraction
     | TEventLevelUp
@@ -107,12 +111,10 @@ export type TGetAboutSectorAPI = {
 }
 
 export type TTakeAPI = {
-    event: TEventTake
+    event: TEventTake | TEventBattleTake
     payload: {
-        // position: TLatLng
         fort: TLatLng
         sector: string
-        // userId: number
     }
 }
 

@@ -13,7 +13,7 @@ type TFireProps = {
 export const Fire: FC<TFireProps> = ({
     fire
 }) => {
-    const [pos, setPos] = useState<TLatLng>(fire.from_pos)
+    const [pos, setFirePos] = useState<TLatLng>(fire.from_pos)
 
     const map = useMap()
 
@@ -27,7 +27,7 @@ export const Fire: FC<TFireProps> = ({
     const fireClassName = `l${time_fire}`
 
     useEffect(() => {
-        setTimeout(() => setPos(limit_to_pos), 50)
+        setTimeout(() => setFirePos(limit_to_pos), 50)
     }, [limit_to_pos])
 
     return (

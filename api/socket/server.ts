@@ -8,7 +8,8 @@ import { TYPES } from '../../types'
 import { PingPong } from './socket/ping-pong'
 import { inject, injectable } from 'inversify'
 import { Handlers } from '../../controllers/handlers'
-import { SnapshotSectors } from '../../controllers/snapshot-sectors'
+import { SnapshotAreals } from '../../controllers/snapshot-areals'
+import { SnapshotArenas } from '../../controllers/snapshot-arenas'
 
 // const https = require('https');
 // const WebSocket = require('ws');
@@ -33,8 +34,9 @@ export interface IServer {
 export class Server {
 
     @inject(TYPES.Handlers) private _handlers!: Handlers
-    @inject(TYPES.SnapshotSectors) private _snapshot!: SnapshotSectors
     @inject(TYPES.PingPong) private _pingPong!: PingPong
+    @inject(TYPES.SnapshotAreals) private _snapshotAreals!: SnapshotAreals
+    @inject(TYPES.SnapshotArenas) private _snapshotArenas!: SnapshotArenas
 
     serverContext = this
 
@@ -50,11 +52,19 @@ export class Server {
 
             console.log('req.url', req.url)
 
-            if (req.url === '/snapchot-sectors') {
-                console.log('snapchot-sectors')
-                this._snapshot.saveSectorsToBase()
-                this._snapshot.clearInactiveAreals()
+            if (req.url === '/snapshot-areals') {
+
+                console.log('snapshot-areals')
+                this._snapshotAreals.saveSectorsToBase()
+                this._snapshotAreals.clearInactiveAreals()
+
+            } else if (req.url === '/snapshot-arenas') {
+
+                console.log('snapshot-arenas')
+                this._snapshotArenas.clearInactiveArenas()
+
             }
+
             console.log("Request");
             res.end("Nice");
         })
@@ -66,6 +76,7 @@ export class Server {
         wss.on('error', (err) => {
             console.log('err', err)
         })
+        
         wss.on('close', () => {
             console.log('close')
         })

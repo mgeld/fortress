@@ -13,8 +13,6 @@ export const MapDrones: FC = () => {
 
     const size = droneMapModel.selectors.useDroneSize()
 
-    console.log('size size size', size)
-
     useMapEvents({
         zoomstart: () => {
             map.getPane('zoom-anim-map')?.setAttribute('class', 'zoom-anim-map')

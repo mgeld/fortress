@@ -1,6 +1,5 @@
-import { Areal } from "entities/areal/model";
 import { shipModel } from "entities/ship";
-import { CoordPair, cellToBoundary, cellToLatLng, cellsToMultiPolygon, latLngToCell, polygonToCells } from "h3-js";
+import { CoordPair, cellToBoundary, cellToLatLng, latLngToCell, polygonToCells } from "h3-js";
 import { LatLngExpression } from "leaflet";
 import { FC } from "react";
 import { Polygon, useMapEvent } from "react-leaflet";
@@ -15,8 +14,6 @@ export const TestExtr: FC = () => {
     // ];
 
     const areal = shipModel.selectors.useAreal()
-
-    console.log('areal areal areal', areal)
 
     // [latlng[0] + 0.02, latlng[1] + 0.03],
 
@@ -67,7 +64,7 @@ export const TestExtr: FC = () => {
             <Polygon
                 weight={0.9}
                 pathOptions={{
-                    fillColor: '#e9c564',
+                    fillOpacity: 0,
                     color: '#e9c564'
                 }}
                 positions={p as LatLngExpression[][]}

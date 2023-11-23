@@ -26,11 +26,17 @@ import { TakeSectorHandler } from "shared/api/handlers/take-sector"
 import { UseExtractionHandler } from "shared/api/handlers/use-extraction"
 import { YTakeSectorHandler } from "shared/api/handlers/y-take-sector"
 import { YrTakeSectorHandler } from "shared/api/handlers/yr-take-sector"
-import { Socket } from "shared/api/socket"
-import { events as socket } from "shared/api/socket/model"
-import { API_BASE_URL } from "shared/config"
 
-export const WS = new Socket(API_BASE_URL, socket.setSocketStatus)
+// import { Socket } from "shared/api/socket"
+import { API_BASE_URL } from "shared/config"
+import { events as socket } from "shared/api/socket/model"
+import { Socket } from "shared/api/socket/socket"
+import { TutorialHandler } from "shared/api/handlers/tutorial"
+import { BattleTakeSectorHandler } from "shared/api/handlers/battle-take-sector"
+import { BattleYTakeSectorHandler } from "shared/api/handlers/battle-y-take-sector"
+import { BattleYrTakeSectorHandler } from "shared/api/handlers/battle-yr-take-sector"
+
+export const WS = Socket.create(API_BASE_URL, socket.setSocketStatus)
 
 // const callbacks = {
 //     [ConnectHandler.EVENT]: new ConnectHandler(),
@@ -76,9 +82,15 @@ const handlers = new Handlers({
     [SectorsHandler.EVENT]: new SectorsHandler(),
     [SectorHandler.EVENT]: new SectorHandler(),
     [TakeHitHandler.EVENT]: new TakeHitHandler(),
+
+    [TakeSectorHandler.EVENT]: new TakeSectorHandler(),
     [YTakeSectorHandler.EVENT]: new YTakeSectorHandler(),
     [YrTakeSectorHandler.EVENT]: new YrTakeSectorHandler(),
-    [TakeSectorHandler.EVENT]: new TakeSectorHandler(),
+
+    [BattleTakeSectorHandler.EVENT]: new BattleTakeSectorHandler(),
+    [BattleYTakeSectorHandler.EVENT]: new BattleYTakeSectorHandler(),
+    [BattleYrTakeSectorHandler.EVENT]: new BattleYrTakeSectorHandler(),
+
     [SetUserHandler.EVENT]: new SetUserHandler(),
     [SetCitadelHandler.EVENT]: new SetCitadelHandler(),
     [UseExtractionHandler.EVENT]: new UseExtractionHandler(),
@@ -89,6 +101,8 @@ const handlers = new Handlers({
     [NewRankHandler.EVENT]: new NewRankHandler(),
     [NewZoneHandler.EVENT]: new NewZoneHandler(),
     [LimitHandler.EVENT]: new LimitHandler(),
+    [TutorialHandler.EVENT]: new TutorialHandler(),
+    
 } as THandlers)
 
 WS.setHandlers(handlers.handle())

@@ -31,7 +31,7 @@ class AttractionHandler extends Handler {
         let typeNotice = ('cont_' + cont) as TConts
 
 
-        if(!from_pos) {
+        if (!from_pos) {
             snackbarModel.events.newToast({
                 text: 'Ничего не притянулось',
                 t: 8
@@ -56,6 +56,9 @@ class AttractionHandler extends Handler {
                 text: 'Предмет из контейнера добавлен в трюм корабля',
                 t: typeNotice
             })
+
+            // tutorialModel.events.setTutorial('storm')
+
         }, 2200)
 
     }

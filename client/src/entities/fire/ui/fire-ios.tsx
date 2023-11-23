@@ -1,13 +1,11 @@
-import { FC, useEffect, useState } from "react";
-import { Circle, useMap, useMapEvents } from "react-leaflet";
-import { TLatLng } from "shared/types";
+import { FC } from "react";
+import { useMap } from "react-leaflet";
 import { TFire } from "../model/fire";
 
-import styles from './styles.module.scss'
-import { fireLimit } from "../lib/fire-limit";
 import { Keyframes } from "shared/ui/Keyframes/Keyframes";
 import { droneMapModel } from "entities/pointer";
-import { shipModel } from "entities/ship";
+
+import styles from './styles.module.scss'
 
 type TFireProps = {
     fire: TFire
@@ -19,12 +17,10 @@ type TStyle = {
     animation?: string
 }
 
-
-
 export const FireIOS: FC<TFireProps> = ({
     fire
 }) => {
-    
+
     let sizeFire = droneMapModel.selectors.useDroneSize() / 2.5
 
     const map = useMap()
@@ -52,16 +48,18 @@ export const FireIOS: FC<TFireProps> = ({
 
     fireStyle.animation = `fire_${fire.id} ${Math.abs(time_fire) / 10}s alternate`
 
+    console.log('Math.abs(time_fire) / 10', Math.abs(time_fire) / 10)
+
     return (
         <>
             <div key={fire.id}>
                 <Keyframes
                     name={`fire_${fire.id}`}
                     from={{
-                        transform: 'translate3d(0px, 0px, 0px)'
+                        transform: 'translate3d(0px, 0px, 0px)',
                     }}
                     to={{
-                        transform: fireStyle['transform']
+                        transform: fireStyle['transform'],
                     }}
                 />
                 <div

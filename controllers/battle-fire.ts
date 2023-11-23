@@ -10,6 +10,8 @@ import { WeaponService } from "../services/weapon.service";
 import { MemberService } from "../services/member.service";
 import { Member } from "../entities/arena/arena-team-member";
 import { PointerService } from "../services/pointer.service";
+import { ZoneService } from "../services/zone.service";
+import { BattleService } from "../services/battle.service";
 
 @injectable()
 class BattleFireHandler extends IRoute {
@@ -18,6 +20,7 @@ class BattleFireHandler extends IRoute {
     @inject(TYPES.PointerService) private _pointerService!: PointerService
     @inject(TYPES.WeaponService) private _weaponService!: WeaponService
     @inject(TYPES.ArenaService) private _arenaService!: ArenaService
+    @inject(TYPES.BattleService) private _battleService!: BattleService
 
     public static EVENT: TEventBattleFire = "battleFire"
 
@@ -28,10 +31,11 @@ class BattleFireHandler extends IRoute {
 
         if (!uSocket.user_id) return
 
-        console.log('FireHandler handle')
+        console.log('BattleFireHandler handle')
 
         const _pointer = await this._pointerService.memoryGetById(uSocket.user_id)
         const _member = await this._memberService.getById(_pointer.zoneId)
+
         const weapon = await this._weaponService.memoryGetById(_pointer.weapons[0])
 
         const arena = await this._arenaService.getById(_member.arena)
@@ -40,6 +44,7 @@ class BattleFireHandler extends IRoute {
         if (_pointer.health < 1) {
             return
         }
+
         // Если у меня нет патронов
         if (weapon.bullets < 1) {
             return
@@ -52,15 +57,12 @@ class BattleFireHandler extends IRoute {
             pos: message.payload.pos,
             to_pos: message.payload.to_pos,
             direction: message.payload.direction,
-            userId: _pointer.zoneId,
-            // userId: message.payload.userId,
-            // weapon: {
-            //     symbol: weapon.symbol,
-            //     level: weapon.level
-            // }
+            userId: _pointer.zoneId
         }
 
         if (message.payload?.hitPointer) {
+
+            // console.log('message.payload?.hitPointer', message.payload?.hitPointer)
 
             // Сохраняем в свою стату нанесенный противнику урон
             _member.makeDamage(weapon.power)
@@ -72,16 +74,21 @@ class BattleFireHandler extends IRoute {
             const hitPointer = await this._pointerService.memoryGetById(message.payload.hitPointer.userId)
 
             // Отнимаем здоровье в зависимости от Урона Оружия
-            // const health = hitPointer.removeHealth(weapon.power)
-
-            hitPointer.health = hitPointer.health - weapon.power
+            hitPointer.removeHealth(weapon.power)
 
             fire.hitPointer.health = hitPointer.health
+
+            // console.log('hitPointer.health', hitPointer.health)
+            // console.log('message.payload.hitPointer.userId', message.payload.hitPointer.userId)
+
+            console.log('BattleFire _member.sectors', _member.sectors)
 
             // Если противник погиб
             if (hitPointer.health < 1) {
 
-                const killPointerTeam = arena.killPointer(hitPointer.zoneId, hitMember.arenaTeam)
+                console.log('Погиб hitPointer.zoneId', hitPointer.zoneId)
+
+                const killPointerTeam = arena.killPointer(hitMember.userId, hitMember.arenaTeam)
                 await this._arenaService.update(arena)
 
                 hitMember.leaveArena()
@@ -90,42 +97,14 @@ class BattleFireHandler extends IRoute {
                 _member.addKilledPointer()
 
                 if (killPointerTeam.alive_members === 0) {
-
-                    setTimeout(async () => {
-
-                        const members: Member[][] = []
-
-                        members[0] = await this._memberService.getByIds(arena.teamList[0].members)
-                        members[1] = await this._memberService.getByIds(arena.teamList[1].members)
-
-                        const p = {
-                            teams: arena.teamList.map((team, index) => {
-                                const minTrophies = team.status === 'victory' ? 10 : -10
-                                return {
-                                    teamId: team.id,
-                                    status: team.status,
-                                    members: members[index].map(member => {
-                                        const wonTrophies = member.damage / 5
-                                        return {
-                                            userId: member.userId,
-                                            trophies: minTrophies + wonTrophies
-                                        }
-                                    }),
-                                }
-                            })
-                        }
-
-                        this._rooms.arenas.broadcast(arena.id, {
-                            event: 'battle-over',
-                            payload: p
-                        })
-
-                    }, 2000)
-
+                    arena.completeBattle(killPointerTeam.id)
+                    arena.destroyTimer()
+                    this._battleService.overGame(arena.id)
                 }
 
-
             }
+
+            await this._pointerService.memoryUpdate(hitPointer)
 
             await this._memberService.update(hitMember)
             await this._memberService.update(_member)

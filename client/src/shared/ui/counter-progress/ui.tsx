@@ -3,7 +3,8 @@ import { FC, ReactNode } from "react";
 import styles from './styles.module.scss'
 
 type TCounterProgress = {
-    className: string,
+    className: string
+    position: 'left' | 'right'
     icon: ReactNode
     width: number
     name?: string
@@ -16,6 +17,7 @@ type TCounterProgress = {
 export const CounterProgress: FC<TCounterProgress> = ({
     icon,
     className,
+    position,
     width,
     name,
     counter,
@@ -34,7 +36,8 @@ export const CounterProgress: FC<TCounterProgress> = ({
             <div className={styles.__icon}>
                 {icon}
             </div>
-            <div className={styles.__progress}>
+            
+            <div className={`${styles.__progress} ${styles['__'+position]}`}>
 
                 {children}
 

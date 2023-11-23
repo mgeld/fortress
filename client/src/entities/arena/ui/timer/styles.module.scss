@@ -1,0 +1,29 @@
+.timer {
+    width: 80px;
+    height: 28px;
+    box-sizing: border-box;
+    // background-color: #00000066;
+    border: 2px solid black;
+    border-radius: 6px;
+    z-index: 400;
+    background: repeating-linear-gradient(-45deg,
+            #00000094,
+            #1a191994 10px,
+            #302e2e94 10px,
+        );
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: absolute;
+    top: 10px;
+    left: 10px;
+
+    .__text {
+        font-size: 18px;
+        font-weight: 400;
+        color: #fff;
+
+    }
+}

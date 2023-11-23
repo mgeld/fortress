@@ -50,6 +50,12 @@ let ZoneService = class ZoneService {
             return zone;
         });
     }
+    memoryGetByIds(userIds) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const zones = yield this._memoryRepository.getByIds(userIds);
+            return zones;
+        });
+    }
     baseGetById(userId) {
         return __awaiter(this, void 0, void 0, function* () {
             console.log('baseGetById userId', userId);
@@ -59,7 +65,7 @@ let ZoneService = class ZoneService {
     }
     create(color) {
         const DEFAULT_COLOR = (0, random_number_1.randomNumber)(1, 6);
-        const DEFAULT_RUBIES = 150;
+        const DEFAULT_RUBIES = 100;
         const DEFAULT_COINS = 800;
         const DEFAULT_TROPHIES = 0;
         const DEFAULT_RANK = 1;
@@ -70,12 +76,7 @@ let ZoneService = class ZoneService {
         const stormtrooper_corps = {
             level: 1,
             invaders: 50,
-            power: 1,
-        };
-        const guard_corps = {
-            level: 1,
-            exp: 0,
-            defenders: 0
+            power: 5
         };
         const rank = {
             rank: 1,
@@ -107,6 +108,13 @@ let ZoneService = class ZoneService {
     memoryUpdate(zone) {
         return __awaiter(this, void 0, void 0, function* () {
             yield this._memoryRepository.update(zone);
+        });
+    }
+    memoryUpdates(zones) {
+        return __awaiter(this, void 0, void 0, function* () {
+            zones.forEach((zone) => __awaiter(this, void 0, void 0, function* () {
+                yield this._memoryRepository.update(zone);
+            }));
         });
     }
     baseUpdate(zone) {

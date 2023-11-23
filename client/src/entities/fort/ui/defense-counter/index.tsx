@@ -4,6 +4,8 @@ import { useMap, useMapEvents } from "react-leaflet";
 
 import styles from './styles.module.scss'
 import { userModel } from "entities/user";
+import { mapModel } from "entities/map";
+import { arenaModel } from "entities/arena";
 
 const Y_BACK = 37
 const X_BACK = 50
@@ -20,7 +22,9 @@ const DefenseCounter: FC<TTakeHitPayload> = ({
 
     const [coords, setCoords] = useState(map.latLngToLayerPoint(fort))
 
-    const zoneId = userModel.selectors.useUserId()
+    const myId = mapModel.selectors.useMapMode().mode === 'invade' ?
+        userModel.selectors.useUserId() :
+        arenaModel.selectors.useMyTeamId().data
 
     useEffect(() => {
         setCoords(map.latLngToLayerPoint(fort))
@@ -35,8 +39,13 @@ const DefenseCounter: FC<TTakeHitPayload> = ({
     const pDefenders = defenders * 100 / p100
     const pInvaders = invaders * 100 / p100
 
-    const styleI = zoneId !== owner ? styles.__green : styles.__red
-    const styleD = zoneId !== owner ? styles.__red : styles.__green
+    console.log('myId', myId)
+    console.log('owner', owner)
+    console.log('defenders', defenders)
+    console.log('invaders', invaders)
+
+    const styleI = myId !== owner ? styles.__green : styles.__red
+    const styleD = myId !== owner ? styles.__red : styles.__green
 
     return (
         <div
@@ -46,7 +55,7 @@ const DefenseCounter: FC<TTakeHitPayload> = ({
                 left: `${coords.x - X_BACK}px`,
             }}
         >
-            
+
             {defenders > 0 ? <div
                 className={styleD}
                 style={{
@@ -68,7 +77,7 @@ const DefenseCounter: FC<TTakeHitPayload> = ({
                     <span>{invaders}</span>
                 </div>
             </div> : null}
-            
+
             <div className={styles.__whiteEffect}><div /></div>
         </div>
     )

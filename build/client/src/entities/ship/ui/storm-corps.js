@@ -18,7 +18,7 @@ const StormCorps = () => {
             </div>
             <div className={styles_module_scss_1.default.__info}>
                 <div className={styles_module_scss_1.default.head}>
-                    <div className={styles_module_scss_1.default.name}>Штурмой корпус</div>
+                    <div className={styles_module_scss_1.default.name}>Штурмовой корпус</div>
                     <div className={styles_module_scss_1.default.level}>
                         <span>{level} ур.</span>
                     </div>

@@ -34,13 +34,11 @@ export class PointerCreator {
 
         return this.loadImages([img, imgU])
             .then(() => {
-                console.log('1')
                 const draw = this.addImageToPoint(img, imgU)
                 this.clearCanvas()
                 return draw
             })
             .catch(async () => {
-                console.log('2')
                 return import('../assets/icons/not-image-pointer.png')
                     .then(async icon => {
 
@@ -71,17 +69,13 @@ export class PointerCreator {
 
     private loadImages(images: HTMLImageElement[]): Promise<Boolean> {
         let loades = 0
-        console.log('loades', loades)
         return new Promise((resolve, reject) => {
 
             images.forEach((image, i) => {
-                console.log('iiiiii', i)
 
                 image.onload = () => {
 
                     loades++
-                    console.log('loadImages onload', i)
-                    console.log('loades onload', loades)
 
                     if (loades === images.length) {
                         resolve(true)

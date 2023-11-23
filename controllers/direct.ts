@@ -8,6 +8,8 @@ import { Rooms } from "../api/socket/socket/rooms"
 import { Areal } from "../entities/pointer/areal"
 import { IPointerMemoryRepository } from "../entities/repository"
 import { SectorService } from "../services/sector.service";
+import { TFirePayload } from "../common-types/socket/server-to-client";
+import { TJoystickDirection } from "../common-types/model";
 
 @injectable()
 class DirectHandler extends IRoute {
@@ -38,6 +40,8 @@ class DirectHandler extends IRoute {
 
         const areal = Areal.generator(message.payload.position)
 
+        console.log('_pointer.areal', _pointer.areal)
+
         if (_pointer.areal && _pointer.areal === areal) {
 
             this._rooms.areals.broadcast(_pointer.areal, {
@@ -48,9 +52,10 @@ class DirectHandler extends IRoute {
                 }
             }, _pointer.zoneId)
 
+
         } else {
 
-            if (_pointer.areal) {
+            if (_pointer.areal && _pointer.areal !== -1) {
                 this._rooms.areals.deleteClient(_pointer.zoneId, _pointer.areal)
 
                 this._rooms.areals.broadcast(_pointer.areal, {
@@ -59,6 +64,53 @@ class DirectHandler extends IRoute {
                         userId: _pointer.zoneId
                     }
                 })
+            }
+
+            if (!_pointer.areal) {
+
+                // Это можно было бы куда-то вынести...
+                // Но если это не нагружает сервер, если условие не выполняется
+                // То тогда можно и оставить
+
+                const direction: TJoystickDirection = Areal.generator([_pointer.pos[0] + 0.004, _pointer.pos[1]]) !== areal ? 'FORWARD' : 'BACKWARD'
+                const _lat = direction === 'FORWARD' ? _pointer.pos[0] - 0.004 : _pointer.pos[0] + 0.004
+
+                setTimeout(() => {
+
+                    console.log('connect-pointer 1 nlo')
+
+                    uSocket.send(JSON.stringify({
+                        event: 'connect-pointer',
+                        payload: {
+                            lvl: 1,
+                            userId: -1,
+                            icon: 'https://sun120-1.userapi.com/s/v1/ig2/Y5LhWYhLVxHswvVU4dGrqnGVc4wmSzQQKVKZXrlyflMWuRihg7F4TVephtlm4fmdE9SFxBCUKPFuxsqz4hIIu_cx.jpg?size=50x50&quality=95&crop=468,0,960,960&ava=1',
+                            name: 'НЛО',
+                            health: 50,
+                            pos: [_lat, _pointer.pos[1]]
+                        }
+                    }))
+
+                    const fire: TFirePayload = {
+                        pos: [_lat, _pointer.pos[1]],
+                        to_pos: _pointer.pos,
+                        direction,
+                        userId: -1,
+                        hitPointer: {
+                            userId: _pointer.zoneId,
+                            pos: _pointer.pos,
+                            health: _pointer.health - 5
+                        }
+                    }
+
+                    _pointer.health = _pointer.health - 5
+
+                    uSocket.send(JSON.stringify({
+                        event: 'fire',
+                        payload: fire
+                    }))
+
+                }, 2000)
             }
 
             _pointer.areal = areal
@@ -126,6 +178,8 @@ class DirectHandler extends IRoute {
         }
 
         this._pointerService.memoryUpdate(_pointer)
+
+        console.log('>>>>memoryUpdate(_pointer) areal', _pointer.areal)
 
     }
 }

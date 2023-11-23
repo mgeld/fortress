@@ -1,12 +1,12 @@
-import { TEventGetAboutSector, TGetAboutSectorAPI } from "../common-types/socket/client-to-server"
-import { IWebSocket } from "../api/socket/server";
+import { TYPES } from "../types";
 import { IRoute } from "./handlers"
 import { inject, injectable } from "inversify";
-import { TYPES } from "../types";
+import { IWebSocket } from "../api/socket/server";
 import { SectorService } from "../services/sector.service";
 import { PointerService } from "../services/pointer.service";
 
 import { TSectorPayload } from "../common-types/socket/server-to-client";
+import { TEventGetAboutSector, TGetAboutSectorAPI } from "../common-types/socket/client-to-server"
 
 @injectable()
 class GetAboutSectorHandler extends IRoute {

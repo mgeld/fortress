@@ -43,6 +43,7 @@ import { getPlatform } from 'shared/lib/get-platform'
 import { getPlatformNative } from 'shared/lib/get-platform-native'
 import { Alert } from 'shared/ui/alert'
 import { Tutorial } from 'shared/ui/tutorial/ui'
+import { LockScreen } from 'shared/ui/lock-screen'
 
 mapStartPosition()
 
@@ -53,14 +54,14 @@ const _platform = getPlatformNative()
 
 const App = () => {
 
+  console.log('App')
   console.log('platform', platform)
   console.log('_platform', _platform)
-  console.log('Version 0.4')
+  console.log('Version 0.5')
 
   const popout = popoutModel.selectors.usePopout().data
   const page = pageModel.selectors.usePage().data
 
-  console.log('App')
 
   const {
     vkUserId,
@@ -72,18 +73,21 @@ const App = () => {
   //   // popoutModel.events.setPopout('primes')
   // }, [])
 
-
   if (!vkUserId) return <>load...</>
 
   return (
     <div className={`app ${_platform}`}>
 
+      <LoadFonts fontFamily='Lolita' />
+
       <PopoutRoot activePopout={popout}>
 
         <Popout
           id='battle-pending'
-          fill='#5a166480'
+          fill='white'
+          screen='full'
           close={false}
+          edge={0}
         >
           <BattlePending />
         </Popout>
@@ -91,7 +95,9 @@ const App = () => {
         <Popout
           id='battle-over'
           fill='#5a166480'
+          screen='full'
           close={false}
+          edge={0}
         >
           <BattleOver />
         </Popout>
@@ -99,6 +105,7 @@ const App = () => {
         <Popout
           id='user-dead'
           fill='#5a166480'
+          edge={12}
         >
           <UserDead />
         </Popout>
@@ -107,6 +114,7 @@ const App = () => {
           id='select-place'
           fill='#5a166480'
           close={false}
+          edge={12}
         >
           <SelectPlace />
         </Popout>
@@ -151,6 +159,8 @@ const App = () => {
           <HoldPopout />
         </Popout>
 
+
+        {/* START */}
         <Popout
           id='gun-improve-distance'
           fill='#5a166480'
@@ -190,6 +200,8 @@ const App = () => {
         >
           <ShipImproveHealth />
         </Popout>
+        
+        {/* END */}
 
         <Popout
           id='ship-level-up'
@@ -214,7 +226,6 @@ const App = () => {
         >
           <StormLevelUp />
         </Popout>
-
 
         <Popout
           id='hold-level-up'
@@ -248,30 +259,30 @@ const App = () => {
           <Alert />
         </Popout>
 
-        {/* <Popout
-          id='unit-out-hold'
+        <Popout
+          id='lock-screen'
           fill='#5a166480'
-          edge={28}
+          edge={14}
+          close={false}
         >
-          <UnitOutHold />
-        </Popout> */}
-
+          <LockScreen />
+        </Popout>
 
         <Popout
           id='primes'
           fill='#5a166480'
           edge={12}
+          close={false}
         >
           <Primes />
         </Popout>
 
       </PopoutRoot>
 
-      <LoadFonts fontFamily='Lolita' />
-
       <Canvas width={54} height={70} />
 
       <Snackbar />
+
       <Notice />
 
       <Tutorial />

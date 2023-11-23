@@ -8,16 +8,43 @@ import styles from './styles.module.scss'
 import { popoutModel } from "shared/ui/popout-root";
 import { modules } from "entities/unit/lib/modules";
 import { onBuyUnit } from "../model";
+import { unitsPrices } from "entities/unit/lib/unit-buy-list";
+import { IconCoin, IconSapphire } from "widgets/counters/icons/_icons";
+import { TTypeImproves, useItemImproves } from "features/unit/use-item/ui";
+import { TPopout } from "shared/ui/popout-root/model";
+// import { pageModel } from "shared/ui/page-root";
 
 export const BuyUnit: FC = () => {
 
-    const _unit: TExtrTypes | null = unitModel.selectors.useUnit()
+    const _unit: TExtrTypes | null = unitModel.selectors.useBuyUnit()
+
+    // const _unit: TExtrTypes | null = unitModel.selectors.useUnit()
 
     if (!_unit) return <></>
 
     const unit = modules[_unit]
 
     const closePopout = () => popoutModel.events.setPopout(null)
+
+    const _price = unitsPrices[_unit]
+
+    console.log('_unitBuy', _unit)
+    console.log('_price', _price)
+
+    const buyUnit = () => {
+        console.log('buyUnit')
+        // if (_unit) {
+        // setTimeout(() => {
+        // const popout = useItemImproves[(Math.floor(_unit / 10) * 10) as TTypeImproves] as TPopout
+        // popoutModel.events.setPopout(popout)
+        // console.log('buyUnit popout', popout)
+        // }, 500)
+        // } else {
+            popoutModel.events.setPopout(null)
+        //     // pageModel.events.setPage('map')
+        // }
+        onBuyUnit()
+    }
 
     return (
         <div className={styles.unit}>
@@ -44,12 +71,24 @@ export const BuyUnit: FC = () => {
                     </div>
 
                     <div className={`${styles.icon} e${_unit}`}>
-                        {unit.icon(66,66)}
+                        {unit.icon(66, 66)}
                     </div>
                 </div>
 
                 <div className={styles.description}>
                     {unit.description}
+                </div>
+                <div className={styles.resources}>
+
+                    <div className={styles.name}>
+                        Цена:
+                    </div>
+
+                    <div className={styles.price}>
+                        <div className={styles.icon}>{_price.currency === 'coins' ? <IconCoin /> : <IconSapphire />}</div>
+                        <div className={styles.quantity}>{_price.price}</div>
+                    </div>
+
                 </div>
 
                 <div className={styles.actions}>
@@ -61,7 +100,7 @@ export const BuyUnit: FC = () => {
                             Отмена
                         </div>
                         <div
-                            onClick={() => onBuyUnit()}
+                            onClick={buyUnit}
                             className={styles.button}
                         >
                             Купить

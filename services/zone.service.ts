@@ -37,7 +37,11 @@ export class ZoneService {
     async memoryGetById(userId: number): Promise<Zone> {
         const zone = await this._memoryRepository.getById(userId)
         return zone
+    }
 
+    async memoryGetByIds(userIds: number[]): Promise<Zone[]> {
+        const zones = await this._memoryRepository.getByIds(userIds)
+        return zones
     }
 
     async baseGetById(userId: number): Promise<Zone> {
@@ -53,7 +57,7 @@ export class ZoneService {
 
         const DEFAULT_COLOR = randomNumber(1, 6)
 
-        const DEFAULT_RUBIES = 150
+        const DEFAULT_RUBIES = 100
         const DEFAULT_COINS = 800
 
         const DEFAULT_TROPHIES = 0
@@ -67,20 +71,9 @@ export class ZoneService {
 
         const stormtrooper_corps = {
             level: 1,
-            // exp: 0,
             invaders: 50,
-            power: 1,
+            power: 5
         }
-
-        const guard_corps = {
-            level: 1,
-            exp: 0,
-            defenders: 0
-        }
-
-        // const defenders = 0
-
-        // const extraction: TExtrTypes[] = []
 
         const rank = {
             rank: 1,
@@ -119,6 +112,12 @@ export class ZoneService {
 
     async memoryUpdate(zone: Zone) {
         await this._memoryRepository.update(zone)
+    }
+
+    async memoryUpdates(zones: Zone[]) {
+        zones.forEach(async zone => {
+            await this._memoryRepository.update(zone)
+        })
     }
 
     async baseUpdate(zone: Zone) {

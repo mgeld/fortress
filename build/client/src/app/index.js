@@ -43,37 +43,40 @@ const get_platform_1 = require("shared/lib/get-platform");
 const get_platform_native_1 = require("shared/lib/get-platform-native");
 const alert_1 = require("shared/ui/alert");
 const ui_19 = require("shared/ui/tutorial/ui");
+const lock_screen_1 = require("shared/ui/lock-screen");
 (0, model_1.mapStartPosition)();
 window.addEventListener('popstate', () => (0, go_back_1.goBack)());
 let platform = (0, get_platform_1.getPlatform)();
 const _platform = (0, get_platform_native_1.getPlatformNative)();
 const App = () => {
+    console.log('App');
     console.log('platform', platform);
     console.log('_platform', _platform);
-    console.log('Version 0.4');
+    console.log('Version 0.5');
     const popout = popout_root_1.popoutModel.selectors.usePopout().data;
     const page = page_root_1.pageModel.selectors.usePage().data;
-    console.log('App');
     const { vkUserId, socketStatus } = (0, useApp_1.useApp)();
     if (!vkUserId)
         return <>load...</>;
     return (<div className={`app ${_platform}`}>
 
+      <load_fonts_1.default fontFamily='Lolita'/>
+
       <popout_root_1.PopoutRoot activePopout={popout}>
 
-        <popout_1.Popout id='battle-pending' fill='#5a166480' close={false}>
+        <popout_1.Popout id='battle-pending' fill='white' screen='full' close={false} edge={0}>
           <battle_pending_1.BattlePending />
         </popout_1.Popout>
 
-        <popout_1.Popout id='battle-over' fill='#5a166480' close={false}>
+        <popout_1.Popout id='battle-over' fill='#5a166480' screen='full' close={false} edge={0}>
           <arena_1.BattleOver />
         </popout_1.Popout>
 
-        <popout_1.Popout id='user-dead' fill='#5a166480'>
+        <popout_1.Popout id='user-dead' fill='#5a166480' edge={12}>
           <user_dead_1.UserDead />
         </popout_1.Popout>
 
-        <popout_1.Popout id='select-place' fill='#5a166480' close={false}>
+        <popout_1.Popout id='select-place' fill='#5a166480' close={false} edge={12}>
           <popout_2.SelectPlace />
         </popout_1.Popout>
 
@@ -97,6 +100,8 @@ const App = () => {
           <hold_1.HoldPopout />
         </popout_1.Popout>
 
+
+        
         <popout_1.Popout id='gun-improve-distance' fill='#5a166480' edge={14}>
           <ui_6.GunImproveDistance />
         </popout_1.Popout>
@@ -116,6 +121,8 @@ const App = () => {
         <popout_1.Popout id='ship-improve-health' fill='#5a166480' edge={14}>
           <ui_14.ShipImproveHealth />
         </popout_1.Popout>
+        
+        
 
         <popout_1.Popout id='ship-level-up' fill='#5a166480' edge={14}>
           <ui_15.ShipLevelUp />
@@ -128,7 +135,6 @@ const App = () => {
         <popout_1.Popout id='storm-level-up' fill='#5a166480' edge={14}>
           <ui_17.StormLevelUp />
         </popout_1.Popout>
-
 
         <popout_1.Popout id='hold-level-up' fill='#5a166480' edge={14}>
           <ui_18.HoldLevelUp />
@@ -146,20 +152,20 @@ const App = () => {
           <alert_1.Alert />
         </popout_1.Popout>
 
-        
+        <popout_1.Popout id='lock-screen' fill='#5a166480' edge={14} close={false}>
+          <lock_screen_1.LockScreen />
+        </popout_1.Popout>
 
-
-        <popout_1.Popout id='primes' fill='#5a166480' edge={12}>
+        <popout_1.Popout id='primes' fill='#5a166480' edge={12} close={false}>
           <primes_1.Primes />
         </popout_1.Popout>
 
       </popout_root_1.PopoutRoot>
 
-      <load_fonts_1.default fontFamily='Lolita'/>
-
       <canvas_1.default width={54} height={70}/>
 
       <ui_1.Snackbar />
+
       <ui_2.Notice />
 
       <ui_19.Tutorial />

@@ -15,21 +15,23 @@
 .__trophy {
     position: absolute;
     right: 10px;
-    top: 46px;
+    top: var(--header_height);
+    margin-top: 36px;
+    // top: 46px;
 }
 .__coin {
     position: absolute;
     right: 10px;
     // top: 108px;
     // top: 46px;
-    margin-top: 36px;
+    margin-top: 98px;
     top: var(--header_height);
 }
 .__sapphire {
     position: absolute;
     right: 10px;
     // top: 82px;
-    margin-top: 72px;
+    margin-top: 134px;
     top: var(--header_height);
     // top: 144px;
 }

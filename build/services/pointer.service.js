@@ -49,7 +49,6 @@ let PointerService = class PointerService {
     create(zoneId, pos, name, icon, weapon) {
         const DEFAULT_HEALTH = 100;
         const DEFAULT_COLOR = (0, random_number_1.randomNumber)(1, 6);
-        console.log('DEFAULT_COLOR', DEFAULT_COLOR);
         const DEFAULT_INVADERS = 100;
         const DEFAULT_DEFENDERS = 100;
         const pointer = pointer_1.Pointer.create({
@@ -70,12 +69,27 @@ let PointerService = class PointerService {
         console.log('getByIds');
         return this._memoryRepository.getByIds(userIds);
     }
+    getMarshalPointers(userIds) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const pointers = yield this.getByIds(userIds);
+            const users = {};
+            pointers.forEach(pointer => {
+                users[pointer.zoneId] = {
+                    lvl: pointer.level,
+                    icon: pointer.icon,
+                    name: pointer.name,
+                    health: pointer.health,
+                };
+            });
+            return users;
+        });
+    }
     getZoneByIds(_ids) {
         return this._baseRepository.getZoneByIds(_ids);
     }
     memoryUpdate(pointer) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log('memoryUpdate pointer.level', pointer.level);
+            console.log('memoryUpdate pointer', pointer);
             yield this._memoryRepository.update(pointer);
         });
     }

@@ -10,10 +10,12 @@ export class User {
 
     private _icon: string
     private _name: string
+    // private _tutorial: number
 
     private constructor(user: TUserProps) {
         this._icon = user.icon
         this._name = user.name
+        // this._tutorial = user.name
     }
 
     public static create(user: TUserProps) {

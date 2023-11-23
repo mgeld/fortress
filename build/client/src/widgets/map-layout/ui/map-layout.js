@@ -40,6 +40,7 @@ const fort_details_map_1 = require("./fort-details-map");
 const MapLayout = () => {
     const center = map_1.mapModel.selectors.useMapCenter();
     const mode = map_1.mapModel.selectors.useMapMode().mode;
+    console.log('MapLayout MapLayout MapLayout MapLayout');
     return (<div className='mapCard'>
 
             <react_leaflet_1.MapContainer ref={map_1.mapModel.events.setMap} className='_MapContainer' center={center} zoom={16} maxZoom={17} zoomControl={false} doubleClickZoom={false}>
@@ -91,6 +92,7 @@ const MapLayout = () => {
                     </react_leaflet_1.Pane>
 
                 </react_leaflet_1.Pane>
+                
                 <fires_1.default />
 
                 <bombs_1.default />

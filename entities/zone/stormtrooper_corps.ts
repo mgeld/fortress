@@ -33,22 +33,24 @@ export class StormtrooperCorps {
 
     }
 
-    increasePower(power: number): number | 'limit' {
+    increasePower(power: number): [number, number] | 'limit' {
         const maxValueLevel = StormtrooperCorps.getLevelMaxPower(this._level)
         if (maxValueLevel > this._power) {
-            const summ = this._power + power
+            const was_number = this._power
+            const summ = was_number + power
             this._power = summ > maxValueLevel ? maxValueLevel : summ
-            return this._power
+            return [was_number, this._power]
         }
         return 'limit'
     }
 
-    addInvaders(invaders: number): number | 'limit' {
+    addInvaders(invaders: number): [number, number] | 'limit' {
         const maxValueLevel = StormtrooperCorps.getLevelMaxInvaders(this._level)
         if (maxValueLevel > this._invaders) {
-            const summ = this._invaders + invaders
+            const was_number = this._invaders
+            const summ = was_number + invaders
             this._invaders = summ > maxValueLevel ? maxValueLevel : summ
-            return this._invaders
+            return [was_number, this._invaders]
         }
         return 'limit'
     }
@@ -120,18 +122,18 @@ export class StormtrooperCorps {
 
     private static getLevelMaxInvaders(level: number): number {
         const levels: { [key: number]: number } = {
-            1: 50,
-            2: 100,
-            3: 155,
-            4: 215,
-            5: 280,
-            6: 350,
-            7: 425,
-            8: 505,
-            9: 590,
-            10: 680,
-            11: 775,
-            12: 875
+            1: 100,
+            2: 150,
+            3: 205,
+            4: 265,
+            5: 330,
+            6: 400,
+            7: 475,
+            8: 555,
+            9: 640,
+            10: 730,
+            11: 825,
+            12: 925
         }
         return levels[level]
     }
@@ -142,5 +144,9 @@ export class StormtrooperCorps {
 
     get invaders(): number {
         return this._invaders
+    }
+
+    get power(): number {
+        return this._power
     }
 }

@@ -21,7 +21,8 @@ const types_1 = require("../../types");
 const ping_pong_1 = require("./socket/ping-pong");
 const inversify_1 = require("inversify");
 const handlers_1 = require("../../controllers/handlers");
-const snapshot_sectors_1 = require("../../controllers/snapshot-sectors");
+const snapshot_areals_1 = require("../../controllers/snapshot-areals");
+const snapshot_arenas_1 = require("../../controllers/snapshot-arenas");
 let Server = class Server {
     constructor() {
         this.serverContext = this;
@@ -34,10 +35,14 @@ let Server = class Server {
             key: fs_1.default.readFileSync('./api/cert/privateKey.key')
         }, (req, res) => {
             console.log('req.url', req.url);
-            if (req.url === '/snapchot-sectors') {
-                console.log('snapchot-sectors');
-                this._snapshot.saveSectorsToBase();
-                this._snapshot.clearInactiveAreals();
+            if (req.url === '/snapshot-areals') {
+                console.log('snapshot-areals');
+                this._snapshotAreals.saveSectorsToBase();
+                this._snapshotAreals.clearInactiveAreals();
+            }
+            else if (req.url === '/snapshot-arenas') {
+                console.log('snapshot-arenas');
+                this._snapshotArenas.clearInactiveArenas();
             }
             console.log("Request");
             res.end("Nice");
@@ -75,13 +80,17 @@ __decorate([
     __metadata("design:type", handlers_1.Handlers)
 ], Server.prototype, "_handlers", void 0);
 __decorate([
-    (0, inversify_1.inject)(types_1.TYPES.SnapshotSectors),
-    __metadata("design:type", snapshot_sectors_1.SnapshotSectors)
-], Server.prototype, "_snapshot", void 0);
-__decorate([
     (0, inversify_1.inject)(types_1.TYPES.PingPong),
     __metadata("design:type", ping_pong_1.PingPong)
 ], Server.prototype, "_pingPong", void 0);
+__decorate([
+    (0, inversify_1.inject)(types_1.TYPES.SnapshotAreals),
+    __metadata("design:type", snapshot_areals_1.SnapshotAreals)
+], Server.prototype, "_snapshotAreals", void 0);
+__decorate([
+    (0, inversify_1.inject)(types_1.TYPES.SnapshotArenas),
+    __metadata("design:type", snapshot_arenas_1.SnapshotArenas)
+], Server.prototype, "_snapshotArenas", void 0);
 Server = __decorate([
     (0, inversify_1.injectable)()
 ], Server);

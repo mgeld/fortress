@@ -10,6 +10,7 @@ import { PointerMemoryRepository } from './infra/database/memory/repositories/po
 import {
     IArealMemoryRepository,
     IArenaRepository,
+    IArenaSectorMemoryRepository,
     IArenaTeamMemberRepository,
     ICitadelMemoryRepository,
     ICitadelRepository,
@@ -47,7 +48,7 @@ import { WeaponRepository } from './infra/database/mysql2/repositories/weapon'
 import { SectorRepository } from './infra/database/mysql2/repositories/sector'
 import { Logs } from './infra/logs/takes'
 import { ArealMemoryRepository } from './infra/database/memory/repositories/areal'
-import { SnapshotSectors } from './controllers/snapshot-sectors'
+import { SnapshotAreals } from './controllers/snapshot-areals'
 import { GetAboutSectorHandler } from './controllers/get-about-sector'
 import { GetUserHandler } from './controllers/get-user'
 import { CitadelMemoryRepository } from './infra/database/memory/repositories/citadel'
@@ -65,6 +66,13 @@ import { LevelUpHandler } from './controllers/level-up'
 import { PingPong } from './api/socket/socket/ping-pong'
 
 import connection from './infra/database/mysql2/connection'
+import { ArenaSectorService } from './services/arena-sector.service'
+import { BattleTakeHandler } from './controllers/battle-take'
+import { ArenaSectorMemoryRepository } from './infra/database/memory/repositories/arena-sector'
+import { BattleService } from './services/battle.service'
+import { SnapshotArenas } from './controllers/snapshot-arenas'
+// import { ArenaTeamMemoryRepository } from './infra/database/memory/repositories/arena-team'
+// import { ArenaTeamService } from './services/arena-team.service'
 
 // import { Handlers } from './controllers/handlers'
 
@@ -84,6 +92,8 @@ container.bind(TYPES.FireHandler).to(FireHandler)
 container.bind(TYPES.BeamHandler).to(BeamHandler)
 
 container.bind(TYPES.TakeHandler).to(TakeHandler)
+container.bind(TYPES.BattleTakeHandler).to(BattleTakeHandler)
+
 container.bind(TYPES.BattleJoinHandler).to(BattleJoinHandler)
 container.bind(TYPES.BattleLeaveHandler).to(BattleLeaveHandler)
 container.bind(TYPES.BattleFireHandler).to(BattleFireHandler)
@@ -95,7 +105,6 @@ container.bind(TYPES.UseExtractionHandler).to(UseExtractionHandler)
 container.bind(TYPES.BuyUnitHandler).to(BuyUnitHandler)
 container.bind(TYPES.LevelUpHandler).to(LevelUpHandler)
 
-
 container.bind(TYPES.ArenaService).to(ArenaService)
 container.bind(TYPES.PointerService).to(PointerService)
 container.bind(TYPES.ZoneService).to(ZoneService)
@@ -103,6 +112,8 @@ container.bind(TYPES.MemberService).to(MemberService)
 container.bind(TYPES.WeaponService).to(WeaponService)
 container.bind(TYPES.SectorService).to(SectorService)
 container.bind(TYPES.CitadelService).to(CitadelService)
+container.bind(TYPES.ArenaSectorService).to(ArenaSectorService)
+// container.bind(TYPES.ArenaTeamService).to(ArenaTeamService)
 
 container.bind(TYPES.Base64EntityIdGenerator).to(Base64EntityIdGenerator).inSingletonScope()
 
@@ -114,8 +125,12 @@ container.bind<IPointerMemoryRepository>(TYPES.PointerMemoryRepository).to(Point
 container.bind<IZoneMemoryRepository>(TYPES.ZoneMemoryRepository).to(ZoneMemoryRepository)
 container.bind<IWeaponRepository>(TYPES.WeaponMemoryRepository).to(WeaponMemoryRepository)
 container.bind<IArenaTeamMemberRepository>(TYPES.MemberMemoryRepository).to(MemberMemoryRepository)
+// container.bind<IArenaTeamRepository>(TYPES.ArenaTeamMemoryRepository).to(ArenaTeamMemoryRepository)
+
 container.bind<ISectorMemoryRepository>(TYPES.SectorMemoryRepository).to(SectorMemoryRepository)
 container.bind<ISectorRepository>(TYPES.SectorRepository).to(SectorRepository)
+container.bind<IArenaSectorMemoryRepository>(TYPES.ArenaSectorMemoryRepository).to(ArenaSectorMemoryRepository)
+
 container.bind<IArealMemoryRepository>(TYPES.ArealMemoryRepository).to(ArealMemoryRepository)
 container.bind<ICitadelMemoryRepository>(TYPES.CitadelMemoryRepository).to(CitadelMemoryRepository)
 container.bind<ICitadelRepository>(TYPES.CitadelRepository).to(CitadelRepository)
@@ -127,8 +142,11 @@ container.bind<IPointerRepository>(TYPES.PointerRepository).to(PointerRepository
 container.bind<IZoneRepository>(TYPES.ZoneRepository).to(ZoneRepository)
 container.bind<IWeaponRepository>(TYPES.WeaponRepository).to(WeaponRepository)
 
-container.bind(TYPES.SnapshotSectors).to(SnapshotSectors)
+container.bind(TYPES.SnapshotAreals).to(SnapshotAreals)
+container.bind(TYPES.SnapshotArenas).to(SnapshotArenas)
 
 container.bind(TYPES.connection).toConstantValue(connection)
+
+container.bind(TYPES.BattleService).to(BattleService)
 
 export { container }

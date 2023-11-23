@@ -6,10 +6,10 @@ const __1 = require("..");
 class BattleJoinHandler extends __1.Handler {
     handle(message) {
         console.log('BattleJoinHandler handle');
-        events_1.mapAPI.events.setMapMode('battle');
-        events_1.shipAPI.events.setHealth(message.payload.user.health);
         events_1.shipAPI.events.setPos(message.payload.user.pos);
+        events_1.mapAPI.events.setMapMode('battle');
         events_1.battleAPI.events.setBattleStatus('pending');
+        events_1.battleAPI.events.setMyTeam(message.payload.user.team);
     }
 }
 exports.BattleJoinHandler = BattleJoinHandler;

@@ -5,8 +5,10 @@ const effector_1 = require("effector");
 const map_1 = require("entities/map");
 const ship_1 = require("entities/ship");
 const setMaxBoundsFx = (0, effector_1.createEffect)(({ map, areal }) => {
+    console.log('Блядь, работает!');
     if (!map)
         return;
+    setTimeout(() => { });
     map.setMaxBounds([
         [areal[0][0] - 0.01, areal[0][1] - 0.01],
         [areal[1][0] + 0.01, areal[1][1] + 0.01],

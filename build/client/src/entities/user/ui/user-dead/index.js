@@ -4,14 +4,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserDead = void 0;
-const _icons_1 = require("shared/assets/icons/_icons");
 const ui_1 = require("shared/ui/button/ui");
 const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
 const map_1 = require("entities/map");
 const events_1 = require("shared/api/events");
 const citadel_1 = require("entities/citadel");
 const popout_root_1 = require("shared/ui/popout-root");
-const _icons_2 = require("widgets/counters/icons/_icons");
+const _icons_1 = require("widgets/counters/icons/_icons");
+const icons_1 = require("widgets/panel/assets/icons");
 const UserDead = () => {
     var _a;
     const { mode } = map_1.mapModel.selectors.useMapMode();
@@ -34,7 +34,7 @@ const UserDead = () => {
                         </div>
                         <div className={styles_module_scss_1.default.__right}>
                             <div className={styles_module_scss_1.default.__icon}>
-                                <_icons_2.IconTrophy width={34} height={34}/>
+                                <_icons_1.IconTrophy width={34} height={34}/>
                             </div>
                             <div className={styles_module_scss_1.default.__text}>
                                 -25
@@ -45,21 +45,23 @@ const UserDead = () => {
 
                     <div className={styles_module_scss_1.default.__main}>
                         <div className={styles_module_scss_1.default.__swords}>
-                            <_icons_1.IconBattleShield width={64} height={64}/>
+                            
+                            
+                            <icons_1.IconShip width={64} height={64}/>
                         </div>
-                        <div className={styles_module_scss_1.default.__info}>
-                            Ваш корабль потерпел крушение. Вернуться в цитадель или продолжить наблюдение за областью?
+                        <div className={`${styles_module_scss_1.default.__info} strw1`}>
+                            Ваш корабль сломан. Вернуться в цитадель или продолжить наблюдение за областью?
                         </div>
                     </div>
 
                     <div className={styles_module_scss_1.default.__bottom}>
 
                         <div className={styles_module_scss_1.default.__button}>
-                            <ui_1.Button className="" text="Наблюдать" onClick={() => popout_root_1.popoutModel.events.setPopout(null)}/>
+                            <ui_1.Button className="" radius={10} text="Наблюдать" onClick={() => popout_root_1.popoutModel.events.setPopout(null)}/>
                         </div>
 
                         <div className={styles_module_scss_1.default.__button}>
-                            <ui_1.Button className="" text="В цитадель" onClick={() => selectPosition(latlng)}/>
+                            <ui_1.Button className="" radius={10} text="В цитадель" onClick={() => selectPosition(latlng)}/>
                         </div>
 
                     </div>

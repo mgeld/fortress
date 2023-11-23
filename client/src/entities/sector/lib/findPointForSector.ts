@@ -128,11 +128,7 @@ export const findPointForSector = (geo_point: TLatLng) => {
 
     }
 
-    console.log('findPointForSector TIME: ', +new Date() - __start)
-
     // const w_sector = getDistanceFromLatLonInKm(point_lat, point_long, point_lat + distance_long, (point_long )) * 1000;
-
-    // console.log('w_sector', w_sector)
 
     return {
         whlt,

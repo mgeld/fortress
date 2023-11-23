@@ -1,15 +1,16 @@
 import { FC } from "react";
 
-import styles from './styles.module.scss'
-import { IconLocation, IconTouch } from "./icons/_icons";
-import { Button } from "shared/ui/button/ui";
-import { popoutModel } from "shared/ui/popout-root";
+import { IconTouch } from "./icons/_icons";
 import { mapModel } from "entities/map";
-import { getRandomPosition } from "shared/lib/get-random-position";
-import bridge from "@vkontakte/vk-bridge";
 import { TLatLng } from "@ctypes/model";
+import { Button } from "shared/ui/button/ui";
 import { noticeModel } from "shared/ui/notice";
-import { tutorialModel } from "shared/ui/tutorial";
+import { popoutModel } from "shared/ui/popout-root";
+import { getRandomPosition } from "shared/lib/get-random-position";
+
+import bridge from "@vkontakte/vk-bridge";
+
+import styles from './styles.module.scss'
 
 export const SelectPlace: FC = () => {
 
@@ -23,24 +24,29 @@ export const SelectPlace: FC = () => {
 
     const setRandPos = () => {
         const pos = getRandomPosition()
-        mapModel.events.setLatLngMap(pos)
         popoutModel.events.setPopout(null)
         // map?.flyTo(pos, 16)
         map?.setView(pos, 16)
-
-        console.log('flyTo 1111')
+        mapModel.events.setLatLngMap(pos)
     }
 
     const getGeo = async () => {
         await bridge
             .send("VKWebAppGetGeodata")
             .then(data => {
-
                 if (data.available) {
                     const pos: TLatLng = [data.lat, data.long]
-                    mapModel.events.setLatLngMap(pos)
-                    popoutModel.events.setPopout(null)
-                    map?.setView(pos, 16)
+                    if (pos[0] > 0 && pos[1] > 0) {
+                        popoutModel.events.setPopout(null)
+                        map?.setView(pos, 16)
+                        mapModel.events.setLatLngMap(pos)
+                    } else {
+                        noticeModel.events.newToast({
+                            name: 'Упс...',
+                            text: 'В вашей стране пока нельзя завоевывать территории, но вы можете выбрать любое место в России или странах СНГ!',
+                            t: 'common'
+                        })
+                    }
                 } else {
                     noticeModel.events.newToast({
                         name: 'Ошибка',
@@ -59,6 +65,7 @@ export const SelectPlace: FC = () => {
 
     }
 
+
     return (
         <div className={styles.selectPlace}>
             <div className={styles.__content}>
@@ -67,13 +74,14 @@ export const SelectPlace: FC = () => {
                     <div className={styles.name}>
                         Выбор территории
                     </div>
-                    <div className={styles.icon}>
-                        <IconLocation />
-                    </div>
+                    {/* <div className={styles.icon}>
+                        <IconGlob width={60} height={60}/>
+                    </div> */}
                     <div className={styles.geoPlace}>
                         <Button
+                            radius={10}
                             className=""
-                            text="Местоположение"
+                            text="Геолокация"
                             onClick={getGeo}
                         />
                     </div>
@@ -93,6 +101,7 @@ export const SelectPlace: FC = () => {
                         <div className={styles.buttons}>
                             <div className={styles.__randomPlace}>
                                 <Button
+                                    radius={10}
                                     className=""
                                     text="Случайное"
                                     onClick={setRandPos}
@@ -100,6 +109,7 @@ export const SelectPlace: FC = () => {
                             </div>
                             <div className={styles.__selectPlace}>
                                 <Button
+                                    radius={10}
                                     className=""
                                     text="Выбрать"
                                     onClick={selectPlace}

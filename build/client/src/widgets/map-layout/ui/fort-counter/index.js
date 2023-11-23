@@ -8,7 +8,8 @@ const fort_1 = require("entities/fort");
 const defense_counter_1 = __importDefault(require("entities/fort/ui/defense-counter"));
 const FortCounter = () => {
     const data = fort_1.fortModel.selectors.useTakeFort().data;
-    if (!data)
+    const cont = fort_1.fortModel.selectors.useContainerFort().data;
+    if (!data || cont)
         return <></>;
     return (<defense_counter_1.default {...data}/>);
 };

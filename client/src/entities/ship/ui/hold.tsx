@@ -22,13 +22,13 @@ export const Hold: FC = () => {
             </div>
             <div className={styles.__info}>
                 <div className={styles.head}>
-                    <div className={styles.name}>Загрузочный трюм</div>
+                    <div className={styles.name}>Трюм корабля</div>
                     <div className={styles.level}>
                         <span>{level} ур.</span>
                     </div>
                 </div>
                 <div className={styles.description}>
-                    <div className={styles.name}>Загруженность</div>
+                    <div className={styles.name}>Предметы</div>
                     <div className={styles.counter}>{lengthItems} / {HoldLevel.getMaxItems(level as THoldLevel)}</div>
                 </div>
             </div>

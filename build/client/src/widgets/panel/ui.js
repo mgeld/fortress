@@ -17,8 +17,6 @@ const Panel = () => {
     var _a;
     const latlng = ((_a = citadel_1.citadelModel.selectors.useCitadel()) === null || _a === void 0 ? void 0 : _a.latlng) || null;
     const selectCitadel = (pos) => {
-        console.log('selectCitadel');
-        console.log('selectCitadel pos', pos);
         if (!pos) {
             popout_root_1.popoutModel.events.setPopout('alert');
             alert_1.alertModel.events.setAlert({

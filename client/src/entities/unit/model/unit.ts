@@ -2,20 +2,28 @@ import { TExtrTypes } from "@ctypes/model"
 import { createEvent, createStore } from "effector"
 import { useStore } from "effector-react"
 
-const selectUnit = createEvent<TExtrTypes>()
+// const selectUnit = createEvent<TExtrTypes>()
+const selectBuyUnit = createEvent<TExtrTypes>()
 
-export const $unitSelect = createStore<TExtrTypes | null>(null)
-    .on(selectUnit, (_, extraction) => extraction)
+// Покупка предмета
+export const $unitBuySelect = createStore<TExtrTypes | null>(null)
+    .on(selectBuyUnit, (_, unit) => unit)
 
-$unitSelect.watch(val => console.log('unitSelect watch', val))
+// export const $unitSelect = createStore<TExtrTypes | null>(null)
+//     .on(selectUnit, (_, unit) => unit)
 
-const useUnit = () => useStore($unitSelect)
+$unitBuySelect.watch(val => console.log('unitBuySelect watch', val))
+
+// const useUnit = () => useStore($unitSelect)
+const useBuyUnit = () => useStore($unitBuySelect)
 
 export const selectors = {
-    useUnit,
+    // useUnit,
+    useBuyUnit
 }
 
 export const events = {
-    selectUnit,
+    // selectUnit,
+    selectBuyUnit
 }
 

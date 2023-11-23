@@ -1,7 +1,7 @@
 .black-fort {
     animation: 0.4s linear scale-fort;
     transform-box: fill-box;
-    transform-origin: center center;
+    /* transform-origin: center center; */
 }
 
 .fort-stroke {

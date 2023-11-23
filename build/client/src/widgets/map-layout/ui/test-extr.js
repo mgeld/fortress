@@ -6,7 +6,6 @@ const h3_js_1 = require("h3-js");
 const react_leaflet_1 = require("react-leaflet");
 const TestExtr = () => {
     const areal = ship_1.shipModel.selectors.useAreal();
-    console.log('areal areal areal', areal);
     const polygon = areal && (areal === null || areal === void 0 ? void 0 : areal.length) > 1 ? [
         [areal[0][0], areal[0][1]],
         [areal[0][0] + 0.02, areal[0][1]],
@@ -34,7 +33,7 @@ const TestExtr = () => {
     return (<>
             
             <react_leaflet_1.Polygon weight={0.9} pathOptions={{
-            fillColor: '#e9c564',
+            fillOpacity: 0,
             color: '#e9c564'
         }} positions={p}/>
         </>);

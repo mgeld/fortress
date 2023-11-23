@@ -5,7 +5,7 @@ const __1 = require("..");
 const notice_1 = require("shared/ui/notice");
 const popout_root_1 = require("shared/ui/popout-root");
 const events_1 = require("shared/api/events");
-const page_root_1 = require("shared/ui/page-root");
+const ui_1 = require("features/unit/use-item/ui");
 class BuyUnitHandler extends __1.Handler {
     handle(message) {
         console.log('BuyUnitHandler message', message);
@@ -24,43 +24,46 @@ class BuyUnitHandler extends __1.Handler {
             case 11:
             case 12:
                 name = `Покупка прошла успешно!`;
-                text = `Модуль опыта добавлен в трюм корабля. Вы можете активрировать модуль в любой момент!`;
+                text = `Модуль опыта добавлен в трюм корабля. Вы можете активировать модуль в любой момент!`;
                 break;
             case 20:
             case 21:
             case 22:
                 name = `Покупка прошла успешно!`;
-                text = `Модуль штурмовой силы добавлен в трюм корабля. Вы можете активрировать модуль в любой момент!`;
+                text = `Модуль штурмовой силы добавлен в трюм корабля. Вы можете активировать модуль в любой момент!`;
                 break;
             case 30:
             case 31:
             case 32:
                 name = `Покупка прошла успешно!`;
-                text = `Модуль здоровья добавлен в трюм корабля. Вы можете активрировать модуль в любой момент!`;
+                text = `Модуль здоровья добавлен в трюм корабля. Вы можете активировать модуль в любой момент!`;
                 break;
             case 40:
             case 41:
             case 42:
                 name = `Покупка прошла успешно!`;
-                text = `Модуль мощности добавлен в трюм корабля. Вы можете активрировать модуль в любой момент!`;
+                text = `Модуль мощности добавлен в трюм корабля. Вы можете активировать модуль в любой момент!`;
                 break;
             case 50:
             case 51:
             case 52:
                 name = `Покупка прошла успешно!`;
-                text = `Модуль дальности добавлен в трюм корабля. Вы можете активрировать модуль в любой момент!`;
+                text = `Модуль дальности добавлен в трюм корабля. Вы можете активировать модуль в любой момент!`;
                 break;
             case 100:
+                name = `Покупка прошла успешно!`;
+                text = `Группа штурма добавлена в трюм корабля. Вы можете активировать предмет в любой момент!`;
+                break;
             case 101:
                 name = `Покупка прошла успешно!`;
-                text = `Группа штурма добавлена в трюм корабля. Вы можете активрировать предмет в любой момент!`;
+                text = `Эскадрон штурма добавлен в трюм корабля. Вы можете активировать предмет в любой момент!`;
                 break;
             default:
                 name = `Покупка прервалась`;
                 text = `Возникла непредвиденная ошибка`;
         }
-        popout_root_1.popoutModel.events.setPopout(null);
-        page_root_1.pageModel.events.setPage('map');
+        const popout = ui_1.useItemImproves[(Math.floor(unit / 10) * 10)];
+        popout_root_1.popoutModel.events.setPopout(popout);
         notice_1.noticeModel.events.newToast({
             name,
             text,

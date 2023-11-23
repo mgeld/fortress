@@ -29,7 +29,7 @@ const AboutSector = ({ name, zone_id }) => {
             <div className={[styles_module_scss_1.default.__container, styles_module_scss_1.default.__one].join(' ')}>
                 
                 <about_sector_item_1.AboutSectorItem icon={<_icons_1.IconTarget width={18} height={18}/>} name="Область:" text={`${sector.areal}`}/>
-                <about_sector_item_1.AboutSectorItem icon={<_icons_1.IconFort width={16} height={16}/>} name="Башня:" text={`${sector.defenders} стражей`}/>
+                <about_sector_item_1.AboutSectorItem icon={<_icons_1.IconFort width={16} height={16}/>} name="Форт:" text={`${sector.defenders} стражей`}/>
                 <about_sector_item_1.AboutSectorItem icon={<_icons_1.IconLocation width={16} height={16}/>} name="Владелец:" text={`${sector.owner}`}/>
             </div>
         </div>);

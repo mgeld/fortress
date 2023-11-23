@@ -18,17 +18,35 @@ const killPointer = createEvent<TDeadEvent>()
 // }
 const setTeams = createEvent<TTeam[]>()
 
+const setMyTeam = createEvent<number>()
+
 export type TArena = {
     id: string
     time_start: number
     place: TLatLng
-    // teams: number[]
 }
+
 const setArena = createEvent<TArena>()
+
+export type TTeamSectorEvent = {
+    team: number
+}
+const addSector = createEvent<TTeamSectorEvent>()
+const loseSector = createEvent<TTeamSectorEvent>()
+
+const setTimer = createEvent<number>()
+const stepTimer = createEvent()
 
 export const events = {
     setArena,
     setTeams,
     killPointer,
     setBattleStatus,
+    setMyTeam,
+
+    addSector,
+    loseSector,
+
+    setTimer,
+    stepTimer
 }

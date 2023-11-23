@@ -5,8 +5,8 @@ const react_1 = require("react");
 const react_leaflet_1 = require("react-leaflet");
 const Keyframes_1 = require("shared/ui/Keyframes/Keyframes");
 const pointer_1 = require("entities/pointer");
-require("./styles.css");
 const ship_1 = require("entities/ship");
+require("./styles.css");
 const Beam = ({ beam }) => {
     let sizeDrone = pointer_1.droneMapModel.selectors.useDroneSize();
     const myPos = ship_1.shipModel.selectors.useShipPos();
@@ -16,7 +16,6 @@ const Beam = ({ beam }) => {
         to: map.latLngToLayerPoint(beam.to_pos)
     });
     (0, react_1.useEffect)(() => {
-        console.log('useEffectuseEffectuseEffectuseEffectuseEffect');
         setInvader({
             from: map.latLngToLayerPoint(myPos),
             to: map.latLngToLayerPoint(beam.to_pos)

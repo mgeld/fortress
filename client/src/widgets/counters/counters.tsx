@@ -5,6 +5,7 @@ import {
     IconExperience,
     IconSapphire,
     IconSector,
+    IconTrophy,
     IconZone
 } from "./icons/_icons"
 
@@ -20,19 +21,9 @@ import { Tooltip } from "shared/ui/tooltip/ui"
 import { TZoneLevel, ZoneLevel } from "entities/zone/lib/zone-level"
 
 import styles from './styles.module.scss'
+import { mapModel } from "entities/map"
 
 export const Counters = () => {
-
-    const zoneLevel = zoneModel.selectors.useZoneLevel()
-
-    const rankLevel = userModel.selectors.useRankLevel()
-    const sects = zoneModel.selectors.useZoneSectors()
-
-    // const trophy = zoneModel.selectors.useZoneTrophies()
-
-    const rankExp = userModel.selectors.useRankExp()
-    const progressExp = rankExp * 100 / ExpRank.getExp(rankLevel as TRank)
-
     const [tooltip, setTooltip] = useState<null | 1 | 2 | 3 | 4 | 5 | 6>(null)
 
     const tId = useRef<ReturnType<typeof setTimeout>>()
@@ -46,6 +37,19 @@ export const Counters = () => {
         }, 6000)
 
     }, [tooltip])
+
+
+    // if(mode !== 'invade') return <></>
+
+    const zoneLevel = zoneModel.selectors.useZoneLevel()
+
+    const rankLevel = userModel.selectors.useRankLevel()
+    const sects = zoneModel.selectors.useZoneSectors()
+
+    const trophy = zoneModel.selectors.useZoneTrophies()
+
+    const rankExp = userModel.selectors.useRankExp()
+    const progressExp = rankExp * 100 / ExpRank.getExp(rankLevel as TRank)
 
     const zoneSects = sects - (ZoneLevel.getMaxLevelAllSectors(zoneLevel - 1 as TZoneLevel) || 0)
     const zoneProgress = zoneSects * 100 / ZoneLevel.getMaxLevelSectors(zoneLevel as TZoneLevel)
@@ -66,7 +70,7 @@ export const Counters = () => {
                     />
                 ) : <></>}
             </Counter>
-            {/* <Counter
+            <Counter
                 onClick={() => setTooltip(2)}
                 width={74}
                 className={styles.__trophy}
@@ -79,7 +83,7 @@ export const Counters = () => {
                     pos="right"
                     message="Трофеи за сражения на арене"
                 /> : <></>}
-            </Counter> */}
+            </Counter>
 
             <Counter
                 width={74}
@@ -117,6 +121,7 @@ export const Counters = () => {
             <CounterProgress
                 onClick={() => setTooltip(5)}
                 className={styles.__experience}
+                position="left"
                 icon={<IconExperience />}
                 progress={progressExp}
                 color="#C163E0"
@@ -134,6 +139,7 @@ export const Counters = () => {
             <CounterProgress
                 onClick={() => setTooltip(6)}
                 className={styles.__zone}
+                position="left"
                 icon={<IconZone />}
                 progress={zoneProgress}
                 color="#C163E0"

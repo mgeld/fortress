@@ -87,9 +87,9 @@ export type TExtrTypesName =
     | 'ship_health'
     | 'gun_power'
     | 'gun_distance'
-    | 'stormtroopers' 
-    | 'coins' 
-    | 'rubies' 
+    | 'stormtroopers'
+    | 'coins'
+    | 'rubies'
 
 export type TFindContType = 1 | 2 | 3
 
@@ -98,3 +98,10 @@ export type TGameUnit =
     | 'hold'
     | 'gun'
     | 'storm-corps'
+
+export type TTutType =
+    | 'ship'
+    | 'storm'
+    | 'projector'
+    | 'gun'
+    | 'hold'

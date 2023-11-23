@@ -6,8 +6,6 @@ export const Snackbar: FC = () => {
 
     const toasts = snackbarModel.selectors.useSnackbar().data
 
-    console.log('17 toasts', toasts)
-
     return (
         <div className={styles.snackbarRoot}>
             {toasts.map(toast => {

@@ -9,8 +9,11 @@ import { holdModel } from "entities/hold";
 import { IconArrow } from "shared/assets/icons/_icons";
 import { unitModel } from "entities/unit";
 
+import { alertModel } from "shared/ui/alert"
+
 import styles from './styles.module.scss'
-import { alertModel } from "shared/ui/alert";
+import { onUseExtraction } from "../use-extraction/model";
+
 
 type TUseItemProps = {
     item: string,
@@ -24,6 +27,16 @@ type TUseItemProps = {
     modules: TExtrTypes[]
 }
 
+export type TTypeImproves = 20 | 30 | 40 | 50 | 100
+
+export const useItemImproves: Record<TTypeImproves, string> = {
+    20: 'storm-improve-power',
+    30: 'ship-improve-health',
+    40: 'gun-improve-power',
+    50: 'gun-improve-distance',
+    100: 'storm-add-invaders',
+}
+
 export const UseItem: FC<TUseItemProps> = ({
     item,
     upswing,
@@ -33,9 +46,17 @@ export const UseItem: FC<TUseItemProps> = ({
 }) => {
 
     const extr = holdModel.selectors.useHoldItems()
-    // .filter(item => item >= 50 && item <= 52)
 
-    const [card, setCard] = useState<TExtrTypes>(modules[0])
+    const unit = unitModel.selectors.useBuyUnit()
+
+    console.log('UseItem unit', unit)
+
+    // if (unit)
+
+
+    const [card, setCard] = useState<TExtrTypes>(unit && ~modules.indexOf(unit) ? unit : modules[0])
+
+    console.log('UseItem card', card)
 
     const extrIndex = extr.findIndex(item => item === card)
 
@@ -48,21 +69,21 @@ export const UseItem: FC<TUseItemProps> = ({
                 id: card as TExtrTypes,
                 index: extrIndex
             })
-            popoutModel.events.setPopout('select-extraction')
+            // popoutModel.events.setPopout('select-extraction')
+            onUseExtraction()
         } else {
-            // noticeModel.events.newToast({
-            //     name: 'Нет неободимого предмета',
-            //     text: 'Выбранный предмет не найден в трюме корабля',
-            //     t: 'warning'
-            // })
-            unitModel.events.selectUnit(card)
+
             popoutModel.events.setPopout('alert')
             alertModel.events.setAlert({
                 alert: list_modules[card].name,
                 message: `В трюме нет нужного предмета для использования. Перейти к покупке?`,
                 action: {
                     text: 'Подтвердить',
-                    _click: () => popoutModel.events.setPopout('select-unit')
+                    _click: () => {
+                        // unitModel.events.selectUnit(card)
+                        unitModel.events.selectBuyUnit(card)
+                        popoutModel.events.setPopout('select-unit')
+                    }
                 }
             })
         }
@@ -149,7 +170,7 @@ export const UseItem: FC<TUseItemProps> = ({
                             onClick={() => openExtraction()}
                             className={styles.button}
                         >
-                            Повысить
+                            Применить
                         </div>
                     </div>
                 </div>

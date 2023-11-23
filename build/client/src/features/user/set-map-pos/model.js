@@ -7,14 +7,12 @@ const map_1 = require("entities/map");
 const ship_1 = require("entities/ship");
 const events_1 = require("shared/api/events");
 const setPosFx = (0, effector_1.createEffect)(({ source, pos }) => {
-    source.map.setMaxBounds([[-90, -180], [90, 180]]);
+    var _a;
+    const areal = model_1.Areal.getBounds(pos);
+    ship_1.shipModel.events.setAreal(areal);
     source.map.setView(pos, 16);
-    setTimeout(() => {
-        var _a;
-        const areal = model_1.Areal.getBounds(pos);
-        ship_1.shipModel.events.setAreal(areal);
-        (_a = source.map) === null || _a === void 0 ? void 0 : _a.setMinZoom(15);
-    }, 2000);
+    source.map.setZoom(16);
+    (_a = source.map) === null || _a === void 0 ? void 0 : _a.setMinZoom(15);
 });
 const setMapPosListener = () => {
     (0, effector_1.sample)({

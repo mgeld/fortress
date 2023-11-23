@@ -1,4 +1,4 @@
-import { TTractorExtr } from "../common-types/socket/server-to-client"
+import { TTractorExtr, TTutorial } from "../common-types/socket/server-to-client"
 import { TBeamAPI, TEventBeam } from "../common-types/socket/client-to-server"
 import { IWebSocket } from "../api/socket/server";
 import { IRoute } from "./handlers"
@@ -46,14 +46,24 @@ class BeamHandler extends IRoute {
 
             if (_sector.booty) {
 
-                extr = Sector.getContainerExtr(_sector.booty)
+                if (zone.terrain.sectors > 1) {
+                    extr = Sector.getContainerExtr(_sector.booty)
+                } else {
+                    extr = 110
+
+                    const tutorialResp: TTutorial = {
+                        event: 'tutorial',
+                        payload: {
+                            type: 'hold'
+                        }
+                    }
+                    uSocket.send(JSON.stringify(tutorialResp))
+
+                }
+
                 zone.hold.addExtrToList(extr)
-
-                console.log('EXTRRRRRRRRRRRR', extr)
-                console.log('zone extraction', zone.hold.unmarshal())
-
             }
-
+            
             extrResp = {
                 event: 'attraction',
                 payload: {
@@ -64,7 +74,9 @@ class BeamHandler extends IRoute {
                 }
             }
             
-            if(extr) {
+            console.log('extr', extr)
+
+            if (extr) {
                 _sector.takenBooty()
                 this._logs.takes.add(_sector.id)
                 this._zoneService.memoryUpdate(zone)

@@ -1,7 +1,7 @@
 import { mapModel } from "entities/map";
 import { PointIcon } from "entities/pointer/ui/point-icon";
 import { userModel } from "entities/user";
-import { CoordPair, cellToBoundary, latLngToCell, } from "h3-js";
+import { CoordPair, cellToBoundary, cellToLatLng, latLngToCell, } from "h3-js";
 import { FC, useEffect, useState } from "react";
 import { Polygon, useMapEvent } from "react-leaflet";
 import { TLatLng } from "shared/types";
@@ -21,15 +21,21 @@ export const MapSelectPlace: FC = () => {
     console.log('MapSelectPlace')
 
     const setPolygon = (pos: TLatLng) => {
-        mapModel.events.setLatLngMap(pos)
 
         // Convert a lat/lng point to a hexagon index at resolution 7
         const h3Index = latLngToCell(pos[0], pos[1], 9);
 
+        const [lat, long] = cellToBoundary(h3Index)[0]
+
+        // map?.setView([lat + 0.002, long], 16)
+
+        const _pos: TLatLng = [lat, long + 0.0001]
+
         setSector({
-            latlng: pos,
+            latlng: _pos,
             bounds: cellToBoundary(h3Index)
         })
+
     }
 
     useEffect(() => {
@@ -39,7 +45,9 @@ export const MapSelectPlace: FC = () => {
     }, [clickPos, sector])
 
     useMapEvent('click', (e) => {
-        setPolygon([e.latlng.lat, e.latlng.lng])
+        const _pos: TLatLng = [e.latlng.lat, e.latlng.lng]
+        setPolygon(_pos)
+        mapModel.events.setLatLngMap(_pos)
     })
 
     if (!sector) return <></>

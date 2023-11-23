@@ -27,8 +27,6 @@ const clearStore = (0, effector_1.createEvent)();
 const { setPointers, newPointer, delPointer, updatePositionPointer, changeHealthPointer, setHealthPointer } = events_1.pointersAPI.events;
 const getUsersFx = (0, effector_1.createEffect)(({ pointers, prevPointers }) => __awaiter(void 0, void 0, void 0, function* () {
     const user_ids = pointers.map(item => item.userId);
-    console.log('________user_ids', user_ids);
-    console.log('________pointers', pointers);
     return vk_bridge_1.default.send('VKWebAppCallAPIMethod', {
         method: 'users.get',
         params: {

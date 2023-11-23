@@ -6,6 +6,12 @@ import bridge from "@vkontakte/vk-bridge";
 import { userModel } from "entities/user";
 import { userEvents } from "features/user/connect-user";
 import { response } from "express";
+import { alertModel } from "shared/ui/alert";
+import { popoutModel } from "shared/ui/popout-root";
+import { lockModel } from "shared/ui/lock-screen";
+import { lostInternet } from "processes/lost-internet";
+import { socketModel } from "shared/api/socket";
+import { reSocketClose } from "processes/socket/socket-close";
 
 type TVkUserApi = {
     id: number
@@ -20,6 +26,9 @@ export const useApp = () => {
     const socketStatus = useSocket()
 
     useEffect(() => {
+
+        window.addEventListener("offline", lostInternet);
+
         bridge.send('VKWebAppGetUserInfo').then(user => {
             console.log('VKWebAppGetUserInfo user', user)
             userModel.events.setVkUser(user.id)
@@ -42,16 +51,33 @@ export const useApp = () => {
         //     userModel.events.setUserIcon(data.response[0].photo_50)
         // })
     }, [])
+    
+    console.log('qq')
 
     useEffect(() => {
         console.log('useEffect vkUserId', vkUserId)
         console.log('useEffect socketStatus', socketStatus)
+
+        if (vkUserId > 0 && socketStatus === 'close') {
+            popoutModel.events.setPopout('lock-screen')
+
+            lockModel.events.setLockScreen({
+                action: {
+                    text: 'Переподключиться',
+                    _click: () => reSocketClose()
+                },
+                alert: 'Соединение потеряно',
+                message: 'Соединение с сервером было потеряно.'
+            })
+
+        }
         if (vkUserId > 0 && socketStatus === 'open') {
             const url = window.location.search;
             userEvents.events.connectUser(url)
             // sectorEvents.events.getSectorsStart()
             return
         }
+
     }, [vkUserId, socketStatus])
 
     return {

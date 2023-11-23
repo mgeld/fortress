@@ -43,8 +43,8 @@ export class Gun {
         this._level = props?.level || 1
 
         this._power = props?.power || 10
-        this._distance = props?.distance || 510
-        this._bullets = props?.bullets || 200
+        this._distance = props?.distance || 290
+        this._bullets = props?.bullets || 100
         this._status = props?.status ? 'used' : 'stock'
     }
 
@@ -79,12 +79,12 @@ export class Gun {
 
     private static getLevelMaxDistance(level: number): number {
         const levels: { [key: number]: number } = {
-            1: 250,
-            2: 300,
-            3: 380,
-            4: 490,
-            5: 630,
-            6: 800
+            1: 300,
+            2: 350,
+            3: 430,
+            4: 540,
+            5: 680,
+            6: 850 
         }
         return levels[level]
     }
@@ -152,22 +152,26 @@ export class Gun {
         return this._power
     }
 
-    increasePower(power: number): number | 'limit' {
+    increasePower(power: number): [number, number] | 'limit' {
         const maxValueLevel = Gun.getLevelMaxPower(this._level)
         if (maxValueLevel > this._power) {
-            const summ = this._power + power
+            const was_number = this._power
+            const summ = was_number + power
             this._power = summ > maxValueLevel ? maxValueLevel : summ
-            return this._power
+            return [was_number, this._power]
         }
         return 'limit'
     }
 
-    increaseDistance(dist: number): number | 'limit' {
+    increaseDistance(dist: number): [number, number] | 'limit' {
         const maxValueLevel = Gun.getLevelMaxDistance(this._level)
         if (Gun.getLevelMaxDistance(this._level) > this._distance) {
-            const summ = this._distance + dist
+            const was_number = this._power
+            const summ = was_number + dist
             this._distance = summ > maxValueLevel ? maxValueLevel : summ
-            return this._distance
+
+            return [was_number, this._distance]
+
         }
         return 'limit'
     }

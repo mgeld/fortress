@@ -21,7 +21,7 @@ import {
 import { getDestination } from "entities/sector/lib/getDestination"
 import { LatLngBoundsExpression } from "leaflet"
 
-import Icon from './lazaret.png';
+// import Icon from './lazaret.png';
 
 const getImageBoundsForIndexH3 = (indexh3: string): LatLngBoundsExpression => {
 

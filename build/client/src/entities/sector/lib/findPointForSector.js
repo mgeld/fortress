@@ -64,7 +64,6 @@ const findPointForSector = (geo_point) => {
             break;
         }
     }
-    console.log('findPointForSector TIME: ', +new Date() - __start);
     return {
         whlt,
         whlg,

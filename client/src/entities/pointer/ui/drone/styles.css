@@ -1,20 +1,8 @@
-/* .pointer-circle {
-    z-index: 3002;
-} */
-
-/* #drone-lines {
-    animation: 5s linear drone-rotate infinite;
-    transform-box: fill-box;
-    transform-origin: center center;
-    box-shadow: 2 2 5px black;
-} */
-
 .drone-circle {
     animation: 4s linear drone-rotate infinite;
     transform-box: fill-box;
     transform-origin: center center;
-    /* box-shadow: 2 2 5px black; */
-    transition: 0.3s;
+    transition: 0.5s;
 }
 .zoom-anim-map .drone-circle {
     transition: 0s !important;
@@ -24,11 +12,11 @@
 }
 
 .drone-center {
-    transition: 0.3s;
+    transition: 0.5s;
 }
 
 .drone-border {
-    transition: 0.3s;
+    transition: 0.5s;
 }
 
 .zoom-anim-map .drone-center {

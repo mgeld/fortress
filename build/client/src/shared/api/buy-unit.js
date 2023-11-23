@@ -6,7 +6,7 @@ const buyUnitAPI = (id) => {
     const data = {
         event: 'buyUnit',
         payload: {
-            id,
+            id
         }
     };
     socket_1.WS.sendData(data);

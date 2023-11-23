@@ -8,33 +8,36 @@ import { IconCoin, IconSapphire } from "widgets/counters/icons/_icons";
 import styles from './styles.module.scss'
 
 type TUnitCardProps = {
+    id: TExtrTypes,
     icon: ReactNode
     name: string
     unit: TUnitShop
 }
+
 export type TUnitShop = {
-    id: TExtrTypes,
     currency: 'coins' | 'rubies',
     price: number
 }
 
 export const UnitCard: FC<TUnitCardProps> = ({
+    id,
     icon,
     name,
     unit
 }) => {
 
     const onUnit = (id: TExtrTypes) => {
-        unitModel.events.selectUnit(id)
+        console.log('UnitCard onUnit id', id)
+        unitModel.events.selectBuyUnit(Number(id) as TExtrTypes)
         popoutModel.events.setPopout('select-unit')
     }
 
     return (
         <div
             className={styles.unitCard}
-            onClick={() => onUnit(unit.id)}
+            onClick={() => onUnit(id)}
         >
-            <div className={`${styles.item} c${unit.id}`}>
+            <div className={`${styles.item} c${id}`}>
                 <div className={styles.__icon}>
                     {icon}
                 </div>

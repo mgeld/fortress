@@ -28,7 +28,7 @@ const {
 
 export const $holdItemsStrore = createStore<TExtrTypes[]>([])
     .on(setItems, (_, items) => items)
-    .on(addExtraction, (extraction, newExtr) => [...extraction, newExtr])
+    .on(addExtraction, (extraction, newExtr) => [newExtr, ...extraction])
     .on(delExtraction, (extraction, index) => {
         extraction.splice(index, 1)
         return extraction

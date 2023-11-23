@@ -8,7 +8,7 @@ const fireAPI = (pos, toPos, direction, hitPointer) => {
         payload: {
             pos,
             to_pos: toPos,
-            direction,
+            direction
         }
     };
     if (hitPointer.userId) {

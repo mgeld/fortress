@@ -13,9 +13,9 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Handlers = exports.IRoute = void 0;
-require("reflect-metadata");
 const inversify_1 = require("inversify");
 const types_1 = require("../types");
+require("reflect-metadata");
 let IRoute = class IRoute {
 };
 IRoute = __decorate([
@@ -23,9 +23,10 @@ IRoute = __decorate([
 ], IRoute);
 exports.IRoute = IRoute;
 let Handlers = class Handlers {
-    constructor(fire, take, beam, direct, connect, battleJoin, battleLeave, battleFire, battleDirect, getSectors, getAboutSector, getUser, useExtraction, buyUnit, levelUp) {
+    constructor(fire, take, battleTake, beam, direct, connect, battleJoin, battleLeave, battleFire, battleDirect, getSectors, getAboutSector, getUser, useExtraction, buyUnit, levelUp) {
         this.fire = fire;
         this.take = take;
+        this.battleTake = battleTake;
         this.beam = beam;
         this.direct = direct;
         this.connect = connect;
@@ -54,20 +55,22 @@ Handlers = __decorate([
     (0, inversify_1.injectable)(),
     __param(0, (0, inversify_1.inject)(types_1.TYPES.FireHandler)),
     __param(1, (0, inversify_1.inject)(types_1.TYPES.TakeHandler)),
-    __param(2, (0, inversify_1.inject)(types_1.TYPES.BeamHandler)),
-    __param(3, (0, inversify_1.inject)(types_1.TYPES.DirectHandler)),
-    __param(4, (0, inversify_1.inject)(types_1.TYPES.ConnectHandler)),
-    __param(5, (0, inversify_1.inject)(types_1.TYPES.BattleJoinHandler)),
-    __param(6, (0, inversify_1.inject)(types_1.TYPES.BattleLeaveHandler)),
-    __param(7, (0, inversify_1.inject)(types_1.TYPES.BattleFireHandler)),
-    __param(8, (0, inversify_1.inject)(types_1.TYPES.BattleDirectHandler)),
-    __param(9, (0, inversify_1.inject)(types_1.TYPES.GetSectorsHandler)),
-    __param(10, (0, inversify_1.inject)(types_1.TYPES.GetAboutSectorHandler)),
-    __param(11, (0, inversify_1.inject)(types_1.TYPES.GetUserHandler)),
-    __param(12, (0, inversify_1.inject)(types_1.TYPES.UseExtractionHandler)),
-    __param(13, (0, inversify_1.inject)(types_1.TYPES.BuyUnitHandler)),
-    __param(14, (0, inversify_1.inject)(types_1.TYPES.LevelUpHandler)),
+    __param(2, (0, inversify_1.inject)(types_1.TYPES.BattleTakeHandler)),
+    __param(3, (0, inversify_1.inject)(types_1.TYPES.BeamHandler)),
+    __param(4, (0, inversify_1.inject)(types_1.TYPES.DirectHandler)),
+    __param(5, (0, inversify_1.inject)(types_1.TYPES.ConnectHandler)),
+    __param(6, (0, inversify_1.inject)(types_1.TYPES.BattleJoinHandler)),
+    __param(7, (0, inversify_1.inject)(types_1.TYPES.BattleLeaveHandler)),
+    __param(8, (0, inversify_1.inject)(types_1.TYPES.BattleFireHandler)),
+    __param(9, (0, inversify_1.inject)(types_1.TYPES.BattleDirectHandler)),
+    __param(10, (0, inversify_1.inject)(types_1.TYPES.GetSectorsHandler)),
+    __param(11, (0, inversify_1.inject)(types_1.TYPES.GetAboutSectorHandler)),
+    __param(12, (0, inversify_1.inject)(types_1.TYPES.GetUserHandler)),
+    __param(13, (0, inversify_1.inject)(types_1.TYPES.UseExtractionHandler)),
+    __param(14, (0, inversify_1.inject)(types_1.TYPES.BuyUnitHandler)),
+    __param(15, (0, inversify_1.inject)(types_1.TYPES.LevelUpHandler)),
     __metadata("design:paramtypes", [IRoute,
+        IRoute,
         IRoute,
         IRoute,
         IRoute,

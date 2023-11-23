@@ -7,14 +7,14 @@ import { droneMapModel } from "entities/pointer";
 
 import { TBeam } from "entities/projector/model/tractor-beam";
 
-import './styles.css'
 import { shipModel } from "entities/ship";
+
+import './styles.css'
 
 type TStyle = {
     transition?: string,
     animation: string
 }
-
 
 type TBeamProps = {
     beam: TBeam
@@ -34,7 +34,6 @@ export const Beam: FC<TBeamProps> = ({ beam }) => {
     })
 
     useEffect(() => {
-        console.log('useEffectuseEffectuseEffectuseEffectuseEffect')
         setInvader({
             from: map.latLngToLayerPoint(myPos),
             to: map.latLngToLayerPoint(beam.to_pos)

@@ -1,5 +1,5 @@
 import { Handler } from ".."
-import { battleAPI, mapAPI, pointersAPI } from "shared/api/events"
+import { battleAPI, pointersAPI } from "shared/api/events"
 import { TBattleStart } from '@ctypes/socket/server-to-client'
 // import { filterPointersStore } from "widgets/map-layout/model"
 
@@ -18,7 +18,8 @@ class BattleStartHandler extends Handler {
             place: message.payload.place
         })
         battleAPI.events.setTeams(message.payload.teams)
-        battleAPI.events.setBattleStatus('start')
+        battleAPI.events.setTimer(120)
+        setTimeout(() => battleAPI.events.setBattleStatus('start'), 500)
     }
 }
 

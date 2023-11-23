@@ -38,6 +38,7 @@ let DirectHandler = class DirectHandler extends handlers_1.IRoute {
             }
             _pointer.pos = message.payload.position;
             const areal = areal_1.Areal.generator(message.payload.position);
+            console.log('_pointer.areal', _pointer.areal);
             if (_pointer.areal && _pointer.areal === areal) {
                 this._rooms.areals.broadcast(_pointer.areal, {
                     event: 'direct',
@@ -48,7 +49,7 @@ let DirectHandler = class DirectHandler extends handlers_1.IRoute {
                 }, _pointer.zoneId);
             }
             else {
-                if (_pointer.areal) {
+                if (_pointer.areal && _pointer.areal !== -1) {
                     this._rooms.areals.deleteClient(_pointer.zoneId, _pointer.areal);
                     this._rooms.areals.broadcast(_pointer.areal, {
                         event: 'del-pointer',
@@ -56,6 +57,40 @@ let DirectHandler = class DirectHandler extends handlers_1.IRoute {
                             userId: _pointer.zoneId
                         }
                     });
+                }
+                if (!_pointer.areal) {
+                    const direction = areal_1.Areal.generator([_pointer.pos[0] + 0.004, _pointer.pos[1]]) !== areal ? 'FORWARD' : 'BACKWARD';
+                    const _lat = direction === 'FORWARD' ? _pointer.pos[0] - 0.004 : _pointer.pos[0] + 0.004;
+                    setTimeout(() => {
+                        console.log('connect-pointer 1 nlo');
+                        uSocket.send(JSON.stringify({
+                            event: 'connect-pointer',
+                            payload: {
+                                lvl: 1,
+                                userId: -1,
+                                icon: 'https://sun120-1.userapi.com/s/v1/ig2/Y5LhWYhLVxHswvVU4dGrqnGVc4wmSzQQKVKZXrlyflMWuRihg7F4TVephtlm4fmdE9SFxBCUKPFuxsqz4hIIu_cx.jpg?size=50x50&quality=95&crop=468,0,960,960&ava=1',
+                                name: 'НЛО',
+                                health: 50,
+                                pos: [_lat, _pointer.pos[1]]
+                            }
+                        }));
+                        const fire = {
+                            pos: [_lat, _pointer.pos[1]],
+                            to_pos: _pointer.pos,
+                            direction,
+                            userId: -1,
+                            hitPointer: {
+                                userId: _pointer.zoneId,
+                                pos: _pointer.pos,
+                                health: _pointer.health - 5
+                            }
+                        };
+                        _pointer.health = _pointer.health - 5;
+                        uSocket.send(JSON.stringify({
+                            event: 'fire',
+                            payload: fire
+                        }));
+                    }, 2000);
                 }
                 _pointer.areal = areal;
                 this._rooms.areals.addClientToRoom(_pointer.zoneId, _pointer.areal, uSocket);
@@ -101,6 +136,7 @@ let DirectHandler = class DirectHandler extends handlers_1.IRoute {
                 }, _pointer.zoneId);
             }
             this._pointerService.memoryUpdate(_pointer);
+            console.log('>>>>memoryUpdate(_pointer) areal', _pointer.areal);
         });
     }
 };

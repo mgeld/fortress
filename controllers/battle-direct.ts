@@ -73,8 +73,6 @@ class BattleDirectHandler extends IRoute {
 
                     if (killPointerTeam.alive_members === 0) {
 
-                        console.log('КРЫНДЕЦ!')
-
                         setTimeout(async () => {
 
                             const members: Member[][] = []
@@ -90,6 +88,7 @@ class BattleDirectHandler extends IRoute {
                                         return {
                                             teamId: team.id,
                                             status: team.status,
+                                            sectors: team.sectors,
                                             members: members[index].map(member => {
                                                 const wonTrophies = member.damage / 5
                                                 return {

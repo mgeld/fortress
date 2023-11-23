@@ -8,18 +8,18 @@ export class StormCorpsLevel {
     }
 
     private static _stormMaxInvaders: Record<TStormCorpsLevel, number> = {
-        1: 50,
-        2: 100,
-        3: 155,
-        4: 215,
-        5: 280,
-        6: 350,
-        7: 425,
-        8: 505,
-        9: 590,
-        10: 680,
-        11: 775,
-        12: 875
+        1: 100,
+        2: 150,
+        3: 205,
+        4: 265,
+        5: 330,
+        6: 400,
+        7: 475,
+        8: 555,
+        9: 640,
+        10: 730,
+        11: 825,
+        12: 925
     }
     
     private static _stormMaxPower: Record<TStormCorpsLevel, number> = {

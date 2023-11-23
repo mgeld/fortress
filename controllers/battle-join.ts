@@ -3,22 +3,24 @@ import { inject, injectable } from "inversify";
 
 import { IWebSocket } from "../api/socket/server";
 import { Rooms } from "../api/socket/socket/rooms";
+import { ArenaService } from "../services/arena.service";
+import { MemberService } from "../services/member.service";
 import { TBattleJoinAPI, TEventBattleJoin } from "../common-types/socket/client-to-server";
 import { Member } from "../entities/arena/arena-team-member";
 import { MemberPlace } from "../entities/arena/member-place";
-import { ArenaService } from "../services/arena.service";
-import { MemberService } from "../services/member.service";
 
 import { TYPES } from "../types";
 import { IRoute } from "./handlers";
 import { PointerService } from "../services/pointer.service";
+import { BattleService } from "../services/battle.service";
 
 @injectable()
 class BattleJoinHandler extends IRoute {
     @inject(TYPES.Rooms) private _rooms!: Rooms
     @inject(TYPES.ArenaService) private _arenaService!: ArenaService
-    @inject(TYPES.PointerService) private _pointerService!: PointerService
     @inject(TYPES.MemberService) private _memberService!: MemberService
+    @inject(TYPES.BattleService) private _battleService!: BattleService
+    @inject(TYPES.PointerService) private _pointerService!: PointerService
 
     public static EVENT: TEventBattleJoin = "battleJoin"
 
@@ -32,15 +34,12 @@ class BattleJoinHandler extends IRoute {
         if (!uSocket.user_id) return
 
         const arena = await this._arenaService.getArena()
-
         const team = arena.addPointer(uSocket.user_id)
-
         const teamPlace = team.getPlace(arena.place.place)
 
         const _member = Member.create({
             userId: uSocket.user_id,
             pos: MemberPlace.generate(teamPlace, team.getMembersNumber()),
-            // health: 100,
             arena: arena.id,
             arenaTeam: team.id
         })
@@ -50,42 +49,31 @@ class BattleJoinHandler extends IRoute {
         this._rooms.arenas.addClientToRoom(uSocket.user_id, roomId, uSocket)
 
         const roomValues = Object.values(this._rooms.arenas.getClients(roomId))
-        console.log('roomValuesJoin', roomValues)
 
         uSocket.send(JSON.stringify({
             event: 'battle-join',
             payload: {
                 user: {
                     pos: _member.pos,
-                    // health: _member.health,
+                    team: _member.arenaTeam,
                 },
             }
         }))
 
         if (arena.isFullTeams()) {
 
-            console.log('ISFULL TEAMS!!!!!!!!!!!!!')
+            console.log('ISFULL TEAMS !!!!!!!!!!!!!')
 
             arena.battleStart()
 
             const members = await this._memberService.getByIds(arena.pointers)
-            const pointers = await this._pointerService.getByIds(arena.pointers)
 
             const users: Record<number, {
                 lvl: number
                 icon: string
                 name: string
                 health: number
-            }> = {}
-
-            pointers.forEach(pointer => {
-                users[pointer.zoneId] = {
-                    lvl: pointer.level,
-                    icon: pointer.icon,
-                    name: pointer.name,
-                    health: pointer.health,
-                }
-            })
+            }> = await this._pointerService.getMarshalPointers(arena.pointers)
 
             this._rooms.arenas.broadcast(roomId, {
                 event: 'battle-start',
@@ -96,6 +84,7 @@ class BattleJoinHandler extends IRoute {
                     teams: arena.teamList.map(team => ({
                         teamId: team.id,
                         status: team.status,
+                        sectors: team.sectors,
                         members: team.members.map(member => ({
                             userId: member,
                             trophies: 0
@@ -110,6 +99,9 @@ class BattleJoinHandler extends IRoute {
                     })
                 }
             })
+
+            const overGame = () => this._battleService.overGame(arena.id)
+            arena.timer = setTimeout(overGame, 120000)
 
         }
 

@@ -12,7 +12,6 @@ type TToast = {
     id: number
     type: TTypeToastNotice
     name: string
-    // count: number
     text: string
 }
 
@@ -24,8 +23,9 @@ type TTostProps = {
 const newToast = createEvent<TTostProps>()
 
 const addToast = createEvent<TToast>()
-// const setToast = createEvent<Omit<TToast, 'count'>>()
 const delToastById = createEvent<{ toast_id: number }>()
+// const setToast = createEvent<Omit<TToast, 'count'>>()
+
 
 export const $noticeStore = createStore<TToast[]>([])
     .on(addToast, (toasts, toast) => [toast, ...(toasts.splice(0, 2))])
@@ -58,18 +58,18 @@ const newToastFx = createEffect(({
     //         text: toast.text
     //     })
     // } else {
+    // }
+
     addToast({
         id: TOAST_ID,
-        // count: 1,
         name: toast.name,
         text: toast.text,
         type: toast.t,
     })
-    // }
 
     setTimeout(() => {
         delToastById({ toast_id: TOAST_ID })
-    }, 6000)
+    }, 5000)
 
 })
 
@@ -85,5 +85,6 @@ export const selectors = {
 }
 
 export const events = {
-    newToast
+    newToast,
+    delToastById
 }

@@ -1,27 +1,43 @@
 import { FC } from "react";
-import { MapRang } from "entities/user/ui/map-rang";
-import { Counters } from "widgets/counters/counters";
 import { MapBottom } from "widgets/map-bottom";
-import { NavBattle, NavBooty, NavShop } from "widgets/map-buttons";
-import { NavMenu } from "widgets/map-buttons/menu";
-import MapLayout from "widgets/map-layout/ui/map-layout";
+import { MapButtons } from "widgets/map-buttons";
 
 import styles from './styles.module.scss'
+import { BattleCounters } from "widgets/battle-counters";
+import { BattleType } from "entities/arena/ui/battle-type";
+
+import { MapRang } from "entities/user/ui/map-rang";
+import { Counters } from "widgets/counters/counters";
+
+import MapLayout from "widgets/map-layout/ui/map-layout";
+import { Timer } from "entities/arena/ui/timer";
+import { mapModel } from "entities/map";
 
 export const MapPage: FC = () => {
+
+    const mode = mapModel.selectors.useMapMode().mode
     return (
         <div className={styles.mapPage}>
             <div className={styles.__page}>
 
-                <div className={styles.nav}>
-                    {/* <NavBattle /> */}
-                    <NavShop />
-                    <NavBooty />
-                </div>
+                {mode === 'invade' ? (
+                    <>
+                        <MapButtons />
+                        <MapRang />
+                        <Counters />
+                    </>
+                ) :
+                    mode === 'battle' ? (
+                        <>
+                            <Timer />
+                            <BattleType />
+                            <BattleCounters />
+                        </>
+                    ) : <>
+                        <MapRang />
+                        <Counters />
+                    </>}
 
-                <NavMenu />
-                <MapRang />
-                <Counters />
                 <MapLayout />
                 <MapBottom />
 

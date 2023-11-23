@@ -21,13 +21,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.BattleJoinHandler = void 0;
 const inversify_1 = require("inversify");
 const rooms_1 = require("../api/socket/socket/rooms");
-const arena_team_member_1 = require("../entities/arena/arena-team-member");
-const member_place_1 = require("../entities/arena/member-place");
 const arena_service_1 = require("../services/arena.service");
 const member_service_1 = require("../services/member.service");
+const arena_team_member_1 = require("../entities/arena/arena-team-member");
+const member_place_1 = require("../entities/arena/member-place");
 const types_1 = require("../types");
 const handlers_1 = require("./handlers");
 const pointer_service_1 = require("../services/pointer.service");
+const battle_service_1 = require("../services/battle.service");
 let BattleJoinHandler = class BattleJoinHandler extends handlers_1.IRoute {
     handle(message, uSocket) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -47,29 +48,20 @@ let BattleJoinHandler = class BattleJoinHandler extends handlers_1.IRoute {
             const roomId = this._rooms.arenas.getRoom(arena.id);
             this._rooms.arenas.addClientToRoom(uSocket.user_id, roomId, uSocket);
             const roomValues = Object.values(this._rooms.arenas.getClients(roomId));
-            console.log('roomValuesJoin', roomValues);
             uSocket.send(JSON.stringify({
                 event: 'battle-join',
                 payload: {
                     user: {
                         pos: _member.pos,
+                        team: _member.arenaTeam,
                     },
                 }
             }));
             if (arena.isFullTeams()) {
-                console.log('ISFULL TEAMS!!!!!!!!!!!!!');
+                console.log('ISFULL TEAMS !!!!!!!!!!!!!');
                 arena.battleStart();
                 const members = yield this._memberService.getByIds(arena.pointers);
-                const pointers = yield this._pointerService.getByIds(arena.pointers);
-                const users = {};
-                pointers.forEach(pointer => {
-                    users[pointer.zoneId] = {
-                        lvl: pointer.level,
-                        icon: pointer.icon,
-                        name: pointer.name,
-                        health: pointer.health,
-                    };
-                });
+                const users = yield this._pointerService.getMarshalPointers(arena.pointers);
                 this._rooms.arenas.broadcast(roomId, {
                     event: 'battle-start',
                     payload: {
@@ -79,6 +71,7 @@ let BattleJoinHandler = class BattleJoinHandler extends handlers_1.IRoute {
                         teams: arena.teamList.map(team => ({
                             teamId: team.id,
                             status: team.status,
+                            sectors: team.sectors,
                             members: team.members.map(member => ({
                                 userId: member,
                                 trophies: 0
@@ -90,6 +83,8 @@ let BattleJoinHandler = class BattleJoinHandler extends handlers_1.IRoute {
                         })
                     }
                 });
+                const overGame = () => this._battleService.overGame(arena.id);
+                arena.timer = setTimeout(overGame, 120000);
             }
             yield this._arenaService.update(arena);
         });
@@ -105,13 +100,17 @@ __decorate([
     __metadata("design:type", arena_service_1.ArenaService)
 ], BattleJoinHandler.prototype, "_arenaService", void 0);
 __decorate([
-    (0, inversify_1.inject)(types_1.TYPES.PointerService),
-    __metadata("design:type", pointer_service_1.PointerService)
-], BattleJoinHandler.prototype, "_pointerService", void 0);
-__decorate([
     (0, inversify_1.inject)(types_1.TYPES.MemberService),
     __metadata("design:type", member_service_1.MemberService)
 ], BattleJoinHandler.prototype, "_memberService", void 0);
+__decorate([
+    (0, inversify_1.inject)(types_1.TYPES.BattleService),
+    __metadata("design:type", battle_service_1.BattleService)
+], BattleJoinHandler.prototype, "_battleService", void 0);
+__decorate([
+    (0, inversify_1.inject)(types_1.TYPES.PointerService),
+    __metadata("design:type", pointer_service_1.PointerService)
+], BattleJoinHandler.prototype, "_pointerService", void 0);
 BattleJoinHandler = __decorate([
     (0, inversify_1.injectable)()
 ], BattleJoinHandler);

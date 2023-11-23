@@ -48,8 +48,6 @@ export class PointerService {
         const DEFAULT_HEALTH = 100
         const DEFAULT_COLOR = randomNumber(1, 6)
 
-        console.log('DEFAULT_COLOR', DEFAULT_COLOR)
-
         const DEFAULT_INVADERS = 100
         const DEFAULT_DEFENDERS = 100
 
@@ -78,12 +76,34 @@ export class PointerService {
         return this._memoryRepository.getByIds(userIds)
     }
 
+    async getMarshalPointers(userIds: number[]) {
+        const pointers = await this.getByIds(userIds)
+
+        const users: Record<number, {
+            lvl: number
+            icon: string
+            name: string
+            health: number
+        }> = {}
+
+        pointers.forEach(pointer => {
+            users[pointer.zoneId] = {
+                lvl: pointer.level,
+                icon: pointer.icon,
+                name: pointer.name,
+                health: pointer.health,
+            }
+        })
+
+        return users
+    }
+
     getZoneByIds(_ids: number[]): Promise<TZone[]> {
         return this._baseRepository.getZoneByIds(_ids)
     }
 
     async memoryUpdate(pointer: Pointer) {
-        console.log('memoryUpdate pointer.level', pointer.level)
+        console.log('memoryUpdate pointer', pointer)
         await this._memoryRepository.update(pointer)
     }
 

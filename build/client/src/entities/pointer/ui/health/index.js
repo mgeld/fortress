@@ -11,6 +11,8 @@ const Y_BACK = 64 + 24;
 const X_BACK = 32;
 const Health = ({ position, lvl, health }) => {
     const map = (0, react_leaflet_1.useMap)();
+    console.log('>>>>>>>>> Health position', position);
+    console.log('>>>>>>>>> Health health', health);
     const [coords, setCoords] = (0, react_1.useState)(map.latLngToLayerPoint(position));
     (0, react_1.useEffect)(() => {
         setCoords(map.latLngToLayerPoint(position));

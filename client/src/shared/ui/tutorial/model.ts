@@ -1,17 +1,12 @@
-import { createEvent, createStore } from "effector"
+import { createEvent, createStore, sample } from "effector"
 import { useStore } from "effector-react"
+import { TTutType } from "@ctypes/model"
 
 const useTutorial = () => useStore($tutorialStore)
 
-export type TCard =
-    | 'ship'
-    | 'storm'
-    | 'projector'
-    | 'gun'
+const setTutorial = createEvent<TTutType | null>()
 
-const setTutorial = createEvent<TCard | null>()
-
-export const $tutorialStore = createStore<TCard | null>(null)
+export const $tutorialStore = createStore<TTutType | null>(null)
     .on(setTutorial, (_, tut) => tut)
 
 

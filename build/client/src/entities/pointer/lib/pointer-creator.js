@@ -57,13 +57,11 @@ class PointerCreator {
             let imgU = this.pasteImageOnPointer(36, 36, userIcon);
             return this.loadImages([img, imgU])
                 .then(() => {
-                console.log('1');
                 const draw = this.addImageToPoint(img, imgU);
                 this.clearCanvas();
                 return draw;
             })
                 .catch(() => __awaiter(this, void 0, void 0, function* () {
-                console.log('2');
                 return Promise.resolve().then(() => __importStar(require('../assets/icons/not-image-pointer.png'))).then((icon) => __awaiter(this, void 0, void 0, function* () {
                     let imgUserNotImage = this.pasteImageOnPointer(36, 36, icon.default);
                     return this.loadImages([imgUserNotImage])
@@ -87,14 +85,10 @@ class PointerCreator {
     }
     loadImages(images) {
         let loades = 0;
-        console.log('loades', loades);
         return new Promise((resolve, reject) => {
             images.forEach((image, i) => {
-                console.log('iiiiii', i);
                 image.onload = () => {
                     loades++;
-                    console.log('loadImages onload', i);
-                    console.log('loades onload', loades);
                     if (loades === images.length) {
                         resolve(true);
                     }

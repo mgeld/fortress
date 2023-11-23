@@ -1,4 +1,4 @@
-import { TLimit, TNewRank, TUseExtraction } from "../common-types/socket/server-to-client"
+import { TLimit, TNewRank, TTutorial, TUseExtraction } from "../common-types/socket/server-to-client"
 import { TEventUseExtraction, TUseExtractionAPI } from "../common-types/socket/client-to-server"
 import { IWebSocket } from "../api/socket/server";
 import { IRoute } from "./handlers"
@@ -29,7 +29,7 @@ class UseExtractionHandler extends IRoute {
 
         const extr = zone.hold.use(message.payload.id, message.payload.index)
 
-        let resultIncrese: number | 'limit' = 0
+        let resultIncrese: [number, number] | 'limit' = [0, 0]
 
         if (extr.gives === 'gun_distance') {
             const weapon = await this._weaponService.memoryGetById(pointer.weapons[0])
@@ -60,13 +60,25 @@ class UseExtractionHandler extends IRoute {
         }
 
         if (extr.gives === 'coins') {
-            zone.addCoins(extr.quantity)
+            resultIncrese = zone.addCoins(extr.quantity)
             this._zoneService.memoryUpdate(zone)
         }
 
         if (extr.gives === 'rubies') {
-            zone.addRubies(extr.quantity)
+            resultIncrese = zone.addRubies(extr.quantity)
             this._zoneService.memoryUpdate(zone)
+
+
+            if (zone.terrain.sectors === 1) {
+                const tutorialResp: TTutorial = {
+                    event: 'tutorial',
+                    payload: {
+                        type: 'ship'
+                    }
+                }
+                uSocket.send(JSON.stringify(tutorialResp))
+
+            }
         }
 
         if (resultIncrese === 'limit') {
@@ -81,24 +93,30 @@ class UseExtractionHandler extends IRoute {
         }
 
         if (extr.gives === 'rank_exp') {
-            const exp = zone.rank.addExp(extr.quantity)
-            if (exp === 0) {
+            resultIncrese = zone.rank.addExp(extr.quantity)
+
+            console.log('resultIncrese', resultIncrese)
+            this._zoneService.memoryUpdate(zone)
+            if (resultIncrese[1] === 0) {
                 const newRank: TNewRank = {
                     event: 'new-rank',
                     payload: {
                         rank: zone.rank.rank
                     }
                 }
-                setTimeout(() => uSocket.send(JSON.stringify(newRank)), 5000)
+                uSocket.send(JSON.stringify(newRank))
+                return
             }
-            this._zoneService.memoryUpdate(zone)
         }
+
+        console.log('resultIncrese', resultIncrese)
+        // console.log('resultIncrese - (resultIncrese - extr.quantity)', resultIncrese - (resultIncrese - extr.quantity))
 
         const extrResp: TUseExtraction = {
             event: 'use-extraction',
             payload: {
                 unit: message.payload.id,
-                amount: resultIncrese - (resultIncrese - extr.quantity),
+                amount: resultIncrese[1] - resultIncrese[0],
                 type: extr.gives,
                 index: message.payload.index
             }

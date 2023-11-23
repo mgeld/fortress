@@ -68,6 +68,7 @@ let MemoryData = class MemoryData {
         this.areal = new Collection();
         this.arena = new Collection();
         this.arenaTeamMember = new Collection();
+        this.arenaSector = new Collection();
         this.weapon = new Collection();
         this.bomb = new Collection();
         this.sector = new Collection();

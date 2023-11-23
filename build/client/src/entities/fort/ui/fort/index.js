@@ -13,7 +13,7 @@ const Fort = ({ pos }) => {
                 }, 3000);
             }
         }}>
-            <react_leaflet_1.Circle key={1} className={`fort black-fort`} center={[
+            <react_leaflet_1.Circle key={'ff1' + pos[0]} className={`fort black-fort`} center={[
             pos[0] - 0.00010,
             pos[1] - 0.00002
         ]} pathOptions={{
@@ -21,12 +21,12 @@ const Fort = ({ pos }) => {
             fillOpacity: 1,
             stroke: false,
         }} radius={30}/>
-            <react_leaflet_1.Circle key={2} className={`fort fort-stroke`} center={pos} pathOptions={{
+            <react_leaflet_1.Circle key={'ff2' + pos[0]} className={`fort fort-stroke`} center={pos} pathOptions={{
             fillColor: '#ffffff',
             fillOpacity: 1,
             stroke: false,
         }} radius={30}/>
-            <react_leaflet_1.Circle key={3} className={`fort fort-fill`} center={pos} pathOptions={{
+            <react_leaflet_1.Circle key={'ff3' + pos[0]} className={`fort fort-fill`} center={pos} pathOptions={{
             fillColor: '#D9D9D9',
             fillOpacity: 1,
             stroke: false,

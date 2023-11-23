@@ -13,10 +13,11 @@ const MapSelectPlace = () => {
     const { userIcon } = user_1.userModel.selectors.useUser();
     console.log('MapSelectPlace');
     const setPolygon = (pos) => {
-        map_1.mapModel.events.setLatLngMap(pos);
         const h3Index = (0, h3_js_1.latLngToCell)(pos[0], pos[1], 9);
+        const [lat, long] = (0, h3_js_1.cellToBoundary)(h3Index)[0];
+        const _pos = [lat, long + 0.0001];
         setSector({
-            latlng: pos,
+            latlng: _pos,
             bounds: (0, h3_js_1.cellToBoundary)(h3Index)
         });
     };
@@ -26,7 +27,9 @@ const MapSelectPlace = () => {
         }
     }, [clickPos, sector]);
     (0, react_leaflet_1.useMapEvent)('click', (e) => {
-        setPolygon([e.latlng.lat, e.latlng.lng]);
+        const _pos = [e.latlng.lat, e.latlng.lng];
+        setPolygon(_pos);
+        map_1.mapModel.events.setLatLngMap(_pos);
     });
     if (!sector)
         return <></>;

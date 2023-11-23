@@ -33,6 +33,21 @@ type THitPointersFxProps = {
     fire: TFireDirection
 }
 
+type TFireControlFx = {
+    source: {
+        battleStatus: TBattleStatus
+        gunPower: number
+    }
+    clock: {
+        params: THitPointersFxProps
+        result: {
+            hitPointer: THitPointer
+            toPos: TLatLng
+            distance: number
+        }
+    }
+}
+
 const hitPointersFx = createEffect(({
     source,
     fire
@@ -44,11 +59,15 @@ const hitPointersFx = createEffect(({
     }
 
     // Место, куда попадёт пуля (моя позиция, направление, расстояние)
-    let to_pos: TLatLng = fromToDirectionPos(source.userPos, fire.direction, source.distance)
+    let to_pos: TLatLng = fromToDirectionPos(
+        source.userPos,
+        fire.direction,
+        source.distance
+    )
 
     source.pointers.sort(comparePos(fire.direction)).every(pointer => {
 
-        if(pointer.health < 1) return true
+        if (pointer.health < 1) return true
 
         let isFire = isHitFireTarget({
             from: source.userPos,
@@ -74,23 +93,6 @@ const hitPointersFx = createEffect(({
     }
 })
 
-type TFireControlFx = {
-    source: {
-        // userId: number
-        battleStatus: TBattleStatus
-        gunPower: number
-        // gunId: string
-    }
-    clock: {
-        params: THitPointersFxProps
-        result: {
-            hitPointer: THitPointer
-            toPos: TLatLng
-            distance: number
-        }
-    }
-}
-
 const fireControlFx = createEffect(({
     source,
     clock
@@ -113,8 +115,6 @@ const fireControlFx = createEffect(({
 
     firesAPI.events.addFire(_fire)
 
-    console.log('++++++++++++++++++++++++++++++++++++++source.', source)
-
     if (clock.result.distance) {
         if (
             source.battleStatus === 'default' ||
@@ -124,18 +124,14 @@ const fireControlFx = createEffect(({
                 clock.params.source.userPos,
                 clock.result.toPos,
                 clock.params.fire.direction,
-                // source.userId,
-                clock.result.hitPointer,
-                // source.gunId
+                clock.result.hitPointer
             )
         } else {
             battleFireAPI(
                 clock.params.source.userPos,
                 clock.result.toPos,
                 clock.params.fire.direction,
-                // source.userId,
-                clock.result.hitPointer,
-                // source.gunId
+                clock.result.hitPointer
             )
         }
 
@@ -159,7 +155,6 @@ sample({
         userId: userModel.$userIdStore,
         battleStatus: arenaModel.$battleStatusStore,
         gunPower: weaponModel.$gunPowerStore,
-        // gunId: weaponModel.$gunIdStore,
     },
     fn: (source, clock) => ({ source, clock }),
     target: fireControlFx

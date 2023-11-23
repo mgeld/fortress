@@ -29,7 +29,7 @@ const newToastFx = (0, effector_1.createEffect)(({ toast, }) => {
     });
     setTimeout(() => {
         delToastById({ toast_id: TOAST_ID });
-    }, 6000);
+    }, 5000);
 });
 (0, effector_1.sample)({
     clock: newToast,
@@ -40,5 +40,6 @@ exports.selectors = {
     useNotice,
 };
 exports.events = {
-    newToast
+    newToast,
+    delToastById
 };

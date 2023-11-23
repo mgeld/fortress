@@ -15,6 +15,7 @@ export class ArenaMapper {
                     id: team.id,
                     status: team.status,
                     members: team.members,
+                    sectors: team.sectors,
                     alive_members: team.alive_members
                 })
             })

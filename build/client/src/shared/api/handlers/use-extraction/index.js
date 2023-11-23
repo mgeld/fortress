@@ -15,7 +15,7 @@ class UseExtractionHandler extends __1.Handler {
         switch (message.payload.type) {
             case 'rank_exp':
                 name = `Опыт завоеваний`;
-                text = `Получен ${amount} единиц опыта завоеваний!`;
+                text = `Получено ${amount} единиц опыта завоеваний!`;
                 events_1.userAPI.events.addRankExp(amount);
                 break;
             case 'gun_distance':
@@ -40,19 +40,17 @@ class UseExtractionHandler extends __1.Handler {
                 break;
             case 'stormtroopers':
                 name = `Штурмовики`;
-                text = `В штурмовой корпус пополнен на ${amount} штурмовиков!`;
+                text = `Штурмовой корпус пополнен на ${amount} штурмовиков!`;
                 events_1.stormAPI.events.addInvaders(amount);
                 break;
             case 'coins':
                 name = `Монеты`;
                 text = `Вы получили ${amount} монет!`;
-                console.log('coins amout', amount);
                 events_1.zoneAPI.events.addCoins(amount);
                 break;
             case 'rubies':
                 name = `Кристаллы`;
                 text = `Вы получили ${amount} кристаллов!`;
-                console.log('rubies amout', amount);
                 events_1.zoneAPI.events.addRubies(amount);
                 break;
             default:
@@ -60,7 +58,6 @@ class UseExtractionHandler extends __1.Handler {
                 text = `Обратитесь в поддержку что ли`;
                 break;
         }
-        console.log('message.payload.unit', message.payload.unit);
         popout_root_1.popoutModel.events.setPopout(null);
         page_root_1.pageModel.events.setPage('map');
         events_1.holdAPI.events.delExtraction(message.payload.index);

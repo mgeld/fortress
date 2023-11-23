@@ -41,10 +41,20 @@ let BeamHandler = class BeamHandler extends handlers_1.IRoute {
                 let extr = null;
                 console.log('_sector.booty', _sector.booty);
                 if (_sector.booty) {
-                    extr = sector_1.Sector.getContainerExtr(_sector.booty);
+                    if (zone.terrain.sectors > 1) {
+                        extr = sector_1.Sector.getContainerExtr(_sector.booty);
+                    }
+                    else {
+                        extr = 110;
+                        const tutorialResp = {
+                            event: 'tutorial',
+                            payload: {
+                                type: 'hold'
+                            }
+                        };
+                        uSocket.send(JSON.stringify(tutorialResp));
+                    }
                     zone.hold.addExtrToList(extr);
-                    console.log('EXTRRRRRRRRRRRR', extr);
-                    console.log('zone extraction', zone.hold.unmarshal());
                 }
                 extrResp = {
                     event: 'attraction',
@@ -55,6 +65,7 @@ let BeamHandler = class BeamHandler extends handlers_1.IRoute {
                         pos: message.payload.position
                     }
                 };
+                console.log('extr', extr);
                 if (extr) {
                     _sector.takenBooty();
                     this._logs.takes.add(_sector.id);

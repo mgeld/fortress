@@ -8,6 +8,8 @@ import { popoutModel } from "shared/ui/popout-root";
 import { TMapModes } from "shared/api/events/map";
 import { shipModel } from "entities/ship";
 
+
+// Это нигде не используется
 const changeModeFx = createEffect(({
     source,
     mode

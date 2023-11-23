@@ -1,7 +1,7 @@
+import { FC } from "react";
 import { TExtrTypes } from "@ctypes/model";
 import { stormModel } from "entities/storm-corps";
 import { UseItem } from "features/unit/use-item/ui";
-import { FC } from "react";
 
 export const StormAddInvaders: FC = () => {
 

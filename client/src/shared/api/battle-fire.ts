@@ -7,19 +7,14 @@ export const battleFireAPI = (
     pos: TLatLng,
     to_pos: TLatLng,
     direction: TJoystickDirection | null,
-    // userId: number,
-    
     hitPointer: THitPointer,
-    // weapon: string
 ) => {
     const data: TBattleFireAPI = {
         event: 'battleFire',
         payload: {
             pos,
             to_pos,
-            direction,
-            // userId,
-            // weapon
+            direction
         }
     }
     if (hitPointer.userId) {

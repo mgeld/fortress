@@ -3,18 +3,29 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UseItem = void 0;
+exports.UseItem = exports.useItemImproves = void 0;
 const react_1 = require("react");
 const popout_root_1 = require("shared/ui/popout-root");
 const modules_1 = require("entities/unit/lib/modules");
 const hold_1 = require("entities/hold");
 const _icons_1 = require("shared/assets/icons/_icons");
 const unit_1 = require("entities/unit");
-const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
 const alert_1 = require("shared/ui/alert");
+const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
+const model_1 = require("../use-extraction/model");
+exports.useItemImproves = {
+    20: 'storm-improve-power',
+    30: 'ship-improve-health',
+    40: 'gun-improve-power',
+    50: 'gun-improve-distance',
+    100: 'storm-add-invaders',
+};
 const UseItem = ({ item, upswing, type, details, modules }) => {
     const extr = hold_1.holdModel.selectors.useHoldItems();
-    const [card, setCard] = (0, react_1.useState)(modules[0]);
+    const unit = unit_1.unitModel.selectors.useBuyUnit();
+    console.log('UseItem unit', unit);
+    const [card, setCard] = (0, react_1.useState)(unit && ~modules.indexOf(unit) ? unit : modules[0]);
+    console.log('UseItem card', card);
     const extrIndex = extr.findIndex(item => item === card);
     const closePopout = () => popout_root_1.popoutModel.events.setPopout(null);
     const openExtraction = () => {
@@ -24,17 +35,19 @@ const UseItem = ({ item, upswing, type, details, modules }) => {
                 id: card,
                 index: extrIndex
             });
-            popout_root_1.popoutModel.events.setPopout('select-extraction');
+            (0, model_1.onUseExtraction)();
         }
         else {
-            unit_1.unitModel.events.selectUnit(card);
             popout_root_1.popoutModel.events.setPopout('alert');
             alert_1.alertModel.events.setAlert({
                 alert: modules_1.modules[card].name,
                 message: `В трюме нет нужного предмета для использования. Перейти к покупке?`,
                 action: {
                     text: 'Подтвердить',
-                    _click: () => popout_root_1.popoutModel.events.setPopout('select-unit')
+                    _click: () => {
+                        unit_1.unitModel.events.selectBuyUnit(card);
+                        popout_root_1.popoutModel.events.setPopout('select-unit');
+                    }
                 }
             });
         }
@@ -106,7 +119,7 @@ const UseItem = ({ item, upswing, type, details, modules }) => {
                             Отмена
                         </div>
                         <div onClick={() => openExtraction()} className={styles_module_scss_1.default.button}>
-                            Повысить
+                            Применить
                         </div>
                     </div>
                 </div>

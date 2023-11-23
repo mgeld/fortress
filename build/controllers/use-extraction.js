@@ -34,7 +34,7 @@ let UseExtractionHandler = class UseExtractionHandler extends handlers_1.IRoute 
             const zone = yield this._zoneService.getById(uSocket.user_id);
             const pointer = yield this._pointerService.memoryGetById(zone.id);
             const extr = zone.hold.use(message.payload.id, message.payload.index);
-            let resultIncrese = 0;
+            let resultIncrese = [0, 0];
             if (extr.gives === 'gun_distance') {
                 const weapon = yield this._weaponService.memoryGetById(pointer.weapons[0]);
                 resultIncrese = weapon.increaseDistance(extr.quantity);
@@ -58,12 +58,21 @@ let UseExtractionHandler = class UseExtractionHandler extends handlers_1.IRoute 
                 this._zoneService.memoryUpdate(zone);
             }
             if (extr.gives === 'coins') {
-                zone.addCoins(extr.quantity);
+                resultIncrese = zone.addCoins(extr.quantity);
                 this._zoneService.memoryUpdate(zone);
             }
             if (extr.gives === 'rubies') {
-                zone.addRubies(extr.quantity);
+                resultIncrese = zone.addRubies(extr.quantity);
                 this._zoneService.memoryUpdate(zone);
+                if (zone.terrain.sectors === 1) {
+                    const tutorialResp = {
+                        event: 'tutorial',
+                        payload: {
+                            type: 'ship'
+                        }
+                    };
+                    uSocket.send(JSON.stringify(tutorialResp));
+                }
             }
             if (resultIncrese === 'limit') {
                 const limitResp = {
@@ -76,23 +85,26 @@ let UseExtractionHandler = class UseExtractionHandler extends handlers_1.IRoute 
                 return;
             }
             if (extr.gives === 'rank_exp') {
-                const exp = zone.rank.addExp(extr.quantity);
-                if (exp === 0) {
+                resultIncrese = zone.rank.addExp(extr.quantity);
+                console.log('resultIncrese', resultIncrese);
+                this._zoneService.memoryUpdate(zone);
+                if (resultIncrese[1] === 0) {
                     const newRank = {
                         event: 'new-rank',
                         payload: {
                             rank: zone.rank.rank
                         }
                     };
-                    setTimeout(() => uSocket.send(JSON.stringify(newRank)), 5000);
+                    uSocket.send(JSON.stringify(newRank));
+                    return;
                 }
-                this._zoneService.memoryUpdate(zone);
             }
+            console.log('resultIncrese', resultIncrese);
             const extrResp = {
                 event: 'use-extraction',
                 payload: {
                     unit: message.payload.id,
-                    amount: resultIncrese - (resultIncrese - extr.quantity),
+                    amount: resultIncrese[1] - resultIncrese[0],
                     type: extr.gives,
                     index: message.payload.index
                 }

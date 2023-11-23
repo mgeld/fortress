@@ -32,9 +32,11 @@ const Notice = () => {
                     icon = modules_1.modules[toast.type].icon(44, 44);
                 }
             }
-            console.log('ffffffffffffffffffffffffffffffffffffffffffffffffffffffffff toast', toast);
             return (<div key={toast.id} className={styles_module_scss_1.default.notice}>
                         <div className={styles_module_scss_1.default.__content}>
+                            <div onClick={() => _1.noticeModel.events.delToastById({ toast_id: toast.id })} className={styles_module_scss_1.default.close}>
+                                <_icons_1.IconClose width={16} height={16} fill="#dfdad4"/>
+                            </div>
                             <div className={styles_module_scss_1.default.__border}>
                                 <div className={`${styles_module_scss_1.default.icon} e${toast.type}`}>
                                     {icon}

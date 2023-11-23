@@ -9,12 +9,22 @@ const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
 const popout_root_1 = require("shared/ui/popout-root");
 const modules_1 = require("entities/unit/lib/modules");
 const model_1 = require("../model");
+const unit_buy_list_1 = require("entities/unit/lib/unit-buy-list");
+const _icons_1 = require("widgets/counters/icons/_icons");
 const BuyUnit = () => {
-    const _unit = unit_1.unitModel.selectors.useUnit();
+    const _unit = unit_1.unitModel.selectors.useBuyUnit();
     if (!_unit)
         return <></>;
     const unit = modules_1.modules[_unit];
     const closePopout = () => popout_root_1.popoutModel.events.setPopout(null);
+    const _price = unit_buy_list_1.unitsPrices[_unit];
+    console.log('_unitBuy', _unit);
+    console.log('_price', _price);
+    const buyUnit = () => {
+        console.log('buyUnit');
+        popout_root_1.popoutModel.events.setPopout(null);
+        (0, model_1.onBuyUnit)();
+    };
     return (<div className={styles_module_scss_1.default.unit}>
 
             <div className={styles_module_scss_1.default.header}>
@@ -46,13 +56,25 @@ const BuyUnit = () => {
                 <div className={styles_module_scss_1.default.description}>
                     {unit.description}
                 </div>
+                <div className={styles_module_scss_1.default.resources}>
+
+                    <div className={styles_module_scss_1.default.name}>
+                        Цена:
+                    </div>
+
+                    <div className={styles_module_scss_1.default.price}>
+                        <div className={styles_module_scss_1.default.icon}>{_price.currency === 'coins' ? <_icons_1.IconCoin /> : <_icons_1.IconSapphire />}</div>
+                        <div className={styles_module_scss_1.default.quantity}>{_price.price}</div>
+                    </div>
+
+                </div>
 
                 <div className={styles_module_scss_1.default.actions}>
                     <div className={styles_module_scss_1.default.inside}>
                         <div onClick={closePopout} className={`${styles_module_scss_1.default.button} ${styles_module_scss_1.default.__white}`}>
                             Отмена
                         </div>
-                        <div onClick={() => (0, model_1.onBuyUnit)()} className={styles_module_scss_1.default.button}>
+                        <div onClick={buyUnit} className={styles_module_scss_1.default.button}>
                             Купить
                         </div>
                     </div>

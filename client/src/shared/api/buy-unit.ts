@@ -5,13 +5,11 @@ import { TBuyUnitAPI } from "@ctypes/socket/client-to-server"
 export const buyUnitAPI = (
     id: TExtrTypes
 ) => {
-    
     const data: TBuyUnitAPI = {
         event: 'buyUnit',
         payload: {
-            id,
+            id
         }
     }
-
     WS.sendData(data)
 }

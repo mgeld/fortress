@@ -8,13 +8,14 @@ const unit_1 = require("entities/unit");
 const popout_root_1 = require("shared/ui/popout-root");
 const _icons_1 = require("widgets/counters/icons/_icons");
 const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
-const UnitCard = ({ icon, name, unit }) => {
+const UnitCard = ({ id, icon, name, unit }) => {
     const onUnit = (id) => {
-        unit_1.unitModel.events.selectUnit(id);
+        console.log('UnitCard onUnit id', id);
+        unit_1.unitModel.events.selectBuyUnit(Number(id));
         popout_root_1.popoutModel.events.setPopout('select-unit');
     };
-    return (<div className={styles_module_scss_1.default.unitCard} onClick={() => onUnit(unit.id)}>
-            <div className={`${styles_module_scss_1.default.item} c${unit.id}`}>
+    return (<div className={styles_module_scss_1.default.unitCard} onClick={() => onUnit(id)}>
+            <div className={`${styles_module_scss_1.default.item} c${id}`}>
                 <div className={styles_module_scss_1.default.__icon}>
                     {icon}
                 </div>

@@ -43,8 +43,6 @@ class ConnectHandler implements IRoute {
         const USER_NAME = message.payload.name
         const USER_ICON = message.payload.icon
 
-        console.log('VK_URL', VK_URL)
-
         let pointer: Pointer
         let weapon: WeaponType
         let zone: Zone
@@ -66,10 +64,7 @@ class ConnectHandler implements IRoute {
 
         // vk_id = vk_id - randomNumber(10,1000) // Убрать в проде!!!!!!!!!!!!
 
-        if (!is_valid || !vk_id) return 'ERROR SECRET KEY'
-
-        console.log('vk_id', vk_id)
-        console.log('is_valid', is_valid)
+        if (!is_valid || !vk_id) return 'ERROR_SECRET_KEY'
 
         try {
 

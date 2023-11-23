@@ -14,6 +14,10 @@ sample({
 
 export const useSocket = () => useStore($socketStatus)
 
+
+const reSocket = createEvent()
+
 export const events = {
-    setSocketStatus
+    setSocketStatus,
+    reSocket
 }

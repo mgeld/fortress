@@ -11,6 +11,8 @@ const setSocketStatus = (0, effector_1.createEvent)();
 });
 const useSocket = () => (0, effector_react_1.useStore)(exports.$socketStatus);
 exports.useSocket = useSocket;
+const reSocket = (0, effector_1.createEvent)();
 exports.events = {
-    setSocketStatus
+    setSocketStatus,
+    reSocket
 };

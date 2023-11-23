@@ -29,7 +29,8 @@ class Sector {
         };
     }
     generateBooty() {
-        const container = Math.random() < 0.2 ? 3 : Math.random() < 0.6 ? 2 : 1;
+        const rand = Math.random();
+        const container = rand < 0.2 ? 3 : rand < 0.5 ? 2 : 1;
         this._booty = container;
         return container;
     }
@@ -42,14 +43,14 @@ class Sector {
         console.log('probabilityNumber', probabilityNumber);
         return probabilityNumber <= 6;
     }
-    invade(invader_user) {
+    invade(invader_user, invader_power, defender_power) {
         if (invader_user === this._zone_id &&
             this._invaders === 0) {
             this.addDefender();
             return 'defense';
         }
         else {
-            const winner = this.fightWinner();
+            const winner = this.fightWinner(invader_power, defender_power);
             console.log('winner', winner);
             if (invader_user === this._zone_id && winner === 'defender') {
                 this.killInvader();
@@ -116,8 +117,9 @@ class Sector {
         this._invaders = this._invaders - 1;
         return this._invaders;
     }
-    fightWinner() {
-        return Math.random() > 0.5 ? 'invader' : 'defender';
+    fightWinner(invader_power, defender_power) {
+        const chance = (0, random_number_1.randomNumber)(0, invader_power + defender_power);
+        return chance < invader_power ? 'invader' : 'defender';
     }
     get id() {
         return this._id;

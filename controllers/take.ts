@@ -12,6 +12,7 @@ import { Logs } from "../infra/logs/takes";
 import { ZoneService } from "../services/zone.service";
 import { CitadelService } from "../services/citadel.service";
 import { TFindContType } from "../common-types/model";
+import { Zone } from "../entities/zone/zone";
 
 @injectable()
 class TakeHandler extends IRoute {
@@ -37,10 +38,10 @@ class TakeHandler extends IRoute {
 
         const zone = await this._zoneService.getById(uSocket.user_id)
 
-        if(zone.stormtrooper_corps.invaders < 1) {
+        if (zone.stormtrooper_corps.invaders < 1) {
             return
         }
-        
+
         let _sector: Sector
         let prevZoneId: number = 0
 
@@ -50,27 +51,33 @@ class TakeHandler extends IRoute {
         let isBooty = false
 
         const _pointer = await this._pointerService.memoryGetById(uSocket.user_id)
-        
+
         zone.stormtrooper_corps.storm()
 
         try {
             _sector = await this._sectorService.getById(message.payload.sector)
-            console.log('____________1')
-
         } catch (e) {
-
-            console.log('____________2')
-
             _sector = this._sectorService.create({
                 id: message.payload.sector,
                 latlng: message.payload.fort,
                 zone_id: 0,
                 defenders: 5
             })
-
         }
 
-        const status = _sector.invade(zone.id)
+        let _prevZone: Zone | null = null
+        if (_sector.zone_id) {
+            _prevZone = await this._zoneService.getById(_sector.zone_id)
+        }
+
+        const invPower = zone.stormtrooper_corps.power
+        const defPower = _prevZone ? _prevZone.stormtrooper_corps.power : invPower / 2
+
+        const status = _sector.invade(
+            zone.id,
+            invPower,
+            defPower
+        )
 
         takeHit = {
             status,
@@ -83,8 +90,7 @@ class TakeHandler extends IRoute {
         // Если я победил
         if (status === 'victory') {
 
-            if (_sector.zone_id) {
-                const _prevZone = await this._zoneService.getById(_sector.zone_id)
+            if (_sector.zone_id && _prevZone) {
                 _prevZone.terrain.killDefender()
                 prevZoneId = _prevZone.id
 
@@ -92,7 +98,6 @@ class TakeHandler extends IRoute {
                     // Убираем один сектор у пред-го владельца
                     if (prevZoneId) _prevZone.terrain.loseSector()
                 }
-
                 this._zoneService.memoryUpdate(_prevZone)
             }
 
@@ -107,7 +112,7 @@ class TakeHandler extends IRoute {
                 const tempLevel = zone.terrain.level
                 const sectsAndLevel = zone.terrain.addSector()
 
-                if(sectsAndLevel.level > tempLevel) {
+                if (sectsAndLevel.level > tempLevel) {
                     const newLevel: TNewZone = {
                         event: 'new-zone',
                         payload: {
@@ -130,6 +135,9 @@ class TakeHandler extends IRoute {
                 console.log('take isBooty', isBooty)
 
                 if (zone.terrain.sectors === 1) {
+
+                    // Если это первый сектор, то там есть добыча по умолчанию
+                    isBooty = true
 
                     const citadel = this._citadelService.create({
                         id: _pointer.zoneId,
@@ -159,57 +167,8 @@ class TakeHandler extends IRoute {
         this._logs.takes.add(_sector.id)
         this._sectorService.update(_sector)
 
-        // if (0) {
-
-        //     _sector.addDefender()
-
-        //     takeHit = {
-        //         status: 'defense',
-        //         invaders: 0,
-        //         fort: message.payload.fort,
-        //         defenders: _sector.defenders
-        //     } as TTakeHitPayload
-
-        //     takeSector = {
-        //         new_owner_id: _pointer.zoneId,
-        //         prev_owner_id: 0,
-        //         sector_id: message.payload.sector
-        //     } as TTakeSectorPayload
-
-        //     this._logs.takes.add(_sector.id)
-
-        //     zone.terrain.newDefender()
-        //     zone.terrain.addSector()
-
-        //     if (zone.terrain.sectors === 1) {
-
-        //         const citadel = this._citadelService.create({
-        //             id: _pointer.zoneId,
-        //             sectorId: _sector.id,
-        //             latlng: _sector.latlng
-        //         })
-        //         this._citadelService.baseInsert(citadel)
-
-        //         const payload: TCitadel = {
-        //             id: citadel.id,
-        //             latlng: citadel.latlng,
-        //             level: citadel.level
-        //         }
-
-        //         setTimeout(() => {
-        //             uSocket.send(JSON.stringify({
-        //                 event: 'set-citadel',
-        //                 payload: payload
-        //             }))
-        //         }, 2000)
-
-        //     }
-        // }
-
         this._zoneService.memoryUpdate(zone)
         this._pointerService.memoryUpdate(_pointer)
-
-        // takeHit.fort = message.payload.fort
 
         const takeHitResp: TTakeHit = {
             event: 'take-hit',

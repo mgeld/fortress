@@ -17,18 +17,20 @@ class StormtrooperCorps {
     increasePower(power) {
         const maxValueLevel = StormtrooperCorps.getLevelMaxPower(this._level);
         if (maxValueLevel > this._power) {
-            const summ = this._power + power;
+            const was_number = this._power;
+            const summ = was_number + power;
             this._power = summ > maxValueLevel ? maxValueLevel : summ;
-            return this._power;
+            return [was_number, this._power];
         }
         return 'limit';
     }
     addInvaders(invaders) {
         const maxValueLevel = StormtrooperCorps.getLevelMaxInvaders(this._level);
         if (maxValueLevel > this._invaders) {
-            const summ = this._invaders + invaders;
+            const was_number = this._invaders;
+            const summ = was_number + invaders;
             this._invaders = summ > maxValueLevel ? maxValueLevel : summ;
-            return this._invaders;
+            return [was_number, this._invaders];
         }
         return 'limit';
     }
@@ -90,18 +92,18 @@ class StormtrooperCorps {
     }
     static getLevelMaxInvaders(level) {
         const levels = {
-            1: 50,
-            2: 100,
-            3: 155,
-            4: 215,
-            5: 280,
-            6: 350,
-            7: 425,
-            8: 505,
-            9: 590,
-            10: 680,
-            11: 775,
-            12: 875
+            1: 100,
+            2: 150,
+            3: 205,
+            4: 265,
+            5: 330,
+            6: 400,
+            7: 475,
+            8: 555,
+            9: 640,
+            10: 730,
+            11: 825,
+            12: 925
         };
         return levels[level];
     }
@@ -110,6 +112,9 @@ class StormtrooperCorps {
     }
     get invaders() {
         return this._invaders;
+    }
+    get power() {
+        return this._power;
     }
 }
 exports.StormtrooperCorps = StormtrooperCorps;

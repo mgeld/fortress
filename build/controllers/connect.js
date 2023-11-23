@@ -37,7 +37,6 @@ let ConnectHandler = class ConnectHandler {
             const VK_URL = message.payload.url;
             const USER_NAME = message.payload.name;
             const USER_ICON = message.payload.icon;
-            console.log('VK_URL', VK_URL);
             let pointer;
             let weapon;
             let zone;
@@ -50,9 +49,7 @@ let ConnectHandler = class ConnectHandler {
                 return;
             let { is_valid, vk_id } = result;
             if (!is_valid || !vk_id)
-                return 'ERROR SECRET KEY';
-            console.log('vk_id', vk_id);
-            console.log('is_valid', is_valid);
+                return 'ERROR_SECRET_KEY';
             try {
                 const { zone_id: zoneId } = yield this._vkUserRepository.getById(vk_id);
                 pointer = yield this._pointerService.baseGetById(zoneId);

@@ -1,258 +1,273 @@
-.battleOver {
+.battleRoot {
     width: 100%;
-    // padding: 0 12px;
+    height: 100%;
+
+    background: url('../../icons/clouds.png') #8c38b356;
+
+    /* Путь к картинке */
+    background-position: 0 0;
+    background-repeat: repeat;
+    animation: animated-sky 60s linear infinite;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 14px;
     box-sizing: border-box;
 
-    --stroke-color: black;
-    --stroke-width: 3px;
-    --text-stroke: var(--stroke-width) 0 0 var(--stroke-color),
-        calc(var(--stroke-width) * -1) 0 0 var(--stroke-color),
-        0 var(--stroke-width) 0 var(--stroke-color),
-        0 calc(var(--stroke-width) * -1) 0 var(--stroke-color);
-
-    color: white;
-
-    // -webkit-text-fill-color: transparent;
-
-    .__content {
+    .battleOver {
         width: 100%;
+        max-width: 400px;
+        box-sizing: border-box;
 
-        border-radius: 10px;
-
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-
-        position: relative;
+        --stroke-color: black;
+        --stroke-width: 2px;
+        --text-stroke: var(--stroke-width) 0 0 var(--stroke-color),
+            calc(var(--stroke-width) * -1) 0 0 var(--stroke-color),
+            0 var(--stroke-width) 0 var(--stroke-color),
+            0 calc(var(--stroke-width) * -1) 0 var(--stroke-color);
 
         color: white;
 
-        .__shield {
+        // -webkit-text-fill-color: transparent;
+
+        .__content {
             width: 100%;
-            position: absolute;
-            display: flex;
-            justify-content: center;
-            top: -34px;
-            z-index: 7;
-        }
-
-        .button {
-            width: 100%;
-            position: absolute;
-            display: flex;
-            justify-content: center;
-            bottom: -18px;
-
-
-            .__button {
-                border: 2px solid black;
-                border-radius: 8px;
-                background-color: #9934C9;
-                // text-shadow: var(--text-stroke);
-            }
-        }
-
-
-        .__team {
-
-            background: linear-gradient(0deg, #9934C9, #E85AFF, #9934C9);
-
-            &.defeat {
-                background: linear-gradient(0deg, #A81010, #DB6D6D, #A81010);
-            }
-
-            width: 100%;
-            box-sizing: border-box;
-            border: 2px solid black;
-
-            &.team0 {
-                padding: 20px 12px;
-                padding-bottom: calc(32px + 4px);
-            }
-
-            &.team1 {
-                padding: 28px 12px;
-                padding-bottom: calc(32px + 0px);
-                border-top: none;
-                box-shadow: 0px 2px 4px black;
-            }
 
             border-radius: 10px;
 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+
             position: relative;
 
-            .__swords {
-                width: 54px;
-                height: 54px;
+            color: white;
+
+            .__shield {
+                width: 100%;
                 position: absolute;
-                bottom: 0px;
-                left: 50%;
-                margin-bottom: -32px;
-                margin-left: -32px;
-                z-index: 5;
+                display: flex;
+                justify-content: center;
+                top: -30px;
+                z-index: 7;
             }
 
-            .__header {
+            .button {
                 width: 100%;
-
+                position: absolute;
                 display: flex;
-                align-items: center;
-                justify-content: space-between;
+                justify-content: center;
+                bottom: -18px;
 
-                padding-bottom: 4px;
 
-                .__left {
-                    font-size: 22px;
-                    color: white;
-                    text-shadow: var(--text-stroke);
+                .__button {
+                    border: 2px solid black;
+                    border-radius: 8px;
+                    background-color: #9934C9;
+                }
+            }
+
+
+            .__team {
+
+                // background: linear-gradient(0deg, #9934C9, #E85AFF, #9934C9);
+
+                background: repeating-linear-gradient(-45deg,
+                        #a43fd3b0,
+                        #953dbeb0 10px,
+                        #8f33b9b0 10px,
+                    );
+                border: 4px solid #8c38b386;
+
+                &.defeat {
+                    // background: linear-gradient(0deg, #A81010, #DB6D6D, #A81010);
+                    background: repeating-linear-gradient(-45deg,
+                            #A81010b0,
+                            #a52222b0 10px,
+                            #A81010b0 10px,
+                        );
+                    border: 4px solid #a52222b0;
                 }
 
-                .__right {
+                width: 100%;
+                box-sizing: border-box;
+
+                &.team0 {
+                    padding: 20px 24px;
+                    padding-bottom: calc(32px + 4px);
+                    box-shadow: 0px -2px 4px #000000a8;
+                }
+
+                &.team1 {
+                    padding: 28px 24px;
+                    padding-bottom: calc(32px + 0px);
+                    box-shadow: 0px 2px 4px #000000a8;
+                    // border-top: none;
+                }
+
+                border-radius: 10px;
+
+                position: relative;
+
+                .__swords {
+                    width: 54px;
+                    height: 54px;
+                    position: absolute;
+                    bottom: 0px;
+                    left: 50%;
+                    margin-bottom: -29px;
+                    margin-left: -27px;
+                    z-index: 5;
+                }
+
+                .__header {
+                    width: 100%;
+
                     display: flex;
                     align-items: center;
+                    justify-content: space-between;
 
-                    .__icon {
-                        transform: rotate(20deg);
-                    }
+                    padding-bottom: 4px;
 
-                    .__text {
-                        font-size: 20px;
-                        padding-left: 8px;
+                    .__left {
+                        font-size: 22px;
+                        color: white;
                         text-shadow: var(--text-stroke);
                     }
 
-                }
-
-            }
-
-            .__users {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-
-                .__user {
-                    display: flex;
-                    align-items: center;
-                    flex-direction: column;
-
-                    color: white;
-                    padding: 12px 12px;
-                    text-shadow: var(--text-stroke);
-
-                    .__icon {
-                        width: 56px;
-                        height: 56px;
-
-                        img {
-                            width: 50px;
-                            height: 50px;
-                            border-radius: 50%;
-                            border: 3px solid white;
-                        }
-                    }
-
-                    .__username {
-                        padding: 12px 0;
-                    }
-
-                    .__trophies {
+                    .__right {
                         display: flex;
                         align-items: center;
 
-                        height: 30px;
-                        // background-color: rgba(0, 0, 0, 0.200);
-
-                        border: 2px solid rgba(255, 255, 255, 0.267);
-                        border-radius: 4px;
-                        box-sizing: border-box;
-
-                        position: relative;
-
-                        z-index: 6;
-
                         .__icon {
-                            position: relative;
-                            z-index: 4;
-                            width: 38px;
-
-                            &>svg {
-                                position: absolute;
-                                top: 50%;
-                                margin-top: -15px;
-                                transform: rotate(20deg);
-                            }
+                            transform: rotate(20deg);
                         }
 
                         .__text {
-                            z-index: 1;
-                            display: flex;
-                            color: white;
-                            padding: 0 12px;
+                            font-size: 20px;
                             padding-left: 8px;
-                            justify-content: center;
-                            align-items: center;
-
-                            &>span {
-                                font-size: 18px;
-                                white-space: nowrap;
-                            }
-
-                        }
-
-                        &>.__whiteEffect {
-                            width: 100%;
-                            height: 100%;
-                            box-sizing: border-box;
-
-                            position: absolute;
-                            top: 0px;
-                            left: 0px;
-
-                            &>div {
-                                width: 100%;
-                                height: 50%;
-                                background-color: rgba(255, 255, 255, 0.4);
-                                border-radius: 3px;
-                            }
+                            text-shadow: var(--text-stroke);
                         }
 
                     }
 
                 }
+
+                .__users {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    .__user {
+                        display: flex;
+                        align-items: center;
+                        flex-direction: column;
+
+                        color: white;
+                        padding: 12px 12px;
+                        text-shadow: var(--text-stroke);
+
+                        .__icon {
+                            width: 56px;
+                            height: 56px;
+
+                            img {
+                                width: 50px;
+                                height: 50px;
+                                border-radius: 50%;
+                                border: 3px solid white;
+                            }
+                        }
+
+                        .__username {
+                            padding: 12px 0;
+                        }
+
+                        .__trophies {
+                            display: flex;
+                            align-items: center;
+
+                            height: 30px;
+
+                            border: 2px solid rgba(255, 255, 255, 0.267);
+                            border-radius: 4px;
+                            box-sizing: border-box;
+
+                            position: relative;
+
+                            z-index: 6;
+
+                            .__icon {
+                                position: relative;
+                                z-index: 4;
+                                width: 38px;
+
+                                &>svg {
+                                    position: absolute;
+                                    top: 50%;
+                                    margin-top: -15px;
+                                    transform: rotate(20deg);
+                                }
+                            }
+
+                            .__text {
+                                z-index: 1;
+                                display: flex;
+                                color: white;
+                                padding: 0 12px;
+                                padding-left: 8px;
+                                justify-content: center;
+                                align-items: center;
+
+                                &>span {
+                                    font-size: 18px;
+                                    white-space: nowrap;
+                                }
+
+                            }
+
+                            &>.__whiteEffect {
+                                width: 100%;
+                                height: 100%;
+                                box-sizing: border-box;
+
+                                position: absolute;
+                                top: 0px;
+                                left: 0px;
+
+                                &>div {
+                                    width: 100%;
+                                    height: 50%;
+                                    background-color: rgba(255, 255, 255, 0.4);
+                                    border-radius: 3px;
+                                }
+                            }
+
+                        }
+
+                    }
+                }
+
+            }
+
+            .__team:first-child {
+                background: linear-gradient(0deg, #9934C9, #E85AFF, #9934C9);
             }
 
         }
-
-        .__team:first-child {
-            background: linear-gradient(0deg, #9934C9, #E85AFF, #9934C9);
-        }
-
     }
+
 }
 
-@keyframes rotate {
+@keyframes animated-sky {
     from {
-        transform: rotate(0deg);
+        background-position: 800px 0;
     }
 
     to {
-        transform: rotate(360deg);
-    }
-}
-
-@keyframes rotate-loupe {
-    from {
-        transform: rotate(0deg);
-    }
-
-    to {
-        transform: rotate(-360deg);
-    }
-}
-
-@keyframes l {
-    to {
-        clip-path: inset(0 -1ch 0 0)
+        background-position: 0 0;
     }
 }

@@ -71,7 +71,6 @@ let SectorService = class SectorService {
         return this._baseRepository.insert(sector);
     }
     baseInserts(sectors) {
-        console.log('baseInserts');
         return this._baseRepository.inserts(sectors);
     }
     getById(sectorId) {

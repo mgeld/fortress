@@ -9,7 +9,6 @@ const popout_root_1 = require("shared/ui/popout-root");
 const MapDrones = () => {
     const map = (0, react_leaflet_1.useMap)();
     const size = pointer_1.droneMapModel.selectors.useDroneSize();
-    console.log('size size size', size);
     (0, react_leaflet_1.useMapEvents)({
         zoomstart: () => {
             var _a;

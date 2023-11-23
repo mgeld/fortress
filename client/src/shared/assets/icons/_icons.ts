@@ -6,7 +6,7 @@
 // export { ReactComponent as IconShieldBattle } from './shield-battle.svg';
 
 export { ReactComponent as IconBattleSwords } from './battle-swords.svg';
-export { ReactComponent as IconBattleShield } from './battle-shield.svg';
+
 export { ReactComponent as IconBattleLoupe } from './battle-loupe.svg';
 
 export { ReactComponent as IconArrow } from './arrow.svg';

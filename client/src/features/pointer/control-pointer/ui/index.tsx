@@ -21,7 +21,7 @@ const ControlPointer: FC = () => {
                     baseColor="#ffffff00"
                     stickImage='icons/control_directions.png'
                     minDistance={30}
-                    throttle={200}
+                    throttle={400}
                     move={moveControl}
                     stop={stopPoint}
                 />

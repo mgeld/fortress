@@ -8,10 +8,6 @@ export const connectAPI = (
     icon: string,
     position: TLatLng,
 ) => {
-
-    console.log('connectAPI url', url)
-    console.log('connectAPI name', name)
-    console.log('connectAPI icon', icon)
     const data: TConnectAPI = {
         event: 'connect',
         payload: {

@@ -35,14 +35,23 @@ export class Rank {
     }
 
 
-    addExp(exp: number): number {
-        this._exp = this._exp + exp
-        if (this._exp >= Rank.levelExp()[this._rank]) {
+    addExp(exp: number): [number, number] {
+        const maxValueLevel = Rank.levelExp()[this._rank]
+
+        console.log('addExp maxValueLevel', maxValueLevel)
+        const was_number = this._exp
+        const summ = was_number + exp
+        console.log('addExp summ', summ)
+
+        if (summ >= maxValueLevel) {
             this._rank += 1
             this._exp = 0
-            return this._exp
+            return [was_number, this._exp]
         }
-        return this._exp
+
+        this._exp = summ
+
+        return [was_number, this._exp]
     }
 
 

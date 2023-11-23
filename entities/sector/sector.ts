@@ -23,10 +23,10 @@ export class Sector {
     private _id: string
 
     private _number: number
-    
+
     private _latlng: TLatLng
     private _zone_id: number
-    
+
     private _defenders: number
     private _invaders: number
 
@@ -63,7 +63,8 @@ export class Sector {
     }
 
     generateBooty(): TFindContType {
-        const container = Math.random() < 0.2 ? 3 : Math.random() < 0.6 ? 2 : 1
+        const rand = Math.random()
+        const container = rand < 0.2 ? 3 : rand < 0.5 ? 2 : 1
         this._booty = container
         return container
     }
@@ -82,7 +83,11 @@ export class Sector {
 
     }
 
-    invade(invader_user: number): 'defense' | 'victory' | 'defeat' {
+    invade(
+        invader_user: number,
+        invader_power: number,
+        defender_power: number,
+    ): 'defense' | 'victory' | 'defeat' {
 
         // Если это мой сектор
         // И на секторе нет чужих штурмовиков
@@ -94,7 +99,7 @@ export class Sector {
             this.addDefender()
             return 'defense'
         } else {
-            const winner = this.fightWinner()
+            const winner = this.fightWinner(invader_power, defender_power)
 
             console.log('winner', winner)
 
@@ -132,10 +137,10 @@ export class Sector {
     leaveGuard(user: number): LeaveSectorStatus {
         let isLeave: LeaveSectorStatus = null
         if (user === this._zone_id) {
-            if(this._invaders > 0) {
+            if (this._invaders > 0) {
                 this.killInvader()
                 isLeave = 'invader'
-            } else if(this._defenders > 1) {
+            } else if (this._defenders > 1) {
                 this.killDefender()
                 isLeave = 'defender'
             }
@@ -184,8 +189,13 @@ export class Sector {
         return this._invaders
     }
 
-    fightWinner(): 'invader' | 'defender' {
-        return Math.random() > 0.5 ? 'invader' : 'defender'
+    fightWinner(
+        invader_power: number,
+        defender_power: number
+    ): 'invader' | 'defender' {
+        const chance = randomNumber(0, invader_power + defender_power)
+        return chance < invader_power ? 'invader' : 'defender'
+        // Math.random() > 0.5 ? 'invader' : 'defender'
     }
 
     get id(): string {

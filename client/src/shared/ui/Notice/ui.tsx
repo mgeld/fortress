@@ -2,8 +2,6 @@ import { FC, ReactNode } from "react";
 
 import styles from './styles.module.scss'
 
-import { IconCoin } from "widgets/counters/icons/_icons";
-
 import { ReactComponent as IconWarning } from './warning.svg';
 
 // import { ReactComponent as IconCont1 } from '/icons/cont_1.svg';
@@ -11,7 +9,7 @@ import { ReactComponent as IconWarning } from './warning.svg';
 // import { ReactComponent as IconCont3 } from '/icons/cont_3.svg';
 
 import { noticeModel } from ".";
-import { IconCont1, IconCont2, IconCont3, IconLevelUp, IconRank, IconZoneLevel } from "shared/assets/icons/_icons";
+import { IconClose, IconCont1, IconCont2, IconCont3, IconLevelUp, IconRank, IconZoneLevel } from "shared/assets/icons/_icons";
 import { modules } from "entities/unit/lib/modules";
 import { TExtrTypes } from "@ctypes/model";
 
@@ -57,16 +55,22 @@ export const Notice: FC = () => {
                     icon = _notice[toast.type]
                 } else if (Number.isInteger(toast.type)) {
                     if (toast.type in modules) {
-                        icon = modules[toast.type as TExtrTypes].icon(44,44)
+                        icon = modules[toast.type as TExtrTypes].icon(44, 44)
                     }
                 }
-                console.log('ffffffffffffffffffffffffffffffffffffffffffffffffffffffffff toast', toast)
+
                 return (
                     <div
                         key={toast.id}
                         className={styles.notice}
                     >
                         <div className={styles.__content}>
+                            <div
+                                onClick={() => noticeModel.events.delToastById({ toast_id: toast.id })}
+                                className={styles.close}
+                            >
+                                <IconClose width={16} height={16} fill="#dfdad4" />
+                            </div>
                             <div className={styles.__border}>
                                 <div className={`${styles.icon} e${toast.type}`}>
                                     {icon}

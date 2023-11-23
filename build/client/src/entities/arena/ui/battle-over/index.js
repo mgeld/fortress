@@ -14,6 +14,8 @@ const popout_root_1 = require("shared/ui/popout-root");
 const _icons_1 = require("shared/assets/icons/_icons");
 const _icons_2 = require("widgets/counters/icons/_icons");
 const ship_1 = require("entities/ship");
+const battle_shield_png_1 = __importDefault(require("shared/assets/icons//battle-shield.png"));
+const battle_shield_red_png_1 = __importDefault(require("shared/assets/icons//battle-shield-red.png"));
 const BattleOver = () => {
     var _a;
     const user = user_1.userModel.selectors.useUser();
@@ -26,80 +28,86 @@ const BattleOver = () => {
         popout_root_1.popoutModel.events.setPopout(null);
         ship_1.shipModel.events.resetUser();
         events_1.battleAPI.events.setTeams([]);
+        events_1.battleAPI.events.setTimer(0);
         events_1.battleAPI.events.setBattleStatus('default');
     };
     const myTrophies = userTeam ? ((_a = userTeam.members.find(pointer => pointer.userId === user.userId)) === null || _a === void 0 ? void 0 : _a.trophies) || 0 : 0;
-    return (<div className={styles_module_scss_1.default.battleOver}>
-            <div className={styles_module_scss_1.default.__content}>
+    return (<div className={styles_module_scss_1.default.battleRoot}>
+            <div className={styles_module_scss_1.default.battleOver}>
+                <div className={styles_module_scss_1.default.__content}>
 
-                <div className={styles_module_scss_1.default.__shield}>
-                    <_icons_1.IconBattleShield width={68} height={68}/>
-                </div>
+                    <div className={styles_module_scss_1.default.__shield}>
+                        
+                        
 
-                {teams.map((team, i) => {
+                        {(userTeam === null || userTeam === void 0 ? void 0 : userTeam.status) === 'victory' ?
+            <img src={battle_shield_png_1.default} alt="<>"/> :
+            <img src={battle_shield_red_png_1.default} alt="<>"/>}
+                    </div>
+
+                    {teams.map((team, i) => {
             return (<div className={[styles_module_scss_1.default.__team, styles_module_scss_1.default[team.status], styles_module_scss_1.default[`team${i}`]].join(' ')}>
 
-                            {team.teamId === (userTeam === null || userTeam === void 0 ? void 0 : userTeam.teamId) && (<>
-                                <div className={styles_module_scss_1.default.__swords}>
-                                    <_icons_1.IconBattleSwords width={52} height={52}/>
-                                </div>
-                                <div className={styles_module_scss_1.default.__header}>
-                                    <div className={styles_module_scss_1.default.__left}>
-                                        {team.status === 'victory' ? 'Победа!' : 'Поражение!'}
-                                        
+                                {team.teamId === (userTeam === null || userTeam === void 0 ? void 0 : userTeam.teamId) && (<>
+                                    <div className={styles_module_scss_1.default.__swords}>
+                                        <_icons_1.IconBattleSwords width={52} height={52}/>
                                     </div>
-                                    <div className={styles_module_scss_1.default.__right}>
-                                        <div className={styles_module_scss_1.default.__icon}>
-                                            <_icons_2.IconTrophy width={34} height={34}/>
+                                    <div className={styles_module_scss_1.default.__header}>
+                                        <div className={styles_module_scss_1.default.__left}>
+                                            {team.status === 'victory' ? 'Победа!' : 'Поражение!'}
                                         </div>
-                                        <div className={styles_module_scss_1.default.__text}>
-                                            
-                                            {myTrophies > 0 ? `+${myTrophies}` : myTrophies}
+                                        <div className={styles_module_scss_1.default.__right}>
+                                            <div className={styles_module_scss_1.default.__icon}>
+                                                <_icons_2.IconTrophy width={34} height={34}/>
+                                            </div>
+                                            <div className={styles_module_scss_1.default.__text}>
+                                                {myTrophies > 0 ? `+${myTrophies}` : myTrophies}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </>)}
+                                </>)}
 
-                            <div className={styles_module_scss_1.default.__users}>
+                                <div className={styles_module_scss_1.default.__users}>
 
-                                {team.members.map(member => {
+                                    {team.members.map(member => {
                     const pointer = (member.userId === user.userId) ? {
                         name: user.userName,
                         icon: user.userIcon
                     } : pointers.find(pointer => pointer.userId === member.userId);
                     return (<div className={styles_module_scss_1.default.__user}>
 
-                                            <div className={styles_module_scss_1.default.__icon}>
-                                                <img src={pointer === null || pointer === void 0 ? void 0 : pointer.icon} alt={''}/>
-                                            </div>
-
-                                            <div className={styles_module_scss_1.default.__username}>
-                                                {pointer === null || pointer === void 0 ? void 0 : pointer.name}
-                                            </div>
-
-                                            <div className={styles_module_scss_1.default.__trophies}>
                                                 <div className={styles_module_scss_1.default.__icon}>
-                                                    <_icons_2.IconTrophy width={30} height={30}/>
+                                                    <img src={pointer === null || pointer === void 0 ? void 0 : pointer.icon} alt={''}/>
                                                 </div>
-                                                <div className={styles_module_scss_1.default.__text}>
-                                                    <span>
-                                                        {member.trophies >= 0 ? '+' + member.trophies : member.trophies}
-                                                    </span>
-                                                </div>
-                                                <div className={styles_module_scss_1.default.__whiteEffect}><div /></div>
-                                            </div>
 
-                                        </div>);
+                                                <div className={styles_module_scss_1.default.__username}>
+                                                    {pointer === null || pointer === void 0 ? void 0 : pointer.name}
+                                                </div>
+
+                                                <div className={styles_module_scss_1.default.__trophies}>
+                                                    <div className={styles_module_scss_1.default.__icon}>
+                                                        <_icons_2.IconTrophy width={30} height={30}/>
+                                                    </div>
+                                                    <div className={styles_module_scss_1.default.__text}>
+                                                        <span>
+                                                            {member.trophies >= 0 ? '+' + member.trophies : member.trophies}
+                                                        </span>
+                                                    </div>
+                                                    <div className={styles_module_scss_1.default.__whiteEffect}><div /></div>
+                                                </div>
+
+                                            </div>);
                 })}
-                            </div>
+                                </div>
 
-                        </div>);
+                            </div>);
         })}
 
-                <div className={styles_module_scss_1.default.button}>
-                    <ui_1.Button className={styles_module_scss_1.default.__button} text="Ок" onClick={leaveBattle}/>
-                </div>
+                    <div className={styles_module_scss_1.default.button}>
+                        <ui_1.Button className={styles_module_scss_1.default.__button} text="Вернуться" radius={10} onClick={leaveBattle}/>
+                    </div>
 
+                </div>
             </div>
         </div>);
 };

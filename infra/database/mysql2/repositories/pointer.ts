@@ -19,6 +19,7 @@ interface IPointerRowData {
 
     pos_lat?: number
     pos_lng?: number
+
     areal?: number
     weapons?: string[]
 }
@@ -232,7 +233,7 @@ export class PointerRepository implements IPointerRepository {
             pointer.zoneId
         ])
 
-        return PointerMapper.toDomain(dtoPointer)
+        return pointer
     }
 
 }

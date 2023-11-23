@@ -66,7 +66,6 @@ export class SectorService {
     }
 
     baseInserts(sectors: Sector[]): Promise<Boolean> {
-        console.log('baseInserts')
         return this._baseRepository.inserts(sectors)
     }
 

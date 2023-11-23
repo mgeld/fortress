@@ -49,7 +49,7 @@ class CollectionRooms {
         }
     }
 
-    getInactiveRooms(): number[] {
+    getInactiveRooms(): number[] | string[] {
         try {
             return Object.entries(this.data)
                 .filter(([key, value]) => Object.keys(value).length === 0)

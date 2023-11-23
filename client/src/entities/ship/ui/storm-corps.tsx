@@ -22,7 +22,7 @@ export const StormCorps: FC = () => {
             </div>
             <div className={styles.__info}>
                 <div className={styles.head}>
-                    <div className={styles.name}>Штурмой корпус</div>
+                    <div className={styles.name}>Штурмовой корпус</div>
                     <div className={styles.level}>
                         <span>{level} ур.</span>
                     </div>

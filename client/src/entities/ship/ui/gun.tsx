@@ -24,7 +24,7 @@ export const Gun: FC = () => {
             </div>
             <div className={styles.__info}>
                 <div className={styles.head}>
-                    <div className={styles.name}>Плазменная пушка</div>
+                    <div className={styles.name}>Пушка</div>
                     <div
                         // onClick={() => popoutModel.events.setPopout('use-item')}
                         className={styles.level}

@@ -7,7 +7,7 @@ export const onBuyUnit = createEvent()
 
 sample({
     clock: onBuyUnit,
-    source: unitModel.$unitSelect,
+    source: unitModel.$unitBuySelect,
     filter: (unit): unit is TExtrTypes => unit !== null,
     target: createEffect((unit: TExtrTypes) => {
         buyUnitAPI(unit)

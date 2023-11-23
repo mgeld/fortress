@@ -5,13 +5,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CounterProgress = void 0;
 const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
-const CounterProgress = ({ icon, className, width, name, counter, progress, color, onClick, children }) => {
+const CounterProgress = ({ icon, className, position, width, name, counter, progress, color, onClick, children }) => {
     return (<div onClick={onClick} className={`${styles_module_scss_1.default.counterProgress} ${className}`}>
 
             <div className={styles_module_scss_1.default.__icon}>
                 {icon}
             </div>
-            <div className={styles_module_scss_1.default.__progress}>
+            
+            <div className={`${styles_module_scss_1.default.__progress} ${styles_module_scss_1.default['__' + position]}`}>
 
                 {children}
 

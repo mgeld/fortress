@@ -57,6 +57,14 @@ class Zone {
     get hold() {
         return this._hold;
     }
+    setTrophies(trophy) {
+        let nTrophies = this._trophies + trophy;
+        if (nTrophies < 0) {
+            nTrophies = 0;
+        }
+        this._trophies = nTrophies;
+        return this._trophies;
+    }
     spendСoins(coins) {
         const nCoins = this._coins - coins;
         if (nCoins < 0) {
@@ -66,9 +74,10 @@ class Zone {
         return this._coins;
     }
     addCoins(coins) {
-        this._coins = this._coins + coins;
-        console.log('addCoins this._coins', this._coins);
-        return this._coins;
+        const was_number = this._coins;
+        const summ = was_number + coins;
+        this._coins = summ;
+        return [was_number, this._coins];
     }
     spendRubies(rubies) {
         const nRubies = this._rubies - rubies;
@@ -79,8 +88,10 @@ class Zone {
         return this._rubies;
     }
     addRubies(rubies) {
-        this._rubies = this._rubies + rubies;
-        return this._rubies;
+        const was_number = this._rubies;
+        const summ = was_number + rubies;
+        this._rubies = summ;
+        return [was_number, this._rubies];
     }
 }
 exports.Zone = Zone;

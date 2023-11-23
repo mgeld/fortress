@@ -8,7 +8,7 @@ const battleFireAPI = (pos, to_pos, direction, hitPointer) => {
         payload: {
             pos,
             to_pos,
-            direction,
+            direction
         }
     };
     if (hitPointer.userId) {

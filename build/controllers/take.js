@@ -48,10 +48,8 @@ let TakeHandler = class TakeHandler extends handlers_1.IRoute {
             zone.stormtrooper_corps.storm();
             try {
                 _sector = yield this._sectorService.getById(message.payload.sector);
-                console.log('____________1');
             }
             catch (e) {
-                console.log('____________2');
                 _sector = this._sectorService.create({
                     id: message.payload.sector,
                     latlng: message.payload.fort,
@@ -59,7 +57,13 @@ let TakeHandler = class TakeHandler extends handlers_1.IRoute {
                     defenders: 5
                 });
             }
-            const status = _sector.invade(zone.id);
+            let _prevZone = null;
+            if (_sector.zone_id) {
+                _prevZone = yield this._zoneService.getById(_sector.zone_id);
+            }
+            const invPower = zone.stormtrooper_corps.power;
+            const defPower = _prevZone ? _prevZone.stormtrooper_corps.power : invPower / 2;
+            const status = _sector.invade(zone.id, invPower, defPower);
             takeHit = {
                 status,
                 fort: message.payload.fort,
@@ -68,8 +72,7 @@ let TakeHandler = class TakeHandler extends handlers_1.IRoute {
                 owner: _sector.zone_id
             };
             if (status === 'victory') {
-                if (_sector.zone_id) {
-                    const _prevZone = yield this._zoneService.getById(_sector.zone_id);
+                if (_sector.zone_id && _prevZone) {
                     _prevZone.terrain.killDefender();
                     prevZoneId = _prevZone.id;
                     if (_sector.defenders === 0) {
@@ -100,6 +103,7 @@ let TakeHandler = class TakeHandler extends handlers_1.IRoute {
                     isBooty = sector_1.Sector.probabilityGettingExtractionInFort(message.payload.fort);
                     console.log('take isBooty', isBooty);
                     if (zone.terrain.sectors === 1) {
+                        isBooty = true;
                         const citadel = this._citadelService.create({
                             id: _pointer.zoneId,
                             sectorId: _sector.id,

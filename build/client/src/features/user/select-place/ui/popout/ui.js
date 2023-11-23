@@ -13,14 +13,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SelectPlace = void 0;
-const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
 const _icons_1 = require("./icons/_icons");
-const ui_1 = require("shared/ui/button/ui");
-const popout_root_1 = require("shared/ui/popout-root");
 const map_1 = require("entities/map");
+const ui_1 = require("shared/ui/button/ui");
+const notice_1 = require("shared/ui/notice");
+const popout_root_1 = require("shared/ui/popout-root");
 const get_random_position_1 = require("shared/lib/get-random-position");
 const vk_bridge_1 = __importDefault(require("@vkontakte/vk-bridge"));
-const notice_1 = require("shared/ui/notice");
+const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
 const SelectPlace = () => {
     const map = map_1.mapModel.selectors.useMapLayout();
     const selectPlace = () => {
@@ -29,10 +29,9 @@ const SelectPlace = () => {
     };
     const setRandPos = () => {
         const pos = (0, get_random_position_1.getRandomPosition)();
-        map_1.mapModel.events.setLatLngMap(pos);
         popout_root_1.popoutModel.events.setPopout(null);
         map === null || map === void 0 ? void 0 : map.setView(pos, 16);
-        console.log('flyTo 1111');
+        map_1.mapModel.events.setLatLngMap(pos);
     };
     const getGeo = () => __awaiter(void 0, void 0, void 0, function* () {
         yield vk_bridge_1.default
@@ -40,9 +39,18 @@ const SelectPlace = () => {
             .then(data => {
             if (data.available) {
                 const pos = [data.lat, data.long];
-                map_1.mapModel.events.setLatLngMap(pos);
-                popout_root_1.popoutModel.events.setPopout(null);
-                map === null || map === void 0 ? void 0 : map.setView(pos, 16);
+                if (pos[0] > 0 && pos[1] > 0) {
+                    popout_root_1.popoutModel.events.setPopout(null);
+                    map === null || map === void 0 ? void 0 : map.setView(pos, 16);
+                    map_1.mapModel.events.setLatLngMap(pos);
+                }
+                else {
+                    notice_1.noticeModel.events.newToast({
+                        name: 'Упс...',
+                        text: 'В вашей стране пока нельзя завоевывать территории, но вы можете выбрать любое место в России или странах СНГ!',
+                        t: 'common'
+                    });
+                }
             }
             else {
                 notice_1.noticeModel.events.newToast({
@@ -66,11 +74,9 @@ const SelectPlace = () => {
                     <div className={styles_module_scss_1.default.name}>
                         Выбор территории
                     </div>
-                    <div className={styles_module_scss_1.default.icon}>
-                        <_icons_1.IconLocation />
-                    </div>
+                    
                     <div className={styles_module_scss_1.default.geoPlace}>
-                        <ui_1.Button className="" text="Местоположение" onClick={getGeo}/>
+                        <ui_1.Button radius={10} className="" text="Геолокация" onClick={getGeo}/>
                     </div>
                 </div>
 
@@ -87,10 +93,10 @@ const SelectPlace = () => {
                     <div className={styles_module_scss_1.default.bottom}>
                         <div className={styles_module_scss_1.default.buttons}>
                             <div className={styles_module_scss_1.default.__randomPlace}>
-                                <ui_1.Button className="" text="Случайное" onClick={setRandPos}/>
+                                <ui_1.Button radius={10} className="" text="Случайное" onClick={setRandPos}/>
                             </div>
                             <div className={styles_module_scss_1.default.__selectPlace}>
-                                <ui_1.Button className="" text="Выбрать" onClick={selectPlace}/>
+                                <ui_1.Button radius={10} className="" text="Выбрать" onClick={selectPlace}/>
                             </div>
                         </div>
                     </div>

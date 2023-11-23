@@ -17,14 +17,6 @@ type TExtrTypesTens = 10 | 20 | 30 | 40 | 50 | 100
 export class Units {
 
     public static sale_units: Record<number, TUnitPrice> = {
-        100: {
-            currency: 'coins',
-            price: 50
-        },
-        101: {
-            currency: 'coins',
-            price: 100
-        },
         10: { // Нет в магазине
             currency: 'coins',
             price: 40
@@ -85,6 +77,14 @@ export class Units {
             currency: 'coins',
             price: 150
         },
+        100: {
+            currency: 'coins',
+            price: 50
+        },
+        101: {
+            currency: 'coins',
+            price: 100
+        },
     }
 
 
@@ -130,7 +130,7 @@ export class Units {
             52: 25,
         },
         stormtroopers: {
-            100: 70,
+            100: 50,
             101: 120,
         },
         rubies: {

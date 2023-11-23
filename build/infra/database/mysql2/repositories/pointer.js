@@ -168,7 +168,7 @@ let PointerRepository = class PointerRepository {
                 dtoPointer.areal,
                 pointer.zoneId
             ]);
-            return pointer_1.PointerMapper.toDomain(dtoPointer);
+            return pointer;
         });
     }
 };

@@ -19,9 +19,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GetAboutSectorHandler = void 0;
+const types_1 = require("../types");
 const handlers_1 = require("./handlers");
 const inversify_1 = require("inversify");
-const types_1 = require("../types");
 const sector_service_1 = require("../services/sector.service");
 const pointer_service_1 = require("../services/pointer.service");
 let GetAboutSectorHandler = class GetAboutSectorHandler extends handlers_1.IRoute {

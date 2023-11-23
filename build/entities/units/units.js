@@ -29,14 +29,6 @@ class Units {
     }
 }
 Units.sale_units = {
-    100: {
-        currency: 'coins',
-        price: 50
-    },
-    101: {
-        currency: 'coins',
-        price: 100
-    },
     10: {
         currency: 'coins',
         price: 40
@@ -97,6 +89,14 @@ Units.sale_units = {
         currency: 'coins',
         price: 150
     },
+    100: {
+        currency: 'coins',
+        price: 50
+    },
+    101: {
+        currency: 'coins',
+        price: 100
+    },
 };
 Units.__list = {
     rank_exp: {
@@ -125,7 +125,7 @@ Units.__list = {
         52: 25,
     },
     stormtroopers: {
-        100: 70,
+        100: 50,
         101: 120,
     },
     rubies: {

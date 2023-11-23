@@ -17,12 +17,12 @@ const ItemIOS = ({ item, sizeDrone }) => {
     console.log('-------item', item);
     const toPosLatLng = (0, getDestination_1.getDestination)(item.from_pos[0], item.from_pos[1], sizeDrone / 2, 90);
     const aa = Math.round((toPosLatLng[1] - item.from_pos[1]) * 100000);
-    const [pos, setPos] = (0, react_1.useState)([
+    const [pos, setBootyPos] = (0, react_1.useState)([
         item.from_pos[0] + ((0, randomNumber_1.randomNumber)(-(aa), aa) / 100000),
         item.from_pos[1] + ((0, randomNumber_1.randomNumber)(-(aa), aa) / 100000)
     ]);
     (0, react_1.useEffect)(() => {
-        setTimeout(() => setPos(item.to_pos), 200);
+        setTimeout(() => setBootyPos(item.to_pos), 200);
     }, [item.to_pos]);
     const bounds = (0, leaflet_1.latLng)(pos[0], pos[1]).toBounds(30);
     return (<react_leaflet_1.ImageOverlay className={`${styles_module_scss_1.default.__booty} ${item.id}`} url={item.cont === 1 ? cont_1_svg_1.default : item.cont === 2 ? cont_2_svg_1.default : cont_3_svg_1.default} bounds={bounds}/>);

@@ -6,7 +6,7 @@ class Arena {
     constructor(arena) {
         this._teamList = [];
         this._teamsNumber = 2;
-        this._teamMembersNumber = 2;
+        this._teamMembersNumber = 1;
         this._id = arena.id;
         this._place = arena.place;
         this._registr = arena.registr;
@@ -17,9 +17,11 @@ class Arena {
         const instance = new Arena(arena);
         return instance;
     }
-    battleStart() {
-        this._registr = 'close';
-        this._status = "start";
+    set timer(t) {
+        this._timer = t;
+    }
+    destroyTimer() {
+        this._timer && clearTimeout(this._timer);
     }
     unmarshal() {
         return {
@@ -30,8 +32,18 @@ class Arena {
             teams: this._teamList.map(team => team.unmarshal())
         };
     }
+    getTeam(id) {
+        return this.teamList.filter(team => team.id === id)[0];
+    }
     isFullTeams() {
         return this.teamList.every(team => team.getMembersNumber() === this._teamMembersNumber);
+    }
+    battleStart() {
+        this._registr = 'close';
+        this._status = 'start';
+    }
+    battleOver() {
+        this._status = 'over';
     }
     addPointer(pointer) {
         const team = this._teamList.find(team => team.getMembersNumber() < this._teamMembersNumber);
@@ -50,6 +62,21 @@ class Arena {
                 team.victoryTeam();
             }
         });
+        this.battleOver();
+    }
+    addSector(teamId) {
+        const team = this.teamList.filter(team => {
+            if (team.id === teamId) {
+                team.addSector();
+                return true;
+            }
+        });
+        try {
+            return team[0];
+        }
+        catch (e) {
+            throw new Error('======');
+        }
     }
     killPointer(pointerId, teamId) {
         const team = this.teamList.filter(team => {
@@ -62,9 +89,6 @@ class Arena {
                 return true;
             }
         });
-        if (team[0].alive_members === 0) {
-            this.completeBattle(teamId);
-        }
         try {
             return team[0];
         }
@@ -89,8 +113,6 @@ class Arena {
         catch (e) {
             throw new Error('======');
         }
-    }
-    addPointerToTeam(pointerId, teamId) {
     }
     get pointers() {
         let pointers = [];

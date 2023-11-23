@@ -27,13 +27,14 @@ const arena_service_1 = require("../services/arena.service");
 const weapon_service_1 = require("../services/weapon.service");
 const member_service_1 = require("../services/member.service");
 const pointer_service_1 = require("../services/pointer.service");
+const battle_service_1 = require("../services/battle.service");
 let BattleFireHandler = class BattleFireHandler extends handlers_1.IRoute {
     handle(message, uSocket) {
         var _a;
         return __awaiter(this, void 0, void 0, function* () {
             if (!uSocket.user_id)
                 return;
-            console.log('FireHandler handle');
+            console.log('BattleFireHandler handle');
             const _pointer = yield this._pointerService.memoryGetById(uSocket.user_id);
             const _member = yield this._memberService.getById(_pointer.zoneId);
             const weapon = yield this._weaponService.memoryGetById(_pointer.weapons[0]);
@@ -50,48 +51,29 @@ let BattleFireHandler = class BattleFireHandler extends handlers_1.IRoute {
                 pos: message.payload.pos,
                 to_pos: message.payload.to_pos,
                 direction: message.payload.direction,
-                userId: _pointer.zoneId,
+                userId: _pointer.zoneId
             };
             if ((_a = message.payload) === null || _a === void 0 ? void 0 : _a.hitPointer) {
                 _member.makeDamage(weapon.power);
                 fire['hitPointer'] = message.payload.hitPointer;
                 const hitMember = yield this._memberService.getById(message.payload.hitPointer.userId);
                 const hitPointer = yield this._pointerService.memoryGetById(message.payload.hitPointer.userId);
-                hitPointer.health = hitPointer.health - weapon.power;
+                hitPointer.removeHealth(weapon.power);
                 fire.hitPointer.health = hitPointer.health;
+                console.log('BattleFire _member.sectors', _member.sectors);
                 if (hitPointer.health < 1) {
-                    const killPointerTeam = arena.killPointer(hitPointer.zoneId, hitMember.arenaTeam);
+                    console.log('Погиб hitPointer.zoneId', hitPointer.zoneId);
+                    const killPointerTeam = arena.killPointer(hitMember.userId, hitMember.arenaTeam);
                     yield this._arenaService.update(arena);
                     hitMember.leaveArena();
                     _member.addKilledPointer();
                     if (killPointerTeam.alive_members === 0) {
-                        setTimeout(() => __awaiter(this, void 0, void 0, function* () {
-                            const members = [];
-                            members[0] = yield this._memberService.getByIds(arena.teamList[0].members);
-                            members[1] = yield this._memberService.getByIds(arena.teamList[1].members);
-                            const p = {
-                                teams: arena.teamList.map((team, index) => {
-                                    const minTrophies = team.status === 'victory' ? 10 : -10;
-                                    return {
-                                        teamId: team.id,
-                                        status: team.status,
-                                        members: members[index].map(member => {
-                                            const wonTrophies = member.damage / 5;
-                                            return {
-                                                userId: member.userId,
-                                                trophies: minTrophies + wonTrophies
-                                            };
-                                        }),
-                                    };
-                                })
-                            };
-                            this._rooms.arenas.broadcast(arena.id, {
-                                event: 'battle-over',
-                                payload: p
-                            });
-                        }), 2000);
+                        arena.completeBattle(killPointerTeam.id);
+                        arena.destroyTimer();
+                        this._battleService.overGame(arena.id);
                     }
                 }
+                yield this._pointerService.memoryUpdate(hitPointer);
                 yield this._memberService.update(hitMember);
                 yield this._memberService.update(_member);
             }
@@ -123,6 +105,10 @@ __decorate([
     (0, inversify_1.inject)(types_1.TYPES.ArenaService),
     __metadata("design:type", arena_service_1.ArenaService)
 ], BattleFireHandler.prototype, "_arenaService", void 0);
+__decorate([
+    (0, inversify_1.inject)(types_1.TYPES.BattleService),
+    __metadata("design:type", battle_service_1.BattleService)
+], BattleFireHandler.prototype, "_battleService", void 0);
 BattleFireHandler = __decorate([
     (0, inversify_1.injectable)()
 ], BattleFireHandler);

@@ -29,13 +29,13 @@ export const ItemIOS: FC<TItemProps> = ({ item, sizeDrone }) => {
 
     const aa = Math.round((toPosLatLng[1] - item.from_pos[1]) * 100000)
 
-    const [pos, setPos] = useState<TLatLng>([
+    const [pos, setBootyPos] = useState<TLatLng>([
         item.from_pos[0] + (randomNumber(-(aa), aa) / 100000),
         item.from_pos[1] + (randomNumber(-(aa), aa) / 100000)
     ])
 
     useEffect(() => {
-        setTimeout(() => setPos(item.to_pos), 200)
+        setTimeout(() => setBootyPos(item.to_pos), 200)
     }, [item.to_pos])
 
     const bounds = latLng(pos[0], pos[1]).toBounds(30);

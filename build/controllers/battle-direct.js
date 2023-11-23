@@ -58,7 +58,6 @@ let BattleDirectHandler = class BattleDirectHandler extends handlers_1.IRoute {
                         yield this._arenaService.update(arena);
                         _member.leaveArena();
                         if (killPointerTeam.alive_members === 0) {
-                            console.log('КРЫНДЕЦ!');
                             setTimeout(() => __awaiter(this, void 0, void 0, function* () {
                                 const members = [];
                                 members[0] = yield this._memberService.getByIds(arena.teamList[0].members);
@@ -71,6 +70,7 @@ let BattleDirectHandler = class BattleDirectHandler extends handlers_1.IRoute {
                                             return {
                                                 teamId: team.id,
                                                 status: team.status,
+                                                sectors: team.sectors,
                                                 members: members[index].map(member => {
                                                     const wonTrophies = member.damage / 5;
                                                     return {

@@ -136,35 +136,46 @@ export class Zone {
     get hold() {
         return this._hold
     }
+    
+    setTrophies(trophy: number) {
+        let nTrophies = this._trophies + trophy
+        if (nTrophies < 0) {
+            nTrophies = 0
+        }
+        this._trophies = nTrophies
+        return this._trophies
+    }
 
     spendСoins(coins: number): number {
         const nCoins = this._coins - coins
-        if(nCoins < 0) {
+        if (nCoins < 0) {
             return -1
         }
         this._coins = nCoins
         return this._coins
     }
 
-    addCoins(coins: number): number {
-        this._coins = this._coins + coins
-
-        console.log('addCoins this._coins', this._coins)
-        return this._coins
+    addCoins(coins: number): [number, number] {
+        const was_number = this._coins
+        const summ = was_number + coins
+        this._coins = summ
+        return [was_number, this._coins]
     }
 
     spendRubies(rubies: number): number {
         const nRubies = this._rubies - rubies
-        if(nRubies < 0) {
+        if (nRubies < 0) {
             return -1
         }
         this._rubies = nRubies
         return this._rubies
     }
 
-    addRubies(rubies: number): number {
-        this._rubies = this._rubies + rubies
-        return this._rubies
+    addRubies(rubies: number): [number, number] {
+        const was_number = this._rubies
+        const summ = was_number + rubies
+        this._rubies = summ
+        return [was_number, this._rubies]
     }
 
 }

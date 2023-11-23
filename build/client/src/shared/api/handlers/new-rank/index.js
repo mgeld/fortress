@@ -11,7 +11,7 @@ class NewRankHandler extends __1.Handler {
         events_1.userAPI.events.setRankExp(0);
         notice_1.noticeModel.events.newToast({
             name: 'Новый Ранг Завоеваний!',
-            text: 'Вы достигли новый Ранг Завоеваний!',
+            text: 'Вы достигли нового Ранга Завоеваний!',
             t: 'rank'
         });
     }

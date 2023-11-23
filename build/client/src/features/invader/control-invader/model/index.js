@@ -9,6 +9,8 @@ const events_1 = require("shared/api/events");
 const snackbar_1 = require("shared/ui/snackbar");
 const throttle_1 = require("shared/lib/throttle");
 const ship_1 = require("entities/ship");
+const arena_1 = require("entities/arena");
+const battle_take_1 = require("shared/api/battle-take");
 const hitSectorFx = (0, effector_1.createEffect)((source) => {
     if (source.stormInvaders === 0) {
         snackbar_1.snackbarModel.events.newToast({
@@ -26,7 +28,9 @@ const hitSectorFx = (0, effector_1.createEffect)((source) => {
         toPos: [lat, long],
     };
 });
-const invaderControlFx = (0, effector_1.createEffect)((clock) => {
+const invaderControlFx = (0, effector_1.createEffect)(({ source, clock }) => {
+    if (!clock)
+        return;
     const TAKE_ID = Date.now();
     let _invader = {
         id: TAKE_ID,
@@ -34,14 +38,23 @@ const invaderControlFx = (0, effector_1.createEffect)((clock) => {
         to_pos: clock.toPos,
     };
     events_1.takesAPI.events.addTake(_invader);
-    (0, take_1.takeAPI)(clock.toPos, clock.sectorId);
+    if (source.battleStatus === 'default' ||
+        source.battleStatus === 'over') {
+        (0, take_1.takeAPI)(clock.toPos, clock.sectorId);
+    }
+    else {
+        (0, battle_take_1.battleTakeAPI)(clock.toPos, clock.sectorId);
+    }
     setTimeout(() => {
         events_1.takesAPI.events.delTakeById({ take_id: TAKE_ID });
     }, 2000);
 });
 (0, effector_1.sample)({
     clock: hitSectorFx.doneData,
-    filter: (result) => result !== null,
+    source: {
+        battleStatus: arena_1.arenaModel.$battleStatusStore
+    },
+    fn: (source, clock) => ({ source, clock }),
     target: invaderControlFx
 });
 const hitTakeOutSector = (0, effector_1.createEvent)();

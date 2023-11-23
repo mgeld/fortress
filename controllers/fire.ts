@@ -1,12 +1,12 @@
-import { TFirePayload } from "../common-types/socket/server-to-client"
-import { TFireAPI, TEventFire } from "../common-types/socket/client-to-server"
-import { IWebSocket } from "../api/socket/server";
+import { TYPES } from "../types";
 import { IRoute } from "./handlers"
 import { inject, injectable } from "inversify";
-import { TYPES } from "../types";
+import { IWebSocket } from "../api/socket/server";
 import { Rooms } from "../api/socket/socket/rooms";
-import { PointerService } from "../services/pointer.service";
 import { WeaponService } from "../services/weapon.service";
+import { PointerService } from "../services/pointer.service";
+import { TFirePayload } from "../common-types/socket/server-to-client"
+import { TFireAPI, TEventFire } from "../common-types/socket/client-to-server"
 
 @injectable()
 class FireHandler extends IRoute {
@@ -23,11 +23,9 @@ class FireHandler extends IRoute {
 
         if (!uSocket.user_id) return
 
-        // console.log('FireHandler handle message.payload.weapon', message.payload.weapon)
         const _pointer = await this._pointerService.memoryGetById(uSocket.user_id)
         const weapon = await this._weaponService.memoryGetById(_pointer.weapons[0])
 
-        console.log('FireHandler weapon.distance', weapon.distance)
         // Если я умер
         if (_pointer.health < 1) {
             return
@@ -37,8 +35,6 @@ class FireHandler extends IRoute {
             return
         }
 
-        // console.log('fire weapon.distance', weapon.distance)
-
         weapon.bullets = weapon.bullets - 1
         await this._weaponService.memoryUpdate(weapon)
 
@@ -46,28 +42,25 @@ class FireHandler extends IRoute {
             pos: message.payload.pos,
             to_pos: message.payload.to_pos,
             direction: message.payload.direction,
-            userId: _pointer.zoneId,
-            // weapon: {
-            //     power: weapon.power,
-            //     dist: weapon.symbol,
-            //     // level: weapon.level
-            // }
+            userId: _pointer.zoneId
         }
 
         if (message.payload?.hitPointer) {
+
+            if (message.payload.hitPointer?.userId === -1) return
 
             fire['hitPointer'] = message.payload.hitPointer
 
             const hitPointer = await this._pointerService.memoryGetById(message.payload.hitPointer.userId)
 
-            // hitPointer.health = hitPointer.health - weapon.power
             hitPointer.removeHealth(weapon.power)
 
             fire.hitPointer.health = hitPointer.health
 
-            console.log('fire.hitPointer.health', fire.hitPointer.health)
+            // Если противник погиб
+            if (hitPointer.health < 1) {
 
-            if (hitPointer.health < 1) {}
+            }
 
             await this._pointerService.memoryUpdate(hitPointer)
         }

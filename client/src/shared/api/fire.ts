@@ -7,19 +7,14 @@ export const fireAPI = (
     pos: TLatLng,
     toPos: TLatLng,
     direction: TJoystickDirection | null,
-    // userId: number,
-    
     hitPointer: THitPointer,
-    // weapon: string
 ) => {
     const data: TFireAPI = {
         event: 'fire',
         payload: {
             pos,
             to_pos: toPos,
-            direction,
-            // userId,
-            // weapon
+            direction
         }
     }
     if (hitPointer.userId) {

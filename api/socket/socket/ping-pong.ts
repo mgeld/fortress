@@ -28,7 +28,7 @@ export class PingPong {
         console.log('deleteUser')
 
         const _pointer = await this._pointerService.memoryGetById(userId)
-        _pointer.areal = 0
+        _pointer.areal = -1 // Типа удаляем ареал, чтобы в след заход появится у других в игре
         const _zone = await this._zoneService.memoryGetById(userId)
         const _weapon = await this._weaponService.memoryGetById(_pointer.weapons[0])
 

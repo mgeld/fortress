@@ -18,14 +18,13 @@ export const Fort: FC<FortProps> = ({ pos }) => {
         <FeatureGroup eventHandlers={{
             click: () => {
                 fortModel.events.setFort(pos)
-
                 setTimeout(() => {
                     fortModel.events.setFort(null)
                 }, 3000)
             }
         }}>
             <Circle
-                key={1}
+                key={'ff1' + pos[0]}
                 className={`fort black-fort`}
                 center={[
                     pos[0] - 0.00010,
@@ -39,7 +38,7 @@ export const Fort: FC<FortProps> = ({ pos }) => {
                 radius={30}
             />
             <Circle
-                key={2}
+                key={'ff2' + pos[0]}
                 className={`fort fort-stroke`}
                 center={pos}
                 pathOptions={{
@@ -50,7 +49,7 @@ export const Fort: FC<FortProps> = ({ pos }) => {
                 radius={30}
             />
             <Circle
-                key={3}
+                key={'ff3' + pos[0]}
                 className={`fort fort-fill`}
                 center={pos}
                 pathOptions={{

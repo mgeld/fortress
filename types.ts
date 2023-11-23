@@ -12,6 +12,8 @@ const TYPES = {
     MemberService: Symbol.for('MemberService'),
     WeaponService: Symbol.for('WeaponService'),
     SectorService: Symbol.for('SectorService'),
+    ArenaSectorService: Symbol.for('ArenaSectorService'),
+    ArenaTeamService: Symbol.for('ArenaTeamService'),
     CitadelService: Symbol.for('CitadelService'),
     
     ArenaMemoryRepository: Symbol.for('ArenaMemoryRepository'),
@@ -20,6 +22,9 @@ const TYPES = {
     WeaponMemoryRepository: Symbol.for('WeaponMemoryRepository'),
     MemberMemoryRepository: Symbol.for('MemberMemoryRepository'),
     SectorMemoryRepository: Symbol.for('SectorMemoryRepository'),
+    ArenaSectorMemoryRepository: Symbol.for('ArenaSectorMemoryRepository'),
+    ArenaTeamMemoryRepository: Symbol.for('ArenaTeamMemoryRepository'),
+    
     ArealMemoryRepository: Symbol.for('ArealMemoryRepository'),
     CitadelMemoryRepository: Symbol.for('CitadelMemoryRepository'),
     CitadelRepository: Symbol.for('CitadelRepository'),
@@ -32,6 +37,7 @@ const TYPES = {
     ConnectHandler: Symbol.for('ConnectHandler'),
     DirectHandler: Symbol.for('DirectHandler'),
     TakeHandler: Symbol.for('TakeHandler'),
+    BattleTakeHandler: Symbol.for('BattleTakeHandler'),
     BeamHandler: Symbol.for('BeamHandler'),
     FireHandler: Symbol.for('FireHandler'),
     BattleJoinHandler: Symbol.for('BattleJoinHandler'),
@@ -51,8 +57,12 @@ const TYPES = {
     SectorRepository: Symbol.for('SectorRepository'),
 
     connection: Symbol.for('connection'),
-    SnapshotSectors: Symbol.for('SnapshotSectors'),
     
+    SnapshotAreals: Symbol.for('SnapshotAreals'),
+    SnapshotArenas: Symbol.for('SnapshotArenas'),
+
+    BattleService: Symbol.for('BattleService'),
+
 }
 
 export { TYPES }
