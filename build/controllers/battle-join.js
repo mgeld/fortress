@@ -84,7 +84,7 @@ let BattleJoinHandler = class BattleJoinHandler extends handlers_1.IRoute {
                     }
                 });
                 const overGame = () => this._battleService.overGame(arena.id);
-                arena.timeout = setTimeout(overGame, 40000);
+                arena.timeout = setTimeout(overGame, 120000);
             }
             yield this._arenaService.update(arena);
         });

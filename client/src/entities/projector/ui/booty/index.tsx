@@ -8,8 +8,6 @@ const Booty: FC = () => {
 
     const items = beamMapModel.selectors.useBooty().items
 
-    console.log('Booty items', items)
-
     let sizeDrone = droneMapModel.selectors.useDroneSize()
 
     return (

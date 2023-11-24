@@ -62,7 +62,6 @@ let DirectHandler = class DirectHandler extends handlers_1.IRoute {
                     const direction = areal_1.Areal.generator([_pointer.pos[0] + 0.004, _pointer.pos[1]]) !== areal ? 'FORWARD' : 'BACKWARD';
                     const _lat = direction === 'FORWARD' ? _pointer.pos[0] - 0.004 : _pointer.pos[0] + 0.004;
                     setTimeout(() => {
-                        console.log('connect-pointer 1 nlo');
                         uSocket.send(JSON.stringify({
                             event: 'connect-pointer',
                             payload: {

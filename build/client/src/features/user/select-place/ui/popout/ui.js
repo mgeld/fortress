@@ -24,12 +24,14 @@ const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
 const SelectPlace = () => {
     const map = map_1.mapModel.selectors.useMapLayout();
     const selectPlace = () => {
+        map === null || map === void 0 ? void 0 : map.setMinZoom(6);
         map === null || map === void 0 ? void 0 : map.setView(map.getCenter(), 8);
         popout_root_1.popoutModel.events.setPopout(null);
     };
     const setRandPos = () => {
         const pos = (0, get_random_position_1.getRandomPosition)();
         popout_root_1.popoutModel.events.setPopout(null);
+        map === null || map === void 0 ? void 0 : map.setMinZoom(6);
         map === null || map === void 0 ? void 0 : map.setView(pos, 16);
         map_1.mapModel.events.setLatLngMap(pos);
     };
@@ -41,6 +43,7 @@ const SelectPlace = () => {
                 const pos = [data.lat, data.long];
                 if (pos[0] > 0 && pos[1] > 0) {
                     popout_root_1.popoutModel.events.setPopout(null);
+                    map === null || map === void 0 ? void 0 : map.setMinZoom(6);
                     map === null || map === void 0 ? void 0 : map.setView(pos, 16);
                     map_1.mapModel.events.setLatLngMap(pos);
                 }

@@ -16,7 +16,6 @@ const Fires: FC<FiresMapProps> = () => {
     return (
         <>
             {fires.map(fire => {
-                console.log(`'q' + fire.id`, 'q' + fire.id)
                 return (
                     <FireIOS
                         key={'q' + fire.id}

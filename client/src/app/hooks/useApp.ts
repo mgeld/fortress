@@ -52,8 +52,6 @@ export const useApp = () => {
         // })
     }, [])
     
-    console.log('qq')
-
     useEffect(() => {
         console.log('useEffect vkUserId', vkUserId)
         console.log('useEffect socketStatus', socketStatus)

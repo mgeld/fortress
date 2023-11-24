@@ -6,12 +6,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = require("react");
 const react_leaflet_1 = require("react-leaflet");
 const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
-const Y_BACK = 64 + 9;
+const Y_BACK = 64 + 10;
 const X_BACK = 0;
 const Name = ({ position, name }) => {
     const map = (0, react_leaflet_1.useMap)();
-    console.log('>>>>>>>>> Name position', position);
-    console.log('>>>>>>>>> Name health', name);
     const [coords, setCoords] = (0, react_1.useState)(map.latLngToLayerPoint(position));
     (0, react_1.useEffect)(() => {
         setCoords(map.latLngToLayerPoint(position));

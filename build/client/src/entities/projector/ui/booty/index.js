@@ -5,7 +5,6 @@ const projector_1 = require("entities/projector");
 const item_ios_1 = require("./item-ios");
 const Booty = () => {
     const items = projector_1.beamMapModel.selectors.useBooty().items;
-    console.log('Booty items', items);
     let sizeDrone = pointer_1.droneMapModel.selectors.useDroneSize();
     return (<>
             {items.map(item => {

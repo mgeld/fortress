@@ -77,8 +77,6 @@ class DirectHandler extends IRoute {
 
                 setTimeout(() => {
 
-                    console.log('connect-pointer 1 nlo')
-
                     uSocket.send(JSON.stringify({
                         event: 'connect-pointer',
                         payload: {

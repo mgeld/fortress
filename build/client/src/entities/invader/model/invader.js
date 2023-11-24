@@ -13,7 +13,6 @@ const $invadersStore = (0, effector_1.createStore)(DEFAULT_STORE)
         return false;
     return true;
 })));
-$invadersStore.watch(() => console.log('$invadersStore'));
 const useInvader = () => {
     return {
         takes: (0, effector_react_1.useStore)($invadersStore)

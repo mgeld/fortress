@@ -11,6 +11,7 @@ const popout_root_1 = require("shared/ui/popout-root");
 const tutorial_1 = require("shared/ui/tutorial");
 const BottomSelectPlace = () => {
     const pos = map_1.mapModel.selectors.useMapClickLatLng().latlng;
+    const map = map_1.mapModel.selectors.useMapLayout();
     const selectPosition = (pos) => {
         if (!pos) {
             alert_1.alertModel.events.setAlert({
@@ -25,6 +26,7 @@ const BottomSelectPlace = () => {
             return;
         }
         if (pos[0] > 0 && pos[1] > 0) {
+            map === null || map === void 0 ? void 0 : map.setMinZoom(15);
             events_1.mapAPI.events.setMapMode('invade');
             events_1.shipAPI.events.setPos(pos);
             setTimeout(() => {

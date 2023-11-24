@@ -18,6 +18,7 @@ export const SelectPlace: FC = () => {
 
     const selectPlace = () => {
         // map?.flyTo(map.getCenter(), 8)
+        map?.setMinZoom(6)
         map?.setView(map.getCenter(), 8)
         popoutModel.events.setPopout(null)
     }
@@ -26,6 +27,7 @@ export const SelectPlace: FC = () => {
         const pos = getRandomPosition()
         popoutModel.events.setPopout(null)
         // map?.flyTo(pos, 16)
+        map?.setMinZoom(6)
         map?.setView(pos, 16)
         mapModel.events.setLatLngMap(pos)
     }
@@ -38,6 +40,7 @@ export const SelectPlace: FC = () => {
                     const pos: TLatLng = [data.lat, data.long]
                     if (pos[0] > 0 && pos[1] > 0) {
                         popoutModel.events.setPopout(null)
+                        map?.setMinZoom(6)
                         map?.setView(pos, 16)
                         mapModel.events.setLatLngMap(pos)
                     } else {

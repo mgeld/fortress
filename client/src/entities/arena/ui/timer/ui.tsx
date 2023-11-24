@@ -21,9 +21,6 @@ export const Timer: FC = () => {
 
     const seconds = arenaModel.selectors.useBattleTimer().data
 
-    // console.log('Timer seconds', seconds)
-    // const [timer, setTimer] = useState(seconds)
-
     useEffect(() => {
         if (seconds > 0)
             setTimeout(() => battleAPI.events.stepTimer(), 1000)

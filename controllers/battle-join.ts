@@ -101,8 +101,8 @@ class BattleJoinHandler extends IRoute {
             })
 
             const overGame = () => this._battleService.overGame(arena.id)
-            // arena.timer = setTimeout(overGame, 120000)
-            arena.timeout = setTimeout(overGame, 40000)
+            arena.timeout = setTimeout(overGame, 120000)
+            // arena.timeout = setTimeout(overGame, 40000)
 
         }
 

@@ -88,6 +88,8 @@ let LevelUpHandler = class LevelUpHandler extends handlers_1.IRoute {
                 uSocket.send(JSON.stringify(limitResp));
                 return;
             }
+            console.log('currency', currency);
+            console.log('newLevel', newLevel);
             if (currency) {
                 const extrResp = {
                     event: 'level-up',

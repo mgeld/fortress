@@ -6,10 +6,11 @@
     height: 14px;
     box-sizing: border-box;
     z-index: 3001;
-    color: #C642EA;
-    font-size: 16px;
+    color: #c268db;
+    font-size: 15px;
 
     .__name {
       margin-left: -50%;
+      white-space: nowrap;
     }
   }

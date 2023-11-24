@@ -12,6 +12,7 @@ import { tutorialModel } from "shared/ui/tutorial"
 export const BottomSelectPlace: FC = () => {
 
     const pos = mapModel.selectors.useMapClickLatLng().latlng
+    const map = mapModel.selectors.useMapLayout()
 
     const selectPosition = (pos: TLatLng | null) => {
         if (!pos) {
@@ -29,6 +30,8 @@ export const BottomSelectPlace: FC = () => {
 
 
         if (pos[0] > 0 && pos[1] > 0) {
+            
+            map?.setMinZoom(15)
             mapAPI.events.setMapMode('invade')
             shipAPI.events.setPos(pos)
 

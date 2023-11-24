@@ -23,7 +23,7 @@ const changeBattleFx = createEffect(({
     // }
 
     if (battleStatus === 'pending') {
-        source.map.setMinZoom(6)
+        // source.map.setMinZoom(6)
         // source.map.setMaxBounds([[-90,-180], [90, 180]])
         // arenaFlyTo(6)
         popoutModel.events.setPopout('battle-pending')

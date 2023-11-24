@@ -14,8 +14,6 @@ type TItemProps = {
 
 export const Item: FC<TItemProps> = ({ item, sizeDrone }) => {
 
-    console.log('-------item', item)
-
     const toPosLatLng = getDestination(
         item.from_pos[0],
         item.from_pos[1],

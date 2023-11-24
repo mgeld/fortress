@@ -11,7 +11,6 @@ const randomNumber_1 = require("shared/lib/randomNumber");
 const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
 const getDestination_1 = require("entities/sector/lib/getDestination");
 const Item = ({ item, sizeDrone }) => {
-    console.log('-------item', item);
     const toPosLatLng = (0, getDestination_1.getDestination)(item.from_pos[0], item.from_pos[1], sizeDrone / 2, 90);
     const aa = Math.round((toPosLatLng[1] - item.from_pos[1]) * 100000);
     const [pos, setBootyPos] = (0, react_1.useState)([

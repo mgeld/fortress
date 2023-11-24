@@ -8,7 +8,6 @@ const popout_root_1 = require("shared/ui/popout-root");
 const ship_1 = require("entities/ship");
 const changeBattleFx = (0, effector_1.createEffect)(({ source, battleStatus }) => {
     if (battleStatus === 'pending') {
-        source.map.setMinZoom(6);
         popout_root_1.popoutModel.events.setPopout('battle-pending');
     }
     else if (battleStatus === 'start') {

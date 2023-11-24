@@ -10,7 +10,6 @@ const _icons_1 = require("widgets/counters/icons/_icons");
 const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
 const UnitCard = ({ id, icon, name, unit }) => {
     const onUnit = (id) => {
-        console.log('UnitCard onUnit id', id);
         unit_1.unitModel.events.selectBuyUnit(Number(id));
         popout_root_1.popoutModel.events.setPopout('select-unit');
     };

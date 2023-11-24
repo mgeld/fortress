@@ -59,7 +59,6 @@ let UseExtractionHandler = class UseExtractionHandler extends handlers_1.IRoute 
             }
             if (extr.gives === 'stormtroopers') {
                 resultIncrese = zone.stormtrooper_corps.addInvaders(extr.quantity);
-                console.log('resultIncrese', resultIncrese);
                 if (resultIncrese !== 'limit') {
                     this._zoneService.memoryUpdate(zone);
                 }
@@ -93,7 +92,6 @@ let UseExtractionHandler = class UseExtractionHandler extends handlers_1.IRoute 
             }
             if (extr.gives === 'rank_exp') {
                 resultIncrese = zone.rank.addExp(extr.quantity);
-                console.log('resultIncrese', resultIncrese);
                 this._zoneService.memoryUpdate(zone);
                 if (resultIncrese[1] === 0) {
                     const newRank = {

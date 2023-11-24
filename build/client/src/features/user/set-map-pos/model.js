@@ -8,12 +8,10 @@ const ship_1 = require("entities/ship");
 const direct_1 = require("shared/api/direct");
 const events_1 = require("shared/api/events");
 const setPosFx = (0, effector_1.createEffect)(({ source, pos }) => {
-    var _a;
     const areal = model_1.Areal.getBounds(pos);
     ship_1.shipModel.events.setAreal(areal);
     source.map.setView(pos, 16);
     source.map.setZoom(16);
-    (_a = source.map) === null || _a === void 0 ? void 0 : _a.setMinZoom(15);
     if (source.mode === 'invade')
         setTimeout(() => (0, direct_1.directAPI)(pos), 200);
 });

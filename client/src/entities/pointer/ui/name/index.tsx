@@ -10,7 +10,7 @@ type TName = {
     name: string
 }
 
-const Y_BACK = 64 +9
+const Y_BACK = 64 + 10
 const X_BACK = 0
 
 const Name: FC<TName> = ({
@@ -19,9 +19,6 @@ const Name: FC<TName> = ({
 }) => {
 
     const map = useMap()
-
-    console.log('>>>>>>>>> Name position', position)
-    console.log('>>>>>>>>> Name health', name)
 
     const [coords, setCoords] = useState(map.latLngToLayerPoint(position))
 

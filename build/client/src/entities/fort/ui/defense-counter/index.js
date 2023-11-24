@@ -26,10 +26,6 @@ const DefenseCounter = ({ fort, status, defenders, invaders, owner }) => {
     const p100 = (defenders + invaders);
     const pDefenders = defenders * 100 / p100;
     const pInvaders = invaders * 100 / p100;
-    console.log('myId', myId);
-    console.log('owner', owner);
-    console.log('defenders', defenders);
-    console.log('invaders', invaders);
     const styleI = myId !== owner ? styles_module_scss_1.default.__green : styles_module_scss_1.default.__red;
     const styleD = myId !== owner ? styles_module_scss_1.default.__red : styles_module_scss_1.default.__green;
     return (<div className={styles_module_scss_1.default.defenseCounter} style={{

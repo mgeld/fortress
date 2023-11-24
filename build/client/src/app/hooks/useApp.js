@@ -25,7 +25,6 @@ const useApp = () => {
             user_1.userModel.events.setUserIcon(user.photo_100);
         });
     }, []);
-    console.log('qq');
     (0, react_1.useEffect)(() => {
         console.log('useEffect vkUserId', vkUserId);
         console.log('useEffect socketStatus', socketStatus);

@@ -67,8 +67,6 @@ let BattleTakeHandler = class BattleTakeHandler extends handlers_1.IRoute {
                 defenders: _sector.defenders,
                 owner: _sector.team_id
             };
-            console.log('_sector.team_id', _sector.team_id);
-            console.log('1 takeHit', takeHit);
             if (status === 'victory') {
                 if (_sector.team_id) {
                     const _prevTeam = arena.getTeam(_sector.team_id);

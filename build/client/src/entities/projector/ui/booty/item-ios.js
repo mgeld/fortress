@@ -14,7 +14,6 @@ const cont_1_svg_1 = __importDefault(require("shared/assets/icons/cont_1.svg"));
 const cont_2_svg_1 = __importDefault(require("shared/assets/icons/cont_2.svg"));
 const cont_3_svg_1 = __importDefault(require("shared/assets/icons/cont_3.svg"));
 const ItemIOS = ({ item, sizeDrone }) => {
-    console.log('-------item', item);
     const toPosLatLng = (0, getDestination_1.getDestination)(item.from_pos[0], item.from_pos[1], sizeDrone / 2, 90);
     const aa = Math.round((toPosLatLng[1] - item.from_pos[1]) * 100000);
     const [pos, setBootyPos] = (0, react_1.useState)([

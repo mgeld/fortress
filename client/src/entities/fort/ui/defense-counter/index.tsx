@@ -39,11 +39,6 @@ const DefenseCounter: FC<TTakeHitPayload> = ({
     const pDefenders = defenders * 100 / p100
     const pInvaders = invaders * 100 / p100
 
-    console.log('myId', myId)
-    console.log('owner', owner)
-    console.log('defenders', defenders)
-    console.log('invaders', invaders)
-
     const styleI = myId !== owner ? styles.__green : styles.__red
     const styleD = myId !== owner ? styles.__red : styles.__green
 

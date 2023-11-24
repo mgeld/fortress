@@ -15,7 +15,6 @@ exports.$holdItemsStrore = (0, effector_1.createStore)([])
 });
 exports.$holdLevelStrore = (0, effector_1.createStore)(0)
     .on(setLevel, (_, level) => level);
-exports.$holdItemsStrore.watch(val => console.log('holdItemsStrore watch', val));
 exports.$extractionSelect = (0, effector_1.createStore)(null)
     .on(selectExtraction, (_, extraction) => extraction);
 const useExtraction = () => (0, effector_react_1.useStore)(exports.$extractionSelect);

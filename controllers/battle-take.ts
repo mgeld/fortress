@@ -82,9 +82,6 @@ class BattleTakeHandler extends IRoute {
             owner: _sector.team_id
         } as TTakeHitPayload
 
-        console.log('_sector.team_id', _sector.team_id)
-        console.log('1 takeHit', takeHit)
-
         // Если я победил
         if (status === 'victory') {
 

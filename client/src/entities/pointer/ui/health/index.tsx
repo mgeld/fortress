@@ -23,9 +23,6 @@ const Health: FC<THealth> = ({
 
     const map = useMap()
 
-    console.log('>>>>>>>>> Health position', position)
-    console.log('>>>>>>>>> Health health', health)
-
     const [coords, setCoords] = useState(map.latLngToLayerPoint(position))
 
     useEffect(() => {

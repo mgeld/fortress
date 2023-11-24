@@ -27,7 +27,6 @@ export const UnitCard: FC<TUnitCardProps> = ({
 }) => {
 
     const onUnit = (id: TExtrTypes) => {
-        console.log('UnitCard onUnit id', id)
         unitModel.events.selectBuyUnit(Number(id) as TExtrTypes)
         popoutModel.events.setPopout('select-unit')
     }

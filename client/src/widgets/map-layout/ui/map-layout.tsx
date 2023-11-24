@@ -86,6 +86,7 @@ const MapLayout: FC<TMapProps> = () => {
                 className='_MapContainer'
                 center={center}
                 zoom={16}
+                minZoom={15}
                 maxZoom={17}
                 zoomControl={false}
                 // fadeAnimation={true}
