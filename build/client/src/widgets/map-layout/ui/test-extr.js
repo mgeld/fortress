@@ -5,13 +5,13 @@ const ship_1 = require("entities/ship");
 const h3_js_1 = require("h3-js");
 const react_leaflet_1 = require("react-leaflet");
 const TestExtr = () => {
+    const polygon = [
+        [55.88686527264868, 37.42767333984376],
+        [55.89533634081859, 37.85064697265626],
+        [55.59231544773266, 37.8424072265625],
+        [55.60472974085067, 37.22717285156251]
+    ];
     const areal = ship_1.shipModel.selectors.useAreal();
-    const polygon = areal && (areal === null || areal === void 0 ? void 0 : areal.length) > 1 ? [
-        [areal[0][0], areal[0][1]],
-        [areal[0][0] + 0.02, areal[0][1]],
-        [areal[1][0], areal[1][1]],
-        [areal[0][0], areal[0][1] + 0.03],
-    ] : [];
     console.log('areal areal polygon', polygon);
     const polygs = (0, h3_js_1.polygonToCells)(polygon, 9);
     const p = [];

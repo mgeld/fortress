@@ -18,32 +18,32 @@ export class ArenaSectorMemoryRepository implements IArenaSectorMemoryRepository
         return ArenaSectorMapper.toDomain(inserted)
     }
 
-    async inserts(sectors: UnmarshalledArenaSector[]): Promise<Boolean> {
-        try {
-            sectors.forEach(async sector => {
-                await this._database.arenaSector.insert<UnmarshalledArenaSector>(sector)
-            })
-            return true
-        } catch(e) {
-            throw new Error('Ну, что-то пошло не так в inserts memory')
-        }
-    }
+    // async inserts(sectors: UnmarshalledArenaSector[]): Promise<Boolean> {
+    //     try {
+    //         sectors.forEach(async sector => {
+    //             await this._database.arenaSector.insert<UnmarshalledArenaSector>(sector)
+    //         })
+    //         return true
+    //     } catch(e) {
+    //         throw new Error('Ну, что-то пошло не так в inserts memory')
+    //     }
+    // }
 
-    async getById(sectorId: string): Promise<ArenaSector> {
+    async getById(sectorId: string, arenaId: string): Promise<ArenaSector> {
         const sector = await this._database.arenaSector.getById<UnmarshalledArenaSector>(sectorId)
-        if (!sector) {
+        if (!sector || sector.arena !== arenaId) {
             throw new Error('----------')
         }
         return ArenaSectorMapper.toDomain(sector)
     }
 
-    async getByIds(sectorIds: string[]): Promise<ArenaSector[]> {
-        const sectors = await this._database.arenaSector.getByIds<UnmarshalledArenaSector>(sectorIds)
-        if (!sectors) {
-            throw new Error('----------')
-        }
-        return sectors.map(sector => ArenaSectorMapper.toDomain(sector))
-    }
+    // async getByIds(sectorIds: string[]): Promise<ArenaSector[]> {
+    //     const sectors = await this._database.arenaSector.getByIds<UnmarshalledArenaSector>(sectorIds)
+    //     if (!sectors) {
+    //         throw new Error('----------')
+    //     }
+    //     return sectors.map(sector => ArenaSectorMapper.toDomain(sector))
+    // }
 
     async getByArena(arena: string): Promise<UnmarshalledArenaSector[]> {
         const sectors = await this._database.arenaSector.findAll<UnmarshalledArenaSector>()

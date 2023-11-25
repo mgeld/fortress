@@ -16,10 +16,8 @@ class Rank {
     }
     addExp(exp) {
         const maxValueLevel = Rank.levelExp()[this._rank];
-        console.log('addExp maxValueLevel', maxValueLevel);
         const was_number = this._exp;
         const summ = was_number + exp;
-        console.log('addExp summ', summ);
         if (summ >= maxValueLevel) {
             this._rank += 1;
             this._exp = 0;

@@ -57,6 +57,7 @@ const battle_take_1 = require("./controllers/battle-take");
 const arena_sector_1 = require("./infra/database/memory/repositories/arena-sector");
 const battle_service_1 = require("./services/battle.service");
 const snapshot_arenas_1 = require("./controllers/snapshot-arenas");
+const battle_get_about_sector_1 = require("./controllers/battle-get-about-sector");
 const container = new inversify_1.Container();
 exports.container = container;
 container.bind(types_1.TYPES.Server).to(server_1.Server).inSingletonScope();
@@ -75,6 +76,7 @@ container.bind(types_1.TYPES.BattleFireHandler).to(battle_fire_1.BattleFireHandl
 container.bind(types_1.TYPES.BattleDirectHandler).to(battle_direct_1.BattleDirectHandler);
 container.bind(types_1.TYPES.GetSectorsHandler).to(get_sectors_1.GetSectorsHandler);
 container.bind(types_1.TYPES.GetAboutSectorHandler).to(get_about_sector_1.GetAboutSectorHandler);
+container.bind(types_1.TYPES.BattleGetAboutSectorHandler).to(battle_get_about_sector_1.BattleGetAboutSectorHandler);
 container.bind(types_1.TYPES.GetUserHandler).to(get_user_1.GetUserHandler);
 container.bind(types_1.TYPES.UseExtractionHandler).to(use_extraction_1.UseExtractionHandler);
 container.bind(types_1.TYPES.BuyUnitHandler).to(buy_unit_1.BuyUnitHandler);

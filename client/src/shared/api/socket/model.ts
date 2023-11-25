@@ -1,9 +1,9 @@
 import { createEvent, createStore, sample } from "effector"
 import { useStore } from "effector-react"
 
-export type TSocketStatus = 'open' | 'close'
+export type TSocketStatus = 'open' | 'close' | 'no-init'
 
-export const $socketStatus = createStore<TSocketStatus>('close')
+export const $socketStatus = createStore<TSocketStatus>('no-init')
 
 const setSocketStatus = createEvent<TSocketStatus>()
 

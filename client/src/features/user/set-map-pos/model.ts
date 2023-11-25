@@ -36,7 +36,9 @@ const setPosFx = createEffect(({
     source.map.setZoom(16)
     // source.map?.setMinZoom(15)
 
-    if (source.mode === 'invade') setTimeout(() => directAPI(pos), 200)
+    if (source.mode === 'invade') {
+        setTimeout(() => directAPI(pos), 200)
+    }
 
     // setTimeout(() => {
     // console.log('PPPPPPPPP setTimeout setPosFx')

@@ -60,6 +60,10 @@ class BattleJoinHandler extends IRoute {
             }
         }))
 
+        const pointer = await this._pointerService.memoryGetById(member.userId)
+        pointer.areal = -1
+        await this._pointerService.memoryUpdate(pointer)
+
         if (arena.isFullTeams()) {
 
             console.log('ISFULL TEAMS !!!!!!!!!!!!!')
@@ -100,8 +104,12 @@ class BattleJoinHandler extends IRoute {
                 }
             })
 
-            const overGame = () => this._battleService.overGame(arena.id)
-            arena.timeout = setTimeout(overGame, 120000)
+            // const overGame = () => {
+            //     this._battleService.overGame(arena)
+            // }
+            // const __ = () => overGame.bind(this)
+            arena.timeout = setTimeout(() => this._battleService.overGame(arena.id), 120000)
+
             // arena.timeout = setTimeout(overGame, 40000)
 
         }

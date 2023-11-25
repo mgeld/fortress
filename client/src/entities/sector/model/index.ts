@@ -92,6 +92,8 @@ const $sectorsStore = createStore<TZoneItem[]>(DEFAULT_STORE)
 // })
 
 
+
+
 const $sectorAboutStore = createStore<TSectorPayload | null>(null)
     .on(setAboutSector, (_, sector) => sector)
 

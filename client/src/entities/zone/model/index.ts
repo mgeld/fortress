@@ -11,7 +11,8 @@ const {
     spendСoins,
     spendRubies,
     addCoins,
-    addRubies
+    addRubies,
+    addZoneTrophies
 } = zoneAPI.events
 
 const addSector = createEvent()
@@ -27,6 +28,7 @@ export const $zoneLevelStore = createStore<number>(0)
 
 export const $zoneTrophiesStore = createStore<number>(0)
     .on(setZoneTrophies, (_, trophies) => trophies)
+    .on(addZoneTrophies, (trophies, t) => trophies + t)
 
 export const $zoneCoinsStore = createStore<number>(0)
     .on(setZoneCoins, (_, coins) => coins)

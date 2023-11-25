@@ -2,7 +2,6 @@ import { projectorAPI } from "shared/api/events";
 import { Handler } from "..";
 import { TFindCont } from '@ctypes/socket/server-to-client'
 import { snackbarModel } from "shared/ui/snackbar";
-import { tutorialModel } from "shared/ui/tutorial";
 
 let timeId: ReturnType<typeof setTimeout>
 

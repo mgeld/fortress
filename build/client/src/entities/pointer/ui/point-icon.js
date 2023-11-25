@@ -8,10 +8,8 @@ const create_pointer_1 = require("../lib/create-pointer");
 const PointIcon = ({ userIcon, position }) => {
     const [icon, setIcon] = (0, react_1.useState)(null);
     if (!icon && userIcon) {
-        console.log('Чё как? icon userIcon', icon, userIcon);
         (0, create_pointer_1.createPointer)(userIcon)
             .then(icon => {
-            console.log(icon);
             setIcon(icon);
         })
             .catch(icon => {

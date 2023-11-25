@@ -71,6 +71,7 @@ import { BattleTakeHandler } from './controllers/battle-take'
 import { ArenaSectorMemoryRepository } from './infra/database/memory/repositories/arena-sector'
 import { BattleService } from './services/battle.service'
 import { SnapshotArenas } from './controllers/snapshot-arenas'
+import { BattleGetAboutSectorHandler } from './controllers/battle-get-about-sector'
 // import { ArenaTeamMemoryRepository } from './infra/database/memory/repositories/arena-team'
 // import { ArenaTeamService } from './services/arena-team.service'
 
@@ -99,7 +100,10 @@ container.bind(TYPES.BattleLeaveHandler).to(BattleLeaveHandler)
 container.bind(TYPES.BattleFireHandler).to(BattleFireHandler)
 container.bind(TYPES.BattleDirectHandler).to(BattleDirectHandler)
 container.bind(TYPES.GetSectorsHandler).to(GetSectorsHandler)
+
 container.bind(TYPES.GetAboutSectorHandler).to(GetAboutSectorHandler)
+container.bind(TYPES.BattleGetAboutSectorHandler).to(BattleGetAboutSectorHandler)
+
 container.bind(TYPES.GetUserHandler).to(GetUserHandler)
 container.bind(TYPES.UseExtractionHandler).to(UseExtractionHandler)
 container.bind(TYPES.BuyUnitHandler).to(BuyUnitHandler)

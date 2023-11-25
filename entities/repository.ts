@@ -111,9 +111,9 @@ export interface ISectorMemoryRepository {
 
 export interface IArenaSectorMemoryRepository {
     insert(sector: ArenaSector): Promise<ArenaSector>
-    inserts(sectors: UnmarshalledArenaSector[]): Promise<Boolean>
-    getById(sectorId: string): Promise<ArenaSector>
-    getByIds(sectorIds: string[]): Promise<ArenaSector[]>
+    // inserts(sectors: UnmarshalledArenaSector[]): Promise<Boolean>
+    getById(sectorId: string, arenaId: string): Promise<ArenaSector>
+    // getByIds(sectorIds: string[]): Promise<ArenaSector[]>
     update(sector: ArenaSector): Promise<ArenaSector>
     delete(sectorId: string): Promise<Boolean>
     deleteByArenas(arenas: string[]): Promise<Boolean>

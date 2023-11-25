@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.events = exports.useSocket = exports.$socketStatus = void 0;
 const effector_1 = require("effector");
 const effector_react_1 = require("effector-react");
-exports.$socketStatus = (0, effector_1.createStore)('close');
+exports.$socketStatus = (0, effector_1.createStore)('no-init');
 const setSocketStatus = (0, effector_1.createEvent)();
 (0, effector_1.sample)({
     clock: setSocketStatus,

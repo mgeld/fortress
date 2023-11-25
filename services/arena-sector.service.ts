@@ -27,14 +27,14 @@ export class ArenaSectorService {
         return this._memoryRepository.insert(sector)
     }
 
-    getById(sectorId: string): Promise<ArenaSector> {
-        return this._memoryRepository.getById(sectorId)
+    getById(sectorId: string, arenaId: string): Promise<ArenaSector> {
+        return this._memoryRepository.getById(sectorId, arenaId)
     }
 
-    getByIds(sectorIds: string[]): Promise<ArenaSector[]> {
-        console.log('getByIds sectorIds', sectorIds)
-        return this._memoryRepository.getByIds(sectorIds)
-    }
+    // getByIds(sectorIds: string[]): Promise<ArenaSector[]> {
+    //     console.log('getByIds sectorIds', sectorIds)
+    //     return this._memoryRepository.getByIds(sectorIds)
+    // }
 
     async update(sector: ArenaSector) {
         await this._memoryRepository.update(sector)

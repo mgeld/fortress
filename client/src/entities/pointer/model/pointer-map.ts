@@ -41,51 +41,51 @@ type TUserApi = {
     first_name: string
 }
 
-const getUsersFx = createEffect(async ({
-    pointers,
-    prevPointers
-}: {
-    pointers: TPointer[],
-    prevPointers: TPointer[]
-}): Promise<TPointer[]> => {
+// const getUsersFx = createEffect(async ({
+//     pointers,
+//     prevPointers
+// }: {
+//     pointers: TPointer[],
+//     prevPointers: TPointer[]
+// }): Promise<TPointer[]> => {
 
-    const user_ids: number[] = pointers.map(item => item.userId)
+//     const user_ids: number[] = pointers.map(item => item.userId)
 
-    return bridge.send('VKWebAppCallAPIMethod', {
-        method: 'users.get',
-        params: {
-            user_ids: user_ids.join(','),
-            v: '5.131',
-            fields: 'photo_50',
-            access_token: '10811a2f10811a2f10811a2fdf1395cae51108110811a2f7425604c5854e1fbf0d0110c'
-        }
-    })
-        .then((data: { response: TUserApi[] }) => {
+//     return bridge.send('VKWebAppCallAPIMethod', {
+//         method: 'users.get',
+//         params: {
+//             user_ids: user_ids.join(','),
+//             v: '5.131',
+//             fields: 'photo_50',
+//             access_token: '10811a2f10811a2f10811a2fdf1395cae51108110811a2f7425604c5854e1fbf0d0110c'
+//         }
+//     })
+//         .then((data: { response: TUserApi[] }) => {
 
-            // if (!prevPointers) prevPointers = []
+//             // if (!prevPointers) prevPointers = []
 
-            if (data && pointers.length > 0) {
-                return [
-                    ...prevPointers,
-                    ...pointers.map(pointer => {
-                        const user = data.response.find(user => user.id === pointer.userId)
-                        return {
-                            ...pointer,
-                            icon: user?.photo_50,
-                            name: user?.first_name
-                        }
-                    })
-                ]
-            } else {
-                return []
-            }
-        })
-        .catch((error) => {
-            // Ошибка
-            console.log(error);
-            return []
-        });
-})
+//             if (data && pointers.length > 0) {
+//                 return [
+//                     ...prevPointers,
+//                     ...pointers.map(pointer => {
+//                         const user = data.response.find(user => user.id === pointer.userId)
+//                         return {
+//                             ...pointer,
+//                             icon: user?.photo_50,
+//                             name: user?.first_name
+//                         }
+//                     })
+//                 ]
+//             } else {
+//                 return []
+//             }
+//         })
+//         .catch((error) => {
+//             // Ошибка
+//             console.log(error);
+//             return []
+//         });
+// })
 
 // getUsersFx.watch(values => console.log('IIIIIIIIIIIII getUsersFx', values))
 
@@ -124,9 +124,7 @@ export const $pointersStore = createStore<TPointer[]>(DEFAULT_STORE)
             health: data.health
         } : prevPointer)
     ))
-    .on(clearStore, () => ({
-        ...DEFAULT_STORE
-    }))
+    .on(clearStore, () => DEFAULT_STORE)
 
 $pointersStore.watch(val => console.log('pointersStore watch', val))
 
@@ -158,5 +156,5 @@ export const events = {
 }
 
 export const effects = {
-    getUsersFx
+    // getUsersFx
 }

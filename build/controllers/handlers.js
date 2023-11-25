@@ -23,7 +23,7 @@ IRoute = __decorate([
 ], IRoute);
 exports.IRoute = IRoute;
 let Handlers = class Handlers {
-    constructor(fire, take, battleTake, beam, direct, connect, battleJoin, battleLeave, battleFire, battleDirect, getSectors, getAboutSector, getUser, useExtraction, buyUnit, levelUp) {
+    constructor(fire, take, battleTake, beam, direct, connect, battleJoin, battleLeave, battleFire, battleDirect, getSectors, getAboutSector, battleGetAboutSector, getUser, useExtraction, buyUnit, levelUp) {
         this.fire = fire;
         this.take = take;
         this.battleTake = battleTake;
@@ -36,6 +36,7 @@ let Handlers = class Handlers {
         this.battleDirect = battleDirect;
         this.getSectors = getSectors;
         this.getAboutSector = getAboutSector;
+        this.battleGetAboutSector = battleGetAboutSector;
         this.getUser = getUser;
         this.useExtraction = useExtraction;
         this.buyUnit = buyUnit;
@@ -65,11 +66,13 @@ Handlers = __decorate([
     __param(9, (0, inversify_1.inject)(types_1.TYPES.BattleDirectHandler)),
     __param(10, (0, inversify_1.inject)(types_1.TYPES.GetSectorsHandler)),
     __param(11, (0, inversify_1.inject)(types_1.TYPES.GetAboutSectorHandler)),
-    __param(12, (0, inversify_1.inject)(types_1.TYPES.GetUserHandler)),
-    __param(13, (0, inversify_1.inject)(types_1.TYPES.UseExtractionHandler)),
-    __param(14, (0, inversify_1.inject)(types_1.TYPES.BuyUnitHandler)),
-    __param(15, (0, inversify_1.inject)(types_1.TYPES.LevelUpHandler)),
+    __param(12, (0, inversify_1.inject)(types_1.TYPES.BattleGetAboutSectorHandler)),
+    __param(13, (0, inversify_1.inject)(types_1.TYPES.GetUserHandler)),
+    __param(14, (0, inversify_1.inject)(types_1.TYPES.UseExtractionHandler)),
+    __param(15, (0, inversify_1.inject)(types_1.TYPES.BuyUnitHandler)),
+    __param(16, (0, inversify_1.inject)(types_1.TYPES.LevelUpHandler)),
     __metadata("design:paramtypes", [IRoute,
+        IRoute,
         IRoute,
         IRoute,
         IRoute,

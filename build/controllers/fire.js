@@ -52,6 +52,12 @@ let FireHandler = class FireHandler extends handlers_1.IRoute {
                     return;
                 fire['hitPointer'] = message.payload.hitPointer;
                 const hitPointer = yield this._pointerService.memoryGetById(message.payload.hitPointer.userId);
+                if (fire.to_pos[0] >= hitPointer.pos[0] - 0.0004 || fire.to_pos[0] <= hitPointer.pos[0] + 0.0004 &&
+                    fire.to_pos[1] <= hitPointer.pos[1] - 0.0008 || fire.to_pos[1] >= hitPointer.pos[1] + 0.0008) {
+                }
+                else {
+                    return;
+                }
                 hitPointer.removeHealth(weapon.power);
                 fire.hitPointer.health = hitPointer.health;
                 if (hitPointer.health < 1) {

@@ -20,7 +20,6 @@ export const Citadel: FC = () => {
 
     
     const size = droneMapModel.selectors.useDroneSize()
-    // console.log('Citadel pos', pos)
 
     // if(!pos) return <></>
 
@@ -31,15 +30,10 @@ export const Citadel: FC = () => {
     // const rebro = originToDirectedEdges(h3Index)
     // const w = Math.ceil(edgeLength(rebro[0], UNITS.m) / 4)
 
-    // console.log('//////////// mmmmmmmmmmmmmmmmm', w)
-
     // const hexCenterCoordinates = cellToLatLng(h3Index)
 
     // const lat = coords.current.x
     // const lng = coords.current.y
-
-    // console.log('asssssssssssssssss  lat',lat)
-    // console.log('assssssssssssssssss lng',lng)
 
     // const [lat_1, lng_1] = getDestination(pos[0], pos[1], w, 315);
     // const [lat_2, lng_2] = getDestination(pos[0], pos[1], w, 135);

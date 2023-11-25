@@ -39,12 +39,12 @@ export const UserDead: FC = () => {
                             Поражение!
                         </div>
                         <div className={styles.__right}>
-                            <div className={styles.__icon}>
+                            {/* <div className={styles.__icon}>
                                 <IconTrophy width={34} height={34} />
                             </div>
                             <div className={styles.__text}>
                                 -25
-                            </div>
+                            </div> */}
                         </div>
 
                     </div>

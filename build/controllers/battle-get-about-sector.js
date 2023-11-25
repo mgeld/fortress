@@ -18,57 +18,44 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.BattleLeaveHandler = void 0;
-const inversify_1 = require("inversify");
-const rooms_1 = require("../api/socket/socket/rooms");
-const arena_service_1 = require("../services/arena.service");
-const member_service_1 = require("../services/member.service");
+exports.BattleGetAboutSectorHandler = void 0;
 const types_1 = require("../types");
 const handlers_1 = require("./handlers");
-const pointer_service_1 = require("../services/pointer.service");
-let BattleLeaveHandler = class BattleLeaveHandler extends handlers_1.IRoute {
+const inversify_1 = require("inversify");
+const arena_sector_service_1 = require("../services/arena-sector.service");
+const member_service_1 = require("../services/member.service");
+let BattleGetAboutSectorHandler = class BattleGetAboutSectorHandler extends handlers_1.IRoute {
     handle(message, uSocket) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log('BattleLeaveHandler handle');
-            if (!uSocket.user_id)
+            if (!(uSocket === null || uSocket === void 0 ? void 0 : uSocket.user_id))
                 return;
-            const member = yield this._memberService.getById(uSocket.user_id);
-            const arena = yield this._arenaService.getById(member.arena);
-            const pointer = yield this._pointerService.memoryGetById(member.userId);
-            const team = arena.delPointer(member.userId, member.arenaTeam);
-            this._rooms.arenas.deleteClient(member.userId, arena.id);
-            this._memberService.remove(member.userId);
+            const _sector = yield this._sectorService.getById(message.payload.id, message.payload.arena);
+            const _member = yield this._memberService.getById(uSocket.user_id);
+            const dtoSector = _sector.unmarshal();
+            const sector = {
+                number: dtoSector.number,
+                latlng: dtoSector.latlng,
+                invaders: dtoSector.invaders,
+                defenders: dtoSector.defenders,
+                owner: _member.arenaTeam === dtoSector.team_id ? 'Вы' : 'Противник'
+            };
             uSocket.send(JSON.stringify({
-                event: 'set-user',
-                payload: {
-                    user: {
-                        pos: pointer.pos,
-                        health: pointer.health,
-                    },
-                }
+                event: 'sector',
+                payload: sector
             }));
-            yield this._arenaService.update(arena);
         });
     }
 };
-BattleLeaveHandler.EVENT = "battleLeave";
+BattleGetAboutSectorHandler.EVENT = "battleGetAboutSector";
 __decorate([
-    (0, inversify_1.inject)(types_1.TYPES.Rooms),
-    __metadata("design:type", rooms_1.Rooms)
-], BattleLeaveHandler.prototype, "_rooms", void 0);
-__decorate([
-    (0, inversify_1.inject)(types_1.TYPES.ArenaService),
-    __metadata("design:type", arena_service_1.ArenaService)
-], BattleLeaveHandler.prototype, "_arenaService", void 0);
+    (0, inversify_1.inject)(types_1.TYPES.ArenaSectorService),
+    __metadata("design:type", arena_sector_service_1.ArenaSectorService)
+], BattleGetAboutSectorHandler.prototype, "_sectorService", void 0);
 __decorate([
     (0, inversify_1.inject)(types_1.TYPES.MemberService),
     __metadata("design:type", member_service_1.MemberService)
-], BattleLeaveHandler.prototype, "_memberService", void 0);
-__decorate([
-    (0, inversify_1.inject)(types_1.TYPES.PointerService),
-    __metadata("design:type", pointer_service_1.PointerService)
-], BattleLeaveHandler.prototype, "_pointerService", void 0);
-BattleLeaveHandler = __decorate([
+], BattleGetAboutSectorHandler.prototype, "_memberService", void 0);
+BattleGetAboutSectorHandler = __decorate([
     (0, inversify_1.injectable)()
-], BattleLeaveHandler);
-exports.BattleLeaveHandler = BattleLeaveHandler;
+], BattleGetAboutSectorHandler);
+exports.BattleGetAboutSectorHandler = BattleGetAboutSectorHandler;

@@ -6,6 +6,7 @@ import { Map } from "leaflet";
 import { TLatLng } from "shared/types";
 import { popoutModel } from "shared/ui/popout-root";
 import { shipModel } from "entities/ship";
+import { pointerMapModel } from "entities/pointer";
 
 const changeBattleFx = createEffect(({
     source,

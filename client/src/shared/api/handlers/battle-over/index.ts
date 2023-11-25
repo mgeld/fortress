@@ -8,6 +8,10 @@ class BattleOverHandler extends Handler {
 
         battleAPI.events.setTeams(message.payload.teams)
         battleAPI.events.setBattleStatus('over')
+
+        // message.payload.teams.filter(tems => {
+        //     tems.members.findIndex()
+        // })
     }
 }
 

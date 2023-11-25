@@ -54,22 +54,36 @@ let BattleFireHandler = class BattleFireHandler extends handlers_1.IRoute {
                 userId: _pointer.zoneId
             };
             if ((_a = message.payload) === null || _a === void 0 ? void 0 : _a.hitPointer) {
+                const hitPointer = yield this._pointerService.memoryGetById(message.payload.hitPointer.userId);
+                console.log('hitPointer.pos', hitPointer.pos);
+                console.log('fire.to_pos', hitPointer.pos);
+                if (fire.to_pos[0] >= hitPointer.pos[0] - 0.0004 || fire.to_pos[0] <= hitPointer.pos[0] + 0.0004 &&
+                    fire.to_pos[1] <= hitPointer.pos[1] - 0.0008 || fire.to_pos[1] >= hitPointer.pos[1] + 0.0008) {
+                }
+                else {
+                    return;
+                }
                 _member.makeDamage(weapon.power);
                 fire['hitPointer'] = message.payload.hitPointer;
                 const hitMember = yield this._memberService.getById(message.payload.hitPointer.userId);
-                const hitPointer = yield this._pointerService.memoryGetById(message.payload.hitPointer.userId);
                 hitPointer.removeHealth(weapon.power);
                 fire.hitPointer.health = hitPointer.health;
                 console.log('BattleFire _member.sectors', _member.sectors);
+                console.log('_member', _member.unmarshal());
+                console.log('hitMember', hitMember.unmarshal());
                 if (hitPointer.health < 1) {
                     console.log('Погиб hitPointer.zoneId', hitPointer.zoneId);
                     const killPointerTeam = arena.killPointer(hitMember.userId, hitMember.arenaTeam);
-                    yield this._arenaService.update(arena);
-                    hitMember.leaveArena();
+                    console.log('killPointerTeam.unmarshal()', killPointerTeam.unmarshal());
+                    console.log('killPointerTeam.unmarshal()', killPointerTeam.unmarshal());
                     _member.addKilledPointer();
                     if (killPointerTeam.alive_members === 0) {
                         arena.completeBattle(killPointerTeam.id);
+                        yield this._arenaService.update(arena);
                         this._battleService.overGame(arena.id);
+                    }
+                    else {
+                        yield this._arenaService.update(arena);
                     }
                 }
                 yield this._pointerService.memoryUpdate(hitPointer);

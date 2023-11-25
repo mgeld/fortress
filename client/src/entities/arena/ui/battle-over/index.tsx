@@ -7,7 +7,7 @@ import { userModel } from "entities/user";
 
 import styles from './styles.module.scss'
 
-import { battleAPI, mapAPI } from "shared/api/events";
+import { battleAPI, mapAPI, sectorsAPI } from "shared/api/events";
 import { popoutModel } from "shared/ui/popout-root";
 import { IconBattleSwords } from "shared/assets/icons/_icons";
 import { IconTrophy } from "widgets/counters/icons/_icons";
@@ -28,13 +28,14 @@ export const BattleOver: FC = () => {
     const pointers = pointerMapModel.selectors.usePointers().data
 
     const leaveBattle = () => {
+        pointerMapModel.events.clearStore()
+        sectorsAPI.events.setSectors([])
         mapAPI.events.setMapMode('invade')
-
         popoutModel.events.setPopout(null)
-        shipModel.events.resetUser()
         battleAPI.events.setTeams([])
         battleAPI.events.setTimer(0)
         battleAPI.events.setBattleStatus('default')
+        shipModel.events.resetUser()
     }
 
     const myTrophies = userTeam ? userTeam.members.find(pointer => pointer.userId === user.userId)?.trophies || 0 : 0

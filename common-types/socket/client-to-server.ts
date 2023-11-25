@@ -17,11 +17,13 @@ export type TEventBattleTake = 'battleTake'
 export type TEventBeam = 'beam'
 
 export type TEventUseExtraction = 'useExtraction'
-export type TEventLevelUp= 'levelUp'
+export type TEventLevelUp = 'levelUp'
 export type TEventBuyUnit = 'buyUnit'
 
 export type TEventGetSectors = 'getSectors'
 export type TEventGetAboutSector = 'getAboutSector'
+export type TEventBattleGetAboutSector = 'battleGetAboutSector'
+
 
 export type TEventBattleJoin = 'battleJoin'
 export type TEventBattleLeave = 'battleLeave'
@@ -42,6 +44,7 @@ export type TEventsAPI =
     | TEventBuyUnit
     | TEventGetSectors
     | TEventGetAboutSector
+    | TEventBattleGetAboutSector
     | TEventDirect
     | TEventBattleJoin
     | TEventBattleLeave
@@ -59,6 +62,7 @@ export type TSendEvent =
     | TBuyUnitAPI
     | TGetSectorsAPI
     | TGetAboutSectorAPI
+    | TBattleGetAboutSectorAPI
     | TDirectAPI
     | TBattleJoinAPI
     | TBattleLeaveAPI
@@ -108,6 +112,14 @@ export type TGetAboutSectorAPI = {
     payload: {
         id: string
     }
+}
+export type TBattleGetAboutSectorAPI = {
+    event: TEventBattleGetAboutSector
+    payload: {
+        id: string
+        arena: string
+    }
+
 }
 
 export type TTakeAPI = {

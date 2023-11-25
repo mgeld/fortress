@@ -1,20 +1,16 @@
-import { TZone } from "@ctypes/model";
 import { FC, useEffect } from "react";
 
 import styles from './styles.module.scss'
 import { AboutSectorItem } from "./about-sector-item";
-import { IconFort, IconLocation, IconSector, IconTarget } from "./icons/_icons";
-import { sectorMapModel } from "entities/sector";
-import { getAboutSectorAPI } from "shared/api/get-about-sector";
+import { IconFort, IconLocation, IconTarget } from "./icons/_icons";
 import { latLngToCell } from "h3-js";
 import { mapModel } from "entities/map";
+import { aboutSectorModel } from ".";
+import { sectorMapModel } from "entities/sector";
 
-type TAboutSectorProps = TZone
+// type TAboutSectorProps = TZone
 
-export const AboutSector: FC<TAboutSectorProps> = ({
-    name,
-    zone_id
-}) => {
+export const AboutSector: FC = () => {
 
     const sector = sectorMapModel.selectors.useAboutSector().sector
 
@@ -23,7 +19,7 @@ export const AboutSector: FC<TAboutSectorProps> = ({
     useEffect(() => {
         if (latlng) {
             const h3Index = latLngToCell(latlng[0], latlng[1], 9);
-            getAboutSectorAPI(h3Index)
+            aboutSectorModel.events.getAboutInfo(h3Index)
         }
     }, [latlng])
 
@@ -42,9 +38,9 @@ export const AboutSector: FC<TAboutSectorProps> = ({
                     text={sector.number > 0 ? `${sector.number}` : 'Новый'}
                 /> */}
                 <AboutSectorItem
-                    icon={<IconTarget width={18} height={18} />}
-                    name="Область:"
-                    text={`${sector.areal}`}
+                    icon={<IconLocation width={16} height={16} />}
+                    name="Владелец:"
+                    text={`${sector.owner}`}
                 />
                 <AboutSectorItem
                     icon={<IconFort width={16} height={16} />}
@@ -52,9 +48,9 @@ export const AboutSector: FC<TAboutSectorProps> = ({
                     text={`${sector.defenders} стражей`}
                 />
                 <AboutSectorItem
-                    icon={<IconLocation width={16} height={16} />}
-                    name="Владелец:"
-                    text={`${sector.owner}`}
+                    icon={<IconTarget width={18} height={18} />}
+                    name="Точка:"
+                    text={`${sector.latlng[0].toFixed(4)}, ${sector.latlng[0].toFixed(4)}`}
                 />
             </div>
         </div>

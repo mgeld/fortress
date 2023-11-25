@@ -22,7 +22,7 @@ type TTakeProps = {
 
 export const Take: FC<TTakeProps> = ({ take, sizeInvader, sizeDrone }) => {
 
-    console.log('-------take', take)
+    // console.log('-------take', take)
 
     const toPosLatLng = getDestination(take.from_pos[0], take.from_pos[1], sizeDrone / 2, 90)
 

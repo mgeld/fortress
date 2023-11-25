@@ -33,7 +33,7 @@ class GetAboutSectorHandler extends IRoute {
 
         const sector: TSectorPayload = {
             number: dtoSector.number,
-            areal: dtoSector.areal,
+            latlng: dtoSector.latlng,
             invaders: dtoSector.invaders,
             defenders: dtoSector.defenders,
             owner: _pointer.name

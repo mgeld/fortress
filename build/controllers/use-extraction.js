@@ -34,6 +34,8 @@ let UseExtractionHandler = class UseExtractionHandler extends handlers_1.IRoute 
             const zone = yield this._zoneService.getById(uSocket.user_id);
             const pointer = yield this._pointerService.memoryGetById(zone.id);
             const extr = zone.hold.use(message.payload.id, message.payload.index);
+            if (!extr)
+                return;
             let resultIncrese = [0, 0];
             if (extr.gives === 'gun_distance') {
                 const weapon = yield this._weaponService.memoryGetById(pointer.weapons[0]);
@@ -104,7 +106,6 @@ let UseExtractionHandler = class UseExtractionHandler extends handlers_1.IRoute 
                     return;
                 }
             }
-            console.log('resultIncrese', resultIncrese);
             const extrResp = {
                 event: 'use-extraction',
                 payload: {

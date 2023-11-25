@@ -48,7 +48,7 @@ let BattleTakeHandler = class BattleTakeHandler extends handlers_1.IRoute {
             const _pointer = yield this._pointerService.memoryGetById(uSocket.user_id);
             zone.stormtrooper_corps.storm();
             try {
-                _sector = yield this._sectorService.getById(message.payload.sector);
+                _sector = yield this._sectorService.getById(message.payload.sector, arena.id);
             }
             catch (e) {
                 _sector = this._sectorService.create({
@@ -77,10 +77,11 @@ let BattleTakeHandler = class BattleTakeHandler extends handlers_1.IRoute {
                     }
                     console.log('prevTeamId', prevTeamId);
                 }
+                let myTeam = null;
                 if (_sector.defenders === 0) {
                     _member.invadeSector();
                     yield this._memberService.update(_member);
-                    const myTeam = arena.addSector(_member.arenaTeam);
+                    myTeam = arena.addSector(_member.arenaTeam);
                     takeSector = {
                         new_owner_id: _member.arenaTeam,
                         prev_owner_id: _sector.team_id,
@@ -91,10 +92,12 @@ let BattleTakeHandler = class BattleTakeHandler extends handlers_1.IRoute {
                     console.log('myTeam.sectors', myTeam.sectors);
                     if (myTeam.sectors >= 5) {
                         arena.completeBattle(myTeam.id === 1 ? 2 : 1);
+                        yield this._arenaService.update(arena);
                         this._battleService.overGame(arena.id);
                     }
                 }
-                yield this._arenaService.update(arena);
+                if (myTeam && myTeam.sectors < 5)
+                    yield this._arenaService.update(arena);
             }
             this._sectorService.update(_sector);
             this._zoneService.memoryUpdate(zone);

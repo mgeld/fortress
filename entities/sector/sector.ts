@@ -159,12 +159,13 @@ export class Sector {
 
     public static getContainerExtr(cont_id: 1 | 2 | 3): TExtrTypes {
         const __containers = {
-            // Контейнер: [список добыч]
+            // Контейнер: [список предметов в них]
             1: [10, 20, 30, 40, 50, 110, 111],
             2: [11, 21, 31, 41, 51, 111, 121],
             3: [12, 22, 32, 42, 52],
         }
         const cont: number[] = __containers[cont_id]
+        
         return cont[randomNumber(0, cont.length - 1)] as TExtrTypes
     }
 

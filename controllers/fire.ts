@@ -48,10 +48,19 @@ class FireHandler extends IRoute {
         if (message.payload?.hitPointer) {
 
             if (message.payload.hitPointer?.userId === -1) return
+            
 
             fire['hitPointer'] = message.payload.hitPointer
 
             const hitPointer = await this._pointerService.memoryGetById(message.payload.hitPointer.userId)
+
+            if (
+                fire.to_pos[0] >= hitPointer.pos[0] - 0.0004 || fire.to_pos[0] <= hitPointer.pos[0] + 0.0004 &&
+                fire.to_pos[1] <= hitPointer.pos[1] - 0.0008 || fire.to_pos[1] >= hitPointer.pos[1] + 0.0008
+            ) {
+            } else {
+                return
+            }
 
             hitPointer.removeHealth(weapon.power)
 
@@ -59,7 +68,7 @@ class FireHandler extends IRoute {
 
             // Если противник погиб
             if (hitPointer.health < 1) {
-
+                
             }
 
             await this._pointerService.memoryUpdate(hitPointer)

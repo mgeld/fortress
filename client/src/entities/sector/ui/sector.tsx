@@ -2,7 +2,7 @@ import { FC } from "react";
 import { cellsToMultiPolygon } from "h3-js";
 import { Pane, Polygon, Popup } from "react-leaflet";
 import { TZoneItem } from "shared/api/events/sectors";
-import { AboutSector } from "./about-sector";
+import { AboutSector } from "./about-sector/ui";
 
 type SectorsProps = {
     zones: TZoneItem[]
@@ -21,7 +21,6 @@ const Sectors: FC<SectorsProps> = ({ zones }) => {
     return <>
         {zones.map(zoneItem => {
 
-            console.log('zoneItem.zone', zoneItem.zone)
             return (
                 <Polygon
                     key={zoneItem.zone.zone_id}
@@ -41,7 +40,7 @@ const Sectors: FC<SectorsProps> = ({ zones }) => {
                             keepInView={true}
                         >
                             <AboutSector
-                                {...zoneItem.zone}
+                                // {...zoneItem.zone}
                             />
                         </Popup>
                     </Pane>

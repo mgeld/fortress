@@ -1,12 +1,13 @@
 import { TTeam } from "@ctypes/socket/server-to-client"
-import { createStore } from "effector"
+import { createEffect, createStore, sample } from "effector"
 import { useStore } from "effector-react"
-import { battleAPI } from "shared/api/events"
+import { userModel } from "entities/user"
+import { battleAPI, zoneAPI } from "shared/api/events"
 import { TArena, TBattleStatus, TDeadEvent } from "shared/api/events/battle"
 
 const DEFAULT_STORE: TArena | null = null
 
-type TArenaStore = TArena | null
+export type TArenaStore = TArena | null
 
 const useArena = () => {
     return {
@@ -56,7 +57,7 @@ const $arenaTimer = createStore<number>(0)
     .on(setTimer, (_, time) => time)
     .on(stepTimer, (time, _) => time - 1)
 
-const $arenaStore = createStore<TArenaStore>(DEFAULT_STORE)
+export const $arenaStore = createStore<TArenaStore>(DEFAULT_STORE)
     .on(setArena, (_, arena: TArena) => arena)
 
 const $teamStore = createStore<TTeam[]>([])
@@ -91,6 +92,42 @@ const $teamStore = createStore<TTeam[]>([])
 
 const $myTeamId = createStore<number | null>(null)
     .on(setMyTeam, (_, team) => team)
+
+// ****** //
+// Нужно перенести в Widget или куда-то ещё
+
+type TBattleOverFxProps = {
+    myTeamId: number | null
+    zoneId: number
+    teams: TTeam[]
+}
+const battleOverFx = createEffect((source: TBattleOverFxProps) => {
+    const member = source.teams.filter(team => team.teamId === source.myTeamId)[0]
+        .members.filter(member => member.userId === source.zoneId)
+
+    if (member.length > 0) {
+        const t = member[0].trophies
+        zoneAPI.events.addZoneTrophies(t)
+    }
+})
+
+sample({
+    clock: setBattleStatus,
+    source: {
+        myTeamId: $myTeamId,
+        zoneId: userModel.$userIdStore,
+        teams: $teamStore
+    },
+    fn: (source) => ({
+        myTeamId: source.myTeamId,
+        zoneId: source.zoneId,
+        teams: source.teams,
+    }),
+    filter: (source, status) => status === 'over',
+    target: battleOverFx
+})
+// ************* //
+
 
 // type TChangeSectors = {
 //     myTeam: 1 | 2 | null

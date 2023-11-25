@@ -33,7 +33,7 @@ class BattleLeaveHandler extends IRoute {
         const member = await this._memberService.getById(uSocket.user_id)
         const arena = await this._arenaService.getById(member.arena)
 
-        const pointer = await this._pointerService.memoryGetById(uSocket.user_id)
+        const pointer = await this._pointerService.memoryGetById(member.userId)
 
         const team = arena.delPointer(member.userId, member.arenaTeam)
         this._rooms.arenas.deleteClient(member.userId, arena.id)

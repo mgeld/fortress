@@ -35,6 +35,7 @@ export class Handlers {
         @inject(TYPES.BattleDirectHandler) private battleDirect: IRoute,
         @inject(TYPES.GetSectorsHandler) private getSectors: IRoute,
         @inject(TYPES.GetAboutSectorHandler) private getAboutSector: IRoute,
+        @inject(TYPES.BattleGetAboutSectorHandler) private battleGetAboutSector: IRoute,
         @inject(TYPES.GetUserHandler) private getUser: IRoute,
         @inject(TYPES.UseExtractionHandler) private useExtraction: IRoute,
         @inject(TYPES.BuyUnitHandler) private buyUnit: IRoute,

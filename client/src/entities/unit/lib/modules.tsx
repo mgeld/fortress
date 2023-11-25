@@ -26,6 +26,7 @@ import {
 
 import { TExtrTypes } from "@ctypes/model";
 
+
 export const modules: Record<TExtrTypes, {
     name: string
     icon: (width: number, height: number) => ReactNode

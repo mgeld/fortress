@@ -34,12 +34,8 @@ let ArenaSectorService = class ArenaSectorService {
     memoryInsert(sector) {
         return this._memoryRepository.insert(sector);
     }
-    getById(sectorId) {
-        return this._memoryRepository.getById(sectorId);
-    }
-    getByIds(sectorIds) {
-        console.log('getByIds sectorIds', sectorIds);
-        return this._memoryRepository.getByIds(sectorIds);
+    getById(sectorId, arenaId) {
+        return this._memoryRepository.getById(sectorId, arenaId);
     }
     update(sector) {
         return __awaiter(this, void 0, void 0, function* () {

@@ -9,13 +9,15 @@ import { TBombPayload } from "../common-types/socket/server-to-client"
 import { ArenaService } from "../services/arena.service"
 import { Member } from "../entities/arena/arena-team-member"
 import { PointerService } from "../services/pointer.service"
+import { BattleService } from "../services/battle.service"
 
 @injectable()
 class BattleDirectHandler extends IRoute {
     @inject(TYPES.Rooms) private _rooms!: Rooms
+    @inject(TYPES.ArenaService) private _arenaService!: ArenaService
     @inject(TYPES.MemberService) private _memberService!: MemberService
     @inject(TYPES.PointerService) private _pointerService!: PointerService
-    @inject(TYPES.ArenaService) private _arenaService!: ArenaService
+    @inject(TYPES.BattleService) private _battleService!: BattleService
 
     public static EVENT: TEventBattleDirect = "battleDirect"
 
@@ -63,52 +65,63 @@ class BattleDirectHandler extends IRoute {
                 })
 
                 const health = _pointer.removeHealth(10)
+                await this._pointerService.memoryUpdate(_pointer)
 
                 if (health < 1) {
 
                     const killPointerTeam = arena.killPointer(_member.userId, _member.arenaTeam)
-                    await this._arenaService.update(arena)
 
-                    _member.leaveArena()
+                    console.log('killPointerTeam.alive_members', killPointerTeam.alive_members)
+
+                    // _member.leaveArena()
 
                     if (killPointerTeam.alive_members === 0) {
 
-                        setTimeout(async () => {
+                        arena.completeBattle(killPointerTeam.id)
 
-                            const members: Member[][] = []
+                        await this._arenaService.update(arena)
 
-                            members[0] = await this._memberService.getByIds(arena.teamList[0].members)
-                            members[1] = await this._memberService.getByIds(arena.teamList[1].members)
+                        this._battleService.overGame(arena.id)
 
-                            this._rooms.arenas.broadcast(arena.id, {
-                                event: 'battle-over',
-                                payload: {
-                                    teams: arena.teamList.map((team, index) => {
-                                        const minTrophies = team.status === 'victory' ? 10 : -10
-                                        return {
-                                            teamId: team.id,
-                                            status: team.status,
-                                            sectors: team.sectors,
-                                            members: members[index].map(member => {
-                                                const wonTrophies = member.damage / 5
-                                                return {
-                                                    userId: member.userId,
-                                                    trophies: minTrophies + wonTrophies
-                                                }
-                                            }),
-                                        }
-                                    })
-                                }
-                            })
+                        // setTimeout(async () => {
 
-                        }, 2000)
+                        //     const members: Member[][] = []
 
+                        //     members[0] = await this._memberService.getByIds(arena.teamList[0].members)
+                        //     members[1] = await this._memberService.getByIds(arena.teamList[1].members)
+
+                        //     this._rooms.arenas.broadcast(arena.id, {
+                        //         event: 'battle-over',
+                        //         payload: {
+                        //             teams: arena.teamList.map((team, index) => {
+                        //                 const minTrophies = team.status === 'victory' ? 10 : -10
+                        //                 return {
+                        //                     teamId: team.id,
+                        //                     status: team.status,
+                        //                     sectors: team.sectors,
+                        //                     members: members[index].map(member => {
+                        //                         const wonTrophies = member.damage / 5
+                        //                         return {
+                        //                             userId: member.userId,
+                        //                             trophies: minTrophies + wonTrophies
+                        //                         }
+                        //                     }),
+                        //                 }
+                        //             })
+                        //         }
+                        //     })
+
+                        // }, 2000)
+
+                    } else {
+                        await this._arenaService.update(arena)
                     }
+
 
                 }
             }
         }
-        
+
         this._memberService.update(_member)
 
         this._rooms.arenas.broadcast(_member.arena, {

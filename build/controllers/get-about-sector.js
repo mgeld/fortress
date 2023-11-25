@@ -32,7 +32,7 @@ let GetAboutSectorHandler = class GetAboutSectorHandler extends handlers_1.IRout
             const dtoSector = _sector.unmarshal();
             const sector = {
                 number: dtoSector.number,
-                areal: dtoSector.areal,
+                latlng: dtoSector.latlng,
                 invaders: dtoSector.invaders,
                 defenders: dtoSector.defenders,
                 owner: _pointer.name

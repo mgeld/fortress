@@ -37,35 +37,13 @@ let ArenaSectorMemoryRepository = class ArenaSectorMemoryRepository {
             return arena_sector_1.ArenaSectorMapper.toDomain(inserted);
         });
     }
-    inserts(sectors) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                sectors.forEach((sector) => __awaiter(this, void 0, void 0, function* () {
-                    yield this._database.arenaSector.insert(sector);
-                }));
-                return true;
-            }
-            catch (e) {
-                throw new Error('Ну, что-то пошло не так в inserts memory');
-            }
-        });
-    }
-    getById(sectorId) {
+    getById(sectorId, arenaId) {
         return __awaiter(this, void 0, void 0, function* () {
             const sector = yield this._database.arenaSector.getById(sectorId);
-            if (!sector) {
+            if (!sector || sector.arena !== arenaId) {
                 throw new Error('----------');
             }
             return arena_sector_1.ArenaSectorMapper.toDomain(sector);
-        });
-    }
-    getByIds(sectorIds) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const sectors = yield this._database.arenaSector.getByIds(sectorIds);
-            if (!sectors) {
-                throw new Error('----------');
-            }
-            return sectors.map(sector => arena_sector_1.ArenaSectorMapper.toDomain(sector));
         });
     }
     getByArena(arena) {

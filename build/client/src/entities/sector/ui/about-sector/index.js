@@ -1,37 +1,31 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+};
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AboutSector = void 0;
-const react_1 = require("react");
-const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
-const about_sector_item_1 = require("./about-sector-item");
-const _icons_1 = require("./icons/_icons");
-const sector_1 = require("entities/sector");
-const get_about_sector_1 = require("shared/api/get-about-sector");
-const h3_js_1 = require("h3-js");
-const map_1 = require("entities/map");
-const AboutSector = ({ name, zone_id }) => {
-    const sector = sector_1.sectorMapModel.selectors.useAboutSector().sector;
-    const { latlng } = map_1.mapModel.selectors.useMapClickLatLng();
-    (0, react_1.useEffect)(() => {
-        if (latlng) {
-            const h3Index = (0, h3_js_1.latLngToCell)(latlng[0], latlng[1], 9);
-            (0, get_about_sector_1.getAboutSectorAPI)(h3Index);
-        }
-    }, [latlng]);
-    if (!sector)
-        return (<div className={styles_module_scss_1.default.loading}>
-            Загружаем информацию...
-        </div>);
-    return (<div className={styles_module_scss_1.default.aboutSector}>
-            <div className={[styles_module_scss_1.default.__container, styles_module_scss_1.default.__one].join(' ')}>
-                
-                <about_sector_item_1.AboutSectorItem icon={<_icons_1.IconTarget width={18} height={18}/>} name="Область:" text={`${sector.areal}`}/>
-                <about_sector_item_1.AboutSectorItem icon={<_icons_1.IconFort width={16} height={16}/>} name="Форт:" text={`${sector.defenders} стражей`}/>
-                <about_sector_item_1.AboutSectorItem icon={<_icons_1.IconLocation width={16} height={16}/>} name="Владелец:" text={`${sector.owner}`}/>
-            </div>
-        </div>);
-};
-exports.AboutSector = AboutSector;
+exports.aboutSectorModel = void 0;
+__exportStar(require("./ui"), exports);
+exports.aboutSectorModel = __importStar(require("./model"));

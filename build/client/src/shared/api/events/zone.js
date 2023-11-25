@@ -5,6 +5,7 @@ const effector_1 = require("effector");
 const setZoneSectors = (0, effector_1.createEvent)();
 const setZoneLevel = (0, effector_1.createEvent)();
 const setZoneTrophies = (0, effector_1.createEvent)();
+const addZoneTrophies = (0, effector_1.createEvent)();
 const setZoneCoins = (0, effector_1.createEvent)();
 const addCoins = (0, effector_1.createEvent)();
 const spendСoins = (0, effector_1.createEvent)();
@@ -15,6 +16,7 @@ exports.events = {
     setZoneSectors,
     setZoneLevel,
     setZoneTrophies,
+    addZoneTrophies,
     setZoneCoins,
     spendСoins,
     addCoins,

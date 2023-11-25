@@ -1,13 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.selectors = exports.$battleStatusStore = void 0;
+exports.selectors = exports.$arenaStore = exports.$battleStatusStore = void 0;
 const effector_1 = require("effector");
 const effector_react_1 = require("effector-react");
+const user_1 = require("entities/user");
 const events_1 = require("shared/api/events");
 const DEFAULT_STORE = null;
 const useArena = () => {
     return {
-        data: (0, effector_react_1.useStore)($arenaStore)
+        data: (0, effector_react_1.useStore)(exports.$arenaStore)
     };
 };
 const useTeams = () => {
@@ -36,7 +37,7 @@ exports.$battleStatusStore = (0, effector_1.createStore)('default')
 const $arenaTimer = (0, effector_1.createStore)(0)
     .on(setTimer, (_, time) => time)
     .on(stepTimer, (time, _) => time - 1);
-const $arenaStore = (0, effector_1.createStore)(DEFAULT_STORE)
+exports.$arenaStore = (0, effector_1.createStore)(DEFAULT_STORE)
     .on(setArena, (_, arena) => arena);
 const $teamStore = (0, effector_1.createStore)([])
     .on(setTeams, (_, teams) => teams)
@@ -60,6 +61,29 @@ const $teamStore = (0, effector_1.createStore)([])
 }));
 const $myTeamId = (0, effector_1.createStore)(null)
     .on(setMyTeam, (_, team) => team);
+const battleOverFx = (0, effector_1.createEffect)((source) => {
+    const member = source.teams.filter(team => team.teamId === source.myTeamId)[0]
+        .members.filter(member => member.userId === source.zoneId);
+    if (member.length > 0) {
+        const t = member[0].trophies;
+        events_1.zoneAPI.events.addZoneTrophies(t);
+    }
+});
+(0, effector_1.sample)({
+    clock: setBattleStatus,
+    source: {
+        myTeamId: $myTeamId,
+        zoneId: user_1.userModel.$userIdStore,
+        teams: $teamStore
+    },
+    fn: (source) => ({
+        myTeamId: source.myTeamId,
+        zoneId: source.zoneId,
+        teams: source.teams,
+    }),
+    filter: (source, status) => status === 'over',
+    target: battleOverFx
+});
 exports.selectors = {
     useArena,
     useTeams,

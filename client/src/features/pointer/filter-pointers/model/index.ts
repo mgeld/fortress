@@ -5,7 +5,6 @@ import { pointersAPI } from "shared/api/events"
 
 export const filterPointers = () => {
     sample({
-        // clock: pointerMapModel.effects.getUsersFx.doneData,
         clock: pointersAPI.events.setPointers,
         source: {
             userId: userModel.$userIdStore,

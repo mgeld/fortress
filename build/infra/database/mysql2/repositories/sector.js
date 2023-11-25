@@ -90,7 +90,6 @@ let SectorRepository = class SectorRepository {
                 return true;
             }
             catch (e) {
-                console.log('97 97997979797979797', e);
                 throw new Error('Много записей добавить не удалось. Сорян');
             }
         });

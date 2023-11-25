@@ -29,6 +29,8 @@ class UseExtractionHandler extends IRoute {
 
         const extr = zone.hold.use(message.payload.id, message.payload.index)
 
+        if(!extr) return
+
         let resultIncrese: [number, number] | 'limit' = [0, 0]
 
         if (extr.gives === 'gun_distance') {
@@ -48,6 +50,7 @@ class UseExtractionHandler extends IRoute {
 
         if (extr.gives === 'ship_health') {
             resultIncrese = pointer.addHealth(extr.quantity)
+
             if (resultIncrese !== 'limit')
                 this._pointerService.memoryUpdate(pointer)
         }
@@ -113,9 +116,6 @@ class UseExtractionHandler extends IRoute {
                 return
             }
         }
-
-        console.log('resultIncrese', resultIncrese)
-        // console.log('resultIncrese - (resultIncrese - extr.quantity)', resultIncrese - (resultIncrese - extr.quantity))
 
         const extrResp: TUseExtraction = {
             event: 'use-extraction',

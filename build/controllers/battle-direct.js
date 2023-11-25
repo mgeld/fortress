@@ -26,6 +26,7 @@ const rooms_1 = require("../api/socket/socket/rooms");
 const member_service_1 = require("../services/member.service");
 const arena_service_1 = require("../services/arena.service");
 const pointer_service_1 = require("../services/pointer.service");
+const battle_service_1 = require("../services/battle.service");
 let BattleDirectHandler = class BattleDirectHandler extends handlers_1.IRoute {
     handle(message, uSocket) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -53,36 +54,17 @@ let BattleDirectHandler = class BattleDirectHandler extends handlers_1.IRoute {
                         payload: bomb
                     });
                     const health = _pointer.removeHealth(10);
+                    yield this._pointerService.memoryUpdate(_pointer);
                     if (health < 1) {
                         const killPointerTeam = arena.killPointer(_member.userId, _member.arenaTeam);
-                        yield this._arenaService.update(arena);
-                        _member.leaveArena();
+                        console.log('killPointerTeam.alive_members', killPointerTeam.alive_members);
                         if (killPointerTeam.alive_members === 0) {
-                            setTimeout(() => __awaiter(this, void 0, void 0, function* () {
-                                const members = [];
-                                members[0] = yield this._memberService.getByIds(arena.teamList[0].members);
-                                members[1] = yield this._memberService.getByIds(arena.teamList[1].members);
-                                this._rooms.arenas.broadcast(arena.id, {
-                                    event: 'battle-over',
-                                    payload: {
-                                        teams: arena.teamList.map((team, index) => {
-                                            const minTrophies = team.status === 'victory' ? 10 : -10;
-                                            return {
-                                                teamId: team.id,
-                                                status: team.status,
-                                                sectors: team.sectors,
-                                                members: members[index].map(member => {
-                                                    const wonTrophies = member.damage / 5;
-                                                    return {
-                                                        userId: member.userId,
-                                                        trophies: minTrophies + wonTrophies
-                                                    };
-                                                }),
-                                            };
-                                        })
-                                    }
-                                });
-                            }), 2000);
+                            arena.completeBattle(killPointerTeam.id);
+                            yield this._arenaService.update(arena);
+                            this._battleService.overGame(arena.id);
+                        }
+                        else {
+                            yield this._arenaService.update(arena);
                         }
                     }
                 }
@@ -104,6 +86,10 @@ __decorate([
     __metadata("design:type", rooms_1.Rooms)
 ], BattleDirectHandler.prototype, "_rooms", void 0);
 __decorate([
+    (0, inversify_1.inject)(types_1.TYPES.ArenaService),
+    __metadata("design:type", arena_service_1.ArenaService)
+], BattleDirectHandler.prototype, "_arenaService", void 0);
+__decorate([
     (0, inversify_1.inject)(types_1.TYPES.MemberService),
     __metadata("design:type", member_service_1.MemberService)
 ], BattleDirectHandler.prototype, "_memberService", void 0);
@@ -112,9 +98,9 @@ __decorate([
     __metadata("design:type", pointer_service_1.PointerService)
 ], BattleDirectHandler.prototype, "_pointerService", void 0);
 __decorate([
-    (0, inversify_1.inject)(types_1.TYPES.ArenaService),
-    __metadata("design:type", arena_service_1.ArenaService)
-], BattleDirectHandler.prototype, "_arenaService", void 0);
+    (0, inversify_1.inject)(types_1.TYPES.BattleService),
+    __metadata("design:type", battle_service_1.BattleService)
+], BattleDirectHandler.prototype, "_battleService", void 0);
 BattleDirectHandler = __decorate([
     (0, inversify_1.injectable)()
 ], BattleDirectHandler);

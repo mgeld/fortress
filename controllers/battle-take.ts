@@ -14,6 +14,7 @@ import { MemberService } from "../services/member.service";
 import { ArenaSectorService } from "../services/arena-sector.service";
 import { ArenaSector } from "../entities/arena/sector";
 import { BattleService } from "../services/battle.service";
+import { Team } from "../entities/arena/arena-team";
 
 @injectable()
 class BattleTakeHandler extends IRoute {
@@ -61,7 +62,7 @@ class BattleTakeHandler extends IRoute {
         zone.stormtrooper_corps.storm()
 
         try {
-            _sector = await this._sectorService.getById(message.payload.sector)
+            _sector = await this._sectorService.getById(message.payload.sector, arena.id)
         } catch (e) {
             _sector = this._sectorService.create({
                 id: message.payload.sector,
@@ -104,6 +105,8 @@ class BattleTakeHandler extends IRoute {
 
             // zone.terrain.newDefender()
 
+            let myTeam: Team | null = null
+
             // Если на секторе больше нет защитников
             if (_sector.defenders === 0) {
 
@@ -112,7 +115,7 @@ class BattleTakeHandler extends IRoute {
                 await this._memberService.update(_member)
 
                 // Сохраняем в стату команды захваченный сектор
-                const myTeam = arena.addSector(_member.arenaTeam)
+                myTeam = arena.addSector(_member.arenaTeam)
 
                 takeSector = {
                     new_owner_id: _member.arenaTeam,
@@ -129,18 +132,17 @@ class BattleTakeHandler extends IRoute {
                 // isBooty = Sector.probabilityGettingExtractionInFort(message.payload.fort)
                 // console.log('take isBooty', isBooty)
 
-
                 console.log('myTeam.sectors', myTeam.sectors)
 
                 if (myTeam.sectors >= 5) {
                     arena.completeBattle(myTeam.id === 1 ? 2 : 1)
+                    await this._arenaService.update(arena)
                     this._battleService.overGame(arena.id)
                 }
-
             }
 
-            await this._arenaService.update(arena)
-
+            if (myTeam && myTeam.sectors < 5)
+                await this._arenaService.update(arena)
         }
 
         // this._logs.takes.add(_sector.id)

@@ -24,12 +24,14 @@ const BattleOver = () => {
     teams.sort((a, b) => a.teamId === (userTeam === null || userTeam === void 0 ? void 0 : userTeam.teamId) ? -1 : 1);
     const pointers = pointer_1.pointerMapModel.selectors.usePointers().data;
     const leaveBattle = () => {
+        pointer_1.pointerMapModel.events.clearStore();
+        events_1.sectorsAPI.events.setSectors([]);
         events_1.mapAPI.events.setMapMode('invade');
         popout_root_1.popoutModel.events.setPopout(null);
-        ship_1.shipModel.events.resetUser();
         events_1.battleAPI.events.setTeams([]);
         events_1.battleAPI.events.setTimer(0);
         events_1.battleAPI.events.setBattleStatus('default');
+        ship_1.shipModel.events.resetUser();
     };
     const myTrophies = userTeam ? ((_a = userTeam.members.find(pointer => pointer.userId === user.userId)) === null || _a === void 0 ? void 0 : _a.trophies) || 0 : 0;
     return (<div className={styles_module_scss_1.default.battleRoot}>

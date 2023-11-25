@@ -47,9 +47,12 @@ class Extraction {
     }
     use(id, index) {
         const items = this._items.slice();
-        items.splice(index, 1);
-        this._items = items;
-        return units_1.Units.getUnitQuantity(id);
+        if (~items.findIndex(item => item === id)) {
+            items.splice(index, 1);
+            this._items = items;
+            return units_1.Units.getUnitQuantity(id);
+        }
+        return null;
     }
     addExtrToList(probabilityNumber) {
         const maxValueLevel = Extraction.getLevelMaxItems(this._level);

@@ -59,7 +59,6 @@ filterPointers()
 isFireHitMe()
 isBombHitMe()
 
-
 const MapLayout: FC<TMapProps> = () => {
 
     const center: LatLngExpression = mapModel.selectors.useMapCenter()
@@ -91,8 +90,9 @@ const MapLayout: FC<TMapProps> = () => {
                 zoomControl={false}
                 // fadeAnimation={true}
                 doubleClickZoom={false}
-            // boxZoom={true}
-            // scrollWheelZoom={true}
+                // boxZoom={true}
+                // scrollWheelZoom={false}
+                bounceAtZoomLimits={false}
             // preferCanvas={true}
             // maxBoundsViscosity={0.1}
             // worldCopyJump={true}
@@ -102,7 +102,7 @@ const MapLayout: FC<TMapProps> = () => {
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
 
-                <TestExtr />
+                {/* <TestExtr /> */}
 
                 {/* <Test /> */}
 
@@ -124,11 +124,9 @@ const MapLayout: FC<TMapProps> = () => {
                         <FortCounter />
                     </Pane>
 
-
                     <Pane name="booty-map" style={{ zIndex: 3005 }}>
                         <BootyMap />
                     </Pane>
-
 
                     <Pane name="fort-map" style={{ zIndex: 3005 }}>
                         <FortDetailsMap />
@@ -148,7 +146,7 @@ const MapLayout: FC<TMapProps> = () => {
                     </Pane>
 
                 </Pane>
-                
+
                 <Fires />
 
                 <Bombs />

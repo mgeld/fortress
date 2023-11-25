@@ -46,6 +46,8 @@ const TYPES = {
     BattleDirectHandler: Symbol.for('BattleDirectHandler'),
     GetSectorsHandler: Symbol.for('GetSectorsHandler'),
     GetAboutSectorHandler: Symbol.for('GetAboutSectorHandler'),
+    BattleGetAboutSectorHandler: Symbol.for('BattleGetAboutSectorHandler'),
+    
     GetUserHandler: Symbol.for('GetUserHandler'),
     UseExtractionHandler: Symbol.for('UseExtractionHandler'),
     BuyUnitHandler: Symbol.for('BuyUnitHandler'),

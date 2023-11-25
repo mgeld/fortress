@@ -77,17 +77,21 @@ export class Extraction {
     }
 
 
-    use(id: TExtrTypes, index: number): TExtrItem {
+    use(id: TExtrTypes, index: number): TExtrItem | null {
         const items = this._items.slice()
-        items.splice(index, 1)
-        this._items = items
-        return Units.getUnitQuantity(id)
+
+        if (~items.findIndex(item => item === id)) {
+            items.splice(index, 1)
+            this._items = items
+            return Units.getUnitQuantity(id)
+        }
+        return null
     }
 
     // addExtrToList(probabilityNumber: TExtrTypes) {
     //     this._items.push(probabilityNumber)
     // }
-    
+
     addExtrToList(probabilityNumber: TExtrTypes): TExtrTypes | 'limit' {
         const maxValueLevel = Extraction.getLevelMaxItems(this._level)
         if (this._items.length + 1 <= maxValueLevel) {

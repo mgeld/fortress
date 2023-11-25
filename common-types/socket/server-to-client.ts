@@ -321,7 +321,7 @@ export type TSectors = {
 
 export type TSectorPayload = {
     number: number
-    areal: number
+    latlng: TLatLng
     invaders: number
     defenders: number
     owner: string

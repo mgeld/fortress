@@ -57,6 +57,9 @@ let BattleJoinHandler = class BattleJoinHandler extends handlers_1.IRoute {
                     },
                 }
             }));
+            const pointer = yield this._pointerService.memoryGetById(member.userId);
+            pointer.areal = -1;
+            yield this._pointerService.memoryUpdate(pointer);
             if (arena.isFullTeams()) {
                 console.log('ISFULL TEAMS !!!!!!!!!!!!!');
                 arena.battleStart();
@@ -83,8 +86,7 @@ let BattleJoinHandler = class BattleJoinHandler extends handlers_1.IRoute {
                         })
                     }
                 });
-                const overGame = () => this._battleService.overGame(arena.id);
-                arena.timeout = setTimeout(overGame, 120000);
+                arena.timeout = setTimeout(() => this._battleService.overGame(arena.id), 120000);
             }
             yield this._arenaService.update(arena);
         });

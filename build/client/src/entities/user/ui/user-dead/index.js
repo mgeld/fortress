@@ -10,7 +10,6 @@ const map_1 = require("entities/map");
 const events_1 = require("shared/api/events");
 const citadel_1 = require("entities/citadel");
 const popout_root_1 = require("shared/ui/popout-root");
-const _icons_1 = require("widgets/counters/icons/_icons");
 const icons_1 = require("widgets/panel/assets/icons");
 const UserDead = () => {
     var _a;
@@ -35,12 +34,7 @@ const UserDead = () => {
                             Поражение!
                         </div>
                         <div className={styles_module_scss_1.default.__right}>
-                            <div className={styles_module_scss_1.default.__icon}>
-                                <_icons_1.IconTrophy width={34} height={34}/>
-                            </div>
-                            <div className={styles_module_scss_1.default.__text}>
-                                -25
-                            </div>
+                            
                         </div>
 
                     </div>

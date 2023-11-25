@@ -58,7 +58,6 @@ export const useApp = () => {
 
         if (vkUserId > 0 && socketStatus === 'close') {
             popoutModel.events.setPopout('lock-screen')
-
             lockModel.events.setLockScreen({
                 action: {
                     text: 'Переподключиться',
@@ -67,7 +66,6 @@ export const useApp = () => {
                 alert: 'Соединение потеряно',
                 message: 'Соединение с сервером было потеряно.'
             })
-
         }
         if (vkUserId > 0 && socketStatus === 'open') {
             const url = window.location.search;
