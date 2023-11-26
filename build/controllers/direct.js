@@ -33,10 +33,10 @@ let DirectHandler = class DirectHandler extends handlers_1.IRoute {
                 return;
             console.log('DirectHandler handle');
             const _pointer = yield this._pointerService.memoryGetById(uSocket.user_id);
+            _pointer.pos = message.payload.position;
             if (_pointer.health < 1) {
                 return;
             }
-            _pointer.pos = message.payload.position;
             const areal = areal_1.Areal.generator(message.payload.position);
             console.log('_pointer.areal', _pointer.areal);
             if (_pointer.areal && _pointer.areal === areal) {

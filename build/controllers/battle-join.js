@@ -35,6 +35,9 @@ let BattleJoinHandler = class BattleJoinHandler extends handlers_1.IRoute {
             console.log('BattleJoinHandler handle');
             if (!uSocket.user_id)
                 return;
+            const _pointer = yield this._pointerService.memoryGetById(uSocket.user_id);
+            if (_pointer.areal === -1)
+                return;
             const arena = yield this._arenaService.getArena();
             const team = arena.addPointer(uSocket.user_id);
             const teamPlace = team.getPlace(arena.place.place);
@@ -57,9 +60,15 @@ let BattleJoinHandler = class BattleJoinHandler extends handlers_1.IRoute {
                     },
                 }
             }));
-            const pointer = yield this._pointerService.memoryGetById(member.userId);
-            pointer.areal = -1;
-            yield this._pointerService.memoryUpdate(pointer);
+            this._rooms.areals.deleteClient(_pointer.zoneId, _pointer.areal);
+            this._rooms.areals.broadcast(_pointer.areal, {
+                event: 'del-pointer',
+                payload: {
+                    userId: _pointer.zoneId
+                }
+            });
+            _pointer.areal = -1;
+            yield this._pointerService.memoryUpdate(_pointer);
             if (arena.isFullTeams()) {
                 console.log('ISFULL TEAMS !!!!!!!!!!!!!');
                 arena.battleStart();

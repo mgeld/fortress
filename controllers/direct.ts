@@ -32,11 +32,11 @@ class DirectHandler extends IRoute {
 
         const _pointer = await this._pointerService.memoryGetById(uSocket.user_id)
 
+        _pointer.pos = message.payload.position
+
         if (_pointer.health < 1) {
             return
         }
-
-        _pointer.pos = message.payload.position
 
         const areal = Areal.generator(message.payload.position)
 

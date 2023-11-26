@@ -2,7 +2,8 @@ import { FC } from "react";
 import { cellsToMultiPolygon } from "h3-js";
 import { Pane, Polygon, Popup } from "react-leaflet";
 import { TZoneItem } from "shared/api/events/sectors";
-import { AboutSector } from "./about-sector/ui";
+import { AboutSector } from "./about-sector";
+// import { AboutSector } from "./about-sector/ui";
 
 type SectorsProps = {
     zones: TZoneItem[]

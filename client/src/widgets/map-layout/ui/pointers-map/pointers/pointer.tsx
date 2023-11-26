@@ -11,7 +11,7 @@ type TPointProps = {
 
 const Pointer: FC<TPointProps> = ({ pointer }) => {
 
-    if (pointer.health < 1) return <></>
+    // if (pointer.health < 1) return <></>
 
     return (
         <>
@@ -27,7 +27,6 @@ const Pointer: FC<TPointProps> = ({ pointer }) => {
             <PointIcon
                 position={pointer.pos}
                 userIcon={pointer.icon || ''}
-                // userName={pointer.name || ''}
             />
         </>
 

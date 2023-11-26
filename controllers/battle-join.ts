@@ -32,6 +32,10 @@ class BattleJoinHandler extends IRoute {
         console.log('BattleJoinHandler handle')
 
         if (!uSocket.user_id) return
+        
+        const _pointer = await this._pointerService.memoryGetById(uSocket.user_id)
+
+        if(_pointer.areal === -1) return
 
         const arena = await this._arenaService.getArena()
         const team = arena.addPointer(uSocket.user_id)
@@ -60,9 +64,15 @@ class BattleJoinHandler extends IRoute {
             }
         }))
 
-        const pointer = await this._pointerService.memoryGetById(member.userId)
-        pointer.areal = -1
-        await this._pointerService.memoryUpdate(pointer)
+        this._rooms.areals.deleteClient(_pointer.zoneId, _pointer.areal)
+        this._rooms.areals.broadcast(_pointer.areal, {
+            event: 'del-pointer',
+            payload: {
+                userId: _pointer.zoneId
+            }
+        })
+        _pointer.areal = -1
+        await this._pointerService.memoryUpdate(_pointer)
 
         if (arena.isFullTeams()) {
 

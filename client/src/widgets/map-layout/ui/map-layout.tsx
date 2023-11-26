@@ -20,7 +20,6 @@ import './styles.scss'
 
 import { mapModel } from "entities/map";
 import { changeBattleStatusListener } from "features/battle/battle-change-status/model";
-// import { Test } from "./test";
 import { ArealRectangle } from "entities/areal/ui";
 import Invaders from "entities/invader/ui/invaders";
 import { SectorsMap } from "./sectors-map";

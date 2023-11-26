@@ -1,7 +1,6 @@
 import { createEffect, sample } from "effector"
 import { mapModel } from "entities/map"
 import { shipModel } from "entities/ship"
-import { userModel } from "entities/user"
 import { Map } from "leaflet"
 import { TLatLng } from "shared/types"
 
