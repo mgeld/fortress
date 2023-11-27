@@ -1,3 +1,4 @@
+import { type } from "os"
 import { TBombSymbol, TExtrTypes, TExtrTypesName, TFindContType, TGameUnit, THitPointer, TJoystickDirection, TLatLng, TPointer, TTutType, TTypeToastNotice, TWeapon, TWeaponSymbol, TZoneItem } from "../model"
 
 export type TEventConnect = 'connect'
@@ -10,6 +11,7 @@ export type TEventDelPointer = 'del-pointer'
 export type TEventDirect = 'direct'
 export type TEventPointers = 'pointers'
 export type TEventFire = 'fire'
+export type TEventSetHealth = 'set-health'
 export type TEventBomb = 'bomb'
 export type TEventTake = 'take'
 export type TEventTakeHit = 'take-hit'
@@ -47,6 +49,7 @@ export type TEventsMessage =
     | TEventSetCitadel
     | TEventTutorial
     | TEventFire
+    | TEventSetHealth
     | TEventBomb
     | TEventTake
     | TEventTakeHit
@@ -343,6 +346,15 @@ export type TFire = {
     payload: TFirePayload
 }
 
+export type TSetHealthPayload = {
+    userId: number
+    health: number
+}
+export type TSetHealth = {
+    event: TEventSetHealth
+    payload: TSetHealthPayload
+}
+
 export type TBombPayload = {
     position: TLatLng
     userId: number
@@ -374,9 +386,12 @@ type TMember = {
     trophies: number
 }
 
+
+
+export type TTeamStatus = 'default' | 'victory' | 'defeat' | 'draw'
 export type TTeam = {
     teamId: number
-    status: 'default' | 'victory' | 'defeat'
+    status: TTeamStatus
     members: TMember[]
     sectors: number
 }
@@ -414,6 +429,7 @@ export type TMessage =
     | TSectors
     | TSector
     | TFire
+    | TSetHealth
     | TBomb
     | TTake
     | TTakeHit

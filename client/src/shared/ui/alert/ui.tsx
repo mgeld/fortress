@@ -32,12 +32,12 @@ export const Alert: FC = () => {
 
             <div className={styles.actions}>
                 <div className={styles.inside}>
-                    <div
+                    {data.action.close ? <div
                         onClick={closePopout}
                         className={`${styles.button} ${styles.__white}`}
                     >
                         Отмена
-                    </div>
+                    </div> : null}
                     <div
                         onClick={data.action._click}
                         className={styles.button}

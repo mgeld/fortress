@@ -74,7 +74,7 @@ const MapLayout: FC<TMapProps> = () => {
 
     // if (!point.load) return <>Load...</>
 
-    console.log('MapLayout MapLayout MapLayout MapLayout')
+    console.log('MapLayout')
 
     return (
         <div className='mapCard'>
@@ -111,35 +111,35 @@ const MapLayout: FC<TMapProps> = () => {
 
                 <Pane name="zoom-anim-map">
 
-                    <Pane name="fort" style={{ zIndex: 3001 }}>
+                    <Pane key="fort" name="fort" style={{ zIndex: 3001 }}>
                         <FortMap />
                     </Pane>
 
-                    <Pane name="citadel" style={{ zIndex: 3001 }}>
+                    <Pane key="citadel" name="citadel" style={{ zIndex: 3001 }}>
                         <Citadel />
                     </Pane>
 
-                    <Pane name="fort-counter" style={{ zIndex: 3005 }}>
+                    <Pane key="fort-counter" name="fort-counter" style={{ zIndex: 3005 }}>
                         <FortCounter />
                     </Pane>
 
-                    <Pane name="booty-map" style={{ zIndex: 3005 }}>
+                    <Pane key="booty-map" name="booty-map" style={{ zIndex: 3005 }}>
                         <BootyMap />
                     </Pane>
 
-                    <Pane name="fort-map" style={{ zIndex: 3005 }}>
+                    <Pane key="fort-map" name="fort-map" style={{ zIndex: 3005 }}>
                         <FortDetailsMap />
                     </Pane>
 
-                    <Pane name="invaders" style={{ zIndex: 3000 }}>
+                    <Pane key="invaders" name="invaders" style={{ zIndex: 3000 }}>
                         <Invaders />
                     </Pane>
 
-                    <Pane name="map-pointers" style={{ zIndex: 3002 }}>
+                    <Pane key="map-pointers" name="map-pointers" style={{ zIndex: 3002 }}>
                         <PointersMap />
                     </Pane>
 
-                    <Pane name="beam" style={{ zIndex: 3001 }}>
+                    <Pane key="beam" name="beam" style={{ zIndex: 3001 }}>
                         <Booty />
                         <TractorBeam />
                     </Pane>

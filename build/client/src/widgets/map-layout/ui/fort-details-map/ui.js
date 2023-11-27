@@ -10,6 +10,6 @@ const FortDetailsMap = () => {
     const fort = fort_1.fortModel.selectors.useFort().data;
     if (!fort)
         return <></>;
-    return (<details_popup_1.default fort={fort}/>);
+    return (<details_popup_1.default fort={fort} name="Форт"/>);
 };
 exports.FortDetailsMap = FortDetailsMap;

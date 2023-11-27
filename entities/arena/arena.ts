@@ -109,7 +109,9 @@ export class Arena {
     // Завершить битву типа
     completeBattle(defeatTeamId: number) {
         this.teamList.forEach(team => {
-            if (team.id === defeatTeamId) {
+            if (defeatTeamId === 0) {
+                team.drawTeam()
+            } else if (team.id === defeatTeamId) {
                 team.defeatTeam()
             } else {
                 team.victoryTeam()
@@ -150,10 +152,6 @@ export class Arena {
                 return true
             }
         })
-
-        // if (team[0].alive_members === 0) {
-        //     this.completeBattle(teamId)
-        // }
 
         try {
             return team[0]

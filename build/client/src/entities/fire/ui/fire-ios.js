@@ -29,7 +29,6 @@ const FireIOS = ({ fire }) => {
         fireStyle['transform'] = `translate3d(${px_to_pos}px, 0px, 0px)`;
     }
     fireStyle.animation = `fire_${fire.id} ${Math.abs(time_fire) / 10}s alternate`;
-    console.log('Math.abs(time_fire) / 10', Math.abs(time_fire) / 10);
     return (<>
             <div key={fire.id}>
                 <Keyframes_1.Keyframes name={`fire_${fire.id}`} from={{

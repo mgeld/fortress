@@ -1,6 +1,6 @@
 import { UNITS, cellArea, cellToLatLng, cellsToDirectedEdge, directedEdgeToCells, edgeLength, getHexagonEdgeLengthAvg, latLngToCell, originToDirectedEdges, } from "h3-js";
 import { FC, useRef } from "react";
-import { Circle, ImageOverlay, Pane, Rectangle, useMap, } from "react-leaflet";
+import { Circle, FeatureGroup, ImageOverlay, Pane, Rectangle, useMap, } from "react-leaflet";
 import { TLatLng } from "shared/types";
 import IconCitadel from './citadel.svg';
 import { citadelModel } from "entities/citadel";
@@ -9,6 +9,8 @@ import { LatLngBoundsExpression } from "leaflet";
 import { droneMapModel } from "entities/pointer";
 
 import './styles.css'
+import { popoutModel } from "shared/ui/popout-root";
+import { alertModel } from "shared/ui/alert";
 
 type CitadelProps = {
     pos: TLatLng
@@ -18,7 +20,7 @@ export const Citadel: FC = () => {
     // const map = useMap()
     const pos = citadelModel.selectors.useCitadel()?.latlng || [0, 0]
 
-    
+
     const size = droneMapModel.selectors.useDroneSize()
 
     // if(!pos) return <></>
@@ -51,7 +53,20 @@ export const Citadel: FC = () => {
     const weightDroneCircle = Math.ceil(p / 4)
 
     return (
-        <>
+        <FeatureGroup eventHandlers={{
+            click: () => {
+                popoutModel.events.setPopout('alert')
+                alertModel.events.setAlert({
+                    alert: 'Цитадель',
+                    message: 'Цитадель - это центр вашей зоны и первый захваченный форт. Куда бы вы не полетели, вы всегда сможете телепортироваться обратно к Цитаделю.',
+                    action: {
+                        close: false,
+                        text: 'Принято',
+                        _click: () => popoutModel.events.setPopout(null)
+                    }
+                })
+            }
+        }}>
             <Circle
                 key={1}
                 className={`fort black-fort`}
@@ -95,7 +110,7 @@ export const Citadel: FC = () => {
                 radius={26}
             />
             <Circle
-                key={3}
+                key={4}
                 className={`fort fort-flag`}
                 center={pos}
                 pathOptions={{
@@ -106,7 +121,7 @@ export const Citadel: FC = () => {
                 }}
                 radius={10}
             />
-        </>
+        </FeatureGroup>
     )
 
     // return (

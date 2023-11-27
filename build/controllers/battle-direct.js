@@ -29,20 +29,24 @@ const pointer_service_1 = require("../services/pointer.service");
 const battle_service_1 = require("../services/battle.service");
 let BattleDirectHandler = class BattleDirectHandler extends handlers_1.IRoute {
     handle(message, uSocket) {
+        var _a;
         return __awaiter(this, void 0, void 0, function* () {
             console.log('BattleDirectHandler handle');
             if (!uSocket.user_id)
                 return;
+            const pos = (_a = message.payload) === null || _a === void 0 ? void 0 : _a.position;
+            if (!pos)
+                return;
             const _pointer = yield this._pointerService.memoryGetById(uSocket.user_id);
             const _member = yield this._memberService.getById(_pointer.zoneId);
-            _member.pos = message.payload.position;
+            _member.pos = pos;
             const arena = yield this._arenaService.getById(_member.arena);
             const bounds = arena.place.bounds;
             if (_member.pos[0] < bounds[0][0] || _member.pos[1] < bounds[0][1] ||
                 _member.pos[0] > bounds[1][0] || _member.pos[1] > bounds[1][1]) {
                 if (Math.random() > 0.6) {
                     const bomb = {
-                        position: message.payload.position,
+                        position: pos,
                         userId: _pointer.zoneId,
                         bomb: {
                             symbol: 'aerial',
@@ -74,7 +78,7 @@ let BattleDirectHandler = class BattleDirectHandler extends handlers_1.IRoute {
                 event: 'direct',
                 payload: {
                     userId: _pointer.zoneId,
-                    pos: message.payload.position
+                    pos: pos
                 }
             }, _member.userId);
         });

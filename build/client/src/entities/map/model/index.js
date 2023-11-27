@@ -15,7 +15,6 @@ const $mapClickLatLng = (0, effector_1.createStore)(null)
     .on(setLatLngMap, (_, latlng) => latlng);
 exports.$mapMode = (0, effector_1.createStore)(null)
     .on(events_1.mapAPI.events.setMapMode, (_, mode) => mode);
-$mapClickLatLng.watch(value => console.log('mapClickLatLng value', value));
 exports.events = {
     setMap,
     setLatLngMap

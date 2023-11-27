@@ -5,9 +5,6 @@ import { invaderControl } from "../model";
 import styles from './styles.module.scss'
 
 const ControlInvader: FC = () => {
-
-    console.log('ControlInvader---------')
-
     return (
         <div className={styles.controlInvader}>
             <div className={styles.__circle}>

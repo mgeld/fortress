@@ -23,7 +23,6 @@ export class PointerCreator {
     }
 
     public async createPoint(pointIcon: string, userIcon: string): Promise<string> {
-        console.log("createPoint userIcon", userIcon)
         let img = this.pasteImageOnPointer(54, 70, pointIcon)
         return this.addUserImageToPoint(img, userIcon)
     }

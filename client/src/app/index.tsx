@@ -83,6 +83,7 @@ const App = () => {
       <PopoutRoot activePopout={popout}>
 
         <Popout
+          key='battle-pending'
           id='battle-pending'
           fill='white'
           screen='full'
@@ -93,6 +94,7 @@ const App = () => {
         </Popout>
 
         <Popout
+          key='battle-over'
           id='battle-over'
           fill='#5a166480'
           screen='full'
@@ -103,6 +105,7 @@ const App = () => {
         </Popout>
 
         <Popout
+          key='user-dead'
           id='user-dead'
           fill='#5a166480'
           edge={12}
@@ -111,6 +114,7 @@ const App = () => {
         </Popout>
 
         <Popout
+          key='select-place'
           id='select-place'
           fill='#5a166480'
           close={false}
@@ -120,6 +124,7 @@ const App = () => {
         </Popout>
 
         <Popout
+          key='select-extraction'
           id='select-extraction'
           fill='#5a166480'
           edge={28}
@@ -128,6 +133,7 @@ const App = () => {
         </Popout>
 
         <Popout
+          key='ship'
           id='ship'
           fill='#5a166480'
           edge={14}
@@ -136,6 +142,7 @@ const App = () => {
         </Popout>
 
         <Popout
+          key='storm-corps'
           id='storm-corps'
           fill='#5a166480'
           edge={14}
@@ -144,6 +151,7 @@ const App = () => {
         </Popout>
 
         <Popout
+          key='gun'
           id='gun'
           fill='#5a166480'
           edge={14}
@@ -152,6 +160,7 @@ const App = () => {
         </Popout>
 
         <Popout
+          key='hold'
           id='hold'
           fill='#5a166480'
           edge={14}
@@ -162,6 +171,7 @@ const App = () => {
 
         {/* START */}
         <Popout
+          key='gun-improve-distance'
           id='gun-improve-distance'
           fill='#5a166480'
           edge={14}
@@ -170,6 +180,7 @@ const App = () => {
         </Popout>
 
         <Popout
+          key='gun-improve-power'
           id='gun-improve-power'
           fill='#5a166480'
           edge={14}
@@ -178,6 +189,7 @@ const App = () => {
         </Popout>
 
         <Popout
+          key='storm-add-invaders'
           id='storm-add-invaders'
           fill='#5a166480'
           edge={14}
@@ -186,6 +198,7 @@ const App = () => {
         </Popout>
 
         <Popout
+          key='storm-improve-power'
           id='storm-improve-power'
           fill='#5a166480'
           edge={14}
@@ -194,6 +207,7 @@ const App = () => {
         </Popout>
 
         <Popout
+          key='ship-improve-health'
           id='ship-improve-health'
           fill='#5a166480'
           edge={14}
@@ -204,6 +218,7 @@ const App = () => {
         {/* END */}
 
         <Popout
+          key='ship-level-up'
           id='ship-level-up'
           fill='#5a166480'
           edge={14}
@@ -212,6 +227,7 @@ const App = () => {
         </Popout>
 
         <Popout
+          key='gun-level-up'
           id='gun-level-up'
           fill='#5a166480'
           edge={14}
@@ -220,6 +236,7 @@ const App = () => {
         </Popout>
 
         <Popout
+          key='storm-level-up'
           id='storm-level-up'
           fill='#5a166480'
           edge={14}
@@ -228,6 +245,7 @@ const App = () => {
         </Popout>
 
         <Popout
+          key='hold-level-up'
           id='hold-level-up'
           fill='#5a166480'
           edge={14}
@@ -236,6 +254,7 @@ const App = () => {
         </Popout>
 
         <Popout
+          key='panel'
           id='panel'
           fill='#5a166480'
           edge={14}
@@ -244,6 +263,7 @@ const App = () => {
         </Popout>
 
         <Popout
+          key='select-unit'
           id='select-unit'
           fill='#5a166480'
           edge={28}
@@ -252,6 +272,7 @@ const App = () => {
         </Popout>
 
         <Popout
+          key='alert'
           id='alert'
           fill='#5a166480'
           edge={28}
@@ -260,6 +281,7 @@ const App = () => {
         </Popout>
 
         <Popout
+          key='lock-screen'
           id='lock-screen'
           fill='#5a166480'
           edge={14}
@@ -269,6 +291,7 @@ const App = () => {
         </Popout>
 
         <Popout
+          key='primes'
           id='primes'
           fill='#5a166480'
           edge={12}
@@ -290,15 +313,15 @@ const App = () => {
       {socketStatus ? (
         <PageRoot activePage={page}>
 
-          <Page id='map'>
+          <Page key="map" id='map'>
             <MapPage />
           </Page>
 
-          <Page id='extraction'>
+          <Page key="extraction" id='extraction'>
             <ExtractionPage />
           </Page>
 
-          <Page id='gun-shop'>
+          <Page key="shop" id='gun-shop'>
             <GunShopPage />
           </Page>
 

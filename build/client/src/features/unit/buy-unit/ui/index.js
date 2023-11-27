@@ -18,10 +18,7 @@ const BuyUnit = () => {
     const unit = modules_1.modules[_unit];
     const closePopout = () => popout_root_1.popoutModel.events.setPopout(null);
     const _price = unit_buy_list_1.unitsPrices[_unit];
-    console.log('_unitBuy', _unit);
-    console.log('_price', _price);
     const buyUnit = () => {
-        console.log('buyUnit');
         popout_root_1.popoutModel.events.setPopout(null);
         (0, model_1.onBuyUnit)();
     };

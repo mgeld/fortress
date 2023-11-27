@@ -5,7 +5,6 @@ import { TDirectAPI } from "../../../../common-types/socket/client-to-server"
 export const directAPI = (
     position: TLatLng,
 ) => {
-    console.log('directAPI directAPI directAPI directAPI directAPIdirectAPI directAPI directAPI')
     const data: TDirectAPI = {
         event: 'direct',
         payload: {

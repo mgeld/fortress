@@ -42,16 +42,36 @@ let PingPong = class PingPong {
             try {
                 const member = yield this._memberService.getById(userId);
                 const arena = yield this._arenaService.getById(member.arena);
-                arena.delPointer(member.userId, member.arenaTeam);
-                this._rooms.arenas.deleteClient(member.userId, arena.id);
+                console.log('arena status', arena.status);
+                if (arena.status === 'pending') {
+                    arena.delPointer(member.userId, member.arenaTeam);
+                }
+                else if (arena.status === 'start') {
+                    arena.killPointer(member.userId, member.arenaTeam);
+                    this._rooms.arenas.broadcast(arena.id, {
+                        event: 'del-pointer',
+                        payload: {
+                            userId: _pointer.zoneId
+                        }
+                    }, _pointer.zoneId);
+                }
                 this._memberService.remove(member.userId);
+                this._rooms.arenas.deleteClient(member.userId, arena.id);
                 yield this._arenaService.update(arena);
             }
             catch (e) {
             }
             console.log('//////////////// /////////////_zone _zone.hold', _zone.hold.unmarshal());
-            this._rooms.areals.deleteClient(_pointer.zoneId, _pointer.areal);
-            _pointer.areal = -1;
+            if (_pointer.areal !== -1) {
+                this._rooms.areals.deleteClient(_pointer.zoneId, _pointer.areal);
+                this._rooms.areals.broadcast(_pointer.areal, {
+                    event: 'del-pointer',
+                    payload: {
+                        userId: _pointer.zoneId
+                    }
+                }, _pointer.zoneId);
+                _pointer.areal = -1;
+            }
             yield this._pointerService.baseUpdate(_pointer);
             yield this._zoneService.baseUpdate(_zone);
             yield this._weaponService.baseUpdate(_weapon);

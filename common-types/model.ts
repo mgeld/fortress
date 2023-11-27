@@ -10,7 +10,7 @@ export type TPointer = {
 export type THitPointer = {
     userId: number
     pos: TLatLng
-    health?: number
+    health: number
 }
 
 export type TJoystickDirection = "FORWARD" | "RIGHT" | "LEFT" | "BACKWARD"

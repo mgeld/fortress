@@ -23,6 +23,13 @@ class FireHandler extends IRoute {
 
         if (!uSocket.user_id) return
 
+        const __pos = message.payload?.pos
+        const __to_pos = message.payload?.to_pos
+        const __direction = message.payload?.direction
+        const __hitPointer = message.payload?.hitPointer
+
+        if(!__pos || !__to_pos || !__direction) return
+
         const _pointer = await this._pointerService.memoryGetById(uSocket.user_id)
         const weapon = await this._weaponService.memoryGetById(_pointer.weapons[0])
 
@@ -39,28 +46,35 @@ class FireHandler extends IRoute {
         await this._weaponService.memoryUpdate(weapon)
 
         const fire: TFirePayload = {
-            pos: message.payload.pos,
-            to_pos: message.payload.to_pos,
-            direction: message.payload.direction,
+            pos: __pos,
+            to_pos: __to_pos,
+            direction: __direction,
             userId: _pointer.zoneId
         }
 
-        if (message.payload?.hitPointer) {
+        if (__hitPointer) {
 
-            if (message.payload.hitPointer?.userId === -1) return
+            if (__hitPointer?.userId === -1) return
             
 
-            fire['hitPointer'] = message.payload.hitPointer
+            fire['hitPointer'] = __hitPointer
 
-            const hitPointer = await this._pointerService.memoryGetById(message.payload.hitPointer.userId)
+            const hitPointer = await this._pointerService.memoryGetById(__hitPointer.userId)
 
             if (
-                fire.to_pos[0] >= hitPointer.pos[0] - 0.0004 || fire.to_pos[0] <= hitPointer.pos[0] + 0.0004 &&
-                fire.to_pos[1] <= hitPointer.pos[1] - 0.0008 || fire.to_pos[1] >= hitPointer.pos[1] + 0.0008
+                !(fire.to_pos[0] >= hitPointer.pos[0] - 0.0004 || fire.to_pos[0] <= hitPointer.pos[0] + 0.0004 &&
+                    fire.to_pos[1] <= hitPointer.pos[1] - 0.0008 || fire.to_pos[1] >= hitPointer.pos[1] + 0.0008)
             ) {
-            } else {
                 return
             }
+
+            if (
+                !(fire.pos[0] >= _pointer.pos[0] - 0.0004 || fire.pos[0] <= _pointer.pos[0] + 0.0004 &&
+                    fire.pos[1] <= _pointer.pos[1] - 0.0008 || fire.pos[1] >= _pointer.pos[1] + 0.0008)
+            ) {
+                return
+            }
+
 
             hitPointer.removeHealth(weapon.power)
 

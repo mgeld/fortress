@@ -19,7 +19,14 @@ class GetAboutSectorHandler extends IRoute {
         message: TGetAboutSectorAPI,
         uSocket: IWebSocket,
     ) {
-        const _sector = await this._sectorService.getById(message.payload.id)
+
+        if (!uSocket.user_id) return
+
+        const __id = message.payload?.id
+
+        if(!__id) return
+
+        const _sector = await this._sectorService.getById(__id)
         const _pointer = await this._pointerService.getById(_sector.zone_id)
 
         const dtoSector = _sector.unmarshal()

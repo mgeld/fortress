@@ -82,17 +82,17 @@ export class StormtrooperCorps {
     public static getLevelUpPrice(level: number): number {
         const levels: { [key: number]: number } = {
             1: 0,
-            2: 100,
-            3: 300,
-            4: 600,
-            5: 1000,
-            6: 1500,
-            7: 2100,
-            8: 2800,
-            9: 3600,
-            10: 4500,
-            11: 5500,
-            12: 6600
+            2: 400,
+            3: 806,
+            4: 1209,
+            5: 3283,
+            6: 4924,
+            7: 7401,
+            8: 11102,
+            9: 13161,
+            10: 19742,
+            11: 20563,
+            12: 30844
         }
         return levels[level]
     }
@@ -122,18 +122,18 @@ export class StormtrooperCorps {
 
     private static getLevelMaxInvaders(level: number): number {
         const levels: { [key: number]: number } = {
-            1: 100,
-            2: 150,
-            3: 205,
-            4: 265,
-            5: 330,
-            6: 400,
-            7: 475,
-            8: 555,
-            9: 640,
-            10: 730,
-            11: 825,
-            12: 925
+            1: 150,
+            2: 200,
+            3: 255,
+            4: 315,
+            5: 380,
+            6: 450,
+            7: 525,
+            8: 605,
+            9: 690,
+            10: 780,
+            11: 875,
+            12: 975
         }
         return levels[level]
     }

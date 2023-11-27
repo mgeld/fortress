@@ -6,8 +6,6 @@ export const useHitFirePointer = (health: number) => {
 
     const initFireHitTarget = useRef(0)
 
-    console.log('15 useHitFirePointer')
-
     useEffect(() => {
         if (initFireHitTarget.current) {
             setFireHitTarget(true)

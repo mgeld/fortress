@@ -28,23 +28,27 @@ const areal_1 = require("../entities/pointer/areal");
 const sector_service_1 = require("../services/sector.service");
 let DirectHandler = class DirectHandler extends handlers_1.IRoute {
     handle(message, uSocket) {
+        var _a;
         return __awaiter(this, void 0, void 0, function* () {
             if (!uSocket.user_id)
                 return;
+            const __position = (_a = message.payload) === null || _a === void 0 ? void 0 : _a.position;
+            if (!__position)
+                return;
             console.log('DirectHandler handle');
             const _pointer = yield this._pointerService.memoryGetById(uSocket.user_id);
-            _pointer.pos = message.payload.position;
+            _pointer.pos = __position;
             if (_pointer.health < 1) {
                 return;
             }
-            const areal = areal_1.Areal.generator(message.payload.position);
+            const areal = areal_1.Areal.generator(__position);
             console.log('_pointer.areal', _pointer.areal);
             if (_pointer.areal && _pointer.areal === areal) {
                 this._rooms.areals.broadcast(_pointer.areal, {
                     event: 'direct',
                     payload: {
                         userId: _pointer.zoneId,
-                        pos: message.payload.position
+                        pos: __position
                     }
                 }, _pointer.zoneId);
             }
@@ -56,40 +60,7 @@ let DirectHandler = class DirectHandler extends handlers_1.IRoute {
                         payload: {
                             userId: _pointer.zoneId
                         }
-                    });
-                }
-                if (!_pointer.areal) {
-                    const direction = areal_1.Areal.generator([_pointer.pos[0] + 0.004, _pointer.pos[1]]) !== areal ? 'FORWARD' : 'BACKWARD';
-                    const _lat = direction === 'FORWARD' ? _pointer.pos[0] - 0.004 : _pointer.pos[0] + 0.004;
-                    setTimeout(() => {
-                        uSocket.send(JSON.stringify({
-                            event: 'connect-pointer',
-                            payload: {
-                                lvl: 1,
-                                userId: -1,
-                                icon: 'https://sun120-1.userapi.com/s/v1/ig2/Y5LhWYhLVxHswvVU4dGrqnGVc4wmSzQQKVKZXrlyflMWuRihg7F4TVephtlm4fmdE9SFxBCUKPFuxsqz4hIIu_cx.jpg?size=50x50&quality=95&crop=468,0,960,960&ava=1',
-                                name: 'НЛО',
-                                health: 50,
-                                pos: [_lat, _pointer.pos[1]]
-                            }
-                        }));
-                        const fire = {
-                            pos: [_lat, _pointer.pos[1]],
-                            to_pos: _pointer.pos,
-                            direction,
-                            userId: -1,
-                            hitPointer: {
-                                userId: _pointer.zoneId,
-                                pos: _pointer.pos,
-                                health: _pointer.health - 5
-                            }
-                        };
-                        _pointer.health = _pointer.health - 5;
-                        uSocket.send(JSON.stringify({
-                            event: 'fire',
-                            payload: fire
-                        }));
-                    }, 2000);
+                    }, _pointer.zoneId);
                 }
                 _pointer.areal = areal;
                 this._rooms.areals.addClientToRoom(_pointer.zoneId, _pointer.areal, uSocket);
@@ -101,7 +72,7 @@ let DirectHandler = class DirectHandler extends handlers_1.IRoute {
                         pointers: pointers.map(pointer => pointer.pointerUnmarshal())
                     }
                 }));
-                const _sectors = yield this._sectorService.getZonesAroundPosition(message.payload.position);
+                const _sectors = yield this._sectorService.getZonesAroundPosition(__position);
                 const array_sectors = Object.values(_sectors);
                 if (array_sectors.length > 0) {
                     let zones = {};
@@ -130,7 +101,7 @@ let DirectHandler = class DirectHandler extends handlers_1.IRoute {
                         icon: _pointer.icon,
                         name: _pointer.name,
                         health: _pointer.health,
-                        pos: message.payload.position
+                        pos: __position
                     }
                 }, _pointer.zoneId);
             }

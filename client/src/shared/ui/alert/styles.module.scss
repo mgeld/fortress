@@ -62,7 +62,6 @@
             padding: 10px 0;
 
             .button {
-                margin-left: 12px;
                 font-size: 16px;
                 line-height: 16px;
                 padding: 10px 14px;
@@ -72,6 +71,7 @@
                 color: #ffffff;
 
                 &.__white {
+                    margin-right: 12px;
                     color: #4a5467;
                     border: 2px solid #4a5467;
                     background-color: #dfdad4;

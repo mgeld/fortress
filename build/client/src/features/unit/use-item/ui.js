@@ -23,13 +23,10 @@ exports.useItemImproves = {
 const UseItem = ({ item, upswing, type, details, modules }) => {
     const extr = hold_1.holdModel.selectors.useHoldItems();
     const unit = unit_1.unitModel.selectors.useBuyUnit();
-    console.log('UseItem unit', unit);
     const [card, setCard] = (0, react_1.useState)(unit && ~modules.indexOf(unit) ? unit : modules[0]);
-    console.log('UseItem card', card);
     const extrIndex = extr.findIndex(item => item === card);
     const closePopout = () => popout_root_1.popoutModel.events.setPopout(null);
     const openExtraction = () => {
-        console.log('extrIndex', extrIndex);
         if (~extrIndex) {
             hold_1.holdModel.events.selectExtraction({
                 id: card,
@@ -43,6 +40,7 @@ const UseItem = ({ item, upswing, type, details, modules }) => {
                 alert: modules_1.modules[card].name,
                 message: `В трюме нет нужного предмета для использования. Перейти к покупке?`,
                 action: {
+                    close: true,
                     text: 'Подтвердить',
                     _click: () => {
                         unit_1.unitModel.events.selectBuyUnit(card);

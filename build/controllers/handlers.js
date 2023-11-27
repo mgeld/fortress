@@ -16,6 +16,7 @@ exports.Handlers = exports.IRoute = void 0;
 const inversify_1 = require("inversify");
 const types_1 = require("../types");
 require("reflect-metadata");
+const is_json_1 = require("./libs/is-json");
 let IRoute = class IRoute {
 };
 IRoute = __decorate([
@@ -44,7 +45,9 @@ let Handlers = class Handlers {
     }
     handle(uSocket) {
         return (message) => {
-            const _message = JSON.parse(message);
+            const _message = (0, is_json_1.IsJsonString)(message);
+            if (!_message || !(_message === null || _message === void 0 ? void 0 : _message.payload))
+                return;
             if (!this[_message.event]) {
                 throw new Error('2 Передан несуществующий обработчик');
             }

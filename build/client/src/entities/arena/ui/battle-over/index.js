@@ -40,23 +40,22 @@ const BattleOver = () => {
 
                     <div className={styles_module_scss_1.default.__shield}>
                         
-                        
 
-                        {(userTeam === null || userTeam === void 0 ? void 0 : userTeam.status) === 'victory' ?
+
+                        {(userTeam === null || userTeam === void 0 ? void 0 : userTeam.status) === 'victory' || (userTeam === null || userTeam === void 0 ? void 0 : userTeam.status) === 'draw' ?
             <img src={battle_shield_png_1.default} alt="<>"/> :
             <img src={battle_shield_red_png_1.default} alt="<>"/>}
                     </div>
 
                     {teams.map((team, i) => {
+            if (team.members.length < 1)
+                return <></>;
             return (<div className={[styles_module_scss_1.default.__team, styles_module_scss_1.default[team.status], styles_module_scss_1.default[`team${i}`]].join(' ')}>
 
                                 {team.teamId === (userTeam === null || userTeam === void 0 ? void 0 : userTeam.teamId) && (<>
-                                    <div className={styles_module_scss_1.default.__swords}>
-                                        <_icons_1.IconBattleSwords width={52} height={52}/>
-                                    </div>
                                     <div className={styles_module_scss_1.default.__header}>
                                         <div className={styles_module_scss_1.default.__left}>
-                                            {team.status === 'victory' ? 'Победа!' : 'Поражение!'}
+                                            {team.status === 'victory' ? 'Победа!' : team.status === 'defeat' ? 'Поражение :(' : 'Ничья :('}
                                         </div>
                                         <div className={styles_module_scss_1.default.__right}>
                                             <div className={styles_module_scss_1.default.__icon}>
@@ -68,6 +67,10 @@ const BattleOver = () => {
                                         </div>
                                     </div>
                                 </>)}
+
+                                {team.members.length > 0 && team.teamId !== (userTeam === null || userTeam === void 0 ? void 0 : userTeam.teamId) && (<div className={styles_module_scss_1.default.__swords}>
+                                        <_icons_1.IconBattleSwords width={52} height={52}/>
+                                    </div>)}
 
                                 <div className={styles_module_scss_1.default.__users}>
 

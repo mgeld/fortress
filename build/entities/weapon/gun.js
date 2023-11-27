@@ -7,8 +7,8 @@ class Gun {
         this.symbol = 1;
         this._id = props.id;
         this._level = (props === null || props === void 0 ? void 0 : props.level) || 1;
-        this._power = (props === null || props === void 0 ? void 0 : props.power) || 10;
-        this._distance = (props === null || props === void 0 ? void 0 : props.distance) || 290;
+        this._power = (props === null || props === void 0 ? void 0 : props.power) || 5;
+        this._distance = (props === null || props === void 0 ? void 0 : props.distance) || 300;
         this._bullets = (props === null || props === void 0 ? void 0 : props.bullets) || 100;
         this._status = (props === null || props === void 0 ? void 0 : props.status) ? 'used' : 'stock';
     }
@@ -39,12 +39,12 @@ class Gun {
     }
     static getLevelMaxDistance(level) {
         const levels = {
-            1: 300,
-            2: 350,
-            3: 430,
-            4: 540,
-            5: 680,
-            6: 850
+            1: 330,
+            2: 380,
+            3: 460,
+            4: 570,
+            5: 710,
+            6: 880
         };
         return levels[level];
     }
@@ -62,11 +62,11 @@ class Gun {
     static getLevelUpPrice(level) {
         const levels = {
             1: 0,
-            2: 100,
-            3: 300,
-            4: 600,
-            5: 1000,
-            6: 1500
+            2: 840,
+            3: 3420,
+            4: 7710,
+            5: 13710,
+            6: 21420
         };
         return levels[level];
     }

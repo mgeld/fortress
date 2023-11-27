@@ -54,6 +54,7 @@ const hitPointersFx = createEffect(({
 }: THitPointersFxProps) => {
 
     let hitPointer: THitPointer = {
+        health: 0,
         userId: 0,
         pos: [0, 0]
     }
@@ -78,6 +79,7 @@ const hitPointersFx = createEffect(({
         })
         if (isFire) {
             hitPointer = {
+                health: pointer.health,
                 userId: pointer.userId,
                 pos: pointer.pos
             }
@@ -140,6 +142,9 @@ const fireControlFx = createEffect(({
     setTimeout(() => {
         firesAPI.events.delFireById({ fire_id: FIRE_ID })
         if (clock.result.hitPointer.userId) {
+
+            // if(clock.result.hitPointer.health < 1) return
+
             pointersAPI.events.changeHealthPointer({
                 health: source.gunPower,
                 userId: clock.result.hitPointer.userId,

@@ -8,6 +8,9 @@ export const FortDetailsMap: FC = () => {
     if (!fort) return <></>
 
     return (
-        <DetailsPopup fort={fort} />
+        <DetailsPopup
+            fort={fort}
+            name="Форт"
+        />
     )
 }

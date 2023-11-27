@@ -23,6 +23,7 @@ const Panel = () => {
                 alert: 'Цитадель',
                 message: 'Цитадель - это центр вашей зоны и первая захваченная башня. Вы еще не захватили ни одной башни!',
                 action: {
+                    close: false,
                     text: 'Начать захват',
                     _click: () => popout_root_1.popoutModel.events.setPopout(null)
                 }

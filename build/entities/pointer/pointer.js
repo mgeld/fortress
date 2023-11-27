@@ -64,11 +64,11 @@ class Pointer {
     static getLevelUpPrice(level) {
         const levels = {
             1: 0,
-            2: 20,
-            3: 40,
-            4: 70,
-            5: 110,
-            6: 160
+            2: 71,
+            3: 290,
+            4: 655,
+            5: 1165,
+            6: 1820
         };
         return levels[level];
     }

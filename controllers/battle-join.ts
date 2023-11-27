@@ -35,6 +35,8 @@ class BattleJoinHandler extends IRoute {
         
         const _pointer = await this._pointerService.memoryGetById(uSocket.user_id)
 
+        // Если игрок уже на Арене или ищет противника
+        // Такого через игру не будет, но могут отправить запросы, чтобы найти уязы
         if(_pointer.areal === -1) return
 
         const arena = await this._arenaService.getArena()
@@ -64,13 +66,14 @@ class BattleJoinHandler extends IRoute {
             }
         }))
 
+        // Удаляем клиента из ареала, т.к. он добавлен на арену
         this._rooms.areals.deleteClient(_pointer.zoneId, _pointer.areal)
         this._rooms.areals.broadcast(_pointer.areal, {
             event: 'del-pointer',
             payload: {
                 userId: _pointer.zoneId
             }
-        })
+        }, _pointer.zoneId)
         _pointer.areal = -1
         await this._pointerService.memoryUpdate(_pointer)
 
@@ -114,13 +117,7 @@ class BattleJoinHandler extends IRoute {
                 }
             })
 
-            // const overGame = () => {
-            //     this._battleService.overGame(arena)
-            // }
-            // const __ = () => overGame.bind(this)
             arena.timeout = setTimeout(() => this._battleService.overGame(arena.id), 120000)
-
-            // arena.timeout = setTimeout(overGame, 40000)
 
         }
 

@@ -1,4 +1,3 @@
-
 import { inject, injectable } from "inversify";
 import { IWebSocket } from "../api/socket/server";
 import { TYPES } from "../types";
@@ -15,7 +14,6 @@ import { verifyLaunchParams } from "../libs/verify-launch-params";
 import { TConnectPayload } from "../common-types/socket/server-to-client";
 import { VkUserRepository } from "../infra/database/mysql2/repositories/vk-user";
 import { TConnectAPI, TEventConnect } from "../common-types/socket/client-to-server";
-import { randomNumber } from "../libs/random-number";
 import { Rooms } from "../api/socket/socket/rooms";
 
 @injectable()

@@ -5,7 +5,6 @@ const react_1 = require("react");
 const useHitFirePointer = (health) => {
     const [fireHitTarget, setFireHitTarget] = (0, react_1.useState)(false);
     const initFireHitTarget = (0, react_1.useRef)(0);
-    console.log('15 useHitFirePointer');
     (0, react_1.useEffect)(() => {
         if (initFireHitTarget.current) {
             setFireHitTarget(true);

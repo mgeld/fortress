@@ -45,7 +45,6 @@ class PointerCreator {
     }
     createPoint(pointIcon, userIcon) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log("createPoint userIcon", userIcon);
             let img = this.pasteImageOnPointer(54, 70, pointIcon);
             return this.addUserImageToPoint(img, userIcon);
         });

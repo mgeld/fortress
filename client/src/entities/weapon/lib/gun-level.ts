@@ -26,21 +26,21 @@ export class GunLevel {
     }
 
     private static _gunDistance: Record<TGunLevel, number> = {
-        1: 300,
-        2: 350,
-        3: 430,
-        4: 540,
-        5: 680,
-        6: 850
+        1: 330,
+        2: 380,
+        3: 460,
+        4: 570,
+        5: 710,
+        6: 880 
     }
 
     private static _priceLevelUp: Record<TGunLevel, number> = {
         1: 0,
-        2: 100,
-        3: 300,
-        4: 600,
-        5: 1000,
-        6: 1500
+        2: 840,
+        3: 3420,
+        4: 7710,
+        5: 13710,
+        6: 21420
     }
 
     public static getLevelUpPrice(level: TGunLevel) {

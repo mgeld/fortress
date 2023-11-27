@@ -7,9 +7,11 @@ import { TYPES } from "../types";
 import { ZoneService } from "../services/zone.service";
 import { WeaponService } from "../services/weapon.service";
 import { PointerService } from "../services/pointer.service";
+import { Rooms } from "../api/socket/socket/rooms";
 
 @injectable()
 class UseExtractionHandler extends IRoute {
+    @inject(TYPES.Rooms) private _rooms!: Rooms
     @inject(TYPES.ZoneService) private _zoneService!: ZoneService
     @inject(TYPES.PointerService) private _pointerService!: PointerService
     @inject(TYPES.WeaponService) private _weaponService!: WeaponService
@@ -24,12 +26,17 @@ class UseExtractionHandler extends IRoute {
 
         if (!uSocket.user_id) return
 
+        const __id = message.payload?.id
+        const __index = message.payload?.index
+
+        if (!__id) return
+
         const zone = await this._zoneService.getById(uSocket.user_id)
         const pointer = await this._pointerService.memoryGetById(zone.id)
 
-        const extr = zone.hold.use(message.payload.id, message.payload.index)
+        const extr = zone.hold.use(__id, __index)
 
-        if(!extr) return
+        if (!extr) return
 
         let resultIncrese: [number, number] | 'limit' = [0, 0]
 
@@ -51,8 +58,16 @@ class UseExtractionHandler extends IRoute {
         if (extr.gives === 'ship_health') {
             resultIncrese = pointer.addHealth(extr.quantity)
 
-            if (resultIncrese !== 'limit')
+            if (resultIncrese !== 'limit') {
                 this._pointerService.memoryUpdate(pointer)
+                this._rooms.areals.broadcast(pointer.areal, {
+                    event: 'set-health',
+                    payload: {
+                        userId: pointer.zoneId,
+                        health: pointer.health,
+                    }
+                }, pointer.zoneId)
+            }
         }
 
         if (extr.gives === 'storm_power') {
@@ -117,13 +132,16 @@ class UseExtractionHandler extends IRoute {
             }
         }
 
+        // if(extr.gives === 'ship_health') {
+        // }
+
         const extrResp: TUseExtraction = {
             event: 'use-extraction',
             payload: {
-                unit: message.payload.id,
+                unit: __id,
                 amount: resultIncrese[1] - resultIncrese[0],
                 type: extr.gives,
-                index: message.payload.index
+                index: __index
             }
         }
         uSocket.send(JSON.stringify(extrResp))

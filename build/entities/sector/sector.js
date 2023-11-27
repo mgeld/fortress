@@ -30,7 +30,7 @@ class Sector {
     }
     generateBooty() {
         const rand = Math.random();
-        const container = rand < 0.2 ? 3 : rand < 0.5 ? 2 : 1;
+        const container = rand > 0.5 ? 1 : rand < 0.6 && rand > 0.2 ? 2 : 3;
         this._booty = container;
         return container;
     }
@@ -41,7 +41,7 @@ class Sector {
         const probabilityNumber = Math.ceil((+pos[0].toString().slice(-1) + +pos[1].toString().slice(-1)));
         console.log('pos', pos);
         console.log('probabilityNumber', probabilityNumber);
-        return probabilityNumber <= 6;
+        return probabilityNumber === 10;
     }
     invade(invader_user, invader_power, defender_power) {
         if (invader_user === this._zone_id &&

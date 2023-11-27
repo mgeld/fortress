@@ -4,8 +4,6 @@ import { direction } from "../model";
 
 export const useControl = () => {
 
-    console.log('useControl')
-
     const moveId = useRef<ReturnType<typeof setTimeout>>()
 
     useEffect(() => {

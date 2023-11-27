@@ -30,6 +30,10 @@ class BattleDirectHandler extends IRoute {
 
         if (!uSocket.user_id) return
 
+        const pos = message.payload?.position
+
+        if(!pos) return
+
         const _pointer = await this._pointerService.memoryGetById(uSocket.user_id)
         const _member = await this._memberService.getById(_pointer.zoneId)
 
@@ -37,7 +41,7 @@ class BattleDirectHandler extends IRoute {
         //     return
         // }
 
-        _member.pos = message.payload.position
+        _member.pos = pos
 
         const arena = await this._arenaService.getById(_member.arena)
 
@@ -51,7 +55,7 @@ class BattleDirectHandler extends IRoute {
             if (Math.random() > 0.6) {
 
                 const bomb: TBombPayload = {
-                    position: message.payload.position,
+                    position: pos,
                     userId: _pointer.zoneId,
                     bomb: {
                         symbol: 'aerial',
@@ -128,7 +132,7 @@ class BattleDirectHandler extends IRoute {
             event: 'direct',
             payload: {
                 userId: _pointer.zoneId,
-                pos: message.payload.position
+                pos: pos
             }
         }, _member.userId)
 

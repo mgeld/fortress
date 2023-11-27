@@ -31,6 +31,13 @@ class BattleFireHandler extends IRoute {
 
         if (!uSocket.user_id) return
 
+        const __pos = message.payload?.pos
+        const __to_pos = message.payload?.to_pos
+        const __direction = message.payload?.direction
+        const __hitPointer = message.payload?.hitPointer
+
+        if(!__pos || !__to_pos || !__direction) return
+
         console.log('BattleFireHandler handle')
 
         const _pointer = await this._pointerService.memoryGetById(uSocket.user_id)
@@ -54,62 +61,52 @@ class BattleFireHandler extends IRoute {
         await this._weaponService.memoryUpdate(weapon)
 
         const fire: TFirePayload = {
-            pos: message.payload.pos,
-            to_pos: message.payload.to_pos,
-            direction: message.payload.direction,
+            pos: __pos,
+            to_pos: __to_pos,
+            direction: __direction,
             userId: _pointer.zoneId
         }
 
-        if (message.payload?.hitPointer) {
-
-            // console.log('message.payload?.hitPointer', message.payload?.hitPointer)
-
+        if (__hitPointer) {
 
             // Противник
-            const hitPointer = await this._pointerService.memoryGetById(message.payload.hitPointer.userId)
+            const hitPointer = await this._pointerService.memoryGetById(__hitPointer.userId)
 
             console.log('hitPointer.pos', hitPointer.pos)
             console.log('fire.to_pos', hitPointer.pos)
 
             if (
-                fire.to_pos[0] >= hitPointer.pos[0] - 0.0004 || fire.to_pos[0] <= hitPointer.pos[0] + 0.0004 &&
-                fire.to_pos[1] <= hitPointer.pos[1] - 0.0008 || fire.to_pos[1] >= hitPointer.pos[1] + 0.0008
+                !(fire.to_pos[0] >= hitPointer.pos[0] - 0.0004 || fire.to_pos[0] <= hitPointer.pos[0] + 0.0004 &&
+                    fire.to_pos[1] <= hitPointer.pos[1] - 0.0008 || fire.to_pos[1] >= hitPointer.pos[1] + 0.0008)
             ) {
-            } else {
+                return
+            }
+
+            if (
+                !(fire.pos[0] >= _pointer.pos[0] - 0.0004 || fire.pos[0] <= _pointer.pos[0] + 0.0004 &&
+                    fire.pos[1] <= _pointer.pos[1] - 0.0008 || fire.pos[1] >= _pointer.pos[1] + 0.0008)
+            ) {
                 return
             }
 
             // Сохраняем в свою стату нанесенный противнику урон
             _member.makeDamage(weapon.power)
 
-            fire['hitPointer'] = message.payload.hitPointer
+            fire['hitPointer'] = __hitPointer
 
-            const hitMember = await this._memberService.getById(message.payload.hitPointer.userId)
+            const hitMember = await this._memberService.getById(__hitPointer.userId)
 
             // Отнимаем здоровье в зависимости от Урона Оружия
             hitPointer.removeHealth(weapon.power)
 
             fire.hitPointer.health = hitPointer.health
 
-            // console.log('hitPointer.health', hitPointer.health)
-            // console.log('message.payload.hitPointer.userId', message.payload.hitPointer.userId)
-
-            console.log('BattleFire _member.sectors', _member.sectors)
-
-            console.log('_member', _member.unmarshal())
-            console.log('hitMember', hitMember.unmarshal())
-
             // Если противник погиб
             if (hitPointer.health < 1) {
-
-                console.log('Погиб hitPointer.zoneId', hitPointer.zoneId)
 
                 const killPointerTeam = arena.killPointer(hitMember.userId, hitMember.arenaTeam)
 
                 // hitMember.leaveArena()
-
-                console.log('killPointerTeam.unmarshal()', killPointerTeam.unmarshal())
-                console.log('killPointerTeam.unmarshal()', killPointerTeam.unmarshal())
 
                 // Сохраняем в свою стату убитого противника
                 _member.addKilledPointer()

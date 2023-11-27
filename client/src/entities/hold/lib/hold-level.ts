@@ -18,11 +18,11 @@ export class HoldLevel {
     
     private static _priceLevelUp: Record<THoldLevel, number> = {
         1: 0,
-        2: 100,
-        3: 300,
-        4: 600,
-        5: 1000,
-        6: 1500
+        2: 504,
+        3: 2052,
+        4: 4626,
+        5: 8226,
+        6: 12852
     }
 
     public static getLevelUpPrice(level: THoldLevel) {

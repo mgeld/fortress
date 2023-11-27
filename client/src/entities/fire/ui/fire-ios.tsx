@@ -48,8 +48,6 @@ export const FireIOS: FC<TFireProps> = ({
 
     fireStyle.animation = `fire_${fire.id} ${Math.abs(time_fire) / 10}s alternate`
 
-    console.log('Math.abs(time_fire) / 10', Math.abs(time_fire) / 10)
-
     return (
         <>
             <div key={fire.id}>

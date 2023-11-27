@@ -19,13 +19,12 @@ class FireHandler extends __1.Handler {
             direction
         });
         setTimeout(() => {
-            var _a, _b, _c;
+            var _a, _b;
             events_1.firesAPI.events.delFireById({ fire_id: FIRE_ID });
             if ((_a = message.payload.hitPointer) === null || _a === void 0 ? void 0 : _a.userId) {
-                console.log('message.payload.hitPointer?.health', (_b = message.payload.hitPointer) === null || _b === void 0 ? void 0 : _b.health);
                 events_1.firesAPI.events.hitFireInTarget({
                     hitUserId: message.payload.hitPointer.userId,
-                    health: ((_c = message.payload.hitPointer) === null || _c === void 0 ? void 0 : _c.health) || 0
+                    health: ((_b = message.payload.hitPointer) === null || _b === void 0 ? void 0 : _b.health) || 0
                 });
             }
         }, 500);

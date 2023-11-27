@@ -64,7 +64,7 @@ export class Sector {
 
     generateBooty(): TFindContType {
         const rand = Math.random()
-        const container = rand < 0.2 ? 3 : rand < 0.5 ? 2 : 1
+        const container = rand > 0.5 ? 1 : rand < 0.6 && rand > 0.2 ? 2 : 3
         this._booty = container
         return container
     }
@@ -79,7 +79,7 @@ export class Sector {
         console.log('pos', pos)
         console.log('probabilityNumber', probabilityNumber)
 
-        return probabilityNumber <= 6
+        return probabilityNumber === 10
 
     }
 

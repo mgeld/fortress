@@ -23,7 +23,10 @@ exports.$pointersStore = (0, effector_1.createStore)(DEFAULT_STORE)
         return Object.assign(Object.assign({}, pointer), { pos: data.pos });
     return pointer;
 })))
-    .on(changeHealthPointer, (prevPointers, data) => (prevPointers.map(prevPointer => prevPointer.userId === data.userId ? Object.assign(Object.assign({}, prevPointer), { health: prevPointer.health - data.health }) : prevPointer)))
+    .on(changeHealthPointer, (prevPointers, data) => (prevPointers.map(prevPointer => {
+    const nHealth = prevPointer.health - data.health;
+    return prevPointer.userId === data.userId ? Object.assign(Object.assign({}, prevPointer), { health: nHealth < 0 ? 0 : nHealth }) : prevPointer;
+})))
     .on(setHealthPointer, (prevPointers, data) => (prevPointers.map(prevPointer => prevPointer.userId === data.userId ? Object.assign(Object.assign({}, prevPointer), { health: data.health }) : prevPointer)))
     .on(clearStore, () => DEFAULT_STORE);
 exports.$pointersStore.watch(val => console.log('pointersStore watch', val));

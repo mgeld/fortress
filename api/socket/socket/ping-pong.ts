@@ -38,12 +38,23 @@ export class PingPong {
         try {
             const member = await this._memberService.getById(userId)
             const arena = await this._arenaService.getById(member.arena)
-            arena.delPointer(member.userId, member.arenaTeam)
 
-            this._rooms.arenas.deleteClient(member.userId, arena.id)
+            console.log('arena status', arena.status)
+
+            if (arena.status === 'pending') {
+                arena.delPointer(member.userId, member.arenaTeam)
+            } else if (arena.status === 'start') {
+                arena.killPointer(member.userId, member.arenaTeam)
+                this._rooms.arenas.broadcast(arena.id, {
+                    event: 'del-pointer',
+                    payload: {
+                        userId: _pointer.zoneId
+                    }
+                }, _pointer.zoneId)
+            }
 
             this._memberService.remove(member.userId)
-
+            this._rooms.arenas.deleteClient(member.userId, arena.id)
 
             await this._arenaService.update(arena)
         } catch (e) {
@@ -52,8 +63,17 @@ export class PingPong {
 
         console.log('//////////////// /////////////_zone _zone.hold', _zone.hold.unmarshal())
 
-        this._rooms.areals.deleteClient(_pointer.zoneId, _pointer.areal)
-        _pointer.areal = -1 // Типа удаляем ареал, чтобы в след заход появится у других в игре
+        if (_pointer.areal !== -1) {
+            this._rooms.areals.deleteClient(_pointer.zoneId, _pointer.areal)
+            this._rooms.areals.broadcast(_pointer.areal, {
+                event: 'del-pointer',
+                payload: {
+                    userId: _pointer.zoneId
+                }
+            }, _pointer.zoneId)
+            
+            _pointer.areal = -1 // Типа удаляем ареал, чтобы в след заход появится у других в игре
+        }
 
         await this._pointerService.baseUpdate(_pointer)
         await this._zoneService.baseUpdate(_zone)

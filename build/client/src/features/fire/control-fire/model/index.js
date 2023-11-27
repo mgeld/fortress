@@ -15,6 +15,7 @@ const battle_fire_1 = require("shared/api/battle-fire");
 const ship_1 = require("entities/ship");
 const hitPointersFx = (0, effector_1.createEffect)(({ source, fire }) => {
     let hitPointer = {
+        health: 0,
         userId: 0,
         pos: [0, 0]
     };
@@ -31,6 +32,7 @@ const hitPointersFx = (0, effector_1.createEffect)(({ source, fire }) => {
         });
         if (isFire) {
             hitPointer = {
+                health: pointer.health,
                 userId: pointer.userId,
                 pos: pointer.pos
             };

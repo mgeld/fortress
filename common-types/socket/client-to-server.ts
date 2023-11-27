@@ -136,7 +136,7 @@ export type TBeamAPI = {
         position: TLatLng
         fort: TLatLng
         sector: string
-        userId: number
+        // userId: number
     }
 }
 

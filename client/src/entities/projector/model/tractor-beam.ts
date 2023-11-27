@@ -49,7 +49,7 @@ const $bootyStore = createStore<TBooty[]>(DEFAULT_STORE_BOOTY)
         return true;
     })))
 
-$bootyStore.watch(() => console.log('$bootyStore'))
+// $bootyStore.watch(() => console.log('$bootyStore'))
 
 const useBooty = () => {
     return {

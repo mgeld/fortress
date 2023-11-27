@@ -31,9 +31,13 @@ const stormtrooper_corps_1 = require("../entities/zone/stormtrooper_corps");
 const extraction_1 = require("../entities/zone/extraction");
 let LevelUpHandler = class LevelUpHandler extends handlers_1.IRoute {
     handle(message, uSocket) {
+        var _a;
         return __awaiter(this, void 0, void 0, function* () {
             console.log('UseExtractionHandler handle');
             if (!uSocket.user_id)
+                return;
+            const __type = (_a = message.payload) === null || _a === void 0 ? void 0 : _a.type;
+            if (!__type)
                 return;
             const zone = yield this._zoneService.getById(uSocket.user_id);
             const pointer = yield this._pointerService.memoryGetById(zone.id);
@@ -42,7 +46,7 @@ let LevelUpHandler = class LevelUpHandler extends handlers_1.IRoute {
             let cost = 0;
             let currency = null;
             let isSpend = 0;
-            if (message.payload.type === 'ship') {
+            if (__type === 'ship') {
                 newLevel = pointer.upLevel();
                 cost = pointer_1.Pointer.getLevelUpPrice(newLevel);
                 isSpend = zone.spendRubies(cost);
@@ -52,7 +56,7 @@ let LevelUpHandler = class LevelUpHandler extends handlers_1.IRoute {
                     yield this._zoneService.memoryUpdate(zone);
                 }
             }
-            if (message.payload.type === 'gun') {
+            else if (__type === 'gun') {
                 newLevel = weapon.upLevel();
                 cost = gun_1.Gun.getLevelUpPrice(newLevel);
                 isSpend = zone.spendСoins(cost);
@@ -62,7 +66,7 @@ let LevelUpHandler = class LevelUpHandler extends handlers_1.IRoute {
                     yield this._weaponService.memoryUpdate(weapon);
                 }
             }
-            if (message.payload.type === 'storm-corps') {
+            else if (__type === 'storm-corps') {
                 newLevel = zone.stormtrooper_corps.upLevel();
                 cost = stormtrooper_corps_1.StormtrooperCorps.getLevelUpPrice(newLevel);
                 isSpend = zone.spendСoins(cost);
@@ -70,13 +74,16 @@ let LevelUpHandler = class LevelUpHandler extends handlers_1.IRoute {
                 if (~isSpend)
                     this._zoneService.memoryUpdate(zone);
             }
-            if (message.payload.type === 'hold') {
+            else if (__type === 'hold') {
                 newLevel = zone.hold.upLevel();
                 cost = extraction_1.Extraction.getLevelUpPrice(newLevel);
                 isSpend = zone.spendСoins(cost);
                 currency = 'coins';
                 if (~isSpend)
                     this._zoneService.memoryUpdate(zone);
+            }
+            else {
+                return;
             }
             if (isSpend === -1 && currency) {
                 const limitResp = {
@@ -94,7 +101,7 @@ let LevelUpHandler = class LevelUpHandler extends handlers_1.IRoute {
                 const extrResp = {
                     event: 'level-up',
                     payload: {
-                        type: message.payload.type,
+                        type: __type,
                         cost,
                         new_level: newLevel,
                         currency

@@ -30,7 +30,6 @@ export const useApp = () => {
         window.addEventListener("offline", lostInternet);
 
         bridge.send('VKWebAppGetUserInfo').then(user => {
-            console.log('VKWebAppGetUserInfo user', user)
             userModel.events.setVkUser(user.id)
             userModel.events.setName(user.first_name)
             userModel.events.setUserIcon(user.photo_100)
@@ -53,9 +52,6 @@ export const useApp = () => {
     }, [])
     
     useEffect(() => {
-        console.log('useEffect vkUserId', vkUserId)
-        console.log('useEffect socketStatus', socketStatus)
-
         if (vkUserId > 0 && socketStatus === 'close') {
             popoutModel.events.setPopout('lock-screen')
             lockModel.events.setLockScreen({

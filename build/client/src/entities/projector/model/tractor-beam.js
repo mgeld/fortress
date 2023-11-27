@@ -22,7 +22,6 @@ const $bootyStore = (0, effector_1.createStore)(DEFAULT_STORE_BOOTY)
         return false;
     return true;
 })));
-$bootyStore.watch(() => console.log('$bootyStore'));
 const useBooty = () => {
     return {
         items: (0, effector_react_1.useStore)($bootyStore)

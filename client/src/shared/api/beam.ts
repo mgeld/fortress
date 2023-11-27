@@ -6,7 +6,7 @@ export const beamAPI = (
     position: TLatLng,
     fort: TLatLng,
     sector: string,
-    userId: number,
+    // userId: number,
 ) => {
     
     const data: TBeamAPI = {
@@ -15,7 +15,7 @@ export const beamAPI = (
             position,
             fort,
             sector,
-            userId,
+            // userId,
         }
     }
 

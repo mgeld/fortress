@@ -34,11 +34,11 @@ class LimitHandler extends Handler {
                 break;
             case 'coins':
                 name = `Монеты`
-                text = `У вас недостаточно монет. Вы можете получать монеты захватывая башни, которые окружены территорием c золотым оттенком!`
+                text = `У вас недостаточно монет. Вы можете получать монеты за различные предметы, которые можно найти в фортах после их завоеваний!`
                 break;
             case 'rubies':
                 name = `Кристаллы`
-                text = `У вас недостаточно кристаллов. Вы можете получать кристаллы захватывая башни, которые окружены  территорием c золотым оттенком!`
+                text = `У вас недостаточно кристаллов. Вы можете получать кристаллы за различные предметы, которые можно найти в фортах после их завоеваний!`
                 break;
             case 'hold':
                 name = `Трюм переполнен`
@@ -53,17 +53,18 @@ class LimitHandler extends Handler {
                 alert: name,
                 message: text,
                 action: {
+                    close: false,
                     text: 'Подтвердить',
                     _click: () => popoutModel.events.setPopout(null)
                 }
             })
 
         } else {
-
             alertModel.events.setAlert({
                 alert: name,
                 message: text,
                 action: {
+                    close: true,
                     text: 'Подтвердить',
                     _click: () => popoutModel.events.setPopout('ship')
                 }
@@ -71,7 +72,6 @@ class LimitHandler extends Handler {
         }
 
         popoutModel.events.setPopout('alert')
-
 
     }
 

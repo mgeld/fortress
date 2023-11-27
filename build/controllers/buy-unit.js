@@ -26,13 +26,17 @@ const zone_service_1 = require("../services/zone.service");
 const units_1 = require("../entities/units/units");
 let BuyUnitHandler = class BuyUnitHandler extends handlers_1.IRoute {
     handle(message, uSocket) {
+        var _a;
         return __awaiter(this, void 0, void 0, function* () {
             console.log('BuyUnitHandler handle');
             if (!uSocket.user_id)
                 return;
+            const __id = (_a = message.payload) === null || _a === void 0 ? void 0 : _a.id;
+            if (!__id)
+                return;
             const zone = yield this._zoneService.getById(uSocket.user_id);
-            console.log('message.payload.id', message.payload.id);
-            const cost = units_1.Units.getUnitPrice(message.payload.id);
+            console.log('message.payload.id', __id);
+            const cost = units_1.Units.getUnitPrice(__id);
             console.log('cost', cost);
             let isSpend = 0;
             if (cost.currency === 'coins') {
@@ -51,7 +55,7 @@ let BuyUnitHandler = class BuyUnitHandler extends handlers_1.IRoute {
                 uSocket.send(JSON.stringify(limitResp));
                 return;
             }
-            const extr = zone.hold.addExtrToList(message.payload.id);
+            const extr = zone.hold.addExtrToList(__id);
             if (extr === 'limit') {
                 const limitResp = {
                     event: 'limit',
@@ -66,10 +70,10 @@ let BuyUnitHandler = class BuyUnitHandler extends handlers_1.IRoute {
                 const extrResp = {
                     event: 'buy-unit',
                     payload: {
-                        type: message.payload.id,
+                        type: __id,
                         currency: cost.currency,
                         cost: cost.price,
-                        unit: message.payload.id
+                        unit: __id
                     }
                 };
                 uSocket.send(JSON.stringify(extrResp));

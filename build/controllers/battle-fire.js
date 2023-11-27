@@ -30,9 +30,15 @@ const pointer_service_1 = require("../services/pointer.service");
 const battle_service_1 = require("../services/battle.service");
 let BattleFireHandler = class BattleFireHandler extends handlers_1.IRoute {
     handle(message, uSocket) {
-        var _a;
+        var _a, _b, _c, _d;
         return __awaiter(this, void 0, void 0, function* () {
             if (!uSocket.user_id)
+                return;
+            const __pos = (_a = message.payload) === null || _a === void 0 ? void 0 : _a.pos;
+            const __to_pos = (_b = message.payload) === null || _b === void 0 ? void 0 : _b.to_pos;
+            const __direction = (_c = message.payload) === null || _c === void 0 ? void 0 : _c.direction;
+            const __hitPointer = (_d = message.payload) === null || _d === void 0 ? void 0 : _d.hitPointer;
+            if (!__pos || !__to_pos || !__direction)
                 return;
             console.log('BattleFireHandler handle');
             const _pointer = yield this._pointerService.memoryGetById(uSocket.user_id);
@@ -48,34 +54,30 @@ let BattleFireHandler = class BattleFireHandler extends handlers_1.IRoute {
             weapon.bullets = weapon.bullets - 1;
             yield this._weaponService.memoryUpdate(weapon);
             const fire = {
-                pos: message.payload.pos,
-                to_pos: message.payload.to_pos,
-                direction: message.payload.direction,
+                pos: __pos,
+                to_pos: __to_pos,
+                direction: __direction,
                 userId: _pointer.zoneId
             };
-            if ((_a = message.payload) === null || _a === void 0 ? void 0 : _a.hitPointer) {
-                const hitPointer = yield this._pointerService.memoryGetById(message.payload.hitPointer.userId);
+            if (__hitPointer) {
+                const hitPointer = yield this._pointerService.memoryGetById(__hitPointer.userId);
                 console.log('hitPointer.pos', hitPointer.pos);
                 console.log('fire.to_pos', hitPointer.pos);
-                if (fire.to_pos[0] >= hitPointer.pos[0] - 0.0004 || fire.to_pos[0] <= hitPointer.pos[0] + 0.0004 &&
-                    fire.to_pos[1] <= hitPointer.pos[1] - 0.0008 || fire.to_pos[1] >= hitPointer.pos[1] + 0.0008) {
+                if (!(fire.to_pos[0] >= hitPointer.pos[0] - 0.0004 || fire.to_pos[0] <= hitPointer.pos[0] + 0.0004 &&
+                    fire.to_pos[1] <= hitPointer.pos[1] - 0.0008 || fire.to_pos[1] >= hitPointer.pos[1] + 0.0008)) {
+                    return;
                 }
-                else {
+                if (!(fire.pos[0] >= _pointer.pos[0] - 0.0004 || fire.pos[0] <= _pointer.pos[0] + 0.0004 &&
+                    fire.pos[1] <= _pointer.pos[1] - 0.0008 || fire.pos[1] >= _pointer.pos[1] + 0.0008)) {
                     return;
                 }
                 _member.makeDamage(weapon.power);
-                fire['hitPointer'] = message.payload.hitPointer;
-                const hitMember = yield this._memberService.getById(message.payload.hitPointer.userId);
+                fire['hitPointer'] = __hitPointer;
+                const hitMember = yield this._memberService.getById(__hitPointer.userId);
                 hitPointer.removeHealth(weapon.power);
                 fire.hitPointer.health = hitPointer.health;
-                console.log('BattleFire _member.sectors', _member.sectors);
-                console.log('_member', _member.unmarshal());
-                console.log('hitMember', hitMember.unmarshal());
                 if (hitPointer.health < 1) {
-                    console.log('Погиб hitPointer.zoneId', hitPointer.zoneId);
                     const killPointerTeam = arena.killPointer(hitMember.userId, hitMember.arenaTeam);
-                    console.log('killPointerTeam.unmarshal()', killPointerTeam.unmarshal());
-                    console.log('killPointerTeam.unmarshal()', killPointerTeam.unmarshal());
                     _member.addKilledPointer();
                     if (killPointerTeam.alive_members === 0) {
                         arena.completeBattle(killPointerTeam.id);

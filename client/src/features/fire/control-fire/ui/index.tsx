@@ -7,8 +7,6 @@ import styles from './styles.module.scss'
 
 const ControlFire: FC = () => {
 
-    console.log('ControlFire---------')
-
     return (
         <div className={styles.controlFire}>
             <div className={styles.__circle}>

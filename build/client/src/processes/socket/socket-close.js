@@ -5,9 +5,7 @@ const effector_1 = require("effector");
 const socket_1 = require("shared/api/socket");
 const popout_root_1 = require("shared/ui/popout-root");
 exports.socketCloseFx = (0, effector_1.createEffect)((status) => {
-    console.log('PPPPPPPPPPPPPPPPPPPPPPPPPPPP socketCloseFx status', status);
     popout_root_1.popoutModel.events.setPopout(null);
-    console.log('--socketCloseFx /////// status', status);
     if (status === 'close')
         setTimeout(() => {
             popout_root_1.popoutModel.events.setPopout('lock-screen');

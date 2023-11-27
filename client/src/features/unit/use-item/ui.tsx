@@ -49,21 +49,13 @@ export const UseItem: FC<TUseItemProps> = ({
 
     const unit = unitModel.selectors.useBuyUnit()
 
-    console.log('UseItem unit', unit)
-
-    // if (unit)
-
-
     const [card, setCard] = useState<TExtrTypes>(unit && ~modules.indexOf(unit) ? unit : modules[0])
-
-    console.log('UseItem card', card)
 
     const extrIndex = extr.findIndex(item => item === card)
 
     const closePopout = () => popoutModel.events.setPopout(null)
 
     const openExtraction = () => {
-        console.log('extrIndex', extrIndex)
         if (~extrIndex) {
             holdModel.events.selectExtraction({
                 id: card as TExtrTypes,
@@ -78,6 +70,7 @@ export const UseItem: FC<TUseItemProps> = ({
                 alert: list_modules[card].name,
                 message: `В трюме нет нужного предмета для использования. Перейти к покупке?`,
                 action: {
+                    close: true,
                     text: 'Подтвердить',
                     _click: () => {
                         // unitModel.events.selectUnit(card)

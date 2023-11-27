@@ -20,14 +20,14 @@ const useContainerFort = () => {
         data: (0, effector_react_1.useStore)($containerFortStore)
     };
 };
+const setFort = (0, effector_1.createEvent)();
+const $fortStore = (0, effector_1.createStore)(null)
+    .on(setFort, (_, payload) => payload);
 const useFort = () => {
     return {
         data: (0, effector_react_1.useStore)($fortStore)
     };
 };
-const setFort = (0, effector_1.createEvent)();
-const $fortStore = (0, effector_1.createStore)(null)
-    .on(setFort, (_, payload) => payload);
 exports.selectors = {
     useTakeFort,
     useContainerFort,

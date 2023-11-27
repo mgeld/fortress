@@ -30,17 +30,17 @@ const useContainerFort = () => {
     }
 }
 
+const setFort = createEvent<TLatLng | null>()
+
+const $fortStore = createStore<TLatLng | null>(null)
+    .on(setFort, (_, payload) => payload)
+
 const useFort = () => {
     return {
         data: useStore($fortStore)
     }
 }
 
-
-const setFort = createEvent<TLatLng | null>()
-
-const $fortStore = createStore<TLatLng | null>(null)
-    .on(setFort, (_, payload) => payload)
 
 export const selectors = {
     useTakeFort,

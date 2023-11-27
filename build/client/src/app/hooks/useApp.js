@@ -19,15 +19,12 @@ const useApp = () => {
     (0, react_1.useEffect)(() => {
         window.addEventListener("offline", lost_internet_1.lostInternet);
         vk_bridge_1.default.send('VKWebAppGetUserInfo').then(user => {
-            console.log('VKWebAppGetUserInfo user', user);
             user_1.userModel.events.setVkUser(user.id);
             user_1.userModel.events.setName(user.first_name);
             user_1.userModel.events.setUserIcon(user.photo_100);
         });
     }, []);
     (0, react_1.useEffect)(() => {
-        console.log('useEffect vkUserId', vkUserId);
-        console.log('useEffect socketStatus', socketStatus);
         if (vkUserId > 0 && socketStatus === 'close') {
             popout_root_1.popoutModel.events.setPopout('lock-screen');
             lock_screen_1.lockModel.events.setLockScreen({

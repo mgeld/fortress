@@ -110,19 +110,6 @@
 
                 border-radius: 10px;
 
-                position: relative;
-
-                .__swords {
-                    width: 54px;
-                    height: 54px;
-                    position: absolute;
-                    bottom: 0px;
-                    left: 50%;
-                    margin-bottom: -29px;
-                    margin-left: -27px;
-                    z-index: 5;
-                }
-
                 .__header {
                     width: 100%;
 
@@ -155,6 +142,20 @@
                     }
 
                 }
+                
+                position: relative;
+
+                .__swords {
+                    width: 54px;
+                    height: 54px;
+                    position: absolute;
+                    top: 0px;
+                    left: 50%;
+                    margin-top: -29px;
+                    margin-left: -27px;
+                    z-index: 5;
+                }
+
 
                 .__users {
                     display: flex;

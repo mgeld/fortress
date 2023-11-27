@@ -25,15 +25,21 @@ const types_1 = require("../types");
 const zone_service_1 = require("../services/zone.service");
 const weapon_service_1 = require("../services/weapon.service");
 const pointer_service_1 = require("../services/pointer.service");
+const rooms_1 = require("../api/socket/socket/rooms");
 let UseExtractionHandler = class UseExtractionHandler extends handlers_1.IRoute {
     handle(message, uSocket) {
+        var _a, _b;
         return __awaiter(this, void 0, void 0, function* () {
             console.log('UseExtractionHandler handle');
             if (!uSocket.user_id)
                 return;
+            const __id = (_a = message.payload) === null || _a === void 0 ? void 0 : _a.id;
+            const __index = (_b = message.payload) === null || _b === void 0 ? void 0 : _b.index;
+            if (!__id)
+                return;
             const zone = yield this._zoneService.getById(uSocket.user_id);
             const pointer = yield this._pointerService.memoryGetById(zone.id);
-            const extr = zone.hold.use(message.payload.id, message.payload.index);
+            const extr = zone.hold.use(__id, __index);
             if (!extr)
                 return;
             let resultIncrese = [0, 0];
@@ -51,8 +57,16 @@ let UseExtractionHandler = class UseExtractionHandler extends handlers_1.IRoute 
             }
             if (extr.gives === 'ship_health') {
                 resultIncrese = pointer.addHealth(extr.quantity);
-                if (resultIncrese !== 'limit')
+                if (resultIncrese !== 'limit') {
                     this._pointerService.memoryUpdate(pointer);
+                    this._rooms.areals.broadcast(pointer.areal, {
+                        event: 'set-health',
+                        payload: {
+                            userId: pointer.zoneId,
+                            health: pointer.health,
+                        }
+                    }, pointer.zoneId);
+                }
             }
             if (extr.gives === 'storm_power') {
                 resultIncrese = zone.stormtrooper_corps.increasePower(extr.quantity);
@@ -109,10 +123,10 @@ let UseExtractionHandler = class UseExtractionHandler extends handlers_1.IRoute 
             const extrResp = {
                 event: 'use-extraction',
                 payload: {
-                    unit: message.payload.id,
+                    unit: __id,
                     amount: resultIncrese[1] - resultIncrese[0],
                     type: extr.gives,
-                    index: message.payload.index
+                    index: __index
                 }
             };
             uSocket.send(JSON.stringify(extrResp));
@@ -120,6 +134,10 @@ let UseExtractionHandler = class UseExtractionHandler extends handlers_1.IRoute 
     }
 };
 UseExtractionHandler.EVENT = "useExtraction";
+__decorate([
+    (0, inversify_1.inject)(types_1.TYPES.Rooms),
+    __metadata("design:type", rooms_1.Rooms)
+], UseExtractionHandler.prototype, "_rooms", void 0);
 __decorate([
     (0, inversify_1.inject)(types_1.TYPES.ZoneService),
     __metadata("design:type", zone_service_1.ZoneService)

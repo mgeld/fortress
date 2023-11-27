@@ -4,7 +4,6 @@ exports.useControl = void 0;
 const react_1 = require("react");
 const model_1 = require("../model");
 const useControl = () => {
-    console.log('useControl');
     const moveId = (0, react_1.useRef)();
     (0, react_1.useEffect)(() => {
         return () => {

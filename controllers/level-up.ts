@@ -28,6 +28,10 @@ class LevelUpHandler extends IRoute {
 
         if (!uSocket.user_id) return
 
+        const __type = message.payload?.type
+
+        if (!__type) return
+
         const zone = await this._zoneService.getById(uSocket.user_id)
         const pointer = await this._pointerService.memoryGetById(zone.id)
         const weapon = await this._weaponService.memoryGetById(pointer.weapons[0])
@@ -38,7 +42,7 @@ class LevelUpHandler extends IRoute {
 
         let isSpend = 0
 
-        if (message.payload.type === 'ship') {
+        if (__type === 'ship') {
 
             newLevel = pointer.upLevel()
             cost = Pointer.getLevelUpPrice(newLevel)
@@ -51,9 +55,7 @@ class LevelUpHandler extends IRoute {
                 await this._zoneService.memoryUpdate(zone)
             }
 
-        }
-
-        if (message.payload.type === 'gun') {
+        } else if (__type === 'gun') {
             newLevel = weapon.upLevel()
             cost = Gun.getLevelUpPrice(newLevel)
             isSpend = zone.spendСoins(cost)
@@ -64,9 +66,7 @@ class LevelUpHandler extends IRoute {
                 await this._zoneService.memoryUpdate(zone)
                 await this._weaponService.memoryUpdate(weapon)
             }
-        }
-
-        if (message.payload.type === 'storm-corps') {
+        } else if (__type === 'storm-corps') {
             newLevel = zone.stormtrooper_corps.upLevel()
             cost = StormtrooperCorps.getLevelUpPrice(newLevel)
             isSpend = zone.spendСoins(cost)
@@ -75,9 +75,7 @@ class LevelUpHandler extends IRoute {
 
             if (~isSpend)
                 this._zoneService.memoryUpdate(zone)
-        }
-
-        if (message.payload.type === 'hold') {
+        } else if (__type === 'hold') {
             newLevel = zone.hold.upLevel()
             cost = Extraction.getLevelUpPrice(newLevel)
             isSpend = zone.spendСoins(cost)
@@ -86,6 +84,8 @@ class LevelUpHandler extends IRoute {
 
             if (~isSpend)
                 this._zoneService.memoryUpdate(zone)
+        } else {
+            return
         }
 
         if (isSpend === -1 && currency) {
@@ -98,7 +98,7 @@ class LevelUpHandler extends IRoute {
             uSocket.send(JSON.stringify(limitResp))
             return
         }
-        
+
         console.log('currency', currency)
         console.log('newLevel', newLevel)
 
@@ -106,7 +106,7 @@ class LevelUpHandler extends IRoute {
             const extrResp: TLevelUp = {
                 event: 'level-up',
                 payload: {
-                    type: message.payload.type,
+                    type: __type,
                     cost,
                     new_level: newLevel,
                     currency

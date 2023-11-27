@@ -37,8 +37,6 @@ export const $holdItemsStrore = createStore<TExtrTypes[]>([])
 export const $holdLevelStrore = createStore<number>(0)
     .on(setLevel, (_, level) => level)
 
-// $holdItemsStrore.watch(val => console.log('holdItemsStrore watch', val))
-
 export const $extractionSelect = createStore<TExtraction | null>(null)
     .on(selectExtraction, (_, extraction) => extraction)
 

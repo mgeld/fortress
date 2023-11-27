@@ -31,6 +31,12 @@ class BeamHandler extends IRoute {
 
         if (!uSocket.user_id) return
 
+        const __fort = message.payload?.fort
+        const __sector = message.payload?.sector
+        const __position = message.payload?.position
+
+        if (!__fort || !__sector || !__position) return
+
         let _sector: Sector
 
         const zone = await this._zoneService.getById(uSocket.user_id)
@@ -38,7 +44,7 @@ class BeamHandler extends IRoute {
         let extrResp: TTractorExtr
 
         try {
-            _sector = await this._sectorService.getById(message.payload.sector)
+            _sector = await this._sectorService.getById(__sector)
 
             let extr: TExtrTypes | null = null
 
@@ -80,8 +86,8 @@ class BeamHandler extends IRoute {
                 payload: {
                     extr,
                     cont: _sector.booty,
-                    fort: message.payload.fort,
-                    pos: message.payload.position
+                    fort: __fort,
+                    pos: __position
                 }
             }
 
@@ -101,7 +107,7 @@ class BeamHandler extends IRoute {
                     extr: null,
                     cont: 0,
                     fort: null,
-                    pos: message.payload.position
+                    pos: __position
                 }
             }
 

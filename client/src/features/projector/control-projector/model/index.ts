@@ -1,7 +1,5 @@
 import { createEffect, createEvent, sample } from "effector";
 
-import { userModel } from "entities/user";
-
 import { cellToLatLng, latLngToCell } from "h3-js";
 import { TLatLng } from "shared/types";
 import { projectorAPI } from "shared/api/events";
@@ -21,9 +19,6 @@ const hitSectorFx = createEffect((userPos: TLatLng) => {
 })
 
 type TProjectorControlFx = {
-    source: {
-        userId: number
-    }
     clock: {
         params: TLatLng
         result: {
@@ -36,7 +31,6 @@ type TProjectorControlFx = {
 let timerId: ReturnType<typeof setTimeout> | null = null
 
 const bootyControlFx = createEffect(({
-    source,
     clock
 }: TProjectorControlFx) => {
 
@@ -66,7 +60,6 @@ const bootyControlFx = createEffect(({
         clock.params,
         clock.result.toPos,
         clock.result.sectorId,
-        source.userId,
     ), 800)
 
     timerId = setTimeout(() => {
@@ -82,10 +75,7 @@ const bootyControlFx = createEffect(({
 
 sample({
     clock: hitSectorFx.done,
-    source: {
-        userId: userModel.$userIdStore,
-    },
-    fn: (source, clock) => ({ source, clock }),
+    fn: (clock) => ({ clock }),
     target: bootyControlFx
 })
 

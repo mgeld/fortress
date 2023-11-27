@@ -6,7 +6,6 @@ class Handler {
 exports.Handler = Handler;
 class Handlers {
     constructor(handlers) {
-        console.log('Handlers constructor', handlers);
         this.handlers = handlers;
     }
     handle() {

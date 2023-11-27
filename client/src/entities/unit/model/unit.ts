@@ -12,7 +12,7 @@ export const $unitBuySelect = createStore<TExtrTypes | null>(null)
 // export const $unitSelect = createStore<TExtrTypes | null>(null)
 //     .on(selectUnit, (_, unit) => unit)
 
-$unitBuySelect.watch(val => console.log('unitBuySelect watch', val))
+// $unitBuySelect.watch(val => console.log('unitBuySelect watch', val))
 
 // const useUnit = () => useStore($unitSelect)
 const useBuyUnit = () => useStore($unitBuySelect)

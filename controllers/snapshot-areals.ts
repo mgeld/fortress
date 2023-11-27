@@ -19,6 +19,8 @@ class SnapshotAreals {
 
     clearInactiveAreals() {
         const areals: number[] = this.getInactiveAreals()
+
+        console.log('getInactiveAreals areals', areals)
         this._rooms.areals.clearRooms(areals)
         // Очищаем все сектора с этого ареала
         this._sectorService.removeByAreals(areals)
@@ -27,6 +29,8 @@ class SnapshotAreals {
     async saveSectorsToBase() {
         console.log('saveSectorsToBase')
         const takes = this.getLogsTakes()
+
+        console.log('saveSectorsToBase takes', takes)
         this.clearLogsTakes()
         const sectors = await this._sectorService.getByIds(takes)
         await this._sectorService.baseInserts(sectors)

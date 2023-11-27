@@ -18,11 +18,11 @@ export class ShipLevel {
 
     private static _priceLevelUp: Record<TShipLevel, number> = {
         1: 0,
-        2: 20,
-        3: 40,
-        4: 70,
-        5: 110,
-        6: 160
+        2: 71,
+        3: 290,
+        4: 655,
+        5: 1165,
+        6: 1820
     }
 
     public static getMaxHealth(level: TShipLevel) {

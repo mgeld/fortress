@@ -64,99 +64,99 @@ const App = () => {
 
       <popout_root_1.PopoutRoot activePopout={popout}>
 
-        <popout_1.Popout id='battle-pending' fill='white' screen='full' close={false} edge={0}>
+        <popout_1.Popout key='battle-pending' id='battle-pending' fill='white' screen='full' close={false} edge={0}>
           <battle_pending_1.BattlePending />
         </popout_1.Popout>
 
-        <popout_1.Popout id='battle-over' fill='#5a166480' screen='full' close={false} edge={0}>
+        <popout_1.Popout key='battle-over' id='battle-over' fill='#5a166480' screen='full' close={false} edge={0}>
           <arena_1.BattleOver />
         </popout_1.Popout>
 
-        <popout_1.Popout id='user-dead' fill='#5a166480' edge={12}>
+        <popout_1.Popout key='user-dead' id='user-dead' fill='#5a166480' edge={12}>
           <user_dead_1.UserDead />
         </popout_1.Popout>
 
-        <popout_1.Popout id='select-place' fill='#5a166480' close={false} edge={12}>
+        <popout_1.Popout key='select-place' id='select-place' fill='#5a166480' close={false} edge={12}>
           <popout_2.SelectPlace />
         </popout_1.Popout>
 
-        <popout_1.Popout id='select-extraction' fill='#5a166480' edge={28}>
+        <popout_1.Popout key='select-extraction' id='select-extraction' fill='#5a166480' edge={28}>
           <ui_9.ExtractionPopout />
         </popout_1.Popout>
 
-        <popout_1.Popout id='ship' fill='#5a166480' edge={14}>
+        <popout_1.Popout key='ship' id='ship' fill='#5a166480' edge={14}>
           <ui_3.ShipPopout />
         </popout_1.Popout>
 
-        <popout_1.Popout id='storm-corps' fill='#5a166480' edge={14}>
+        <popout_1.Popout key='storm-corps' id='storm-corps' fill='#5a166480' edge={14}>
           <ui_4.StormCorpsPopout />
         </popout_1.Popout>
 
-        <popout_1.Popout id='gun' fill='#5a166480' edge={14}>
+        <popout_1.Popout key='gun' id='gun' fill='#5a166480' edge={14}>
           <ui_5.GunPopout />
         </popout_1.Popout>
 
-        <popout_1.Popout id='hold' fill='#5a166480' edge={14}>
+        <popout_1.Popout key='hold' id='hold' fill='#5a166480' edge={14}>
           <hold_1.HoldPopout />
         </popout_1.Popout>
 
 
         
-        <popout_1.Popout id='gun-improve-distance' fill='#5a166480' edge={14}>
+        <popout_1.Popout key='gun-improve-distance' id='gun-improve-distance' fill='#5a166480' edge={14}>
           <ui_6.GunImproveDistance />
         </popout_1.Popout>
 
-        <popout_1.Popout id='gun-improve-power' fill='#5a166480' edge={14}>
+        <popout_1.Popout key='gun-improve-power' id='gun-improve-power' fill='#5a166480' edge={14}>
           <ui_7.GunImprovePower />
         </popout_1.Popout>
 
-        <popout_1.Popout id='storm-add-invaders' fill='#5a166480' edge={14}>
+        <popout_1.Popout key='storm-add-invaders' id='storm-add-invaders' fill='#5a166480' edge={14}>
           <ui_12.StormAddInvaders />
         </popout_1.Popout>
 
-        <popout_1.Popout id='storm-improve-power' fill='#5a166480' edge={14}>
+        <popout_1.Popout key='storm-improve-power' id='storm-improve-power' fill='#5a166480' edge={14}>
           <ui_13.StormImprovePower />
         </popout_1.Popout>
 
-        <popout_1.Popout id='ship-improve-health' fill='#5a166480' edge={14}>
+        <popout_1.Popout key='ship-improve-health' id='ship-improve-health' fill='#5a166480' edge={14}>
           <ui_14.ShipImproveHealth />
         </popout_1.Popout>
         
         
 
-        <popout_1.Popout id='ship-level-up' fill='#5a166480' edge={14}>
+        <popout_1.Popout key='ship-level-up' id='ship-level-up' fill='#5a166480' edge={14}>
           <ui_15.ShipLevelUp />
         </popout_1.Popout>
 
-        <popout_1.Popout id='gun-level-up' fill='#5a166480' edge={14}>
+        <popout_1.Popout key='gun-level-up' id='gun-level-up' fill='#5a166480' edge={14}>
           <ui_16.GunLevelUp />
         </popout_1.Popout>
 
-        <popout_1.Popout id='storm-level-up' fill='#5a166480' edge={14}>
+        <popout_1.Popout key='storm-level-up' id='storm-level-up' fill='#5a166480' edge={14}>
           <ui_17.StormLevelUp />
         </popout_1.Popout>
 
-        <popout_1.Popout id='hold-level-up' fill='#5a166480' edge={14}>
+        <popout_1.Popout key='hold-level-up' id='hold-level-up' fill='#5a166480' edge={14}>
           <ui_18.HoldLevelUp />
         </popout_1.Popout>
 
-        <popout_1.Popout id='panel' fill='#5a166480' edge={14}>
+        <popout_1.Popout key='panel' id='panel' fill='#5a166480' edge={14}>
           <ui_8.Panel />
         </popout_1.Popout>
 
-        <popout_1.Popout id='select-unit' fill='#5a166480' edge={28}>
+        <popout_1.Popout key='select-unit' id='select-unit' fill='#5a166480' edge={28}>
           <ui_11.BuyUnit />
         </popout_1.Popout>
 
-        <popout_1.Popout id='alert' fill='#5a166480' edge={28}>
+        <popout_1.Popout key='alert' id='alert' fill='#5a166480' edge={28}>
           <alert_1.Alert />
         </popout_1.Popout>
 
-        <popout_1.Popout id='lock-screen' fill='#5a166480' edge={14} close={false}>
+        <popout_1.Popout key='lock-screen' id='lock-screen' fill='#5a166480' edge={14} close={false}>
           <lock_screen_1.LockScreen />
         </popout_1.Popout>
 
-        <popout_1.Popout id='primes' fill='#5a166480' edge={12} close={false}>
+        <popout_1.Popout key='primes' id='primes' fill='#5a166480' edge={12} close={false}>
           <primes_1.Primes />
         </popout_1.Popout>
 
@@ -172,15 +172,15 @@ const App = () => {
 
       {socketStatus ? (<page_root_1.PageRoot activePage={page}>
 
-          <page_root_1.Page id='map'>
+          <page_root_1.Page key="map" id='map'>
             <map_1.MapPage />
           </page_root_1.Page>
 
-          <page_root_1.Page id='extraction'>
+          <page_root_1.Page key="extraction" id='extraction'>
             <extraction_1.ExtractionPage />
           </page_root_1.Page>
 
-          <page_root_1.Page id='gun-shop'>
+          <page_root_1.Page key="shop" id='gun-shop'>
             <ui_10.GunShopPage />
           </page_root_1.Page>
 

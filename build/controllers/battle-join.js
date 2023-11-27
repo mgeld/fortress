@@ -66,7 +66,7 @@ let BattleJoinHandler = class BattleJoinHandler extends handlers_1.IRoute {
                 payload: {
                     userId: _pointer.zoneId
                 }
-            });
+            }, _pointer.zoneId);
             _pointer.areal = -1;
             yield this._pointerService.memoryUpdate(_pointer);
             if (arena.isFullTeams()) {

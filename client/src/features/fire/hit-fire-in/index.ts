@@ -39,7 +39,6 @@ export const isFireHitMe = () => {
         clock: firesAPI.events.hitFireInTarget,
         source: {
             userId: userModel.$userIdStore,
-            // userHealth: shipModel.$userHealthStore,
         },
         fn: (source, clock) => ({ clock, source }),
         target: changeHealthFx

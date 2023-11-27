@@ -1,4 +1,3 @@
-
 import { inject, injectable } from "inversify";
 
 import { IWebSocket } from "../api/socket/server";
@@ -33,6 +32,8 @@ class BattleLeaveHandler extends IRoute {
         const member = await this._memberService.getById(uSocket.user_id)
         const arena = await this._arenaService.getById(member.arena)
 
+        if(arena.status !== 'pending') return
+
         const pointer = await this._pointerService.memoryGetById(member.userId)
 
         const team = arena.delPointer(member.userId, member.arenaTeam)
@@ -49,7 +50,7 @@ class BattleLeaveHandler extends IRoute {
                 user: {
                     pos: pointer.pos,
                     health: pointer.health,
-                },
+                }
             }
         }))
 

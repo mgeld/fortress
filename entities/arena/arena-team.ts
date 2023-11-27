@@ -1,6 +1,5 @@
 import { TLatLng } from "../../common-types/model"
-
-type TTeamStatus = 'default' | 'victory' | 'defeat'
+import { TTeamStatus } from "../../common-types/socket/server-to-client"
 
 export type TTeamProps = {
     id: number
@@ -73,6 +72,7 @@ class Team {
         return this._alive_members
     }
 
+    // Удалить одного участника
     delTeamMember(memberId: number): number {
         this._alive_members = this.alive_members - 1
         this._members = this._members.filter(member => memberId !== member)
@@ -116,6 +116,10 @@ class Team {
 
     defeatTeam() {
         this._status = 'defeat'
+    }
+
+    drawTeam() {
+        this._status = 'draw'
     }
 
     victoryTeam() {

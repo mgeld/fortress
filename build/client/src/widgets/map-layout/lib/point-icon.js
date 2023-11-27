@@ -3,7 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.pointIcon = void 0;
 const leaflet_1 = require("leaflet");
 const pointIcon = (iconUrl) => {
-    console.log('10 pointIcon');
     return (0, leaflet_1.icon)({
         className: "__iconPointer",
         iconUrl,

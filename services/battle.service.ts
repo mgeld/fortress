@@ -38,21 +38,24 @@ class BattleService {
             const team1 = arena.getTeam(1).sectors
             const team2 = arena.getTeam(2).sectors
 
-            const defeatTeamId = team1 < team2 ? 1 : 2
+            const defeatTeamId = team1 < team2 ? 1 : team1 > team2 ? 2 : 0
 
             arena.completeBattle(defeatTeamId)
         }
 
         const teams = arena.teamList.map((team, index) => {
-            const minTrophies = team.status === 'victory' ? 10 : -10
+
+            const minTrophies = team.status === 'victory' ? 10 : team.status === 'defeat' ? -10 : 0
+
             return {
                 teamId: team.id,
                 status: team.status,
                 sectors: team.sectors,
                 members: members[index].map(member => {
+
                     const wonTrophies = member.damage / 5 + member.sectors * 3
 
-                    const trophy = minTrophies + wonTrophies
+                    const trophy = minTrophies > 0 ? minTrophies + wonTrophies : 0
 
                     _trophies[member.userId] = trophy
 

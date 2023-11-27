@@ -18,6 +18,7 @@ export const BottomSelectPlace: FC = () => {
         if (!pos) {
             alertModel.events.setAlert({
                 action: {
+                    close: false,
                     text: 'Понятно',
                     _click: () => popoutModel.events.setPopout(null)
                 },
@@ -30,7 +31,7 @@ export const BottomSelectPlace: FC = () => {
 
 
         if (pos[0] > 0 && pos[1] > 0) {
-            
+
             map?.setMinZoom(15)
             mapAPI.events.setMapMode('invade')
             shipAPI.events.setPos(pos)

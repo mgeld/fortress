@@ -39,7 +39,7 @@ const fort_details_map_1 = require("./fort-details-map");
 const MapLayout = () => {
     const center = map_1.mapModel.selectors.useMapCenter();
     const mode = map_1.mapModel.selectors.useMapMode().mode;
-    console.log('MapLayout MapLayout MapLayout MapLayout');
+    console.log('MapLayout');
     return (<div className='mapCard'>
 
             <react_leaflet_1.MapContainer ref={map_1.mapModel.events.setMap} className='_MapContainer' center={center} zoom={16} minZoom={15} maxZoom={17} zoomControl={false} doubleClickZoom={false} bounceAtZoomLimits={false}>
@@ -55,35 +55,35 @@ const MapLayout = () => {
 
                 <react_leaflet_1.Pane name="zoom-anim-map">
 
-                    <react_leaflet_1.Pane name="fort" style={{ zIndex: 3001 }}>
+                    <react_leaflet_1.Pane key="fort" name="fort" style={{ zIndex: 3001 }}>
                         <fort_map_1.FortMap />
                     </react_leaflet_1.Pane>
 
-                    <react_leaflet_1.Pane name="citadel" style={{ zIndex: 3001 }}>
+                    <react_leaflet_1.Pane key="citadel" name="citadel" style={{ zIndex: 3001 }}>
                         <citadel_1.Citadel />
                     </react_leaflet_1.Pane>
 
-                    <react_leaflet_1.Pane name="fort-counter" style={{ zIndex: 3005 }}>
+                    <react_leaflet_1.Pane key="fort-counter" name="fort-counter" style={{ zIndex: 3005 }}>
                         <fort_counter_1.FortCounter />
                     </react_leaflet_1.Pane>
 
-                    <react_leaflet_1.Pane name="booty-map" style={{ zIndex: 3005 }}>
+                    <react_leaflet_1.Pane key="booty-map" name="booty-map" style={{ zIndex: 3005 }}>
                         <booty_map_1.BootyMap />
                     </react_leaflet_1.Pane>
 
-                    <react_leaflet_1.Pane name="fort-map" style={{ zIndex: 3005 }}>
+                    <react_leaflet_1.Pane key="fort-map" name="fort-map" style={{ zIndex: 3005 }}>
                         <fort_details_map_1.FortDetailsMap />
                     </react_leaflet_1.Pane>
 
-                    <react_leaflet_1.Pane name="invaders" style={{ zIndex: 3000 }}>
+                    <react_leaflet_1.Pane key="invaders" name="invaders" style={{ zIndex: 3000 }}>
                         <invaders_1.default />
                     </react_leaflet_1.Pane>
 
-                    <react_leaflet_1.Pane name="map-pointers" style={{ zIndex: 3002 }}>
+                    <react_leaflet_1.Pane key="map-pointers" name="map-pointers" style={{ zIndex: 3002 }}>
                         <pointers_map_1.PointersMap />
                     </react_leaflet_1.Pane>
 
-                    <react_leaflet_1.Pane name="beam" style={{ zIndex: 3001 }}>
+                    <react_leaflet_1.Pane key="beam" name="beam" style={{ zIndex: 3001 }}>
                         <booty_1.default />
                         <tractor_beam_1.TractorBeam />
                     </react_leaflet_1.Pane>

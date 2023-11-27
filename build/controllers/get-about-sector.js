@@ -26,8 +26,14 @@ const sector_service_1 = require("../services/sector.service");
 const pointer_service_1 = require("../services/pointer.service");
 let GetAboutSectorHandler = class GetAboutSectorHandler extends handlers_1.IRoute {
     handle(message, uSocket) {
+        var _a;
         return __awaiter(this, void 0, void 0, function* () {
-            const _sector = yield this._sectorService.getById(message.payload.id);
+            if (!uSocket.user_id)
+                return;
+            const __id = (_a = message.payload) === null || _a === void 0 ? void 0 : _a.id;
+            if (!__id)
+                return;
+            const _sector = yield this._sectorService.getById(__id);
             const _pointer = yield this._pointerService.getById(_sector.zone_id);
             const dtoSector = _sector.unmarshal();
             const sector = {

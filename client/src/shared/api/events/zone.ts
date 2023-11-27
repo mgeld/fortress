@@ -13,8 +13,6 @@ const setZoneRubies = createEvent<number>()
 const spendRubies = createEvent<number>()
 const addRubies = createEvent<number>()
 
-
-
 export const events = {
     setZoneSectors,
     setZoneLevel,

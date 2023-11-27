@@ -40,6 +40,11 @@ class BattleTakeHandler extends IRoute {
 
         if (!uSocket.user_id) return
 
+        const __fort = message.payload?.fort
+        const __sector = message.payload?.sector
+
+        if (!__fort || !__sector) return
+
         const zone = await this._zoneService.getById(uSocket.user_id)
         const _member = await this._memberService.getById(zone.id)
 
@@ -55,18 +60,16 @@ class BattleTakeHandler extends IRoute {
         let takeHit: TTakeHitPayload = {} as TTakeHitPayload
         let takeSector: TTakeSectorPayload | null = null
 
-        // let isBooty = false
-
         const _pointer = await this._pointerService.memoryGetById(uSocket.user_id)
 
         zone.stormtrooper_corps.storm()
 
         try {
-            _sector = await this._sectorService.getById(message.payload.sector, arena.id)
+            _sector = await this._sectorService.getById(__sector, arena.id)
         } catch (e) {
             _sector = this._sectorService.create({
-                id: message.payload.sector,
-                latlng: message.payload.fort,
+                id: __sector,
+                latlng: __fort,
                 team_id: 0,
                 arena: arena.id,
                 defenders: 5
@@ -77,7 +80,7 @@ class BattleTakeHandler extends IRoute {
 
         takeHit = {
             status,
-            fort: message.payload.fort,
+            fort: __fort,
             invaders: _sector.invaders,
             defenders: _sector.defenders,
             owner: _sector.team_id
@@ -120,7 +123,7 @@ class BattleTakeHandler extends IRoute {
                 takeSector = {
                     new_owner_id: _member.arenaTeam,
                     prev_owner_id: _sector.team_id,
-                    sector_id: message.payload.sector
+                    sector_id: __sector
                 } as TTakeSectorPayload
 
                 console.log('takeSector', takeSector)
@@ -223,7 +226,7 @@ class BattleTakeHandler extends IRoute {
 
         const take: TTakePayload = {
             position: _member.pos,
-            fort: message.payload.fort,
+            fort: __fort,
             userId: _member.userId,
         }
 

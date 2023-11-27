@@ -23,9 +23,9 @@ export type UnmarshalledMember = {
 class Member {
     private _userId: number
 
-    private _killed: number
-    private _damage: number
-    private _sectors: number
+    private _killed: number // Сколько убито
+    private _damage: number // Сколько нанесено урона
+    private _sectors: number // Сколько захвачено секторов
 
     private _pos: TLatLng
 

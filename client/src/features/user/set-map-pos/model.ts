@@ -31,9 +31,10 @@ const setPosFx = createEffect(({
     shipModel.events.setAreal(areal)
 
     // setTimeout(() => {
+    // source.map.setZoom(16)
     source.map.setView(pos, 16)
+    // setTimeout(() => , 300)
     // }, 200)
-    source.map.setZoom(16)
     // source.map?.setMinZoom(15)
 
     if (source.mode === 'invade') {

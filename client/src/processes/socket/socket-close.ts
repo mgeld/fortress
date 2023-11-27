@@ -5,11 +5,7 @@ import { popoutModel } from "shared/ui/popout-root"
 
 export const socketCloseFx = createEffect((status: TSocketStatus) => {
 
-    console.log('PPPPPPPPPPPPPPPPPPPPPPPPPPPP socketCloseFx status', status)
-
     popoutModel.events.setPopout(null)
-
-    console.log('--socketCloseFx /////// status', status)
 
     if (status === 'close')
         setTimeout(() => {

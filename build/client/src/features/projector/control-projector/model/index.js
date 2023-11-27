@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.projectorControl = void 0;
 const effector_1 = require("effector");
-const user_1 = require("entities/user");
 const h3_js_1 = require("h3-js");
 const events_1 = require("shared/api/events");
 const beam_1 = require("shared/api/beam");
@@ -16,7 +15,7 @@ const hitSectorFx = (0, effector_1.createEffect)((userPos) => {
     };
 });
 let timerId = null;
-const bootyControlFx = (0, effector_1.createEffect)(({ source, clock }) => {
+const bootyControlFx = (0, effector_1.createEffect)(({ clock }) => {
     if (timerId) {
         clearTimeout(timerId);
     }
@@ -24,7 +23,7 @@ const bootyControlFx = (0, effector_1.createEffect)(({ source, clock }) => {
         from_pos: clock.params,
         to_pos: clock.result.toPos,
     });
-    setTimeout(() => (0, beam_1.beamAPI)(clock.params, clock.result.toPos, clock.result.sectorId, source.userId), 800);
+    setTimeout(() => (0, beam_1.beamAPI)(clock.params, clock.result.toPos, clock.result.sectorId), 800);
     timerId = setTimeout(() => {
         events_1.projectorAPI.events.setBeam(null);
         timerId = null;
@@ -32,10 +31,7 @@ const bootyControlFx = (0, effector_1.createEffect)(({ source, clock }) => {
 });
 (0, effector_1.sample)({
     clock: hitSectorFx.done,
-    source: {
-        userId: user_1.userModel.$userIdStore,
-    },
-    fn: (source, clock) => ({ source, clock }),
+    fn: (clock) => ({ clock }),
     target: bootyControlFx
 });
 const attractBooty = (0, effector_1.createEvent)();

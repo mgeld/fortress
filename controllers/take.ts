@@ -36,6 +36,11 @@ class TakeHandler extends IRoute {
 
         if (!uSocket.user_id) return
 
+        const __fort = message.payload?.fort
+        const __sector = message.payload?.sector
+
+        if (!__fort || !__sector) return
+
         const zone = await this._zoneService.getById(uSocket.user_id)
 
         if (zone.stormtrooper_corps.invaders < 1) {
@@ -55,11 +60,11 @@ class TakeHandler extends IRoute {
         zone.stormtrooper_corps.storm()
 
         try {
-            _sector = await this._sectorService.getById(message.payload.sector)
+            _sector = await this._sectorService.getById(__sector)
         } catch (e) {
             _sector = this._sectorService.create({
-                id: message.payload.sector,
-                latlng: message.payload.fort,
+                id: __sector,
+                latlng: __fort,
                 zone_id: 0,
                 defenders: 5
             })
@@ -81,7 +86,7 @@ class TakeHandler extends IRoute {
 
         takeHit = {
             status,
-            fort: message.payload.fort,
+            fort: __fort,
             invaders: _sector.invaders,
             defenders: _sector.defenders,
             owner: _sector.zone_id
@@ -125,14 +130,15 @@ class TakeHandler extends IRoute {
                 takeSector = {
                     new_owner_id: _pointer.zoneId,
                     prev_owner_id: _sector.zone_id,
-                    sector_id: message.payload.sector
+                    sector_id: __sector
                 } as TTakeSectorPayload
+
+                if (_sector.zone_id === 0)
+                    isBooty = Sector.probabilityGettingExtractionInFort(__fort)
+                console.log('take isBooty', isBooty)
 
                 // Обновляем владельца сектор
                 _sector.setOwner(_pointer.zoneId)
-
-                isBooty = Sector.probabilityGettingExtractionInFort(message.payload.fort)
-                console.log('take isBooty', isBooty)
 
                 if (zone.terrain.sectors === 1) {
 
@@ -189,7 +195,7 @@ class TakeHandler extends IRoute {
                     const resp: TFindCont = {
                         event: 'find-cont',
                         payload: {
-                            fort: message.payload.fort,
+                            fort: __fort,
                             cont: container
                         }
                     }
@@ -224,7 +230,7 @@ class TakeHandler extends IRoute {
 
         const take: TTakePayload = {
             position: _pointer.pos,
-            fort: message.payload.fort,
+            fort: __fort,
             userId: _pointer.zoneId,
         }
 

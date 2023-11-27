@@ -29,85 +29,85 @@ class Units {
     }
 }
 Units.sale_units = {
-    10: {
-        currency: 'coins',
-        price: 40
-    },
-    11: {
-        currency: 'coins',
-        price: 50
-    },
-    12: {
-        currency: 'coins',
-        price: 100
-    },
-    20: {
-        currency: 'coins',
-        price: 80
-    },
-    21: {
-        currency: 'coins',
-        price: 100
-    },
-    22: {
-        currency: 'coins',
-        price: 150
-    },
-    30: {
-        currency: 'rubies',
-        price: 10
-    },
-    31: {
-        currency: 'rubies',
-        price: 15
-    },
-    32: {
-        currency: 'rubies',
-        price: 30
-    },
-    40: {
-        currency: 'coins',
-        price: 40
-    },
-    41: {
-        currency: 'coins',
-        price: 50
-    },
-    42: {
-        currency: 'rubies',
-        price: 25
-    },
-    50: {
-        currency: 'coins',
-        price: 100
-    },
-    51: {
-        currency: 'coins',
-        price: 120
-    },
-    52: {
-        currency: 'coins',
-        price: 150
-    },
     100: {
         currency: 'coins',
-        price: 50
+        price: 340
     },
     101: {
         currency: 'coins',
+        price: 408
+    },
+    10: {
+        currency: 'coins',
         price: 100
+    },
+    11: {
+        currency: 'coins',
+        price: 130
+    },
+    12: {
+        currency: 'coins',
+        price: 195
+    },
+    20: {
+        currency: 'rubies',
+        price: 15
+    },
+    21: {
+        currency: 'rubies',
+        price: 30
+    },
+    22: {
+        currency: 'rubies',
+        price: 45
+    },
+    30: {
+        currency: 'coins',
+        price: 150
+    },
+    31: {
+        currency: 'coins',
+        price: 200
+    },
+    32: {
+        currency: 'coins',
+        price: 250
+    },
+    40: {
+        currency: 'rubies',
+        price: 12
+    },
+    41: {
+        currency: 'rubies',
+        price: 24
+    },
+    42: {
+        currency: 'rubies',
+        price: 36
+    },
+    50: {
+        currency: 'rubies',
+        price: 10
+    },
+    51: {
+        currency: 'rubies',
+        price: 20
+    },
+    52: {
+        currency: 'rubies',
+        price: 30
     },
 };
 Units.__list = {
     rank_exp: {
-        10: 50,
+        10: 80,
         11: 100,
         12: 150,
     },
     storm_power: {
-        20: 5,
-        21: 10,
-        22: 15,
+        20: 3,
+        21: 6,
+        22: 10,
     },
     ship_health: {
         30: 50,
@@ -115,9 +115,9 @@ Units.__list = {
         32: 150,
     },
     gun_power: {
-        40: 5,
-        41: 10,
-        42: 15,
+        40: 3,
+        41: 6,
+        42: 9,
     },
     gun_distance: {
         50: 15,
@@ -125,16 +125,16 @@ Units.__list = {
         52: 25,
     },
     stormtroopers: {
-        100: 50,
-        101: 120,
+        100: 100,
+        101: 150,
     },
     rubies: {
-        110: 50,
-        111: 80,
+        110: 10,
+        111: 20,
     },
     coins: {
-        120: 500,
-        121: 900,
+        120: 260,
+        121: 340,
     },
 };
 exports.Units = Units;

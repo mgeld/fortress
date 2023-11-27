@@ -23,7 +23,12 @@ class BattleGetAboutSectorHandler extends IRoute {
 
         if (!uSocket?.user_id) return
 
-        const _sector = await this._sectorService.getById(message.payload.id, message.payload.arena)
+        const __id = message.payload?.id
+        const __arena = message.payload?.arena
+        
+        if(!__id || !__arena) return
+
+        const _sector = await this._sectorService.getById(__id, __arena)
         const _member = await this._memberService.getById(uSocket.user_id)
 
         const dtoSector = _sector.unmarshal()

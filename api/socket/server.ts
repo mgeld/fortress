@@ -52,13 +52,15 @@ export class Server {
 
             console.log('req.url', req.url)
 
-            if (req.url === '/snapshot-areals') {
+            /* PRODE_SERVER */
+
+            if (req.url === '/fortress/snapshot-areals') {
 
                 console.log('snapshot-areals')
                 this._snapshotAreals.saveSectorsToBase()
                 this._snapshotAreals.clearInactiveAreals()
 
-            } else if (req.url === '/snapshot-arenas') {
+            } else if (req.url === '/fortress/snapshot-areals') {
 
                 console.log('snapshot-arenas')
                 this._snapshotArenas.clearInactiveArenas()

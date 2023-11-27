@@ -31,9 +31,14 @@ const arena_sector_service_1 = require("../services/arena-sector.service");
 const battle_service_1 = require("../services/battle.service");
 let BattleTakeHandler = class BattleTakeHandler extends handlers_1.IRoute {
     handle(message, uSocket) {
+        var _a, _b;
         return __awaiter(this, void 0, void 0, function* () {
             console.log('BattleTakeHandler handle');
             if (!uSocket.user_id)
+                return;
+            const __fort = (_a = message.payload) === null || _a === void 0 ? void 0 : _a.fort;
+            const __sector = (_b = message.payload) === null || _b === void 0 ? void 0 : _b.sector;
+            if (!__fort || !__sector)
                 return;
             const zone = yield this._zoneService.getById(uSocket.user_id);
             const _member = yield this._memberService.getById(zone.id);
@@ -48,12 +53,12 @@ let BattleTakeHandler = class BattleTakeHandler extends handlers_1.IRoute {
             const _pointer = yield this._pointerService.memoryGetById(uSocket.user_id);
             zone.stormtrooper_corps.storm();
             try {
-                _sector = yield this._sectorService.getById(message.payload.sector, arena.id);
+                _sector = yield this._sectorService.getById(__sector, arena.id);
             }
             catch (e) {
                 _sector = this._sectorService.create({
-                    id: message.payload.sector,
-                    latlng: message.payload.fort,
+                    id: __sector,
+                    latlng: __fort,
                     team_id: 0,
                     arena: arena.id,
                     defenders: 5
@@ -62,7 +67,7 @@ let BattleTakeHandler = class BattleTakeHandler extends handlers_1.IRoute {
             const status = _sector.invade(_member.arenaTeam);
             takeHit = {
                 status,
-                fort: message.payload.fort,
+                fort: __fort,
                 invaders: _sector.invaders,
                 defenders: _sector.defenders,
                 owner: _sector.team_id
@@ -85,7 +90,7 @@ let BattleTakeHandler = class BattleTakeHandler extends handlers_1.IRoute {
                     takeSector = {
                         new_owner_id: _member.arenaTeam,
                         prev_owner_id: _sector.team_id,
-                        sector_id: message.payload.sector
+                        sector_id: __sector
                     };
                     console.log('takeSector', takeSector);
                     _sector.setOwner(_member.arenaTeam);
@@ -146,7 +151,7 @@ let BattleTakeHandler = class BattleTakeHandler extends handlers_1.IRoute {
             this._sectorService.memoryInsert(_sector);
             const take = {
                 position: _member.pos,
-                fort: message.payload.fort,
+                fort: __fort,
                 userId: _member.userId,
             };
             console.log('arena.id', arena.id);

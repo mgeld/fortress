@@ -34,6 +34,8 @@ let BattleLeaveHandler = class BattleLeaveHandler extends handlers_1.IRoute {
                 return;
             const member = yield this._memberService.getById(uSocket.user_id);
             const arena = yield this._arenaService.getById(member.arena);
+            if (arena.status !== 'pending')
+                return;
             const pointer = yield this._pointerService.memoryGetById(member.userId);
             const team = arena.delPointer(member.userId, member.arenaTeam);
             this._rooms.arenas.deleteClient(member.userId, arena.id);
@@ -44,7 +46,7 @@ let BattleLeaveHandler = class BattleLeaveHandler extends handlers_1.IRoute {
                     user: {
                         pos: pointer.pos,
                         health: pointer.health,
-                    },
+                    }
                 }
             }));
             yield this._arenaService.update(arena);

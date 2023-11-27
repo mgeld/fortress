@@ -11,7 +11,6 @@ const setPosFx = (0, effector_1.createEffect)(({ source, pos }) => {
     const areal = model_1.Areal.getBounds(pos);
     ship_1.shipModel.events.setAreal(areal);
     source.map.setView(pos, 16);
-    source.map.setZoom(16);
     if (source.mode === 'invade') {
         setTimeout(() => (0, direct_1.directAPI)(pos), 200);
     }

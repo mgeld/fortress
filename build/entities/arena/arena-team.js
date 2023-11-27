@@ -79,6 +79,9 @@ class Team {
     defeatTeam() {
         this._status = 'defeat';
     }
+    drawTeam() {
+        this._status = 'draw';
+    }
     victoryTeam() {
         this._status = 'victory';
     }

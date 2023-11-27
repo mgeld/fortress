@@ -1,12 +1,10 @@
 import { TLatLng } from "@ctypes/model"
-import { attach, createEffect, createEvent, sample } from "effector"
+import { createEffect, createEvent, sample } from "effector"
 import { shipModel } from "entities/ship"
 import { userModel } from "entities/user"
 import { connectAPI } from "shared/api/connect"
 
 const connectUser = createEvent<string>()
-
-connectUser.watch((val) => console.log('Event connectUser', val))
 
 type TUser = {
   userName: string
@@ -29,7 +27,6 @@ sample({
     url: clock
   }),
   target: createEffect((params: TUser) => {
-    console.log('createEffect url', params.url)
     connectAPI(
       params.url,
       params.userName,

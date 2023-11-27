@@ -31,9 +31,14 @@ const zone_service_1 = require("../services/zone.service");
 const citadel_service_1 = require("../services/citadel.service");
 let TakeHandler = class TakeHandler extends handlers_1.IRoute {
     handle(message, uSocket) {
+        var _a, _b;
         return __awaiter(this, void 0, void 0, function* () {
             console.log('TakeHandler handle');
             if (!uSocket.user_id)
+                return;
+            const __fort = (_a = message.payload) === null || _a === void 0 ? void 0 : _a.fort;
+            const __sector = (_b = message.payload) === null || _b === void 0 ? void 0 : _b.sector;
+            if (!__fort || !__sector)
                 return;
             const zone = yield this._zoneService.getById(uSocket.user_id);
             if (zone.stormtrooper_corps.invaders < 1) {
@@ -47,12 +52,12 @@ let TakeHandler = class TakeHandler extends handlers_1.IRoute {
             const _pointer = yield this._pointerService.memoryGetById(uSocket.user_id);
             zone.stormtrooper_corps.storm();
             try {
-                _sector = yield this._sectorService.getById(message.payload.sector);
+                _sector = yield this._sectorService.getById(__sector);
             }
             catch (e) {
                 _sector = this._sectorService.create({
-                    id: message.payload.sector,
-                    latlng: message.payload.fort,
+                    id: __sector,
+                    latlng: __fort,
                     zone_id: 0,
                     defenders: 5
                 });
@@ -66,7 +71,7 @@ let TakeHandler = class TakeHandler extends handlers_1.IRoute {
             const status = _sector.invade(zone.id, invPower, defPower);
             takeHit = {
                 status,
-                fort: message.payload.fort,
+                fort: __fort,
                 invaders: _sector.invaders,
                 defenders: _sector.defenders,
                 owner: _sector.zone_id
@@ -97,11 +102,12 @@ let TakeHandler = class TakeHandler extends handlers_1.IRoute {
                     takeSector = {
                         new_owner_id: _pointer.zoneId,
                         prev_owner_id: _sector.zone_id,
-                        sector_id: message.payload.sector
+                        sector_id: __sector
                     };
-                    _sector.setOwner(_pointer.zoneId);
-                    isBooty = sector_1.Sector.probabilityGettingExtractionInFort(message.payload.fort);
+                    if (_sector.zone_id === 0)
+                        isBooty = sector_1.Sector.probabilityGettingExtractionInFort(__fort);
                     console.log('take isBooty', isBooty);
+                    _sector.setOwner(_pointer.zoneId);
                     if (zone.terrain.sectors === 1) {
                         isBooty = true;
                         const citadel = this._citadelService.create({
@@ -144,7 +150,7 @@ let TakeHandler = class TakeHandler extends handlers_1.IRoute {
                         const resp = {
                             event: 'find-cont',
                             payload: {
-                                fort: message.payload.fort,
+                                fort: __fort,
                                 cont: container
                             }
                         };
@@ -172,7 +178,7 @@ let TakeHandler = class TakeHandler extends handlers_1.IRoute {
             this._sectorService.memoryInsert(_sector);
             const take = {
                 position: _pointer.pos,
-                fort: message.payload.fort,
+                fort: __fort,
                 userId: _pointer.zoneId,
             };
             this._rooms.areals.broadcast(_pointer.areal, {

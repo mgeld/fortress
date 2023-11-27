@@ -5,6 +5,7 @@ import { inject, injectable } from "inversify";
 import { TYPES } from "../types";
 
 import 'reflect-metadata'
+import { IsJsonString } from "./libs/is-json";
 
 export type TRoutes = {
     [key in TEventsAPI]: IRoute
@@ -40,14 +41,19 @@ export class Handlers {
         @inject(TYPES.UseExtractionHandler) private useExtraction: IRoute,
         @inject(TYPES.BuyUnitHandler) private buyUnit: IRoute,
         @inject(TYPES.LevelUpHandler) private levelUp: IRoute,
-        
+
     ) { }
 
     handle(
         uSocket: IWebSocket,
     ) {
         return (message: string) => {
-            const _message = JSON.parse(message) as TSendEvent
+
+            const _message: TSendEvent | false = IsJsonString(message)
+
+            // const _message = JSON.parse(message)
+
+            if (!_message || !_message?.payload) return
 
             if (!this[_message.event]) {
                 throw new Error('2 Передан несуществующий обработчик')

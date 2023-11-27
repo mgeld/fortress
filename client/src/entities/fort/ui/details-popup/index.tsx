@@ -8,9 +8,11 @@ const Y_BACK = 42
 
 type TBootyPopup = {
     fort: TLatLng
+    name: string
 }
 const DetailsPopup: FC<TBootyPopup> = ({
-    fort
+    fort,
+    name
 }) => {
 
     const map = useMap()
@@ -33,7 +35,7 @@ const DetailsPopup: FC<TBootyPopup> = ({
                 left: `${coords.x}px`,
             }}
         >
-                Форт
+                {name}
 
             {/* <div className={styles.__whiteEffect}><div /></div> */}
         </div>

@@ -31,6 +31,7 @@ let SnapshotAreals = class SnapshotAreals {
     }
     clearInactiveAreals() {
         const areals = this.getInactiveAreals();
+        console.log('getInactiveAreals areals', areals);
         this._rooms.areals.clearRooms(areals);
         this._sectorService.removeByAreals(areals);
     }
@@ -38,6 +39,7 @@ let SnapshotAreals = class SnapshotAreals {
         return __awaiter(this, void 0, void 0, function* () {
             console.log('saveSectorsToBase');
             const takes = this.getLogsTakes();
+            console.log('saveSectorsToBase takes', takes);
             this.clearLogsTakes();
             const sectors = yield this._sectorService.getByIds(takes);
             yield this._sectorService.baseInserts(sectors);

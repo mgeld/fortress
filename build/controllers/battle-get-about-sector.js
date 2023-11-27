@@ -26,10 +26,15 @@ const arena_sector_service_1 = require("../services/arena-sector.service");
 const member_service_1 = require("../services/member.service");
 let BattleGetAboutSectorHandler = class BattleGetAboutSectorHandler extends handlers_1.IRoute {
     handle(message, uSocket) {
+        var _a, _b;
         return __awaiter(this, void 0, void 0, function* () {
             if (!(uSocket === null || uSocket === void 0 ? void 0 : uSocket.user_id))
                 return;
-            const _sector = yield this._sectorService.getById(message.payload.id, message.payload.arena);
+            const __id = (_a = message.payload) === null || _a === void 0 ? void 0 : _a.id;
+            const __arena = (_b = message.payload) === null || _b === void 0 ? void 0 : _b.arena;
+            if (!__id || !__arena)
+                return;
+            const _sector = yield this._sectorService.getById(__id, __arena);
             const _member = yield this._memberService.getById(uSocket.user_id);
             const dtoSector = _sector.unmarshal();
             const sector = {

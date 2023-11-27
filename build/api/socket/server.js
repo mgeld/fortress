@@ -35,12 +35,12 @@ let Server = class Server {
             key: fs_1.default.readFileSync('./api/cert/privateKey.key')
         }, (req, res) => {
             console.log('req.url', req.url);
-            if (req.url === '/snapshot-areals') {
+            if (req.url === '/fortress/snapshot-areals') {
                 console.log('snapshot-areals');
                 this._snapshotAreals.saveSectorsToBase();
                 this._snapshotAreals.clearInactiveAreals();
             }
-            else if (req.url === '/snapshot-arenas') {
+            else if (req.url === '/fortress/snapshot-areals') {
                 console.log('snapshot-arenas');
                 this._snapshotArenas.clearInactiveArenas();
             }

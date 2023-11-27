@@ -19,17 +19,17 @@ import styles from './styles.module.scss'
 const units = Object.entries({
     100: unitsPrices[100],
     101: unitsPrices[101],
+    30: unitsPrices[30],
+    31: unitsPrices[31],
     10: unitsPrices[10],
     11: unitsPrices[11],
     21: unitsPrices[21],
     22: unitsPrices[22],
-    30: unitsPrices[30],
-    31: unitsPrices[31],
     41: unitsPrices[41],
     42: unitsPrices[42],
     50: unitsPrices[50],
     52: unitsPrices[52],
-})
+}).reverse()
 
 export const GunShop: FC = () => {
 

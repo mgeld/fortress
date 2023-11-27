@@ -6,7 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const model_1 = require("../model");
 const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
 const ControlInvader = () => {
-    console.log('ControlInvader---------');
     return (<div className={styles_module_scss_1.default.controlInvader}>
             <div className={styles_module_scss_1.default.__circle}>
                 <div onClick={model_1.invaderControl} className={styles_module_scss_1.default.__button}>

@@ -29,15 +29,21 @@ const takes_1 = require("../infra/logs/takes");
 const zone_service_1 = require("../services/zone.service");
 let BeamHandler = class BeamHandler extends handlers_1.IRoute {
     handle(message, uSocket) {
+        var _a, _b, _c;
         return __awaiter(this, void 0, void 0, function* () {
             console.log('BeamHandler handle');
             if (!uSocket.user_id)
+                return;
+            const __fort = (_a = message.payload) === null || _a === void 0 ? void 0 : _a.fort;
+            const __sector = (_b = message.payload) === null || _b === void 0 ? void 0 : _b.sector;
+            const __position = (_c = message.payload) === null || _c === void 0 ? void 0 : _c.position;
+            if (!__fort || !__sector || !__position)
                 return;
             let _sector;
             const zone = yield this._zoneService.getById(uSocket.user_id);
             let extrResp;
             try {
-                _sector = yield this._sectorService.getById(message.payload.sector);
+                _sector = yield this._sectorService.getById(__sector);
                 let extr = null;
                 console.log('_sector.booty', _sector.booty);
                 if (_sector.booty) {
@@ -71,8 +77,8 @@ let BeamHandler = class BeamHandler extends handlers_1.IRoute {
                     payload: {
                         extr,
                         cont: _sector.booty,
-                        fort: message.payload.fort,
-                        pos: message.payload.position
+                        fort: __fort,
+                        pos: __position
                     }
                 };
                 console.log('extr', extr);
@@ -90,7 +96,7 @@ let BeamHandler = class BeamHandler extends handlers_1.IRoute {
                         extr: null,
                         cont: 0,
                         fort: null,
-                        pos: message.payload.position
+                        pos: __position
                     }
                 };
             }

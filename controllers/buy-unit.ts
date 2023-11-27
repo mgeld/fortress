@@ -21,11 +21,15 @@ class BuyUnitHandler extends IRoute {
 
         if (!uSocket.user_id) return
 
+        const __id = message.payload?.id
+
+        if (!__id) return
+
         const zone = await this._zoneService.getById(uSocket.user_id)
 
-        console.log('message.payload.id', message.payload.id)
+        console.log('message.payload.id', __id)
 
-        const cost = Units.getUnitPrice(message.payload.id)
+        const cost = Units.getUnitPrice(__id)
 
         console.log('cost', cost)
 
@@ -48,7 +52,7 @@ class BuyUnitHandler extends IRoute {
             return
         }
 
-        const extr = zone.hold.addExtrToList(message.payload.id)
+        const extr = zone.hold.addExtrToList(__id)
 
         if (extr === 'limit') {
             const limitResp: TLimit = {
@@ -65,10 +69,10 @@ class BuyUnitHandler extends IRoute {
             const extrResp: TBuyUnit = {
                 event: 'buy-unit',
                 payload: {
-                    type: message.payload.id,
+                    type: __id,
                     currency: cost.currency,
                     cost: cost.price,
-                    unit: message.payload.id
+                    unit: __id
                 }
             }
             uSocket.send(JSON.stringify(extrResp))

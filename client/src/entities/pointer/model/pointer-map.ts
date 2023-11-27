@@ -112,11 +112,14 @@ export const $pointersStore = createStore<TPointer[]>(DEFAULT_STORE)
             }
         return pointer
     })))
-    .on(changeHealthPointer, (prevPointers: TPointer[], data: THealthPointer) => (prevPointers.map(prevPointer =>
-        prevPointer.userId === data.userId ? {
+    .on(changeHealthPointer, (prevPointers: TPointer[], data: THealthPointer) => (prevPointers.map(prevPointer => {
+        const nHealth = prevPointer.health - data.health
+        return prevPointer.userId === data.userId ? {
             ...prevPointer,
-            health: prevPointer.health - data.health
-        } : prevPointer)
+            health: nHealth < 0 ? 0 : nHealth
+
+        } : prevPointer
+    })
     ))
     .on(setHealthPointer, (prevPointers: TPointer[], data: THealthPointer) => (prevPointers.map(prevPointer =>
         prevPointer.userId === data.userId ? {

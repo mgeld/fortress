@@ -42,8 +42,8 @@ export class Gun {
         this._id = props.id
         this._level = props?.level || 1
 
-        this._power = props?.power || 10
-        this._distance = props?.distance || 290
+        this._power = props?.power || 5
+        this._distance = props?.distance || 300
         this._bullets = props?.bullets || 100
         this._status = props?.status ? 'used' : 'stock'
     }
@@ -79,12 +79,12 @@ export class Gun {
 
     private static getLevelMaxDistance(level: number): number {
         const levels: { [key: number]: number } = {
-            1: 300,
-            2: 350,
-            3: 430,
-            4: 540,
-            5: 680,
-            6: 850 
+            1: 330,
+            2: 380,
+            3: 460,
+            4: 570,
+            5: 710,
+            6: 880 
         }
         return levels[level]
     }
@@ -104,11 +104,11 @@ export class Gun {
     public static getLevelUpPrice(level: number): number {
         const levels: { [key: number]: number } = {
             1: 0,
-            2: 100,
-            3: 300,
-            4: 600,
-            5: 1000,
-            6: 1500
+            2: 840,
+            3: 3420,
+            4: 7710,
+            5: 13710,
+            6: 21420
         }
         return levels[level]
     }

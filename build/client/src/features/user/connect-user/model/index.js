@@ -6,7 +6,6 @@ const ship_1 = require("entities/ship");
 const user_1 = require("entities/user");
 const connect_1 = require("shared/api/connect");
 const connectUser = (0, effector_1.createEvent)();
-connectUser.watch((val) => console.log('Event connectUser', val));
 (0, effector_1.sample)({
     clock: connectUser,
     source: {
@@ -21,7 +20,6 @@ connectUser.watch((val) => console.log('Event connectUser', val));
         url: clock
     }),
     target: (0, effector_1.createEffect)((params) => {
-        console.log('createEffect url', params.url);
         (0, connect_1.connectAPI)(params.url, params.userName, params.userIcon, params.pos);
     })
 });

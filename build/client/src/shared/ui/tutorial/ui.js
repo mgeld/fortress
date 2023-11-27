@@ -6,10 +6,34 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Tutorial = void 0;
 const _1 = require(".");
 const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
+const ship_1 = require("entities/ship");
+const events_1 = require("shared/api/events");
 const Tutorial = () => {
     const card = _1.tutorialModel.selectors.useTutorial();
+    const pos = ship_1.shipModel.selectors.useShipPos();
     if (!card)
         return <></>;
+    const setTutorial = () => {
+        if (card === 'ship') {
+            _1.tutorialModel.events.setTutorial(null);
+            setTimeout(() => {
+                events_1.pointersAPI.events.newPointer({
+                    lvl: 1,
+                    userId: -1,
+                    icon: 'https://sun120-1.userapi.com/s/v1/ig2/Y5LhWYhLVxHswvVU4dGrqnGVc4wmSzQQKVKZXrlyflMWuRihg7F4TVephtlm4fmdE9SFxBCUKPFuxsqz4hIIu_cx.jpg?size=50x50&quality=95&crop=468,0,960,960&ava=1',
+                    name: 'НЛО',
+                    health: 50,
+                    pos: [pos[0] + 0.004, pos[1]]
+                });
+                setTimeout(() => {
+                    _1.tutorialModel.events.setTutorial('gun');
+                }, 500);
+            }, 3000);
+        }
+        else {
+            _1.tutorialModel.events.setTutorial(null);
+        }
+    };
     const cards = {
         ship: {
             name: 'Джойстик передвижения',
@@ -44,7 +68,7 @@ const Tutorial = () => {
                 <div className={styles_module_scss_1.default.description}>
                     {cards[card].description}
                 </div>
-                <div className={styles_module_scss_1.default.next} onClick={() => _1.tutorialModel.events.setTutorial(null)}>
+                <div className={styles_module_scss_1.default.next} onClick={setTutorial}>
                     <div>
                         
                         {'Понятно!'}

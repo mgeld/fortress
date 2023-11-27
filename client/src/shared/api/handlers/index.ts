@@ -14,7 +14,7 @@ export class Handlers {
 
     constructor(handlers: THandlers) {
 
-        console.log('Handlers constructor', handlers)
+        // console.log('Handlers constructor', handlers)
         this.handlers = handlers
     }
 

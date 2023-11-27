@@ -7,9 +7,9 @@ class BattleJoinHandler extends __1.Handler {
     handle(message) {
         console.log('BattleJoinHandler handle');
         events_1.mapAPI.events.setMapMode('battle');
-        events_1.shipAPI.events.setPos(message.payload.user.pos);
         events_1.battleAPI.events.setBattleStatus('pending');
         events_1.battleAPI.events.setMyTeam(message.payload.user.team);
+        events_1.shipAPI.events.setPos(message.payload.user.pos);
     }
 }
 exports.BattleJoinHandler = BattleJoinHandler;

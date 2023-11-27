@@ -16,17 +16,17 @@ const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
 const units = Object.entries({
     100: unit_buy_list_1.unitsPrices[100],
     101: unit_buy_list_1.unitsPrices[101],
+    30: unit_buy_list_1.unitsPrices[30],
+    31: unit_buy_list_1.unitsPrices[31],
     10: unit_buy_list_1.unitsPrices[10],
     11: unit_buy_list_1.unitsPrices[11],
     21: unit_buy_list_1.unitsPrices[21],
     22: unit_buy_list_1.unitsPrices[22],
-    30: unit_buy_list_1.unitsPrices[30],
-    31: unit_buy_list_1.unitsPrices[31],
     41: unit_buy_list_1.unitsPrices[41],
     42: unit_buy_list_1.unitsPrices[42],
     50: unit_buy_list_1.unitsPrices[50],
     52: unit_buy_list_1.unitsPrices[52],
-});
+}).reverse();
 const GunShop = () => {
     const coins = zone_1.zoneModel.selectors.useZoneCoins();
     const sapphires = zone_1.zoneModel.selectors.useZoneRubies();

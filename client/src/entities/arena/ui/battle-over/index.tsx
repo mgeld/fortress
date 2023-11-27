@@ -14,6 +14,7 @@ import { IconTrophy } from "widgets/counters/icons/_icons";
 import { shipModel } from "entities/ship";
 import IconBattleShield from 'shared/assets/icons//battle-shield.png';
 import IconBattleShieldRed from 'shared/assets/icons//battle-shield-red.png';
+
 export const BattleOver: FC = () => {
 
     // const userId = userModel.selectors.useUserId()
@@ -47,24 +48,22 @@ export const BattleOver: FC = () => {
 
                     <div className={styles.__shield}>
                         {/* <IconBattleShield width={64} height={64} /> */}
-                        
 
-                        {userTeam?.status === 'victory' ?
+
+                        {userTeam?.status === 'victory' || userTeam?.status === 'draw' ?
                             <img src={IconBattleShield} alt="<>" /> :
                             <img src={IconBattleShieldRed} alt="<>" />}
                     </div>
 
                     {teams.map((team, i) => {
+                        if (team.members.length < 1) return <></>
                         return (
                             <div className={[styles.__team, styles[team.status], styles[`team${i}`]].join(' ')}>
 
                                 {team.teamId === userTeam?.teamId && (<>
-                                    <div className={styles.__swords}>
-                                        <IconBattleSwords width={52} height={52} />
-                                    </div>
                                     <div className={styles.__header}>
                                         <div className={styles.__left}>
-                                            {team.status === 'victory' ? 'Победа!' : 'Поражение!'}
+                                            {team.status === 'victory' ? 'Победа!' : team.status === 'defeat' ? 'Поражение :(' : 'Ничья :('}
                                         </div>
                                         <div className={styles.__right}>
                                             <div className={styles.__icon}>
@@ -76,6 +75,12 @@ export const BattleOver: FC = () => {
                                         </div>
                                     </div>
                                 </>)}
+
+                                {team.members.length > 0 && team.teamId !== userTeam?.teamId && (
+                                    <div className={styles.__swords}>
+                                        <IconBattleSwords width={52} height={52} />
+                                    </div>
+                                )}
 
                                 <div className={styles.__users}>
 

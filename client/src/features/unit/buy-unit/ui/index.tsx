@@ -10,9 +10,6 @@ import { modules } from "entities/unit/lib/modules";
 import { onBuyUnit } from "../model";
 import { unitsPrices } from "entities/unit/lib/unit-buy-list";
 import { IconCoin, IconSapphire } from "widgets/counters/icons/_icons";
-import { TTypeImproves, useItemImproves } from "features/unit/use-item/ui";
-import { TPopout } from "shared/ui/popout-root/model";
-// import { pageModel } from "shared/ui/page-root";
 
 export const BuyUnit: FC = () => {
 
@@ -28,11 +25,7 @@ export const BuyUnit: FC = () => {
 
     const _price = unitsPrices[_unit]
 
-    console.log('_unitBuy', _unit)
-    console.log('_price', _price)
-
     const buyUnit = () => {
-        console.log('buyUnit')
         // if (_unit) {
         // setTimeout(() => {
         // const popout = useItemImproves[(Math.floor(_unit / 10) * 10) as TTypeImproves] as TPopout

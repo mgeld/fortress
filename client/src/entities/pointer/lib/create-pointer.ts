@@ -5,6 +5,5 @@ export const createPointer = (
     // username: string,
     usericon: string
 ) => {
-    console.log('99 createPointer')
     return new PointerCreator().createPoint(IconPointer, usericon)
 }

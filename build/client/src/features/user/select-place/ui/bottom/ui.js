@@ -16,6 +16,7 @@ const BottomSelectPlace = () => {
         if (!pos) {
             alert_1.alertModel.events.setAlert({
                 action: {
+                    close: false,
                     text: 'Понятно',
                     _click: () => popout_root_1.popoutModel.events.setPopout(null)
                 },

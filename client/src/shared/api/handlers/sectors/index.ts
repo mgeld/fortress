@@ -6,8 +6,6 @@ import { TSectors } from '@ctypes/socket/server-to-client'
 class SectorsHandler extends Handler {
     handle(message: TSectors) {
         sectorsAPI.events.setSectors(message.payload)
-
-        console.log('message.payload', message.payload)
     }
 }
 

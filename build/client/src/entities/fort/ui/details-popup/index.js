@@ -7,7 +7,7 @@ const react_1 = require("react");
 const react_leaflet_1 = require("react-leaflet");
 const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
 const Y_BACK = 42;
-const DetailsPopup = ({ fort }) => {
+const DetailsPopup = ({ fort, name }) => {
     const map = (0, react_leaflet_1.useMap)();
     const [coords, setCoords] = (0, react_1.useState)(map.latLngToLayerPoint(fort));
     (0, react_1.useEffect)(() => {
@@ -20,7 +20,7 @@ const DetailsPopup = ({ fort }) => {
             top: `${coords.y - (0) - Y_BACK}px`,
             left: `${coords.x}px`,
         }}>
-                Форт
+                {name}
 
             
         </div>);

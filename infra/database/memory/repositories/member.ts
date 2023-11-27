@@ -9,7 +9,7 @@ import { MemoryData } from '../memory-data'
 export class MemberMemoryRepository implements IArenaTeamMemberRepository {
     constructor(
         @inject(TYPES.Database) private _database: MemoryData
-    ) {}
+    ) { }
 
     async insert(member: Member): Promise<Member> {
         const dtoMember = member.unmarshal()
@@ -27,11 +27,16 @@ export class MemberMemoryRepository implements IArenaTeamMemberRepository {
 
     async getByIds(userIds: number[]): Promise<Member[]> {
         console.log('member repository getByIds userIds', userIds)
-        const members = await this._database.arenaTeamMember.getByIds<UnmarshalledMember>(userIds)
-        if (!members) {
-            throw new Error('----------')
+        try {
+            const members = await this._database.arenaTeamMember.getByIds<UnmarshalledMember>(userIds)
+            console.log('members', members)
+            // if (!members) {
+            //     throw new Error('----------')
+            // }
+            return members.map(member => MemberMapper.toDomain(member))
+        } catch (e) {
+            return []
         }
-        return members.map(member => MemberMapper.toDomain(member))
     }
 
     async update(member: Member): Promise<Member> {

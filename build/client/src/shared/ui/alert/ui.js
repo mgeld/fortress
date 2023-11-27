@@ -29,9 +29,9 @@ const Alert = () => {
 
             <div className={styles_module_scss_1.default.actions}>
                 <div className={styles_module_scss_1.default.inside}>
-                    <div onClick={closePopout} className={`${styles_module_scss_1.default.button} ${styles_module_scss_1.default.__white}`}>
+                    {data.action.close ? <div onClick={closePopout} className={`${styles_module_scss_1.default.button} ${styles_module_scss_1.default.__white}`}>
                         Отмена
-                    </div>
+                    </div> : null}
                     <div onClick={data.action._click} className={styles_module_scss_1.default.button}>
                         {data.action.text}
                     </div>

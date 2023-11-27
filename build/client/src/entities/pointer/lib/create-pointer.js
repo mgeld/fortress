@@ -7,7 +7,6 @@ exports.createPointer = void 0;
 const pointer_creator_1 = require("./pointer-creator");
 const _3pointer_png_1 = __importDefault(require("../assets/icons/3pointer.png"));
 const createPointer = (usericon) => {
-    console.log('99 createPointer');
     return new pointer_creator_1.PointerCreator().createPoint(_3pointer_png_1.default, usericon);
 };
 exports.createPointer = createPointer;

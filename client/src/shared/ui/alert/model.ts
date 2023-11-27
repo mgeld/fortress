@@ -7,6 +7,7 @@ type TAlert = {
     alert: string
     message: string
     action: {
+        close: boolean
         text: string
         _click: () => void
     }

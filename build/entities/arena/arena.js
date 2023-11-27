@@ -63,7 +63,10 @@ class Arena {
     }
     completeBattle(defeatTeamId) {
         this.teamList.forEach(team => {
-            if (team.id === defeatTeamId) {
+            if (defeatTeamId === 0) {
+                team.drawTeam();
+            }
+            else if (team.id === defeatTeamId) {
                 team.defeatTeam();
             }
             else {

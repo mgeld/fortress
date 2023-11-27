@@ -35,7 +35,6 @@ class FireHandler extends Handler {
             firesAPI.events.delFireById({ fire_id: FIRE_ID })
             if (message.payload.hitPointer?.userId) {
 
-                console.log('message.payload.hitPointer?.health', message.payload.hitPointer?.health)
                 firesAPI.events.hitFireInTarget({
                     hitUserId: message.payload.hitPointer.userId,
                     health: message.payload.hitPointer?.health || 0
