@@ -57,10 +57,9 @@ export class Server {
             if (req.url === '/fortress/snapshot-areals') {
 
                 console.log('snapshot-areals')
-                this._snapshotAreals.saveSectorsToBase()
-                this._snapshotAreals.clearInactiveAreals()
+                this.backupAndClearAreals()
 
-            } else if (req.url === '/fortress/snapshot-areals') {
+            } else if (req.url === '/fortress/snapshot-arenas') {
 
                 console.log('snapshot-arenas')
                 this._snapshotArenas.clearInactiveArenas()
@@ -114,7 +113,6 @@ export class Server {
             ws.on('message', router)
 
         })
-        
 
         // connection.start()
         // const interval = setInterval(() => connection.pingPong(), 5000);
@@ -124,11 +122,17 @@ export class Server {
 
         server.listen(8080, hostname, () => console.log('Htpsssss'));
 
+        setInterval(() => this.backupAndClearAreals(), 120000)
+
+    }
+
+    private backupAndClearAreals() {
+        this._snapshotAreals.saveSectorsToBase()
+        this._snapshotAreals.clearInactiveAreals()
     }
 }
 
 // Server.start()
-
 
 // function aaa(message: string) {
 //     let msg: TSendEvent = JSON.parse(message)

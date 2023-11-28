@@ -58,6 +58,9 @@ let SectorRepository = class SectorRepository {
     }
     inserts(sectors) {
         return __awaiter(this, void 0, void 0, function* () {
+            if (sectors.length === 0) {
+                return false;
+            }
             const sqlSectors = sectors.map(sector => {
                 const dtoSector = sector.unmarshal();
                 return [

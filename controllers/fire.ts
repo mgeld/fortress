@@ -28,7 +28,7 @@ class FireHandler extends IRoute {
         const __direction = message.payload?.direction
         const __hitPointer = message.payload?.hitPointer
 
-        if(!__pos || !__to_pos || !__direction) return
+        if (!__pos || !__to_pos || !__direction) return
 
         const _pointer = await this._pointerService.memoryGetById(uSocket.user_id)
         const weapon = await this._weaponService.memoryGetById(_pointer.weapons[0])
@@ -55,26 +55,36 @@ class FireHandler extends IRoute {
         if (__hitPointer) {
 
             if (__hitPointer?.userId === -1) return
-            
+
 
             fire['hitPointer'] = __hitPointer
 
             const hitPointer = await this._pointerService.memoryGetById(__hitPointer.userId)
 
-            if (
-                !(fire.to_pos[0] >= hitPointer.pos[0] - 0.0004 || fire.to_pos[0] <= hitPointer.pos[0] + 0.0004 &&
-                    fire.to_pos[1] <= hitPointer.pos[1] - 0.0008 || fire.to_pos[1] >= hitPointer.pos[1] + 0.0008)
-            ) {
-                return
-            }
+            // if (
+            //     (__hitPointer.pos[0] >= hitPointer.pos[0] - 0.0004 || __hitPointer.pos[0] <= hitPointer.pos[0] + 0.0004) &&
+            //     (__hitPointer.pos[1] <= hitPointer.pos[1] - 0.0008 || __hitPointer.pos[1] >= hitPointer.pos[1] + 0.0008)
+            // ) {
+            //     return
+            // }
 
-            if (
-                !(fire.pos[0] >= _pointer.pos[0] - 0.0004 || fire.pos[0] <= _pointer.pos[0] + 0.0004 &&
-                    fire.pos[1] <= _pointer.pos[1] - 0.0008 || fire.pos[1] >= _pointer.pos[1] + 0.0008)
-            ) {
-                return
-            }
+            // if (
+            //     !(fire.pos[0] >= _pointer.pos[0] - 0.0004 || fire.pos[0] <= _pointer.pos[0] + 0.0004 &&
+            //         fire.pos[1] <= _pointer.pos[1] - 0.0008 || fire.pos[1] >= _pointer.pos[1] + 0.0008)
+            // ) {
+            //     return
+            // }
 
+            const hit_lat_diff = __hitPointer.pos[0] > hitPointer.pos[0] ? __hitPointer.pos[0] - hitPointer.pos[0] : hitPointer.pos[0] - __hitPointer.pos[0]
+            const hit_lng_diff = __hitPointer.pos[1] > hitPointer.pos[1] ? __hitPointer.pos[1] - hitPointer.pos[1] : hitPointer.pos[1] - __hitPointer.pos[1]
+
+            const pos_lat_diff = __pos[0] > _pointer.pos[0] ? __pos[0] - _pointer.pos[0] : _pointer.pos[0] - __pos[0]
+            const pos_lng_diff = __pos[1] > _pointer.pos[1] ? __pos[1] - _pointer.pos[1] : _pointer.pos[1] - __pos[1]
+
+            const lat_diff = hit_lat_diff > pos_lat_diff ? hit_lat_diff - pos_lat_diff : pos_lat_diff - hit_lat_diff
+            const lng_diff = hit_lng_diff > pos_lng_diff ? hit_lng_diff - pos_lng_diff : pos_lng_diff - hit_lng_diff
+
+            if(!(lat_diff <= 0.0004 && lng_diff <= 0.0008)) return
 
             hitPointer.removeHealth(weapon.power)
 
@@ -82,7 +92,7 @@ class FireHandler extends IRoute {
 
             // Если противник погиб
             if (hitPointer.health < 1) {
-                
+
             }
 
             await this._pointerService.memoryUpdate(hitPointer)

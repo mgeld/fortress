@@ -59,6 +59,10 @@ export class SectorRepository implements ISectorRepository {
 
     async inserts(sectors: Sector[]): Promise<Boolean> {
 
+        if(sectors.length === 0) {
+            return false
+        }
+        
         const sqlSectors = sectors.map(sector => {
             const dtoSector = sector.unmarshal()
             return [

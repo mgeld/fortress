@@ -1,3 +1,4 @@
+
 import { TEventsAPI, TSendEvent } from "../common-types/socket/client-to-server"
 import { IWebSocket } from "../api/socket/server";
 
@@ -56,7 +57,9 @@ export class Handlers {
             if (!_message || !_message?.payload) return
 
             if (!this[_message.event]) {
-                throw new Error('2 Передан несуществующий обработчик')
+                console.log('2 Передан несуществующий обработчик')
+                return
+                // throw new Error('2 Передан несуществующий обработчик')
             }
 
             this[_message.event].handle(_message, uSocket)

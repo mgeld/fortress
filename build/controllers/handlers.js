@@ -49,7 +49,8 @@ let Handlers = class Handlers {
             if (!_message || !(_message === null || _message === void 0 ? void 0 : _message.payload))
                 return;
             if (!this[_message.event]) {
-                throw new Error('2 Передан несуществующий обработчик');
+                console.log('2 Передан несуществующий обработчик');
+                return;
             }
             this[_message.event].handle(_message, uSocket);
         };

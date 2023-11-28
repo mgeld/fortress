@@ -58,14 +58,14 @@ let FireHandler = class FireHandler extends handlers_1.IRoute {
                     return;
                 fire['hitPointer'] = __hitPointer;
                 const hitPointer = yield this._pointerService.memoryGetById(__hitPointer.userId);
-                if (!(fire.to_pos[0] >= hitPointer.pos[0] - 0.0004 || fire.to_pos[0] <= hitPointer.pos[0] + 0.0004 &&
-                    fire.to_pos[1] <= hitPointer.pos[1] - 0.0008 || fire.to_pos[1] >= hitPointer.pos[1] + 0.0008)) {
+                const hit_lat_diff = __hitPointer.pos[0] > hitPointer.pos[0] ? __hitPointer.pos[0] - hitPointer.pos[0] : hitPointer.pos[0] - __hitPointer.pos[0];
+                const hit_lng_diff = __hitPointer.pos[1] > hitPointer.pos[1] ? __hitPointer.pos[1] - hitPointer.pos[1] : hitPointer.pos[1] - __hitPointer.pos[1];
+                const pos_lat_diff = __pos[0] > _pointer.pos[0] ? __pos[0] - _pointer.pos[0] : _pointer.pos[0] - __pos[0];
+                const pos_lng_diff = __pos[1] > _pointer.pos[1] ? __pos[1] - _pointer.pos[1] : _pointer.pos[1] - __pos[1];
+                const lat_diff = hit_lat_diff > pos_lat_diff ? hit_lat_diff - pos_lat_diff : pos_lat_diff - hit_lat_diff;
+                const lng_diff = hit_lng_diff > pos_lng_diff ? hit_lng_diff - pos_lng_diff : pos_lng_diff - hit_lng_diff;
+                if (!(lat_diff <= 0.0004 && lng_diff <= 0.0008))
                     return;
-                }
-                if (!(fire.pos[0] >= _pointer.pos[0] - 0.0004 || fire.pos[0] <= _pointer.pos[0] + 0.0004 &&
-                    fire.pos[1] <= _pointer.pos[1] - 0.0008 || fire.pos[1] >= _pointer.pos[1] + 0.0008)) {
-                    return;
-                }
                 hitPointer.removeHealth(weapon.power);
                 fire.hitPointer.health = hitPointer.health;
                 if (hitPointer.health < 1) {

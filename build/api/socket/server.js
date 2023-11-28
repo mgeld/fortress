@@ -37,10 +37,9 @@ let Server = class Server {
             console.log('req.url', req.url);
             if (req.url === '/fortress/snapshot-areals') {
                 console.log('snapshot-areals');
-                this._snapshotAreals.saveSectorsToBase();
-                this._snapshotAreals.clearInactiveAreals();
+                this.backupAndClearAreals();
             }
-            else if (req.url === '/fortress/snapshot-areals') {
+            else if (req.url === '/fortress/snapshot-arenas') {
                 console.log('snapshot-arenas');
                 this._snapshotArenas.clearInactiveArenas();
             }
@@ -73,6 +72,11 @@ let Server = class Server {
         });
         const hostname = '89.108.71.67';
         server.listen(8080, hostname, () => console.log('Htpsssss'));
+        setInterval(() => this.backupAndClearAreals(), 120000);
+    }
+    backupAndClearAreals() {
+        this._snapshotAreals.saveSectorsToBase();
+        this._snapshotAreals.clearInactiveAreals();
     }
 };
 __decorate([
