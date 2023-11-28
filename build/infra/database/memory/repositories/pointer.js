@@ -26,7 +26,6 @@ const memory_data_1 = require("../memory-data");
 let PointerMemoryRepository = class PointerMemoryRepository {
     getById(userId) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log('PointerMemoryRepository getById');
             const pointer = yield this._database.pointer.getById(userId);
             if (!pointer) {
                 throw new Error('----------');
@@ -52,7 +51,6 @@ let PointerMemoryRepository = class PointerMemoryRepository {
     }
     update(pointer) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log('PointerMemoryRepository update pointer');
             const dtoPointer = pointer.unmarshal();
             const updated = yield this._database.pointer.update(dtoPointer.id, dtoPointer);
             return pointer_1.PointerMapper.toDomain(updated);

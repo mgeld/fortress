@@ -100,7 +100,7 @@ export class PingPong {
     }
 
     pingPong() {
-        console.log('pingPong')
+        // console.log('pingPong')
         if (this._wss)
             // const context = this
             this._wss.clients.forEach(this.each.bind(this));

@@ -42,9 +42,8 @@ class CollectionRooms {
 
     deleteClient(clientId: number, roomId: TRoomId) {
 
-        console.log('55503804', roomId)
-        console.log('clientId', clientId)
-        console.log(' deleteClientthis.data[roomId][clientId]', this.data[roomId])
+        console.log(' deleteClient clientId', clientId)
+        // console.log(' deleteClientthis.data[roomId][clientId]', this.data[roomId])
         delete this.data[roomId][clientId]
     }
 

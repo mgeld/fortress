@@ -26,6 +26,7 @@ const model_3 = require("features/user/set-map-pos/model");
 const model_4 = require("features/map/set-max-bounds/model");
 const model_5 = require("features/pointer/filter-pointers/model");
 const booty_map_1 = require("./booty-map");
+const test_extr_1 = require("./test-extr");
 const tractor_beam_1 = require("entities/projector/ui/tractor-beam");
 const booty_1 = __importDefault(require("entities/projector/ui/booty"));
 const fort_details_map_1 = require("./fort-details-map");
@@ -45,7 +46,7 @@ const MapLayout = () => {
             <react_leaflet_1.MapContainer ref={map_1.mapModel.events.setMap} className='_MapContainer' center={center} zoom={16} minZoom={15} maxZoom={17} zoomControl={false} doubleClickZoom={false} bounceAtZoomLimits={false}>
                 <react_leaflet_1.TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
 
-                
+                <test_extr_1.TestExtr />
 
                 
 

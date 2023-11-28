@@ -126,6 +126,28 @@ let SectorRepository = class SectorRepository {
             }
         });
     }
+    getByAreal(areal) {
+        return __awaiter(this, void 0, void 0, function* () {
+            console.log('///>>>>>> Base getBoundsSectors');
+            try {
+                const [result] = yield this._connection.query(`SELECT
+                    id,
+                    number,
+                    CONCAT("[",lat,",",lng,"]") as latlng,
+                    zone_id,
+                    invaders,
+                    defenders,
+                    areal
+                FROM sectors WHERE areal = ?;`, [areal]);
+                const sects = result.map(sector => (Object.assign(Object.assign({}, sector), { latlng: JSON.parse(sector.latlng) })));
+                console.log('result sects', sects);
+                return sects;
+            }
+            catch (e) {
+                throw new Error('Не удалось вывести территории из базы');
+            }
+        });
+    }
     getById(sectorId) {
         return __awaiter(this, void 0, void 0, function* () {
             const [result] = yield this._connection.query(`SELECT

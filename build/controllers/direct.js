@@ -42,7 +42,6 @@ let DirectHandler = class DirectHandler extends handlers_1.IRoute {
                 return;
             }
             const areal = areal_1.Areal.generator(__position);
-            console.log('_pointer.areal', _pointer.areal);
             if (_pointer.areal && _pointer.areal === areal) {
                 this._rooms.areals.broadcast(_pointer.areal, {
                     event: 'direct',
@@ -72,7 +71,7 @@ let DirectHandler = class DirectHandler extends handlers_1.IRoute {
                         pointers: pointers.map(pointer => pointer.pointerUnmarshal())
                     }
                 }));
-                const _sectors = yield this._sectorService.getZonesAroundPosition(__position);
+                const _sectors = yield this._sectorService.getZonesAroundAreal(areal);
                 const array_sectors = Object.values(_sectors);
                 if (array_sectors.length > 0) {
                     let zones = {};
@@ -80,7 +79,6 @@ let DirectHandler = class DirectHandler extends handlers_1.IRoute {
                         zones[item.zone.zone_id] = item.zone.zone_id;
                     });
                     const _pointers = yield this._pointerService.getZoneByIds(Object.values(zones));
-                    console.log('_pointers', _pointers);
                     const sectors = array_sectors.map(zone => {
                         const user = _pointers.find(pointer => pointer.zone_id === zone.zone.zone_id);
                         return {
@@ -106,7 +104,6 @@ let DirectHandler = class DirectHandler extends handlers_1.IRoute {
                 }, _pointer.zoneId);
             }
             this._pointerService.memoryUpdate(_pointer);
-            console.log('>>>>memoryUpdate(_pointer) areal', _pointer.areal);
         });
     }
 };

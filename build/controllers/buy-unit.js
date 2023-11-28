@@ -35,9 +35,7 @@ let BuyUnitHandler = class BuyUnitHandler extends handlers_1.IRoute {
             if (!__id)
                 return;
             const zone = yield this._zoneService.getById(uSocket.user_id);
-            console.log('message.payload.id', __id);
             const cost = units_1.Units.getUnitPrice(__id);
-            console.log('cost', cost);
             let isSpend = 0;
             if (cost.currency === 'coins') {
                 isSpend = zone.spendСoins(cost.price);

@@ -93,7 +93,6 @@ let PingPong = class PingPong {
         });
     }
     pingPong() {
-        console.log('pingPong');
         if (this._wss)
             this._wss.clients.forEach(this.each.bind(this));
     }

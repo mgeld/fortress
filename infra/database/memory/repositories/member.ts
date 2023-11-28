@@ -26,10 +26,8 @@ export class MemberMemoryRepository implements IArenaTeamMemberRepository {
     }
 
     async getByIds(userIds: number[]): Promise<Member[]> {
-        console.log('member repository getByIds userIds', userIds)
         try {
             const members = await this._database.arenaTeamMember.getByIds<UnmarshalledMember>(userIds)
-            console.log('members', members)
             // if (!members) {
             //     throw new Error('----------')
             // }

@@ -59,10 +59,10 @@ export class SectorRepository implements ISectorRepository {
 
     async inserts(sectors: Sector[]): Promise<Boolean> {
 
-        if(sectors.length === 0) {
+        if (sectors.length === 0) {
             return false
         }
-        
+
         const sqlSectors = sectors.map(sector => {
             const dtoSector = sector.unmarshal()
             return [
@@ -130,9 +130,9 @@ export class SectorRepository implements ISectorRepository {
                 ]
             )
 
-            const sects = result.map(sector => ({...sector, latlng: JSON.parse((sector.latlng as unknown) as string)}))
+            const sects = result.map(sector => ({ ...sector, latlng: JSON.parse((sector.latlng as unknown) as string) }))
             console.log('result sects', sects)
-            
+
             return sects
 
         } catch (e) {
@@ -146,6 +146,37 @@ export class SectorRepository implements ISectorRepository {
         // }
 
         // return result
+    }
+
+
+
+    async getByAreal(areal: number): Promise<UnmarshalledSector[]> {
+
+        console.log('///>>>>>> Base getBoundsSectors')
+
+        try {
+            const [result] = await this._connection.query<UnmarshalledSector[] & RowDataPacket[]>(
+                `SELECT
+                    id,
+                    number,
+                    CONCAT("[",lat,",",lng,"]") as latlng,
+                    zone_id,
+                    invaders,
+                    defenders,
+                    areal
+                FROM sectors WHERE areal = ?;`,
+                [areal]
+            )
+
+            const sects = result.map(sector => ({ ...sector, latlng: JSON.parse((sector.latlng as unknown) as string) }))
+            console.log('result sects', sects)
+
+            return sects
+
+        } catch (e) {
+
+            throw new Error('Не удалось вывести территории из базы')
+        }
     }
 
     async getById(sectorId: string): Promise<Sector> {
@@ -197,7 +228,7 @@ export class SectorRepository implements ISectorRepository {
         let arr: any[] = []
         const arrQuerySet = entries(dtoSector).map((item) => {
             if (!item) return ''
-            if(item[0] === 'number') return ''
+            if (item[0] === 'number') return ''
 
             if (item[0] === 'latlng') {
                 arr.push(item[1][0])

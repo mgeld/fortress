@@ -54,7 +54,6 @@ let SectorMemoryRepository = class SectorMemoryRepository {
         return __awaiter(this, void 0, void 0, function* () {
             const sectors = yield this._database.sector.findAll();
             if (sectors.length < 1) {
-                console.log('1 sectors', sectors);
                 throw new Error('1 error sectors');
             }
             return sectors.filter(sector => {
@@ -83,11 +82,15 @@ let SectorMemoryRepository = class SectorMemoryRepository {
     }
     getByAreal(areal) {
         return __awaiter(this, void 0, void 0, function* () {
-            const sectors = yield this._database.sector.findAll();
-            if (!sectors) {
+            const sectorsAll = yield this._database.sector.findAll();
+            if (!sectorsAll || sectorsAll.length === 0) {
                 throw new Error('----------');
             }
-            return sectors.filter(sector => sector.areal === areal);
+            const sectors = sectorsAll.filter(sector => sector.areal === areal);
+            if (!sectors || sectors.length === 0) {
+                throw new Error('----------');
+            }
+            return sectors;
         });
     }
     getByArealsSectors(areals) {

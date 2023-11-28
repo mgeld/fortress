@@ -57,7 +57,7 @@ class Extraction {
     addExtrToList(probabilityNumber) {
         const maxValueLevel = Extraction.getLevelMaxItems(this._level);
         if (this._items.length + 1 <= maxValueLevel) {
-            this._items.push(probabilityNumber);
+            this._items.unshift(probabilityNumber);
             return probabilityNumber;
         }
         return 'limit';

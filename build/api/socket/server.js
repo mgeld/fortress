@@ -59,7 +59,6 @@ let Server = class Server {
             console.log('connection');
             ws.is_alive = true;
             ws.on('pong', () => {
-                console.log('poooooooooooong');
                 ws.is_alive = true;
             });
             ws.on('close', function () {

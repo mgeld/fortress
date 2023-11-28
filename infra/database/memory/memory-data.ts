@@ -4,7 +4,6 @@ class Collection {
   private data: Record<string | number, unknown> = {}
 
   async findAll<T>(): Promise<T[]> {
-    console.log('findAll', Object.values(this.data))
     return Object.values(this.data) as T[]
   }
 

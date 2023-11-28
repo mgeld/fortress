@@ -23,7 +23,6 @@ class Collection {
     }
     findAll() {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log('findAll', Object.values(this.data));
             return Object.values(this.data);
         });
     }

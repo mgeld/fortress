@@ -103,7 +103,6 @@ export class PointerService {
     }
 
     async memoryUpdate(pointer: Pointer) {
-        console.log('memoryUpdate pointer', pointer)
         await this._memoryRepository.update(pointer)
     }
 

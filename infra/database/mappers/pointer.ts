@@ -3,7 +3,6 @@ import { User } from '../../../entities/pointer/user'
 
 export class PointerMapper {
   public static toDomain(pointer: UnmarshalledPointer): Pointer {
-    console.log('PointerMapper toDomain')
     return Pointer.create({
       zoneId: pointer.id,
 

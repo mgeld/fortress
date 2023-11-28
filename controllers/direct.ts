@@ -43,8 +43,6 @@ class DirectHandler extends IRoute {
 
         const areal = Areal.generator(__position)
 
-        console.log('_pointer.areal', _pointer.areal)
-
         if (_pointer.areal && _pointer.areal === areal) {
 
             this._rooms.areals.broadcast(_pointer.areal, {
@@ -129,7 +127,8 @@ class DirectHandler extends IRoute {
             }))
 
             /** **/
-            const _sectors = await this._sectorService.getZonesAroundPosition(__position)
+
+            const _sectors = await this._sectorService.getZonesAroundAreal(areal)
 
             const array_sectors = Object.values(_sectors)
 
@@ -142,7 +141,7 @@ class DirectHandler extends IRoute {
 
                 const _pointers = await this._pointerService.getZoneByIds(Object.values(zones))
 
-                console.log('_pointers', _pointers)
+                // console.log('_pointers', _pointers)
 
                 const sectors = array_sectors.map(zone => {
                     const user = _pointers.find(pointer => pointer.zone_id === zone.zone.zone_id)
@@ -179,8 +178,6 @@ class DirectHandler extends IRoute {
         }
 
         this._pointerService.memoryUpdate(_pointer)
-
-        console.log('>>>>memoryUpdate(_pointer) areal', _pointer.areal)
 
     }
 }

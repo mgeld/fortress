@@ -75,8 +75,6 @@ class BattleDirectHandler extends IRoute {
 
                     const killPointerTeam = arena.killPointer(_member.userId, _member.arenaTeam)
 
-                    console.log('killPointerTeam.alive_members', killPointerTeam.alive_members)
-
                     // _member.leaveArena()
 
                     if (killPointerTeam.alive_members === 0) {

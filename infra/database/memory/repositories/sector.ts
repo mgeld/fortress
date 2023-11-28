@@ -34,7 +34,6 @@ export class SectorMemoryRepository implements ISectorMemoryRepository {
 
         const sectors = await this._database.sector.findAll<UnmarshalledSector>()
         if (sectors.length < 1) {
-            console.log('1 sectors', sectors)
             throw new Error('1 error sectors')
         }
         return sectors.filter(sector => {
@@ -60,11 +59,15 @@ export class SectorMemoryRepository implements ISectorMemoryRepository {
     }
 
     async getByAreal(areal: number): Promise<UnmarshalledSector[]> {
-        const sectors = await this._database.sector.findAll<UnmarshalledSector>()
-        if (!sectors) {
+        const sectorsAll = await this._database.sector.findAll<UnmarshalledSector>()
+        if (!sectorsAll || sectorsAll.length === 0) {
             throw new Error('----------')
         }
-        return sectors.filter(sector => sector.areal === areal)
+        const sectors = sectorsAll.filter(sector => sector.areal === areal)
+        if (!sectors || sectors.length === 0) {
+            throw new Error('----------')
+        }
+        return sectors
     }
 
     async getByArealsSectors(areals: number[]): Promise<UnmarshalledSector[]> {

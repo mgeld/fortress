@@ -1,4 +1,4 @@
-import { TExtrTypes, TFindContType, TLatLng } from "../../common-types/model"
+import { TExtrTypes, TExtrTypesName, TFindContType, TLatLng } from "../../common-types/model"
 import { randomNumber } from "../../libs/random-number"
 
 export type TSectorProps = {
@@ -158,15 +158,48 @@ export class Sector {
     }
 
     public static getContainerExtr(cont_id: 1 | 2 | 3): TExtrTypes {
-        const __containers = {
-            // Контейнер: [список предметов в них]
-            1: [10, 20, 30, 40, 50, 110, 111],
-            2: [11, 21, 31, 41, 51, 111, 121],
-            3: [12, 22, 32, 42, 52],
+
+        const items: Record<TExtrTypesName, TExtrTypes[]> = {
+            rank_exp: [10, 11, 12],
+            storm_power: [20, 21, 22],
+            ship_health: [30, 31, 32],
+            gun_power: [40, 41, 42],
+            gun_distance: [50, 51, 52],
+            stormtroopers: [100, 101, 101],
+            rubies: [110, 111, 111],
+            coins: [120, 121, 121]
         }
-        const cont: number[] = __containers[cont_id]
-        
-        return cont[randomNumber(0, cont.length - 1)] as TExtrTypes
+
+        const percent = randomNumber(0, 100)
+
+        let item: TExtrTypes[] = []
+        if (percent <= 40) {
+            item = items.coins
+        } else if (percent <= 57) {
+            item = items.rubies
+        } else if (percent <= 72) {
+            item = items.ship_health
+        } else if (percent <= 82) {
+            item = items.stormtroopers
+        } else if (percent <= 92) {
+            item = items.rank_exp
+        } else if (percent <= 95) {
+            item = items.gun_power
+        } else if (percent <= 98) {
+            item = items.gun_distance
+        } else if (percent <= 100) {
+            item = items.storm_power
+        }
+
+        // const __containers = {
+        //     // Контейнер: [список предметов в них]
+        //     1: [],
+        //     2: [item[cont_id - 1]],
+        //     3: [item[cont_id - 1]],
+        // }
+        // const cont: number[] = __containers[cont_id]
+
+        return item[cont_id - 1] as TExtrTypes
     }
 
     addDefender() {

@@ -6,8 +6,6 @@ export const Pointers: FC = () => {
 
     const pointers = pointerMapModel.selectors.usePointers().data
 
-    console.log('12 Pointers')
-
     const memoPointers = useMemo(() => pointers.map(pointer => (
         <Pointer
             key={pointer.userId}

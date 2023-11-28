@@ -89,7 +89,6 @@ let PointerService = class PointerService {
     }
     memoryUpdate(pointer) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log('memoryUpdate pointer', pointer);
             yield this._memoryRepository.update(pointer);
         });
     }

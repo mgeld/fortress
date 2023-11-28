@@ -104,6 +104,7 @@ export interface ISectorMemoryRepository {
     getById(sectorId: string): Promise<Sector>
     getByIds(sectorIds: string[]): Promise<Sector[]>
     getBoundsSectors(bounds: [TLatLng, TLatLng]): Promise<UnmarshalledSector[]>
+    getByAreal(areal: number): Promise<UnmarshalledSector[]>
     update(sector: Sector): Promise<Sector>
     delete(sectorId: string): Promise<Boolean>
     deleteByAreals(areals: number[]): Promise<Boolean>
@@ -123,9 +124,9 @@ export interface ISectorRepository {
     insert(sector: Sector): Promise<Sector>
     inserts(sectors: Sector[]): Promise<Boolean>
     getById(sectorId: string): Promise<Sector>
-    getById(sectorId: string): Promise<Sector>
     getByIds(sectorIds: string[]): Promise<Sector[]>
     getBoundsSectors(bounds: [TLatLng, TLatLng]): Promise<UnmarshalledSector[]>
+    getByAreal(areal: number): Promise<UnmarshalledSector[]>
     update(sector: Sector): Promise<Sector>
     delete(sectorId: string): Promise<Boolean>
 }

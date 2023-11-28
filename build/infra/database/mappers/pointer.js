@@ -5,7 +5,6 @@ const pointer_1 = require("../../../entities/pointer/pointer");
 const user_1 = require("../../../entities/pointer/user");
 class PointerMapper {
     static toDomain(pointer) {
-        console.log('PointerMapper toDomain');
         return pointer_1.Pointer.create({
             zoneId: pointer.id,
             level: pointer.level,

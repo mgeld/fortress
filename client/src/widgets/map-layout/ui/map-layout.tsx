@@ -101,7 +101,7 @@ const MapLayout: FC<TMapProps> = () => {
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
 
-                {/* <TestExtr /> */}
+                <TestExtr />
 
                 {/* <Test /> */}
 

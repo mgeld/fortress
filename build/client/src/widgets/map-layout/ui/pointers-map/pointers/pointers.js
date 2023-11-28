@@ -9,7 +9,6 @@ const pointer_1 = require("entities/pointer");
 const pointer_2 = __importDefault(require("./pointer"));
 const Pointers = () => {
     const pointers = pointer_1.pointerMapModel.selectors.usePointers().data;
-    console.log('12 Pointers');
     const memoPointers = (0, react_1.useMemo)(() => pointers.map(pointer => (<pointer_2.default key={pointer.userId} pointer={pointer}/>)), [pointers]);
     return <>
         {memoPointers}

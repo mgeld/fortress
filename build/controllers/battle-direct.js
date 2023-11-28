@@ -61,7 +61,6 @@ let BattleDirectHandler = class BattleDirectHandler extends handlers_1.IRoute {
                     yield this._pointerService.memoryUpdate(_pointer);
                     if (health < 1) {
                         const killPointerTeam = arena.killPointer(_member.userId, _member.arenaTeam);
-                        console.log('killPointerTeam.alive_members', killPointerTeam.alive_members);
                         if (killPointerTeam.alive_members === 0) {
                             arena.completeBattle(killPointerTeam.id);
                             yield this._arenaService.update(arena);

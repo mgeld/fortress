@@ -48,10 +48,8 @@ let MemberMemoryRepository = class MemberMemoryRepository {
     }
     getByIds(userIds) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log('member repository getByIds userIds', userIds);
             try {
                 const members = yield this._database.arenaTeamMember.getByIds(userIds);
-                console.log('members', members);
                 return members.map(member => member_1.MemberMapper.toDomain(member));
             }
             catch (e) {

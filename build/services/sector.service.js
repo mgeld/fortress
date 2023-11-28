@@ -36,10 +36,25 @@ let SectorService = class SectorService {
         return __awaiter(this, void 0, void 0, function* () {
             const bounds = areal_1.Areal.getBounds(position);
             try {
+                console.log('getBoundsSectors try');
                 return yield this._memoryRepository.getBoundsSectors(bounds);
             }
             catch (e) {
                 const sectors = yield this._baseRepository.getBoundsSectors(bounds);
+                console.log('getBoundsSectors catch');
+                yield this._memoryRepository.inserts(sectors);
+                return sectors;
+            }
+        });
+    }
+    getArealSectors(areal) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                return yield this._memoryRepository.getByAreal(areal);
+            }
+            catch (e) {
+                const sectors = yield this._baseRepository.getByAreal(areal);
+                console.log('getBoundsSectors catch');
                 yield this._memoryRepository.inserts(sectors);
                 return sectors;
             }
@@ -48,21 +63,31 @@ let SectorService = class SectorService {
     getZonesAroundPosition(position) {
         return __awaiter(this, void 0, void 0, function* () {
             const _sectors = yield this.getBoundsSectors(position);
-            const sectors = _sectors.reduce((zoneItems, item) => {
-                if (!zoneItems[item.zone_id]) {
-                    zoneItems[item.zone_id] = {};
-                    zoneItems[item.zone_id]['zone'] = {
-                        zone_id: item.zone_id,
-                        name: '',
-                        color: 1
-                    };
-                    zoneItems[item.zone_id]['sectors'] = [];
-                }
-                zoneItems[item.zone_id]['sectors'].push(item.id);
-                return zoneItems;
-            }, {});
-            return sectors;
+            return this.unmarshalSectors(_sectors);
         });
+    }
+    getZonesAroundAreal(areal) {
+        return __awaiter(this, void 0, void 0, function* () {
+            console.log('getZonesAroundAreal areal', areal);
+            const _sectors = yield this.getArealSectors(areal);
+            return this.unmarshalSectors(_sectors);
+        });
+    }
+    unmarshalSectors(_sectors) {
+        const sectors = _sectors.reduce((zoneItems, item) => {
+            if (!zoneItems[item.zone_id]) {
+                zoneItems[item.zone_id] = {};
+                zoneItems[item.zone_id]['zone'] = {
+                    zone_id: item.zone_id,
+                    name: '',
+                    color: 1
+                };
+                zoneItems[item.zone_id]['sectors'] = [];
+            }
+            zoneItems[item.zone_id]['sectors'].push(item.id);
+            return zoneItems;
+        }, {});
+        return sectors;
     }
     memoryInsert(sector) {
         return this._memoryRepository.insert(sector);
