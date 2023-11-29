@@ -12,7 +12,6 @@ const FortMap = () => {
     const pos = ship_1.shipModel.selectors.useShipPos();
     const [value, setValue] = (0, react_1.useState)(pos);
     const throttled = (0, react_1.useRef)((0, debounce_1.debounce)((_pos) => {
-        console.log('throttle');
         setValue(_pos);
     }, 300));
     (0, react_1.useEffect)(() => throttled.current(pos), [pos]);

@@ -14,14 +14,17 @@ const MapDrones = () => {
             var _a;
             (_a = map.getPane('zoom-anim-map')) === null || _a === void 0 ? void 0 : _a.setAttribute('class', 'zoom-anim-map');
         },
-        zoomend: (e) => {
+        zoomend: () => {
             setTimeout(() => {
                 var _a;
-                (_a = map.getPane('zoom-anim-map')) === null || _a === void 0 ? void 0 : _a.setAttribute('class', 'zoom-anim-');
+                (_a = map.getPane('zoom-anim-map')) === null || _a === void 0 ? void 0 : _a.setAttribute('class', 'zoom-anim');
             }, 300);
+        },
+        zoom: () => {
             pointer_1.droneMapModel.events.setSizeDrone();
-        }
+        },
     });
+    console.log('MapDrones');
     const onShip = () => {
         popout_root_1.popoutModel.events.setPopout('ship');
     };

@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { fireMapModel } from "..";
 
-import { Fire } from "./fire";
+// import { Fire } from "./fire";
 
 import './l-styles.css'
 import { FireIOS } from "./fire-ios";

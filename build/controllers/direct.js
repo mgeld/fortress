@@ -38,7 +38,7 @@ let DirectHandler = class DirectHandler extends handlers_1.IRoute {
             console.log('DirectHandler handle');
             const _pointer = yield this._pointerService.memoryGetById(uSocket.user_id);
             _pointer.pos = __position;
-            if (_pointer.health < 1) {
+            if (_pointer.health < 1 && _pointer.areal !== -1) {
                 return;
             }
             const areal = areal_1.Areal.generator(__position);

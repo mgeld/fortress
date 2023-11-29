@@ -34,6 +34,7 @@ export type TPopout =
     // | 'unit-out-hold'
     | 'panel'
     | 'primes'
+    // | 'load-app'
 // | 'use-item'
 
 const setPopout = createEvent<TPopout | null>()

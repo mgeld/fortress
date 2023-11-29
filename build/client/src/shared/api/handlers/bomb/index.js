@@ -6,7 +6,6 @@ const __1 = require("..");
 const determinant_bomb_1 = require("entities/bomb/lib/determinant-bomb");
 class BombHandler extends __1.Handler {
     handle(message) {
-        console.log('BombHandler handle');
         const BOMB_ID = Date.now();
         const pos = message.payload.position;
         const userId = message.payload.userId;

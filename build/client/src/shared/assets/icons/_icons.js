@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.IconCont3 = exports.IconCont2 = exports.IconCont1 = exports.IconShipGun = exports.IconZoneLevel = exports.IconLevelUp = exports.IconRank = exports.IconClose = exports.IconArrow = exports.IconBattleLoupe = exports.IconBattleSwords = void 0;
+exports.IconShip = exports.IconCont3 = exports.IconCont2 = exports.IconCont1 = exports.IconShipGun = exports.IconZoneLevel = exports.IconLevelUp = exports.IconRank = exports.IconClose = exports.IconArrow = exports.IconBattleLoupe = exports.IconBattleSwords = void 0;
 var battle_swords_svg_1 = require("./battle-swords.svg");
 Object.defineProperty(exports, "IconBattleSwords", { enumerable: true, get: function () { return battle_swords_svg_1.ReactComponent; } });
 var battle_loupe_svg_1 = require("./battle-loupe.svg");
@@ -23,3 +23,5 @@ var cont_2_svg_1 = require("./cont_2.svg");
 Object.defineProperty(exports, "IconCont2", { enumerable: true, get: function () { return cont_2_svg_1.ReactComponent; } });
 var cont_3_svg_1 = require("./cont_3.svg");
 Object.defineProperty(exports, "IconCont3", { enumerable: true, get: function () { return cont_3_svg_1.ReactComponent; } });
+var ship_svg_1 = require("./ship.svg");
+Object.defineProperty(exports, "IconShip", { enumerable: true, get: function () { return ship_svg_1.ReactComponent; } });

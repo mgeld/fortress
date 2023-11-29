@@ -10,7 +10,7 @@ const alert_1 = require("shared/ui/alert");
 const Citadel = () => {
     var _a;
     const pos = ((_a = citadel_1.citadelModel.selectors.useCitadel()) === null || _a === void 0 ? void 0 : _a.latlng) || [0, 0];
-    const size = pointer_1.droneMapModel.selectors.useDroneSize();
+    const size = pointer_1.droneMapModel.selectors.useDroneSize() * 1.6;
     const p = size * 3.14 / 4;
     const a = p * 0.3;
     const b = p * 0.7;

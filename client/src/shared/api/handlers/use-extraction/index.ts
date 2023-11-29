@@ -2,13 +2,11 @@ import { Handler } from "..";
 import { TUseExtraction } from '@ctypes/socket/server-to-client'
 import { noticeModel } from "shared/ui/notice";
 import { popoutModel } from "shared/ui/popout-root";
-import { holdAPI, shipAPI, stormAPI, userAPI, weaponsAPI, zoneAPI } from "shared/api/events";
+import { shipAPI, stormAPI, userAPI, weaponsAPI, zoneAPI } from "shared/api/events";
 import { pageModel } from "shared/ui/page-root";
 
 class UseExtractionHandler extends Handler {
     handle(message: TUseExtraction) {
-
-        console.log('UseExtractionHandler message', message)
 
         const amount = message.payload.amount
 
@@ -65,7 +63,7 @@ class UseExtractionHandler extends Handler {
         popoutModel.events.setPopout(null)
         pageModel.events.setPage('map')
 
-        holdAPI.events.delExtraction(message.payload.index)
+        // holdAPI.events.delExtraction(message.payload.index)
 
         noticeModel.events.newToast({
             name,

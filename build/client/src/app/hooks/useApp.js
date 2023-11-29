@@ -19,7 +19,7 @@ const useApp = () => {
     (0, react_1.useEffect)(() => {
         window.addEventListener("offline", lost_internet_1.lostInternet);
         vk_bridge_1.default.send('VKWebAppGetUserInfo').then(user => {
-            user_1.userModel.events.setVkUser(user.id);
+            setTimeout(() => user_1.userModel.events.setVkUser(user.id), 1500);
             user_1.userModel.events.setName(user.first_name);
             user_1.userModel.events.setUserIcon(user.photo_100);
         });

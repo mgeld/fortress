@@ -46,7 +46,7 @@ export class SectorService {
             const sectors = await this._baseRepository.getByAreal(areal)
             console.log('getBoundsSectors catch')
             await this._memoryRepository.inserts(sectors)
-            return sectors
+            return sectors.filter(sector => sector.zone_id > 0)
         }
     }
 

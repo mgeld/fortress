@@ -9,6 +9,7 @@ const ship_1 = require("entities/ship");
 require("./styles.css");
 const Beam = ({ beam }) => {
     let sizeDrone = pointer_1.droneMapModel.selectors.useDroneSize();
+    sizeDrone = sizeDrone * 1.6;
     const myPos = ship_1.shipModel.selectors.useShipPos();
     const map = (0, react_leaflet_1.useMap)();
     const [invader, setInvader] = (0, react_1.useState)({

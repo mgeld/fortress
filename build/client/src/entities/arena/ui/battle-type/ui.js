@@ -8,7 +8,7 @@ const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
 const BattleType = () => {
     return (<div className={`${styles_module_scss_1.default.battleType}`}>
             <div className={`${styles_module_scss_1.default.__rang} strw2`}>
-                2Х2
+                1Х1
             </div>
             <div className={`${styles_module_scss_1.default.__name} strw1`}>
                 <div className={`${styles_module_scss_1.default.__text}`}>

@@ -66,7 +66,9 @@ const battleOverFx = (0, effector_1.createEffect)((source) => {
         .members.filter(member => member.userId === source.zoneId);
     if (member.length > 0) {
         const t = member[0].trophies;
+        const c = member[0].coins;
         events_1.zoneAPI.events.addZoneTrophies(t);
+        events_1.zoneAPI.events.addCoins(c);
     }
 });
 (0, effector_1.sample)({

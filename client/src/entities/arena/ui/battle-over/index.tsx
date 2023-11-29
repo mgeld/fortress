@@ -10,7 +10,7 @@ import styles from './styles.module.scss'
 import { battleAPI, mapAPI, sectorsAPI } from "shared/api/events";
 import { popoutModel } from "shared/ui/popout-root";
 import { IconBattleSwords } from "shared/assets/icons/_icons";
-import { IconTrophy } from "widgets/counters/icons/_icons";
+import { IconCoin, IconTrophy } from "widgets/counters/icons/_icons";
 import { shipModel } from "entities/ship";
 import IconBattleShield from 'shared/assets/icons//battle-shield.png';
 import IconBattleShieldRed from 'shared/assets/icons//battle-shield-red.png';
@@ -39,7 +39,13 @@ export const BattleOver: FC = () => {
         shipModel.events.resetUser()
     }
 
-    const myTrophies = userTeam ? userTeam.members.find(pointer => pointer.userId === user.userId)?.trophies || 0 : 0
+    const myExtr = userTeam ? userTeam.members.find(pointer => pointer.userId === user.userId) || {
+        coins: 0,
+        trophies: 0
+    } : {
+        coins: 0,
+        trophies: 0
+    }
 
     return (
         <div className={styles.battleRoot}>
@@ -67,10 +73,10 @@ export const BattleOver: FC = () => {
                                         </div>
                                         <div className={styles.__right}>
                                             <div className={styles.__icon}>
-                                                <IconTrophy width={34} height={34} />
+                                                <IconCoin width={34} height={34} />
                                             </div>
                                             <div className={styles.__text}>
-                                                {myTrophies > 0 ? `+${myTrophies}` : myTrophies}
+                                                {myExtr.coins > 0 ? `+${myExtr.coins}` : myExtr.coins}
                                             </div>
                                         </div>
                                     </div>

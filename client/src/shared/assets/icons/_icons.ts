@@ -21,3 +21,6 @@ export { ReactComponent as IconShipGun } from './ship-gun.svg';
 export { ReactComponent as IconCont1 } from './cont_1.svg';
 export { ReactComponent as IconCont2 } from './cont_2.svg';
 export { ReactComponent as IconCont3 } from './cont_3.svg';
+
+
+export { ReactComponent as IconShip } from './ship.svg';

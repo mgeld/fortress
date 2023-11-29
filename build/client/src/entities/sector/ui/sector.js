@@ -20,7 +20,7 @@ const Sectors = ({ zones }) => {
                     color: colors[zoneItem.zone.color],
                 }} positions={(0, h3_js_1.cellsToMultiPolygon)(zoneItem.sectors)}>
                     <react_leaflet_1.Pane name={`popup_${zoneItem.zone.zone_id}`} style={{ zIndex: 3006 }}>
-                        <react_leaflet_1.Popup key={`${zoneItem.zone.zone_id}`} closeButton={false} maxWidth={200} minWidth={200} keepInView={true}>
+                        <react_leaflet_1.Popup key={`${zoneItem.zone.zone_id}`} closeButton={false} maxWidth={200} minWidth={200} keepInView={false}>
                             <about_sector_1.AboutSector />
                         </react_leaflet_1.Popup>
                     </react_leaflet_1.Pane>

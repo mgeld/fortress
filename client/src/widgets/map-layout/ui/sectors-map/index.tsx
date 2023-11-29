@@ -26,8 +26,6 @@ export const SectorsMap: FC = () => {
         }
     })
 
-    // if (!point.load) return <>Load...</>
-
     return <>
         <Sectors
             zones={sectors.zones}

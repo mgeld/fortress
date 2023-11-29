@@ -8,7 +8,7 @@ const getDestination_1 = require("entities/sector/lib/getDestination");
 const model_2 = require("entities/ship/model");
 const $sizeDroneStore = (0, effector_1.createStore)(0);
 const getDroneSizefx = (0, effector_1.createEffect)(({ map, userPos }) => {
-    const toPosLatLng = (0, getDestination_1.getDestination)(userPos[0], userPos[1], 48, 90);
+    const toPosLatLng = (0, getDestination_1.getDestination)(userPos[0], userPos[1], 30, 90);
     const fromPoint = map.latLngToLayerPoint(userPos);
     const toPoint = map.latLngToLayerPoint(toPosLatLng);
     return toPoint.x - fromPoint.x;

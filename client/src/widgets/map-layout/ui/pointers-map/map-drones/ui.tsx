@@ -4,6 +4,7 @@ import { UserDrone } from "../user-pointer/drone";
 import { Drones } from "../pointers/drones";
 import { droneMapModel } from "entities/pointer";
 import { popoutModel } from "shared/ui/popout-root";
+import { throttle } from "shared/lib/throttle";
 
 export const MapDrones: FC = () => {
 
@@ -18,17 +19,17 @@ export const MapDrones: FC = () => {
             map.getPane('zoom-anim-map')?.setAttribute('class', 'zoom-anim-map')
 
         },
-        zoomend: (e) => {
-
+        zoomend: () => {
             setTimeout(() => {
-                map.getPane('zoom-anim-map')?.setAttribute('class', 'zoom-anim-')
+                map.getPane('zoom-anim-map')?.setAttribute('class', 'zoom-anim')
             }, 300);
-
+        },
+        zoom: () => {
             droneMapModel.events.setSizeDrone()
+        },
+    }, )
 
-
-        }
-    })
+    console.log('MapDrones')
 
     const onShip = () => {
         popoutModel.events.setPopout('ship')
@@ -36,9 +37,10 @@ export const MapDrones: FC = () => {
 
     return (
         <Pane name={`drones`} style={{ zIndex: 3001 }}>
-            <FeatureGroup eventHandlers={{
-                click: onShip
-            }}>
+            <FeatureGroup
+                eventHandlers={{
+                    click: onShip
+                }}>
 
                 <UserDrone size={size} />
             </FeatureGroup>

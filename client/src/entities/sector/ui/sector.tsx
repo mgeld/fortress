@@ -38,7 +38,7 @@ const Sectors: FC<SectorsProps> = ({ zones }) => {
                             closeButton={false}
                             maxWidth={200}
                             minWidth={200}
-                            keepInView={true}
+                            keepInView={false}
                         >
                             <AboutSector
                                 // {...zoneItem.zone}

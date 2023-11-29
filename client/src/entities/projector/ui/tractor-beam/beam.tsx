@@ -23,6 +23,7 @@ type TBeamProps = {
 export const Beam: FC<TBeamProps> = ({ beam }) => {
 
     let sizeDrone = droneMapModel.selectors.useDroneSize()
+    sizeDrone = sizeDrone * 1.6
 
     const myPos = shipModel.selectors.useShipPos()
 

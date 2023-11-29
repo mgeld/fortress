@@ -36,7 +36,7 @@ class BattleFireHandler extends IRoute {
         const __direction = message.payload?.direction
         const __hitPointer = message.payload?.hitPointer
 
-        if(!__pos || !__to_pos || !__direction) return
+        if (!__pos || !__to_pos || !__direction) return
 
         console.log('BattleFireHandler handle')
 
@@ -91,14 +91,17 @@ class BattleFireHandler extends IRoute {
 
             const hitMember = await this._memberService.getById(__hitPointer.userId)
 
+            // Разница между точкой попадания и позицией игрока на сервере
             const hit_lat_diff = __hitPointer.pos[0] > hitMember.pos[0] ? __hitPointer.pos[0] - hitMember.pos[0] : hitMember.pos[0] - __hitPointer.pos[0]
             const hit_lng_diff = __hitPointer.pos[1] > hitMember.pos[1] ? __hitPointer.pos[1] - hitMember.pos[1] : hitMember.pos[1] - __hitPointer.pos[1]
 
+            // Разница между точкой выстрела и позицией игрока на сервере
             const pos_lat_diff = __pos[0] > _member.pos[0] ? __pos[0] - _member.pos[0] : _member.pos[0] - __pos[0]
             const pos_lng_diff = __pos[1] > _member.pos[1] ? __pos[1] - _member.pos[1] : _member.pos[1] - __pos[1]
 
-            const lat_diff = hit_lat_diff > pos_lat_diff ? hit_lat_diff - pos_lat_diff : pos_lat_diff - hit_lat_diff
-            const lng_diff = hit_lng_diff > pos_lng_diff ? hit_lng_diff - pos_lng_diff : pos_lng_diff - hit_lng_diff
+
+            // const lat_diff = hit_lat_diff > pos_lat_diff ? hit_lat_diff - pos_lat_diff : pos_lat_diff - hit_lat_diff
+            // const lng_diff = hit_lng_diff > pos_lng_diff ? hit_lng_diff - pos_lng_diff : pos_lng_diff - hit_lng_diff
 
             // console.log('__hitPointer.pos[0]', __hitPointer.pos[0])
             // console.log('hitMember.pos[0]', hitMember.pos[0])
@@ -110,7 +113,7 @@ class BattleFireHandler extends IRoute {
             // console.log('lat_diff', lat_diff)
             // console.log('lng_diff', lng_diff)
 
-            if(!(lat_diff <= 0.0004 && lng_diff <= 0.0008)) return
+            if (hit_lat_diff > 0.0004 || pos_lat_diff > 0.0004 || hit_lng_diff > 0.0008 || pos_lng_diff > 0.0008) return
 
             // Сохраняем в свою стату нанесенный противнику урон
             _member.makeDamage(weapon.power)

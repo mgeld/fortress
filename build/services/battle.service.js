@@ -32,7 +32,7 @@ let BattleService = class BattleService {
             console.log('BattleService overGame');
             console.log('arena.timeout', arena.timeout);
             arena.timeout && arena.destroyTimer();
-            const _trophies = {};
+            const _extraction = {};
             const members = [];
             members[0] = yield this._memberService.getByIds(arena.teamList[0].members);
             members[1] = yield this._memberService.getByIds(arena.teamList[1].members);
@@ -51,10 +51,14 @@ let BattleService = class BattleService {
                     members: members[index].map(member => {
                         const wonTrophies = member.damage / 5 + member.sectors * 3;
                         const trophy = minTrophies > 0 ? minTrophies + wonTrophies : 0;
-                        _trophies[member.userId] = trophy;
+                        _extraction[member.userId] = {
+                            coins: trophy * 5,
+                            trophies: trophy
+                        };
                         return {
                             userId: member.userId,
-                            trophies: trophy
+                            trophies: trophy,
+                            coins: trophy * 5
                         };
                     }),
                 };
@@ -64,7 +68,8 @@ let BattleService = class BattleService {
                 ...arena.teamList[1].members
             ]);
             zones.forEach(zone => {
-                zone.setTrophies(_trophies[zone.id]);
+                zone.setTrophies(_extraction[zone.id].trophies);
+                zone.addCoins(_extraction[zone.id].coins);
             });
             yield this._zoneService.memoryUpdates(zones);
             setTimeout(() => __awaiter(this, void 0, void 0, function* () {

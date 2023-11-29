@@ -5,7 +5,6 @@ const events_1 = require("shared/api/events");
 const __1 = require("..");
 class BattleTakeSectorHandler extends __1.Handler {
     handle(message) {
-        console.log('BattleTakeSectorHandler message', message);
         if (message.payload.prev_owner_id > 0)
             events_1.sectorsAPI.events.setSectorById({
                 new_zone_id: message.payload.new_owner_id,

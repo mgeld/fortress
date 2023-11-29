@@ -5,8 +5,6 @@ import styles from './styles.module.scss'
 
 const ControlProjector: FC = () => {
 
-    console.log('ControlInvader---------')
-
     return (
         <div className={styles.controlProjector}>
             <div className={styles.__circle}>

@@ -7,7 +7,6 @@ import { popoutModel } from "shared/ui/popout-root";
 class SessionHandler extends Handler {
     handle(message: TLimit) {
 
-        console.log('SessionHandler message', message)
         popoutModel.events.setPopout('lock-screen')
         lockModel.events.setLockScreen({
             action: {

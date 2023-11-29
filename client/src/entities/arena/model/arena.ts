@@ -107,7 +107,9 @@ const battleOverFx = createEffect((source: TBattleOverFxProps) => {
 
     if (member.length > 0) {
         const t = member[0].trophies
+        const c = member[0].coins
         zoneAPI.events.addZoneTrophies(t)
+        zoneAPI.events.addCoins(c)
     }
 })
 

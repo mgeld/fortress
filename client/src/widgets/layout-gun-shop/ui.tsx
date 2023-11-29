@@ -19,6 +19,8 @@ import styles from './styles.module.scss'
 const units = Object.entries({
     100: unitsPrices[100],
     101: unitsPrices[101],
+    120: unitsPrices[120],
+    121: unitsPrices[121],
     30: unitsPrices[30],
     31: unitsPrices[31],
     10: unitsPrices[10],

@@ -8,7 +8,6 @@ const events_1 = require("shared/api/events");
 const ui_1 = require("features/unit/use-item/ui");
 class BuyUnitHandler extends __1.Handler {
     handle(message) {
-        console.log('BuyUnitHandler message', message);
         const cost = message.payload.cost;
         const currency = message.payload.currency;
         const unit = message.payload.unit;
@@ -54,9 +53,13 @@ class BuyUnitHandler extends __1.Handler {
                 name = `Покупка прошла успешно!`;
                 text = `Группа штурма добавлена в трюм корабля. Вы можете активировать предмет в любой момент!`;
                 break;
-            case 101:
+            case 120:
                 name = `Покупка прошла успешно!`;
-                text = `Эскадрон штурма добавлен в трюм корабля. Вы можете активировать предмет в любой момент!`;
+                text = `Золотой камень добавлен в трюм корабля. Вы можете активировать предмет в любой момент!`;
+                break;
+            case 121:
+                name = `Покупка прошла успешно!`;
+                text = `Слиток золота добавлен в трюм корабля. Вы можете активировать предмет в любой момент!`;
                 break;
             default:
                 name = `Покупка прервалась`;

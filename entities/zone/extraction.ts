@@ -79,12 +79,16 @@ export class Extraction {
 
     use(id: TExtrTypes, index: number): TExtrItem | null {
         const items = this._items.slice()
-
-        if (~items.findIndex(item => item === id)) {
+        if(items[index] === id) {
             items.splice(index, 1)
             this._items = items
             return Units.getUnitQuantity(id)
         }
+        // if (~items.findIndex(item => item === id)) {
+        //     items.splice(index, 1)
+        //     this._items = items
+        //     return Units.getUnitQuantity(id)
+        // }
         return null
     }
 

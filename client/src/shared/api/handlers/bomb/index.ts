@@ -7,8 +7,6 @@ class BombHandler extends Handler {
 
     handle(message: TBomb) {
 
-        console.log('BombHandler handle')
-
         const BOMB_ID: number = Date.now()
 
         const pos = message.payload.position

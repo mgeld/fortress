@@ -1,12 +1,12 @@
 {
   "files": {
-    "main.css": "./static/css/main.5ffae320.css",
-    "main.js": "./static/js/main.f79f5da9.js",
+    "main.css": "./static/css/main.b364baaf.css",
+    "main.js": "./static/js/main.e5beec06.js",
     "static/js/59.5601a8a5.chunk.js": "./static/js/59.5601a8a5.chunk.js",
     "static/media/Lilita.ttf": "./static/media/Lilita.eb90369243a760389944.ttf",
     "static/media/swords.svg": "./static/media/swords.293f3e1147b39a1495115ed3f1f9195d.svg",
     "static/media/storm.svg": "./static/media/storm.f617675bd21d604e03d6537004ba6f71.svg",
-    "static/media/ship.svg": "./static/media/ship.f4d2398e80b436fb16243ea153b8446b.svg",
+    "static/media/ship.svg": "./static/media/ship.7d02f2833784f6407478f9e6ea6ac398.svg",
     "static/media/battle-swords.svg": "./static/media/battle-swords.1e4709d92577d9409211c7eefb25506a.svg",
     "static/media/storm-2.svg": "./static/media/storm-2.442bd78b5c01ffc3b382cc8f0b2cb33c.svg",
     "static/media/glob5.svg": "./static/media/glob5.59d1c38b72d8750dd69f70dcb62b05e0.svg",
@@ -63,11 +63,11 @@
     "static/media/cont_1.svg": "./static/media/cont_1.cef693995c524f30b994b08d0ffd6120.svg",
     "static/media/cont_2.svg": "./static/media/cont_2.f2772c6b0482a4bcdb28b5c0b4bea34b.svg",
     "static/media/cont_3.svg": "./static/media/cont_3.999ae689d628275380532601f4ff0962.svg",
-    "main.5ffae320.css.map": "./static/css/main.5ffae320.css.map",
-    "main.f79f5da9.js.map": "./static/js/main.f79f5da9.js.map"
+    "main.b364baaf.css.map": "./static/css/main.b364baaf.css.map",
+    "main.e5beec06.js.map": "./static/js/main.e5beec06.js.map"
   },
   "entrypoints": [
-    "static/css/main.5ffae320.css",
-    "static/js/main.f79f5da9.js"
+    "static/css/main.b364baaf.css",
+    "static/js/main.e5beec06.js"
   ]
 }

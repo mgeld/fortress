@@ -5,7 +5,6 @@ const events_1 = require("shared/api/events");
 const __1 = require("..");
 class SetHealthHandler extends __1.Handler {
     handle(message) {
-        console.log('SetHealthHandler handle');
         const userId = message.payload.userId;
         const health = message.payload.health;
         events_1.pointersAPI.events.setHealthPointer({

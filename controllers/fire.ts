@@ -81,10 +81,10 @@ class FireHandler extends IRoute {
             const pos_lat_diff = __pos[0] > _pointer.pos[0] ? __pos[0] - _pointer.pos[0] : _pointer.pos[0] - __pos[0]
             const pos_lng_diff = __pos[1] > _pointer.pos[1] ? __pos[1] - _pointer.pos[1] : _pointer.pos[1] - __pos[1]
 
-            const lat_diff = hit_lat_diff > pos_lat_diff ? hit_lat_diff - pos_lat_diff : pos_lat_diff - hit_lat_diff
-            const lng_diff = hit_lng_diff > pos_lng_diff ? hit_lng_diff - pos_lng_diff : pos_lng_diff - hit_lng_diff
+            // const lat_diff = hit_lat_diff > pos_lat_diff ? hit_lat_diff - pos_lat_diff : pos_lat_diff - hit_lat_diff
+            // const lng_diff = hit_lng_diff > pos_lng_diff ? hit_lng_diff - pos_lng_diff : pos_lng_diff - hit_lng_diff
 
-            if(!(lat_diff <= 0.0004 && lng_diff <= 0.0008)) return
+            if (hit_lat_diff > 0.0004 || pos_lat_diff > 0.0004 || hit_lng_diff > 0.0008 || pos_lng_diff > 0.0008) return
 
             hitPointer.removeHealth(weapon.power)
 

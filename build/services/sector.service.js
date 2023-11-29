@@ -56,7 +56,7 @@ let SectorService = class SectorService {
                 const sectors = yield this._baseRepository.getByAreal(areal);
                 console.log('getBoundsSectors catch');
                 yield this._memoryRepository.inserts(sectors);
-                return sectors;
+                return sectors.filter(sector => sector.zone_id > 0);
             }
         });
     }

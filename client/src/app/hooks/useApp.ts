@@ -30,7 +30,7 @@ export const useApp = () => {
         window.addEventListener("offline", lostInternet);
 
         bridge.send('VKWebAppGetUserInfo').then(user => {
-            userModel.events.setVkUser(user.id)
+            setTimeout(() => userModel.events.setVkUser(user.id), 1500)
             userModel.events.setName(user.first_name)
             userModel.events.setUserIcon(user.photo_100)
         })
@@ -50,7 +50,7 @@ export const useApp = () => {
         //     userModel.events.setUserIcon(data.response[0].photo_50)
         // })
     }, [])
-    
+
     useEffect(() => {
         if (vkUserId > 0 && socketStatus === 'close') {
             popoutModel.events.setPopout('lock-screen')
@@ -69,6 +69,11 @@ export const useApp = () => {
             // sectorEvents.events.getSectorsStart()
             return
         }
+        // if (vkUserId === 0 && socketStatus === 'no-init') {
+        //     popoutModel.events.setPopout('load-app')
+        // } else {
+        //     popoutModel.events.setPopout(null)
+        // }
 
     }, [vkUserId, socketStatus])
 

@@ -8,8 +8,8 @@ import { Rooms } from "../api/socket/socket/rooms"
 import { Areal } from "../entities/pointer/areal"
 import { IPointerMemoryRepository } from "../entities/repository"
 import { SectorService } from "../services/sector.service";
-import { TFirePayload } from "../common-types/socket/server-to-client";
-import { TJoystickDirection } from "../common-types/model";
+// import { TFirePayload } from "../common-types/socket/server-to-client";
+// import { TJoystickDirection } from "../common-types/model";
 
 @injectable()
 class DirectHandler extends IRoute {
@@ -37,7 +37,7 @@ class DirectHandler extends IRoute {
 
         _pointer.pos = __position
 
-        if (_pointer.health < 1) {
+        if (_pointer.health < 1 && _pointer.areal !== -1) {
             return
         }
 

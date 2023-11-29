@@ -1,12 +1,41 @@
+/* .drone-ios {
+    transform-box: fill-box;
+    transform-origin: center center;
+    transition: 0.5s;
+}
+.drone-ios-rotate {
+    animation: 4s linear drone-rotate infinite;
+} */
+.icon-pointer {
+    -o-transition: transform 0.4s;
+    -webkit-transition: transform 0.4s;
+    -moz-transition: transform 0.4s;
+    transition: all 0.4s !important;
+}
+
+.drone-div {
+    position: absolute;
+    animation: 4s linear drone-rotate infinite;
+    transform-box: fill-box;
+    transform-origin: center center;
+    transition: 0.5s;
+}
+
 .drone-circle {
     animation: 4s linear drone-rotate infinite;
     transform-box: fill-box;
     transform-origin: center center;
     transition: 0.5s;
 }
+
 .zoom-anim-map .drone-circle {
     transition: 0s !important;
 }
+
+.zoom-anim-map .drone-div {
+    transition: 0s !important;
+}
+
 .zoom-anim-map .drone-border {
     transition: 0s !important;
 }
@@ -22,24 +51,20 @@
 .zoom-anim-map .drone-center {
     transition: 0s !important;
 }
+
+@keyframes drone-rotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 /* .leaflet-zoom-anim .drone-circle {
     transition: 0s !important;
 }
 .leaflet-zoom-anim .drone-center {
     transition: 0s !important;
 } */
-
-.a {
-    color: #caa5f0;
-    color: #322a35;
-}
-
-@keyframes drone-rotate {
-    from {
-        transform: rotate(0deg)
-    }
-
-    to {
-        transform: rotate(360deg)
-    }
-}

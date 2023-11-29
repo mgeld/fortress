@@ -8,7 +8,6 @@ const events_1 = require("shared/api/events");
 const page_root_1 = require("shared/ui/page-root");
 class LevelUpHandler extends __1.Handler {
     handle(message) {
-        console.log('LevelUpHandler message', message);
         const new_level = message.payload.new_level;
         const cost = message.payload.cost;
         const currency = message.payload.currency;

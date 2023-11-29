@@ -8,7 +8,6 @@ const events_1 = require("shared/api/events");
 const page_root_1 = require("shared/ui/page-root");
 class UseExtractionHandler extends __1.Handler {
     handle(message) {
-        console.log('UseExtractionHandler message', message);
         const amount = message.payload.amount;
         let name = '';
         let text = '';
@@ -60,7 +59,6 @@ class UseExtractionHandler extends __1.Handler {
         }
         popout_root_1.popoutModel.events.setPopout(null);
         page_root_1.pageModel.events.setPage('map');
-        events_1.holdAPI.events.delExtraction(message.payload.index);
         notice_1.noticeModel.events.newToast({
             name,
             text,

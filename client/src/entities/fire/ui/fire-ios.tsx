@@ -21,7 +21,7 @@ export const FireIOS: FC<TFireProps> = ({
     fire
 }) => {
 
-    let sizeFire = droneMapModel.selectors.useDroneSize() / 2.5
+    let sizeFire = droneMapModel.selectors.useDroneSize() * 0.6
 
     const map = useMap()
 

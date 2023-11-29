@@ -17,7 +17,6 @@ const ship_1 = require("entities/ship");
 const battle_shield_png_1 = __importDefault(require("shared/assets/icons//battle-shield.png"));
 const battle_shield_red_png_1 = __importDefault(require("shared/assets/icons//battle-shield-red.png"));
 const BattleOver = () => {
-    var _a;
     const user = user_1.userModel.selectors.useUser();
     const teams = arena_1.arenaModel.selectors.useTeams().data;
     const userTeam = teams.find(team => team.members.find(member => member.userId === user.userId));
@@ -33,7 +32,13 @@ const BattleOver = () => {
         events_1.battleAPI.events.setBattleStatus('default');
         ship_1.shipModel.events.resetUser();
     };
-    const myTrophies = userTeam ? ((_a = userTeam.members.find(pointer => pointer.userId === user.userId)) === null || _a === void 0 ? void 0 : _a.trophies) || 0 : 0;
+    const myExtr = userTeam ? userTeam.members.find(pointer => pointer.userId === user.userId) || {
+        coins: 0,
+        trophies: 0
+    } : {
+        coins: 0,
+        trophies: 0
+    };
     return (<div className={styles_module_scss_1.default.battleRoot}>
             <div className={styles_module_scss_1.default.battleOver}>
                 <div className={styles_module_scss_1.default.__content}>
@@ -59,10 +64,10 @@ const BattleOver = () => {
                                         </div>
                                         <div className={styles_module_scss_1.default.__right}>
                                             <div className={styles_module_scss_1.default.__icon}>
-                                                <_icons_2.IconTrophy width={34} height={34}/>
+                                                <_icons_2.IconCoin width={34} height={34}/>
                                             </div>
                                             <div className={styles_module_scss_1.default.__text}>
-                                                {myTrophies > 0 ? `+${myTrophies}` : myTrophies}
+                                                {myExtr.coins > 0 ? `+${myExtr.coins}` : myExtr.coins}
                                             </div>
                                         </div>
                                     </div>

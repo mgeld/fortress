@@ -1,4 +1,4 @@
-import Drone from "entities/pointer/ui/drone"
+import { Ship } from "entities/pointer/ui/drone"
 import { FC } from "react"
 import { TLatLng } from "shared/types"
 
@@ -10,7 +10,7 @@ type TDroneProps = {
 export const PointerDrone: FC<TDroneProps> = ({ size, health, pos }) => {
     // if (health < 1) return <></>
     return (
-        <Drone
+        <Ship
             health={health}
             pos={pos}
             size={size}

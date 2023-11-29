@@ -5,6 +5,15 @@
   font-weight: normal;
 }
 
+*:not(input):not(textarea),
+::after,
+::before {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 body {
   margin: 0;
   font-family: "Lilita";
@@ -13,10 +22,14 @@ body {
     sans-serif; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* will-change: transform, opacity; */
 }
+
 div {
   font-family: "Lilita";
 }
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -26,4 +39,9 @@ svg {
   margin: 0px;
   padding: 0px;
   display: block;
+}
+
+img {
+  pointer-events: none;
+  /* -webkit-touch-callout: none; */
 }

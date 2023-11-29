@@ -32,12 +32,14 @@ class BattleJoinHandler extends IRoute {
         console.log('BattleJoinHandler handle')
 
         if (!uSocket.user_id) return
-        
+
         const _pointer = await this._pointerService.memoryGetById(uSocket.user_id)
+
+        console.log('_pointer.areal', _pointer.areal)
 
         // Если игрок уже на Арене или ищет противника
         // Такого через игру не будет, но могут отправить запросы, чтобы найти уязы
-        if(_pointer.areal === -1) return
+        if (_pointer.areal === -1) return
 
         const arena = await this._arenaService.getArena()
         const team = arena.addPointer(uSocket.user_id)
@@ -104,7 +106,8 @@ class BattleJoinHandler extends IRoute {
                         sectors: team.sectors,
                         members: team.members.map(member => ({
                             userId: member,
-                            trophies: 0
+                            trophies: 0,
+                            coins: 0
                         })),
                     })),
                     pointers: members.map(member => {

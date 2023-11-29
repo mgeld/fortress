@@ -16,7 +16,7 @@ import Fires from "entities/fire/ui/fires";
 
 import { PointersMap } from "./pointers-map";
 
-import './styles.scss'
+import './styles.css'
 
 import { mapModel } from "entities/map";
 import { changeBattleStatusListener } from "features/battle/battle-change-status/model";
@@ -72,8 +72,6 @@ const MapLayout: FC<TMapProps> = () => {
     // }
     // const { point } = usePointer()
 
-    // if (!point.load) return <>Load...</>
-
     console.log('MapLayout')
 
     return (
@@ -101,7 +99,7 @@ const MapLayout: FC<TMapProps> = () => {
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
 
-                <TestExtr />
+                {/* <TestExtr /> */}
 
                 {/* <Test /> */}
 

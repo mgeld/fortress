@@ -5,9 +5,6 @@ import { snackbarModel } from "shared/ui/snackbar";
 
 class BattleYTakeSectorHandler extends Handler {
     handle(message: TBattleTakeSector) {
-
-        console.log('BattleYTakeSectorHandler message', message)
-
         if (message.payload.prev_owner_id > 0)
             sectorsAPI.events.setSectorById({
                 new_zone_id: message.payload.new_owner_id,

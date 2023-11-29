@@ -47,7 +47,7 @@ class Extraction {
     }
     use(id, index) {
         const items = this._items.slice();
-        if (~items.findIndex(item => item === id)) {
+        if (items[index] === id) {
             items.splice(index, 1);
             this._items = items;
             return units_1.Units.getUnitQuantity(id);

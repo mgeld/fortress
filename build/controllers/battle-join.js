@@ -36,6 +36,7 @@ let BattleJoinHandler = class BattleJoinHandler extends handlers_1.IRoute {
             if (!uSocket.user_id)
                 return;
             const _pointer = yield this._pointerService.memoryGetById(uSocket.user_id);
+            console.log('_pointer.areal', _pointer.areal);
             if (_pointer.areal === -1)
                 return;
             const arena = yield this._arenaService.getArena();
@@ -86,7 +87,8 @@ let BattleJoinHandler = class BattleJoinHandler extends handlers_1.IRoute {
                             sectors: team.sectors,
                             members: team.members.map(member => ({
                                 userId: member,
-                                trophies: 0
+                                trophies: 0,
+                                coins: 0
                             })),
                         })),
                         pointers: members.map(member => {

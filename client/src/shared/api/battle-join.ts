@@ -4,8 +4,7 @@ import { TBattleJoinAPI, TEventBattleJoin } from "@ctypes/socket/client-to-serve
 export const battleJoinAPI = () => {
     const data: TBattleJoinAPI = {
         event: 'battleJoin' as TEventBattleJoin,
-        payload: {
-        }
+        payload: {}
     }
     WS.sendData(data)
 }

@@ -16,6 +16,8 @@ const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
 const units = Object.entries({
     100: unit_buy_list_1.unitsPrices[100],
     101: unit_buy_list_1.unitsPrices[101],
+    120: unit_buy_list_1.unitsPrices[120],
+    121: unit_buy_list_1.unitsPrices[121],
     30: unit_buy_list_1.unitsPrices[30],
     31: unit_buy_list_1.unitsPrices[31],
     10: unit_buy_list_1.unitsPrices[10],

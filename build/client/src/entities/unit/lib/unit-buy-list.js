@@ -70,4 +70,12 @@ exports.unitsPrices = {
         currency: 'rubies',
         price: 30
     },
+    120: {
+        currency: 'rubies',
+        price: 13
+    },
+    121: {
+        currency: 'rubies',
+        price: 17
+    }
 };

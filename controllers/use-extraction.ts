@@ -93,7 +93,6 @@ class UseExtractionHandler extends IRoute {
             resultIncrese = zone.addRubies(extr.quantity)
             this._zoneService.memoryUpdate(zone)
 
-
             if (zone.terrain.sectors === 1) {
                 const tutorialResp: TTutorial = {
                     event: 'tutorial',
@@ -102,7 +101,6 @@ class UseExtractionHandler extends IRoute {
                     }
                 }
                 uSocket.send(JSON.stringify(tutorialResp))
-
             }
         }
 
@@ -132,8 +130,7 @@ class UseExtractionHandler extends IRoute {
             }
         }
 
-        // if(extr.gives === 'ship_health') {
-        // }
+        // if(extr.gives === 'ship_health') {}
 
         const extrResp: TUseExtraction = {
             event: 'use-extraction',

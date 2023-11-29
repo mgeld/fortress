@@ -9,7 +9,7 @@ const Keyframes_1 = require("shared/ui/Keyframes/Keyframes");
 const pointer_1 = require("entities/pointer");
 const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
 const FireIOS = ({ fire }) => {
-    let sizeFire = pointer_1.droneMapModel.selectors.useDroneSize() / 2.5;
+    let sizeFire = pointer_1.droneMapModel.selectors.useDroneSize() * 0.6;
     const map = (0, react_leaflet_1.useMap)();
     const coords = map.latLngToContainerPoint(fire.from_pos);
     let fireStyle = {

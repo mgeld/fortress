@@ -1,6 +1,6 @@
 import { userModel } from "entities/user"
 import { FC } from "react"
-import Drone from "entities/pointer/ui/drone"
+import { Ship } from "entities/pointer/ui/drone"
 import { shipModel } from "entities/ship"
 // import { Fort } from "entities/fort"
 
@@ -14,7 +14,7 @@ const UserDrone: FC<UserDroneProps> = ({ size }) => {
     const health = shipModel.selectors.useShipHealth()
 
     return (
-        <Drone
+        <Ship
             health={health}
             pos={pos}
             size={size}

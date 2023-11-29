@@ -44,6 +44,7 @@ import { getPlatformNative } from 'shared/lib/get-platform-native'
 import { Alert } from 'shared/ui/alert'
 import { Tutorial } from 'shared/ui/tutorial/ui'
 import { LockScreen } from 'shared/ui/lock-screen'
+import { LoadApp } from 'shared/ui/load-app/ui'
 
 mapStartPosition()
 
@@ -73,7 +74,9 @@ const App = () => {
   //   // popoutModel.events.setPopout('primes')
   // }, [])
 
-  if (!vkUserId) return <>load...</>
+  if (!vkUserId) return (
+    <LoadApp />
+  )
 
   return (
     <div className={`app ${_platform}`}>
@@ -81,6 +84,17 @@ const App = () => {
       <LoadFonts fontFamily='Lolita' />
 
       <PopoutRoot activePopout={popout}>
+
+        {/* <Popout
+          key='load-app'
+          id='load-app'
+          fill='white'
+          screen='full'
+          close={false}
+          edge={0}
+        >
+          <LoadApp />
+        </Popout> */}
 
         <Popout
           key='battle-pending'
@@ -214,7 +228,7 @@ const App = () => {
         >
           <ShipImproveHealth />
         </Popout>
-        
+
         {/* END */}
 
         <Popout

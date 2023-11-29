@@ -7,7 +7,6 @@ const lock_screen_1 = require("shared/ui/lock-screen");
 const popout_root_1 = require("shared/ui/popout-root");
 class SessionHandler extends __1.Handler {
     handle(message) {
-        console.log('SessionHandler message', message);
         popout_root_1.popoutModel.events.setPopout('lock-screen');
         lock_screen_1.lockModel.events.setLockScreen({
             action: {

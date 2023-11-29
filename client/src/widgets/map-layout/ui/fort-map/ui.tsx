@@ -13,7 +13,6 @@ export const FortMap: FC = () => {
     const [value, setValue] = useState<TLatLng>(pos)
 
     const throttled = useRef(debounce((_pos: TLatLng) => {
-        console.log('throttle')
         setValue(_pos)
     }, 300))
   

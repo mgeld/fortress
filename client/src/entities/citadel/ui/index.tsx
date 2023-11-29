@@ -21,7 +21,7 @@ export const Citadel: FC = () => {
     const pos = citadelModel.selectors.useCitadel()?.latlng || [0, 0]
 
 
-    const size = droneMapModel.selectors.useDroneSize()
+    const size = droneMapModel.selectors.useDroneSize() * 1.6
 
     // if(!pos) return <></>
 

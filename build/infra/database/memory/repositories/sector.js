@@ -86,7 +86,7 @@ let SectorMemoryRepository = class SectorMemoryRepository {
             if (!sectorsAll || sectorsAll.length === 0) {
                 throw new Error('----------');
             }
-            const sectors = sectorsAll.filter(sector => sector.areal === areal);
+            const sectors = sectorsAll.filter(sector => sector.areal === areal && sector.zone_id > 0);
             if (!sectors || sectors.length === 0) {
                 throw new Error('----------');
             }

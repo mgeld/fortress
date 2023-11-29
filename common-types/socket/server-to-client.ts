@@ -384,6 +384,7 @@ export type TBattleStart = {
 type TMember = {
     userId: number,
     trophies: number
+    coins: number
 }
 
 

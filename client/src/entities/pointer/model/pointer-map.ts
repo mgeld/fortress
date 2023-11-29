@@ -87,8 +87,6 @@ type TUserApi = {
 //         });
 // })
 
-// getUsersFx.watch(values => console.log('IIIIIIIIIIIII getUsersFx', values))
-
 // sample({
 //     clock: setPointers,
 //     fn: (clock) => ({

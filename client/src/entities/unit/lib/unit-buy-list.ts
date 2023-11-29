@@ -85,12 +85,12 @@ export const unitsPrices: {[k: number]: TUnitBuy}  = {
     //     currency: 'coins',
     //     price: 100
     // },
-    // 120: {
-    //     currency: 'coins',
-    //     price: 100
-    // },
-    // 121: {
-    //     currency: 'coins',
-    //     price: 100
-    // }
+    120: {
+        currency: 'rubies',
+        price: 13
+    },
+    121: {
+        currency: 'rubies',
+        price: 17
+    }
 }

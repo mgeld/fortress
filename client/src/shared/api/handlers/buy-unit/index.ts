@@ -3,14 +3,11 @@ import { TBuyUnit } from '@ctypes/socket/server-to-client'
 import { noticeModel } from "shared/ui/notice";
 import { popoutModel } from "shared/ui/popout-root";
 import { holdAPI, zoneAPI } from "shared/api/events";
-import { pageModel } from "shared/ui/page-root";
 import { TTypeImproves, useItemImproves } from "features/unit/use-item/ui";
 import { TPopout } from "shared/ui/popout-root/model";
 
 class BuyUnitHandler extends Handler {
     handle(message: TBuyUnit) {
-
-        console.log('BuyUnitHandler message', message)
 
         const cost = message.payload.cost
         const currency = message.payload.currency
@@ -59,9 +56,13 @@ class BuyUnitHandler extends Handler {
                 name = `Покупка прошла успешно!`
                 text = `Группа штурма добавлена в трюм корабля. Вы можете активировать предмет в любой момент!`
                 break;
-            case 101:
+            case 120:
                 name = `Покупка прошла успешно!`
-                text = `Эскадрон штурма добавлен в трюм корабля. Вы можете активировать предмет в любой момент!`
+                text = `Золотой камень добавлен в трюм корабля. Вы можете активировать предмет в любой момент!`
+                break;
+            case 121:
+                name = `Покупка прошла успешно!`
+                text = `Слиток золота добавлен в трюм корабля. Вы можете активировать предмет в любой момент!`
                 break;
             default:
                 name = `Покупка прервалась`
@@ -70,7 +71,7 @@ class BuyUnitHandler extends Handler {
 
         // popoutModel.events.setPopout(null)
         // pageModel.events.setPage('map')
-        
+
         const popout = useItemImproves[(Math.floor(unit / 10) * 10) as TTypeImproves] as TPopout
         popoutModel.events.setPopout(popout)
 

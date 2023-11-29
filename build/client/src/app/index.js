@@ -44,6 +44,7 @@ const get_platform_native_1 = require("shared/lib/get-platform-native");
 const alert_1 = require("shared/ui/alert");
 const ui_19 = require("shared/ui/tutorial/ui");
 const lock_screen_1 = require("shared/ui/lock-screen");
+const ui_20 = require("shared/ui/load-app/ui");
 (0, model_1.mapStartPosition)();
 window.addEventListener('popstate', () => (0, go_back_1.goBack)());
 let platform = (0, get_platform_1.getPlatform)();
@@ -57,12 +58,14 @@ const App = () => {
     const page = page_root_1.pageModel.selectors.usePage().data;
     const { vkUserId, socketStatus } = (0, useApp_1.useApp)();
     if (!vkUserId)
-        return <>load...</>;
+        return (<ui_20.LoadApp />);
     return (<div className={`app ${_platform}`}>
 
       <load_fonts_1.default fontFamily='Lolita'/>
 
       <popout_root_1.PopoutRoot activePopout={popout}>
+
+        
 
         <popout_1.Popout key='battle-pending' id='battle-pending' fill='white' screen='full' close={false} edge={0}>
           <battle_pending_1.BattlePending />
@@ -121,7 +124,7 @@ const App = () => {
         <popout_1.Popout key='ship-improve-health' id='ship-improve-health' fill='#5a166480' edge={14}>
           <ui_14.ShipImproveHealth />
         </popout_1.Popout>
-        
+
         
 
         <popout_1.Popout key='ship-level-up' id='ship-level-up' fill='#5a166480' edge={14}>

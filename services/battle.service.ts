@@ -27,7 +27,10 @@ class BattleService {
         // Это всё запихнуть бы в EventEmitter
         // И обрабатывать в отдельном обработчике
 
-        const _trophies: Record<number, number> = {}
+        const _extraction: Record<number, {
+            coins: number
+            trophies: number
+        }> = {}
         const members: Member[][] = []
 
         members[0] = await this._memberService.getByIds(arena.teamList[0].members)
@@ -57,11 +60,15 @@ class BattleService {
 
                     const trophy = minTrophies > 0 ? minTrophies + wonTrophies : 0
 
-                    _trophies[member.userId] = trophy
+                    _extraction[member.userId] = {
+                        coins: trophy * 5,
+                        trophies: trophy
+                    }
 
                     return {
                         userId: member.userId,
-                        trophies: trophy
+                        trophies: trophy,
+                        coins: trophy * 5
                     }
                 }),
             }
@@ -72,7 +79,8 @@ class BattleService {
             ...arena.teamList[1].members
         ])
         zones.forEach(zone => {
-            zone.setTrophies(_trophies[zone.id])
+            zone.setTrophies(_extraction[zone.id].trophies)
+            zone.addCoins(_extraction[zone.id].coins)
         })
         await this._zoneService.memoryUpdates(zones)
 
