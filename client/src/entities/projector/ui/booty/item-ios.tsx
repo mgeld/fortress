@@ -13,10 +13,12 @@ import IconCont3 from "shared/assets/icons/cont_3.svg";
 
 type TItemProps = {
     item: TBooty
-    sizeDrone: number
+    // sizeDrone: number
 }
 
-export const ItemIOS: FC<TItemProps> = ({ item, sizeDrone }) => {
+export const ItemIOS: FC<TItemProps> = ({ item }) => {
+
+    const sizeDrone = 30
 
     const toPosLatLng = getDestination(
         item.from_pos[0],

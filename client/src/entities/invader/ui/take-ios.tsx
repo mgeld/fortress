@@ -10,13 +10,17 @@ import styles from './styles.module.scss'
 
 type TTakeProps = {
     take: TTake
-    sizeInvader: number
-    sizeDrone: number
+    // sizeInvader: number
+    // sizeDrone: number
 }
 
-export const TakeIOS: FC<TTakeProps> = ({ take, sizeInvader, sizeDrone }) => {
+export const TakeIOS: FC<TTakeProps> = ({ take }) => {
 
     // console.log('-------take', take)
+
+    // console.log('sizeDrone', sizeDrone)
+
+    const sizeDrone = 30
 
     const toPosLatLng = getDestination(take.from_pos[0], take.from_pos[1], sizeDrone / 2, 90)
 
@@ -32,7 +36,7 @@ export const TakeIOS: FC<TTakeProps> = ({ take, sizeInvader, sizeDrone }) => {
     }, [take.to_pos])
 
     const bounds = latLng(pos[0], pos[1]).toBounds(30);
-    
+
     return (
         <>
             <ImageOverlay

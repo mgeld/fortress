@@ -1,4 +1,3 @@
-import { userModel } from "entities/user"
 import { FC } from "react"
 import { Ship } from "entities/pointer/ui/drone"
 import { shipModel } from "entities/ship"

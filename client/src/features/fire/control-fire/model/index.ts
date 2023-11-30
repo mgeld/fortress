@@ -1,27 +1,33 @@
 import { createEffect, createEvent, sample } from "effector";
 import { TFire } from "entities/fire/model/fire";
-import { pointerMapModel } from "entities/pointer";
+import { droneMapModel, pointerMapModel } from "entities/pointer";
 import { userModel } from "entities/user";
 
 import { fireAPI } from "shared/api/fire";
-import { comparePos } from "../lib/compare-pos";
 import { firesAPI, pointersAPI } from "shared/api/events";
-import { TJoystickDirection, TLatLng } from "shared/types";
-import { isHitFireTarget } from "shared/lib/isHitFireTarget";
-import { fromToDirectionPos } from "shared/lib/fromToDirectionPos";
 import { IJoystickUpdateEvent } from "react-joystick-component/build/lib/Joystick";
 
-import { THitPointer, TPointer } from '@ctypes/model'
+import { THitPointer, TLatLng, TPointer } from '@ctypes/model'
 import { weaponModel } from "entities/weapon"
 import { arenaModel } from "entities/arena";
 import { TBattleStatus } from "shared/api/events/battle";
 import { battleFireAPI } from "shared/api/battle-fire";
 import { shipModel } from "entities/ship";
+import { fromToFirePos } from "shared/lib/fromToFirePos";
+import { IntersectCircleLine } from "entities/fire/lib/intersect-circle-line";
+import { TSizeDrone } from "entities/pointer/model/drone";
+
+// import { TJoystickDirection, TLatLng } from "shared/types";
+// import { isHitFireTarget } from "shared/lib/isHitFireTarget";
+// import { comparePos } from "../lib/compare-pos";
+// import { fromToDirectionPos } from "shared/lib/fromToDirectionPos";
 
 //--------
 
-type TFireDirection = {
-    direction: TJoystickDirection | null
+export type TFireDirection = {
+    direction: number
+    // x: number | null
+    // y: number | null
 }
 
 type THitPointersFxProps = {
@@ -29,6 +35,7 @@ type THitPointersFxProps = {
         pointers: TPointer[]
         userPos: TLatLng
         distance: number
+        size: TSizeDrone
     },
     fire: TFireDirection
 }
@@ -60,23 +67,33 @@ const hitPointersFx = createEffect(({
     }
 
     // Место, куда попадёт пуля (моя позиция, направление, расстояние)
-    let to_pos: TLatLng = fromToDirectionPos(
+    let to_pos: TLatLng = fromToFirePos(
         source.userPos,
         fire.direction,
         source.distance
     )
-
-    source.pointers.sort(comparePos(fire.direction)).every(pointer => {
+    // .sort(comparePos(fire.direction))
+    source.pointers.every(pointer => {
 
         if (pointer.health < 1) return true
 
-        let isFire = isHitFireTarget({
-            from: source.userPos,
-            to: to_pos,
-            marker: pointer.pos,
-            radius: 0.0004,
-            direction: fire.direction
-        })
+        // let isFire = isHitFireTarget({
+        //     from: source.userPos,
+        //     to: to_pos,
+        //     marker: pointer.pos,
+        //     radius: 0.0004,
+        //     direction: fire.direction
+        // })
+
+        // console.log('>>>>>>>>> source.size.degrees', source.size.degrees)
+
+        let isFire = IntersectCircleLine(
+            { x: pointer.pos[1], y: pointer.pos[0] },
+            source.size.degrees,
+            { x: source.userPos[1], y: source.userPos[0] },
+            { x: to_pos[1], y: to_pos[0] },
+        )
+
         if (isFire) {
             hitPointer = {
                 health: pointer.health,
@@ -177,12 +194,26 @@ sample({
         pointers: pointerMapModel.$pointersStore,
         userPos: shipModel.$userPositionStore,
         distance: weaponModel.$gunDistanceStore,
+        size: droneMapModel.$sizeDroneStore
     },
     fn: (source, clock) => ({ source, fire: clock }),
     target: hitPointersFx,
 })
 
 // Точка входа
-export const fireControl = (e: IJoystickUpdateEvent) => hitFireOutTarget({
-    direction: e.direction
-})
+export const fireControl = (e: IJoystickUpdateEvent) => {
+
+    console.log('e.x', e.x)
+    console.log('e.y', e.y)
+
+    if (!e.x || !e.y) return
+
+
+    let angle = Math.atan2(e.x, e.y) * (180 / Math.PI)
+
+    console.log('fireControl angle', angle)
+
+    hitFireOutTarget({
+        direction: angle
+    })
+}

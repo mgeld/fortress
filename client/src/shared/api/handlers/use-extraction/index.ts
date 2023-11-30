@@ -2,7 +2,7 @@ import { Handler } from "..";
 import { TUseExtraction } from '@ctypes/socket/server-to-client'
 import { noticeModel } from "shared/ui/notice";
 import { popoutModel } from "shared/ui/popout-root";
-import { shipAPI, stormAPI, userAPI, weaponsAPI, zoneAPI } from "shared/api/events";
+import { holdAPI, shipAPI, stormAPI, userAPI, weaponsAPI, zoneAPI } from "shared/api/events";
 import { pageModel } from "shared/ui/page-root";
 
 class UseExtractionHandler extends Handler {
@@ -16,8 +16,13 @@ class UseExtractionHandler extends Handler {
         switch (message.payload.type) {
             case 'rank_exp':
                 name = `Опыт завоеваний`
-                text = `Получено ${amount} единиц опыта завоеваний!`
-                userAPI.events.addRankExp(amount)
+                if (amount > 0) {
+                    text = `Получено ${amount} единиц опыта завоеваний!`
+                    userAPI.events.addRankExp(amount)
+                } else {
+                    text = `Вы собрали максимальное количество опыта на текущий Ранг Завоеваний!`
+                    // userAPI.events.addRankExp(amount)
+                }
                 break;
             case 'gun_distance':
                 name = `Дальность удара`
@@ -63,7 +68,7 @@ class UseExtractionHandler extends Handler {
         popoutModel.events.setPopout(null)
         pageModel.events.setPage('map')
 
-        // holdAPI.events.delExtraction(message.payload.index)
+        holdAPI.events.delExtraction(message.payload.index)
 
         noticeModel.events.newToast({
             name,

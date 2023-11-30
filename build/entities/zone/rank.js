@@ -26,19 +26,21 @@ class Rank {
         this._exp = summ;
         return [was_number, this._exp];
     }
-    increaseExperience(exp) {
+    increaseExp(exp) {
         this._tempExp = this._tempExp + exp;
     }
-    addExperience() {
-        this._exp = this._tempExp;
-        this._tempExp = 0;
-        if (this._exp >= Rank.levelExp()[this._rank]) {
+    saveExp() {
+        const maxValueLevel = Rank.levelExp()[this._rank];
+        const was_number = this._exp;
+        const summ = was_number + this._tempExp;
+        if (summ >= maxValueLevel) {
             this._rank += 1;
+            this._exp = 0;
+            return [was_number, this._exp];
         }
-        return {
-            rank: this._rank,
-            amount: this._exp,
-        };
+        this._exp = summ;
+        this._tempExp = 0;
+        return [was_number, this._exp];
     }
     static levelExp() {
         return {

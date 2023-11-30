@@ -2,14 +2,14 @@ import { createStore } from "effector"
 import { useStore } from "effector-react"
 import { firesAPI } from "shared/api/events"
 import { TFireId } from "shared/api/events/fires"
-import { TJoystickDirection, TLatLng } from "shared/types"
+import { TLatLng } from "shared/types"
 
 export type TFire = {
     id: number,
     from_pos: TLatLng
     to_pos: TLatLng
     hit_pos?: TLatLng | null // Если в кого-то попало
-    direction: TJoystickDirection | null,
+    direction: number | null
 }
 
 const DEFAULT_STORE: TFire[] = []

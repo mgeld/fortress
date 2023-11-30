@@ -4,13 +4,13 @@ exports.Citadel = void 0;
 const react_leaflet_1 = require("react-leaflet");
 const citadel_1 = require("entities/citadel");
 const pointer_1 = require("entities/pointer");
-require("./styles.css");
 const popout_root_1 = require("shared/ui/popout-root");
 const alert_1 = require("shared/ui/alert");
+require("./styles.css");
 const Citadel = () => {
     var _a;
     const pos = ((_a = citadel_1.citadelModel.selectors.useCitadel()) === null || _a === void 0 ? void 0 : _a.latlng) || [0, 0];
-    const size = pointer_1.droneMapModel.selectors.useDroneSize() * 1.6;
+    const size = pointer_1.droneMapModel.selectors.useDroneSize().px * 1.6;
     const p = size * 3.14 / 4;
     const a = p * 0.3;
     const b = p * 0.7;
@@ -21,7 +21,7 @@ const Citadel = () => {
                 popout_root_1.popoutModel.events.setPopout('alert');
                 alert_1.alertModel.events.setAlert({
                     alert: 'Цитадель',
-                    message: 'Цитадель - это центр вашей зоны и первый захваченный форт. Куда бы вы не полетели, вы всегда сможете телепортироваться обратно к Цитаделю.',
+                    message: 'Цитадель - это центр вашей зоны и первый захваченный форт. Куда бы вы не полетели, вы всегда сможете телепортироваться обратно к Цитадели',
                     action: {
                         close: false,
                         text: 'Принято',

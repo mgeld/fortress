@@ -3,8 +3,9 @@ import { fireMapModel } from "..";
 
 // import { Fire } from "./fire";
 
-import './l-styles.css'
 import { FireIOS } from "./fire-ios";
+
+import './l-styles.css'
 
 type FiresMapProps = {
 }

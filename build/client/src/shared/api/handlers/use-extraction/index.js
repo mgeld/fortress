@@ -14,8 +14,13 @@ class UseExtractionHandler extends __1.Handler {
         switch (message.payload.type) {
             case 'rank_exp':
                 name = `Опыт завоеваний`;
-                text = `Получено ${amount} единиц опыта завоеваний!`;
-                events_1.userAPI.events.addRankExp(amount);
+                if (amount > 0) {
+                    text = `Получено ${amount} единиц опыта завоеваний!`;
+                    events_1.userAPI.events.addRankExp(amount);
+                }
+                else {
+                    text = `Вы собрали максимальное количество опыта на текущий Ранг Завоеваний!`;
+                }
                 break;
             case 'gun_distance':
                 name = `Дальность удара`;
@@ -59,6 +64,7 @@ class UseExtractionHandler extends __1.Handler {
         }
         popout_root_1.popoutModel.events.setPopout(null);
         page_root_1.pageModel.events.setPage('map');
+        events_1.holdAPI.events.delExtraction(message.payload.index);
         notice_1.noticeModel.events.newToast({
             name,
             text,

@@ -1,17 +1,23 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.events = exports.selectors = void 0;
+exports.events = exports.selectors = exports.$sizeDroneStore = void 0;
 const effector_1 = require("effector");
 const effector_react_1 = require("effector-react");
 const model_1 = require("entities/map/model");
 const getDestination_1 = require("entities/sector/lib/getDestination");
 const model_2 = require("entities/ship/model");
-const $sizeDroneStore = (0, effector_1.createStore)(0);
+exports.$sizeDroneStore = (0, effector_1.createStore)({
+    px: 0,
+    degrees: 0
+});
 const getDroneSizefx = (0, effector_1.createEffect)(({ map, userPos }) => {
     const toPosLatLng = (0, getDestination_1.getDestination)(userPos[0], userPos[1], 30, 90);
     const fromPoint = map.latLngToLayerPoint(userPos);
     const toPoint = map.latLngToLayerPoint(toPosLatLng);
-    return toPoint.x - fromPoint.x;
+    return {
+        px: toPoint.x - fromPoint.x,
+        degrees: Math.abs(userPos[1] - toPosLatLng[1])
+    };
 });
 (0, effector_1.sample)({
     clock: model_2.$arealStore,
@@ -29,9 +35,9 @@ const setSizeDrone = (0, effector_1.createEvent)();
 });
 (0, effector_1.sample)({
     clock: getDroneSizefx.doneData,
-    target: $sizeDroneStore
+    target: exports.$sizeDroneStore
 });
-const useDroneSize = () => (0, effector_react_1.useStore)($sizeDroneStore);
+const useDroneSize = () => (0, effector_react_1.useStore)(exports.$sizeDroneStore);
 exports.selectors = {
     useDroneSize,
 };

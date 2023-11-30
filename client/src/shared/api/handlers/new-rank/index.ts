@@ -6,7 +6,6 @@ import { userAPI } from "shared/api/events";
 class NewRankHandler extends Handler {
     handle(message: TNewRank) {
 
-        console.log('NewRankHandler message', message)
         userAPI.events.setRankLevel(message.payload.rank)
         userAPI.events.setRankExp(0)
 

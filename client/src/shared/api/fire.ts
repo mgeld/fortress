@@ -1,12 +1,12 @@
 import { WS } from "processes/socket"
-import { TJoystickDirection, TLatLng } from "shared/types"
+import { TLatLng } from "shared/types"
 import { TFireAPI } from "../../../../common-types/socket/client-to-server"
 import { THitPointer } from '@ctypes/model'
 
 export const fireAPI = (
     pos: TLatLng,
     toPos: TLatLng,
-    direction: TJoystickDirection | null,
+    direction: number,
     hitPointer: THitPointer,
 ) => {
     const data: TFireAPI = {

@@ -9,10 +9,12 @@ import { TBooty } from "entities/projector/model/tractor-beam";
 
 type TItemProps = {
     item: TBooty
-    sizeDrone: number
+    // sizeDrone: number
 }
 
-export const Item: FC<TItemProps> = ({ item, sizeDrone }) => {
+export const Item: FC<TItemProps> = ({ item }) => {
+
+    const sizeDrone = 30
 
     const toPosLatLng = getDestination(
         item.from_pos[0],

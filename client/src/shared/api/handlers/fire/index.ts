@@ -1,8 +1,9 @@
 import { firesAPI } from "shared/api/events";
-// import { fromToDirectionPos } from "shared/lib/fromToDirectionPos";
 import { Handler } from "..";
 import { TFire } from '@ctypes/socket/server-to-client'
+
 // import { determinantWeapon } from "entities/weapon/lib/determinant-weapon";
+// import { fromToDirectionPos } from "shared/lib/fromToDirectionPos";
 
 class FireHandler extends Handler {
 

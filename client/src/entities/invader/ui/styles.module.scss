@@ -1,9 +1,8 @@
 .__invader {
-
   transition-duration: 2s;
   transform-origin: center center !important;
   transform-box: content-box !important;
-  transform: scale(5);
+  // transform: scale(50);
 }
 
 @keyframes rotate {

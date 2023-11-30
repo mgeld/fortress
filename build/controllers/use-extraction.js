@@ -70,22 +70,15 @@ let UseExtractionHandler = class UseExtractionHandler extends handlers_1.IRoute 
             }
             if (extr.gives === 'storm_power') {
                 resultIncrese = zone.stormtrooper_corps.increasePower(extr.quantity);
-                if (resultIncrese !== 'limit')
-                    this._zoneService.memoryUpdate(zone);
             }
             if (extr.gives === 'stormtroopers') {
                 resultIncrese = zone.stormtrooper_corps.addInvaders(extr.quantity);
-                if (resultIncrese !== 'limit') {
-                    this._zoneService.memoryUpdate(zone);
-                }
             }
             if (extr.gives === 'coins') {
                 resultIncrese = zone.addCoins(extr.quantity);
-                this._zoneService.memoryUpdate(zone);
             }
             if (extr.gives === 'rubies') {
                 resultIncrese = zone.addRubies(extr.quantity);
-                this._zoneService.memoryUpdate(zone);
                 if (zone.terrain.sectors === 1) {
                     const tutorialResp = {
                         event: 'tutorial',
@@ -96,7 +89,22 @@ let UseExtractionHandler = class UseExtractionHandler extends handlers_1.IRoute 
                     uSocket.send(JSON.stringify(tutorialResp));
                 }
             }
-            if (resultIncrese === 'limit') {
+            if (extr.gives === 'rank_exp') {
+                resultIncrese = zone.rank.addExp(extr.quantity);
+                if (resultIncrese[1] === 0) {
+                    const newRank = {
+                        event: 'new-rank',
+                        payload: {
+                            rank: zone.rank.rank
+                        }
+                    };
+                    setTimeout(() => uSocket.send(JSON.stringify(newRank)), 1500);
+                }
+            }
+            if (resultIncrese !== 'limit') {
+                this._zoneService.memoryUpdate(zone);
+            }
+            else {
                 const limitResp = {
                     event: 'limit',
                     payload: {
@@ -106,25 +114,13 @@ let UseExtractionHandler = class UseExtractionHandler extends handlers_1.IRoute 
                 uSocket.send(JSON.stringify(limitResp));
                 return;
             }
-            if (extr.gives === 'rank_exp') {
-                resultIncrese = zone.rank.addExp(extr.quantity);
-                this._zoneService.memoryUpdate(zone);
-                if (resultIncrese[1] === 0) {
-                    const newRank = {
-                        event: 'new-rank',
-                        payload: {
-                            rank: zone.rank.rank
-                        }
-                    };
-                    uSocket.send(JSON.stringify(newRank));
-                    return;
-                }
-            }
+            const [was, will] = resultIncrese;
+            let amount = will - was;
             const extrResp = {
                 event: 'use-extraction',
                 payload: {
                     unit: __id,
-                    amount: resultIncrese[1] - resultIncrese[0],
+                    amount,
                     type: extr.gives,
                     index: __index
                 }

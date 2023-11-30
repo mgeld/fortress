@@ -72,26 +72,18 @@ class UseExtractionHandler extends IRoute {
 
         if (extr.gives === 'storm_power') {
             resultIncrese = zone.stormtrooper_corps.increasePower(extr.quantity)
-            if (resultIncrese !== 'limit')
-                this._zoneService.memoryUpdate(zone)
         }
 
         if (extr.gives === 'stormtroopers') {
             resultIncrese = zone.stormtrooper_corps.addInvaders(extr.quantity)
-
-            if (resultIncrese !== 'limit') {
-                this._zoneService.memoryUpdate(zone)
-            }
         }
 
         if (extr.gives === 'coins') {
             resultIncrese = zone.addCoins(extr.quantity)
-            this._zoneService.memoryUpdate(zone)
         }
 
         if (extr.gives === 'rubies') {
             resultIncrese = zone.addRubies(extr.quantity)
-            this._zoneService.memoryUpdate(zone)
 
             if (zone.terrain.sectors === 1) {
                 const tutorialResp: TTutorial = {
@@ -104,7 +96,26 @@ class UseExtractionHandler extends IRoute {
             }
         }
 
-        if (resultIncrese === 'limit') {
+        // Если активируется один из Модулей Опыта
+        if (extr.gives === 'rank_exp') {
+            resultIncrese = zone.rank.addExp(extr.quantity)
+            if (resultIncrese[1] === 0) {
+                const newRank: TNewRank = {
+                    event: 'new-rank',
+                    payload: {
+                        rank: zone.rank.rank
+                    }
+                }
+                setTimeout(() => uSocket.send(JSON.stringify(newRank)), 1500)
+            }
+
+        }
+
+        if (resultIncrese !== 'limit') {
+            this._zoneService.memoryUpdate(zone)
+        }
+
+        else {
             const limitResp: TLimit = {
                 event: 'limit',
                 payload: {
@@ -115,28 +126,16 @@ class UseExtractionHandler extends IRoute {
             return
         }
 
-        if (extr.gives === 'rank_exp') {
-            resultIncrese = zone.rank.addExp(extr.quantity)
-            this._zoneService.memoryUpdate(zone)
-            if (resultIncrese[1] === 0) {
-                const newRank: TNewRank = {
-                    event: 'new-rank',
-                    payload: {
-                        rank: zone.rank.rank
-                    }
-                }
-                uSocket.send(JSON.stringify(newRank))
-                return
-            }
-        }
+        
+        const [was, will] = resultIncrese
 
-        // if(extr.gives === 'ship_health') {}
+        let amount = will - was
 
         const extrResp: TUseExtraction = {
             event: 'use-extraction',
             payload: {
                 unit: __id,
-                amount: resultIncrese[1] - resultIncrese[0],
+                amount,
                 type: extr.gives,
                 index: __index
             }

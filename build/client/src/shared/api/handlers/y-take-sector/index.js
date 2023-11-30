@@ -20,6 +20,9 @@ class YTakeSectorHandler extends __1.Handler {
                 sector: message.payload.sector_id
             });
         zone_1.zoneModel.events.addSector();
+        if (message.payload.exp) {
+            events_1.userAPI.events.setRankExp(message.payload.exp);
+        }
         snackbar_1.snackbarModel.events.newToast({
             text: 'Сектор захвачен!',
             t: 1

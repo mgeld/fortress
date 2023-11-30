@@ -8,7 +8,6 @@ class NewZoneHandler extends __1.Handler {
     handle(message) {
         console.log('NewZoneHandler message', message);
         events_1.zoneAPI.events.setZoneLevel(message.payload.level);
-        events_1.userAPI.events.setRankExp(0);
         notice_1.noticeModel.events.newToast({
             name: 'Новый Уровень Зоны!',
             text: 'Вы достигли новый уровень зоны!',

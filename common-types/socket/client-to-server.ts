@@ -92,7 +92,7 @@ export type TFireAPI = {
     payload: {
         pos: TLatLng
         to_pos: TLatLng
-        direction: TJoystickDirection | null
+        direction: number
         // weapon: string
         // userId: number
         hitPointer?: THitPointer
@@ -168,7 +168,6 @@ export type TDirectAPI = {
     event: TEventDirect
     payload: {
         position: TLatLng
-        // userId: number
     }
 }
 
@@ -179,7 +178,7 @@ export type TBattleFireAPI = {
     payload: {
         pos: TLatLng
         to_pos: TLatLng
-        direction: TJoystickDirection | null
+        direction: number
         hitPointer?: THitPointer
         // weapon: string
         // userId: number

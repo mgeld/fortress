@@ -303,6 +303,7 @@ export type TTakeSectorPayload = {
     prev_owner_id: number
     new_owner_id: number
     sector_id: string
+    exp?: number // Опыт завоеваний за захват сектора
 }
 export type TTakeSector = {
     event: TEventTakeSector | TEventYTakeSector | TEventYrTakeSector
@@ -337,7 +338,7 @@ export type TSector = {
 export type TFirePayload = {
     pos: TLatLng
     to_pos: TLatLng
-    direction: TJoystickDirection | null
+    direction: number
     userId: number
     hitPointer?: THitPointer
 }

@@ -1,4 +1,4 @@
-import { TCitadel, TFindCont, TNewZone, TTakeHit, TTakeHitPayload, TTakePayload, TTakeSectorPayload } from "../common-types/socket/server-to-client"
+import { TCitadel, TFindCont, TNewRank, TNewZone, TTakeHit, TTakeHitPayload, TTakePayload, TTakeSectorPayload } from "../common-types/socket/server-to-client"
 import { TEventTake, TTakeAPI } from "../common-types/socket/client-to-server"
 import { IWebSocket } from "../api/socket/server";
 import { IRoute } from "./handlers"
@@ -95,6 +95,9 @@ class TakeHandler extends IRoute {
         // Если я победил
         if (status === 'victory') {
 
+            // Добавляем число 2 ко временному опыту
+            zone.rank.increaseExp(2)
+
             if (_sector.zone_id && _prevZone) {
                 _prevZone.terrain.killDefender()
                 prevZoneId = _prevZone.id
@@ -113,6 +116,19 @@ class TakeHandler extends IRoute {
 
                 // Убираем один сектор у пред-го владельца
                 // if (prevZoneId) _prevZone.terrain.loseSector()
+
+                // Сохраняем временный опыт
+                const [wasExp, willExp] = zone.rank.saveExp()
+                if (willExp === 0) {
+                    const newRank: TNewRank = {
+                        event: 'new-rank',
+                        payload: {
+                            rank: zone.rank.rank
+                        }
+                    }
+                    uSocket.send(JSON.stringify(newRank))
+                    return
+                }
 
                 const tempLevel = zone.terrain.level
                 const sectsAndLevel = zone.terrain.addSector()
@@ -135,7 +151,6 @@ class TakeHandler extends IRoute {
 
                 if (_sector.zone_id === 0)
                     isBooty = Sector.probabilityGettingExtractionInFort(__fort)
-                console.log('take isBooty', isBooty)
 
                 // Обновляем владельца сектор
                 _sector.setOwner(_pointer.zoneId)
@@ -202,12 +217,6 @@ class TakeHandler extends IRoute {
                     uSocket.send(JSON.stringify(resp))
                 }
 
-                // Отправляем себе
-                uSocket.send(JSON.stringify({
-                    event: 'y-take-sector',
-                    payload: takeSector
-                }))
-
                 // Отправляем остальным игрокам из области
                 this._rooms.areals.broadcast(_pointer.areal, {
                     event: 'take-sector',
@@ -220,6 +229,14 @@ class TakeHandler extends IRoute {
                         payload: takeSector
                     })
                 }
+
+                takeSector.exp = zone.rank.exp
+
+                // Отправляем себе
+                uSocket.send(JSON.stringify({
+                    event: 'y-take-sector',
+                    payload: takeSector
+                }))
 
             } else {
                 uSocket.send(JSON.stringify(takeHitResp))

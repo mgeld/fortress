@@ -4,7 +4,7 @@ import { UserDrone } from "../user-pointer/drone";
 import { Drones } from "../pointers/drones";
 import { droneMapModel } from "entities/pointer";
 import { popoutModel } from "shared/ui/popout-root";
-import { throttle } from "shared/lib/throttle";
+// import { throttle } from "shared/lib/throttle";
 
 export const MapDrones: FC = () => {
 
@@ -12,7 +12,7 @@ export const MapDrones: FC = () => {
     // const zoom = map.getZoom()
     // const posCenterLatLng = map.getCenter()
 
-    const size = droneMapModel.selectors.useDroneSize()
+    const size = droneMapModel.selectors.useDroneSize().px
 
     useMapEvents({
         zoomstart: () => {

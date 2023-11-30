@@ -84,15 +84,15 @@ const MapLayout: FC<TMapProps> = () => {
                 zoom={16}
                 minZoom={15}
                 maxZoom={17}
-                zoomControl={false}
-                // fadeAnimation={true}
                 doubleClickZoom={false}
+                zoomControl={false}
+                bounceAtZoomLimits={false}
+                // fadeAnimation={true}
                 // boxZoom={true}
                 // scrollWheelZoom={false}
-                bounceAtZoomLimits={false}
-            // preferCanvas={true}
-            // maxBoundsViscosity={0.1}
-            // worldCopyJump={true}
+                // preferCanvas={true}
+                // maxBoundsViscosity={0.1}
+                // worldCopyJump={true}
             >
                 <TileLayer
                     // attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -155,15 +155,6 @@ const MapLayout: FC<TMapProps> = () => {
 
                 {/* /// */}
 
-                {/* <Rectangle
-                    bounds={[[0.0, 0.0], [90.0, 90.0]]}
-                    pathOptions={{
-                        fillOpacity: 0,
-                        fillRule: "nonzero",
-                    }}
-                    weight={1}
-                /> */}
-
                 <Circle
                     center={[0.0, 0.0]}
                     pathOptions={{
@@ -174,84 +165,6 @@ const MapLayout: FC<TMapProps> = () => {
                     // radius={(40000 / 360) * Math.cos(position[0])}
                     radius={100}
                 />
-
-                {/* 
-                {new Array(60).join('/').split('/').map((item, index) => {
-                    return new Array(90).join('/').split('/').map((item, j) => {
-                        console.log('index', index)
-                        return (<Circle
-                            center={[index, j]}
-                            pathOptions={{
-                                fillColor: 'green',
-                                fillOpacity: 0.5,
-                                color: 'red'
-                            }}
-                            // radius={(40000 / 360) * Math.cos(position[0])}
-                            radius={50}
-                        />)
-                    })
-                    // return (<Circle
-                    //     center={[index, 0.0]}
-                    //     pathOptions={{
-                    //         fillColor: 'green',
-                    //         fillOpacity: 0.5,
-                    //         color: 'red'
-                    //     }}
-                    //     // radius={(40000 / 360) * Math.cos(position[0])}
-                    //     radius={400}
-                    // />)
-                })} */}
-
-                {/* {(() => {
-
-                    const [lat_x, long_x] = getDestination(0, 0, 10000000, 90);
-                    return (
-                        <Polyline
-                            positions={[[0, 0], [lat_x, long_x]]}
-                            weight={10}
-                        />
-                    )
-                })()}
-
-                {(() => {
-
-                    const [lat_x, long_x] = getDestination(0, 0, 10000000, 0);
-                    return (
-                        <Polyline
-                            positions={[[0, 0], [lat_x, long_x]]}
-                            weight={10}
-                            color="red"
-                        />
-                    )
-                })()} */}
-
-                {/* {(() => {
-                    return new Array(90).join('/').split('/').map((item, index) => {
-                        const [lat_x, long_x] = getDestination(index, 0, 7000000, 90);
-                        return (
-                            <Polyline
-                                positions={[[index, 0], [lat_x, long_x]]}
-                                weight={2}
-                                color="green"
-                            />
-                        )
-
-                    })
-                })()}
-
-                {(() => {
-                    return new Array(90).join('/').split('/').map((item, index) => {
-                        const [lat_x, long_x] = getDestination(0, index, 7000000, 0);
-                        return (
-                            <Polyline
-                                positions={[[0, index], [lat_x, long_x]]}
-                                weight={2}
-                                color="blue"
-                            />
-                        )
-
-                    })
-                })()} */}
 
             </MapContainer>
 

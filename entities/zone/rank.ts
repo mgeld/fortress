@@ -53,26 +53,25 @@ export class Rank {
     }
 
 
-    increaseExperience(exp: number) {
+    increaseExp(exp: number) {
         this._tempExp = this._tempExp + exp
     }
 
-    addExperience(): {
-        rank: number
-        amount: number
-    } {
-        this._exp = this._tempExp
+    saveExp(): [number, number] {
+        const maxValueLevel = Rank.levelExp()[this._rank]
 
+        const was_number = this._exp
+        const summ = was_number + this._tempExp
+
+        if (summ >= maxValueLevel) {
+            this._rank += 1
+            this._exp = 0
+            return [was_number, this._exp]
+        }
+        this._exp = summ
         this._tempExp = 0
 
-        if (this._exp >= Rank.levelExp()[this._rank]) {
-            this._rank += 1
-        }
-
-        return {
-            rank: this._rank,
-            amount: this._exp,
-        }
+        return [was_number, this._exp]
 
         // this._temporaryLastSector = null
     }

@@ -1,12 +1,12 @@
 import { WS } from "processes/socket"
-import { TJoystickDirection, TLatLng } from "shared/types"
+import { TLatLng } from "shared/types"
 import { THitPointer } from '@ctypes/model'
 import { TBattleFireAPI } from "@ctypes/socket/client-to-server"
 
 export const battleFireAPI = (
     pos: TLatLng,
     to_pos: TLatLng,
-    direction: TJoystickDirection | null,
+    direction: number,
     hitPointer: THitPointer,
 ) => {
     const data: TBattleFireAPI = {

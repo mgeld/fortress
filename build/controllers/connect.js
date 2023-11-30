@@ -45,7 +45,6 @@ let ConnectHandler = class ConnectHandler {
             const clientSecret = 'SCecuoQxDCCS0hdTSuhe';
             const launchParams = decodeURIComponent(VK_URL.slice(VK_URL.indexOf('?') + 1));
             const result = (0, verify_launch_params_1.verifyLaunchParams)(launchParams, clientSecret);
-            console.log('result', result);
             if (!result)
                 return;
             let { is_valid, vk_id } = result;

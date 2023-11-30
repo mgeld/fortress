@@ -42,7 +42,7 @@ const MapLayout = () => {
     console.log('MapLayout');
     return (<div className='mapCard'>
 
-            <react_leaflet_1.MapContainer ref={map_1.mapModel.events.setMap} className='_MapContainer' center={center} zoom={16} minZoom={15} maxZoom={17} zoomControl={false} doubleClickZoom={false} bounceAtZoomLimits={false}>
+            <react_leaflet_1.MapContainer ref={map_1.mapModel.events.setMap} className='_MapContainer' center={center} zoom={16} minZoom={15} maxZoom={17} doubleClickZoom={false} zoomControl={false} bounceAtZoomLimits={false}>
                 <react_leaflet_1.TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
 
                 
@@ -101,19 +101,11 @@ const MapLayout = () => {
 
                 
 
-                
-
                 <react_leaflet_1.Circle center={[0.0, 0.0]} pathOptions={{
             fillColor: 'black',
             fillOpacity: 0.5,
             color: 'black'
         }} radius={100}/>
-
-                
-
-                
-
-                
 
             </react_leaflet_1.MapContainer>
 

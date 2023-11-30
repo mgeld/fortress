@@ -55,7 +55,7 @@ class ConnectHandler implements IRoute {
 
         // Проверяем, валидны ли параметры запуска.
         const result = verifyLaunchParams(launchParams, clientSecret);
-        console.log('result', result)
+        // console.log('result', result)
 
         if (!result) return
 

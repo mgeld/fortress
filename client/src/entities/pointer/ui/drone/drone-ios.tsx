@@ -4,8 +4,6 @@ import { useHitFirePointer } from "../../hooks/use-hit-fire-pointer";
 
 import { TLatLng } from "shared/types";
 
-// import Ship from './ship.svg'
-
 import { IconShip } from "shared/assets/icons/_icons";
 // import { latLng } from "leaflet";
 
@@ -53,8 +51,6 @@ const DroneIOS: FC<TDroneProps> = ({
     useMapEvent('zoom', (e) => {
         setPoint(map.latLngToLayerPoint(pos))
     })
-
-    // let sizeDrone = droneMapModel.selectors.useDroneSize()
 
     // const myPos = shipModel.selectors.useShipPos()
 

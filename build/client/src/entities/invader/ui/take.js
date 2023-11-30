@@ -9,7 +9,8 @@ const react_leaflet_1 = require("react-leaflet");
 const randomNumber_1 = require("shared/lib/randomNumber");
 const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
 const getDestination_1 = require("entities/sector/lib/getDestination");
-const Take = ({ take, sizeInvader, sizeDrone }) => {
+const Take = ({ take, sizeInvader }) => {
+    const sizeDrone = 30;
     const toPosLatLng = (0, getDestination_1.getDestination)(take.from_pos[0], take.from_pos[1], sizeDrone / 2, 90);
     const aa = Math.round((toPosLatLng[1] - take.from_pos[1]) * 100000);
     const [pos, setTakePos] = (0, react_1.useState)([

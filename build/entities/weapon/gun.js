@@ -99,7 +99,7 @@ class Gun {
     increaseDistance(dist) {
         const maxValueLevel = Gun.getLevelMaxDistance(this._level);
         if (Gun.getLevelMaxDistance(this._level) > this._distance) {
-            const was_number = this._power;
+            const was_number = this._distance;
             const summ = was_number + dist;
             this._distance = summ > maxValueLevel ? maxValueLevel : summ;
             return [was_number, this._distance];

@@ -77,6 +77,7 @@ let TakeHandler = class TakeHandler extends handlers_1.IRoute {
                 owner: _sector.zone_id
             };
             if (status === 'victory') {
+                zone.rank.increaseExp(2);
                 if (_sector.zone_id && _prevZone) {
                     _prevZone.terrain.killDefender();
                     prevZoneId = _prevZone.id;
@@ -88,6 +89,17 @@ let TakeHandler = class TakeHandler extends handlers_1.IRoute {
                 }
                 zone.terrain.newDefender();
                 if (_sector.defenders === 0) {
+                    const [wasExp, willExp] = zone.rank.saveExp();
+                    if (willExp === 0) {
+                        const newRank = {
+                            event: 'new-rank',
+                            payload: {
+                                rank: zone.rank.rank
+                            }
+                        };
+                        uSocket.send(JSON.stringify(newRank));
+                        return;
+                    }
                     const tempLevel = zone.terrain.level;
                     const sectsAndLevel = zone.terrain.addSector();
                     if (sectsAndLevel.level > tempLevel) {
@@ -106,7 +118,6 @@ let TakeHandler = class TakeHandler extends handlers_1.IRoute {
                     };
                     if (_sector.zone_id === 0)
                         isBooty = sector_1.Sector.probabilityGettingExtractionInFort(__fort);
-                    console.log('take isBooty', isBooty);
                     _sector.setOwner(_pointer.zoneId);
                     if (zone.terrain.sectors === 1) {
                         isBooty = true;
@@ -156,10 +167,6 @@ let TakeHandler = class TakeHandler extends handlers_1.IRoute {
                         };
                         uSocket.send(JSON.stringify(resp));
                     }
-                    uSocket.send(JSON.stringify({
-                        event: 'y-take-sector',
-                        payload: takeSector
-                    }));
                     this._rooms.areals.broadcast(_pointer.areal, {
                         event: 'take-sector',
                         payload: takeSector
@@ -170,6 +177,11 @@ let TakeHandler = class TakeHandler extends handlers_1.IRoute {
                             payload: takeSector
                         });
                     }
+                    takeSector.exp = zone.rank.exp;
+                    uSocket.send(JSON.stringify({
+                        event: 'y-take-sector',
+                        payload: takeSector
+                    }));
                 }
                 else {
                     uSocket.send(JSON.stringify(takeHitResp));

@@ -6,7 +6,14 @@ import { $arealStore, $userPositionStore } from "entities/ship/model"
 import { Map } from "leaflet"
 import { TLatLng } from "shared/types"
 
-const $sizeDroneStore = createStore(0)
+export type TSizeDrone = {
+    px: number
+    degrees: number
+}
+export const $sizeDroneStore = createStore<TSizeDrone>({
+    px: 0,
+    degrees: 0
+})
 
 type TGetDroneSizefxProps = {
     userPos: TLatLng
@@ -16,7 +23,7 @@ type TGetDroneSizefxProps = {
 const getDroneSizefx = createEffect(({
     map,
     userPos
-}: TGetDroneSizefxProps): number => {
+}: TGetDroneSizefxProps): TSizeDrone => {
 
     // const toPosLatLng = getDestination(userPos[0], userPos[1], 96, 90)
     // const toPosLatLng = getDestination(userPos[0], userPos[1], 48, 90)
@@ -25,7 +32,10 @@ const getDroneSizefx = createEffect(({
     const fromPoint = map.latLngToLayerPoint(userPos)
     const toPoint = map.latLngToLayerPoint(toPosLatLng)
 
-    return toPoint.x - fromPoint.x
+    return {
+        px: toPoint.x - fromPoint.x,
+        degrees: Math.abs(userPos[1] - toPosLatLng[1])
+    }
 })
 
 type TMap = {

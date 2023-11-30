@@ -17,12 +17,14 @@ import { TLatLng } from "shared/types";
 type TTakeProps = {
     take: TTake
     sizeInvader: number
-    sizeDrone: number
+    // sizeDrone: number
 }
 
-export const Take: FC<TTakeProps> = ({ take, sizeInvader, sizeDrone }) => {
+export const Take: FC<TTakeProps> = ({ take, sizeInvader }) => {
 
     // console.log('-------take', take)
+
+    const sizeDrone = 30
 
     const toPosLatLng = getDestination(take.from_pos[0], take.from_pos[1], sizeDrone / 2, 90)
 

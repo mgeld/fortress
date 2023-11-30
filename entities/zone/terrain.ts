@@ -47,7 +47,7 @@ export class Terrain {
     } {
         this._sectors = this._sectors + 1
 
-        if (this._sectors >= Terrain.levelAllSectors()[this._level]) {
+        if (this._sectors >= Terrain.levelSectors()[this._level]) {
             this._level += 1
         }
 
