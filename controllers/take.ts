@@ -84,6 +84,9 @@ class TakeHandler extends IRoute {
             defPower
         )
 
+        console.log('_sector.zone_id', _sector.zone_id)
+        console.log('_pointer.zoneId', _pointer.zoneId)
+
         takeHit = {
             status,
             fort: __fort,
@@ -126,8 +129,8 @@ class TakeHandler extends IRoute {
                             rank: zone.rank.rank
                         }
                     }
-                    uSocket.send(JSON.stringify(newRank))
-                    return
+                    setTimeout(() => uSocket.send(JSON.stringify(newRank)), 2000)
+                    // return
                 }
 
                 const tempLevel = zone.terrain.level

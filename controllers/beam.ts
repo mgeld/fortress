@@ -91,8 +91,6 @@ class BeamHandler extends IRoute {
                 }
             }
 
-            console.log('extr', extr)
-
             if (extr) {
                 _sector.takenBooty()
                 this._logs.takes.add(_sector.id)

@@ -24,12 +24,10 @@ const types_1 = require("../../../../types");
 let VkUserRepository = class VkUserRepository {
     getById(_id) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log('______________id', _id);
             const [[result]] = yield this._connection.query(`SELECT * FROM vk_users WHERE user_id = ?;`, [_id]);
             if (!result) {
                 throw new Error('-НУ ну сработал запрос.---------');
             }
-            console.log('result', result);
             return result;
         });
     }
@@ -44,7 +42,6 @@ let VkUserRepository = class VkUserRepository {
     }
     insert(user) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log('______user', user);
             const inserted = yield this._connection.execute(`
             INSERT INTO vk_users(
                 user_id,

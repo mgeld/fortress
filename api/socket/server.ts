@@ -60,6 +60,7 @@ export class Server {
                 this.backupAndClearAreals()
 
             } else if (req.url === '/fortress/snapshot-arenas') {
+            // } else if (req.url === '/snapshot-arenas') {
 
                 console.log('snapshot-arenas')
                 this._snapshotArenas.clearInactiveArenas()

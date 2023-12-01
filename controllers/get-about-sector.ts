@@ -27,6 +27,7 @@ class GetAboutSectorHandler extends IRoute {
         if(!__id) return
 
         const _sector = await this._sectorService.getById(__id)
+
         const _pointer = await this._pointerService.getById(_sector.zone_id)
 
         const dtoSector = _sector.unmarshal()

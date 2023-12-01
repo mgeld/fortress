@@ -29,8 +29,6 @@ export class PingPong {
 
         if (!userId) return
 
-        console.log('deleteUser')
-
         const _pointer = await this._pointerService.memoryGetById(userId)
         const _zone = await this._zoneService.memoryGetById(userId)
         const _weapon = await this._weaponService.memoryGetById(_pointer.weapons[0])

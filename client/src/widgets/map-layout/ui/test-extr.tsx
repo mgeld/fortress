@@ -69,11 +69,6 @@ export const TestExtr: FC = () => {
         }
     })
 
-    // console.log('RRRRRRRRR', rrr)
-
-    // console.log(']]]]]]]]]] all sec', sec)
-    // console.log(']]]]]]]]]] is_sec booty', is_sec)
-
     // const map = useMapEvent('click', (e) => {
     //     const h3Index = latLngToCell(e.latlng.lat, e.latlng.lng, 9);
 

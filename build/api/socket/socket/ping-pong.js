@@ -35,7 +35,6 @@ let PingPong = class PingPong {
         return __awaiter(this, void 0, void 0, function* () {
             if (!userId)
                 return;
-            console.log('deleteUser');
             const _pointer = yield this._pointerService.memoryGetById(userId);
             const _zone = yield this._zoneService.memoryGetById(userId);
             const _weapon = yield this._weaponService.memoryGetById(_pointer.weapons[0]);

@@ -20,21 +20,28 @@ export class PointerService {
         return this._baseRepository.insert(pointer)
     }
 
-    getById(userId: number): Promise<Pointer> {
+    async getById(userId: number): Promise<Pointer> {
         try {
-            return this._memoryRepository.getById(userId)
+            console.log('PointerService TRY')
+            return await this.memoryGetById(userId)
         } catch (e) {
-            return this._baseRepository.getById(userId)
+            console.log('PointerService CATCH')
+            return this.baseGetById(userId)
         }
     }
 
-    memoryGetById(userId: number): Promise<Pointer> {
-        return this._memoryRepository.getById(userId)
+    async memoryGetById(userId: number): Promise<Pointer> {
+        try {
+            const pointer = await this._memoryRepository.getById(userId)
+            return pointer
+        } catch (e) {
+            throw new Error('Ну вот эта ошибка')
+        }
     }
 
-    baseGetById(userId: number): Promise<Pointer> {
+    async baseGetById(userId: number): Promise<Pointer> {
         console.log('baseGetById userId', userId)
-        return this._baseRepository.getById(userId)
+        return await this._baseRepository.getById(userId)
     }
 
     create(
@@ -72,7 +79,6 @@ export class PointerService {
     }
 
     getByIds(userIds: number[]): Promise<Pointer[]> {
-        console.log('getByIds')
         return this._memoryRepository.getByIds(userIds)
     }
 

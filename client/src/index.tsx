@@ -1,5 +1,5 @@
 import App from 'app';
-import React from 'react'
+// import React from 'react'
 import ReactDOM from 'react-dom/client'
 
 import bridge from "@vkontakte/vk-bridge";

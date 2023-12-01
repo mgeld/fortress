@@ -25,31 +25,22 @@ const pointer_1 = require("../../mappers/pointer");
 let PointerRepository = class PointerRepository {
     getById(_id) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log('MySqlPointerRepository Pointer getById _id', _id);
             const [[result]] = yield this._connection.query(`SELECT * FROM pointers WHERE zone_id = ?;`, [_id]);
-            if (!result) {
-                throw new Error('ERROR PointerRepository----------');
-            }
-            try {
-                const { zone_id, level, health, icon, name, color, pos_lat, pos_lng, weapons, areal } = result;
-                return pointer_1.PointerMapper.toDomain({
-                    id: zone_id,
-                    level,
-                    user: {
-                        icon,
-                        name
-                    },
-                    color,
-                    health,
-                    pos: [+pos_lat, +pos_lng],
-                    weapons,
-                    bombs: [],
-                    areal
-                });
-            }
-            catch (e) {
-                throw new Error('Вот она та самая ошибка');
-            }
+            const { zone_id, level, health, icon, name, color, pos_lat, pos_lng, weapons, areal } = result;
+            return pointer_1.PointerMapper.toDomain({
+                id: zone_id,
+                level,
+                user: {
+                    icon,
+                    name
+                },
+                color,
+                health,
+                pos: [+pos_lat, +pos_lng],
+                weapons,
+                bombs: [],
+                areal
+            });
         });
     }
     getZoneByIds(_ids) {

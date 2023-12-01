@@ -31,54 +31,46 @@ export class PointerRepository implements IPointerRepository {
 
     async getById(_id: number): Promise<Pointer> {
 
-        console.log('MySqlPointerRepository Pointer getById _id', _id)
         const [[result]] = await this._connection.query<Required<IPointerRowData>[] & RowDataPacket[]>(
             `SELECT * FROM pointers WHERE zone_id = ?;`, [_id]
         )
-        if (!result) {
-            throw new Error('ERROR PointerRepository----------')
-        }
-        try {
 
-            const {
-                zone_id,
+        const {
+            zone_id,
 
-                level,
-                health,
+            level,
+            health,
 
+            icon,
+            name,
+
+            color,
+
+            pos_lat,
+            pos_lng,
+
+            weapons,
+            areal
+        } = result
+
+        return PointerMapper.toDomain({
+            id: zone_id,
+            level,
+
+            user: {
                 icon,
-                name,
+                name
+            },
 
-                color,
+            color,
+            health,
 
-                pos_lat,
-                pos_lng,
+            pos: [+pos_lat, +pos_lng],
+            weapons,
+            bombs: [],
+            areal
+        })
 
-                weapons,
-                areal
-            } = result
-
-            return PointerMapper.toDomain({
-                id: zone_id,
-                level,
-
-                user: {
-                    icon,
-                    name
-                },
-
-                color,
-                health,
-
-                pos: [+pos_lat, +pos_lng],
-                weapons,
-                bombs: [],
-                areal
-            })
-
-        } catch (e) {
-            throw new Error('Вот она та самая ошибка')
-        }
     }
 
     async getZoneByIds(_ids: number[]): Promise<TZone[]> {

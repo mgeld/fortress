@@ -81,7 +81,6 @@ let BeamHandler = class BeamHandler extends handlers_1.IRoute {
                         pos: __position
                     }
                 };
-                console.log('extr', extr);
                 if (extr) {
                     _sector.takenBooty();
                     this._logs.takes.add(_sector.id);

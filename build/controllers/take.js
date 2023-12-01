@@ -69,6 +69,8 @@ let TakeHandler = class TakeHandler extends handlers_1.IRoute {
             const invPower = zone.stormtrooper_corps.power;
             const defPower = _prevZone ? _prevZone.stormtrooper_corps.power : invPower / 2;
             const status = _sector.invade(zone.id, invPower, defPower);
+            console.log('_sector.zone_id', _sector.zone_id);
+            console.log('_pointer.zoneId', _pointer.zoneId);
             takeHit = {
                 status,
                 fort: __fort,
@@ -97,8 +99,7 @@ let TakeHandler = class TakeHandler extends handlers_1.IRoute {
                                 rank: zone.rank.rank
                             }
                         };
-                        uSocket.send(JSON.stringify(newRank));
-                        return;
+                        setTimeout(() => uSocket.send(JSON.stringify(newRank)), 2000);
                     }
                     const tempLevel = zone.terrain.level;
                     const sectsAndLevel = zone.terrain.addSector();

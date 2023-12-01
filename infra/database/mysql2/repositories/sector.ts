@@ -141,7 +141,6 @@ export class SectorRepository implements ISectorRepository {
             throw new Error('Не удалось вывести территории из базы')
         }
         // if (!result) {
-        //     console.log()
         //     throw new Error('Не удалось вывести сектора из базы')
         // }
 

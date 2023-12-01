@@ -72,9 +72,6 @@ class BattleFireHandler extends IRoute {
             // Противник
             const hitPointer = await this._pointerService.memoryGetById(__hitPointer.userId)
 
-            console.log('hitPointer.pos', hitPointer.pos)
-            console.log('fire.to_pos', hitPointer.pos)
-
             // if (
             //     !(fire.to_pos[0] >= hitPointer.pos[0] - 0.0004 || fire.to_pos[0] <= hitPointer.pos[0] + 0.0004 &&
             //         fire.to_pos[1] <= hitPointer.pos[1] - 0.0008 || fire.to_pos[1] >= hitPointer.pos[1] + 0.0008)

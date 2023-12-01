@@ -35,8 +35,6 @@ class BattleJoinHandler extends IRoute {
 
         const _pointer = await this._pointerService.memoryGetById(uSocket.user_id)
 
-        console.log('_pointer.areal', _pointer.areal)
-
         // Если игрок уже на Арене или ищет противника
         // Такого через игру не будет, но могут отправить запросы, чтобы найти уязы
         if (_pointer.areal === -1) return

@@ -61,8 +61,6 @@ let BattleFireHandler = class BattleFireHandler extends handlers_1.IRoute {
             };
             if (__hitPointer) {
                 const hitPointer = yield this._pointerService.memoryGetById(__hitPointer.userId);
-                console.log('hitPointer.pos', hitPointer.pos);
-                console.log('fire.to_pos', hitPointer.pos);
                 const hitMember = yield this._memberService.getById(__hitPointer.userId);
                 const hit_lat_diff = __hitPointer.pos[0] > hitMember.pos[0] ? __hitPointer.pos[0] - hitMember.pos[0] : hitMember.pos[0] - __hitPointer.pos[0];
                 const hit_lng_diff = __hitPointer.pos[1] > hitMember.pos[1] ? __hitPointer.pos[1] - hitMember.pos[1] : hitMember.pos[1] - __hitPointer.pos[1];

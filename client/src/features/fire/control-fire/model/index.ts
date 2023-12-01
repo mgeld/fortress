@@ -203,15 +203,12 @@ sample({
 // Точка входа
 export const fireControl = (e: IJoystickUpdateEvent) => {
 
-    console.log('e.x', e.x)
-    console.log('e.y', e.y)
+    // console.log('e.x', e.x)
+    // console.log('e.y', e.y)
 
     if (!e.x || !e.y) return
 
-
     let angle = Math.atan2(e.x, e.y) * (180 / Math.PI)
-
-    console.log('fireControl angle', angle)
 
     hitFireOutTarget({
         direction: angle

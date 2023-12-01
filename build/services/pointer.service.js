@@ -32,19 +32,33 @@ let PointerService = class PointerService {
         return this._baseRepository.insert(pointer);
     }
     getById(userId) {
-        try {
-            return this._memoryRepository.getById(userId);
-        }
-        catch (e) {
-            return this._baseRepository.getById(userId);
-        }
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                console.log('PointerService TRY');
+                return yield this.memoryGetById(userId);
+            }
+            catch (e) {
+                console.log('PointerService CATCH');
+                return this.baseGetById(userId);
+            }
+        });
     }
     memoryGetById(userId) {
-        return this._memoryRepository.getById(userId);
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const pointer = yield this._memoryRepository.getById(userId);
+                return pointer;
+            }
+            catch (e) {
+                throw new Error('Ну вот эта ошибка');
+            }
+        });
     }
     baseGetById(userId) {
-        console.log('baseGetById userId', userId);
-        return this._baseRepository.getById(userId);
+        return __awaiter(this, void 0, void 0, function* () {
+            console.log('baseGetById userId', userId);
+            return yield this._baseRepository.getById(userId);
+        });
     }
     create(zoneId, pos, name, icon, weapon) {
         const DEFAULT_HEALTH = 100;
@@ -66,7 +80,6 @@ let PointerService = class PointerService {
         return pointer;
     }
     getByIds(userIds) {
-        console.log('getByIds');
         return this._memoryRepository.getByIds(userIds);
     }
     getMarshalPointers(userIds) {

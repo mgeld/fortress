@@ -4,7 +4,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const app_1 = __importDefault(require("app"));
-const react_1 = __importDefault(require("react"));
 const client_1 = __importDefault(require("react-dom/client"));
 const vk_bridge_1 = __importDefault(require("@vkontakte/vk-bridge"));
 require("index.css");

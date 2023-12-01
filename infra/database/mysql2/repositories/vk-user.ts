@@ -14,16 +14,12 @@ export class VkUserRepository {
     @inject(TYPES.connection) private _connection!: Pool
 
     async getById(_id: number): Promise<IVkUserRowData> {
-        console.log('______________id', _id)
         const [[result]] = await this._connection.query<Required<IVkUserRowData>[] & RowDataPacket[]>(
             `SELECT * FROM vk_users WHERE user_id = ?;`, [_id]
         )
         if (!result) {
             throw new Error('-НУ ну сработал запрос.---------')
         }
-
-        console.log('result', result)
-
         return result
     }
 
@@ -39,8 +35,6 @@ export class VkUserRepository {
     }
 
     async insert(user: IVkUserRowData) {
-
-        console.log('______user', user)
 
         const inserted = await this._connection.execute(`
             INSERT INTO vk_users(
