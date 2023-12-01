@@ -92,9 +92,7 @@ let BattleTakeHandler = class BattleTakeHandler extends handlers_1.IRoute {
                         prev_owner_id: _sector.team_id,
                         sector_id: __sector
                     };
-                    console.log('takeSector', takeSector);
                     _sector.setOwner(_member.arenaTeam);
-                    console.log('myTeam.sectors', myTeam.sectors);
                     if (myTeam.sectors >= 5) {
                         arena.completeBattle(myTeam.id === 1 ? 2 : 1);
                         yield this._arenaService.update(arena);

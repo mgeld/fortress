@@ -141,8 +141,6 @@ class DirectHandler extends IRoute {
 
                 const _pointers = await this._pointerService.getZoneByIds(Object.values(zones))
 
-                // console.log('_pointers', _pointers)
-
                 const sectors = array_sectors.map(zone => {
                     const user = _pointers.find(pointer => pointer.zone_id === zone.zone.zone_id)
                     return {

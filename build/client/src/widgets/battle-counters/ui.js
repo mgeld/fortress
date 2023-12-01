@@ -25,12 +25,14 @@ const BattleCounters = () => {
     const enemyTeam = teams.filter(team => team.teamId !== myTeamId)[0];
     const myProgress = (myTeam === null || myTeam === void 0 ? void 0 : myTeam.sectors) * 100 / 10;
     const enemyProgress = (enemyTeam === null || enemyTeam === void 0 ? void 0 : enemyTeam.sectors) * 100 / 10;
+    const myTeamColor = (myTeam === null || myTeam === void 0 ? void 0 : myTeam.teamId) === 1 ? '#C163E0' : '#D14343';
+    const enemyTeamColor = (enemyTeam === null || enemyTeam === void 0 ? void 0 : enemyTeam.teamId) === 1 ? '#C163E0' : '#D14343';
     return (<>
-            <counter_progress_1.CounterProgress onClick={() => setTooltip(1)} className={styles_module_scss_1.default.__teamBlue} position="left" icon={<_icons_1.IconZone />} progress={myProgress} color="#C163E0" name={`Вы`} counter={myTeam === null || myTeam === void 0 ? void 0 : myTeam.sectors} width={90}>
+            <counter_progress_1.CounterProgress onClick={() => setTooltip(1)} className={styles_module_scss_1.default.__teamLeft} position="left" icon={(myTeam === null || myTeam === void 0 ? void 0 : myTeam.teamId) === 1 ? <_icons_1.IconZone /> : <_icons_1.IconZoneRed />} progress={myProgress} color={myTeamColor} name={`Вы`} counter={myTeam === null || myTeam === void 0 ? void 0 : myTeam.sectors} width={90}>
                 {tooltip === 1 ? (<ui_1.Tooltip pos="left" message="Гексы текущего уровня зоны"/>) : <></>}
             </counter_progress_1.CounterProgress>
 
-            <counter_progress_1.CounterProgress onClick={() => setTooltip(2)} position="right" className={styles_module_scss_1.default.__teamRed} icon={<_icons_1.IconZoneRed />} progress={enemyProgress} color="#D14343" name={`Противник`} counter={enemyTeam === null || enemyTeam === void 0 ? void 0 : enemyTeam.sectors} width={90}>
+            <counter_progress_1.CounterProgress onClick={() => setTooltip(2)} position="right" className={styles_module_scss_1.default.__teamRight} icon={(enemyTeam === null || enemyTeam === void 0 ? void 0 : enemyTeam.teamId) === 1 ? <_icons_1.IconZone /> : <_icons_1.IconZoneRed />} progress={enemyProgress} color={enemyTeamColor} name={`Противник`} counter={enemyTeam === null || enemyTeam === void 0 ? void 0 : enemyTeam.sectors} width={90}>
                 {tooltip === 2 ? (<ui_1.Tooltip pos="right" message="Гексы текущего уровня зоны"/>) : <></>}
             </counter_progress_1.CounterProgress>
 

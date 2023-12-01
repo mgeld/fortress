@@ -1,17 +1,17 @@
 import { Handler } from ".."
-import { battleAPI, pointersAPI } from "shared/api/events"
+import { battleAPI, pointersAPI, sectorsAPI } from "shared/api/events"
 import { TBattleStart } from '@ctypes/socket/server-to-client'
 // import { filterPointersStore } from "widgets/map-layout/model"
 
 class BattleStartHandler extends Handler {
     handle(message: TBattleStart) {
-        
+
         // filterPointersStore()
 
         // VK BRIDGE GET AVATARS FOR POINTERS
 
         pointersAPI.events.setPointers(message.payload.pointers)
-        
+
         battleAPI.events.setArena({
             id: message.payload.battleId,
             time_start: message.payload.timeStart,
@@ -19,7 +19,26 @@ class BattleStartHandler extends Handler {
         })
         battleAPI.events.setTeams(message.payload.teams)
         battleAPI.events.setTimer(120)
+        sectorsAPI.events.setSectors([
+            {
+                zone: {
+                    zone_id: 1,
+                    color: 1,
+                    name: 'Синие'
+                },
+                sectors: []
+            },
+            {
+                zone: {
+                    zone_id: 2,
+                    color: 2,
+                    name: 'Красные'
+                },
+                sectors: []
+            },
+        ])
         setTimeout(() => battleAPI.events.setBattleStatus('start'), 500)
+
     }
 }
 

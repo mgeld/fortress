@@ -10,18 +10,15 @@ import { mapModel } from "entities/map"
 
 export const SectorsMap: FC = () => {
 
-    // const { point } = usePointer()
-
     const sectors = sectorMapModel.selectors.useSector()
 
     console.log('SectorsMap')
 
-    const map = useMapEvents({
+    useMapEvents({
         popupopen(e) {
             const latlng = e.popup.getLatLng()
             if (latlng)
                 mapModel.events.setLatLngMap([latlng?.lat, latlng?.lng])
-            console.log('----------/// useMapEvents click --------------------')
 
         }
     })

@@ -74,7 +74,6 @@ export class Socket {
     }
 
     sendData(params: TSendEvent) {
-        // console.log('sendData this.url', this.url)
         if (!this.socket) return
         this.socket.send(JSON.stringify(params))
     }

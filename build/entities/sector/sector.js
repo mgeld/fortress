@@ -39,8 +39,6 @@ class Sector {
     }
     static probabilityGettingExtractionInFort(pos) {
         const probabilityNumber = Math.ceil((+pos[0].toString().slice(-1) + +pos[1].toString().slice(-1)));
-        console.log('pos', pos);
-        console.log('probabilityNumber', probabilityNumber);
         return probabilityNumber === 10;
     }
     invade(invader_user, invader_power, defender_power) {

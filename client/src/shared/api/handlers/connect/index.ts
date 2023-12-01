@@ -5,7 +5,6 @@ import { popoutModel } from "shared/ui/popout-root";
 
 class ConnectHandler extends Handler {
     handle(message: TConnect) {
-        console.log('ConnectHandler handle')
 
         shipAPI.events.setHealth(message.payload.ship.health)
         shipAPI.events.setLevel(message.payload.ship.level)

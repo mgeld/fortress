@@ -126,16 +126,12 @@ class BattleTakeHandler extends IRoute {
                     sector_id: __sector
                 } as TTakeSectorPayload
 
-                console.log('takeSector', takeSector)
-
                 // Обновляем владельца сектор
                 _sector.setOwner(_member.arenaTeam)
 
                 // Временно закомментили получение добычи в режиме Арены
                 // isBooty = Sector.probabilityGettingExtractionInFort(message.payload.fort)
                 // console.log('take isBooty', isBooty)
-
-                console.log('myTeam.sectors', myTeam.sectors)
 
                 if (myTeam.sectors >= 5) {
                     arena.completeBattle(myTeam.id === 1 ? 2 : 1)

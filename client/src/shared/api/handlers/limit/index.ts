@@ -6,8 +6,6 @@ import { popoutModel } from "shared/ui/popout-root";
 class LimitHandler extends Handler {
     handle(message: TLimit) {
 
-        console.log('LimitHandler message', message)
-
         let name = ''
         let text = ''
 

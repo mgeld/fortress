@@ -21,7 +21,7 @@ import { Tooltip } from "shared/ui/tooltip/ui"
 import { TZoneLevel, ZoneLevel } from "entities/zone/lib/zone-level"
 
 import styles from './styles.module.scss'
-import { mapModel } from "entities/map"
+// import { mapModel } from "entities/map"
 
 export const Counters = () => {
     const [tooltip, setTooltip] = useState<null | 1 | 2 | 3 | 4 | 5 | 6>(null)
@@ -41,15 +41,19 @@ export const Counters = () => {
 
     // if(mode !== 'invade') return <></>
 
-    const zoneLevel = zoneModel.selectors.useZoneLevel()
+
+    // const zoneLevel = zoneModel.selectors.useZoneLevel()
 
     const rankLevel = userModel.selectors.useRankLevel()
-    const sects = zoneModel.selectors.useZoneSectors()
+    // const sects = zoneModel.selectors.useZoneSectors()
 
     const trophy = zoneModel.selectors.useZoneTrophies()
 
     const rankExp = userModel.selectors.useRankExp()
-    const progressExp = rankExp * 100 / ExpRank.getExp(rankLevel as TRank)
+    const progressExp = rankExp * 100 / ExpRank.getExp(rankLevel as TRank);
+
+    const sects = 365
+    const zoneLevel = 3
 
     const zoneSects = sects - (ZoneLevel.getMaxLevelAllSectors(zoneLevel - 1 as TZoneLevel) || 0)
     const zoneProgress = zoneSects * 100 / ZoneLevel.getMaxLevelSectors(zoneLevel as TZoneLevel)

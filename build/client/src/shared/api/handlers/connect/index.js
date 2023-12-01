@@ -6,7 +6,6 @@ const __1 = require("..");
 const popout_root_1 = require("shared/ui/popout-root");
 class ConnectHandler extends __1.Handler {
     handle(message) {
-        console.log('ConnectHandler handle');
         events_1.shipAPI.events.setHealth(message.payload.ship.health);
         events_1.shipAPI.events.setLevel(message.payload.ship.level);
         events_1.weaponsAPI.events.setId(message.payload.weapon[0].id);

@@ -13,6 +13,24 @@ class BattleStartHandler extends __1.Handler {
         });
         events_1.battleAPI.events.setTeams(message.payload.teams);
         events_1.battleAPI.events.setTimer(120);
+        events_1.sectorsAPI.events.setSectors([
+            {
+                zone: {
+                    zone_id: 1,
+                    color: 1,
+                    name: 'Синие'
+                },
+                sectors: []
+            },
+            {
+                zone: {
+                    zone_id: 2,
+                    color: 2,
+                    name: 'Красные'
+                },
+                sectors: []
+            },
+        ]);
         setTimeout(() => events_1.battleAPI.events.setBattleStatus('start'), 500);
     }
 }

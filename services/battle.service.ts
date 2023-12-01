@@ -56,7 +56,7 @@ class BattleService {
                 sectors: team.sectors,
                 members: members[index].map(member => {
 
-                    const wonTrophies = member.damage / 5 + member.sectors * 3
+                    const wonTrophies = Math.floor(member.damage / 5 + member.sectors * 3)
 
                     const trophy = minTrophies > 0 ? minTrophies + wonTrophies : 0
 

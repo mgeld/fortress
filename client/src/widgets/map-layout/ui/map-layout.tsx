@@ -21,7 +21,6 @@ import './styles.css'
 import { mapModel } from "entities/map";
 import { changeBattleStatusListener } from "features/battle/battle-change-status/model";
 import { ArealRectangle } from "entities/areal/ui";
-import Invaders from "entities/invader/ui/invaders";
 import { SectorsMap } from "./sectors-map";
 import { scrollMapPointerListener } from "features/map/scroll-map-pointer/model";
 
@@ -31,17 +30,20 @@ import { MapSelectPlace } from "features/map/select-place";
 import { Citadel } from "entities/citadel";
 import { isFireHitMe } from "features/fire/hit-fire-in";
 import { isBombHitMe } from "features/bomb/mine-explosion";
-import Bombs from "entities/bomb/ui/bombs";
 import { ArenaRectangle } from "./arena-rectangle/ui";
 import { setMapPosListener } from "features/user/set-map-pos/model";
 import { setMaxBoundsListener } from "features/map/set-max-bounds/model";
 import { filterPointers } from "features/pointer/filter-pointers/model";
 import { BootyMap } from "./booty-map";
-import { TestExtr } from "./test-extr";
 import { TractorBeam } from "entities/projector/ui/tractor-beam";
-
-import Booty from "entities/projector/ui/booty";
 import { FortDetailsMap } from "./fort-details-map";
+
+import Bombs from "entities/bomb/ui/bombs";
+import Booty from "entities/projector/ui/booty";
+import Invaders from "entities/invader/ui/invaders";
+
+// import { TestExtr } from "./test-extr";
+
 
 type TMapProps = {}
 

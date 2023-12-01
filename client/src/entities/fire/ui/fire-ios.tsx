@@ -29,8 +29,6 @@ export const FireIOS: FC<TFireProps> = ({
     fire
 }) => {
 
-    console.log('FireIOS FireIOS FireIOSFireIOS')
-
     let size = droneMapModel.selectors.useDroneSize()
     let sizeFire = size.px * 0.6
 

@@ -76,9 +76,6 @@ export class Sector {
     public static probabilityGettingExtractionInFort(pos: TLatLng): boolean {
         const probabilityNumber = Math.ceil((+pos[0].toString().slice(-1) + +pos[1].toString().slice(-1)))
 
-        console.log('pos', pos)
-        console.log('probabilityNumber', probabilityNumber)
-
         return probabilityNumber === 10
 
     }

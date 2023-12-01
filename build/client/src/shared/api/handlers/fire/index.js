@@ -6,7 +6,6 @@ const __1 = require("..");
 class FireHandler extends __1.Handler {
     handle(message) {
         var _a;
-        console.log('FireHandler handle');
         const FIRE_ID = Date.now();
         const from_pos = message.payload.pos;
         const hit_pos = (_a = message.payload.hitPointer) === null || _a === void 0 ? void 0 : _a.pos;

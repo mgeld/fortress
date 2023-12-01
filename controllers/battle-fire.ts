@@ -100,16 +100,6 @@ class BattleFireHandler extends IRoute {
             // const lat_diff = hit_lat_diff > pos_lat_diff ? hit_lat_diff - pos_lat_diff : pos_lat_diff - hit_lat_diff
             // const lng_diff = hit_lng_diff > pos_lng_diff ? hit_lng_diff - pos_lng_diff : pos_lng_diff - hit_lng_diff
 
-            // console.log('__hitPointer.pos[0]', __hitPointer.pos[0])
-            // console.log('hitMember.pos[0]', hitMember.pos[0])
-            // console.log('------')
-            // console.log('__pos[0]', __pos[0])
-            // console.log('_pointer.pos[0]', _member.pos[0])
-            // console.log('------')
-
-            // console.log('lat_diff', lat_diff)
-            // console.log('lng_diff', lng_diff)
-
             if (hit_lat_diff > 0.0004 || pos_lat_diff > 0.0004 || hit_lng_diff > 0.0008 || pos_lng_diff > 0.0008) return
 
             // Сохраняем в свою стату нанесенный противнику урон

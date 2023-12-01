@@ -5,7 +5,6 @@ const events_1 = require("shared/api/events");
 const __1 = require("..");
 class DelPointerHandler extends __1.Handler {
     handle(message) {
-        console.log('DelPointerHandler handle');
         events_1.pointersAPI.events.delPointer(message.payload);
     }
 }

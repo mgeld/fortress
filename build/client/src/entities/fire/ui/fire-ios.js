@@ -10,7 +10,6 @@ const pointer_1 = require("entities/pointer");
 const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
 const cutLength = (a, b) => Math.sqrt((b.y - a.y) ** 2 + (b.x - a.x) ** 2);
 const FireIOS = ({ fire }) => {
-    console.log('FireIOS FireIOS FireIOSFireIOS');
     let size = pointer_1.droneMapModel.selectors.useDroneSize();
     let sizeFire = size.px * 0.6;
     const map = (0, react_leaflet_1.useMap)();

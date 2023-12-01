@@ -10,25 +10,39 @@ type SectorsProps = {
 }
 
 const colors = {
-    1: '#b670d1',
-    2: '#b670d1',
-    3: '#b670d1',
-    4: '#b670d1',
-    5: '#b670d1',
-    6: '#b670d1',
+    1: '#de89ff',
+    2: '#ff8686',
+    3: '#559ffa',
+    4: '#63ce7a',
+    5: '#fd7ec8',
+    6: '#9d9cff',
+    // 1: '#de89ff',
+    // 2: '#de89ff',
+    // 3: '#de89ff',
+    // 4: '#de89ff',
+    // 5: '#de89ff',
+    // 6: '#de89ff',
+    // 6: '#b670d1',
 }
 
 const Sectors: FC<SectorsProps> = ({ zones }) => {
+
     return <>
         {zones.map(zoneItem => {
 
+            // console.log('zoneItem.zone.zone_id', zoneItem.zone.zone_id)
+
+            // Временно
+            let color = zoneItem.zone.zone_id > 2 ? 1 : zoneItem.zone.color
+            
             return (
                 <Polygon
                     key={zoneItem.zone.zone_id}
                     weight={0.9}
                     pathOptions={{
-                        fillColor: colors[zoneItem.zone.color],
-                        color: colors[zoneItem.zone.color],
+                        // fillOpacity: 0.3,
+                        fillColor: colors[color],
+                        color: colors[color],
                     }}
                     positions={cellsToMultiPolygon(zoneItem.sectors)}
                 >

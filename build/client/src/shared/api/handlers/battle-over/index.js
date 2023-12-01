@@ -5,7 +5,6 @@ const __1 = require("..");
 const events_1 = require("shared/api/events");
 class BattleOverHandler extends __1.Handler {
     handle(message) {
-        console.log('*************************** BattleOverHandler', message.payload.teams);
         events_1.battleAPI.events.setTeams(message.payload.teams);
         events_1.battleAPI.events.setBattleStatus('over');
     }

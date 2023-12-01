@@ -41,15 +41,18 @@ export const BattleCounters = () => {
     const myProgress = myTeam?.sectors * 100 / 10
     const enemyProgress = enemyTeam?.sectors * 100 / 10
 
+    const myTeamColor = myTeam?.teamId === 1 ? '#C163E0' : '#D14343'
+    const enemyTeamColor = enemyTeam?.teamId === 1 ? '#C163E0' : '#D14343'
+
     return (
         <>
             <CounterProgress
                 onClick={() => setTooltip(1)}
-                className={styles.__teamBlue}
+                className={styles.__teamLeft}
                 position="left"
-                icon={<IconZone />}
+                icon={myTeam?.teamId === 1 ? <IconZone />  : <IconZoneRed />}
                 progress={myProgress}
-                color="#C163E0"
+                color={myTeamColor}
                 name={`Вы`}
                 counter={myTeam?.sectors}
                 width={90}
@@ -65,10 +68,10 @@ export const BattleCounters = () => {
             <CounterProgress
                 onClick={() => setTooltip(2)}
                 position="right"
-                className={styles.__teamRed}
-                icon={<IconZoneRed />}
+                className={styles.__teamRight}
+                icon={enemyTeam?.teamId === 1 ? <IconZone />  : <IconZoneRed />}
                 progress={enemyProgress}
-                color="#D14343"
+                color={enemyTeamColor}
                 name={`Противник`}
                 counter={enemyTeam?.sectors}
                 width={90}

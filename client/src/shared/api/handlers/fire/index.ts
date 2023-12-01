@@ -9,8 +9,6 @@ class FireHandler extends Handler {
 
     handle(message: TFire) {
 
-        console.log('FireHandler handle')
-
         const FIRE_ID: number = Date.now()
 
         const from_pos = message.payload.pos

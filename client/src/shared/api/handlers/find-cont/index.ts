@@ -8,8 +8,6 @@ let timeId: ReturnType<typeof setTimeout>
 class FindContHandler extends Handler {
     handle(message: TFindCont) {
 
-        console.log('FindContHandler message', message)
-
         // extractionAPI.events.addExtraction(message.payload.cont)
 
         projectorAPI.events.setContainer(message.payload)
