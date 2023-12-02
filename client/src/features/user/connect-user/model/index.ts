@@ -1,10 +1,9 @@
 import { TLatLng } from "@ctypes/model"
-import { createEffect, createEvent, sample } from "effector"
+import { createEffect, sample } from "effector"
 import { shipModel } from "entities/ship"
 import { userModel } from "entities/user"
 import { connectAPI } from "shared/api/connect"
-
-const connectUser = createEvent<string>()
+import { userAPI } from "shared/api/events"
 
 type TUser = {
   userName: string
@@ -12,10 +11,12 @@ type TUser = {
   pos: TLatLng
   url: string
 }
+
+export const startConnectUser = () => {}
+
 sample({
-  clock: connectUser,
+  clock: userAPI.events.connectUser,
   source: {
-    // userVkId: userModel.$userVkIdStore,
     userName: userModel.$userNameStore,
     userIcon: userModel.$userIconStore,
     pos: shipModel.$userPositionStore,
@@ -36,6 +37,6 @@ sample({
   })
 })
 
-export const events = {
-  connectUser
-}
+// export const events = {
+//   connectUser
+// }

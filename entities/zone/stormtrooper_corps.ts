@@ -71,13 +71,18 @@ export class StormtrooperCorps {
     }
 
 
-    upLevel(): number {
-        if (!StormtrooperCorps.validLevel(this._level + 1)) {
-            throw new Error('')
+    upLevel(limit: number): number | 'limit' {
+        if (!StormtrooperCorps.validLevel(this._level + 1, limit)) {
+            return 'limit'
         }
         this._level = this._level + 1
         return this._level
     }
+    
+    public static validLevel(level: number, limit: number) {
+        return level > 0 && level <= limit
+    }
+
 
     public static getLevelUpPrice(level: number): number {
         const levels: { [key: number]: number } = {
@@ -95,11 +100,6 @@ export class StormtrooperCorps {
             12: 30844
         }
         return levels[level]
-    }
-
-
-    public static validLevel(level: number) {
-        return level > 0 && level <= 12
     }
 
     private static getLevelMaxPower(level: number): number {

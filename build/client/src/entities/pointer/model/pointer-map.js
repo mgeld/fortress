@@ -29,7 +29,6 @@ exports.$pointersStore = (0, effector_1.createStore)(DEFAULT_STORE)
 })))
     .on(setHealthPointer, (prevPointers, data) => (prevPointers.map(prevPointer => prevPointer.userId === data.userId ? Object.assign(Object.assign({}, prevPointer), { health: data.health }) : prevPointer)))
     .on(clearStore, () => DEFAULT_STORE);
-exports.$pointersStore.watch(val => console.log('pointersStore watch', val));
 exports.selectors = {
     usePointers,
 };

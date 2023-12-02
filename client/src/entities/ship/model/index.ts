@@ -1,20 +1,14 @@
-import { createEffect, createEvent, createStore, sample } from "effector";
+import { reducer } from "../lib/reducer";
 import { useStore } from "effector-react";
 import { shipAPI } from "shared/api/events";
-import { TJoystickDirection, TLatLng } from "shared/types";
 import { Areal } from "entities/areal/model";
 import { getUserAPI } from "shared/api/get-user";
-import { reducer } from "../lib/reducer";
+import { TJoystickDirection, TLatLng } from "shared/types";
+import { createEffect, createEvent, createStore, sample } from "effector";
 
 export type TActionPos = {
     type: TJoystickDirection | null,
 }
-
-const DEFAULT_STORE_POSITION: TLatLng = [0, 0]
-
-const resetUser = createEvent()
-
-const setAreal = createEvent<[TLatLng, TLatLng] | null>()
 
 const {
     setPos,
@@ -24,12 +18,13 @@ const {
     changeHealth,
 } = shipAPI.events
 
-const movePoint = createEvent<TActionPos>()
+const DEFAULT_STORE_POSITION: TLatLng = [0, 0]
 
-const getUserFx = createEffect(() => {
-    getUserAPI()
-    return 0
-})
+const resetUser = createEvent()
+
+const setAreal = createEvent<[TLatLng, TLatLng] | null>()
+
+const movePoint = createEvent<TActionPos>()
 
 export const $userPositionStore = createStore<TLatLng>(DEFAULT_STORE_POSITION)
     .on(movePoint, reducer)
@@ -63,6 +58,11 @@ export const $userHealthStore = createStore(DEFAULT_STORE_HEALTH)
     .on(changeHealth, (health, damage) => health - damage)
     .on(addHealth, (health, h) => health + h)
 
+    
+const getUserFx = createEffect(() => {
+    getUserAPI()
+    return 0
+})
 sample({
     clock: resetUser,
     target: getUserFx
@@ -81,11 +81,10 @@ const useShip = () => {
     }
 }
 
+const useAreal = () => useStore($arealStore)
+const useShipLevel = () => useStore($shipLevel)
 const useShipPos = () => useStore($userPositionStore)
 const useShipHealth = () => useStore($userHealthStore)
-const useShipLevel = () => useStore($shipLevel)
-
-const useAreal = () => useStore($arealStore)
 
 export const selectors = {
     useShip,

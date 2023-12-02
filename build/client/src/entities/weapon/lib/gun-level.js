@@ -2,8 +2,20 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GunLevel = void 0;
 class GunLevel {
-    static isUpLevel(level) {
-        return level < 6;
+    static isUpLevel(levelGun, levelShip) {
+        const shipMaxLevelGun = this.getShipMaxLevelGun(levelShip);
+        return levelGun < shipMaxLevelGun;
+    }
+    static getShipMaxLevelGun(level) {
+        const levels = {
+            1: 1,
+            2: 2,
+            3: 3,
+            4: 4,
+            5: 5,
+            6: 6,
+        };
+        return levels[level];
     }
     static getLevelUpPrice(level) {
         return GunLevel._priceLevelUp[level];

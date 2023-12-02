@@ -2,8 +2,20 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.HoldLevel = void 0;
 class HoldLevel {
-    static isUpLevel(level) {
-        return level < 6;
+    static isUpLevel(levelHold, levelShip) {
+        const shipMaxLevelHold = this.getShipMaxLevelHold(levelShip);
+        return levelHold < shipMaxLevelHold;
+    }
+    static getShipMaxLevelHold(level) {
+        const levels = {
+            1: 1,
+            2: 2,
+            3: 3,
+            4: 4,
+            5: 5,
+            6: 6,
+        };
+        return levels[level];
     }
     static getLevelUpPrice(level) {
         return HoldLevel._priceLevelUp[level];

@@ -52,17 +52,18 @@ export class Extraction {
         return levels[level]
     }
 
-    upLevel(): THoldLevel {
-        if (!Extraction.validLevel(this._level + 1 as THoldLevel)) {
-            throw new Error('')
+    upLevel(limit: number): number | 'limit' {
+        if (!Extraction.validLevel(this._level + 1, limit)) {
+            return 'limit'
         }
         this._level = this._level + 1 as THoldLevel
         return this._level
     }
 
-    public static validLevel(level: THoldLevel): boolean {
-        return level > 0 && level <= 6
+    public static validLevel(level: number, limit: number) {
+        return level > 0 && level <= limit
     }
+
 
     private static getLevelMaxItems(level: number): number {
         const levels: { [key: number]: number } = {
@@ -79,7 +80,7 @@ export class Extraction {
 
     use(id: TExtrTypes, index: number): TExtrItem | null {
         const items = this._items.slice()
-        if(items[index] === id) {
+        if (items[index] === id) {
             items.splice(index, 1)
             this._items = items
             return Units.getUnitQuantity(id)

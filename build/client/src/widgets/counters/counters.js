@@ -23,12 +23,12 @@ const Counters = () => {
             setTooltip(null);
         }, 6000);
     }, [tooltip]);
+    const zoneLevel = zone_1.zoneModel.selectors.useZoneLevel();
     const rankLevel = user_1.userModel.selectors.useRankLevel();
+    const sects = zone_1.zoneModel.selectors.useZoneSectors();
     const trophy = zone_1.zoneModel.selectors.useZoneTrophies();
     const rankExp = user_1.userModel.selectors.useRankExp();
     const progressExp = rankExp * 100 / exp_rank_1.ExpRank.getExp(rankLevel);
-    const sects = 365;
-    const zoneLevel = 3;
     const zoneSects = sects - (zone_level_1.ZoneLevel.getMaxLevelAllSectors(zoneLevel - 1) || 0);
     const zoneProgress = zoneSects * 100 / zone_level_1.ZoneLevel.getMaxLevelSectors(zoneLevel);
     return (<>

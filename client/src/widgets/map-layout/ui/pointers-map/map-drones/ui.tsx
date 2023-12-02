@@ -29,8 +29,6 @@ export const MapDrones: FC = () => {
         },
     }, )
 
-    console.log('MapDrones')
-
     const onShip = () => {
         popoutModel.events.setPopout('ship')
     }

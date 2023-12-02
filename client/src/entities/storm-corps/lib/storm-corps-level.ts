@@ -3,8 +3,22 @@ export type TStormCorpsLevel = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
 
 export class StormCorpsLevel {
         
-    public static isUpLevel(level: number) {
-        return level < 12
+    public static isUpLevel(levelStorm: number, levelShip: number) {
+        const shipMaxLevelStorm = this.getShipMaxLevelStorm(levelShip)
+        return levelStorm < shipMaxLevelStorm
+    }
+
+    public static getShipMaxLevelStorm(level: number): number {
+        // Уровень Корабля: Макс уровень Штурмового Корпуса
+        const levels: { [key: number]: number } = {
+            1: 2,
+            2: 4,
+            3: 6,
+            4: 8,
+            5: 10,
+            6: 12,
+        }
+        return levels[level]
     }
 
     private static _stormMaxInvaders: Record<TStormCorpsLevel, number> = {

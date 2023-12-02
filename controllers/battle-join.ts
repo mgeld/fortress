@@ -38,6 +38,8 @@ class BattleJoinHandler extends IRoute {
         // Если игрок уже на Арене или ищет противника
         // Такого через игру не будет, но могут отправить запросы, чтобы найти уязы
         if (_pointer.areal === -1) return
+        
+        if (_pointer.health < 1) return
 
         const arena = await this._arenaService.getArena()
         const team = arena.addPointer(uSocket.user_id)

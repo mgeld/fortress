@@ -127,7 +127,7 @@ export const $pointersStore = createStore<TPointer[]>(DEFAULT_STORE)
     ))
     .on(clearStore, () => DEFAULT_STORE)
 
-$pointersStore.watch(val => console.log('pointersStore watch', val))
+// $pointersStore.watch(val => console.log('pointersStore watch', val))
 
 // sample({
 //     clock: newPointer,

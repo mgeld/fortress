@@ -8,11 +8,13 @@ const react_1 = require("react");
 const model_1 = require("shared/api/socket/model");
 const vk_bridge_1 = __importDefault(require("@vkontakte/vk-bridge"));
 const user_1 = require("entities/user");
-const connect_user_1 = require("features/user/connect-user");
 const popout_root_1 = require("shared/ui/popout-root");
 const lock_screen_1 = require("shared/ui/lock-screen");
 const lost_internet_1 = require("processes/lost-internet");
 const socket_close_1 = require("processes/socket/socket-close");
+const events_1 = require("shared/api/events");
+const connect_user_1 = require("features/user/connect-user");
+connect_user_1.userEvents.startConnectUser();
 const useApp = () => {
     const vkUserId = user_1.userModel.selectors.useVkUserId();
     const socketStatus = (0, model_1.useSocket)();
@@ -38,7 +40,7 @@ const useApp = () => {
         }
         if (vkUserId > 0 && socketStatus === 'open') {
             const url = window.location.search;
-            connect_user_1.userEvents.events.connectUser(url);
+            events_1.userAPI.events.connectUser(url);
             return;
         }
     }, [vkUserId, socketStatus]);

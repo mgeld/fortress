@@ -2,8 +2,20 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.StormCorpsLevel = void 0;
 class StormCorpsLevel {
-    static isUpLevel(level) {
-        return level < 12;
+    static isUpLevel(levelStorm, levelShip) {
+        const shipMaxLevelStorm = this.getShipMaxLevelStorm(levelShip);
+        return levelStorm < shipMaxLevelStorm;
+    }
+    static getShipMaxLevelStorm(level) {
+        const levels = {
+            1: 2,
+            2: 4,
+            3: 6,
+            4: 8,
+            5: 10,
+            6: 12,
+        };
+        return levels[level];
     }
     static getLevelUpPrice(level) {
         return StormCorpsLevel._priceLevelUp[level];

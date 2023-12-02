@@ -3,10 +3,23 @@ export type TGunLevel = 1 | 2 | 3 | 4 | 5 | 6
 
 export class GunLevel {
 
-    public static isUpLevel(level: number) {
-        return level < 6
+    public static isUpLevel(levelGun: number, levelShip: number) {
+        const shipMaxLevelGun = this.getShipMaxLevelGun(levelShip)
+        return levelGun < shipMaxLevelGun
     }
 
+    public static getShipMaxLevelGun(level: number): number {
+        // Уровень Корабля: Макс уровень Пушки
+        const levels: { [key: number]: number } = {
+            1: 1,
+            2: 2,
+            3: 3,
+            4: 4,
+            5: 5,
+            6: 6,
+        }
+        return levels[level]
+    }
     private static _gunShells: Record<TGunLevel, number> = {
         1: 200,
         2: 300,

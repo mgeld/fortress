@@ -40,15 +40,15 @@ class Pointer {
             health: this.health,
         };
     }
-    upLevel() {
-        if (!Pointer.validLevel(this._level + 1)) {
-            throw new Error('');
+    upLevel(limit) {
+        if (!Pointer.validLevel(this._level + 1, limit)) {
+            return 'limit';
         }
         this._level = this._level + 1;
         return this._level;
     }
-    static validLevel(level) {
-        return level > 0 && level <= 6;
+    static validLevel(level, limit) {
+        return level > 0 && level <= limit;
     }
     static getLevelMaxHealth(level) {
         const levels = {

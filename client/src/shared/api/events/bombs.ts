@@ -9,7 +9,8 @@ const delBombById = createEvent<TBombId>()
 
 export type THealthChange = {
     hitUserId: number,
-    damage: number
+    health: number
+    // damage: number
 }
 const hitBombInTarget = createEvent<THealthChange>()
 

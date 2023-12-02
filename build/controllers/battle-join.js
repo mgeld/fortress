@@ -38,6 +38,8 @@ let BattleJoinHandler = class BattleJoinHandler extends handlers_1.IRoute {
             const _pointer = yield this._pointerService.memoryGetById(uSocket.user_id);
             if (_pointer.areal === -1)
                 return;
+            if (_pointer.health < 1)
+                return;
             const arena = yield this._arenaService.getArena();
             const team = arena.addPointer(uSocket.user_id);
             const teamPlace = team.getPlace(arena.place.place);

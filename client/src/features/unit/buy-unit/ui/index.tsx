@@ -30,7 +30,6 @@ export const BuyUnit: FC = () => {
         // setTimeout(() => {
         // const popout = useItemImproves[(Math.floor(_unit / 10) * 10) as TTypeImproves] as TPopout
         // popoutModel.events.setPopout(popout)
-        // console.log('buyUnit popout', popout)
         // }, 500)
         // } else {
             popoutModel.events.setPopout(null)

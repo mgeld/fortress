@@ -85,8 +85,6 @@ const hitPointersFx = createEffect(({
         //     direction: fire.direction
         // })
 
-        // console.log('>>>>>>>>> source.size.degrees', source.size.degrees)
-
         let isFire = IntersectCircleLine(
             { x: pointer.pos[1], y: pointer.pos[0] },
             source.size.degrees,
@@ -202,9 +200,6 @@ sample({
 
 // Точка входа
 export const fireControl = (e: IJoystickUpdateEvent) => {
-
-    // console.log('e.x', e.x)
-    // console.log('e.y', e.y)
 
     if (!e.x || !e.y) return
 

@@ -11,6 +11,7 @@ class BombHandler extends Handler {
 
         const pos = message.payload.position
         const userId = message.payload.userId
+        const health = message.payload.health
 
         // Куда попало поставляется с бэка. Бэк получает эти данные от клиента, который выстрелил
         const bombSymbolLevel = message.payload.bomb
@@ -29,7 +30,7 @@ class BombHandler extends Handler {
 
             bombsAPI.events.hitBombInTarget({
                 hitUserId: userId,
-                damage: bomb.damage
+                health
             })
 
         }, 500)

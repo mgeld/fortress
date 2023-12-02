@@ -29,6 +29,8 @@ const pointer_1 = require("../entities/pointer/pointer");
 const gun_1 = require("../entities/weapon/gun");
 const stormtrooper_corps_1 = require("../entities/zone/stormtrooper_corps");
 const extraction_1 = require("../entities/zone/extraction");
+const rank_levels_1 = require("./libs/rank-levels");
+const ship_levels_1 = require("./libs/ship-levels");
 let LevelUpHandler = class LevelUpHandler extends handlers_1.IRoute {
     handle(message, uSocket) {
         var _a;
@@ -47,42 +49,57 @@ let LevelUpHandler = class LevelUpHandler extends handlers_1.IRoute {
             let currency = null;
             let isSpend = 0;
             if (__type === 'ship') {
-                newLevel = pointer.upLevel();
-                cost = pointer_1.Pointer.getLevelUpPrice(newLevel);
-                isSpend = zone.spendRubies(cost);
-                currency = 'rubies';
-                if (~isSpend) {
-                    yield this._pointerService.memoryUpdate(pointer);
-                    yield this._zoneService.memoryUpdate(zone);
+                const maxLevel = rank_levels_1.RankLevels.getRankMaxLevelShip(zone.rank.rank);
+                newLevel = pointer.upLevel(maxLevel);
+                if (newLevel !== 'limit') {
+                    cost = pointer_1.Pointer.getLevelUpPrice(newLevel);
+                    isSpend = zone.spendRubies(cost);
+                    currency = 'rubies';
+                    if (~isSpend) {
+                        yield this._pointerService.memoryUpdate(pointer);
+                        yield this._zoneService.memoryUpdate(zone);
+                    }
                 }
             }
             else if (__type === 'gun') {
-                newLevel = weapon.upLevel();
-                cost = gun_1.Gun.getLevelUpPrice(newLevel);
-                isSpend = zone.spendСoins(cost);
-                currency = 'coins';
-                if (~isSpend) {
-                    yield this._zoneService.memoryUpdate(zone);
-                    yield this._weaponService.memoryUpdate(weapon);
+                const maxLevel = ship_levels_1.ShipLevels.getShipMaxLevelGun(pointer.level);
+                newLevel = weapon.upLevel(maxLevel);
+                if (newLevel !== 'limit') {
+                    cost = gun_1.Gun.getLevelUpPrice(newLevel);
+                    isSpend = zone.spendСoins(cost);
+                    currency = 'coins';
+                    if (~isSpend) {
+                        yield this._zoneService.memoryUpdate(zone);
+                        yield this._weaponService.memoryUpdate(weapon);
+                    }
                 }
             }
             else if (__type === 'storm-corps') {
-                newLevel = zone.stormtrooper_corps.upLevel();
-                cost = stormtrooper_corps_1.StormtrooperCorps.getLevelUpPrice(newLevel);
-                isSpend = zone.spendСoins(cost);
-                currency = 'coins';
-                if (~isSpend)
-                    this._zoneService.memoryUpdate(zone);
+                const maxLevel = ship_levels_1.ShipLevels.getShipMaxLevelStorm(pointer.level);
+                newLevel = zone.stormtrooper_corps.upLevel(maxLevel);
+                if (newLevel !== 'limit') {
+                    cost = stormtrooper_corps_1.StormtrooperCorps.getLevelUpPrice(newLevel);
+                    isSpend = zone.spendСoins(cost);
+                    currency = 'coins';
+                    if (~isSpend)
+                        this._zoneService.memoryUpdate(zone);
+                }
             }
             else if (__type === 'hold') {
-                newLevel = zone.hold.upLevel();
-                cost = extraction_1.Extraction.getLevelUpPrice(newLevel);
-                isSpend = zone.spendСoins(cost);
-                currency = 'coins';
-                if (~isSpend)
-                    this._zoneService.memoryUpdate(zone);
+                const maxLevel = ship_levels_1.ShipLevels.getShipMaxLevelHold(pointer.level);
+                newLevel = zone.hold.upLevel(maxLevel);
+                if (newLevel !== 'limit') {
+                    cost = extraction_1.Extraction.getLevelUpPrice(newLevel);
+                    isSpend = zone.spendСoins(cost);
+                    currency = 'coins';
+                    if (~isSpend)
+                        this._zoneService.memoryUpdate(zone);
+                }
             }
             else {
+                return;
+            }
+            if (newLevel === 'limit') {
                 return;
             }
             if (isSpend === -1 && currency) {
@@ -95,8 +112,6 @@ let LevelUpHandler = class LevelUpHandler extends handlers_1.IRoute {
                 uSocket.send(JSON.stringify(limitResp));
                 return;
             }
-            console.log('currency', currency);
-            console.log('newLevel', newLevel);
             if (currency) {
                 const extrResp = {
                     event: 'level-up',

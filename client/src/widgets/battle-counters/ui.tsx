@@ -38,8 +38,8 @@ export const BattleCounters = () => {
     const myTeam = teams.filter(team => team.teamId === myTeamId)[0]
     const enemyTeam = teams.filter(team => team.teamId !== myTeamId)[0]
     
-    const myProgress = myTeam?.sectors * 100 / 10
-    const enemyProgress = enemyTeam?.sectors * 100 / 10
+    const myProgress = myTeam?.sectors * 100 / 5
+    const enemyProgress = enemyTeam?.sectors * 100 / 5
 
     const myTeamColor = myTeam?.teamId === 1 ? '#C163E0' : '#D14343'
     const enemyTeamColor = enemyTeam?.teamId === 1 ? '#C163E0' : '#D14343'

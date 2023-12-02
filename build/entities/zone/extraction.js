@@ -24,15 +24,15 @@ class Extraction {
         };
         return levels[level];
     }
-    upLevel() {
-        if (!Extraction.validLevel(this._level + 1)) {
-            throw new Error('');
+    upLevel(limit) {
+        if (!Extraction.validLevel(this._level + 1, limit)) {
+            return 'limit';
         }
         this._level = this._level + 1;
         return this._level;
     }
-    static validLevel(level) {
-        return level > 0 && level <= 6;
+    static validLevel(level, limit) {
+        return level > 0 && level <= limit;
     }
     static getLevelMaxItems(level) {
         const levels = {

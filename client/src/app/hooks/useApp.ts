@@ -1,23 +1,22 @@
 import { useEffect } from "react"
 import { useSocket } from "shared/api/socket/model"
-import { randomNumber } from "shared/lib/randomNumber"
 
 import bridge from "@vkontakte/vk-bridge";
 import { userModel } from "entities/user";
-import { userEvents } from "features/user/connect-user";
-import { response } from "express";
-import { alertModel } from "shared/ui/alert";
 import { popoutModel } from "shared/ui/popout-root";
 import { lockModel } from "shared/ui/lock-screen";
 import { lostInternet } from "processes/lost-internet";
-import { socketModel } from "shared/api/socket";
 import { reSocketClose } from "processes/socket/socket-close";
+import { userAPI } from "shared/api/events";
+import { userEvents } from "features/user/connect-user";
 
-type TVkUserApi = {
-    id: number
-    photo_50: string
-    first_name: string
-}
+// type TVkUserApi = {
+//     id: number
+//     photo_50: string
+//     first_name: string
+// }
+
+userEvents.startConnectUser()
 
 export const useApp = () => {
 
@@ -65,7 +64,7 @@ export const useApp = () => {
         }
         if (vkUserId > 0 && socketStatus === 'open') {
             const url = window.location.search;
-            userEvents.events.connectUser(url)
+            userAPI.events.connectUser(url)
             // sectorEvents.events.getSectorsStart()
             return
         }

@@ -1,7 +1,7 @@
 import { Handler } from "..";
-import { TLimit } from '@ctypes/socket/server-to-client'
 import { alertModel } from "shared/ui/alert";
 import { popoutModel } from "shared/ui/popout-root";
+import { TLimit } from '@ctypes/socket/server-to-client'
 
 class LimitHandler extends Handler {
     handle(message: TLimit) {
@@ -42,11 +42,9 @@ class LimitHandler extends Handler {
                 name = `Трюм переполнен`
                 text = `В трюме недостаточно места для новых предметов. Необходимо использовать предметы или повысить уровень трюма`
                 break;
-
         }
 
         if (message.payload.gives === 'hold') {
-
             alertModel.events.setAlert({
                 alert: name,
                 message: text,
@@ -56,7 +54,6 @@ class LimitHandler extends Handler {
                     _click: () => popoutModel.events.setPopout(null)
                 }
             })
-
         } else {
             alertModel.events.setAlert({
                 alert: name,
@@ -70,9 +67,7 @@ class LimitHandler extends Handler {
         }
 
         popoutModel.events.setPopout('alert')
-
     }
-
 }
 
 LimitHandler.EVENT = 'limit'

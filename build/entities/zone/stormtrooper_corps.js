@@ -46,12 +46,15 @@ class StormtrooperCorps {
         this.leaveInvader();
         return this._invaders;
     }
-    upLevel() {
-        if (!StormtrooperCorps.validLevel(this._level + 1)) {
-            throw new Error('');
+    upLevel(limit) {
+        if (!StormtrooperCorps.validLevel(this._level + 1, limit)) {
+            return 'limit';
         }
         this._level = this._level + 1;
         return this._level;
+    }
+    static validLevel(level, limit) {
+        return level > 0 && level <= limit;
     }
     static getLevelUpPrice(level) {
         const levels = {
@@ -69,9 +72,6 @@ class StormtrooperCorps {
             12: 30844
         };
         return levels[level];
-    }
-    static validLevel(level) {
-        return level > 0 && level <= 12;
     }
     static getLevelMaxPower(level) {
         const levels = {

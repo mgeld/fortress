@@ -11,7 +11,6 @@ const MapSelectPlace = () => {
     const clickPos = map_1.mapModel.selectors.useMapClickLatLng();
     const [sector, setSector] = (0, react_1.useState)(null);
     const { userIcon } = user_1.userModel.selectors.useUser();
-    console.log('MapSelectPlace');
     const setPolygon = (pos) => {
         const h3Index = (0, h3_js_1.latLngToCell)(pos[0], pos[1], 9);
         const [lat, long] = (0, h3_js_1.cellToBoundary)(h3Index)[0];

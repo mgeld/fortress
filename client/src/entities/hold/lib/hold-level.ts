@@ -1,10 +1,23 @@
-
 export type THoldLevel = 1 | 2 | 3 | 4 | 5 | 6
 
 export class HoldLevel {
 
-    public static isUpLevel(level: number) {
-        return level < 6
+    public static isUpLevel(levelHold: number, levelShip: number) {
+        const shipMaxLevelHold = this.getShipMaxLevelHold(levelShip)
+        return levelHold < shipMaxLevelHold
+    }
+
+    public static getShipMaxLevelHold(level: number): number {
+        // Уровень Корабля: Макс уровень Трюма
+        const levels: { [key: number]: number } = {
+            1: 1,
+            2: 2,
+            3: 3,
+            4: 4,
+            5: 5,
+            6: 6,
+        }
+        return levels[level]
     }
 
     private static _holdItems: Record<THoldLevel, number> = {
@@ -32,4 +45,5 @@ export class HoldLevel {
     public static getMaxItems(level: THoldLevel) {
         return HoldLevel._holdItems[level]
     }
+    
 }

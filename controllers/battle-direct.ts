@@ -54,9 +54,13 @@ class BattleDirectHandler extends IRoute {
 
             if (Math.random() > 0.6) {
 
+                const health = _pointer.removeHealth(10)
+                await this._pointerService.memoryUpdate(_pointer)
+
                 const bomb: TBombPayload = {
                     position: pos,
                     userId: _pointer.zoneId,
+                    health,
                     bomb: {
                         symbol: 'aerial',
                         level: 1
@@ -67,9 +71,6 @@ class BattleDirectHandler extends IRoute {
                     event: 'bomb',
                     payload: bomb
                 })
-
-                const health = _pointer.removeHealth(10)
-                await this._pointerService.memoryUpdate(_pointer)
 
                 if (health < 1) {
 

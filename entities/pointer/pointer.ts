@@ -103,17 +103,17 @@ export class Pointer {
         }
     }
 
-    upLevel(): number {
-        if (!Pointer.validLevel(this._level + 1)) {
-            throw new Error('')
+    upLevel(limit: number): number | 'limit' {
+        if (!Pointer.validLevel(this._level + 1, limit)) {
+            return 'limit'
         }
         this._level = this._level + 1
         return this._level
     }
 
 
-    public static validLevel(level: number) {
-        return level > 0 && level <= 6
+    public static validLevel(level: number, limit: number) {
+        return level > 0 && level <= limit
     }
 
     private static getLevelMaxHealth(level: number): number {

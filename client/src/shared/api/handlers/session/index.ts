@@ -1,6 +1,6 @@
 import { Handler } from "..";
 import { TLimit } from '@ctypes/socket/server-to-client'
-import { userEvents } from "features/user/connect-user";
+import { userAPI } from "shared/api/events";
 import { lockModel } from "shared/ui/lock-screen";
 import { popoutModel } from "shared/ui/popout-root";
 
@@ -14,7 +14,7 @@ class SessionHandler extends Handler {
                 _click: () => {
                     popoutModel.events.setPopout(null)
                     const url = window.location.search;
-                    userEvents.events.connectUser(url)
+                    userAPI.events.connectUser(url)
                 }
             },
             alert: 'Ошибка подключения',

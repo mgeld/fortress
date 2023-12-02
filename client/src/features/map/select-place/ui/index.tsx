@@ -18,8 +18,6 @@ export const MapSelectPlace: FC = () => {
 
     const { userIcon } = userModel.selectors.useUser()
 
-    console.log('MapSelectPlace')
-
     const setPolygon = (pos: TLatLng) => {
 
         // Convert a lat/lng point to a hexagon index at resolution 7

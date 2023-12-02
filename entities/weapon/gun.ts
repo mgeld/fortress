@@ -48,7 +48,6 @@ export class Gun {
         this._status = props?.status ? 'used' : 'stock'
     }
 
-
     public static create(props: TWeaponProps) {
         return new Gun(props)
     }
@@ -76,7 +75,6 @@ export class Gun {
         }
         return levels[level]
     }
-
     private static getLevelMaxDistance(level: number): number {
         const levels: { [key: number]: number } = {
             1: 330,
@@ -113,36 +111,17 @@ export class Gun {
         return levels[level]
     }
 
-    upLevel(): number {
-        if (!Gun.validLevel(this._level + 1)) {
-            throw new Error('')
+    upLevel(limit: number): number | 'limit' {
+        if (!Gun.validLevel(this._level + 1, limit)) {
+            return 'limit'
         }
         this._level = this._level + 1
         return this._level
     }
 
-    public static validLevel(level: number) {
-        return level > 0 && level <= 6
+    public static validLevel(level: number, limit: number) {
+        return level > 0 && level <= limit
     }
-
-    // get damage(): number {
-    //     if (this._level === 1) {
-    //         return 10
-    //     }
-    //     if (this._level === 2) {
-    //         return 15
-    //     }
-    //     if (this._level === 3) {
-    //         return 20
-    //     }
-    //     if (this._level === 4) {
-    //         return 25
-    //     }
-    //     if (this._level === 5) {
-    //         return 30
-    //     }
-    //     return 0
-    // }
 
     get distance() {
         return this._distance

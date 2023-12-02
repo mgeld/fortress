@@ -72,10 +72,6 @@ export const FireIOS: FC<TFireProps> = ({
 
     // const dist = Math.sqrt(Math.abs(a1 + a2));
 
-    // console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> speed', speed)
-    // console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> a1', a1)
-    // console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> a2', a2)
-
     fireStyle['transform'] = `translate3d(${a1}px, ${a2}px, 0px)`
 
 

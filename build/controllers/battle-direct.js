@@ -45,9 +45,12 @@ let BattleDirectHandler = class BattleDirectHandler extends handlers_1.IRoute {
             if (_member.pos[0] < bounds[0][0] || _member.pos[1] < bounds[0][1] ||
                 _member.pos[0] > bounds[1][0] || _member.pos[1] > bounds[1][1]) {
                 if (Math.random() > 0.6) {
+                    const health = _pointer.removeHealth(10);
+                    yield this._pointerService.memoryUpdate(_pointer);
                     const bomb = {
                         position: pos,
                         userId: _pointer.zoneId,
+                        health,
                         bomb: {
                             symbol: 'aerial',
                             level: 1
@@ -57,8 +60,6 @@ let BattleDirectHandler = class BattleDirectHandler extends handlers_1.IRoute {
                         event: 'bomb',
                         payload: bomb
                     });
-                    const health = _pointer.removeHealth(10);
-                    yield this._pointerService.memoryUpdate(_pointer);
                     if (health < 1) {
                         const killPointerTeam = arena.killPointer(_member.userId, _member.arenaTeam);
                         if (killPointerTeam.alive_members === 0) {

@@ -24,7 +24,6 @@ const MapDrones = () => {
             pointer_1.droneMapModel.events.setSizeDrone();
         },
     });
-    console.log('MapDrones');
     const onShip = () => {
         popout_root_1.popoutModel.events.setPopout('ship');
     };

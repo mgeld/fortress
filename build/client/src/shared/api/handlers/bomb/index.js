@@ -9,6 +9,7 @@ class BombHandler extends __1.Handler {
         const BOMB_ID = Date.now();
         const pos = message.payload.position;
         const userId = message.payload.userId;
+        const health = message.payload.health;
         const bombSymbolLevel = message.payload.bomb;
         const bomb = (0, determinant_bomb_1.determinantBomb)(bombSymbolLevel.symbol, bombSymbolLevel.level);
         events_1.bombsAPI.events.addBomb({
@@ -20,7 +21,7 @@ class BombHandler extends __1.Handler {
             events_1.bombsAPI.events.delBombById({ bomb_id: BOMB_ID });
             events_1.bombsAPI.events.hitBombInTarget({
                 hitUserId: userId,
-                damage: bomb.damage
+                health
             });
         }, 500);
     }

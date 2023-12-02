@@ -30,8 +30,6 @@ const Sectors: FC<SectorsProps> = ({ zones }) => {
     return <>
         {zones.map(zoneItem => {
 
-            // console.log('zoneItem.zone.zone_id', zoneItem.zone.zone_id)
-
             // Временно
             let color = zoneItem.zone.zone_id > 2 ? 1 : zoneItem.zone.color
             

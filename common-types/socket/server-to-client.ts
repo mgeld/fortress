@@ -249,10 +249,18 @@ export type TUseExtraction = {
     }
 }
 
+
+// export type TLimitLevelTypes =  | 'ship_level'
+//                                 | 'hold_level'
+//                                 | 'gun_level'
+//                                 | 'storm_level'
 export type TLimit = {
     event: TEventLimit
     payload: {
-        gives: TExtrTypesName | 'hold'
+        gives:  | TExtrTypesName
+                | 'hold'
+                // | TLimitLevelTypes
+
     }
 }
 
@@ -359,6 +367,7 @@ export type TSetHealth = {
 export type TBombPayload = {
     position: TLatLng
     userId: number
+    health: number
     bomb: {
         symbol: TBombSymbol
         level: number
