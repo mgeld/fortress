@@ -13,6 +13,7 @@ import { ZoneService } from "../services/zone.service";
 import { CitadelService } from "../services/citadel.service";
 import { TFindContType } from "../common-types/model";
 import { Zone } from "../entities/zone/zone";
+import { Rank } from "../entities/zone/rank";
 
 @injectable()
 class TakeHandler extends IRoute {
@@ -84,9 +85,6 @@ class TakeHandler extends IRoute {
             defPower
         )
 
-        console.log('_sector.zone_id', _sector.zone_id)
-        console.log('_pointer.zoneId', _pointer.zoneId)
-
         takeHit = {
             status,
             fort: __fort,
@@ -117,9 +115,6 @@ class TakeHandler extends IRoute {
             // Если на секторе больше нет защитников
             if (_sector.defenders === 0) {
 
-                // Убираем один сектор у пред-го владельца
-                // if (prevZoneId) _prevZone.terrain.loseSector()
-
                 // Сохраняем временный опыт
                 const [wasExp, willExp] = zone.rank.saveExp()
                 if (willExp === 0) {
@@ -129,8 +124,9 @@ class TakeHandler extends IRoute {
                             rank: zone.rank.rank
                         }
                     }
+                    const rubies = Rank.getLevelRewardRubies(zone.rank.rank)
+                    zone.addRubies(rubies)
                     setTimeout(() => uSocket.send(JSON.stringify(newRank)), 2000)
-                    // return
                 }
 
                 const tempLevel = zone.terrain.level

@@ -26,6 +26,7 @@ const zone_service_1 = require("../services/zone.service");
 const weapon_service_1 = require("../services/weapon.service");
 const pointer_service_1 = require("../services/pointer.service");
 const rooms_1 = require("../api/socket/socket/rooms");
+const rank_1 = require("../entities/zone/rank");
 let UseExtractionHandler = class UseExtractionHandler extends handlers_1.IRoute {
     handle(message, uSocket) {
         var _a, _b;
@@ -92,6 +93,8 @@ let UseExtractionHandler = class UseExtractionHandler extends handlers_1.IRoute 
             if (extr.gives === 'rank_exp') {
                 resultIncrese = zone.rank.addExp(extr.quantity);
                 if (resultIncrese[1] === 0) {
+                    const rubies = rank_1.Rank.getLevelRewardRubies(zone.rank.rank);
+                    zone.addRubies(rubies);
                     const newRank = {
                         event: 'new-rank',
                         payload: {

@@ -1,8 +1,10 @@
 import { type } from "os"
-import { TBombSymbol, TExtrTypes, TExtrTypesName, TFindContType, TGameUnit, THitPointer, TJoystickDirection, TLatLng, TPointer, TTutType, TTypeToastNotice, TWeapon, TWeaponSymbol, TZoneItem } from "../model"
+import { IRatingZones, TBombSymbol, TExtrTypes, TExtrTypesName, TFindContType, TGameUnit, THitPointer, TJoystickDirection, TLatLng, TPointer, TTutType, TTypeToastNotice, TWeapon, TWeaponSymbol, TZoneItem } from "../model"
 
 export type TEventConnect = 'connect'
 export type TEventSetUser = 'set-user'
+export type TEventSetRating = 'set-rating'
+
 export type TEventSetCitadel = 'set-citadel'
 export type TEventTutorial = 'tutorial'
 
@@ -46,6 +48,7 @@ export type TEventBattleJoin = 'battle-join'
 export type TEventsMessage =
     | TEventConnect
     | TEventSetUser
+    | TEventSetRating
     | TEventSetCitadel
     | TEventTutorial
     | TEventFire
@@ -148,6 +151,14 @@ type TSetUserPayload = {
 export type TSetUser = {
     event: TEventSetUser
     payload: TSetUserPayload
+}
+
+type TSetRatingPayload = {
+    zones: IRatingZones[]
+}
+export type TSetRating = {
+    event: TEventSetRating
+    payload: TSetRatingPayload
 }
 
 
@@ -432,6 +443,7 @@ export type TMessage =
     | TConnectPointer
     | TConnect
     | TSetUser
+    | TSetRating
     | TSetCitadel
     | TTutorial
     | TDelPointer

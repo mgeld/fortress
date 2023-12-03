@@ -1,4 +1,6 @@
 export class RankLevels {
+    
+    // Максимальный уровень Корабля на ранг
     public static getRankMaxLevelShip(rank: number): number {
         const levels: { [key: number]: number } = {
             1: 1,
@@ -28,6 +30,8 @@ export class RankLevels {
         }
         return levels[rank]
     }
+
+    // Максимальный уровень Цитаделя на ранг
     public static getRankMaxLevelCitadel(rank: number): number {
         const levels: { [key: number]: number } = {
             1: 1,

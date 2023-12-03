@@ -94,19 +94,13 @@ class BattleTakeHandler extends IRoute {
                 const _prevTeam = arena.getTeam(_sector.team_id)
                 prevTeamId = _prevTeam.id
 
-                // _prevZone.terrain.killDefender()
-
                 // Если на секторе больше нет защитников
                 if (_sector.defenders === 0) {
                     // Убираем один сектор у пред-го владельца
                     if (prevTeamId) _prevTeam.loseSector()
                 }
-                // this._zoneService.memoryUpdate(_prevZone)
 
-                console.log('prevTeamId', prevTeamId)
             }
-
-            // zone.terrain.newDefender()
 
             let myTeam: Team | null = null
 
@@ -143,8 +137,6 @@ class BattleTakeHandler extends IRoute {
             if (myTeam && myTeam.sectors < 5)
                 await this._arenaService.update(arena)
         }
-
-        // this._logs.takes.add(_sector.id)
 
         this._sectorService.update(_sector)
 

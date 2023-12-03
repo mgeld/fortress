@@ -12,10 +12,30 @@ const hold_1 = require("./hold");
 const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
 const __1 = require("..");
 const ship_level_1 = require("../lib/ship-level");
+const user_1 = require("entities/user");
+const alert_1 = require("shared/ui/alert");
 const ShipPopout = () => {
     const closePopout = () => popout_root_1.popoutModel.events.setPopout(null);
+    const rankLevel = user_1.userModel.selectors.useRankLevel();
     const health = __1.shipModel.selectors.useShipHealth();
-    const level = __1.shipModel.selectors.useShipLevel();
+    const shipLevel = __1.shipModel.selectors.useShipLevel();
+    const levelUp = () => {
+        if (ship_level_1.ShipLevel.isUpLevel(shipLevel, rankLevel)) {
+            popout_root_1.popoutModel.events.setPopout('ship-level-up');
+        }
+        else {
+            popout_root_1.popoutModel.events.setPopout('alert');
+            alert_1.alertModel.events.setAlert({
+                alert: 'Уровень Корабля',
+                message: 'У вас максимальный уровень Корабля на текущий Ранг Завоеваний. Для повышения уровня, сначала неободимо повысить Ранг Завоеваний.',
+                action: {
+                    close: false,
+                    text: 'Закрыть',
+                    _click: () => popout_root_1.popoutModel.events.setPopout("storm-corps")
+                }
+            });
+        }
+    };
     return (<div className={styles_module_scss_1.default.ship}>
 
             <div className={styles_module_scss_1.default.header}>
@@ -35,10 +55,10 @@ const ShipPopout = () => {
                                     Корабль
                                 </div>
                                 <div className={styles_module_scss_1.default.level}>
-                                    <span>{level} ур.</span>
-                                    {ship_level_1.ShipLevel.isUpLevel(level) ? <div onClick={() => popout_root_1.popoutModel.events.setPopout('ship-level-up')} className={styles_module_scss_1.default.levelUp}>
+                                    <span>{shipLevel} ур.</span>
+                                    <div onClick={levelUp} className={styles_module_scss_1.default.levelUp}>
                                         <icons_1.IconLevelUp width={18} height={18}/>
-                                    </div> : null}
+                                    </div>
                                 </div>
                             </div>
 
@@ -55,7 +75,7 @@ const ShipPopout = () => {
 
                                 <div className={styles_module_scss_1.default.counter}>
                                     <span>
-                                        {health} / {ship_level_1.ShipLevel.getMaxHealth(level)}
+                                        {health} / {ship_level_1.ShipLevel.getMaxHealth(shipLevel)}
                                     </span>
                                     <div onClick={() => popout_root_1.popoutModel.events.setPopout('ship-improve-health')} className={styles_module_scss_1.default.levelUp}>
                                         <icons_1.IconPlus width={18} height={18}/>
@@ -83,7 +103,7 @@ const ShipPopout = () => {
                         <div onClick={closePopout} className={`${styles_module_scss_1.default.button} ${styles_module_scss_1.default.__white}`}>
                             Закрыть
                         </div>
-                        <div onClick={() => popout_root_1.popoutModel.events.setPopout('ship-level-up')} className={styles_module_scss_1.default.button}>
+                        <div onClick={levelUp} className={styles_module_scss_1.default.button}>
                             Улучшить
                         </div>
                     </div>

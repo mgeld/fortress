@@ -63,6 +63,12 @@ let ZoneService = class ZoneService {
             return zone;
         });
     }
+    getTrophies() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const zones = yield this._baseRepository.getTrophies();
+            return zones;
+        });
+    }
     create(color) {
         const DEFAULT_COLOR = (0, random_number_1.randomNumber)(1, 6);
         const DEFAULT_RUBIES = 200;

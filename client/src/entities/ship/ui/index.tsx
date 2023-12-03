@@ -9,13 +9,34 @@ import { Hold } from "./hold";
 import styles from './styles.module.scss'
 import { shipModel } from "..";
 import { ShipLevel, TShipLevel } from "../lib/ship-level";
+import { userModel } from "entities/user";
+import { alertModel } from "shared/ui/alert";
 
 export const ShipPopout: FC = () => {
 
     const closePopout = () => popoutModel.events.setPopout(null)
 
+    const rankLevel = userModel.selectors.useRankLevel()
+
     const health = shipModel.selectors.useShipHealth()
-    const level = shipModel.selectors.useShipLevel()
+    const shipLevel = shipModel.selectors.useShipLevel()
+
+    const levelUp = () => {
+        if (ShipLevel.isUpLevel(shipLevel, rankLevel)) {
+            popoutModel.events.setPopout('ship-level-up')
+        } else {
+            popoutModel.events.setPopout('alert')
+            alertModel.events.setAlert({
+                alert: 'Уровень Корабля',
+                message: 'У вас максимальный уровень Корабля на текущий Ранг Завоеваний. Для повышения уровня, сначала неободимо повысить Ранг Завоеваний.',
+                action: {
+                    close: false,
+                    text: 'Закрыть',
+                    _click: () => popoutModel.events.setPopout("storm-corps")
+                }
+            })
+        }
+    }
 
     return (
         <div className={styles.ship}>
@@ -37,13 +58,13 @@ export const ShipPopout: FC = () => {
                                     Корабль
                                 </div>
                                 <div className={styles.level}>
-                                    <span>{level} ур.</span>
-                                    {ShipLevel.isUpLevel(level) ? <div
-                                        onClick={() => popoutModel.events.setPopout('ship-level-up')}
+                                    <span>{shipLevel} ур.</span>
+                                    <div
+                                        onClick={levelUp}
                                         className={styles.levelUp}
                                     >
                                         <IconLevelUp width={18} height={18} />
-                                    </div> : null}
+                                    </div>
                                 </div>
                             </div>
 
@@ -60,7 +81,7 @@ export const ShipPopout: FC = () => {
 
                                 <div className={styles.counter}>
                                     <span>
-                                        {health} / {ShipLevel.getMaxHealth(level as TShipLevel)}
+                                        {health} / {ShipLevel.getMaxHealth(shipLevel as TShipLevel)}
                                     </span>
                                     <div
                                         onClick={() => popoutModel.events.setPopout('ship-improve-health')}
@@ -95,7 +116,7 @@ export const ShipPopout: FC = () => {
                             Закрыть
                         </div>
                         <div
-                            onClick={() => popoutModel.events.setPopout('ship-level-up')}
+                            onClick={levelUp}
                             className={styles.button}
                         >
                             Улучшить

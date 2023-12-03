@@ -7,7 +7,7 @@
 
     .__main {
         width: 100%;
-        height: calc(40px);
+        height: calc(var(--header_height) - 8px);
 
         padding-bottom: 2px;
 
@@ -18,12 +18,15 @@
         box-sizing: border-box;
         color: white;
         background-color: #a55cc0;
-        border-top: 2px solid #f1ba688c;
+        // border-top: 2px solid #f1ba688c;
     
-        text-align: center;
-
-        font-size: 15px;
-        line-height: 15px;
+        .icon {
+            padding-right: 10px;
+        }
+        .text {
+            font-size: 16px;
+            line-height: 16px;
+        }
     }
 
     .iosBottom {
@@ -34,5 +37,5 @@
 
 .__after {
     width: 100%;
-    height: calc(40px + var(--inset_bottom));
+    height: calc(var(--header_height) - 8px + var(--inset_bottom));
 }

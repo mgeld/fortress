@@ -43,10 +43,15 @@ class LevelUpHandler extends IRoute {
         let currency: 'coins' | 'rubies' | null = null
         let isSpend = 0
 
+        console.log('LevelUpHandler __type', __type)
+
         if (__type === 'ship') {
 
             const maxLevel = RankLevels.getRankMaxLevelShip(zone.rank.rank)
             newLevel = pointer.upLevel(maxLevel)
+
+            console.log('LevelUpHandler newLevel', newLevel)
+            console.log('LevelUpHandler maxLevel', maxLevel)
 
             if (newLevel !== 'limit') {
 
@@ -112,10 +117,10 @@ class LevelUpHandler extends IRoute {
             return
         }
 
-        if(newLevel === 'limit') {
+        if (newLevel === 'limit') {
 
             // let gives: TLimitLevelTypes
-            
+
             // if(__type === 'ship') gives = 'ship_level'
             // else if(__type === 'gun') gives = 'gun_level'
             // else if(__type === 'hold') gives = 'hold_level'
@@ -133,7 +138,7 @@ class LevelUpHandler extends IRoute {
         }
 
         if (isSpend === -1 && currency) {
-            
+
             const limitResp: TLimit = {
                 event: 'limit',
                 payload: {

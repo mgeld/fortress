@@ -29,7 +29,7 @@
                 padding: 0 6px;
             }
         }
-        
+
     }
 
     .__content {
@@ -101,7 +101,15 @@
                             display: flex;
                             justify-content: center;
                             background-color: #725d9b;
-                            svg {
+
+                            .svg {
+                                width: 44px;
+                                height: 44px;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+
+                                transform: rotate(15deg);
                             }
                         }
 

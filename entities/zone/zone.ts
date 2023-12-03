@@ -1,5 +1,5 @@
 import { Extraction, UnmarshalledExtraction } from "./extraction"
-import { GuardCorps, UnmarshalledGuardCorps } from "./guard_corps"
+// import { GuardCorps, UnmarshalledGuardCorps } from "./guard_corps"
 import { Rank, UnmarshalledRank } from "./rank"
 import { StormtrooperCorps, UnmarshalledStormtrooperCorps } from "./stormtrooper_corps"
 import { Terrain, UnmarshalledTerrain } from "./terrain"

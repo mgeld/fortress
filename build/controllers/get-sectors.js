@@ -23,7 +23,6 @@ const handlers_1 = require("./handlers");
 const inversify_1 = require("inversify");
 const types_1 = require("../types");
 const sector_service_1 = require("../services/sector.service");
-const pointer_service_1 = require("../services/pointer.service");
 let GetSectorsHandler = class GetSectorsHandler extends handlers_1.IRoute {
     handle(message, uSocket) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -41,10 +40,6 @@ __decorate([
     (0, inversify_1.inject)(types_1.TYPES.SectorService),
     __metadata("design:type", sector_service_1.SectorService)
 ], GetSectorsHandler.prototype, "_sectorService", void 0);
-__decorate([
-    (0, inversify_1.inject)(types_1.TYPES.PointerService),
-    __metadata("design:type", pointer_service_1.PointerService)
-], GetSectorsHandler.prototype, "_pointerService", void 0);
 GetSectorsHandler = __decorate([
     (0, inversify_1.injectable)()
 ], GetSectorsHandler);

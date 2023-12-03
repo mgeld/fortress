@@ -45,6 +45,7 @@ const alert_1 = require("shared/ui/alert");
 const ui_19 = require("shared/ui/tutorial/ui");
 const lock_screen_1 = require("shared/ui/lock-screen");
 const ui_20 = require("shared/ui/load-app/ui");
+const rating_1 = require("pages/rating");
 (0, model_1.mapStartPosition)();
 window.addEventListener('popstate', () => (0, go_back_1.goBack)());
 let platform = (0, get_platform_1.getPlatform)();
@@ -186,6 +187,12 @@ const App = () => {
           <page_root_1.Page key="shop" id='gun-shop'>
             <ui_10.GunShopPage />
           </page_root_1.Page>
+
+          <page_root_1.Page key="rating" id='rating'>
+            <rating_1.RatingPage />
+          </page_root_1.Page>
+
+
 
         </page_root_1.PageRoot>) : null}
 

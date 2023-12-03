@@ -4,6 +4,7 @@ import { TYPES } from '../../../../types'
 import { IZoneRepository } from '../../../../entities/repository'
 import { Zone } from '../../../../entities/zone/zone'
 import { ZoneMapper } from '../../mappers/zone'
+import { IRatingZones } from '../../../../common-types/model'
 
 interface IZoneRowData {
     id?: number
@@ -150,7 +151,7 @@ export class ZoneRepository implements IZoneRepository {
             zoneId,
             dtoZone.hold.level,
             JSON.stringify(dtoZone.hold.items),
-            
+
             zoneId,
             dtoZone.terrain.level,
             dtoZone.terrain.sectors,
@@ -170,6 +171,46 @@ export class ZoneRepository implements IZoneRepository {
 
         return zone
     }
+
+    async getTrophies(): Promise<IRatingZones[]> {
+
+        console.log('***ZoneRepository getTrophies')
+        const [result] = await this._connection.query<Required<IRatingZones>[] & RowDataPacket[]>(
+            `
+                SELECT
+                    zones.id,
+                    zones.color,
+                    zones.trophies,
+                    terrain.sectors as zone_sectors,
+                    rc.level as rank_level,
+                    p.icon,
+                    p.name,
+                    c.sectorId,
+                    c.latlng
+                FROM
+                    zones
+
+                LEFT JOIN terrain ON terrain.zone_id = zones.id
+                LEFT JOIN rank_conquests as rc ON rc.zone_id = zones.id
+                LEFT JOIN pointers as p ON p.zone_id = zones.id
+                LEFT JOIN citadels as c ON c.zone_id = zones.id
+
+                ORDER BY zones.trophies DESC
+                LIMIT 20;
+            `
+        )
+
+        if (!result) {
+            throw new Error('----------')
+        }
+        
+        const zones = result.map(zone => ({ ...zone}))
+
+        console.log('ZoneRepository getTrophies zones', zones)
+
+        return zones
+    }
+
 
     async update(zone: Zone): Promise<Zone> {
         const dtoZone = zone.unmarshal()

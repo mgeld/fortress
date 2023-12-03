@@ -31,6 +31,7 @@ export type TEventBattleFire = 'battleFire'
 export type TEventBattleDirect = 'battleDirect'
 
 export type TEventGetUser = 'getUser'
+export type TEventGetRating = 'getRating'
 
 
 export type TEventsAPI =
@@ -51,6 +52,7 @@ export type TEventsAPI =
     | TEventBattleFire
     | TEventBattleDirect
     | TEventGetUser
+    | TEventGetRating
 
 export type TSendEvent =
     | TConnectAPI
@@ -69,6 +71,7 @@ export type TSendEvent =
     | TBattleFireAPI
     | TBattleDirectAPI
     | TGetUserAPI
+    | TGetRatingAPI
 
 //----------------------------
 
@@ -84,6 +87,11 @@ export type TConnectAPI = {
 
 export type TGetUserAPI = {
     event: TEventGetUser
+    payload: {}
+}
+
+export type TGetRatingAPI = {
+    event: TEventGetRating
     payload: {}
 }
 

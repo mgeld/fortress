@@ -80,7 +80,6 @@ let BattleTakeHandler = class BattleTakeHandler extends handlers_1.IRoute {
                         if (prevTeamId)
                             _prevTeam.loseSector();
                     }
-                    console.log('prevTeamId', prevTeamId);
                 }
                 let myTeam = null;
                 if (_sector.defenders === 0) {

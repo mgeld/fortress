@@ -23,7 +23,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.stormAPI = exports.projectorAPI = exports.holdAPI = exports.citadelAPI = exports.zoneAPI = exports.mapAPI = exports.sectorsAPI = exports.battleAPI = exports.shipAPI = exports.userAPI = exports.weaponsAPI = exports.takesAPI = exports.bombsAPI = exports.firesAPI = exports.pointersAPI = void 0;
+exports.ratingAPI = exports.stormAPI = exports.projectorAPI = exports.holdAPI = exports.citadelAPI = exports.zoneAPI = exports.mapAPI = exports.sectorsAPI = exports.battleAPI = exports.shipAPI = exports.userAPI = exports.weaponsAPI = exports.takesAPI = exports.bombsAPI = exports.firesAPI = exports.pointersAPI = void 0;
 exports.pointersAPI = __importStar(require("./pointers"));
 exports.firesAPI = __importStar(require("./fires"));
 exports.bombsAPI = __importStar(require("./bombs"));
@@ -39,3 +39,4 @@ exports.citadelAPI = __importStar(require("./citadel"));
 exports.holdAPI = __importStar(require("./hold"));
 exports.projectorAPI = __importStar(require("./projector"));
 exports.stormAPI = __importStar(require("./storm"));
+exports.ratingAPI = __importStar(require("./rating"));

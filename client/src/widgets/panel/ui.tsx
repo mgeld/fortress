@@ -2,15 +2,19 @@ import { FC } from "react";
 
 import { IconChat, IconFaq, IconFort, IconNews, IconShip, IconShop } from "./assets/icons";
 
-import styles from './styles.module.scss'
 import { popoutModel } from "shared/ui/popout-root";
 import { pageModel } from "shared/ui/page-root";
-import Link from "shared/ui/link/ui";
 import { TLatLng } from "@ctypes/model";
 import { mapAPI, shipAPI } from "shared/api/events";
 import { citadelModel } from "entities/citadel";
 import { IconClose } from "shared/assets/icons/_icons";
 import { alertModel } from "shared/ui/alert";
+
+import Link from "shared/ui/link/ui";
+
+import styles from './styles.module.scss'
+import { getRatingAPI } from "shared/api/get-rating";
+import { IconTrophy } from "widgets/counters/icons/_icons";
 
 export const Panel: FC = () => {
 
@@ -83,6 +87,24 @@ export const Panel: FC = () => {
                                     <IconShop width={44} height={44} />
                                 </div>
                                 <div className={styles.name}>Магазин</div>
+                            </div>
+                        </div>
+
+                        <div
+                            onClick={() => {
+                                popoutModel.events.setPopout(null)
+                                pageModel.events.setPage('rating')
+                                getRatingAPI()
+                            }}
+                            className={styles.section}
+                        >
+                            <div className={styles.item}>
+                                <div className={styles.icon}>
+                                    <div className={styles.svg}>
+                                        <IconTrophy width={32} height={32} />
+                                    </div>
+                                </div>
+                                <div className={styles.name}>Рейтинг</div>
                             </div>
                         </div>
 

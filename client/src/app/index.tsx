@@ -45,6 +45,7 @@ import { Alert } from 'shared/ui/alert'
 import { Tutorial } from 'shared/ui/tutorial/ui'
 import { LockScreen } from 'shared/ui/lock-screen'
 import { LoadApp } from 'shared/ui/load-app/ui'
+import { RatingPage } from 'pages/rating'
 
 mapStartPosition()
 
@@ -338,6 +339,12 @@ const App = () => {
           <Page key="shop" id='gun-shop'>
             <GunShopPage />
           </Page>
+
+          <Page key="rating" id='rating'>
+            <RatingPage />
+          </Page>
+
+
 
         </PageRoot>
 

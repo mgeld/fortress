@@ -76,6 +76,37 @@ export class Rank {
         // this._temporaryLastSector = null
     }
 
+    public static getLevelRewardRubies(rank: number): number {
+        const levels: { [key: number]: number } = {
+            1: 42,
+            2: 46,
+            3: 55,
+            4: 68,
+            5: 72,
+            6: 80,
+            7: 94,
+            8: 115,
+
+            9: 115,
+            10: 115,
+            11: 115,
+            12: 115,
+            13: 115,
+            14: 115,
+            15: 115,
+            16: 115,
+            17: 115,
+            18: 115,
+            19: 115,
+            20: 115,
+            21: 115,
+            22: 115,
+            23: 115,
+            24: 115
+        }
+        return levels[rank]
+    }
+
     private static levelExp(): { [key: number]: number } {
         return {
             1: 350,

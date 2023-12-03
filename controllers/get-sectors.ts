@@ -9,7 +9,7 @@ import { PointerService } from "../services/pointer.service";
 @injectable()
 class GetSectorsHandler extends IRoute {
     @inject(TYPES.SectorService) private _sectorService!: SectorService
-    @inject(TYPES.PointerService) private _pointerService!: PointerService
+    // @inject(TYPES.PointerService) private _pointerService!: PointerService
 
     public static EVENT: TEventGetSectors = "getSectors"
 

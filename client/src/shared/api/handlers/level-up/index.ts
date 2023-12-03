@@ -8,6 +8,8 @@ import { pageModel } from "shared/ui/page-root";
 class LevelUpHandler extends Handler {
     handle(message: TLevelUp) {
 
+        console.log('>>>>>>>>> LevelUpHandler')
+
         const new_level = message.payload.new_level
         const cost = message.payload.cost
         const currency = message.payload.currency

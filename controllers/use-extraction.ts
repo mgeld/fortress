@@ -8,6 +8,7 @@ import { ZoneService } from "../services/zone.service";
 import { WeaponService } from "../services/weapon.service";
 import { PointerService } from "../services/pointer.service";
 import { Rooms } from "../api/socket/socket/rooms";
+import { Rank } from "../entities/zone/rank";
 
 @injectable()
 class UseExtractionHandler extends IRoute {
@@ -100,6 +101,8 @@ class UseExtractionHandler extends IRoute {
         if (extr.gives === 'rank_exp') {
             resultIncrese = zone.rank.addExp(extr.quantity)
             if (resultIncrese[1] === 0) {
+                const rubies = Rank.getLevelRewardRubies(zone.rank.rank)
+                zone.addRubies(rubies)
                 const newRank: TNewRank = {
                     event: 'new-rank',
                     payload: {

@@ -11,6 +11,7 @@ export type TPage =
     | 'map'
     | 'extraction'
     | 'gun-shop'
+    | 'rating'
 
 const setPage = createEvent<TPage>()
 

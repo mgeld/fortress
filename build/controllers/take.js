@@ -29,6 +29,7 @@ const sector_1 = require("../entities/sector/sector");
 const takes_1 = require("../infra/logs/takes");
 const zone_service_1 = require("../services/zone.service");
 const citadel_service_1 = require("../services/citadel.service");
+const rank_1 = require("../entities/zone/rank");
 let TakeHandler = class TakeHandler extends handlers_1.IRoute {
     handle(message, uSocket) {
         var _a, _b;
@@ -69,8 +70,6 @@ let TakeHandler = class TakeHandler extends handlers_1.IRoute {
             const invPower = zone.stormtrooper_corps.power;
             const defPower = _prevZone ? _prevZone.stormtrooper_corps.power : invPower / 2;
             const status = _sector.invade(zone.id, invPower, defPower);
-            console.log('_sector.zone_id', _sector.zone_id);
-            console.log('_pointer.zoneId', _pointer.zoneId);
             takeHit = {
                 status,
                 fort: __fort,
@@ -99,6 +98,8 @@ let TakeHandler = class TakeHandler extends handlers_1.IRoute {
                                 rank: zone.rank.rank
                             }
                         };
+                        const rubies = rank_1.Rank.getLevelRewardRubies(zone.rank.rank);
+                        zone.addRubies(rubies);
                         setTimeout(() => uSocket.send(JSON.stringify(newRank)), 2000);
                     }
                     const tempLevel = zone.terrain.level;

@@ -138,6 +138,39 @@ let ZoneRepository = class ZoneRepository {
             return zone;
         });
     }
+    getTrophies() {
+        return __awaiter(this, void 0, void 0, function* () {
+            console.log('***ZoneRepository getTrophies');
+            const [result] = yield this._connection.query(`
+                SELECT
+                    zones.id,
+                    zones.color,
+                    zones.trophies,
+                    terrain.sectors as zone_sectors,
+                    rc.level as rank_level,
+                    p.icon,
+                    p.name,
+                    c.sectorId,
+                    c.latlng
+                FROM
+                    zones
+
+                LEFT JOIN terrain ON terrain.zone_id = zones.id
+                LEFT JOIN rank_conquests as rc ON rc.zone_id = zones.id
+                LEFT JOIN pointers as p ON p.zone_id = zones.id
+                LEFT JOIN citadels as c ON c.zone_id = zones.id
+
+                ORDER BY zones.trophies DESC
+                LIMIT 20;
+            `);
+            if (!result) {
+                throw new Error('----------');
+            }
+            const zones = result.map(zone => (Object.assign({}, zone)));
+            console.log('ZoneRepository getTrophies zones', zones);
+            return zones;
+        });
+    }
     update(zone) {
         return __awaiter(this, void 0, void 0, function* () {
             const dtoZone = zone.unmarshal();

@@ -10,10 +10,10 @@ const react_1 = require("react");
 const counter_progress_1 = require("shared/ui/counter-progress");
 const zone_1 = require("entities/zone");
 const user_1 = require("entities/user");
-const exp_rank_1 = require("entities/user/lib/exp-rank");
 const ui_1 = require("shared/ui/tooltip/ui");
 const zone_level_1 = require("entities/zone/lib/zone-level");
 const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
+const ranks_1 = require("entities/user/lib/ranks");
 const Counters = () => {
     const [tooltip, setTooltip] = (0, react_1.useState)(null);
     const tId = (0, react_1.useRef)();
@@ -28,7 +28,7 @@ const Counters = () => {
     const sects = zone_1.zoneModel.selectors.useZoneSectors();
     const trophy = zone_1.zoneModel.selectors.useZoneTrophies();
     const rankExp = user_1.userModel.selectors.useRankExp();
-    const progressExp = rankExp * 100 / exp_rank_1.ExpRank.getExp(rankLevel);
+    const progressExp = rankExp * 100 / ranks_1.Ranks.getExp(rankLevel);
     const zoneSects = sects - (zone_level_1.ZoneLevel.getMaxLevelAllSectors(zoneLevel - 1) || 0);
     const zoneProgress = zoneSects * 100 / zone_level_1.ZoneLevel.getMaxLevelSectors(zoneLevel);
     return (<>

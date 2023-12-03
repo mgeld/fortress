@@ -72,6 +72,7 @@ import { ArenaSectorMemoryRepository } from './infra/database/memory/repositorie
 import { BattleService } from './services/battle.service'
 import { SnapshotArenas } from './controllers/snapshot-arenas'
 import { BattleGetAboutSectorHandler } from './controllers/battle-get-about-sector'
+import { GetRatingHandler } from './controllers/get-rating'
 // import { ArenaTeamMemoryRepository } from './infra/database/memory/repositories/arena-team'
 // import { ArenaTeamService } from './services/arena-team.service'
 
@@ -108,6 +109,8 @@ container.bind(TYPES.GetUserHandler).to(GetUserHandler)
 container.bind(TYPES.UseExtractionHandler).to(UseExtractionHandler)
 container.bind(TYPES.BuyUnitHandler).to(BuyUnitHandler)
 container.bind(TYPES.LevelUpHandler).to(LevelUpHandler)
+
+container.bind(TYPES.GetRatingHandler).to(GetRatingHandler)
 
 container.bind(TYPES.ArenaService).to(ArenaService)
 container.bind(TYPES.PointerService).to(PointerService)

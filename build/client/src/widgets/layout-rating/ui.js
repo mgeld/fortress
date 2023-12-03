@@ -1,0 +1,89 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.LayoutRating = void 0;
+const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
+const _1 = require(".");
+const back_button_1 = require("widgets/back-button");
+const _icons_1 = require("widgets/counters/icons/_icons");
+const LayoutRating = ({ children }) => {
+    const zones = _1.ratingModel.selectors.useRating().zones;
+    return (<>
+            <div className={styles_module_scss_1.default.ratingLayout}>
+                <div className={styles_module_scss_1.default.__content}>
+
+                <div className={styles_module_scss_1.default.__header}>
+                    <div className={styles_module_scss_1.default.iosTop}/>
+                    <div className={styles_module_scss_1.default.__main}>
+                        <div className={styles_module_scss_1.default.name}>
+                            <div className={styles_module_scss_1.default.icon}>
+                                <_icons_1.IconTrophy width={24} height={24}/>
+                            </div>
+                            <div className={styles_module_scss_1.default.text}>Топ 20</div>
+                        </div>
+                    </div>
+                </div>
+
+                    <div className={styles_module_scss_1.default.__before}/>
+
+
+                    {zones ?
+            <div className={styles_module_scss_1.default.ratingList}>
+                            {zones.map((item, i) => {
+                    return (<div className={styles_module_scss_1.default.zone}>
+
+
+                                        <div className={styles_module_scss_1.default.image}>
+                                            <div className={styles_module_scss_1.default.number}>{i + 1}</div>
+                                            <img src={item.icon} alt="<>"/>
+                                        </div>
+
+                                        <div className={styles_module_scss_1.default.info}>
+                                            <div className={styles_module_scss_1.default.user}>
+                                                <div className={styles_module_scss_1.default.name}>
+                                                    {item.name}
+                                                </div>
+                                                <div className={styles_module_scss_1.default.sectors}>
+                                                    <div className={styles_module_scss_1.default.icon}>
+                                                        <_icons_1.IconZone width={20} height={20}/>
+                                                    </div>
+                                                    <div className={styles_module_scss_1.default.text}>
+                                                        Количество секторов:
+                                                    </div>
+                                                    <div className={styles_module_scss_1.default.count}>
+                                                        {item.zone_sectors}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className={styles_module_scss_1.default.showing}>
+                                                <div className={styles_module_scss_1.default.trophies}>
+                                                    <div className={styles_module_scss_1.default.__stroke}>
+                                                        <div className={styles_module_scss_1.default.count}>
+                                                            {item.trophies}
+                                                        </div>
+                                                        <div className={styles_module_scss_1.default.icon}>
+                                                            <_icons_1.IconTrophy />
+                                                        </div>
+                                                    </div>
+                                                    <div className={styles_module_scss_1.default.__whiteEffect}><div /></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>);
+                })}
+                        </div> :
+            <div className={styles_module_scss_1.default.noData}>
+                            <div>Трюм пустой</div>
+                        </div>}
+
+
+                    <back_button_1.BackMap />
+
+                </div>
+            </div>
+        </>);
+};
+exports.LayoutRating = LayoutRating;

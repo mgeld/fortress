@@ -105,3 +105,16 @@ export type TTutType =
     | 'projector'
     | 'gun'
     | 'hold'
+
+
+export interface IRatingZones {
+    id: number
+    color: number
+    trophies: number
+    zone_sectors: number
+    rank_level: number
+    icon: string
+    name: number
+    sectorId: number
+    latlng: TLatLng
+}

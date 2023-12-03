@@ -6,6 +6,7 @@ import { TLimit } from '@ctypes/socket/server-to-client'
 class LimitHandler extends Handler {
     handle(message: TLimit) {
 
+        console.log('>>>>>>>>> LimitHandler')
         let name = ''
         let text = ''
 

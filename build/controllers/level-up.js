@@ -48,9 +48,12 @@ let LevelUpHandler = class LevelUpHandler extends handlers_1.IRoute {
             let cost = 0;
             let currency = null;
             let isSpend = 0;
+            console.log('LevelUpHandler __type', __type);
             if (__type === 'ship') {
                 const maxLevel = rank_levels_1.RankLevels.getRankMaxLevelShip(zone.rank.rank);
                 newLevel = pointer.upLevel(maxLevel);
+                console.log('LevelUpHandler newLevel', newLevel);
+                console.log('LevelUpHandler maxLevel', maxLevel);
                 if (newLevel !== 'limit') {
                     cost = pointer_1.Pointer.getLevelUpPrice(newLevel);
                     isSpend = zone.spendRubies(cost);

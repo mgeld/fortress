@@ -6,6 +6,7 @@ const alert_1 = require("shared/ui/alert");
 const popout_root_1 = require("shared/ui/popout-root");
 class LimitHandler extends __1.Handler {
     handle(message) {
+        console.log('>>>>>>>>> LimitHandler');
         let name = '';
         let text = '';
         switch (message.payload.gives) {
