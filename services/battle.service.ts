@@ -56,12 +56,12 @@ class BattleService {
                 sectors: team.sectors,
                 members: members[index].map(member => {
 
-                    const wonTrophies = Math.floor(member.damage / 5 + member.sectors * 3)
+                    const wonTrophies = Math.floor(member.damage / 10 + member.sectors)
 
                     const trophy = minTrophies > 0 ? minTrophies + wonTrophies : 0
 
                     _extraction[member.userId] = {
-                        coins: trophy * 5,
+                        coins: trophy * 10,
                         trophies: trophy
                     }
 

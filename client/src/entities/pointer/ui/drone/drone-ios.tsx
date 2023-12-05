@@ -7,19 +7,20 @@ import { TLatLng } from "shared/types";
 import { IconShip } from "shared/assets/icons/_icons";
 // import { latLng } from "leaflet";
 
+import { metersToPx } from "shared/lib/metersToPx";
 
 import './styles.css'
 
 type TDroneProps = {
     health: number
     pos: TLatLng
-    size: number
+    // size: number
 }
 
 const DroneIOS: FC<TDroneProps> = ({
     health,
     pos,
-    size,
+    // size,
 }) => {
 
     const { fireHitTarget } = useHitFirePointer(health)
@@ -42,6 +43,9 @@ const DroneIOS: FC<TDroneProps> = ({
     // const bounds = latLng(pos[0], pos[1]).toBounds(60);
 
     const map = useMap()
+
+    const [size, setZise] = useState(metersToPx(pos[0], 60, map.getZoom()))
+
     const [point, setPoint] = useState(map.latLngToLayerPoint(pos))
 
     useEffect(() => {
@@ -50,16 +54,17 @@ const DroneIOS: FC<TDroneProps> = ({
 
     useMapEvent('zoom', (e) => {
         setPoint(map.latLngToLayerPoint(pos))
+        setZise(metersToPx(pos[0], 60, map.getZoom()))
     })
 
     // const myPos = shipModel.selectors.useShipPos()
 
-    size = size  * 2
+    // size = size * 2
 
     // const point = map.latLngToLayerPoint(pos)
 
     const colorDroneCircle = fireHitTarget || health < 1 ? 'red' : '#393e46'
-    
+
     return (
         <>
             <div

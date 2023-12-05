@@ -43,6 +43,7 @@ export class Handlers {
         @inject(TYPES.BuyUnitHandler) private buyUnit: IRoute,
         @inject(TYPES.LevelUpHandler) private levelUp: IRoute,
         @inject(TYPES.GetRatingHandler) private getRating: IRoute,
+        @inject(TYPES.GetSatelliteHandler) private getSatellite: IRoute,
     ) { }
 
     handle(

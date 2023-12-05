@@ -4,8 +4,6 @@ import { TSetUser } from '@ctypes/socket/server-to-client'
 
 class SetUserHandler extends Handler {
     handle(message: TSetUser) {
-        console.log('SetUserHandler handle')
-
         const { user } = message.payload
 
         if (user?.health) shipAPI.events.setHealth(user.health)

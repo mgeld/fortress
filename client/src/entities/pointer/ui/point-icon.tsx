@@ -1,8 +1,8 @@
 import { FC, useState } from "react"
-import { pointIcon } from "widgets/map-layout/lib/point-icon"
 import { Marker } from "react-leaflet";
 import { createPointer } from "../lib/create-pointer";
 import { TLatLng } from "shared/types";
+import { pointIcon } from "../lib/point-icon";
 
 type TPointIconProps = {
     // userName: string

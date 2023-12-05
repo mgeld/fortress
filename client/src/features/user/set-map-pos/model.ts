@@ -1,6 +1,7 @@
 import { createEffect, sample } from "effector"
 import { Areal } from "entities/areal/model"
 import { mapModel } from "entities/map"
+import { droneMapModel } from "entities/pointer"
 import { shipModel } from "entities/ship"
 import { Map } from "leaflet"
 import { directAPI } from "shared/api/direct"
@@ -29,6 +30,9 @@ const setPosFx = createEffect(({
 
     const areal = Areal.getBounds(pos)
     shipModel.events.setAreal(areal)
+
+    // Добавил в 06.12.2023 где в час ночи
+    droneMapModel.events.setSizeDrone()
 
     // setTimeout(() => {
     // source.map.setZoom(16)

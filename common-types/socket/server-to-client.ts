@@ -1,5 +1,4 @@
-import { type } from "os"
-import { IRatingZones, TBombSymbol, TExtrTypes, TExtrTypesName, TFindContType, TGameUnit, THitPointer, TJoystickDirection, TLatLng, TPointer, TTutType, TTypeToastNotice, TWeapon, TWeaponSymbol, TZoneItem } from "../model"
+import { IRatingZone, TBombSymbol, TExtrTypes, TExtrTypesName, TFindContType, TGameUnit, THitPointer, TJoystickDirection, TLatLng, TPointer, TTutType, TTypeToastNotice, TWeapon, TWeaponSymbol, TZoneItem } from "../model"
 
 export type TEventConnect = 'connect'
 export type TEventSetUser = 'set-user'
@@ -154,7 +153,7 @@ export type TSetUser = {
 }
 
 type TSetRatingPayload = {
-    zones: IRatingZones[]
+    zones: IRatingZone[]
 }
 export type TSetRating = {
     event: TEventSetRating
@@ -323,6 +322,7 @@ export type TTakeSectorPayload = {
     new_owner_id: number
     sector_id: string
     exp?: number // Опыт завоеваний за захват сектора
+    trp?: number // Трофеи за захват сектора
 }
 export type TTakeSector = {
     event: TEventTakeSector | TEventYTakeSector | TEventYrTakeSector

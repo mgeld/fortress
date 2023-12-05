@@ -90,6 +90,8 @@ let TakeHandler = class TakeHandler extends handlers_1.IRoute {
                 }
                 zone.terrain.newDefender();
                 if (_sector.defenders === 0) {
+                    const trophies = Math.ceil(zone.rank.tempExp / 10);
+                    zone.setTrophies(trophies);
                     const [wasExp, willExp] = zone.rank.saveExp();
                     if (willExp === 0) {
                         const newRank = {
@@ -180,6 +182,7 @@ let TakeHandler = class TakeHandler extends handlers_1.IRoute {
                         });
                     }
                     takeSector.exp = zone.rank.exp;
+                    takeSector.trp = zone.trophies;
                     uSocket.send(JSON.stringify({
                         event: 'y-take-sector',
                         payload: takeSector

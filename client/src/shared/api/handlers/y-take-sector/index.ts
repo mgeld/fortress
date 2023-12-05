@@ -1,7 +1,7 @@
 import { Handler } from "..";
 import { TTakeSector } from '@ctypes/socket/server-to-client'
 import { zoneModel } from "entities/zone";
-import { sectorsAPI, userAPI } from "shared/api/events";
+import { sectorsAPI, userAPI, zoneAPI } from "shared/api/events";
 import { snackbarModel } from "shared/ui/snackbar";
 
 class YTakeSectorHandler extends Handler {
@@ -25,6 +25,9 @@ class YTakeSectorHandler extends Handler {
 
         if(message.payload.exp) {
             userAPI.events.setRankExp(message.payload.exp)
+        }
+        if(message.payload.trp) {
+            zoneAPI.events.setZoneTrophies(message.payload.trp)
         }
         
         snackbarModel.events.newToast({

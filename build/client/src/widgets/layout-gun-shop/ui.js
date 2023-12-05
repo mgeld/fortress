@@ -6,13 +6,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.GunShop = void 0;
 const ui_1 = require("entities/unit/ui/unit/units-list/ui");
 const ui_2 = require("entities/unit/ui/unit/unit-card/ui");
-const _icons_1 = require("widgets/counters/icons/_icons");
 const shop_svg_1 = require("./shop.svg");
-const back_button_1 = require("widgets/back-button");
+const back_button_1 = require("shared/ui/back-button");
 const zone_1 = require("entities/zone");
 const modules_1 = require("entities/unit/lib/modules");
 const unit_buy_list_1 = require("entities/unit/lib/unit-buy-list");
 const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
+const _icons_1 = require("shared/assets/icons/_icons");
 const units = Object.entries({
     100: unit_buy_list_1.unitsPrices[100],
     101: unit_buy_list_1.unitsPrices[101],

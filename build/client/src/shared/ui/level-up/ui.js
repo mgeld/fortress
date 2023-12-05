@@ -6,7 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.LevelUp = void 0;
 const popout_root_1 = require("shared/ui/popout-root");
 const _icons_1 = require("shared/assets/icons/_icons");
-const _icons_2 = require("widgets/counters/icons/_icons");
 const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
 const LevelUp = ({ _click, item, upswing, level, details, price }) => {
     const closePopout = () => popout_root_1.popoutModel.events.setPopout(null);
@@ -47,7 +46,7 @@ const LevelUp = ({ _click, item, upswing, level, details, price }) => {
                     </div>
 
                     <div className={styles_module_scss_1.default.price}>
-                        <div className={styles_module_scss_1.default.icon}>{price.type === 'coins' ? <_icons_2.IconCoin /> : <_icons_2.IconSapphire />}</div>
+                        <div className={styles_module_scss_1.default.icon}>{price.type === 'coins' ? <_icons_1.IconCoin /> : <_icons_1.IconSapphire />}</div>
                         <div className={styles_module_scss_1.default.quantity}>{price.quantity}</div>
                     </div>
 

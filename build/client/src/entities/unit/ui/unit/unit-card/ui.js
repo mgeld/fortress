@@ -6,8 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UnitCard = void 0;
 const unit_1 = require("entities/unit");
 const popout_root_1 = require("shared/ui/popout-root");
-const _icons_1 = require("widgets/counters/icons/_icons");
 const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
+const _icons_1 = require("shared/assets/icons/_icons");
 const UnitCard = ({ id, icon, name, unit }) => {
     const onUnit = (id) => {
         unit_1.unitModel.events.selectBuyUnit(Number(id));

@@ -14,7 +14,7 @@ import Link from "shared/ui/link/ui";
 
 import styles from './styles.module.scss'
 import { getRatingAPI } from "shared/api/get-rating";
-import { IconTrophy } from "widgets/counters/icons/_icons";
+import { IconTrophy } from "widgets/map-region/counters/icons/_icons";
 
 export const Panel: FC = () => {
 

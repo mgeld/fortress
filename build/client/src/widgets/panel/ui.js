@@ -14,7 +14,7 @@ const alert_1 = require("shared/ui/alert");
 const ui_1 = __importDefault(require("shared/ui/link/ui"));
 const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
 const get_rating_1 = require("shared/api/get-rating");
-const _icons_2 = require("widgets/counters/icons/_icons");
+const _icons_2 = require("widgets/map-region/counters/icons/_icons");
 const Panel = () => {
     var _a;
     const latlng = ((_a = citadel_1.citadelModel.selectors.useCitadel()) === null || _a === void 0 ? void 0 : _a.latlng) || null;

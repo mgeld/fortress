@@ -9,11 +9,11 @@ import styles from './styles.module.scss'
 
 import { battleAPI, mapAPI, sectorsAPI } from "shared/api/events";
 import { popoutModel } from "shared/ui/popout-root";
-import { IconBattleSwords } from "shared/assets/icons/_icons";
-import { IconCoin, IconTrophy } from "widgets/counters/icons/_icons";
+import { IconBattleSwords, IconCoin } from "shared/assets/icons/_icons";
 import { shipModel } from "entities/ship";
 import IconBattleShield from 'shared/assets/icons//battle-shield.png';
 import IconBattleShieldRed from 'shared/assets/icons//battle-shield-red.png';
+import { IconTrophy } from "widgets/map-region/counters/icons/_icons";
 
 export const BattleOver: FC = () => {
 

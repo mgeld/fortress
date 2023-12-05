@@ -21,6 +21,8 @@ export type TEventLevelUp = 'levelUp'
 export type TEventBuyUnit = 'buyUnit'
 
 export type TEventGetSectors = 'getSectors'
+export type TEventGetSatellite = 'getSatellite'
+
 export type TEventGetAboutSector = 'getAboutSector'
 export type TEventBattleGetAboutSector = 'battleGetAboutSector'
 
@@ -44,6 +46,7 @@ export type TEventsAPI =
     | TEventLevelUp
     | TEventBuyUnit
     | TEventGetSectors
+    | TEventGetSatellite
     | TEventGetAboutSector
     | TEventBattleGetAboutSector
     | TEventDirect
@@ -63,6 +66,7 @@ export type TSendEvent =
     | TLevelUpAPI
     | TBuyUnitAPI
     | TGetSectorsAPI
+    | TGetSatelliteAPI
     | TGetAboutSectorAPI
     | TBattleGetAboutSectorAPI
     | TDirectAPI
@@ -111,7 +115,15 @@ export type TGetSectorsAPI = {
     event: TEventGetSectors
     payload: {
         position: TLatLng
-        userId: number
+        // userId: number
+    }
+}
+
+export type TGetSatelliteAPI = {
+    event: TEventGetSatellite
+    payload: {
+        position: TLatLng
+        zoneId: number
     }
 }
 

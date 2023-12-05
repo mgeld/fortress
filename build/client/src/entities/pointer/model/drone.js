@@ -10,13 +10,15 @@ exports.$sizeDroneStore = (0, effector_1.createStore)({
     px: 0,
     degrees: 0
 });
-const getDroneSizefx = (0, effector_1.createEffect)(({ map, userPos }) => {
-    const toPosLatLng = (0, getDestination_1.getDestination)(userPos[0], userPos[1], 30, 90);
-    const fromPoint = map.latLngToLayerPoint(userPos);
+const getDroneSizefx = (0, effector_1.createEffect)(({ map, }) => {
+    const mapCenter = map.getCenter();
+    const pos = [mapCenter.lat, mapCenter.lng];
+    const toPosLatLng = (0, getDestination_1.getDestination)(pos[0], pos[1], 30, 90);
+    const fromPoint = map.latLngToLayerPoint(pos);
     const toPoint = map.latLngToLayerPoint(toPosLatLng);
     return {
         px: toPoint.x - fromPoint.x,
-        degrees: Math.abs(userPos[1] - toPosLatLng[1])
+        degrees: Math.abs(pos[1] - toPosLatLng[1])
     };
 });
 (0, effector_1.sample)({
@@ -30,7 +32,7 @@ const setSizeDrone = (0, effector_1.createEvent)();
         userPos: model_2.$userPositionStore,
         map: model_1.$mapStore
     },
-    filter: (source) => source.map !== null && source.userPos[0] !== 0,
+    filter: (source) => source.map !== null,
     target: getDroneSizefx
 });
 (0, effector_1.sample)({

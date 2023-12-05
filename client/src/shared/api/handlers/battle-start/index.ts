@@ -1,7 +1,6 @@
 import { Handler } from ".."
 import { battleAPI, pointersAPI, sectorsAPI } from "shared/api/events"
 import { TBattleStart } from '@ctypes/socket/server-to-client'
-// import { filterPointersStore } from "widgets/map-layout/model"
 
 class BattleStartHandler extends Handler {
     handle(message: TBattleStart) {

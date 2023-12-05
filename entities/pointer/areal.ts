@@ -21,5 +21,13 @@ export class Areal {
             [latlng[0] + 0.02, latlng[1] + 0.03],
         ]
     }
+
+    public static getBoundsCitadel(areal: TLatLng): [TLatLng, TLatLng] {
+        const latlng = Areal.getStartArealLatLng(areal)
+        return [
+            [latlng[0] - 0.02 - 0.02 - 0.02 - 0.02, latlng[1] - 0.03 - 0.03 - 0.03 - 0.03],
+            [latlng[0] + 0.02 + 0.02 + 0.02 + 0.02 + 0.02, latlng[1] + 0.03 + 0.03 + 0.03 + 0.03 + 0.03],
+        ]
+    }
     
 }

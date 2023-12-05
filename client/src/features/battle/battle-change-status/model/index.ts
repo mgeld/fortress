@@ -5,8 +5,6 @@ import { TBattleStatus } from "shared/api/events/battle";
 import { Map } from "leaflet";
 import { TLatLng } from "shared/types";
 import { popoutModel } from "shared/ui/popout-root";
-import { shipModel } from "entities/ship";
-import { pointerMapModel } from "entities/pointer";
 
 const changeBattleFx = createEffect(({
     source,
@@ -14,7 +12,7 @@ const changeBattleFx = createEffect(({
 }: {
     source: {
         map: Map
-        userPos: TLatLng
+        // userPos: TLatLng
     },
     battleStatus: TBattleStatus
 }) => {
@@ -40,7 +38,10 @@ const changeBattleFx = createEffect(({
 
     else if (battleStatus === 'over') {
         // arenaFlyTo(13)
-        popoutModel.events.setPopout('battle-over')
+        setTimeout(() => {
+            // source.map.setMinZoom(15)
+            popoutModel.events.setPopout('battle-over')
+        }, 1000)
     }
 })
 
@@ -54,11 +55,11 @@ export const changeBattleStatusListener = () => {
         clock: battleAPI.events.setBattleStatus,
         source: {
             map: mapModel.$mapStore,
-            userPos: shipModel.$userPositionStore,
+            // userPos: shipModel.$userPositionStore,
         },
         filter: (source: {
             map: Map | null
-            userPos: TLatLng | null
+            // userPos: TLatLng | null
         }): source is TMap => source.map !== null,
         fn: (source, clock) => ({
             source,

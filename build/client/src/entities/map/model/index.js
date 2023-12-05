@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.selectors = exports.events = exports.$mapMode = exports.$mapCenterDefaultStore = exports.$mapStore = void 0;
-const effector_1 = require("effector");
 const effector_react_1 = require("effector-react");
 const events_1 = require("shared/api/events");
+const effector_1 = require("effector");
 const setMap = (0, effector_1.createEvent)();
 const setLatLngMap = (0, effector_1.createEvent)();
 const setMapCenter = (0, effector_1.createEvent)();
@@ -17,7 +17,8 @@ exports.$mapMode = (0, effector_1.createStore)(null)
     .on(events_1.mapAPI.events.setMapMode, (_, mode) => mode);
 exports.events = {
     setMap,
-    setLatLngMap
+    setLatLngMap,
+    setMapCenter,
 };
 const useMapClickLatLng = () => {
     return {
@@ -34,6 +35,6 @@ const useMapCenter = () => (0, effector_react_1.useStore)(exports.$mapCenterDefa
 exports.selectors = {
     useMapMode,
     useMapCenter,
+    useMapLayout,
     useMapClickLatLng,
-    useMapLayout
 };

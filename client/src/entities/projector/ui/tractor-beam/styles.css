@@ -22,7 +22,9 @@
 
 }
 
+/* При изменении масштаба карты, скрываем луч, чтобы скрыть дефекты анимации */
 .zoom-anim-map .beam {
+    opacity: 0;
     /* transition: 0s !important; */
     /* color: #f9fd0777; */
 }

@@ -115,6 +115,9 @@ class TakeHandler extends IRoute {
             // Если на секторе больше нет защитников
             if (_sector.defenders === 0) {
 
+                const trophies = Math.ceil(zone.rank.tempExp / 10)
+                zone.setTrophies(trophies)
+
                 // Сохраняем временный опыт
                 const [wasExp, willExp] = zone.rank.saveExp()
                 if (willExp === 0) {
@@ -230,6 +233,7 @@ class TakeHandler extends IRoute {
                 }
 
                 takeSector.exp = zone.rank.exp
+                takeSector.trp = zone.trophies
 
                 // Отправляем себе
                 uSocket.send(JSON.stringify({

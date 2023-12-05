@@ -7,7 +7,6 @@ const notice_1 = require("shared/ui/notice");
 const snackbar_1 = require("shared/ui/snackbar");
 class AttractionHandler extends __1.Handler {
     handle(message) {
-        console.log('AttractionHandler');
         const BOOTY_ID = Date.now();
         const to_pos = message.payload.pos;
         const from_pos = message.payload.fort;

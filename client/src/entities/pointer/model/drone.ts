@@ -16,25 +16,31 @@ export const $sizeDroneStore = createStore<TSizeDrone>({
 })
 
 type TGetDroneSizefxProps = {
-    userPos: TLatLng
+    // userPos: TLatLng
     map: Map
 }
 
 const getDroneSizefx = createEffect(({
     map,
-    userPos
-}: TGetDroneSizefxProps): TSizeDrone => {
+    // userPos
+}: TGetDroneSizefxProps,
+    // eventSize: TLatLng | undefined
+): TSizeDrone => {
 
     // const toPosLatLng = getDestination(userPos[0], userPos[1], 96, 90)
     // const toPosLatLng = getDestination(userPos[0], userPos[1], 48, 90)
-    const toPosLatLng = getDestination(userPos[0], userPos[1], 30, 90)
 
-    const fromPoint = map.latLngToLayerPoint(userPos)
+    const mapCenter = map.getCenter()
+    const pos: TLatLng = [mapCenter.lat, mapCenter.lng]
+
+    const toPosLatLng = getDestination(pos[0], pos[1], 30, 90)
+
+    const fromPoint = map.latLngToLayerPoint(pos)
     const toPoint = map.latLngToLayerPoint(toPosLatLng)
 
     return {
         px: toPoint.x - fromPoint.x,
-        degrees: Math.abs(userPos[1] - toPosLatLng[1])
+        degrees: Math.abs(pos[1] - toPosLatLng[1])
     }
 })
 
@@ -58,8 +64,9 @@ sample({
     },
     filter: (source: {
         map: Map | null
-        userPos: TLatLng
-    }): source is TMap => source.map !== null && source.userPos[0] !== 0,
+        // userPos: TLatLng
+    }): source is TMap => source.map !== null,
+    // source.userPos[0] !== 0,
     target: getDroneSizefx
 })
 

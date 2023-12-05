@@ -24,7 +24,7 @@ IRoute = __decorate([
 ], IRoute);
 exports.IRoute = IRoute;
 let Handlers = class Handlers {
-    constructor(fire, take, battleTake, beam, direct, connect, battleJoin, battleLeave, battleFire, battleDirect, getSectors, getAboutSector, battleGetAboutSector, getUser, useExtraction, buyUnit, levelUp, getRating) {
+    constructor(fire, take, battleTake, beam, direct, connect, battleJoin, battleLeave, battleFire, battleDirect, getSectors, getAboutSector, battleGetAboutSector, getUser, useExtraction, buyUnit, levelUp, getRating, getSatellite) {
         this.fire = fire;
         this.take = take;
         this.battleTake = battleTake;
@@ -43,6 +43,7 @@ let Handlers = class Handlers {
         this.buyUnit = buyUnit;
         this.levelUp = levelUp;
         this.getRating = getRating;
+        this.getSatellite = getSatellite;
     }
     handle(uSocket) {
         return (message) => {
@@ -77,7 +78,9 @@ Handlers = __decorate([
     __param(15, (0, inversify_1.inject)(types_1.TYPES.BuyUnitHandler)),
     __param(16, (0, inversify_1.inject)(types_1.TYPES.LevelUpHandler)),
     __param(17, (0, inversify_1.inject)(types_1.TYPES.GetRatingHandler)),
+    __param(18, (0, inversify_1.inject)(types_1.TYPES.GetSatelliteHandler)),
     __metadata("design:paramtypes", [IRoute,
+        IRoute,
         IRoute,
         IRoute,
         IRoute,

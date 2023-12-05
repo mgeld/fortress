@@ -4,36 +4,42 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.LayoutRating = void 0;
-const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
+const back_button_1 = require("shared/ui/back-button");
+const get_satellite_1 = require("shared/api/get-satellite");
+const page_root_1 = require("shared/ui/page-root");
+const events_1 = require("shared/api/events");
 const _1 = require(".");
-const back_button_1 = require("widgets/back-button");
-const _icons_1 = require("widgets/counters/icons/_icons");
-const LayoutRating = ({ children }) => {
-    const zones = _1.ratingModel.selectors.useRating().zones;
+const _icons_1 = require("widgets/map-region/battle-counters/icons/_icons");
+const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
+const LayoutRating = () => {
+    const zones = _1.ratingModel.selectors.useRating();
+    const onZone = (zone) => {
+        events_1.ratingAPI.events.selectRatingZone(zone);
+        page_root_1.pageModel.events.setPage('map-satellite');
+        (0, get_satellite_1.getSatelliteAPI)(zone.latlng, zone.id);
+    };
     return (<>
             <div className={styles_module_scss_1.default.ratingLayout}>
                 <div className={styles_module_scss_1.default.__content}>
 
-                <div className={styles_module_scss_1.default.__header}>
-                    <div className={styles_module_scss_1.default.iosTop}/>
-                    <div className={styles_module_scss_1.default.__main}>
-                        <div className={styles_module_scss_1.default.name}>
-                            <div className={styles_module_scss_1.default.icon}>
-                                <_icons_1.IconTrophy width={24} height={24}/>
+                    <div className={styles_module_scss_1.default.__header}>
+                        <div className={styles_module_scss_1.default.iosTop}/>
+                        <div className={styles_module_scss_1.default.__main}>
+                            <div className={styles_module_scss_1.default.name}>
+                                <div className={styles_module_scss_1.default.icon}>
+                                    <_icons_1.IconTrophy width={24} height={24}/>
+                                </div>
+                                <div className={styles_module_scss_1.default.text}>Топ 20</div>
                             </div>
-                            <div className={styles_module_scss_1.default.text}>Топ 20</div>
                         </div>
                     </div>
-                </div>
 
                     <div className={styles_module_scss_1.default.__before}/>
 
-
-                    {zones ?
+                    {zones.zones ?
             <div className={styles_module_scss_1.default.ratingList}>
-                            {zones.map((item, i) => {
-                    return (<div className={styles_module_scss_1.default.zone}>
-
+                            {zones.zones.map((item, i) => {
+                    return (<div onClick={() => onZone(item)} className={styles_module_scss_1.default.zone}>
 
                                         <div className={styles_module_scss_1.default.image}>
                                             <div className={styles_module_scss_1.default.number}>{i + 1}</div>
@@ -76,9 +82,8 @@ const LayoutRating = ({ children }) => {
                 })}
                         </div> :
             <div className={styles_module_scss_1.default.noData}>
-                            <div>Трюм пустой</div>
+                            <div>Загрузка...</div>
                         </div>}
-
 
                     <back_button_1.BackMap />
 

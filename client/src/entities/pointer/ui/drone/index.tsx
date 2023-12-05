@@ -1,5 +1,4 @@
 import { FC } from "react"
-import { getPlatform } from "shared/lib/get-platform"
 import Drone from "./drone"
 
 import { TLatLng } from "@ctypes/model"
@@ -19,7 +18,7 @@ export const Ship: FC<TDroneProps> = ({ size, health, pos }) => {
         return <DroneIOS
             health={health}
             pos={pos}
-            size={size}
+            // size={size}
         />
     return <Drone
         health={health}

@@ -48,7 +48,6 @@ export const BottomSelectPlace: FC = () => {
         }
 
         // map?.flyTo(pos, 16)
-
         // map?.setView(pos, 16)
 
         // Убрал таймер, т.к. убрал FlyTo

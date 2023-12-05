@@ -11,7 +11,7 @@ export const RatingPage: FC = () => {
 
     return (
         <div className={styles.rating}>
-            <LayoutRating><></></LayoutRating>
+            <LayoutRating />
         </div>
     )
 }

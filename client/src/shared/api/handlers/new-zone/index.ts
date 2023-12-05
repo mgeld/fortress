@@ -6,7 +6,6 @@ import { zoneAPI } from "shared/api/events";
 class NewZoneHandler extends Handler {
     handle(message: TNewZone) {
 
-        console.log('NewZoneHandler message', message)
         zoneAPI.events.setZoneLevel(message.payload.level)
 
         // popoutModel.events.setPopout(null)

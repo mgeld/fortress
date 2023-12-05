@@ -23,6 +23,9 @@ class YTakeSectorHandler extends __1.Handler {
         if (message.payload.exp) {
             events_1.userAPI.events.setRankExp(message.payload.exp);
         }
+        if (message.payload.trp) {
+            events_1.zoneAPI.events.setZoneTrophies(message.payload.trp);
+        }
         snackbar_1.snackbarModel.events.newToast({
             text: 'Сектор захвачен!',
             t: 1

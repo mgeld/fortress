@@ -4,7 +4,7 @@ import { IRoute } from "./handlers"
 import { inject, injectable } from "inversify";
 import { TYPES } from "../types";
 import { SectorService } from "../services/sector.service";
-import { PointerService } from "../services/pointer.service";
+import { Areal } from "../entities/pointer/areal";
 
 @injectable()
 class GetSectorsHandler extends IRoute {
@@ -17,7 +17,14 @@ class GetSectorsHandler extends IRoute {
         message: TGetSectorsAPI,
         uSocket: IWebSocket,
     ) {
-        const _sectors = await this._sectorService.getZonesAroundPosition(message.payload.position)
+        
+        const __position = message.payload?.position
+
+        if (!__position) return
+        
+        const areal = Areal.generator(__position)
+
+        const _sectors = await this._sectorService.getZonesAroundAreal(areal)
 
         const array_sectors = Object.values(_sectors)
 

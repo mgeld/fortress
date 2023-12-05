@@ -54,13 +54,23 @@ export class SectorService {
         const _sectors = await this.getBoundsSectors(position)
         return this.unmarshalSectors(_sectors)
     }
-
     async getZonesAroundAreal(areal: number): Promise<Record<number, TZoneItem>> {
         console.log('getZonesAroundAreal areal', areal)
         const _sectors = await this.getArealSectors(areal)
         return this.unmarshalSectors(_sectors)
 
     }
+
+    async getBoundsCitadel(position: TLatLng): Promise<UnmarshalledSector[]> {
+        const bounds = Areal.getBoundsCitadel(position)
+        const sectors = await this._baseRepository.getBoundsSectors(bounds)
+        return sectors
+    }
+
+    // async getZonesAroundCitadel(position: TLatLng): Promise<Record<number, TZoneItem>> {
+    //     const _sectors = await this.getBoundsCitadel(position)
+    //     return this.unmarshalSectors(_sectors)
+    // }
 
     unmarshalSectors(_sectors: TSectorProps[]) {
         const sectors: Record<number, TZoneItem> = _sectors.reduce((zoneItems, item) => {

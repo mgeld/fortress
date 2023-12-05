@@ -9,7 +9,7 @@ import { IconHold } from "entities/ship/ui/assets/icons";
 import styles from './styles.module.scss'
 import { HoldLevel, THoldLevel } from "entities/hold/lib/hold-level";
 // import { pageModel } from "shared/ui/page-root";
-import { BackMap } from "widgets/back-button";
+import { BackMap } from "shared/ui/back-button";
 
 export const Extraction: FC = () => {
 

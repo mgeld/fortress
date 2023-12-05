@@ -79,13 +79,13 @@ const invaderControlFx = createEffect(({
     ) {
         takeAPI(
             clock.toPos,
-            clock.sectorId,
+            clock.sectorId
         )
     } else {
 
         battleTakeAPI(
             clock.toPos,
-            clock.sectorId,
+            clock.sectorId
         )
     }
 
@@ -100,8 +100,8 @@ sample({
     source: {
         battleStatus: arenaModel.$battleStatusStore
     },
-    // filter: (_, clock: TResult | null): clock is TResult => clock !== null,
     fn: (source, clock) => ({ source, clock }),
+    // filter: (_, clock: TResult | null): clock is TResult => clock !== null,
     // fn: (clock) => (clock),
     target: invaderControlFx
 })

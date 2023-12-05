@@ -1,9 +1,9 @@
-import { createEvent, createStore } from "effector";
-import { useStore } from "effector-react";
-import { Map } from "leaflet";
-import { mapAPI } from "shared/api/events";
-import { TMapModes } from "shared/api/events/map";
-import { TLatLng } from "shared/types";
+import { Map } from "leaflet"
+import { TLatLng } from "shared/types"
+import { useStore } from "effector-react"
+import { mapAPI } from "shared/api/events"
+import { TMapModes } from "shared/api/events/map"
+import { createEvent, createStore } from "effector"
 
 const setMap = createEvent<Map>()
 const setLatLngMap = createEvent<TLatLng>()
@@ -21,11 +21,10 @@ const $mapClickLatLng = createStore<TLatLng | null>(null)
 export const $mapMode = createStore<TMapModes | null>(null)
     .on(mapAPI.events.setMapMode, (_, mode) => mode)
 
-// $mapClickLatLng.watch(value => console.log('mapClickLatLng value', value))
-
 export const events = {
     setMap,
-    setLatLngMap
+    setLatLngMap,
+    setMapCenter,
 }
 
 // const getUsersFx = createEffect(): Promise<TPointer[]> => {
@@ -53,6 +52,6 @@ const useMapCenter = () => useStore($mapCenterDefaultStore)
 export const selectors = {
     useMapMode,
     useMapCenter,
+    useMapLayout,
     useMapClickLatLng,
-    useMapLayout
 }

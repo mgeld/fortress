@@ -42,6 +42,9 @@ class Zone {
     get coins() {
         return this._coins;
     }
+    get trophies() {
+        return this._trophies;
+    }
     get rubies() {
         return this._rubies;
     }

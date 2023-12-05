@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "./static/css/main.51e4977e.css",
-    "main.js": "./static/js/main.1fde431e.js",
+    "main.css": "./static/css/main.e6eed637.css",
+    "main.js": "./static/js/main.dd78cbf2.js",
     "static/js/59.5601a8a5.chunk.js": "./static/js/59.5601a8a5.chunk.js",
     "static/media/Lilita.ttf": "./static/media/Lilita.eb90369243a760389944.ttf",
     "static/media/swords.svg": "./static/media/swords.293f3e1147b39a1495115ed3f1f9195d.svg",
@@ -50,6 +50,7 @@
     "static/media/zone.svg": "./static/media/zone.a5d6dfd02a6e67cade5d96b4ff8a3c2b.svg",
     "static/media/gold-stone.svg": "./static/media/gold-stone.27e4d069916a771a8ee6f79fe7596065.svg",
     "static/media/lavender-stone.svg": "./static/media/lavender-stone.c2c65e9fc43f312137af9951a470f57f.svg",
+    "static/media/arrow-back.svg": "./static/media/arrow-back.19f9936ec2449cc3258098c323a01a10.svg",
     "static/media/close.svg": "./static/media/close.2b03bd9ed107da5dc4424f22f82584b5.svg",
     "static/media/coin.svg": "./static/media/coin.f329883d6fc2ad9f44bff51bf6037ee1.svg",
     "static/media/gold-bar.svg": "./static/media/gold-bar.543c5672ca21d342afe0299f5b2a737e.svg",
@@ -63,11 +64,11 @@
     "static/media/cont_1.svg": "./static/media/cont_1.cef693995c524f30b994b08d0ffd6120.svg",
     "static/media/cont_2.svg": "./static/media/cont_2.f2772c6b0482a4bcdb28b5c0b4bea34b.svg",
     "static/media/cont_3.svg": "./static/media/cont_3.999ae689d628275380532601f4ff0962.svg",
-    "main.51e4977e.css.map": "./static/css/main.51e4977e.css.map",
-    "main.1fde431e.js.map": "./static/js/main.1fde431e.js.map"
+    "main.e6eed637.css.map": "./static/css/main.e6eed637.css.map",
+    "main.dd78cbf2.js.map": "./static/js/main.dd78cbf2.js.map"
   },
   "entrypoints": [
-    "static/css/main.51e4977e.css",
-    "static/js/main.1fde431e.js"
+    "static/css/main.e6eed637.css",
+    "static/js/main.dd78cbf2.js"
   ]
 }

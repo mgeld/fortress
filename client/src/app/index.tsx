@@ -31,7 +31,6 @@ import { StormAddInvaders } from 'features/storm-corps/storm-add-invaders/ui'
 import { StormImprovePower } from 'features/storm-corps/storm-improve-power/ui'
 import { ShipImproveHealth } from 'features/ship/ship-improve-health/ui'
 import { HoldPopout } from 'entities/hold/ui/hold'
-import { mapStartPosition } from 'widgets/map-layout/model'
 import { Page, PageRoot, pageModel } from 'shared/ui/page-root'
 import { ShipLevelUp } from 'features/ship/ship-level-up/ui'
 import { GunLevelUp } from 'features/weapon/gun-level-up/ui'
@@ -46,6 +45,8 @@ import { Tutorial } from 'shared/ui/tutorial/ui'
 import { LockScreen } from 'shared/ui/lock-screen'
 import { LoadApp } from 'shared/ui/load-app/ui'
 import { RatingPage } from 'pages/rating'
+import { MapSatellitPage } from 'pages/map-satellite'
+import { mapStartPosition } from 'widgets/map-region/container/model'
 
 mapStartPosition()
 
@@ -332,6 +333,10 @@ const App = () => {
             <MapPage />
           </Page>
 
+          <Page key="map-satellite" id='map-satellite'>
+            <MapSatellitPage />
+          </Page>
+
           <Page key="extraction" id='extraction'>
             <ExtractionPage />
           </Page>
@@ -343,8 +348,6 @@ const App = () => {
           <Page key="rating" id='rating'>
             <RatingPage />
           </Page>
-
-
 
         </PageRoot>
 

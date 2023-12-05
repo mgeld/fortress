@@ -59,6 +59,7 @@ const battle_service_1 = require("./services/battle.service");
 const snapshot_arenas_1 = require("./controllers/snapshot-arenas");
 const battle_get_about_sector_1 = require("./controllers/battle-get-about-sector");
 const get_rating_1 = require("./controllers/get-rating");
+const get_satellite_1 = require("./controllers/get-satellite");
 const container = new inversify_1.Container();
 exports.container = container;
 container.bind(types_1.TYPES.Server).to(server_1.Server).inSingletonScope();
@@ -83,6 +84,7 @@ container.bind(types_1.TYPES.UseExtractionHandler).to(use_extraction_1.UseExtrac
 container.bind(types_1.TYPES.BuyUnitHandler).to(buy_unit_1.BuyUnitHandler);
 container.bind(types_1.TYPES.LevelUpHandler).to(level_up_1.LevelUpHandler);
 container.bind(types_1.TYPES.GetRatingHandler).to(get_rating_1.GetRatingHandler);
+container.bind(types_1.TYPES.GetSatelliteHandler).to(get_satellite_1.GetSatelliteHandler);
 container.bind(types_1.TYPES.ArenaService).to(arena_service_1.ArenaService);
 container.bind(types_1.TYPES.PointerService).to(pointer_service_1.PointerService);
 container.bind(types_1.TYPES.ZoneService).to(zone_service_1.ZoneService);

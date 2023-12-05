@@ -6,7 +6,6 @@ const notice_1 = require("shared/ui/notice");
 const events_1 = require("shared/api/events");
 class NewZoneHandler extends __1.Handler {
     handle(message) {
-        console.log('NewZoneHandler message', message);
         events_1.zoneAPI.events.setZoneLevel(message.payload.level);
         notice_1.noticeModel.events.newToast({
             name: 'Новый Уровень Зоны!',

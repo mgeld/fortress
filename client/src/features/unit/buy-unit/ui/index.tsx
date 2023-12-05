@@ -9,7 +9,7 @@ import { popoutModel } from "shared/ui/popout-root";
 import { modules } from "entities/unit/lib/modules";
 import { onBuyUnit } from "../model";
 import { unitsPrices } from "entities/unit/lib/unit-buy-list";
-import { IconCoin, IconSapphire } from "widgets/counters/icons/_icons";
+import { IconCoin, IconSapphire } from "shared/assets/icons/_icons";
 
 export const BuyUnit: FC = () => {
 

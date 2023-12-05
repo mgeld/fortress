@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.setMaxBoundsListener = void 0;
-const effector_1 = require("effector");
 const map_1 = require("entities/map");
 const ship_1 = require("entities/ship");
+const effector_1 = require("effector");
 const setMaxBoundsFx = (0, effector_1.createEffect)(({ map, areal, mode }) => {
     if (!map)
         return;

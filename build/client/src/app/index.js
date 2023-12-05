@@ -31,7 +31,6 @@ const ui_12 = require("features/storm-corps/storm-add-invaders/ui");
 const ui_13 = require("features/storm-corps/storm-improve-power/ui");
 const ui_14 = require("features/ship/ship-improve-health/ui");
 const hold_1 = require("entities/hold/ui/hold");
-const model_1 = require("widgets/map-layout/model");
 const page_root_1 = require("shared/ui/page-root");
 const ui_15 = require("features/ship/ship-level-up/ui");
 const ui_16 = require("features/weapon/gun-level-up/ui");
@@ -46,6 +45,8 @@ const ui_19 = require("shared/ui/tutorial/ui");
 const lock_screen_1 = require("shared/ui/lock-screen");
 const ui_20 = require("shared/ui/load-app/ui");
 const rating_1 = require("pages/rating");
+const map_satellite_1 = require("pages/map-satellite");
+const model_1 = require("widgets/map-region/container/model");
 (0, model_1.mapStartPosition)();
 window.addEventListener('popstate', () => (0, go_back_1.goBack)());
 let platform = (0, get_platform_1.getPlatform)();
@@ -180,6 +181,10 @@ const App = () => {
             <map_1.MapPage />
           </page_root_1.Page>
 
+          <page_root_1.Page key="map-satellite" id='map-satellite'>
+            <map_satellite_1.MapSatellitPage />
+          </page_root_1.Page>
+
           <page_root_1.Page key="extraction" id='extraction'>
             <extraction_1.ExtractionPage />
           </page_root_1.Page>
@@ -191,8 +196,6 @@ const App = () => {
           <page_root_1.Page key="rating" id='rating'>
             <rating_1.RatingPage />
           </page_root_1.Page>
-
-
 
         </page_root_1.PageRoot>) : null}
 

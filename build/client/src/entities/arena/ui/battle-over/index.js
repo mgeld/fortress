@@ -12,10 +12,10 @@ const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
 const events_1 = require("shared/api/events");
 const popout_root_1 = require("shared/ui/popout-root");
 const _icons_1 = require("shared/assets/icons/_icons");
-const _icons_2 = require("widgets/counters/icons/_icons");
 const ship_1 = require("entities/ship");
 const battle_shield_png_1 = __importDefault(require("shared/assets/icons//battle-shield.png"));
 const battle_shield_red_png_1 = __importDefault(require("shared/assets/icons//battle-shield-red.png"));
+const _icons_2 = require("widgets/map-region/counters/icons/_icons");
 const BattleOver = () => {
     const user = user_1.userModel.selectors.useUser();
     const teams = arena_1.arenaModel.selectors.useTeams().data;
@@ -64,7 +64,7 @@ const BattleOver = () => {
                                         </div>
                                         <div className={styles_module_scss_1.default.__right}>
                                             <div className={styles_module_scss_1.default.__icon}>
-                                                <_icons_2.IconCoin width={34} height={34}/>
+                                                <_icons_1.IconCoin width={34} height={34}/>
                                             </div>
                                             <div className={styles_module_scss_1.default.__text}>
                                                 {myExtr.coins > 0 ? `+${myExtr.coins}` : myExtr.coins}

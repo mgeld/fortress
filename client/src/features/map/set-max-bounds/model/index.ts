@@ -1,9 +1,9 @@
-import { createEffect, sample } from "effector";
+import { Map } from "leaflet";
+import { TLatLng } from "shared/types";
 import { mapModel } from "entities/map";
 import { shipModel } from "entities/ship";
-import { Map } from "leaflet";
+import { createEffect, sample } from "effector";
 import { TMapModes } from "shared/api/events/map";
-import { TLatLng } from "shared/types";
 
 const setMaxBoundsFx = createEffect(({
     map,
@@ -14,6 +14,7 @@ const setMaxBoundsFx = createEffect(({
     areal: TAreal,
     mode: TMapModes | null
 }) => {
+
     if (!map) return
 
     if (mode === 'battle') {
@@ -27,6 +28,7 @@ const setMaxBoundsFx = createEffect(({
             [areal[1][0] + 0.01, areal[1][1] + 0.01],
         ])
     }
+
 })
 
 type TAreal = [TLatLng, TLatLng]

@@ -107,7 +107,7 @@ export type TTutType =
     | 'hold'
 
 
-export interface IRatingZones {
+export interface IRatingZone {
     id: number
     color: number
     trophies: number

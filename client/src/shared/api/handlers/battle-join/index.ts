@@ -4,7 +4,6 @@ import { TBattleJoin } from '@ctypes/socket/server-to-client'
 
 class BattleJoinHandler extends Handler {
     handle(message: TBattleJoin) {
-        console.log('BattleJoinHandler handle')
         mapAPI.events.setMapMode('battle')
         // shipAPI.events.setHealth(message.payload.user.health)
         battleAPI.events.setBattleStatus('pending')

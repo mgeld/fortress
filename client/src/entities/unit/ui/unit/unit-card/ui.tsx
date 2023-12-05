@@ -3,9 +3,9 @@ import { FC, ReactNode } from "react";
 import { TExtrTypes } from "@ctypes/model";
 import { unitModel } from "entities/unit";
 import { popoutModel } from "shared/ui/popout-root";
-import { IconCoin, IconSapphire } from "widgets/counters/icons/_icons";
 
 import styles from './styles.module.scss'
+import { IconCoin, IconSapphire } from "shared/assets/icons/_icons";
 
 type TUnitCardProps = {
     id: TExtrTypes,

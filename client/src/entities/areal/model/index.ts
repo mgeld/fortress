@@ -24,4 +24,12 @@ export class Areal {
         ]
     }
 
+    public static getBoundsSatellite(areal: TLatLng): [TLatLng, TLatLng] {
+        const latlng = Areal.getArealPlace(areal)
+        return [
+            [latlng[0] - 0.02 - 0.02 - 0.02 - 0.02, latlng[1] - 0.03 - 0.03 - 0.03 - 0.03],
+            [latlng[0] + 0.02 + 0.02 + 0.02 + 0.02 + 0.02, latlng[1] + 0.03 + 0.03 + 0.03 + 0.03 + 0.03],
+        ]
+    }
+
 }

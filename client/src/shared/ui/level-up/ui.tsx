@@ -1,11 +1,10 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 
-import { TExtrTypes, TGameUnit } from "@ctypes/model";
+// import { TExtrTypes, TGameUnit } from "@ctypes/model";
 
 import { popoutModel } from "shared/ui/popout-root";
 
-import { IconArrow } from "shared/assets/icons/_icons";
-import { IconCoin, IconSapphire } from "widgets/counters/icons/_icons";
+import { IconArrow, IconCoin, IconSapphire } from "shared/assets/icons/_icons";
 
 import styles from './styles.module.scss'
 

@@ -9,7 +9,7 @@ const modules_1 = require("entities/unit/lib/modules");
 const icons_1 = require("entities/ship/ui/assets/icons");
 const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
 const hold_level_1 = require("entities/hold/lib/hold-level");
-const back_button_1 = require("widgets/back-button");
+const back_button_1 = require("shared/ui/back-button");
 const Extraction = () => {
     const list = hold_1.holdModel.selectors.useHoldItems();
     const level = hold_1.holdModel.selectors.useHoldLevel();

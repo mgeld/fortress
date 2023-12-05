@@ -73,6 +73,13 @@ let SectorService = class SectorService {
             return this.unmarshalSectors(_sectors);
         });
     }
+    getBoundsCitadel(position) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const bounds = areal_1.Areal.getBoundsCitadel(position);
+            const sectors = yield this._baseRepository.getBoundsSectors(bounds);
+            return sectors;
+        });
+    }
     unmarshalSectors(_sectors) {
         const sectors = _sectors.reduce((zoneItems, item) => {
             if (!zoneItems[item.zone_id]) {

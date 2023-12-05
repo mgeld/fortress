@@ -1,5 +1,5 @@
 import { inject, injectable } from "inversify";
-import { IRatingZones, TExtrTypes } from "../common-types/model";
+import { IRatingZone, TExtrTypes } from "../common-types/model";
 import { IZoneMemoryRepository, IZoneRepository } from "../entities/repository";
 import { TYPES } from "../types";
 import { randomNumber } from "../libs/random-number";
@@ -50,13 +50,12 @@ export class ZoneService {
         return zone
     }
 
-    async getTrophies(): Promise<IRatingZones[]> {
+    async getTrophies(): Promise<IRatingZone[]> {
         const zones = await this._baseRepository.getTrophies()
         return zones
     }
 
     create(
-        // userId: number,
         color: number,
     ): Zone {
 

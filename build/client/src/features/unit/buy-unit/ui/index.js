@@ -10,7 +10,7 @@ const popout_root_1 = require("shared/ui/popout-root");
 const modules_1 = require("entities/unit/lib/modules");
 const model_1 = require("../model");
 const unit_buy_list_1 = require("entities/unit/lib/unit-buy-list");
-const _icons_1 = require("widgets/counters/icons/_icons");
+const _icons_1 = require("shared/assets/icons/_icons");
 const BuyUnit = () => {
     const _unit = unit_1.unitModel.selectors.useBuyUnit();
     if (!_unit)

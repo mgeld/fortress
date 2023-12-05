@@ -1,11 +1,9 @@
-import { createStore, createEvent, createEffect } from 'effector'
+import { createStore, createEvent } from 'effector'
 import { useStore } from 'effector-react'
 import { pointersAPI } from "shared/api/events"
 import { TDelPointer, THealthPointer, TUpdatePos } from "shared/api/events/pointers"
 
 import { TPointer } from '@ctypes/model'
-
-import bridge from "@vkontakte/vk-bridge";
 
 // export type TPointer = {
 //     userId: number
@@ -34,12 +32,12 @@ const {
     setHealthPointer
 } = pointersAPI.events
 
-type TUserApi = {
-    id: number
-    photo_50: string
-    photo_100: string
-    first_name: string
-}
+// type TUserApi = {
+//     id: number
+//     photo_50: string
+//     photo_100: string
+//     first_name: string
+// }
 
 // const getUsersFx = createEffect(async ({
 //     pointers,

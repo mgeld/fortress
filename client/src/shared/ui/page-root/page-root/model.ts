@@ -9,6 +9,7 @@ const usePage = () => {
 
 export type TPage =
     | 'map'
+    | 'map-satellite'
     | 'extraction'
     | 'gun-shop'
     | 'rating'

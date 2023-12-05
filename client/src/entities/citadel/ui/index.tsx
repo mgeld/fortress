@@ -1,19 +1,32 @@
-import { FC } from "react";
-import { Circle, FeatureGroup } from "react-leaflet";
-import { citadelModel } from "entities/citadel";
+import { FC, useState } from "react";
+import { Circle, FeatureGroup, useMap, useMapEvent } from "react-leaflet";
 import { droneMapModel } from "entities/pointer";
 
-import { popoutModel } from "shared/ui/popout-root";
-import { alertModel } from "shared/ui/alert";
+// import { popoutModel } from "shared/ui/popout-root";
+// import { alertModel } from "shared/ui/alert";
+// import { citadelModel } from "entities/citadel";
+// import { metersToPx } from "shared/lib/metersToPx";
+
+import { TLatLng } from "shared/types";
 
 import './styles.css'
 
-export const Citadel: FC = () => {
-    const pos = citadelModel.selectors.useCitadel()?.latlng || [0, 0]
+type TCitadelProps = {
+    pos: TLatLng
+    _click: () => void
+}
+
+export const Citadel: FC<TCitadelProps> = ({ pos, _click }) => {
+
+    // const map = useMap()
 
     const size = droneMapModel.selectors.useDroneSize().px * 1.6
+    // const [size, setZise] = useState(metersToPx(pos[0], 60, map.getZoom()))
+    // useMapEvent('zoomend', (e) => {
+    //     setZise(metersToPx(pos[0], 60, map.getZoom()))
+    // })
 
-    const p = size * 3.14 / 4
+    const p = size * 3.14 / 6
     const a = p * 0.3
     const b = p * 0.7
 
@@ -22,18 +35,7 @@ export const Citadel: FC = () => {
 
     return (
         <FeatureGroup eventHandlers={{
-            click: () => {
-                popoutModel.events.setPopout('alert')
-                alertModel.events.setAlert({
-                    alert: 'Цитадель',
-                    message: 'Цитадель - это центр вашей зоны и первый захваченный форт. Куда бы вы не полетели, вы всегда сможете телепортироваться обратно к Цитадели.',
-                    action: {
-                        close: false,
-                        text: 'Принято',
-                        _click: () => popoutModel.events.setPopout(null)
-                    }
-                })
-            }
+            click: _click
         }}>
             <Circle
                 key={1}
@@ -60,8 +62,6 @@ export const Citadel: FC = () => {
                     weight: weightDroneCircle,
 
                     opacity: 1,
-                    // lineCap: 'round',
-                    // lineJoin: "miter",
                     color: '#ffffff'
                 }}
                 radius={30}

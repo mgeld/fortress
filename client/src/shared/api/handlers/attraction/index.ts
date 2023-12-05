@@ -10,8 +10,6 @@ class AttractionHandler extends Handler {
 
     handle(message: TTractorExtr) {
 
-        console.log('AttractionHandler')
-
         const BOOTY_ID: number = Date.now()
 
         const to_pos = message.payload.pos

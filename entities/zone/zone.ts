@@ -117,6 +117,10 @@ export class Zone {
         return this._coins
     }
 
+    get trophies() {
+        return this._trophies
+    }
+
     get rubies() {
         return this._rubies
     }

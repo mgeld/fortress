@@ -117,7 +117,6 @@ let SectorRepository = class SectorRepository {
                     bounds[1][1]
                 ]);
                 const sects = result.map(sector => (Object.assign(Object.assign({}, sector), { latlng: JSON.parse(sector.latlng) })));
-                console.log('result sects', sects);
                 return sects;
             }
             catch (e) {
@@ -128,7 +127,7 @@ let SectorRepository = class SectorRepository {
     }
     getByAreal(areal) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log('///>>>>>> Base getBoundsSectors');
+            console.log('///>>>>>> Base getByAreal');
             try {
                 const [result] = yield this._connection.query(`SELECT
                     id,

@@ -1,21 +1,26 @@
-import { IRatingZones } from "@ctypes/model"
+import { IRatingZone } from "@ctypes/model"
 import { createStore } from "effector"
 import { useStore } from "effector-react"
 import { ratingAPI } from "shared/api/events"
 
 const {
-    setZones
+    setZones,
+    selectRatingZone
 } = ratingAPI.events
 
-const $ratingZonesStore = createStore<IRatingZones[] | null>(null)
+const $selectRatingZoneStore = createStore<IRatingZone | null>(null)
+    .on(selectRatingZone, (_, zone) => zone)
+
+const $ratingZonesStore = createStore<IRatingZone[] | null>(null)
     .on(setZones, (_, zones) => zones)
 
 const useRating = () => {
     return {
-        zones: useStore($ratingZonesStore)
+        zones: useStore($ratingZonesStore),
+        selectZone: useStore($selectRatingZoneStore)
     }
 }
 
 export const selectors = {
-    useRating
+    useRating,
 }

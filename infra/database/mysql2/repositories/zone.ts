@@ -4,7 +4,7 @@ import { TYPES } from '../../../../types'
 import { IZoneRepository } from '../../../../entities/repository'
 import { Zone } from '../../../../entities/zone/zone'
 import { ZoneMapper } from '../../mappers/zone'
-import { IRatingZones } from '../../../../common-types/model'
+import { IRatingZone } from '../../../../common-types/model'
 
 interface IZoneRowData {
     id?: number
@@ -172,10 +172,10 @@ export class ZoneRepository implements IZoneRepository {
         return zone
     }
 
-    async getTrophies(): Promise<IRatingZones[]> {
+    async getTrophies(): Promise<IRatingZone[]> {
 
         console.log('***ZoneRepository getTrophies')
-        const [result] = await this._connection.query<Required<IRatingZones>[] & RowDataPacket[]>(
+        const [result] = await this._connection.query<Required<IRatingZone>[] & RowDataPacket[]>(
             `
                 SELECT
                     zones.id,

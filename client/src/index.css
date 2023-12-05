@@ -45,3 +45,7 @@ img {
   pointer-events: none;
   /* -webkit-touch-callout: none; */
 }
+
+.c {
+  color: #888888;
+}

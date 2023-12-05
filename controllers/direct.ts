@@ -129,6 +129,8 @@ class DirectHandler extends IRoute {
             /** **/
 
             const _sectors = await this._sectorService.getZonesAroundAreal(areal)
+            // const _sectors = await this._sectorService.getZonesAroundPosition(_pointer.pos)
+            
 
             const array_sectors = Object.values(_sectors)
 

@@ -4,11 +4,7 @@ import { TSetRating } from '@ctypes/socket/server-to-client'
 
 class SetRatingHandler extends Handler {
     handle(message: TSetRating) {
-        console.log('SetRatingHandler handle')
-
         const { zones } = message.payload
-
-        console.log('SetRatingHandler zones', zones)
 
         ratingAPI.events.setZones(zones)
 

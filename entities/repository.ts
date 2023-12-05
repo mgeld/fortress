@@ -1,4 +1,4 @@
-import { IRatingZones, TLatLng, TZone } from "../common-types/model"
+import { IRatingZone, TLatLng, TZone } from "../common-types/model"
 import { Areal } from "./areal/areal"
 import { Arena, TRegistr } from "./arena/arena"
 import { Team } from "./arena/arena-team"
@@ -36,11 +36,9 @@ export interface IPointerRepository {
 
 export interface IZoneRepository {
     getById(userId: number): Promise<Zone>
-    // getZoneByIds(_ids: number[]): Promise<TZone[]>
     insert(zone: Zone): Promise<Zone>
     update(zone: Zone): Promise<Zone>
-    // delete(userId: number): Promise<Boolean>
-    getTrophies(): Promise<IRatingZones[]>
+    getTrophies(): Promise<IRatingZone[]>
 }
 
 

@@ -48,6 +48,7 @@ const TYPES = {
     BuyUnitHandler: Symbol.for('BuyUnitHandler'),
     LevelUpHandler: Symbol.for('LevelUpHandler'),
     GetRatingHandler: Symbol.for('GetRatingHandler'),
+    GetSatelliteHandler: Symbol.for('GetSatelliteHandler'),
     PointerRepository: Symbol.for('PointerRepository'),
     ZoneRepository: Symbol.for('ZoneRepository'),
     WeaponRepository: Symbol.for('WeaponRepository'),

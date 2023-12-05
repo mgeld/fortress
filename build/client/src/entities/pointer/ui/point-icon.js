@@ -2,9 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PointIcon = void 0;
 const react_1 = require("react");
-const point_icon_1 = require("widgets/map-layout/lib/point-icon");
 const react_leaflet_1 = require("react-leaflet");
 const create_pointer_1 = require("../lib/create-pointer");
+const point_icon_1 = require("../lib/point-icon");
 const PointIcon = ({ userIcon, position }) => {
     const [icon, setIcon] = (0, react_1.useState)(null);
     if (!icon && userIcon) {

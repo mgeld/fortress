@@ -131,7 +131,7 @@ export class SectorRepository implements ISectorRepository {
             )
 
             const sects = result.map(sector => ({ ...sector, latlng: JSON.parse((sector.latlng as unknown) as string) }))
-            console.log('result sects', sects)
+            // console.log('result sects', sects)
 
             return sects
 
@@ -151,7 +151,7 @@ export class SectorRepository implements ISectorRepository {
 
     async getByAreal(areal: number): Promise<UnmarshalledSector[]> {
 
-        console.log('///>>>>>> Base getBoundsSectors')
+        console.log('///>>>>>> Base getByAreal')
 
         try {
             const [result] = await this._connection.query<UnmarshalledSector[] & RowDataPacket[]>(

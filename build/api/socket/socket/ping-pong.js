@@ -41,7 +41,6 @@ let PingPong = class PingPong {
             try {
                 const member = yield this._memberService.getById(userId);
                 const arena = yield this._arenaService.getById(member.arena);
-                console.log('arena status', arena.status);
                 if (arena.status === 'pending') {
                     arena.delPointer(member.userId, member.arenaTeam);
                 }
@@ -60,7 +59,6 @@ let PingPong = class PingPong {
             }
             catch (e) {
             }
-            console.log('//////////////// /////////////_zone _zone.hold', _zone.hold.unmarshal());
             if (_pointer.areal !== -1) {
                 this._rooms.areals.deleteClient(_pointer.zoneId, _pointer.areal);
                 this._rooms.areals.broadcast(_pointer.areal, {

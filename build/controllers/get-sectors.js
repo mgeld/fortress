@@ -23,10 +23,16 @@ const handlers_1 = require("./handlers");
 const inversify_1 = require("inversify");
 const types_1 = require("../types");
 const sector_service_1 = require("../services/sector.service");
+const areal_1 = require("../entities/pointer/areal");
 let GetSectorsHandler = class GetSectorsHandler extends handlers_1.IRoute {
     handle(message, uSocket) {
+        var _a;
         return __awaiter(this, void 0, void 0, function* () {
-            const _sectors = yield this._sectorService.getZonesAroundPosition(message.payload.position);
+            const __position = (_a = message.payload) === null || _a === void 0 ? void 0 : _a.position;
+            if (!__position)
+                return;
+            const areal = areal_1.Areal.generator(__position);
+            const _sectors = yield this._sectorService.getZonesAroundAreal(areal);
             const array_sectors = Object.values(_sectors);
             uSocket.send(JSON.stringify({
                 event: 'sectors',

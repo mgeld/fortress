@@ -1,17 +1,17 @@
 import { FC } from "react";
-import { MapBottom } from "widgets/map-bottom";
-import { MapButtons } from "widgets/map-buttons";
 
 import styles from './styles.module.scss'
-import { BattleCounters } from "widgets/battle-counters";
 import { BattleType } from "entities/arena/ui/battle-type";
 
 import { MapRang } from "entities/user/ui/map-rang";
-import { Counters } from "widgets/counters/counters";
 
-import MapLayout from "widgets/map-layout/ui/map-layout";
 import { Timer } from "entities/arena/ui/timer";
 import { mapModel } from "entities/map";
+import MapLayout from "widgets/map-region/container/ui/map-layout";
+import { MapButtons } from "widgets/map-region/map-buttons";
+import { Counters } from "widgets/map-region/counters/counters";
+import { BattleCounters } from "widgets/map-region/battle-counters";
+import { MapBottom } from "widgets/map-region/map-bottom";
 
 export const MapPage: FC = () => {
 

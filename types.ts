@@ -54,7 +54,7 @@ const TYPES = {
     LevelUpHandler: Symbol.for('LevelUpHandler'),
     
     GetRatingHandler: Symbol.for('GetRatingHandler'),
-
+    GetSatelliteHandler: Symbol.for('GetSatelliteHandler'),
     
     
     PointerRepository: Symbol.for('PointerRepository'),

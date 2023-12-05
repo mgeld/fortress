@@ -2,10 +2,9 @@ import { FC } from "react";
 import { UnitsLayout } from "entities/unit/ui/unit/units-list/ui";
 import { UnitCard } from "entities/unit/ui/unit/unit-card/ui";
 
-import { IconCoin, IconSapphire } from "widgets/counters/icons/_icons";
 import { ReactComponent as IconShop } from './shop.svg';
 
-import { BackMap } from "widgets/back-button";
+import { BackMap } from "shared/ui/back-button";
 
 import { zoneModel } from "entities/zone";
 
@@ -15,6 +14,7 @@ import { unitsPrices } from "entities/unit/lib/unit-buy-list";
 import { TExtrTypes } from "@ctypes/model";
 
 import styles from './styles.module.scss'
+import { IconCoin, IconSapphire } from "shared/assets/icons/_icons";
 
 const units = Object.entries({
     100: unitsPrices[100],
