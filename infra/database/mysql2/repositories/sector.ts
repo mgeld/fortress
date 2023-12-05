@@ -168,7 +168,6 @@ export class SectorRepository implements ISectorRepository {
             )
 
             const sects = result.map(sector => ({ ...sector, latlng: JSON.parse((sector.latlng as unknown) as string) }))
-            console.log('result sects', sects)
 
             return sects
 
@@ -180,7 +179,7 @@ export class SectorRepository implements ISectorRepository {
 
     async getById(sectorId: string): Promise<Sector> {
 
-        const [result] = await this._connection.query<UnmarshalledSector & RowDataPacket[]>(
+        const [[result]] = await this._connection.query<UnmarshalledSector[] & RowDataPacket[]>(
             `SELECT
                 id,
                 number,
@@ -196,7 +195,7 @@ export class SectorRepository implements ISectorRepository {
         if (!result) {
             throw new Error('----------')
         }
-        return SectorMapper.toDomain(result)
+        return SectorMapper.toDomain({ ...result, latlng: JSON.parse((result.latlng as unknown) as string) })
     }
 
     async getByIds(sectorIds: string[]): Promise<Sector[]> {
@@ -218,7 +217,7 @@ export class SectorRepository implements ISectorRepository {
         if (!result) {
             throw new Error('----------')
         }
-        return result.map(sector => SectorMapper.toDomain(sector))
+        return result.map(sector => SectorMapper.toDomain({...sector, latlng: JSON.parse((sector.latlng as unknown) as string) }))
     }
 
     async update(sector: Sector): Promise<Sector> {

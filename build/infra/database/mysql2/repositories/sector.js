@@ -139,7 +139,6 @@ let SectorRepository = class SectorRepository {
                     areal
                 FROM sectors WHERE areal = ?;`, [areal]);
                 const sects = result.map(sector => (Object.assign(Object.assign({}, sector), { latlng: JSON.parse(sector.latlng) })));
-                console.log('result sects', sects);
                 return sects;
             }
             catch (e) {
@@ -149,7 +148,7 @@ let SectorRepository = class SectorRepository {
     }
     getById(sectorId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const [result] = yield this._connection.query(`SELECT
+            const [[result]] = yield this._connection.query(`SELECT
                 id,
                 number,
                 CONCAT("[",lat,",",lng,"]") as latlng,
@@ -161,7 +160,7 @@ let SectorRepository = class SectorRepository {
             if (!result) {
                 throw new Error('----------');
             }
-            return sector_1.SectorMapper.toDomain(result);
+            return sector_1.SectorMapper.toDomain(Object.assign(Object.assign({}, result), { latlng: JSON.parse(result.latlng) }));
         });
     }
     getByIds(sectorIds) {
@@ -180,7 +179,7 @@ let SectorRepository = class SectorRepository {
             if (!result) {
                 throw new Error('----------');
             }
-            return result.map(sector => sector_1.SectorMapper.toDomain(sector));
+            return result.map(sector => sector_1.SectorMapper.toDomain(Object.assign(Object.assign({}, sector), { latlng: JSON.parse(sector.latlng) })));
         });
     }
     update(sector) {

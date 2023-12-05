@@ -44,7 +44,6 @@ export class SectorService {
             return await this._memoryRepository.getByAreal(areal)
         } catch (e) {
             const sectors = await this._baseRepository.getByAreal(areal)
-            console.log('getBoundsSectors catch')
             await this._memoryRepository.inserts(sectors)
             return sectors.filter(sector => sector.zone_id > 0)
         }
@@ -55,7 +54,6 @@ export class SectorService {
         return this.unmarshalSectors(_sectors)
     }
     async getZonesAroundAreal(areal: number): Promise<Record<number, TZoneItem>> {
-        console.log('getZonesAroundAreal areal', areal)
         const _sectors = await this.getArealSectors(areal)
         return this.unmarshalSectors(_sectors)
 
@@ -104,12 +102,15 @@ export class SectorService {
         return this._baseRepository.inserts(sectors)
     }
 
-    getById(sectorId: string): Promise<Sector> {
-        return this._memoryRepository.getById(sectorId)
+    async getById(sectorId: string): Promise<Sector> {
+        try {
+            return await this._memoryRepository.getById(sectorId)
+        } catch (e) {
+            return this._baseRepository.getById(sectorId)
+        }
     }
 
     getByIds(sectorIds: string[]): Promise<Sector[]> {
-        console.log('getByIds sectorIds', sectorIds)
         return this._memoryRepository.getByIds(sectorIds)
     }
 

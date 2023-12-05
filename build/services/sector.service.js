@@ -54,7 +54,6 @@ let SectorService = class SectorService {
             }
             catch (e) {
                 const sectors = yield this._baseRepository.getByAreal(areal);
-                console.log('getBoundsSectors catch');
                 yield this._memoryRepository.inserts(sectors);
                 return sectors.filter(sector => sector.zone_id > 0);
             }
@@ -68,7 +67,6 @@ let SectorService = class SectorService {
     }
     getZonesAroundAreal(areal) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log('getZonesAroundAreal areal', areal);
             const _sectors = yield this.getArealSectors(areal);
             return this.unmarshalSectors(_sectors);
         });
@@ -106,10 +104,16 @@ let SectorService = class SectorService {
         return this._baseRepository.inserts(sectors);
     }
     getById(sectorId) {
-        return this._memoryRepository.getById(sectorId);
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                return yield this._memoryRepository.getById(sectorId);
+            }
+            catch (e) {
+                return this._baseRepository.getById(sectorId);
+            }
+        });
     }
     getByIds(sectorIds) {
-        console.log('getByIds sectorIds', sectorIds);
         return this._memoryRepository.getByIds(sectorIds);
     }
     update(sector) {
