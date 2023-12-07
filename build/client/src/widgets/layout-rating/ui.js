@@ -25,12 +25,14 @@ const LayoutRating = () => {
                     <div className={styles_module_scss_1.default.__header}>
                         <div className={styles_module_scss_1.default.iosTop}/>
                         <div className={styles_module_scss_1.default.__main}>
+
                             <div className={styles_module_scss_1.default.name}>
                                 <div className={styles_module_scss_1.default.icon}>
                                     <_icons_1.IconTrophy width={24} height={24}/>
                                 </div>
                                 <div className={styles_module_scss_1.default.text}>Топ 20</div>
                             </div>
+
                         </div>
                     </div>
 
@@ -65,6 +67,7 @@ const LayoutRating = () => {
                                             </div>
                                             <div className={styles_module_scss_1.default.showing}>
                                                 <div className={styles_module_scss_1.default.trophies}>
+                                                    
                                                     <div className={styles_module_scss_1.default.__stroke}>
                                                         <div className={styles_module_scss_1.default.count}>
                                                             {item.trophies}

@@ -30,12 +30,14 @@ export const LayoutRating: FC = () => {
                     <div className={styles.__header}>
                         <div className={styles.iosTop} />
                         <div className={styles.__main}>
+
                             <div className={styles.name}>
                                 <div className={styles.icon}>
                                     <IconTrophy width={24} height={24} />
                                 </div>
                                 <div className={styles.text}>Топ 20</div>
                             </div>
+
                         </div>
                     </div>
 
@@ -74,6 +76,7 @@ export const LayoutRating: FC = () => {
                                             </div>
                                             <div className={styles.showing}>
                                                 <div className={styles.trophies}>
+                                                    
                                                     <div className={styles.__stroke}>
                                                         <div className={styles.count}>
                                                             {item.trophies}

@@ -10,6 +10,9 @@ import { TBooty } from "entities/projector/model/tractor-beam";
 import IconCont1 from "shared/assets/icons/cont_1.svg";
 import IconCont2 from "shared/assets/icons/cont_2.svg";
 import IconCont3 from "shared/assets/icons/cont_3.svg";
+// import IconInvader from "shared/assets/icons/cont_3.svg";
+
+// "icons/invader.svg"
 
 type TItemProps = {
     item: TBooty
@@ -43,7 +46,12 @@ export const ItemIOS: FC<TItemProps> = ({ item }) => {
     return (
         <ImageOverlay
             className={`${styles.__booty} ${item.id}`}
-            url={item.cont === 1 ? IconCont1 : item.cont === 2 ? IconCont2 : IconCont3}
+            url={
+                item.unit === 1 ? IconCont1 : 
+                item.unit === 2 ? IconCont2 : 
+                item.unit === 3 ? IconCont3 : 
+                "icons/invader.svg"
+            }
             bounds={bounds}
         />
         // <Rectangle

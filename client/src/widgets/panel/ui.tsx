@@ -2,19 +2,21 @@ import { FC } from "react";
 
 import { IconChat, IconFaq, IconFort, IconNews, IconShip, IconShop } from "./assets/icons";
 
-import { popoutModel } from "shared/ui/popout-root";
-import { pageModel } from "shared/ui/page-root";
-import { TLatLng } from "@ctypes/model";
-import { mapAPI, shipAPI } from "shared/api/events";
-import { citadelModel } from "entities/citadel";
-import { IconClose } from "shared/assets/icons/_icons";
-import { alertModel } from "shared/ui/alert";
-
 import Link from "shared/ui/link/ui";
 
-import styles from './styles.module.scss'
+import { TLatLng } from "@ctypes/model";
+import { alertModel } from "shared/ui/alert";
+import { pageModel } from "shared/ui/page-root";
+import { citadelModel } from "entities/citadel";
+import { mapAPI, shipAPI } from "shared/api/events";
+import { popoutModel } from "shared/ui/popout-root";
+import { IconClose } from "shared/assets/icons/_icons";
+
+
 import { getRatingAPI } from "shared/api/get-rating";
 import { IconTrophy } from "widgets/map-region/counters/icons/_icons";
+
+import styles from './styles.module.scss'
 
 export const Panel: FC = () => {
 

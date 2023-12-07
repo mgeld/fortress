@@ -27,9 +27,10 @@ const useBeam = () => {
 }
 
 
+type TInvaderBooty = 10
 export type TBooty = {
     id: number
-    cont: TFindContType
+    unit: TFindContType | TInvaderBooty
     from_pos: TLatLng
     to_pos: TLatLng
 }

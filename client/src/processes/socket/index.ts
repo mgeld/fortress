@@ -38,6 +38,7 @@ import { BattleYrTakeSectorHandler } from "shared/api/handlers/battle-yr-take-se
 import { SessionHandler } from "shared/api/handlers/session"
 import { SetHealthHandler } from "shared/api/handlers/set-health"
 import { SetRatingHandler } from "shared/api/handlers/set-rating"
+import { RewardHandler } from "shared/api/handlers/reward"
 
 export const WS = Socket.create(API_BASE_URL, socket.setSocketStatus)
 
@@ -108,6 +109,8 @@ const handlers = new Handlers({
     [SessionHandler.EVENT]: new SessionHandler(),
     [SetHealthHandler.EVENT]: new SetHealthHandler(),
     [SetRatingHandler.EVENT]: new SetRatingHandler(),
+    [RewardHandler.EVENT]: new RewardHandler(),
+
 } as THandlers)
 
 WS.setHandlers(handlers.handle())

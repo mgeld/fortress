@@ -34,6 +34,7 @@ export type TPopout =
     // | 'unit-out-hold'
     | 'panel'
     | 'primes'
+    | 'vk-join-group'
     // | 'load-app'
 // | 'use-item'
 

@@ -24,7 +24,6 @@ const Alert = () => {
                 <div className={styles_module_scss_1.default.message}>
                     {data === null || data === void 0 ? void 0 : data.message}
                 </div>
-
             </div>
 
             <div className={styles_module_scss_1.default.actions}>

@@ -60,7 +60,6 @@ let ConnectHandler = class ConnectHandler {
                     }));
                     return;
                 }
-                console.log('**** isClient', isClient);
                 pointer = yield this._pointerService.baseGetById(zoneId);
                 weapon = yield this._weaponService.baseGetById(pointer.weapons[0]);
                 zone = yield this._zoneService.getById(zoneId);
@@ -72,7 +71,6 @@ let ConnectHandler = class ConnectHandler {
                 }
             }
             catch (e) {
-                console.log('ERROR e', e);
                 weapon = this._weaponService.createGun();
                 this._weaponService.memoryInsert(weapon);
                 this._weaponService.baseInsert(weapon);
@@ -80,7 +78,9 @@ let ConnectHandler = class ConnectHandler {
                 zone = yield this._zoneService.baseInsert(zone);
                 yield this._vkUserRepository.insert({
                     user_id: vk_id,
-                    zone_id: zone.id
+                    zone_id: zone.id,
+                    is_msg: 0,
+                    is_group: 0,
                 });
                 pointer = this._pointerService.create(zone.id, [0, 0], USER_NAME, USER_ICON, weapon);
                 this._pointerService.baseInsert(pointer);

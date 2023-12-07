@@ -28,7 +28,6 @@ let GetSatelliteHandler = class GetSatelliteHandler extends handlers_1.IRoute {
         return __awaiter(this, void 0, void 0, function* () {
             const zoneId = message.payload.zoneId;
             const position = message.payload.position;
-            console.log('GetSatelliteHandler zoneId', zoneId);
             const _sectors = yield this._sectorService.getBoundsCitadel(position);
             const array_sectors = Object.values(this.unmarshalSectors(zoneId, _sectors));
             uSocket.send(JSON.stringify({

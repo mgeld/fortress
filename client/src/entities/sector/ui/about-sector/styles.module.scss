@@ -7,7 +7,7 @@
 
         .__item {
 
-            border-bottom: 1px solid #5a5a5a;
+            border-bottom: 1px solid #fff;
 
             &:last-child {
                 border-bottom: 0px;
@@ -20,9 +20,9 @@
 
             padding: 10px 0;
 
-            color: white;
+            color: #fff;
             line-height: normal;
-            font-size: 13px;
+            font-size: 14px;
 
 
             .__icon {
@@ -30,7 +30,7 @@
             }
 
             .__name {
-                padding-left: 10px;
+                padding-left: 8px;
 
             }
 

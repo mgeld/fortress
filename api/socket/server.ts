@@ -1,6 +1,7 @@
 import fs from 'fs'
 import https from 'https'
 import WebSocket from 'ws'
+import qs from 'querystring'
 
 import 'reflect-metadata'
 
@@ -10,16 +11,7 @@ import { inject, injectable } from 'inversify'
 import { Handlers } from '../../controllers/handlers'
 import { SnapshotAreals } from '../../controllers/snapshot-areals'
 import { SnapshotArenas } from '../../controllers/snapshot-arenas'
-
-// const https = require('https');
-// const WebSocket = require('ws');
-
-// type WSS = WebSocket.Server<WebSocket.WebSocket> & {
-//     broadcast: (
-//         message: TMessage,
-//         ws?: IWebSocket
-//     ) => void
-// }
+import { VkCallback } from '../../controllers/vk-callback'
 
 export interface IWebSocket extends WebSocket {
     is_alive?: boolean
@@ -37,6 +29,7 @@ export class Server {
     @inject(TYPES.PingPong) private _pingPong!: PingPong
     @inject(TYPES.SnapshotAreals) private _snapshotAreals!: SnapshotAreals
     @inject(TYPES.SnapshotArenas) private _snapshotArenas!: SnapshotArenas
+    @inject(TYPES.VkCallback) private _vkCallback!: VkCallback
 
     serverContext = this
 
@@ -50,35 +43,76 @@ export class Server {
             key: fs.readFileSync('./api/cert/privateKey.key')
         }, (req, res) => {
 
-            console.log('req.url', req.url)
-
             /* PRODE_SERVER */
 
-            if (req.url === '/fortress/snapshot-areals') {
+            switch (req.url) {
+                case '/fortress/snapshot-areals':
+                    this.backupAndClearAreals()
+                    res.end("Hello");
+                    break;
+                case '/fortress/snapshot-arenas':
+                    this._snapshotArenas.clearInactiveArenas()
+                    res.end("Hello");
+                    break;
+                case '/fortress/callback':
+                    var body = '';
+                    req.on('data', function (data) {
+                        body += data;
+                        if (body.length > 1e6)
+                            req.socket.destroy();
+                    });
 
-                console.log('snapshot-areals')
-                this.backupAndClearAreals()
+                    req.on('end', function () {
+                        let post = JSON.parse(Object.keys(qs.parse(body))[0])
 
-            } else if (req.url === '/fortress/snapshot-arenas') {
-            // } else if (req.url === '/snapshot-arenas') {
+                        if (post?.type === 'confirmation') {
+                            res.end("d08bb2b8");
+                        } else {
 
-                console.log('snapshot-arenas')
-                this._snapshotArenas.clearInactiveArenas()
+                            let user_id = post?.object?.user_id
 
+                            switch (post?.type) {
+                                case 'message_allow':
+                                    if (user_id) {
+                                        serverContext._vkCallback.messageAllow(user_id)
+                                    }
+                                    break;
+                                case 'message_deny':
+                                    if (user_id) {
+                                        serverContext._vkCallback.messageDeny(user_id)
+                                    }
+                                    break;
+                                case 'group_join':
+                                    if (user_id) {
+                                        serverContext._vkCallback.groupJoin(user_id)
+                                    }
+                                    break;
+                                case 'group_leave':
+                                    if (user_id) {
+                                        serverContext._vkCallback.groupLeave(user_id)
+                                    }
+                                    break;
+                                default:
+                                    res.end("Hello");
+                            }
+                            
+                            res.end("ok");
+
+                        }
+                    });
+                    break;
+                default:
+                    res.end("Hello");
             }
 
-            console.log("Request");
-            res.end("Nice");
         })
 
         const wss = new WebSocket.Server({ server })
 
-        // const connected_clients = new Map()
-
         wss.on('error', (err) => {
             console.log('err', err)
         })
-        
+
         wss.on('close', () => {
             console.log('close')
         })
@@ -95,33 +129,25 @@ export class Server {
             ws.is_alive = true;
 
             ws.on('pong', () => {
-                // console.log('poooooooooooong')
                 ws.is_alive = true
             })
 
             ws.on('close', function () {
-
-                console.log('------ ws close')
                 ws.is_alive = false
                 ws?.user_id && Connection.deleteUser(ws.user_id)
-                // connected_clients.delete(ws);
             });
 
-            // ws.ping()
-
+            // Сокет контроллеры
             let router = serverContext._handlers.handle(ws)
 
             ws.on('message', router)
 
         })
 
-        // connection.start()
-        // const interval = setInterval(() => connection.pingPong(), 5000);
-
         const hostname = '89.108.71.67'
         // const hostname = '192.168.43.90'
 
-        server.listen(8080, hostname, () => console.log('Htpsssss'));
+        server.listen(8080, hostname, () => console.log('Начинаем прослушку порта...'));
 
         setInterval(() => this.backupAndClearAreals(), 120000)
 
@@ -132,85 +158,3 @@ export class Server {
         this._snapshotAreals.clearInactiveAreals()
     }
 }
-
-// Server.start()
-
-// function aaa(message: string) {
-//     let msg: TSendEvent = JSON.parse(message)
-//     let _payload = msg.payload
-
-//     switch (msg.event) {
-
-//         case 'connect':
-
-//             ws.send(JSON.stringify({
-//                 event: 'pointers',
-//                 payload: {
-//                     pointers: mapToArray(pointers)
-//                 }
-//             }))
-
-//             pointers.set(msg.payload.userId, {
-//                 userId: msg.payload.userId,
-//                 pos: msg.payload.position,
-//                 health: 100,
-//             })
-
-//             broadcast.message({
-//                 event: 'connect',
-//                 payload: {
-//                     pos: msg.payload.position,
-//                     health: msg.payload.health,
-//                     userId: msg.payload.userId
-//                 }
-//             }, ws)
-
-//             break;
-
-//         case 'direct':
-
-//             pointers.set(msg.payload.userId, {
-//                 ...pointers.get(msg.payload.userId)!,
-//                 pos: msg.payload.position
-//             })
-//             const pointer: TDirectPointer = {
-//                 event: 'direct',
-//                 payload: {
-//                     userId: msg.payload.userId,
-//                     pos: pointers.get(msg.payload.userId)!.pos
-//                 }
-//             }
-//             broadcast.message(pointer, ws)
-
-//             break;
-
-//         case 'fire':
-//             const fire: TFirePayload = {
-//                 position: msg.payload.position,
-//                 direction: msg.payload.direction,
-//                 userId: msg.payload.userId
-//             }
-//             if ('hitPointer' in _payload) {
-//                 fire['hitPointer'] = _payload.hitPointer
-//             }
-
-//             broadcast.message(msg, ws)
-
-//             break;
-
-//         default:
-//     }
-// }
-
-
-
-// setInterval(function ping() {
-//     Array.from(pointers.values()).forEach(function each(client_stream) {
-//         if (!client_stream.is_alive) { client_stream.terminate(); return; }
-//         client_stream.is_alive = false;
-//         client_stream.ping();
-//     });
-// }, 1000);
-
-
-// setInterval(() => ping(), 5000)

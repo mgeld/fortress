@@ -86,15 +86,15 @@ class UseExtractionHandler extends IRoute {
         if (extr.gives === 'rubies') {
             resultIncrese = zone.addRubies(extr.quantity)
 
-            if (zone.terrain.sectors === 1) {
-                const tutorialResp: TTutorial = {
-                    event: 'tutorial',
-                    payload: {
-                        type: 'ship'
-                    }
-                }
-                uSocket.send(JSON.stringify(tutorialResp))
-            }
+            // if (zone.terrain.sectors === 1) {
+            //     const tutorialResp: TTutorial = {
+            //         event: 'tutorial',
+            //         payload: {
+            //             type: 'ship'
+            //         }
+            //     }
+            //     uSocket.send(JSON.stringify(tutorialResp))
+            // }
         }
 
         // Если активируется один из Модулей Опыта

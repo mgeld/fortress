@@ -37,8 +37,8 @@ export const BottomSelectPlace: FC = () => {
             shipAPI.events.setPos(pos)
 
             setTimeout(() => {
-                tutorialModel.events.setTutorial('storm')
-            }, 2000)
+                tutorialModel.events.setTutorial('ship')
+            }, 1000)
         } else {
             noticeModel.events.newToast({
                 name: 'Упс...',

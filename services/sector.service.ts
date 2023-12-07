@@ -1,9 +1,9 @@
+import { TYPES } from "../types";
 import { inject, injectable } from "inversify";
-import { TLatLng, TZoneItem } from "../common-types/model";
 import { Areal } from "../entities/pointer/areal";
+import { TLatLng, TZoneItem } from "../common-types/model";
 import { ISectorMemoryRepository, ISectorRepository } from "../entities/repository";
 import { Sector, TSectorProps, UnmarshalledSector } from "../entities/sector/sector";
-import { TYPES } from "../types";
 
 type TCreateSectorProps = Omit<TSectorProps, 'areal'>
 

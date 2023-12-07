@@ -80,15 +80,6 @@ let UseExtractionHandler = class UseExtractionHandler extends handlers_1.IRoute 
             }
             if (extr.gives === 'rubies') {
                 resultIncrese = zone.addRubies(extr.quantity);
-                if (zone.terrain.sectors === 1) {
-                    const tutorialResp = {
-                        event: 'tutorial',
-                        payload: {
-                            type: 'ship'
-                        }
-                    };
-                    uSocket.send(JSON.stringify(tutorialResp));
-                }
             }
             if (extr.gives === 'rank_exp') {
                 resultIncrese = zone.rank.addExp(extr.quantity);

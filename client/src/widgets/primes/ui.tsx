@@ -1,11 +1,11 @@
 import { FC, useState } from "react";
 
 import { Prime } from "shared/ui/prime";
-import { IconShip } from "widgets/panel/assets/icons";
-import { popoutModel } from "shared/ui/popout-root";
 import { mapAPI } from "shared/api/events";
-import { IconShipGun } from "shared/assets/icons/_icons";
+import { popoutModel } from "shared/ui/popout-root";
+import { IconShip } from "widgets/panel/assets/icons";
 import { IconStorm2 } from "entities/unit/icons/_icons";
+import { IconShipGun } from "shared/assets/icons/_icons";
 
 import styles from './styles.module.scss'
 

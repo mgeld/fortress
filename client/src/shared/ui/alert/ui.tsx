@@ -27,7 +27,6 @@ export const Alert: FC = () => {
                 <div className={styles.message}>
                     {data?.message}
                 </div>
-
             </div>
 
             <div className={styles.actions}>

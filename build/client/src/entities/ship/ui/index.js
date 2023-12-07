@@ -14,6 +14,7 @@ const __1 = require("..");
 const ship_level_1 = require("../lib/ship-level");
 const user_1 = require("entities/user");
 const alert_1 = require("shared/ui/alert");
+const _icons_1 = require("shared/assets/icons/_icons");
 const ShipPopout = () => {
     const closePopout = () => popout_root_1.popoutModel.events.setPopout(null);
     const rankLevel = user_1.userModel.selectors.useRankLevel();
@@ -40,8 +41,14 @@ const ShipPopout = () => {
 
             <div className={styles_module_scss_1.default.header}>
                 <div className={styles_module_scss_1.default.__border}>
-                    Корабль
+                    <div className={styles_module_scss_1.default.name}>
+                        Корабль
+                    </div>
+                    <div onClick={closePopout} className={styles_module_scss_1.default.close}>
+                        <_icons_1.IconClose width={16} height={16} fill="#ffffff"/>
+                    </div>
                 </div>
+
             </div>
 
             <div className={styles_module_scss_1.default.__content}>
@@ -98,16 +105,7 @@ const ShipPopout = () => {
                     <hold_1.Hold />
                 </div>
 
-                <div className={styles_module_scss_1.default.actions}>
-                    <div className={styles_module_scss_1.default.inside}>
-                        <div onClick={closePopout} className={`${styles_module_scss_1.default.button} ${styles_module_scss_1.default.__white}`}>
-                            Закрыть
-                        </div>
-                        <div onClick={levelUp} className={styles_module_scss_1.default.button}>
-                            Улучшить
-                        </div>
-                    </div>
-                </div>
+                
 
             </div>
         </div>);

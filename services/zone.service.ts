@@ -61,7 +61,7 @@ export class ZoneService {
 
         const DEFAULT_COLOR = randomNumber(1, 6)
 
-        const DEFAULT_RUBIES = 200
+        const DEFAULT_RUBIES = 150
         const DEFAULT_COINS = 2000
 
         const DEFAULT_TROPHIES = 0

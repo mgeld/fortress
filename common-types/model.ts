@@ -73,6 +73,10 @@ export type TExtrTypes =
 export type TTypeToastNotice =
     | TExtrTypes
     | TConts
+
+    | 'coins'
+    | 'rubies'
+    
     | 'rank'
     | 'level-zone'
     | 'level-up'

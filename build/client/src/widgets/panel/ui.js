@@ -5,16 +5,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Panel = void 0;
 const icons_1 = require("./assets/icons");
-const popout_root_1 = require("shared/ui/popout-root");
-const page_root_1 = require("shared/ui/page-root");
-const events_1 = require("shared/api/events");
-const citadel_1 = require("entities/citadel");
-const _icons_1 = require("shared/assets/icons/_icons");
-const alert_1 = require("shared/ui/alert");
 const ui_1 = __importDefault(require("shared/ui/link/ui"));
-const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
+const alert_1 = require("shared/ui/alert");
+const page_root_1 = require("shared/ui/page-root");
+const citadel_1 = require("entities/citadel");
+const events_1 = require("shared/api/events");
+const popout_root_1 = require("shared/ui/popout-root");
+const _icons_1 = require("shared/assets/icons/_icons");
 const get_rating_1 = require("shared/api/get-rating");
 const _icons_2 = require("widgets/map-region/counters/icons/_icons");
+const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
 const Panel = () => {
     var _a;
     const latlng = ((_a = citadel_1.citadelModel.selectors.useCitadel()) === null || _a === void 0 ? void 0 : _a.latlng) || null;

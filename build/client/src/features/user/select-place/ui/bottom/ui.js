@@ -31,8 +31,8 @@ const BottomSelectPlace = () => {
             events_1.mapAPI.events.setMapMode('invade');
             events_1.shipAPI.events.setPos(pos);
             setTimeout(() => {
-                tutorial_1.tutorialModel.events.setTutorial('storm');
-            }, 2000);
+                tutorial_1.tutorialModel.events.setTutorial('ship');
+            }, 1000);
         }
         else {
             notice_1.noticeModel.events.newToast({

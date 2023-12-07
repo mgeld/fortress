@@ -74,6 +74,7 @@ import { SnapshotArenas } from './controllers/snapshot-arenas'
 import { BattleGetAboutSectorHandler } from './controllers/battle-get-about-sector'
 import { GetRatingHandler } from './controllers/get-rating'
 import { GetSatelliteHandler } from './controllers/get-satellite'
+import { VkCallback } from './controllers/vk-callback'
 // import { ArenaTeamMemoryRepository } from './infra/database/memory/repositories/arena-team'
 // import { ArenaTeamService } from './services/arena-team.service'
 
@@ -153,6 +154,7 @@ container.bind<IWeaponRepository>(TYPES.WeaponRepository).to(WeaponRepository)
 
 container.bind(TYPES.SnapshotAreals).to(SnapshotAreals)
 container.bind(TYPES.SnapshotArenas).to(SnapshotArenas)
+container.bind(TYPES.VkCallback).to(VkCallback)
 
 container.bind(TYPES.connection).toConstantValue(connection)
 

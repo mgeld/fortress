@@ -27,8 +27,6 @@ class CollectionRooms {
     }
 
     addClientToRoom(clientId: number, roomId: TRoomId, uSocket: IWebSocket) {
-        console.log('addClientToRoom clientId', clientId)
-        console.log(' addClientToRoom roomId', roomId)
         try {
             console.log('addClientToRoom try')
             const room = this.data[roomId]

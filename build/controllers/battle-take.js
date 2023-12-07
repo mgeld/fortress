@@ -151,8 +151,6 @@ let BattleTakeHandler = class BattleTakeHandler extends handlers_1.IRoute {
                 fort: __fort,
                 userId: _member.userId,
             };
-            console.log('arena.id', arena.id);
-            console.log('_member.arena', _member.arena);
             this._rooms.arenas.broadcast(arena.id, {
                 event: 'take',
                 payload: take

@@ -6,11 +6,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Primes = void 0;
 const react_1 = require("react");
 const prime_1 = require("shared/ui/prime");
-const icons_1 = require("widgets/panel/assets/icons");
-const popout_root_1 = require("shared/ui/popout-root");
 const events_1 = require("shared/api/events");
-const _icons_1 = require("shared/assets/icons/_icons");
-const _icons_2 = require("entities/unit/icons/_icons");
+const popout_root_1 = require("shared/ui/popout-root");
+const icons_1 = require("widgets/panel/assets/icons");
+const _icons_1 = require("entities/unit/icons/_icons");
+const _icons_2 = require("shared/assets/icons/_icons");
 const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
 const Primes = () => {
     const [card, setCard] = (0, react_1.useState)(1);
@@ -18,7 +18,7 @@ const Primes = () => {
         {
             id: 1,
             name: "Начало экспансии",
-            icon: <_icons_2.IconStorm2 width={74} height={74}/>,
+            icon: <_icons_1.IconStorm2 width={74} height={74}/>,
             message: "В роли пришельца тебе предстоит завоевать планету, управляя армией штурмовиков и собирая ресурсы с башен, разбросанных по всей земле.",
         },
         {
@@ -30,7 +30,7 @@ const Primes = () => {
         {
             id: 3,
             name: "Защита корабля",
-            icon: <_icons_1.IconShipGun width={74} height={74}/>,
+            icon: <_icons_2.IconShipGun width={74} height={74}/>,
             message: "Для защиты от вражеских пришельцев, корабль оснащен плазменной пушкой, а для сбора необходимых ресурсов в корабль встроен проектор луча притяжения."
         },
     ];

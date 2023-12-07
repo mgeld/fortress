@@ -25,6 +25,9 @@ const ItemIOS = ({ item }) => {
         setTimeout(() => setBootyPos(item.to_pos), 200);
     }, [item.to_pos]);
     const bounds = (0, leaflet_1.latLng)(pos[0], pos[1]).toBounds(30);
-    return (<react_leaflet_1.ImageOverlay className={`${styles_module_scss_1.default.__booty} ${item.id}`} url={item.cont === 1 ? cont_1_svg_1.default : item.cont === 2 ? cont_2_svg_1.default : cont_3_svg_1.default} bounds={bounds}/>);
+    return (<react_leaflet_1.ImageOverlay className={`${styles_module_scss_1.default.__booty} ${item.id}`} url={item.unit === 1 ? cont_1_svg_1.default :
+            item.unit === 2 ? cont_2_svg_1.default :
+                item.unit === 3 ? cont_3_svg_1.default :
+                    "icons/invader.svg"} bounds={bounds}/>);
 };
 exports.ItemIOS = ItemIOS;

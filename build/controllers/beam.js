@@ -41,12 +41,19 @@ let BeamHandler = class BeamHandler extends handlers_1.IRoute {
                 return;
             let _sector;
             const zone = yield this._zoneService.getById(uSocket.user_id);
-            let extrResp;
+            let beamResp = {
+                event: 'attraction',
+                payload: {
+                    type: null,
+                    data: null,
+                    fort: __fort,
+                    pos: __position
+                }
+            };
             try {
                 _sector = yield this._sectorService.getById(__sector);
-                let extr = null;
-                console.log('_sector.booty', _sector.booty);
                 if (_sector.booty) {
+                    let extr = null;
                     if (zone.terrain.sectors > 1) {
                         extr = sector_1.Sector.getContainerExtr(_sector.booty);
                     }
@@ -60,6 +67,11 @@ let BeamHandler = class BeamHandler extends handlers_1.IRoute {
                         };
                         uSocket.send(JSON.stringify(tutorialResp));
                     }
+                    beamResp.payload.type = 'cont';
+                    beamResp.payload.data = {
+                        extr,
+                        cont: _sector.booty,
+                    };
                     const hold = zone.hold.addExtrToList(extr);
                     if (hold === 'limit') {
                         const limitResp = {
@@ -71,35 +83,40 @@ let BeamHandler = class BeamHandler extends handlers_1.IRoute {
                         uSocket.send(JSON.stringify(limitResp));
                         return;
                     }
-                }
-                extrResp = {
-                    event: 'attraction',
-                    payload: {
-                        extr,
-                        cont: _sector.booty,
-                        fort: __fort,
-                        pos: __position
-                    }
-                };
-                if (extr) {
                     _sector.takenBooty();
+                }
+                else {
+                    if (zone.id === _sector.zone_id) {
+                        if (_sector.defenders > 1) {
+                            beamResp.payload.type = 'strm';
+                            beamResp.payload.data = null;
+                            let resultIncrese = zone.stormtrooper_corps.addInvaders(1);
+                            if (resultIncrese === 'limit') {
+                                const limitResp = {
+                                    event: 'limit',
+                                    payload: {
+                                        gives: 'stormtroopers'
+                                    }
+                                };
+                                uSocket.send(JSON.stringify(limitResp));
+                                return;
+                            }
+                            _sector.killDefender();
+                            zone.terrain.killDefender();
+                        }
+                    }
+                }
+                console.log('beamResp.payload.type', beamResp.payload.type);
+                if (beamResp.payload.type) {
                     this._logs.takes.add(_sector.id);
                     this._zoneService.memoryUpdate(zone);
                     this._sectorService.update(_sector);
                 }
             }
             catch (e) {
-                extrResp = {
-                    event: 'attraction',
-                    payload: {
-                        extr: null,
-                        cont: 0,
-                        fort: null,
-                        pos: __position
-                    }
-                };
             }
-            uSocket.send(JSON.stringify(extrResp));
+            console.log('beamResp', beamResp);
+            uSocket.send(JSON.stringify(beamResp));
         });
     }
 };

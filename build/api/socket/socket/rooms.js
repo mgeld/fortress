@@ -30,8 +30,6 @@ class CollectionRooms {
         delete this.data[roomId];
     }
     addClientToRoom(clientId, roomId, uSocket) {
-        console.log('addClientToRoom clientId', clientId);
-        console.log(' addClientToRoom roomId', roomId);
         try {
             console.log('addClientToRoom try');
             const room = this.data[roomId];

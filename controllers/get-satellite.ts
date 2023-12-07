@@ -24,8 +24,6 @@ class GetSatelliteHandler extends IRoute {
         const zoneId = message.payload.zoneId
         const position = message.payload.position
 
-        console.log('GetSatelliteHandler zoneId', zoneId)
-
         const _sectors = await this._sectorService.getBoundsCitadel(position)
 
         // console.log('GetSatelliteHandler _sectors', _sectors)

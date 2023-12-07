@@ -47,8 +47,11 @@ import { LoadApp } from 'shared/ui/load-app/ui'
 import { RatingPage } from 'pages/rating'
 import { MapSatellitPage } from 'pages/map-satellite'
 import { mapStartPosition } from 'widgets/map-region/container/model'
+import { VkJoinGroup } from 'features/user/vk-join-group'
+import { initVkJoinGroup } from 'features/user/vk-join-group/model'
 
 mapStartPosition()
+initVkJoinGroup()
 
 window.addEventListener('popstate', () => goBack());
 
@@ -109,6 +112,18 @@ const App = () => {
           <BattlePending />
         </Popout>
 
+        <Popout
+          key='vk-join-group'
+          id='vk-join-group'
+          fill='white'
+          screen='full'
+          close={true}
+          edge={0}
+        >
+          <VkJoinGroup />
+        </Popout>
+
+        
         <Popout
           key='battle-over'
           id='battle-over'

@@ -17,8 +17,10 @@ export type TEventBomb = 'bomb'
 export type TEventTake = 'take'
 export type TEventTakeHit = 'take-hit'
 export type TEventFindCont = 'find-cont'
-export type TEventTractorExtr = 'attraction'
+export type TEventTractorUnit = 'attraction'
 export type TEventUseExtraction = 'use-extraction'
+export type TEventReward = 'reward'
+
 export type TEventLimit = 'limit'
 export type TEventSession = 'session'
 
@@ -56,8 +58,9 @@ export type TEventsMessage =
     | TEventTake
     | TEventTakeHit
     | TEventFindCont
-    | TEventTractorExtr
+    | TEventTractorUnit
     | TEventUseExtraction
+    | TEventReward
     | TEventLimit
     | TEventSession
     | TEventNewRank
@@ -233,20 +236,40 @@ export type TFindContPayload = {
     fort: TLatLng
     cont: TFindContType
 }
+
 export type TFindCont = {
     event: TEventFindCont
     payload: TFindContPayload
 }
 
-
-export type TTractorExtr = {
-    event: TEventTractorExtr
-    payload: {
-        extr: TExtrTypes | null
-        cont: TFindContType | 0
-        fort: TLatLng | null
-        pos: TLatLng
+type TTractorUnitPayloadCont = {
+    type: 'strm'
+    data: null
+    fort: TLatLng
+    pos: TLatLng
+}
+type TTractorUnitPayloadStrm = {
+    type: 'cont'
+    data: {
+        cont: TFindContType
+        extr: TExtrTypes
     }
+    fort: TLatLng
+    pos: TLatLng
+}
+type TTractorUnitPayloadNull = {
+    type: null
+    data: null
+    fort: TLatLng
+    pos: TLatLng
+}
+
+export type TTractorUnit = {
+    event: TEventTractorUnit
+    payload:
+            | TTractorUnitPayloadCont
+            | TTractorUnitPayloadStrm
+            | TTractorUnitPayloadNull
 }
 
 export type TUseExtraction = {
@@ -260,6 +283,15 @@ export type TUseExtraction = {
 }
 
 
+export type TReward = {
+    event: TEventReward
+    payload: {
+        type: 'coins' | 'rubies'
+        amount: number
+    }
+}
+
+
 // export type TLimitLevelTypes =  | 'ship_level'
 //                                 | 'hold_level'
 //                                 | 'gun_level'
@@ -267,9 +299,9 @@ export type TUseExtraction = {
 export type TLimit = {
     event: TEventLimit
     payload: {
-        gives:  | TExtrTypesName
-                | 'hold'
-                // | TLimitLevelTypes
+        gives: | TExtrTypesName
+        | 'hold'
+        // | TLimitLevelTypes
 
     }
 }
@@ -457,8 +489,9 @@ export type TMessage =
     | TTake
     | TTakeHit
     | TFindCont
-    | TTractorExtr
+    | TTractorUnit
     | TUseExtraction
+    | TReward
     | TLimit
     | TSession
     | TNewRank

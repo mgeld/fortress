@@ -11,6 +11,7 @@ import { shipModel } from "..";
 import { ShipLevel, TShipLevel } from "../lib/ship-level";
 import { userModel } from "entities/user";
 import { alertModel } from "shared/ui/alert";
+import { IconClose } from "shared/assets/icons/_icons";
 
 export const ShipPopout: FC = () => {
 
@@ -43,8 +44,17 @@ export const ShipPopout: FC = () => {
 
             <div className={styles.header}>
                 <div className={styles.__border}>
-                    Корабль
+                    <div className={styles.name}>
+                        Корабль
+                    </div>
+                    <div
+                        onClick={closePopout}
+                        className={styles.close}
+                    >
+                        <IconClose width={16} height={16} fill="#ffffff" />
+                    </div>
                 </div>
+
             </div>
 
             <div className={styles.__content}>
@@ -107,7 +117,7 @@ export const ShipPopout: FC = () => {
                     <Hold />
                 </div>
 
-                <div className={styles.actions}>
+                {/* <div className={styles.actions}>
                     <div className={styles.inside}>
                         <div
                             onClick={closePopout}
@@ -122,7 +132,7 @@ export const ShipPopout: FC = () => {
                             Улучшить
                         </div>
                     </div>
-                </div>
+                </div> */}
 
             </div>
         </div>

@@ -8,11 +8,6 @@ class ConnectPointerHandler extends Handler {
 
         pointersAPI.events.newPointer(message.payload)
 
-        // if(message.payload.userId === -1) {
-        //     setTimeout(() => {
-        //         tutorialModel.events.setTutorial('gun')
-        //     }, 2000)
-        // }
     }
 }
 

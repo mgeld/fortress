@@ -19,10 +19,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SectorService = void 0;
+const types_1 = require("../types");
 const inversify_1 = require("inversify");
 const areal_1 = require("../entities/pointer/areal");
 const sector_1 = require("../entities/sector/sector");
-const types_1 = require("../types");
 let SectorService = class SectorService {
     create({ id, latlng, zone_id, }) {
         return sector_1.Sector.create({

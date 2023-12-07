@@ -1,4 +1,4 @@
-import { TLimit, TTractorExtr, TTutorial } from "../common-types/socket/server-to-client"
+import { TLimit, TTractorUnit, TTutorial } from "../common-types/socket/server-to-client"
 import { TBeamAPI, TEventBeam } from "../common-types/socket/client-to-server"
 import { IWebSocket } from "../api/socket/server";
 import { IRoute } from "./handlers"
@@ -41,16 +41,24 @@ class BeamHandler extends IRoute {
 
         const zone = await this._zoneService.getById(uSocket.user_id)
 
-        let extrResp: TTractorExtr
+        let beamResp: TTractorUnit = {
+            event: 'attraction',
+            payload: {
+                type: null,
+                data: null,
+                fort: __fort,
+                pos: __position
+            }
+        }
 
         try {
             _sector = await this._sectorService.getById(__sector)
 
-            let extr: TExtrTypes | null = null
-
-            console.log('_sector.booty', _sector.booty)
+            // let typeTractor = null
 
             if (_sector.booty) {
+
+                let extr: TExtrTypes | null = null
 
                 if (zone.terrain.sectors > 1) {
                     extr = Sector.getContainerExtr(_sector.booty)
@@ -67,6 +75,12 @@ class BeamHandler extends IRoute {
 
                 }
 
+                beamResp.payload.type = 'cont'
+                beamResp.payload.data = {
+                    extr,
+                    cont: _sector.booty,
+                }
+
                 const hold = zone.hold.addExtrToList(extr)
 
                 if (hold === 'limit') {
@@ -79,39 +93,63 @@ class BeamHandler extends IRoute {
                     uSocket.send(JSON.stringify(limitResp))
                     return
                 }
-            }
 
-            extrResp = {
-                event: 'attraction',
-                payload: {
-                    extr,
-                    cont: _sector.booty,
-                    fort: __fort,
-                    pos: __position
-                }
-            }
-
-            if (extr) {
                 _sector.takenBooty()
+
+            } else {
+
+                if (zone.id === _sector.zone_id) {
+
+                    if (_sector.defenders > 1) {
+
+                        beamResp.payload.type = 'strm'
+                        beamResp.payload.data = null
+
+                        let resultIncrese: [number, number] | 'limit' = zone.stormtrooper_corps.addInvaders(1)
+
+                        if (resultIncrese === 'limit') {
+                            const limitResp: TLimit = {
+                                event: 'limit',
+                                payload: {
+                                    gives: 'stormtroopers'
+                                }
+                            }
+                            uSocket.send(JSON.stringify(limitResp))
+                            return
+                        }
+                        
+                        _sector.killDefender()
+                        zone.terrain.killDefender()
+
+                    }
+                }
+
+            }
+
+            console.log('beamResp.payload.type', beamResp.payload.type)
+
+            if (beamResp.payload.type) {
                 this._logs.takes.add(_sector.id)
                 this._zoneService.memoryUpdate(zone)
                 this._sectorService.update(_sector)
             }
 
         } catch (e) {
-            extrResp = {
-                event: 'attraction',
-                payload: {
-                    extr: null,
-                    cont: 0,
-                    fort: null,
-                    pos: __position
-                }
-            }
+            // beamResp = {
+            //     event: 'attraction',
+            //     payload: {
+            //         type: 'cont',
+            //         data: null,
+            //         fort: null,
+            //         pos: __position
+            //     }
+            // }
 
         }
 
-        uSocket.send(JSON.stringify(extrResp))
+        console.log('beamResp', beamResp)
+        
+        uSocket.send(JSON.stringify(beamResp))
 
     }
 }

@@ -136,11 +136,10 @@
 
                 .info {
                     flex: 1;
-                    padding-left: 8px;
                     width: 100%;
                     display: flex;
+                    padding-left: 8px;
                     box-sizing: border-box;
-                    // padding-top: 2px;
 
                     .user {
                         flex: 1;
@@ -195,17 +194,22 @@
                                 line-height: 16px;
 
                                 padding: 4px 8px;
-                                border: 2px solid #252525;
                                 border-radius: 8px;
-                                background-color: #252525;
                                 box-sizing: border-box;
+
+                                border: 2px solid #252525;
+                                background-color: #252525;
 
                                 .count {
                                     color: white;
                                     padding-right: 6px;
+                                    z-index: 4;
                                 }
 
-                                .icon {}
+                                .icon {
+                                    z-index: 4;
+                                }
+
                             }
 
 
@@ -223,7 +227,7 @@
                                     width: 100%;
                                     height: 50%;
                                     background-color: rgba(255, 255, 255, 0.25);
-                                    border-radius: 6px;
+                                    border-radius: 9px;
                                 }
                             }
 

@@ -79,8 +79,6 @@ class ConnectHandler implements IRoute {
                 return
             }
 
-            console.log('**** isClient', isClient)
-
             pointer = await this._pointerService.baseGetById(zoneId)
 
             weapon = await this._weaponService.baseGetById(pointer.weapons[0])
@@ -97,8 +95,6 @@ class ConnectHandler implements IRoute {
 
         } catch (e) {
 
-            console.log('ERROR e', e)
-
             weapon = this._weaponService.createGun()
 
             this._weaponService.memoryInsert(weapon)
@@ -109,7 +105,9 @@ class ConnectHandler implements IRoute {
 
             await this._vkUserRepository.insert({
                 user_id: vk_id,
-                zone_id: zone.id
+                zone_id: zone.id,
+                is_msg: 0,
+                is_group: 0,
             })
 
             pointer = this._pointerService.create(

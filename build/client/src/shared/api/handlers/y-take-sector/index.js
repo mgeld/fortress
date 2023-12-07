@@ -3,8 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.YTakeSectorHandler = void 0;
 const __1 = require("..");
 const zone_1 = require("entities/zone");
-const events_1 = require("shared/api/events");
 const snackbar_1 = require("shared/ui/snackbar");
+const events_1 = require("shared/api/events");
 class YTakeSectorHandler extends __1.Handler {
     handle(message) {
         console.log('YTakeSectorHandler message', message);

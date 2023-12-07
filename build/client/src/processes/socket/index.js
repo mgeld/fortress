@@ -39,6 +39,7 @@ const battle_yr_take_sector_1 = require("shared/api/handlers/battle-yr-take-sect
 const session_1 = require("shared/api/handlers/session");
 const set_health_1 = require("shared/api/handlers/set-health");
 const set_rating_1 = require("shared/api/handlers/set-rating");
+const reward_1 = require("shared/api/handlers/reward");
 exports.WS = socket_1.Socket.create(config_1.API_BASE_URL, model_1.events.setSocketStatus);
 const handlers = new handlers_1.Handlers({
     [connect_1.ConnectHandler.EVENT]: new connect_1.ConnectHandler(),
@@ -75,5 +76,6 @@ const handlers = new handlers_1.Handlers({
     [session_1.SessionHandler.EVENT]: new session_1.SessionHandler(),
     [set_health_1.SetHealthHandler.EVENT]: new set_health_1.SetHealthHandler(),
     [set_rating_1.SetRatingHandler.EVENT]: new set_rating_1.SetRatingHandler(),
+    [reward_1.RewardHandler.EVENT]: new reward_1.RewardHandler(),
 });
 exports.WS.setHandlers(handlers.handle());

@@ -25,6 +25,7 @@ type TTypeToast =
     | 8 // 'container-not-found
     | 9 // 'not-invaders
     | 10 // 'your-sector-take'
+    | 11 // 'return-invader'
 
 type TTostProps = {
     text: string

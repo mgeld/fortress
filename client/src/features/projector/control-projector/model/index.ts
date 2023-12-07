@@ -5,6 +5,7 @@ import { TLatLng } from "shared/types";
 import { projectorAPI } from "shared/api/events";
 import { beamAPI } from "shared/api/beam";
 import { shipModel } from "entities/ship";
+import { throttle } from "shared/lib/throttle";
 
 const hitSectorFx = createEffect((userPos: TLatLng) => {
 
@@ -88,4 +89,4 @@ sample({
 })
 
 // Точка входа
-export const projectorControl = () => attractBooty()
+export const projectorControl = throttle(attractBooty, 300)

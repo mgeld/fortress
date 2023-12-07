@@ -30,7 +30,7 @@ export const AboutSector: FC = () => {
     )
 
     return (
-        <div className={styles.aboutSector}>
+        <div className={`${styles.aboutSector}`}>
             <div className={[styles.__container, styles.__one].join(' ')}>
                 {/* <AboutSectorItem
                     icon={<IconSector width={16} height={16} />}
@@ -38,17 +38,17 @@ export const AboutSector: FC = () => {
                     text={sector.number > 0 ? `${sector.number}` : 'Новый'}
                 /> */}
                 <AboutSectorItem
-                    icon={<IconLocation width={16} height={16} />}
+                    icon={<IconLocation width={18} height={18} />}
                     name="Владелец:"
                     text={`${sector.owner}`}
                 />
                 <AboutSectorItem
-                    icon={<IconFort width={16} height={16} />}
+                    icon={<IconFort width={18} height={18} />}
                     name="Форт:"
                     text={`${sector.defenders} стражей`}
                 />
                 <AboutSectorItem
-                    icon={<IconTarget width={18} height={18} />}
+                    icon={<IconTarget width={20} height={20} />}
                     name="Точка:"
                     text={`${sector.latlng[0].toFixed(4)}, ${sector.latlng[0].toFixed(4)}`}
                 />

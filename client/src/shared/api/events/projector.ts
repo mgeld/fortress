@@ -15,5 +15,5 @@ export const events = {
     setBeam,
     addBooty,
     delBootyById,
-    setContainer
+    setContainer,
 }

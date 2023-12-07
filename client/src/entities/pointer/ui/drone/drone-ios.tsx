@@ -44,7 +44,7 @@ const DroneIOS: FC<TDroneProps> = ({
 
     const map = useMap()
 
-    const [size, setZise] = useState(metersToPx(pos[0], 60, map.getZoom()))
+    const [size, setZise] = useState(metersToPx(map.getCenter().lat, 60, map.getZoom()))
 
     const [point, setPoint] = useState(map.latLngToLayerPoint(pos))
 

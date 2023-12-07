@@ -1,8 +1,9 @@
 import { FC } from "react"
+
 import Drone from "./drone"
+import DroneIOS from "./drone-ios"
 
 import { TLatLng } from "@ctypes/model"
-import DroneIOS from "./drone-ios"
 import { getPlatformNative } from "shared/lib/get-platform-native"
 
 let platform = getPlatformNative()

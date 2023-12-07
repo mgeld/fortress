@@ -9,15 +9,15 @@ import { ReactComponent as IconWarning } from './warning.svg';
 // import { ReactComponent as IconCont3 } from '/icons/cont_3.svg';
 
 import { noticeModel } from ".";
-import { IconClose, IconCont1, IconCont2, IconCont3, IconLevelUp, IconRank, IconZoneLevel } from "shared/assets/icons/_icons";
+import { IconClose, IconCoin, IconCont1, IconCont2, IconCont3, IconLevelUp, IconRank, IconSapphire, IconZoneLevel } from "shared/assets/icons/_icons";
 import { modules } from "entities/unit/lib/modules";
 import { TExtrTypes } from "@ctypes/model";
 
 
 const _notice: { [k: string]: ReactNode } = {
 
-    // 'coins': <IconCoin width={30} height={30} />,
-    // 'rubies': <IconSapphire width={30} height={30} />,
+    'coins': <IconCoin width={30} height={30} />,
+    'rubies': <IconSapphire width={30} height={30} />,
 
     'cont_1': <IconCont1 width={30} height={30} />,
     'cont_2': <IconCont2 width={30} height={30} />,

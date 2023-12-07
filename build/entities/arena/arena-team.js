@@ -55,7 +55,6 @@ class Team {
     }
     addSector() {
         this._sectors = this._sectors + 1;
-        console.log('Team addSector this._sectors', this._sectors);
         return this._sectors;
     }
     get id() {

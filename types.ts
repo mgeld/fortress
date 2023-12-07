@@ -66,6 +66,7 @@ const TYPES = {
     
     SnapshotAreals: Symbol.for('SnapshotAreals'),
     SnapshotArenas: Symbol.for('SnapshotArenas'),
+    VkCallback: Symbol.for('VkCallback'), 
 
     BattleService: Symbol.for('BattleService'),
 

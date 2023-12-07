@@ -6,6 +6,7 @@ const h3_js_1 = require("h3-js");
 const events_1 = require("shared/api/events");
 const beam_1 = require("shared/api/beam");
 const ship_1 = require("entities/ship");
+const throttle_1 = require("shared/lib/throttle");
 const hitSectorFx = (0, effector_1.createEffect)((userPos) => {
     const h3Index = (0, h3_js_1.latLngToCell)(userPos[0], userPos[1], 9);
     const [lat, long] = (0, h3_js_1.cellToLatLng)(h3Index);
@@ -40,5 +41,4 @@ const attractBooty = (0, effector_1.createEvent)();
     source: ship_1.shipModel.$userPositionStore,
     target: hitSectorFx,
 });
-const projectorControl = () => attractBooty();
-exports.projectorControl = projectorControl;
+exports.projectorControl = (0, throttle_1.throttle)(attractBooty, 300);

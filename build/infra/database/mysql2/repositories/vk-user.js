@@ -42,17 +42,47 @@ let VkUserRepository = class VkUserRepository {
     }
     insert(user) {
         return __awaiter(this, void 0, void 0, function* () {
+            const date_reg = Math.floor(new Date().getTime() / 1000);
             const inserted = yield this._connection.execute(`
             INSERT INTO vk_users(
                 user_id,
-                zone_id
+                zone_id,
+                date
             )VALUES(
+                ?,
                 ?,
                 ?
             );
         `, [
                 user.user_id,
-                user.zone_id
+                user.zone_id,
+                date_reg
+            ]);
+            if (!inserted) {
+                throw new Error('----------');
+            }
+        });
+    }
+    setMsg(vkId, is_msg) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const inserted = yield this._connection.execute(`
+            UPDATE vk_users SET is_msg = ? WHERE user_id = ?
+        `, [
+                is_msg,
+                vkId
+            ]);
+            if (!inserted) {
+                throw new Error('----------');
+            }
+        });
+    }
+    setGroup(vkId, join) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const inserted = yield this._connection.execute(`
+            UPDATE vk_users SET is_group = ? WHERE user_id = ?
+        `, [
+                join,
+                vkId
             ]);
             if (!inserted) {
                 throw new Error('----------');

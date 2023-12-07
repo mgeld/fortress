@@ -10,6 +10,8 @@ const _1 = require(".");
 const _icons_1 = require("shared/assets/icons/_icons");
 const modules_1 = require("entities/unit/lib/modules");
 const _notice = {
+    'coins': <_icons_1.IconCoin width={30} height={30}/>,
+    'rubies': <_icons_1.IconSapphire width={30} height={30}/>,
     'cont_1': <_icons_1.IconCont1 width={30} height={30}/>,
     'cont_2': <_icons_1.IconCont2 width={30} height={30}/>,
     'cont_3': <_icons_1.IconCont3 width={30} height={30}/>,

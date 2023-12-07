@@ -30,7 +30,10 @@ const sectors = `
 const vk_users = `
     CREATE TABLE vk_users(
         user_id BIGINT NOT NULL primary key,
-		zone_id INT NOT NULL unique
+		zone_id INT NOT NULL unique,
+        is_msg tinyint NOT NULL DEFAULT 0,
+        is_group tinyint NOT NULL DEFAULT 0,
+        date INT NOT NULL DEFAULT 0
     )
     character set='utf8mb4';
 `

@@ -47,7 +47,10 @@ const ui_20 = require("shared/ui/load-app/ui");
 const rating_1 = require("pages/rating");
 const map_satellite_1 = require("pages/map-satellite");
 const model_1 = require("widgets/map-region/container/model");
+const vk_join_group_1 = require("features/user/vk-join-group");
+const model_2 = require("features/user/vk-join-group/model");
 (0, model_1.mapStartPosition)();
+(0, model_2.initVkJoinGroup)();
 window.addEventListener('popstate', () => (0, go_back_1.goBack)());
 let platform = (0, get_platform_1.getPlatform)();
 const _platform = (0, get_platform_native_1.getPlatformNative)();
@@ -73,6 +76,11 @@ const App = () => {
           <battle_pending_1.BattlePending />
         </popout_1.Popout>
 
+        <popout_1.Popout key='vk-join-group' id='vk-join-group' fill='white' screen='full' close={true} edge={0}>
+          <vk_join_group_1.VkJoinGroup />
+        </popout_1.Popout>
+
+        
         <popout_1.Popout key='battle-over' id='battle-over' fill='#5a166480' screen='full' close={false} edge={0}>
           <arena_1.BattleOver />
         </popout_1.Popout>

@@ -1,14 +1,15 @@
 import { FC } from "react";
 
 import { tutorialModel } from ".";
-import { TJoystickDirection, TTutType } from "@ctypes/model";
+import { TTutType } from "@ctypes/model";
 
-import styles from './styles.module.scss'
 import { shipModel } from "entities/ship";
 import { pointersAPI } from "shared/api/events";
-import { Areal } from "entities/areal/model";
-import { FireHandler } from "shared/api/handlers/fire";
 
+import styles from './styles.module.scss'
+
+// import { Areal } from "entities/areal/model";
+// import { FireHandler } from "shared/api/handlers/fire";
 // import { TTutorialType } from "@ctypes/model";
 
 type TDate = {
@@ -27,28 +28,30 @@ export const Tutorial: FC = () => {
 
     const setTutorial = () => {
         if (card === 'ship') {
+
             tutorialModel.events.setTutorial(null)
+
             setTimeout(() => {
-                pointersAPI.events.newPointer({
-                    lvl: 1,
-                    userId: -1,
-                    icon: 'https://sun120-1.userapi.com/s/v1/ig2/Y5LhWYhLVxHswvVU4dGrqnGVc4wmSzQQKVKZXrlyflMWuRihg7F4TVephtlm4fmdE9SFxBCUKPFuxsqz4hIIu_cx.jpg?size=50x50&quality=95&crop=468,0,960,960&ava=1',
-                    name: 'НЛО',
-                    health: 50,
-                    pos: [pos[0] + 0.004, pos[1]]
-                })
-                setTimeout(() => {
-                    tutorialModel.events.setTutorial('gun')
-                }, 500)
+
+                // pointersAPI.events.newPointer({
+                //     lvl: 1,
+                //     userId: -1,
+                //     icon: 'https://sun120-1.userapi.com/s/v1/ig2/Y5LhWYhLVxHswvVU4dGrqnGVc4wmSzQQKVKZXrlyflMWuRihg7F4TVephtlm4fmdE9SFxBCUKPFuxsqz4hIIu_cx.jpg?size=50x50&quality=95&crop=468,0,960,960&ava=1',
+                //     name: 'НЛО',
+                //     health: 50,
+                //     pos: [pos[0] + 0.004, pos[1]]
+                // })
+
+                // setTimeout(() => {
+                //     tutorialModel.events.setTutorial('gun')
+                // }, 500)
+                
+                tutorialModel.events.setTutorial('storm')
+
             }, 3000)
+
         } else {
             tutorialModel.events.setTutorial(null)
-
-            // const direction: TJoystickDirection = Areal.getArealId(
-            //     [pos[0] + 0.004, pos[1]]
-            // ) !== areal ? 'FORWARD' : 'BACKWARD'
-            // const _lat = direction === 'FORWARD' ? _pointer.pos[0] - 0.004 : _pointer.pos[0] + 0.004
-
         }
 
     }
@@ -104,7 +107,7 @@ export const Tutorial: FC = () => {
                 >
                     <div>
                         {/* {cards[card].next ? 'Далее' : 'Понятно!'} */}
-                        {'Понятно!'}
+                        Понятно!
                     </div>
                 </div>
 
