@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "./static/css/main.3ef719a3.css",
-    "main.js": "./static/js/main.81e77236.js",
+    "main.css": "./static/css/main.af3c1b67.css",
+    "main.js": "./static/js/main.d48b3f4b.js",
     "static/js/59.5601a8a5.chunk.js": "./static/js/59.5601a8a5.chunk.js",
     "static/media/Lilita.ttf": "./static/media/Lilita.eb90369243a760389944.ttf",
     "static/media/swords.svg": "./static/media/swords.293f3e1147b39a1495115ed3f1f9195d.svg",
@@ -14,6 +14,7 @@
     "static/media/dist-gun-3.svg": "./static/media/dist-gun-3.547acfc29cc4ca231ee1902c4a024979.svg",
     "static/media/dist-gun-1.svg": "./static/media/dist-gun-1.74a8e2d64478c0f879647fc52de13132.svg",
     "static/media/dist-gun-2.svg": "./static/media/dist-gun-2.1d2435f5009d59b38727c8a42b50c070.svg",
+    "static/media/terrain.svg": "./static/media/terrain.72fee327bba22c6ba7a44c75e50882a3.svg",
     "static/media/gun.svg": "./static/media/gun.c001a19dd59ab4ea0eb1e5da2d29d012.svg",
     "static/media/power-storm-1.svg": "./static/media/power-storm-1.3e6fea9a58ee9d1070229fe8f8cfb83b.svg",
     "static/media/power-storm-2.svg": "./static/media/power-storm-2.6037f412eed8edf4b946dfe2359738e8.svg",
@@ -44,6 +45,9 @@
     "static/media/level-up.svg": "./static/media/level-up.ab4a1dcfb683c527ead61ba6066b5000.svg",
     "static/media/battle-loupe.svg": "./static/media/battle-loupe.9d4abfe0757cff01dc38a97c88151039.svg",
     "static/media/hold.svg": "./static/media/hold.1a3d990b6788f9655dd8c84e8a593ada.svg",
+    "static/media/settings.svg": "./static/media/settings.37f5fb253e95d65cfd889c1c5bf360a6.svg",
+    "static/media/vk.svg": "./static/media/vk.84afa36c30474d55168d2dc67e652e96.svg",
+    "static/media/load.svg": "./static/media/load.4b74ee9f465c7258c29ecdd01ea516a6.svg",
     "static/media/shop.svg": "./static/media/shop.d815a6d25289205567d48ca1a19fdd33.svg",
     "static/media/zone-red.svg": "./static/media/zone-red.20b3ccece396efa198c9a705708e5884.svg",
     "static/media/sapphire.svg": "./static/media/sapphire.d890d11d312aae64b6e7e83750d2acc7.svg",
@@ -64,11 +68,11 @@
     "static/media/cont_1.svg": "./static/media/cont_1.cef693995c524f30b994b08d0ffd6120.svg",
     "static/media/cont_2.svg": "./static/media/cont_2.f2772c6b0482a4bcdb28b5c0b4bea34b.svg",
     "static/media/cont_3.svg": "./static/media/cont_3.999ae689d628275380532601f4ff0962.svg",
-    "main.3ef719a3.css.map": "./static/css/main.3ef719a3.css.map",
-    "main.81e77236.js.map": "./static/js/main.81e77236.js.map"
+    "main.af3c1b67.css.map": "./static/css/main.af3c1b67.css.map",
+    "main.d48b3f4b.js.map": "./static/js/main.d48b3f4b.js.map"
   },
   "entrypoints": [
-    "static/css/main.3ef719a3.css",
-    "static/js/main.81e77236.js"
+    "static/css/main.af3c1b67.css",
+    "static/js/main.d48b3f4b.js"
   ]
 }
