@@ -4,6 +4,8 @@ exports.events = void 0;
 const effector_1 = require("effector");
 const setZoneSectors = (0, effector_1.createEvent)();
 const setZoneLevel = (0, effector_1.createEvent)();
+const setZoneColor = (0, effector_1.createEvent)();
+const setZoneDescription = (0, effector_1.createEvent)();
 const setZoneTrophies = (0, effector_1.createEvent)();
 const addZoneTrophies = (0, effector_1.createEvent)();
 const setZoneCoins = (0, effector_1.createEvent)();
@@ -15,6 +17,8 @@ const addRubies = (0, effector_1.createEvent)();
 exports.events = {
     setZoneSectors,
     setZoneLevel,
+    setZoneColor,
+    setZoneDescription,
     setZoneTrophies,
     addZoneTrophies,
     setZoneCoins,

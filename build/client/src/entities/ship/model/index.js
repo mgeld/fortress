@@ -1,24 +1,24 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.selectors = exports.events = exports.$userHealthStore = exports.$shipLevel = exports.$arealStore = exports.$userPositionStore = void 0;
+exports.selectors = exports.events = exports.$userHealthStore = exports.$arealStore = exports.$shipLevel = exports.$userPositionStore = void 0;
 const reducer_1 = require("../lib/reducer");
 const effector_react_1 = require("effector-react");
 const events_1 = require("shared/api/events");
-const model_1 = require("entities/areal/model");
 const get_user_1 = require("shared/api/get-user");
 const effector_1 = require("effector");
+const model_1 = require("entities/areal/model");
 const { setPos, setLevel, addHealth, setHealth, changeHealth, } = events_1.shipAPI.events;
 const DEFAULT_STORE_POSITION = [0, 0];
 const resetUser = (0, effector_1.createEvent)();
-const setAreal = (0, effector_1.createEvent)();
 const movePoint = (0, effector_1.createEvent)();
 exports.$userPositionStore = (0, effector_1.createStore)(DEFAULT_STORE_POSITION)
     .on(movePoint, reducer_1.reducer)
     .on(setPos, (_, pos) => pos);
-exports.$arealStore = (0, effector_1.createStore)(null)
-    .on(setAreal, (_, areal) => areal);
 exports.$shipLevel = (0, effector_1.createStore)(0)
     .on(setLevel, (_, areal) => areal);
+const setAreal = (0, effector_1.createEvent)();
+exports.$arealStore = (0, effector_1.createStore)(null)
+    .on(setAreal, (_, areal) => areal);
 (0, effector_1.sample)({
     clock: movePoint,
     source: {

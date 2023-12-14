@@ -13,8 +13,7 @@ class SessionHandler extends __1.Handler {
                 text: 'Обновить',
                 _click: () => {
                     popout_root_1.popoutModel.events.setPopout(null);
-                    const url = window.location.search;
-                    events_1.userAPI.events.connectUser(url);
+                    events_1.userAPI.events.connectUser();
                 }
             },
             alert: 'Ошибка подключения',
@@ -23,4 +22,4 @@ class SessionHandler extends __1.Handler {
     }
 }
 exports.SessionHandler = SessionHandler;
-SessionHandler.EVENT = 'session';
+SessionHandler.EVENT = 'session-destroy';

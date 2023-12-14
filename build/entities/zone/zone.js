@@ -8,6 +8,7 @@ class Zone {
         this._coins = zone.coins;
         this._rubies = zone.rubies;
         this._color = (zone === null || zone === void 0 ? void 0 : zone.color) || 1;
+        this._description = (zone === null || zone === void 0 ? void 0 : zone.description) || '';
         this._rank = zone.rank;
         this._terrain = zone.terrain;
         this._stormtrooper_corps = zone.stormtrooper_corps;
@@ -21,6 +22,7 @@ class Zone {
         return {
             id: this._id,
             color: this.color,
+            description: this._description,
             trophies: this._trophies,
             coins: this._coins,
             rubies: this._rubies,
@@ -38,6 +40,16 @@ class Zone {
     }
     get color() {
         return this._color;
+    }
+    set color(c) {
+        if (c > 0 && c <= 6) {
+            this._color = c;
+        }
+    }
+    set description(d) {
+        if (d.length >= 0 && d.length <= 100) {
+            this._description = d;
+        }
     }
     get coins() {
         return this._coins;

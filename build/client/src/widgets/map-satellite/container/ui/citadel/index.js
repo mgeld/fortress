@@ -8,7 +8,8 @@ const alert_1 = require("shared/ui/alert");
 const popout_root_1 = require("shared/ui/popout-root");
 const layout_rating_1 = require("widgets/layout-rating");
 const CitadelMap = () => {
-    const zone = layout_rating_1.ratingModel.selectors.useRating().selectZone;
+    const size = pointer_1.droneMapModel.selectors.useDroneSize().px;
+    const zone = layout_rating_1.ratingModel.selectors.useSelectZone();
     const eventCitadel = () => {
         popout_root_1.popoutModel.events.setPopout('alert');
         alert_1.alertModel.events.setAlert({
@@ -37,6 +38,6 @@ const CitadelMap = () => {
     });
     if (!(zone === null || zone === void 0 ? void 0 : zone.latlng))
         return <></>;
-    return (<citadel_1.Citadel pos={zone === null || zone === void 0 ? void 0 : zone.latlng} _click={eventCitadel}/>);
+    return (<citadel_1.Citadel pos={zone === null || zone === void 0 ? void 0 : zone.latlng} _click={eventCitadel} droneSize={size}/>);
 };
 exports.CitadelMap = CitadelMap;

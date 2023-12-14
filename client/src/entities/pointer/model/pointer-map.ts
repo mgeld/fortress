@@ -32,68 +32,6 @@ const {
     setHealthPointer
 } = pointersAPI.events
 
-// type TUserApi = {
-//     id: number
-//     photo_50: string
-//     photo_100: string
-//     first_name: string
-// }
-
-// const getUsersFx = createEffect(async ({
-//     pointers,
-//     prevPointers
-// }: {
-//     pointers: TPointer[],
-//     prevPointers: TPointer[]
-// }): Promise<TPointer[]> => {
-
-//     const user_ids: number[] = pointers.map(item => item.userId)
-
-//     return bridge.send('VKWebAppCallAPIMethod', {
-//         method: 'users.get',
-//         params: {
-//             user_ids: user_ids.join(','),
-//             v: '5.131',
-//             fields: 'photo_50',
-//             access_token: '10811a2f10811a2f10811a2fdf1395cae51108110811a2f7425604c5854e1fbf0d0110c'
-//         }
-//     })
-//         .then((data: { response: TUserApi[] }) => {
-
-//             // if (!prevPointers) prevPointers = []
-
-//             if (data && pointers.length > 0) {
-//                 return [
-//                     ...prevPointers,
-//                     ...pointers.map(pointer => {
-//                         const user = data.response.find(user => user.id === pointer.userId)
-//                         return {
-//                             ...pointer,
-//                             icon: user?.photo_50,
-//                             name: user?.first_name
-//                         }
-//                     })
-//                 ]
-//             } else {
-//                 return []
-//             }
-//         })
-//         .catch((error) => {
-//             // Ошибка
-//             console.log(error);
-//             return []
-//         });
-// })
-
-// sample({
-//     clock: setPointers,
-//     fn: (clock) => ({
-//         pointers: clock,
-//         prevPointers: []
-//     }),
-//     target: getUsersFx
-// })
-
 export const $pointersStore = createStore<TPointer[]>(DEFAULT_STORE)
     .on(setPointers, (_, pointers: TPointer[]) => {
         return pointers

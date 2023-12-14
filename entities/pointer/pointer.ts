@@ -1,4 +1,4 @@
-import { TLatLng, TPointer } from "../../common-types/model"
+import { TLatLng, TPointer, TZoneColor } from "../../common-types/model"
 import { UnmarshalledUser, User } from "./user"
 
 export type TPointerProps = {
@@ -8,7 +8,7 @@ export type TPointerProps = {
 
     user: User
 
-    color: number
+    color: TZoneColor
 
     health: number
 
@@ -40,7 +40,7 @@ export class Pointer {
 
     private _user: User
 
-    private _color: number
+    private _color: TZoneColor
 
     private _weapons: string[]
     private _bombs: string[]
@@ -95,6 +95,7 @@ export class Pointer {
     public pointerUnmarshal(): TPointer {
         return {
             lvl: this._level,
+            color: this._color,
             userId: this._zoneId,
             icon: this._user.icon,
             name: this._user.name,
@@ -140,12 +141,22 @@ export class Pointer {
         return levels[level]
     }
 
-    get icon() {
-        return this._user.icon
+    get user() {
+        return this._user
     }
 
-    get name() {
-        return this._user.name
+    // get name() {
+    //     return this._user.name
+    // }
+    
+    set color(c: TZoneColor) {
+        if (c > 0 && c <= 6) {
+            this._color = c
+        }
+    }
+
+    get color() {
+        return this._color
     }
 
     get zoneId(): number {

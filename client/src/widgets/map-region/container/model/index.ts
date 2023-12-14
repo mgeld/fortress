@@ -17,9 +17,9 @@ import { pageModel } from "shared/ui/page-root";
 
 export const mapStartPosition = () => {
     sample({
-        clock: pageModel.events.setPage,
+        clock: [pageModel.events.setPage,pageModel.events.returnPage],
         source: shipModel.$userPositionStore,
-        filter: (pos: TLatLng, page) => page === 'map',
+        filter: (pos: TLatLng, clock) => clock === 'map',
         target: mapModel.$mapCenterDefaultStore
     })
 }

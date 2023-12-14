@@ -1,5 +1,5 @@
 import { inject, injectable } from "inversify";
-import { IRatingZone, TExtrTypes } from "../common-types/model";
+import { IRatingZone, TExtrTypes, TZoneColor } from "../common-types/model";
 import { IZoneMemoryRepository, IZoneRepository } from "../entities/repository";
 import { TYPES } from "../types";
 import { randomNumber } from "../libs/random-number";
@@ -35,8 +35,12 @@ export class ZoneService {
     }
 
     async memoryGetById(userId: number): Promise<Zone> {
-        const zone = await this._memoryRepository.getById(userId)
-        return zone
+        try {
+            const zone = await this._memoryRepository.getById(userId)
+            return zone
+        } catch (e) {
+            throw new Error('ZoneService memoryGetById catch throw')
+        }
     }
 
     async memoryGetByIds(userIds: number[]): Promise<Zone[]> {
@@ -59,7 +63,7 @@ export class ZoneService {
         color: number,
     ): Zone {
 
-        const DEFAULT_COLOR = randomNumber(1, 6)
+        const DEFAULT_COLOR = randomNumber(1, 6) as TZoneColor
 
         const DEFAULT_RUBIES = 150
         const DEFAULT_COINS = 2000
@@ -102,6 +106,7 @@ export class ZoneService {
         const zone = ZoneMapper.toDomain({
             id: 0,
             color: DEFAULT_COLOR,
+            description: '',
             rubies: DEFAULT_RUBIES,
             coins: DEFAULT_COINS,
             trophies: DEFAULT_TROPHIES,

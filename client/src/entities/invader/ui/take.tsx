@@ -4,7 +4,7 @@ import { randomNumber } from "shared/lib/randomNumber"
 // import { Keyframes } from "shared/ui/Keyframes/Keyframes";
 import { TTake } from "../model/invader";
 import styles from './styles.module.scss'
-import { getDestination } from "entities/sector/lib/getDestination";
+import { getDestination } from "shared/lib/getDestination";
 import { TLatLng } from "shared/types";
 
 // type TStyle = {

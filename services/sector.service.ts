@@ -76,7 +76,7 @@ export class SectorService {
                 zoneItems[item.zone_id] = {} as TZoneItem
                 zoneItems[item.zone_id]['zone'] = {
                     zone_id: item.zone_id,
-                    name: '',
+                    // name: '',
                     color: 1
                 }
                 zoneItems[item.zone_id]['sectors'] = []

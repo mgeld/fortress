@@ -13,16 +13,32 @@ export type TPage =
     | 'extraction'
     | 'gun-shop'
     | 'rating'
+    | 'zone'
 
 const setPage = createEvent<TPage>()
+const returnPage = createEvent<TPage>()
+const addPage = createEvent<TPage>()
+const delHistoryPage = createEvent()
+
+export const $historyStore = createStore<TPage[]>(['map'])
+    .on(addPage, (pages, page) => ([page, ...pages]))
+    .on(delHistoryPage, (pages, _) => {
+        pages.shift()
+        return pages
+    })
 
 export const $pageStore = createStore<TPage>('map')
-// .on(setPage, (_, page) => page)
+    .on(returnPage, (_, page) => page)
 
 const pageFx = createEffect((page: TPage) => {
-    if (page) window.history.pushState({ page }, page)
+    if (page) {
+        addPage(page)
+        window.history.pushState({ page }, page)
+    }
     return page
 })
+
+
 
 sample({
     clock: setPage,
@@ -39,7 +55,9 @@ export const selectors = {
 }
 
 export const events = {
-    setPage
+    setPage,
+    returnPage,
+    delHistoryPage
 }
 
 

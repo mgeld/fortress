@@ -14,13 +14,10 @@ const $selectRatingZoneStore = createStore<IRatingZone | null>(null)
 const $ratingZonesStore = createStore<IRatingZone[] | null>(null)
     .on(setZones, (_, zones) => zones)
 
-const useRating = () => {
-    return {
-        zones: useStore($ratingZonesStore),
-        selectZone: useStore($selectRatingZoneStore)
-    }
-}
+const useRatingZones = () => useStore($ratingZonesStore)
+const useSelectZone = () => useStore($selectRatingZoneStore)
 
 export const selectors = {
-    useRating,
+    useRatingZones,
+    useSelectZone
 }

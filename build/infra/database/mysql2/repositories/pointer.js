@@ -47,7 +47,7 @@ let PointerRepository = class PointerRepository {
         return __awaiter(this, void 0, void 0, function* () {
             const [result] = yield this._connection.query(`SELECT
                 zone_id,
-                name,
+                -- name,
                 color
             FROM
                 pointers
@@ -58,7 +58,6 @@ let PointerRepository = class PointerRepository {
             }
             return result.map(pointer => ({
                 zone_id: pointer.zone_id,
-                name: pointer.name,
                 color: pointer.color
             }));
         });
@@ -132,7 +131,9 @@ let PointerRepository = class PointerRepository {
     }
     update(pointer) {
         return __awaiter(this, void 0, void 0, function* () {
+            console.log('Pointer Update Mysql2');
             const dtoPointer = pointer.unmarshal();
+            console.log('Pointer Update dtoPointer.color', dtoPointer.color);
             const updated = yield this._connection.execute(`
             UPDATE
                 pointers

@@ -11,10 +11,8 @@ export class PointerMemoryRepository implements IPointerMemoryRepository {
 
     async getById(userId: number): Promise<Pointer> {
 
-        console.log('getById userId', userId)
         const pointer = await this._database.pointer.getById<UnmarshalledPointer>(userId)
 
-        console.log('PointerMemoryRepository pointer', pointer)
         if (!pointer) {
             throw new Error('В Memory этого чувака нет')
         }

@@ -6,14 +6,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.useApp = void 0;
 const react_1 = require("react");
 const model_1 = require("shared/api/socket/model");
-const vk_bridge_1 = __importDefault(require("@vkontakte/vk-bridge"));
 const user_1 = require("entities/user");
+const events_1 = require("shared/api/events");
 const popout_root_1 = require("shared/ui/popout-root");
 const lock_screen_1 = require("shared/ui/lock-screen");
 const lost_internet_1 = require("processes/lost-internet");
-const socket_close_1 = require("processes/socket/socket-close");
-const events_1 = require("shared/api/events");
 const connect_user_1 = require("features/user/connect-user");
+const socket_close_1 = require("processes/socket/socket-close");
+const vk_bridge_1 = __importDefault(require("@vkontakte/vk-bridge"));
 connect_user_1.userEvents.startConnectUser();
 const useApp = () => {
     const vkUserId = user_1.userModel.selectors.useVkUserId();
@@ -22,8 +22,6 @@ const useApp = () => {
         window.addEventListener("offline", lost_internet_1.lostInternet);
         vk_bridge_1.default.send('VKWebAppGetUserInfo').then(user => {
             setTimeout(() => user_1.userModel.events.setVkUser(user.id), 1500);
-            user_1.userModel.events.setName(user.first_name);
-            user_1.userModel.events.setUserIcon(user.photo_100);
         });
     }, []);
     (0, react_1.useEffect)(() => {
@@ -35,12 +33,11 @@ const useApp = () => {
                     _click: () => (0, socket_close_1.reSocketClose)()
                 },
                 alert: 'Соединение потеряно',
-                message: 'Соединение с сервером было потеряно.'
+                message: 'Соединение с сервером было потеряно. Возможно, вы подключились к игре с другого устройства.'
             });
         }
         if (vkUserId > 0 && socketStatus === 'open') {
-            const url = window.location.search;
-            events_1.userAPI.events.connectUser(url);
+            events_1.userAPI.events.connectUser();
             return;
         }
     }, [vkUserId, socketStatus]);

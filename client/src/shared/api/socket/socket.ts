@@ -10,9 +10,11 @@ export class Socket {
 
     url: string
 
-    // private socketStatus: 'open' | 'close' = 'close'
-
     setStatus: Event<TSocketStatus>
+
+    timeOutId: ReturnType<typeof setTimeout> | null = null
+
+    callback: ((message: MessageEvent<any>) => void) | null = null
 
     private constructor(
         url: string,
@@ -21,10 +23,7 @@ export class Socket {
         this.url = url
         this.setStatus = setStatus
 
-        this.connect(url)
-
         Socket._instance = this;
-
     }
 
     public static create(
@@ -37,34 +36,40 @@ export class Socket {
         return new Socket(url, setStatus)
     }
 
-    connect(url: string | null) {
-
-        if (!url) return
-
-        console.log('connect')
-        this.socket = new WebSocket(url)
+    connect() {
+        // if (!this.url) return
+        console.log('Socket connect')
+        this.socket = new WebSocket(this.url)
         this.socketListener()
+    }
+
+    destroy() {
+        this.socket?.close()
+        // if (this.timeOutId)
+        //     clearTimeout(this.timeOutId)
     }
 
     socketListener() {
 
-        console.log('socketListener', this.socket)
+        const context = this
 
         if (!this.socket) {
-
-            console.log('.......................................socketListener')
             return
         }
-
+        // this.socket.close()
 
         this.socket.onopen = () => {
-            console.log('onopen')
+            console.log('socketListener onopen')
             this.setStatus('open')
+
+            if (context?.socket)
+                context.socket.onmessage = this.callback
         }
-        this.socket.onclose = () => {
-            console.log('onclose')
+        this.socket.onclose = (e) => {
+            console.log('onclose e.code', e.code)
+            console.log('onclose e.code', e.reason)
             this.setStatus('close')
-            setTimeout(() => this.connect(this.url), 1500)
+            // this.timeOutId = setTimeout(() => this.connect(this.url), 1500)
         }
 
         this.socket.onerror = () => {
@@ -79,9 +84,8 @@ export class Socket {
     }
 
     setHandlers(callback: (message: MessageEvent<any>) => void) {
-        console.log('setHandlers callback', callback)
-        if (!this.socket) return
-        this.socket.onmessage = callback
+        // if (!this.socket) return
+        this.callback = callback
     }
 
 }

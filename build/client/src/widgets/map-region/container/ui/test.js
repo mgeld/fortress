@@ -4,7 +4,7 @@ exports.Test = void 0;
 const react_1 = require("react");
 const react_leaflet_1 = require("react-leaflet");
 const h3_js_1 = require("h3-js");
-const getDestination_1 = require("entities/sector/lib/getDestination");
+const getDestination_1 = require("shared/lib/getDestination");
 const getImageBoundsForIndexH3 = (indexh3) => {
     const [lat, lng] = (0, h3_js_1.cellToLatLng)(indexh3);
     const length_m = (0, h3_js_1.getHexagonEdgeLengthAvg)(8, h3_js_1.UNITS.m) / 2;

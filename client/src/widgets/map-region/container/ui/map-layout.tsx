@@ -18,7 +18,6 @@ import { PointersMap } from "./pointers-map";
 
 import { mapModel } from "entities/map";
 import { changeBattleStatusListener } from "features/battle/battle-change-status/model";
-import { ArealRectangle } from "entities/areal/ui";
 import { SectorsMap } from "./sectors-map";
 import { scrollMapPointerListener } from "features/map/scroll-map-pointer/model";
 
@@ -39,6 +38,7 @@ import Bombs from "entities/bomb/ui/bombs";
 import Booty from "entities/projector/ui/booty";
 import Invaders from "entities/invader/ui/invaders";
 import { CitadelMap } from "./citadel";
+import { ArealRectangle } from "./areal-rectangle/ui";
 
 type TMapProps = {}
 
@@ -55,8 +55,6 @@ const MapLayout: FC<TMapProps> = () => {
     const mode = mapModel.selectors.useMapMode().mode
 
     const center: LatLngExpression = mapModel.selectors.useMapCenter()
-
-    console.log('MapLayout')
 
     return (
         <div className='mapCard'>

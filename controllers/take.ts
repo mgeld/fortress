@@ -151,8 +151,9 @@ class TakeHandler extends IRoute {
                     sector_id: __sector
                 } as TTakeSectorPayload
 
-                if (_sector.zone_id === 0)
+                if (_sector.zone_id === 0) {
                     isBooty = Sector.probabilityGettingExtractionInFort(__fort)
+                }
 
                 // Обновляем владельца сектор
                 _sector.setOwner(_pointer.zoneId)

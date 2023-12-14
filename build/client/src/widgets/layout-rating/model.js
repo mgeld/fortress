@@ -9,12 +9,9 @@ const $selectRatingZoneStore = (0, effector_1.createStore)(null)
     .on(selectRatingZone, (_, zone) => zone);
 const $ratingZonesStore = (0, effector_1.createStore)(null)
     .on(setZones, (_, zones) => zones);
-const useRating = () => {
-    return {
-        zones: (0, effector_react_1.useStore)($ratingZonesStore),
-        selectZone: (0, effector_react_1.useStore)($selectRatingZoneStore)
-    };
-};
+const useRatingZones = () => (0, effector_react_1.useStore)($ratingZonesStore);
+const useSelectZone = () => (0, effector_react_1.useStore)($selectRatingZoneStore);
 exports.selectors = {
-    useRating,
+    useRatingZones,
+    useSelectZone
 };

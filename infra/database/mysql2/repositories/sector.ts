@@ -42,7 +42,7 @@ export class SectorRepository implements ISectorRepository {
             ?,
             ?,
             ?,
-            0
+            ?
         );
     `, [
             dtoSector.id,
@@ -51,7 +51,7 @@ export class SectorRepository implements ISectorRepository {
             dtoSector.latlng[0],
             dtoSector.latlng[1],
             dtoSector.zone_id,
-            // dtoSector.areal
+            dtoSector.areal
         ])
 
         return sector

@@ -9,7 +9,7 @@ const react_leaflet_1 = require("react-leaflet");
 const leaflet_1 = require("leaflet");
 const randomNumber_1 = require("shared/lib/randomNumber");
 const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
-const getDestination_1 = require("entities/sector/lib/getDestination");
+const getDestination_1 = require("shared/lib/getDestination");
 const Item = ({ item }) => {
     const sizeDrone = 30;
     const toPosLatLng = (0, getDestination_1.getDestination)(item.from_pos[0], item.from_pos[1], sizeDrone / 2, 90);

@@ -1,14 +1,15 @@
 import { useEffect } from "react"
 import { useSocket } from "shared/api/socket/model"
 
-import bridge from "@vkontakte/vk-bridge";
 import { userModel } from "entities/user";
+import { userAPI } from "shared/api/events";
 import { popoutModel } from "shared/ui/popout-root";
 import { lockModel } from "shared/ui/lock-screen";
 import { lostInternet } from "processes/lost-internet";
-import { reSocketClose } from "processes/socket/socket-close";
-import { userAPI } from "shared/api/events";
 import { userEvents } from "features/user/connect-user";
+import { reSocketClose } from "processes/socket/socket-close";
+
+import bridge from "@vkontakte/vk-bridge";
 
 // type TVkUserApi = {
 //     id: number
@@ -30,9 +31,8 @@ export const useApp = () => {
 
         bridge.send('VKWebAppGetUserInfo').then(user => {
             setTimeout(() => userModel.events.setVkUser(user.id), 1500)
-            userModel.events.setName(user.first_name)
-            userModel.events.setUserIcon(user.photo_100)
         })
+
         // const _user = randomNumber(38574839 - 100000, 250449525 + 100000)
 
         // bridge.send('VKWebAppCallAPIMethod', {
@@ -59,12 +59,12 @@ export const useApp = () => {
                     _click: () => reSocketClose()
                 },
                 alert: 'Соединение потеряно',
-                message: 'Соединение с сервером было потеряно.'
+                message: 'Соединение с сервером было потеряно. Возможно, вы подключились к игре с другого устройства.'
             })
         }
         if (vkUserId > 0 && socketStatus === 'open') {
-            const url = window.location.search;
-            userAPI.events.connectUser(url)
+            // const url = window.location.search;
+            userAPI.events.connectUser()
             // sectorEvents.events.getSectorsStart()
             return
         }

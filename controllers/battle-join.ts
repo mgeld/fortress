@@ -13,6 +13,7 @@ import { TYPES } from "../types";
 import { IRoute } from "./handlers";
 import { PointerService } from "../services/pointer.service";
 import { BattleService } from "../services/battle.service";
+import { TZoneColor } from "../common-types/model";
 
 @injectable()
 class BattleJoinHandler extends IRoute {
@@ -92,6 +93,7 @@ class BattleJoinHandler extends IRoute {
                 icon: string
                 name: string
                 health: number
+                color: TZoneColor
             }> = await this._pointerService.getMarshalPointers(arena.pointers)
 
             this._rooms.arenas.broadcast(roomId, {

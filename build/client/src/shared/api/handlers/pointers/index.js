@@ -5,7 +5,6 @@ const events_1 = require("shared/api/events");
 const __1 = require("..");
 class PointersHandler extends __1.Handler {
     handle(message) {
-        console.log('___________PointersHandler handle');
         events_1.pointersAPI.events.setPointers(message.payload.pointers);
     }
 }

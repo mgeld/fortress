@@ -72,10 +72,7 @@ class BuyUnitHandler extends Handler {
                 name = `Покупка прервалась`
                 text = `Возникла непредвиденная ошибка`
         }
-
-        // popoutModel.events.setPopout(null)
-        // pageModel.events.setPage('map')
-
+        
         const popout = useItemImproves[(Math.floor(unit / 10) * 10) as TTypeImproves] as TPopout
         popoutModel.events.setPopout(popout)
 

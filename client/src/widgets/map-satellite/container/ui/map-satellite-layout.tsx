@@ -6,17 +6,17 @@ import {
     MapContainer,
 } from 'react-leaflet'
 
-import { mapModel } from "entities/map";
-import { ratingModel } from "widgets/layout-rating";
-import { Areal } from "entities/areal/model";
-import { SectorsMap } from "./sectors-map";
 import { CitadelMap } from "./citadel";
+import { mapModel } from "entities/map";
+import { SectorsMap } from "./sectors-map";
+import { Areal } from "entities/areal/model";
+import { ratingModel } from "widgets/layout-rating";
 
 type TMapProps = {}
 
 const MapSatelliteLayout: FC<TMapProps> = () => {
 
-    const zone = ratingModel.selectors.useRating().selectZone
+    const zone = ratingModel.selectors.useSelectZone()
 
     if(!zone?.latlng) return <></>
 
@@ -32,9 +32,9 @@ const MapSatelliteLayout: FC<TMapProps> = () => {
                 zoom={12}
                 minZoom={12}
                 maxZoom={17}
-                doubleClickZoom={false}
-                zoomControl={false}
                 maxBounds={bounds}
+                zoomControl={false}
+                doubleClickZoom={false}
                 bounceAtZoomLimits={false}
                 // preferCanvas={true}
             >

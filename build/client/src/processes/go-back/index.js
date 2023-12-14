@@ -9,13 +9,14 @@ const effector_1 = require("effector");
 const page_root_1 = require("shared/ui/page-root");
 const popout_root_1 = require("shared/ui/popout-root");
 exports.goBack = (0, effector_1.createEvent)();
-const backFx = (0, effector_1.createEffect)(({ page, popout }) => {
+const backFx = (0, effector_1.createEffect)(({ history, popout }) => {
     if (popout) {
         popout_root_1.popoutModel.events.setPopout(null);
     }
     else {
-        if (page !== 'map') {
-            page_root_1.pageModel.events.setPage('map');
+        if (history.length > 1) {
+            page_root_1.pageModel.events.delHistoryPage();
+            page_root_1.pageModel.events.returnPage(history[0]);
         }
         else {
             vk_bridge_1.default.send("VKWebAppClose", { "status": "success" });
@@ -25,9 +26,8 @@ const backFx = (0, effector_1.createEffect)(({ page, popout }) => {
 (0, effector_1.sample)({
     clock: exports.goBack,
     source: {
-        page: page_root_1.pageModel.$pageStore,
+        history: page_root_1.pageModel.$historyStore,
         popout: popout_root_1.popoutModel.$popoutStore
     },
-    fn: ({ page, popout }) => ({ page, popout }),
     target: backFx
 });

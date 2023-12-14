@@ -15,8 +15,6 @@ export const BuyUnit: FC = () => {
 
     const _unit: TExtrTypes | null = unitModel.selectors.useBuyUnit()
 
-    // const _unit: TExtrTypes | null = unitModel.selectors.useUnit()
-
     if (!_unit) return <></>
 
     const unit = modules[_unit]
@@ -26,15 +24,7 @@ export const BuyUnit: FC = () => {
     const _price = unitsPrices[_unit]
 
     const buyUnit = () => {
-        // if (_unit) {
-        // setTimeout(() => {
-        // const popout = useItemImproves[(Math.floor(_unit / 10) * 10) as TTypeImproves] as TPopout
-        // popoutModel.events.setPopout(popout)
-        // }, 500)
-        // } else {
-            popoutModel.events.setPopout(null)
-        //     // pageModel.events.setPage('map')
-        // }
+        popoutModel.events.setPopout(null)
         onBuyUnit()
     }
 

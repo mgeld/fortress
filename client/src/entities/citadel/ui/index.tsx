@@ -1,30 +1,20 @@
-import { FC, useState } from "react";
-import { Circle, FeatureGroup, useMap, useMapEvent } from "react-leaflet";
-import { droneMapModel } from "entities/pointer";
-
-// import { popoutModel } from "shared/ui/popout-root";
-// import { alertModel } from "shared/ui/alert";
-// import { citadelModel } from "entities/citadel";
-// import { metersToPx } from "shared/lib/metersToPx";
+import { FC } from "react";
+import { Circle, FeatureGroup } from "react-leaflet";
 
 import { TLatLng } from "shared/types";
 
 import './styles.css'
 
+
 type TCitadelProps = {
+    droneSize: number
     pos: TLatLng
     _click: () => void
 }
 
-export const Citadel: FC<TCitadelProps> = ({ pos, _click }) => {
+export const Citadel: FC<TCitadelProps> = ({ pos, _click, droneSize }) => {
 
-    // const map = useMap()
-
-    const size = droneMapModel.selectors.useDroneSize().px * 1.6
-    // const [size, setZise] = useState(metersToPx(pos[0], 60, map.getZoom()))
-    // useMapEvent('zoomend', (e) => {
-    //     setZise(metersToPx(pos[0], 60, map.getZoom()))
-    // })
+    const size = droneSize * 1.6
 
     const p = size * 3.14 / 6
     const a = p * 0.3

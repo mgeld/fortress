@@ -66,7 +66,7 @@ const GunShop = () => {
             return (<ui_2.UnitCard key={String(id)} id={id} icon={modules_1.modules[id].icon(66, 66)} name={modules_1.modules[id].name} unit={unit}/>);
         })}
 
-                <back_button_1.BackMap />
+                <back_button_1.BackMap color="#a542d3"/>
             </>
 
         </ui_1.UnitsLayout>);

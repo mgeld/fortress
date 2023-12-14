@@ -6,6 +6,8 @@ import { popoutModel } from "shared/ui/popout-root";
 class ConnectHandler extends Handler {
     handle(message: TConnect) {
 
+        console.log('ConnectHandler ConnectHandler ConnectHandler')
+
         shipAPI.events.setHealth(message.payload.ship.health)
         shipAPI.events.setLevel(message.payload.ship.level)
 
@@ -21,6 +23,13 @@ class ConnectHandler extends Handler {
         zoneAPI.events.setZoneLevel(message.payload.terrain.level)
 
         zoneAPI.events.setZoneCoins(message.payload.zone.coins)
+        
+        zoneAPI.events.setZoneColor(message.payload.zone.color)
+        zoneAPI.events.setZoneDescription(message.payload.zone.description)
+
+        userAPI.events.setName(message.payload.user.name)
+        userAPI.events.setUserIcon(message.payload.user.icon)
+
         zoneAPI.events.setZoneRubies(message.payload.zone.rubies)
         zoneAPI.events.setZoneTrophies(message.payload.zone.trophies)
 

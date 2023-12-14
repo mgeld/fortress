@@ -83,7 +83,7 @@ export const GunShop: FC = () => {
                     )
                 })}
 
-                <BackMap />
+                <BackMap color="#a542d3" />
             </>
 
         </UnitsLayout>

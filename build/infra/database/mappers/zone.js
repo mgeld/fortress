@@ -30,6 +30,7 @@ class ZoneMapper {
                 items: zone.hold.items
             }),
             color: zone.color,
+            description: zone.description,
             trophies: zone.trophies,
             coins: zone.coins,
             rubies: zone.rubies,

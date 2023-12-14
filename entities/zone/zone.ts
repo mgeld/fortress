@@ -1,13 +1,17 @@
-import { Extraction, UnmarshalledExtraction } from "./extraction"
 // import { GuardCorps, UnmarshalledGuardCorps } from "./guard_corps"
+
 import { Rank, UnmarshalledRank } from "./rank"
-import { StormtrooperCorps, UnmarshalledStormtrooperCorps } from "./stormtrooper_corps"
 import { Terrain, UnmarshalledTerrain } from "./terrain"
+import { Extraction, UnmarshalledExtraction } from "./extraction"
+import { StormtrooperCorps, UnmarshalledStormtrooperCorps } from "./stormtrooper_corps"
+import { TZoneColor } from "../../common-types/model"
 
 export type TZoneProps = {
     id: number
 
-    color: number
+    color: TZoneColor
+
+    description: string
 
     rank: Rank
     terrain: Terrain
@@ -46,7 +50,8 @@ export class Zone {
     private _coins: number
     private _rubies: number
 
-    private _color: number
+    private _color: TZoneColor
+    private _description: string
 
     private _terrain: Terrain
 
@@ -65,6 +70,7 @@ export class Zone {
         this._rubies = zone.rubies
 
         this._color = zone?.color || 1
+        this._description = zone?.description || ''
 
         this._rank = zone.rank
         this._terrain = zone.terrain
@@ -85,6 +91,7 @@ export class Zone {
             id: this._id,
 
             color: this.color,
+            description: this._description,
 
             trophies: this._trophies,
 
@@ -111,6 +118,18 @@ export class Zone {
 
     get color() {
         return this._color
+    }
+
+    set color(c: TZoneColor) {
+        if (c > 0 && c <= 6) {
+            this._color = c
+        }
+    }
+
+    set description(d: string) {
+        if (d.length >= 0 && d.length <= 100) {
+            this._description = d
+        }
     }
 
     get coins() {
@@ -140,7 +159,7 @@ export class Zone {
     get hold() {
         return this._hold
     }
-    
+
     setTrophies(trophy: number) {
         let nTrophies = this._trophies + trophy
         if (nTrophies < 0) {

@@ -120,8 +120,9 @@ let TakeHandler = class TakeHandler extends handlers_1.IRoute {
                         prev_owner_id: _sector.zone_id,
                         sector_id: __sector
                     };
-                    if (_sector.zone_id === 0)
+                    if (_sector.zone_id === 0) {
                         isBooty = sector_1.Sector.probabilityGettingExtractionInFort(__fort);
+                    }
                     _sector.setOwner(_pointer.zoneId);
                     if (zone.terrain.sectors === 1) {
                         isBooty = true;

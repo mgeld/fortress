@@ -9,7 +9,9 @@ const {
     delSectorById,
     setSectors,
     setSectorById,
-    setAboutSector
+    setAboutSector,
+    setZoneColor,
+    addZoneAreal
 } = sectorsAPI.events
 
 const DEFAULT_STORE: TZoneItem[] = []
@@ -21,7 +23,7 @@ const $sectorsStore = createStore<TZoneItem[]>(DEFAULT_STORE)
             sectors.push({
                 zone: {
                     zone_id: sector.zone_id,
-                    name: '',
+                    // name: '',
                     color: 1
                 },
                 sectors: []
@@ -44,12 +46,45 @@ const $sectorsStore = createStore<TZoneItem[]>(DEFAULT_STORE)
         } : zoneItem
 
     }))
+    .on(setZoneColor, (sectors, setter) => {
+        if (sectors.findIndex(zone => zone.zone.zone_id === setter.zone_id) === -1) {
+            sectors.push({
+                zone: {
+                    zone_id: setter.zone_id,
+                    // name: '',
+                    color: setter.color
+                },
+                sectors: []
+            })
+        }
+        return sectors.map(zoneItem => {
+            return zoneItem.zone.zone_id === setter.zone_id ? {
+                ...zoneItem,
+                zone: {
+                    ...zoneItem.zone,
+                    color: setter.color
+                }
+            } : zoneItem
+        })
+    })
+    .on(addZoneAreal, (sectors, new_zone) => {
+        if (sectors.findIndex(zone => zone.zone.zone_id === new_zone.zone_id) === -1) {
+            sectors.push({
+                zone: {
+                    zone_id: new_zone.zone_id,
+                    color: new_zone.color
+                },
+                sectors: []
+            })
+        }
+        return sectors
+    })
     .on(setSectorById, (sectors, sector: TSetSectorById) => {
         if (sectors.findIndex(zone => zone.zone.zone_id === sector.new_zone_id) === -1) {
             sectors.push({
                 zone: {
                     zone_id: sector.new_zone_id,
-                    name: '',
+                    // name: '',
                     color: 1
                 },
                 sectors: []
@@ -90,8 +125,6 @@ const $sectorsStore = createStore<TZoneItem[]>(DEFAULT_STORE)
 //         })
 //     })
 // })
-
-
 
 
 const $sectorAboutStore = createStore<TSectorPayload | null>(null)

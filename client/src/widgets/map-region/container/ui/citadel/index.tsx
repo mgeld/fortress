@@ -1,11 +1,14 @@
 import { citadelModel } from "entities/citadel"
 import { Citadel } from "entities/citadel";
+import { droneMapModel } from "entities/pointer";
 import { alertModel } from "shared/ui/alert";
 import { popoutModel } from "shared/ui/popout-root";
 
 export const CitadelMap = () => {
     
     const pos = citadelModel.selectors.useCitadel()?.latlng || [0, 0]
+    
+    const size = droneMapModel.selectors.useDroneSize().px
 
     const eventCitadel = () => {
         popoutModel.events.setPopout('alert')
@@ -24,6 +27,7 @@ export const CitadelMap = () => {
         <Citadel
             pos={pos}
             _click={eventCitadel}
+            droneSize={size}
         />
     )
 }

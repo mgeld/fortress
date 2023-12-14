@@ -6,7 +6,10 @@ const setRankExp = createEvent<number>()
 const addRankExp = createEvent<number>()
 // const rankUpLevel = createEvent()
 
-const connectUser = createEvent<string>()
+const connectUser = createEvent()
+
+const setName = createEvent<string>()
+const setUserIcon = createEvent<string>()
 
 export const events = {
     connectUser,
@@ -14,5 +17,8 @@ export const events = {
     setRankLevel,
     setRankExp,
     addRankExp,
+
+    setName,
+    setUserIcon
     // rankUpLevel
 }

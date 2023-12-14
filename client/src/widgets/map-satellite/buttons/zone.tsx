@@ -5,7 +5,7 @@ import { ratingModel } from "widgets/layout-rating";
 
 export const Zone: FC = () => {
 
-    const zone = ratingModel.selectors.useRating().selectZone
+    const zone = ratingModel.selectors.useSelectZone()
 
     if (!zone) return <></>
 

@@ -1,11 +1,11 @@
 import { Handler } from "..";
-import { TLimit } from '@ctypes/socket/server-to-client'
+import { TSessionDestroy } from '@ctypes/socket/server-to-client'
 import { userAPI } from "shared/api/events";
 import { lockModel } from "shared/ui/lock-screen";
 import { popoutModel } from "shared/ui/popout-root";
 
 class SessionHandler extends Handler {
-    handle(message: TLimit) {
+    handle(message: TSessionDestroy) {
 
         popoutModel.events.setPopout('lock-screen')
         lockModel.events.setLockScreen({
@@ -13,8 +13,7 @@ class SessionHandler extends Handler {
                 text: 'Обновить',
                 _click: () => {
                     popoutModel.events.setPopout(null)
-                    const url = window.location.search;
-                    userAPI.events.connectUser(url)
+                    userAPI.events.connectUser()
                 }
             },
             alert: 'Ошибка подключения',
@@ -26,7 +25,7 @@ class SessionHandler extends Handler {
 
 }
 
-SessionHandler.EVENT = 'session'
+SessionHandler.EVENT = 'session-destroy'
 
 export {
     SessionHandler

@@ -6,6 +6,7 @@ const __1 = require("..");
 const popout_root_1 = require("shared/ui/popout-root");
 class ConnectHandler extends __1.Handler {
     handle(message) {
+        console.log('ConnectHandler ConnectHandler ConnectHandler');
         events_1.shipAPI.events.setHealth(message.payload.ship.health);
         events_1.shipAPI.events.setLevel(message.payload.ship.level);
         events_1.weaponsAPI.events.setId(message.payload.weapon[0].id);
@@ -16,6 +17,10 @@ class ConnectHandler extends __1.Handler {
         events_1.zoneAPI.events.setZoneSectors(message.payload.terrain.sectors);
         events_1.zoneAPI.events.setZoneLevel(message.payload.terrain.level);
         events_1.zoneAPI.events.setZoneCoins(message.payload.zone.coins);
+        events_1.zoneAPI.events.setZoneColor(message.payload.zone.color);
+        events_1.zoneAPI.events.setZoneDescription(message.payload.zone.description);
+        events_1.userAPI.events.setName(message.payload.user.name);
+        events_1.userAPI.events.setUserIcon(message.payload.user.icon);
         events_1.zoneAPI.events.setZoneRubies(message.payload.zone.rubies);
         events_1.zoneAPI.events.setZoneTrophies(message.payload.zone.trophies);
         events_1.stormAPI.events.setStormLevel(message.payload.storm.level);

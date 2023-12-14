@@ -1,4 +1,5 @@
 import { inject, injectable } from "inversify";
+import fetch from 'node-fetch';
 import { IWebSocket } from "../api/socket/server";
 import { TYPES } from "../types";
 import { IRoute } from "./handlers";
@@ -39,8 +40,6 @@ class ConnectHandler implements IRoute {
         console.log('------ConnectHandler handle -----------')
 
         const VK_URL = message.payload.url
-        const USER_NAME = message.payload.name
-        const USER_ICON = message.payload.icon
 
         let pointer: Pointer
         let weapon: WeaponType
@@ -55,7 +54,6 @@ class ConnectHandler implements IRoute {
 
         // Проверяем, валидны ли параметры запуска.
         const result = verifyLaunchParams(launchParams, clientSecret);
-        // console.log('result', result)
 
         if (!result) return
 
@@ -69,24 +67,56 @@ class ConnectHandler implements IRoute {
 
             const { zone_id: zoneId } = await this._vkUserRepository.getById(vk_id)
 
-            const isClient = this._rooms.areals.isCient(zoneId)
+            const isClient = this._rooms.areals.getCientSocket(zoneId)
 
+            // Если клиент уже подключен
             if (isClient) {
-                uSocket.send(JSON.stringify({
-                    event: 'session',
+
+                // uSocket.send(JSON.stringify({
+                //     event: 'session',
+                //     payload: {}
+                // }))
+                // return
+
+                isClient.send(JSON.stringify({
+                    event: 'session-destroy',
                     payload: {}
                 }))
-                return
+                isClient.close(3000, 'session-destroy')
+
+                pointer = await this._pointerService.memoryGetById(zoneId)
+
+                this._rooms.areals.deleteClient(zoneId, pointer.areal)
+                this._rooms.areals.broadcast(pointer.areal, {
+                    event: 'del-pointer',
+                    payload: {
+                        userId: zoneId
+                    }
+                }, zoneId)
+
+                pointer.areal = -1
+
+                // throw new Error('terminate')
+
+                // this._rooms.areals.clientSocket(zoneId, isClient, {
+                //     event: 'session-destroy',
+                //     payload: {}
+                // })
+
+                weapon = await this._weaponService.memoryGetById(pointer.weapons[0])
+                zone = await this._zoneService.getById(zoneId)
+
+            } else {
+
+                pointer = await this._pointerService.baseGetById(zoneId)
+                weapon = await this._weaponService.baseGetById(pointer.weapons[0])
+                zone = await this._zoneService.getById(zoneId)
+
+                this._zoneService.memoryInsert(zone)
+                this._weaponService.memoryInsert(weapon)
+
             }
 
-            pointer = await this._pointerService.baseGetById(zoneId)
-
-            weapon = await this._weaponService.baseGetById(pointer.weapons[0])
-
-            zone = await this._zoneService.getById(zoneId)
-
-            this._zoneService.memoryInsert(zone)
-            this._weaponService.memoryInsert(weapon)
             this._pointerService.memoryInsert(pointer)
 
             if (zone.terrain.sectors > 0) {
@@ -94,6 +124,8 @@ class ConnectHandler implements IRoute {
             }
 
         } catch (e) {
+
+            console.log('Connect Cathc')
 
             weapon = this._weaponService.createGun()
 
@@ -110,6 +142,25 @@ class ConnectHandler implements IRoute {
                 is_group: 0,
             })
 
+            const request_params = {
+                user_ids: '' + vk_id,
+                fields: 'photo_100',
+                access_token: 'be91a38abe91a38abe91a38aa1bd879becbbe91be91a38adbdefc537e9e9fcfee28a2d5',
+                lang: 'ru',
+                v: '5.130'
+            }
+
+            const url = 'https://api.vk.com/method/users.get?' + new URLSearchParams(request_params).toString();
+
+            const result = await fetch(url, {
+                method: 'GET',
+            }).then(response => response.json())
+
+            const user = result.response[0]
+
+            const USER_NAME = user.first_name
+            const USER_ICON = user.photo_100
+
             pointer = this._pointerService.create(
                 zone.id,
                 [0, 0],
@@ -124,7 +175,6 @@ class ConnectHandler implements IRoute {
             this._zoneService.memoryInsert(zone)
         }
 
-
         uSocket.user_id = zone.id
 
         const dtoZone = zone.unmarshal()
@@ -132,6 +182,8 @@ class ConnectHandler implements IRoute {
         const payload: TConnectPayload = {
             user: {
                 zoneId: zone.id,
+                icon: pointer.user.icon,
+                name: pointer.user.name
             },
             ship: {
                 pos: pointer.pos,
@@ -152,9 +204,11 @@ class ConnectHandler implements IRoute {
                 sectors: dtoZone.terrain.sectors,
             },
             zone: {
+                color: dtoZone.color,
                 coins: dtoZone.coins,
                 rubies: dtoZone.rubies,
                 trophies: dtoZone.trophies,
+                description: dtoZone.description
             },
             hold: dtoZone.hold,
             citadel: citadel ? {

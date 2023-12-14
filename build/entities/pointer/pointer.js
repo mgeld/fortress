@@ -33,6 +33,7 @@ class Pointer {
     pointerUnmarshal() {
         return {
             lvl: this._level,
+            color: this._color,
             userId: this._zoneId,
             icon: this._user.icon,
             name: this._user.name,
@@ -72,11 +73,16 @@ class Pointer {
         };
         return levels[level];
     }
-    get icon() {
-        return this._user.icon;
+    get user() {
+        return this._user;
     }
-    get name() {
-        return this._user.name;
+    set color(c) {
+        if (c > 0 && c <= 6) {
+            this._color = c;
+        }
+    }
+    get color() {
+        return this._color;
     }
     get zoneId() {
         return this._zoneId;

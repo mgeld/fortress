@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.VioletScreen = void 0;
 const _icons_1 = require("shared/assets/icons/_icons");
 const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
+const popout_root_1 = require("../popout-root");
 const VioletScreen = ({ name, icon, message, action }) => {
     return (<div className={styles_module_scss_1.default.violetScreenRoot}>
             <div className={styles_module_scss_1.default.violetPopout}>
@@ -18,7 +19,7 @@ const VioletScreen = ({ name, icon, message, action }) => {
                             <div className={styles_module_scss_1.default.name}>
                                 {name}
                             </div>
-                            <div onClick={() => { }} className={styles_module_scss_1.default.close}>
+                            <div onClick={() => popout_root_1.popoutModel.events.setPopout(null)} className={styles_module_scss_1.default.close}>
                                 <_icons_1.IconClose width={16} height={16} fill="#ffffff"/>
                             </div>
                         </div>

@@ -2,10 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Citadel = void 0;
 const react_leaflet_1 = require("react-leaflet");
-const pointer_1 = require("entities/pointer");
 require("./styles.css");
-const Citadel = ({ pos, _click }) => {
-    const size = pointer_1.droneMapModel.selectors.useDroneSize().px * 1.6;
+const Citadel = ({ pos, _click, droneSize }) => {
+    const size = droneSize * 1.6;
     const p = size * 3.14 / 6;
     const a = p * 0.3;
     const b = p * 0.7;

@@ -4,7 +4,7 @@ import { Pool, RowDataPacket } from 'mysql2/promise'
 import { TYPES } from '../../../../types'
 import { IPointerRepository } from '../../../../entities/repository'
 import { PointerMapper } from '../../mappers/pointer'
-import { TZone } from '../../../../common-types/model'
+import { TZone, TZoneColor } from '../../../../common-types/model'
 
 interface IPointerRowData {
     zone_id?: number
@@ -13,7 +13,7 @@ interface IPointerRowData {
     icon?: string
     name?: string
 
-    color?: number
+    color?: TZoneColor
 
     health?: number
 
@@ -78,7 +78,7 @@ export class PointerRepository implements IPointerRepository {
         const [result] = await this._connection.query<TZone[] & RowDataPacket[]>(
             `SELECT
                 zone_id,
-                name,
+                -- name,
                 color
             FROM
                 pointers
@@ -93,7 +93,7 @@ export class PointerRepository implements IPointerRepository {
 
         return result.map(pointer => ({
             zone_id: pointer.zone_id,
-            name: pointer.name,
+            // name: pointer.name,
             color: pointer.color
         }))
 
@@ -196,7 +196,10 @@ export class PointerRepository implements IPointerRepository {
     }
 
     async update(pointer: Pointer): Promise<Pointer> {
+        console.log('Pointer Update Mysql2')
         const dtoPointer = pointer.unmarshal()
+        console.log('Pointer Update dtoPointer.color', dtoPointer.color)
+
         const updated = await this._connection.execute(`
             UPDATE
                 pointers

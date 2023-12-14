@@ -19,11 +19,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PointerService = void 0;
-const inversify_1 = require("inversify");
-const pointer_1 = require("../entities/pointer/pointer");
 const types_1 = require("../types");
-const random_number_1 = require("../libs/random-number");
+const inversify_1 = require("inversify");
 const user_1 = require("../entities/pointer/user");
+const random_number_1 = require("../libs/random-number");
+const pointer_1 = require("../entities/pointer/pointer");
 let PointerService = class PointerService {
     memoryInsert(pointer) {
         return this._memoryRepository.insert(pointer);
@@ -50,7 +50,7 @@ let PointerService = class PointerService {
                 return pointer;
             }
             catch (e) {
-                throw new Error('Ну вот эта ошибка');
+                throw new Error('PointerService memoryGetById catch throw');
             }
         });
     }
@@ -89,9 +89,10 @@ let PointerService = class PointerService {
             pointers.forEach(pointer => {
                 users[pointer.zoneId] = {
                     lvl: pointer.level,
-                    icon: pointer.icon,
-                    name: pointer.name,
+                    icon: pointer.user.icon,
+                    name: pointer.user.name,
                     health: pointer.health,
+                    color: pointer.color
                 };
             });
             return users;

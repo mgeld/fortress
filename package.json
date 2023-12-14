@@ -8,7 +8,8 @@
     "server": "nodemon index.js",
     "client": "npm run start --mode=development --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "tunnel": "vk-tunnel --insecure=1 --http-protocol=https --ws-protocol=wss --host=192.168.43.90 --port=8080 app_id=8174360 endpoints=[web]"
+    "tunnel": "vk-tunnel --insecure=1 --http-protocol=https --ws-protocol=wss --host=192.168.43.90 --port=3000 app_id=51787877 endpoints=[web]",
+    "s-tunnel": "vk-tunnel --insecure=1 --http-protocol=https --ws-protocol=wss --host=192.168.43.90 --port=8080 app_id=51787877 endpoints=[web]"
   },
   "author": "G. Musa",
   "license": "ISC",
@@ -19,6 +20,7 @@
     "https": "^1.0.0",
     "inversify": "^6.0.1",
     "mysql2": "^3.6.3",
+    "node-fetch": "^2.7.0",
     "querystring": "^0.2.1",
     "reflect-metadata": "^0.1.13",
     "ts-node": "^10.9.1",
@@ -27,6 +29,7 @@
   },
   "devDependencies": {
     "@types/node": "^18.15.3",
+    "@types/node-fetch": "^2.6.9",
     "@types/uuid": "^9.0.1",
     "@types/ws": "^8.5.4",
     "concurrently": "^7.6.0",

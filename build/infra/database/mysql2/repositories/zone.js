@@ -31,6 +31,8 @@ let ZoneRepository = class ZoneRepository {
                     zones.id,
 
                     zones.color,
+                    zones.description,
+
                     zones.trophies,
                     zones.coins,
                     zones.rubies,
@@ -60,11 +62,11 @@ let ZoneRepository = class ZoneRepository {
             if (!result) {
                 throw new Error('----------');
             }
-            const { id, color, trophies, coins, rubies, hold_level, hold_items, zone_level, zone_sectors, zone_defenders, storm_level, power, invaders, rank_level, rank_exp } = result;
-            console.log('ZoneRepository result', result);
+            const { id, color, description, trophies, coins, rubies, hold_level, hold_items, zone_level, zone_sectors, zone_defenders, storm_level, power, invaders, rank_level, rank_exp } = result;
             return zone_1.ZoneMapper.toDomain({
                 id,
                 color,
+                description,
                 trophies,
                 coins,
                 rubies,
@@ -96,6 +98,7 @@ let ZoneRepository = class ZoneRepository {
             const addZone = yield this._connection.query(`
             INSERT INTO zones(
                 color,
+                description,
                 trophies,
                 coins,
                 rubies
@@ -103,16 +106,17 @@ let ZoneRepository = class ZoneRepository {
                 ?,
                 ?,
                 ?,
+                ?,
                 ?
             );
         `, [
                 dtoZone.color,
+                dtoZone.description,
                 dtoZone.trophies,
                 dtoZone.coins,
                 dtoZone.rubies
             ]);
             const zoneId = addZone[0].insertId;
-            console.log('INSERT ID???', zoneId);
             const inserted = yield this._connection.query(`
             INSERT INTO hold(zone_id,level,items)VALUES(?,?,?);
             INSERT INTO terrain(zone_id,level,sectors,defenders)VALUES(?,?,?,?);
@@ -146,12 +150,16 @@ let ZoneRepository = class ZoneRepository {
                     zones.id,
                     zones.color,
                     zones.trophies,
+                    zones.description,
+                    terrain.level as zone_level,
                     terrain.sectors as zone_sectors,
                     rc.level as rank_level,
+                    rc.exp as rank_exp,
                     p.icon,
                     p.name,
                     c.sectorId,
-                    c.latlng
+                    c.latlng,
+                    vk.user_id as vk_id
                 FROM
                     zones
 
@@ -159,6 +167,7 @@ let ZoneRepository = class ZoneRepository {
                 LEFT JOIN rank_conquests as rc ON rc.zone_id = zones.id
                 LEFT JOIN pointers as p ON p.zone_id = zones.id
                 LEFT JOIN citadels as c ON c.zone_id = zones.id
+                LEFT JOIN vk_users as vk ON vk.zone_id = zones.id
 
                 ORDER BY zones.trophies DESC
                 LIMIT 20;
@@ -184,6 +193,7 @@ let ZoneRepository = class ZoneRepository {
                 hold
             SET
                 zones.color = ?,
+                zones.description = ?,
                 
                 zones.trophies = ?,
                 zones.coins = ?,
@@ -212,6 +222,7 @@ let ZoneRepository = class ZoneRepository {
 
         `, [
                 dtoZone.color,
+                dtoZone.description,
                 dtoZone.trophies,
                 dtoZone.coins,
                 dtoZone.rubies,

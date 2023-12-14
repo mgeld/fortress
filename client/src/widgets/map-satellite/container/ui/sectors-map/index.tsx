@@ -20,7 +20,7 @@ export const SectorsMap: FC = () => {
     return <>
         {sectors.zones.map(zoneItem => {
             // Временно
-            let color = zoneItem.zone.zone_id > 2 ? 1 : zoneItem.zone.zone_id === -1 ? 0 : zoneItem.zone.color
+            let color = zoneItem.zone.zone_id === -1 ? 0 : zoneItem.zone.color
 
             return (
                 <Sectors

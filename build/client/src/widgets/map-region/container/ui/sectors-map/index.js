@@ -16,7 +16,7 @@ const SectorsMap = () => {
     });
     return <>
         {sectors.zones.map(zoneItem => {
-            let color = zoneItem.zone.zone_id > 2 ? 1 : zoneItem.zone.zone_id === -1 ? 0 : zoneItem.zone.color;
+            let color = zoneItem.zone.zone_id === -1 ? 0 : zoneItem.zone.color;
             return (<sector_2.Sectors zoneItem={zoneItem} color={color} fillOpacity={0.3}/>);
         })}
     </>;

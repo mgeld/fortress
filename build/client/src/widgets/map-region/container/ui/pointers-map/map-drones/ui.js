@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MapDrones = void 0;
+const react_1 = require("react");
 const drones_1 = require("../pointers/drones");
 const pointer_1 = require("entities/pointer");
 const drone_1 = require("../user-pointer/drone");
@@ -9,6 +10,11 @@ const react_leaflet_1 = require("react-leaflet");
 const MapDrones = () => {
     const map = (0, react_leaflet_1.useMap)();
     const size = pointer_1.droneMapModel.selectors.useDroneSize().px;
+    (0, react_1.useEffect)(() => {
+        console.log('MapDrones useEffect');
+        pointer_1.droneMapModel.events.setSizeDrone();
+    }, []);
+    console.log('MapDrones size', size);
     (0, react_leaflet_1.useMapEvents)({
         zoomstart: () => {
             var _a;
@@ -20,7 +26,7 @@ const MapDrones = () => {
                 (_a = map.getPane('zoom-anim-map')) === null || _a === void 0 ? void 0 : _a.setAttribute('class', 'zoom-anim');
             }, 300);
             pointer_1.droneMapModel.events.setSizeDrone();
-        },
+        }
     });
     const onShip = () => {
         popout_root_1.popoutModel.events.setPopout('ship');

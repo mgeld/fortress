@@ -50,9 +50,6 @@ class LevelUpHandler extends IRoute {
             const maxLevel = RankLevels.getRankMaxLevelShip(zone.rank.rank)
             newLevel = pointer.upLevel(maxLevel)
 
-            console.log('LevelUpHandler newLevel', newLevel)
-            console.log('LevelUpHandler maxLevel', maxLevel)
-
             if (newLevel !== 'limit') {
 
                 cost = Pointer.getLevelUpPrice(newLevel)

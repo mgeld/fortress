@@ -46,7 +46,6 @@ let WeaponRepository = class WeaponRepository {
     }
     getById(_id) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log('WeaponRepository getById _id', _id);
             const [[result]] = yield this._connection.query(`SELECT
                 id,
                 weapon,
@@ -68,7 +67,6 @@ let WeaponRepository = class WeaponRepository {
     insert(weapon) {
         return __awaiter(this, void 0, void 0, function* () {
             const dtoWeapon = weapon.unmarshal();
-            console.log('WEAPON ID ///// ', dtoWeapon.id);
             const inserted = yield this._connection.execute(`
             INSERT INTO weapons(
                 id,
@@ -108,7 +106,6 @@ let WeaponRepository = class WeaponRepository {
                 arr.push(item[1]);
                 return `${item[0]} = ?`;
             });
-            console.log('MysqlWeaponRepository arr', arr);
             const updated = yield this._connection.execute(`
             UPDATE weapons SET ${arrQuerySet.join(',')} WHERE id = ?
         `, [...arr, weapon.id]);

@@ -26,8 +26,6 @@ class BattleDirectHandler extends IRoute {
         uSocket: IWebSocket,
     ) {
 
-        console.log('BattleDirectHandler handle')
-
         if (!uSocket.user_id) return
 
         const pos = message.payload?.position

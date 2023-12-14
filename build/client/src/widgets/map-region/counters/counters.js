@@ -24,12 +24,12 @@ const Counters = () => {
             setTooltip(null);
         }, 6000);
     }, [tooltip]);
-    const zoneLevel = zone_1.zoneModel.selectors.useZoneLevel();
-    const rankLevel = user_1.userModel.selectors.useRankLevel();
-    const sects = zone_1.zoneModel.selectors.useZoneSectors();
     const trophy = zone_1.zoneModel.selectors.useZoneTrophies();
     const rankExp = user_1.userModel.selectors.useRankExp();
+    const rankLevel = user_1.userModel.selectors.useRankLevel();
     const progressExp = rankExp * 100 / ranks_1.Ranks.getExp(rankLevel);
+    const sects = zone_1.zoneModel.selectors.useZoneSectors();
+    const zoneLevel = zone_1.zoneModel.selectors.useZoneLevel();
     const zoneSects = sects - (zone_level_1.ZoneLevel.getMaxLevelAllSectors(zoneLevel - 1) || 0);
     const zoneProgress = zoneSects * 100 / zone_level_1.ZoneLevel.getMaxLevelSectors(zoneLevel);
     return (<>

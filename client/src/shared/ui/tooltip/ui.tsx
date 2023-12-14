@@ -11,9 +11,7 @@ export const Tooltip: FC<TTooltiProps> = ({ pos, message }) => {
 
     return (
         <div className={`${styles.tooltipRoot} ${styles['p-'+pos]}`}>
-            <div
-                className={styles.main}
-            >
+            <div className={styles.main}>
                 {message}
             </div>
         </div>

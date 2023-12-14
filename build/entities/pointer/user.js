@@ -19,8 +19,16 @@ class User {
     get icon() {
         return this._icon;
     }
+    set icon(i) {
+        this._icon = i;
+    }
     get name() {
         return this._name;
+    }
+    set name(n) {
+        if (n.trim().length >= 3 && n.trim().length <= 12) {
+            this._name = n;
+        }
     }
 }
 exports.User = User;

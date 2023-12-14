@@ -50,10 +50,12 @@ export class Server {
                     this.backupAndClearAreals()
                     res.end("Hello");
                     break;
+
                 case '/fortress/snapshot-arenas':
                     this._snapshotArenas.clearInactiveArenas()
                     res.end("Hello");
                     break;
+
                 case '/fortress/callback':
                     var body = '';
                     req.on('data', function (data) {
@@ -95,7 +97,7 @@ export class Server {
                                 default:
                                     res.end("Hello");
                             }
-                            
+
                             res.end("ok");
 
                         }
@@ -132,9 +134,16 @@ export class Server {
                 ws.is_alive = true
             })
 
-            ws.on('close', function () {
-                ws.is_alive = false
-                ws?.user_id && Connection.deleteUser(ws.user_id)
+            ws.on('close', function (e, d) {
+                console.log('ws close user_id', ws.user_id)
+                if (d.toString() === 'session-destroy') {
+                    console.log('Сюда попадает')
+                    // ws.is_alive = false
+                    // ws?.user_id && Connection.deleteClientAreal(ws.user_id)
+                    ws.terminate()
+                } else {
+                    ws?.user_id && Connection.deleteUser(ws.user_id)
+                }
             });
 
             // Сокет контроллеры

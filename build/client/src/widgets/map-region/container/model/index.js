@@ -7,9 +7,9 @@ const ship_1 = require("entities/ship");
 const page_root_1 = require("shared/ui/page-root");
 const mapStartPosition = () => {
     (0, effector_1.sample)({
-        clock: page_root_1.pageModel.events.setPage,
+        clock: [page_root_1.pageModel.events.setPage, page_root_1.pageModel.events.returnPage],
         source: ship_1.shipModel.$userPositionStore,
-        filter: (pos, page) => page === 'map',
+        filter: (pos, clock) => clock === 'map',
         target: map_1.mapModel.$mapCenterDefaultStore
     });
 };

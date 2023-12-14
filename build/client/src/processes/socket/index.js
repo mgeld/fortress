@@ -30,8 +30,8 @@ const use_extraction_1 = require("shared/api/handlers/use-extraction");
 const y_take_sector_1 = require("shared/api/handlers/y-take-sector");
 const yr_take_sector_1 = require("shared/api/handlers/yr-take-sector");
 const config_1 = require("shared/config");
-const model_1 = require("shared/api/socket/model");
-const socket_1 = require("shared/api/socket/socket");
+const socket_1 = require("shared/api/socket");
+const socket_2 = require("shared/api/socket/socket");
 const tutorial_1 = require("shared/api/handlers/tutorial");
 const battle_take_sector_1 = require("shared/api/handlers/battle-take-sector");
 const battle_y_take_sector_1 = require("shared/api/handlers/battle-y-take-sector");
@@ -40,7 +40,10 @@ const session_1 = require("shared/api/handlers/session");
 const set_health_1 = require("shared/api/handlers/set-health");
 const set_rating_1 = require("shared/api/handlers/set-rating");
 const reward_1 = require("shared/api/handlers/reward");
-exports.WS = socket_1.Socket.create(config_1.API_BASE_URL, model_1.events.setSocketStatus);
+const session_destroy_1 = require("shared/api/handlers/session-destroy");
+const edit_zone_1 = require("shared/api/handlers/edit-zone");
+exports.WS = socket_2.Socket.create(config_1.API_BASE_URL, socket_1.socketModel.events.setSocketStatus);
+exports.WS.connect();
 const handlers = new handlers_1.Handlers({
     [connect_1.ConnectHandler.EVENT]: new connect_1.ConnectHandler(),
     [connect_pointer_1.ConnectPointerHandler.EVENT]: new connect_pointer_1.ConnectPointerHandler(),
@@ -74,8 +77,10 @@ const handlers = new handlers_1.Handlers({
     [limit_1.LimitHandler.EVENT]: new limit_1.LimitHandler(),
     [tutorial_1.TutorialHandler.EVENT]: new tutorial_1.TutorialHandler(),
     [session_1.SessionHandler.EVENT]: new session_1.SessionHandler(),
+    [session_destroy_1.SessionDestroyHandler.EVENT]: new session_destroy_1.SessionDestroyHandler(),
     [set_health_1.SetHealthHandler.EVENT]: new set_health_1.SetHealthHandler(),
     [set_rating_1.SetRatingHandler.EVENT]: new set_rating_1.SetRatingHandler(),
     [reward_1.RewardHandler.EVENT]: new reward_1.RewardHandler(),
+    [edit_zone_1.EditZoneHandler.EVENT]: new edit_zone_1.EditZoneHandler(),
 });
 exports.WS.setHandlers(handlers.handle());

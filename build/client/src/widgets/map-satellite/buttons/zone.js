@@ -7,7 +7,7 @@ exports.Zone = void 0;
 const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
 const layout_rating_1 = require("widgets/layout-rating");
 const Zone = () => {
-    const zone = layout_rating_1.ratingModel.selectors.useRating().selectZone;
+    const zone = layout_rating_1.ratingModel.selectors.useSelectZone();
     if (!zone)
         return <></>;
     return (<div className={styles_module_scss_1.default.zone}>

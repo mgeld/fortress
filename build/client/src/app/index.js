@@ -49,7 +49,13 @@ const map_satellite_1 = require("pages/map-satellite");
 const model_1 = require("widgets/map-region/container/model");
 const vk_join_group_1 = require("features/user/vk-join-group");
 const model_2 = require("features/user/vk-join-group/model");
+const zone_1 = require("pages/zone");
+const model_3 = require("features/sector/set-zone-color/model");
+const select_zone_1 = require("features/user/select-zone");
+const ui_21 = __importDefault(require("features/user/edit/ui"));
 (0, model_1.mapStartPosition)();
+(0, model_3.setMyZoneColorStartSample)();
+(0, select_zone_1.initSelectZoneSample)();
 (0, model_2.initVkJoinGroup)();
 window.addEventListener('popstate', () => (0, go_back_1.goBack)());
 let platform = (0, get_platform_1.getPlatform)();
@@ -80,7 +86,7 @@ const App = () => {
           <vk_join_group_1.VkJoinGroup />
         </popout_1.Popout>
 
-        
+
         <popout_1.Popout key='battle-over' id='battle-over' fill='#5a166480' screen='full' close={false} edge={0}>
           <arena_1.BattleOver />
         </popout_1.Popout>
@@ -88,6 +94,11 @@ const App = () => {
         <popout_1.Popout key='user-dead' id='user-dead' fill='#5a166480' edge={12}>
           <user_dead_1.UserDead />
         </popout_1.Popout>
+
+        <popout_1.Popout key='zone-edit' id='zone-edit' fill='#5a166480' edge={12}>
+          <ui_21.default />
+        </popout_1.Popout>
+
 
         <popout_1.Popout key='select-place' id='select-place' fill='#5a166480' close={false} edge={12}>
           <popout_2.SelectPlace />
@@ -204,6 +215,11 @@ const App = () => {
           <page_root_1.Page key="rating" id='rating'>
             <rating_1.RatingPage />
           </page_root_1.Page>
+
+          <page_root_1.Page key="zone" id='zone'>
+            <zone_1.ZonePage />
+          </page_root_1.Page>
+
 
         </page_root_1.PageRoot>) : null}
 

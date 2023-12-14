@@ -2,6 +2,7 @@ import { FC, ReactNode } from "react";
 import { IconClose } from "shared/assets/icons/_icons";
 
 import styles from './styles.module.scss'
+import { popoutModel } from "../popout-root";
 
 type TVioletScreenProps = {
     name: string
@@ -19,6 +20,7 @@ export const VioletScreen: FC<TVioletScreenProps> = ({
     action
 }) => {
 
+
     return (
         <div className={styles.violetScreenRoot}>
             <div className={styles.violetPopout}>
@@ -32,7 +34,7 @@ export const VioletScreen: FC<TVioletScreenProps> = ({
                                 {name}
                             </div>
                             <div
-                                onClick={() => { }}
+                                onClick={() => popoutModel.events.setPopout(null)}
                                 className={styles.close}
                             >
                                 <IconClose width={16} height={16} fill="#ffffff" />

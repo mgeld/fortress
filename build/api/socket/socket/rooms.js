@@ -77,6 +77,14 @@ class CollectionRooms {
             return room[0];
         return null;
     }
+    getCientSocket(clientId) {
+        const roomId = Object.entries(this.data)
+            .filter(([key, room]) => Object.keys(room).findIndex(client => Number(client) === clientId) !== -1)
+            .map(room => room[0]);
+        if (roomId.length > 0)
+            return this.data[roomId[0]][clientId];
+        return null;
+    }
     getClientsSocket(roomId) {
         try {
             const roomClients = this.data[roomId];

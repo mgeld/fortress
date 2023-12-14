@@ -5,11 +5,7 @@ import { zoneAPI } from "shared/api/events";
 
 class NewZoneHandler extends Handler {
     handle(message: TNewZone) {
-
         zoneAPI.events.setZoneLevel(message.payload.level)
-
-        // popoutModel.events.setPopout(null)
-        // pageModel.events.setPage('map')
 
         noticeModel.events.newToast({
             name: 'Новый Уровень Зоны!',

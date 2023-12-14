@@ -1,9 +1,10 @@
-import { FC, useState } from "react";
+import { FC, useEffect } from "react";
 import { Drones } from "../pointers/drones";
 import { droneMapModel } from "entities/pointer";
 import { UserDrone } from "../user-pointer/drone";
 import { popoutModel } from "shared/ui/popout-root";
 import { FeatureGroup, Pane, useMap, useMapEvents } from "react-leaflet";
+
 // import { getPlatformNative } from "shared/lib/get-platform-native";
 // import { metersToPx } from "shared/lib/metersToPx";
 
@@ -17,6 +18,15 @@ export const MapDrones: FC = () => {
 
     const size = droneMapModel.selectors.useDroneSize().px
 
+    useEffect(() => {
+        console.log('MapDrones useEffect')
+        // После возвращения с другой страницы, обновляем
+        droneMapModel.events.setSizeDrone()
+    }, [])
+
+
+    console.log('MapDrones size', size)
+
     // const centerLat = map.getCenter().lat
     
     // const [size, setZise] = useState(metersToPx(centerLat, 30, map.getZoom()))
@@ -24,7 +34,6 @@ export const MapDrones: FC = () => {
     useMapEvents({
         zoomstart: () => {
             map.getPane('zoom-anim-map')?.setAttribute('class', 'zoom-anim-map')
-
         },
         zoomend: () => {
             setTimeout(() => {
@@ -32,15 +41,7 @@ export const MapDrones: FC = () => {
             }, 300);
 
             droneMapModel.events.setSizeDrone()
-            // platform !== 'iphone' && setZise(metersToPx(centerLat, 30, map.getZoom()))
-        },
-        // zoom: () => {
-
-        //     // Это только для дрона IOS
-        //     // droneMapModel.events.setSizeDrone()
-        //     // platform === 'iphone' && droneMapModel.events.setSizeDrone()
-        //     // platform === 'iphone' && setZise(metersToPx(centerLat, 30, map.getZoom()))
-        // },
+        }
     }, )
 
     const onShip = () => {

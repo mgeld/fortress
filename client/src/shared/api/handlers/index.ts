@@ -13,8 +13,6 @@ export class Handlers {
     public handlers: THandlers
 
     constructor(handlers: THandlers) {
-
-        // console.log('Handlers constructor', handlers)
         this.handlers = handlers
     }
 

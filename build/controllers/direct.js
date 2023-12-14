@@ -35,7 +35,6 @@ let DirectHandler = class DirectHandler extends handlers_1.IRoute {
             const __position = (_a = message.payload) === null || _a === void 0 ? void 0 : _a.position;
             if (!__position)
                 return;
-            console.log('DirectHandler handle');
             const _pointer = yield this._pointerService.memoryGetById(uSocket.user_id);
             _pointer.pos = __position;
             if (_pointer.health < 1 && _pointer.areal !== -1) {
@@ -82,10 +81,32 @@ let DirectHandler = class DirectHandler extends handlers_1.IRoute {
                     const sectors = array_sectors.map(zone => {
                         const user = _pointers.find(pointer => pointer.zone_id === zone.zone.zone_id);
                         return {
-                            zone: Object.assign(Object.assign({}, zone.zone), { name: user === null || user === void 0 ? void 0 : user.name, color: user === null || user === void 0 ? void 0 : user.color }),
+                            zone: Object.assign(Object.assign({}, zone.zone), { color: user === null || user === void 0 ? void 0 : user.color }),
                             sectors: zone.sectors
                         };
                     });
+                    if (!(_pointer.zoneId in zones)) {
+                        sectors.push({
+                            zone: {
+                                zone_id: _pointer.zoneId,
+                                color: _pointer.color
+                            },
+                            sectors: []
+                        });
+                    }
+                    uSocket.send(JSON.stringify({
+                        event: 'sectors',
+                        payload: sectors
+                    }));
+                }
+                else {
+                    const sectors = [{
+                            zone: {
+                                zone_id: _pointer.zoneId,
+                                color: _pointer.color
+                            },
+                            sectors: []
+                        }];
                     uSocket.send(JSON.stringify({
                         event: 'sectors',
                         payload: sectors
@@ -95,9 +116,10 @@ let DirectHandler = class DirectHandler extends handlers_1.IRoute {
                     event: 'connect-pointer',
                     payload: {
                         lvl: _pointer.level,
+                        color: _pointer.color,
                         userId: _pointer.zoneId,
-                        icon: _pointer.icon,
-                        name: _pointer.name,
+                        icon: _pointer.user.icon,
+                        name: _pointer.user.name,
                         health: _pointer.health,
                         pos: __position
                     }

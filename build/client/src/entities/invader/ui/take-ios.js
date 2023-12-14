@@ -7,7 +7,7 @@ exports.TakeIOS = void 0;
 const react_1 = require("react");
 const react_leaflet_1 = require("react-leaflet");
 const randomNumber_1 = require("shared/lib/randomNumber");
-const getDestination_1 = require("entities/sector/lib/getDestination");
+const getDestination_1 = require("shared/lib/getDestination");
 const leaflet_1 = require("leaflet");
 const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
 const TakeIOS = ({ take }) => {

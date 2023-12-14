@@ -43,6 +43,7 @@ const zones = `
 		id INT NOT NULL auto_increment primary key,
 
         color tinyint NOT NULL DEFAULT 0,
+        description TEXT NOT NULL,
 
         trophies smallint NOT NULL DEFAULT 0,
 

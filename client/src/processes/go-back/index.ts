@@ -8,20 +8,22 @@ import { TPopout } from "shared/ui/popout-root/model"
 export const goBack = createEvent()
 
 type TBackFxProps = {
-    page: TPage
+    // page: TPage
+    history: TPage[]
     popout: TPopout | null
 }
 
 const backFx = createEffect(({
-    page,
+    // page,
+    history,
     popout
 }: TBackFxProps) => {
-
     if (popout) {
         popoutModel.events.setPopout(null)
     } else {
-        if (page !== 'map') {
-            pageModel.events.setPage('map')
+        if(history.length > 1) {
+            pageModel.events.delHistoryPage()
+            pageModel.events.returnPage(history[0])
         } else {
             bridge.send("VKWebAppClose", { "status": "success" });
         }
@@ -31,9 +33,10 @@ const backFx = createEffect(({
 sample({
     clock: goBack,
     source: {
-        page: pageModel.$pageStore,
+        // page: pageModel.$pageStore,
+        history: pageModel.$historyStore,
         popout: popoutModel.$popoutStore
     },
-    fn: ({ page, popout }) => ({ page, popout }),
+    // fn: ({ page, popout }) => ({ page, popout }),
     target: backFx
 })

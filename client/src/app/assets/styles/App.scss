@@ -72,15 +72,21 @@ path {
 .leaflet-popup {}
 
 .leaflet-popup-content-wrapper {
-  background-color: #310741af !important;
+  background-color: rgb(144,96,161,0.9);
+  // background-color: #310741af !important;
 }
 
 .leaflet-popup-tip {
-  background-color: #310741af !important;
+  background-color: #47165aaf !important;
 }
 
 .leaflet-popup-content {
   margin: 0px !important;
+}
+
+.leaflet-container a.leaflet-popup-close-button:hover,
+.leaflet-container a.leaflet-popup-close-button:focus {
+  color: #fff !important;
 }
 
 // .aaaa {

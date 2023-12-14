@@ -49,8 +49,15 @@ import { MapSatellitPage } from 'pages/map-satellite'
 import { mapStartPosition } from 'widgets/map-region/container/model'
 import { VkJoinGroup } from 'features/user/vk-join-group'
 import { initVkJoinGroup } from 'features/user/vk-join-group/model'
+import { ZonePage } from 'pages/zone'
+import { setMyZoneColorStartSample } from 'features/sector/set-zone-color/model'
+import { initSelectZoneSample } from 'features/user/select-zone'
+
+import ZoneEdit from 'features/user/edit/ui'
 
 mapStartPosition()
+setMyZoneColorStartSample()
+initSelectZoneSample()
 initVkJoinGroup()
 
 window.addEventListener('popstate', () => goBack());
@@ -123,7 +130,7 @@ const App = () => {
           <VkJoinGroup />
         </Popout>
 
-        
+
         <Popout
           key='battle-over'
           id='battle-over'
@@ -143,6 +150,16 @@ const App = () => {
         >
           <UserDead />
         </Popout>
+
+        <Popout
+          key='zone-edit'
+          id='zone-edit'
+          fill='#5a166480'
+          edge={12}
+        >
+          <ZoneEdit />
+        </Popout>
+
 
         <Popout
           key='select-place'
@@ -363,6 +380,11 @@ const App = () => {
           <Page key="rating" id='rating'>
             <RatingPage />
           </Page>
+
+          <Page key="zone" id='zone'>
+            <ZonePage />
+          </Page>
+
 
         </PageRoot>
 

@@ -3,7 +3,7 @@ import { Rectangle } from "react-leaflet";
 import L, { latLng } from "leaflet";
 import { randomNumber } from "shared/lib/randomNumber"
 import styles from './styles.module.scss'
-import { getDestination } from "entities/sector/lib/getDestination";
+import { getDestination } from "shared/lib/getDestination";
 import { TLatLng } from "shared/types";
 import { TBooty } from "entities/projector/model/tractor-beam";
 

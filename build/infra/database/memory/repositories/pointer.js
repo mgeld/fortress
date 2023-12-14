@@ -26,9 +26,7 @@ const memory_data_1 = require("../memory-data");
 let PointerMemoryRepository = class PointerMemoryRepository {
     getById(userId) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log('getById userId', userId);
             const pointer = yield this._database.pointer.getById(userId);
-            console.log('PointerMemoryRepository pointer', pointer);
             if (!pointer) {
                 throw new Error('В Memory этого чувака нет');
             }

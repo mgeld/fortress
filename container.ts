@@ -75,6 +75,7 @@ import { BattleGetAboutSectorHandler } from './controllers/battle-get-about-sect
 import { GetRatingHandler } from './controllers/get-rating'
 import { GetSatelliteHandler } from './controllers/get-satellite'
 import { VkCallback } from './controllers/vk-callback'
+import { EditZoneHandler } from './controllers/edit-zone'
 // import { ArenaTeamMemoryRepository } from './infra/database/memory/repositories/arena-team'
 // import { ArenaTeamService } from './services/arena-team.service'
 
@@ -91,6 +92,8 @@ container.bind(TYPES.Rooms).to(Rooms).inSingletonScope()
 container.bind(TYPES.Handlers).to(Handlers)
 
 container.bind(TYPES.ConnectHandler).to(ConnectHandler)
+container.bind(TYPES.EditZoneHandler).to(EditZoneHandler)
+
 container.bind(TYPES.DirectHandler).to(DirectHandler)
 container.bind(TYPES.FireHandler).to(FireHandler)
 container.bind(TYPES.BeamHandler).to(BeamHandler)

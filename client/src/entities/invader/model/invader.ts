@@ -25,8 +25,6 @@ const $invadersStore = createStore<TTake[]>(DEFAULT_STORE)
         return true;
     })))
 
-// $invadersStore.watch(() => console.log('$invadersStore'))
-
 const useInvader = () => {
     return {
         takes: useStore($invadersStore)

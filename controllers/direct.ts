@@ -31,8 +31,6 @@ class DirectHandler extends IRoute {
 
         if (!__position) return
 
-        console.log('DirectHandler handle')
-
         const _pointer = await this._pointerService.memoryGetById(uSocket.user_id)
 
         _pointer.pos = __position
@@ -130,7 +128,6 @@ class DirectHandler extends IRoute {
 
             const _sectors = await this._sectorService.getZonesAroundAreal(areal)
             // const _sectors = await this._sectorService.getZonesAroundPosition(_pointer.pos)
-            
 
             const array_sectors = Object.values(_sectors)
 
@@ -148,28 +145,54 @@ class DirectHandler extends IRoute {
                     return {
                         zone: {
                             ...zone.zone,
-                            name: user?.name,
+                            // name: user?.name,
                             color: user?.color
                         },
                         sectors: zone.sectors
                     }
                 })
 
+                // Если у меня нет сектора в этом ареале
+                if (!(_pointer.zoneId in zones)) {
+                    sectors.push({
+                        zone: {
+                            zone_id: _pointer.zoneId,
+                            color: _pointer.color
+                        },
+                        sectors: []
+                    })
+                }
+
                 uSocket.send(JSON.stringify({
                     event: 'sectors',
                     payload: sectors
                 }))
 
+            } else {
+                const sectors = [{
+                    zone: {
+                        zone_id: _pointer.zoneId,
+                        color: _pointer.color
+                    },
+                    sectors: []
+                }]
+
+                uSocket.send(JSON.stringify({
+                    event: 'sectors',
+                    payload: sectors
+                }))
             }
+
             /** */
 
             this._rooms.areals.broadcast(_pointer.areal, {
                 event: 'connect-pointer',
                 payload: {
                     lvl: _pointer.level,
+                    color: _pointer.color,
                     userId: _pointer.zoneId,
-                    icon: _pointer.icon,
-                    name: _pointer.name,
+                    icon: _pointer.user.icon,
+                    name: _pointer.user.name,
                     health: _pointer.health,
                     pos: __position
                 }

@@ -23,7 +23,7 @@ class BattleStartHandler extends Handler {
                 zone: {
                     zone_id: 1,
                     color: 1,
-                    name: 'Синие'
+                    // name: 'Синие'
                 },
                 sectors: []
             },
@@ -31,7 +31,7 @@ class BattleStartHandler extends Handler {
                 zone: {
                     zone_id: 2,
                     color: 2,
-                    name: 'Красные'
+                    // name: 'Красные'
                 },
                 sectors: []
             },

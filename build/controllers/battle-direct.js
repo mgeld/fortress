@@ -31,7 +31,6 @@ let BattleDirectHandler = class BattleDirectHandler extends handlers_1.IRoute {
     handle(message, uSocket) {
         var _a;
         return __awaiter(this, void 0, void 0, function* () {
-            console.log('BattleDirectHandler handle');
             if (!uSocket.user_id)
                 return;
             const pos = (_a = message.payload) === null || _a === void 0 ? void 0 : _a.position;

@@ -27,3 +27,9 @@ export { ReactComponent as IconShip } from './ship.svg';
 
 export { ReactComponent as IconCoin } from './coin.svg';
 export { ReactComponent as IconSapphire } from './sapphire.svg';
+
+export { ReactComponent as IconTerrain } from './terrain.svg';
+export { ReactComponent as IconVK } from './vk.svg';
+export { ReactComponent as IconSettings } from './settings.svg';
+
+export { ReactComponent as IconLoad } from './load.svg';

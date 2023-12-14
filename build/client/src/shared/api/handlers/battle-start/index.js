@@ -18,7 +18,6 @@ class BattleStartHandler extends __1.Handler {
                 zone: {
                     zone_id: 1,
                     color: 1,
-                    name: 'Синие'
                 },
                 sectors: []
             },
@@ -26,7 +25,6 @@ class BattleStartHandler extends __1.Handler {
                 zone: {
                     zone_id: 2,
                     color: 2,
-                    name: 'Красные'
                 },
                 sectors: []
             },

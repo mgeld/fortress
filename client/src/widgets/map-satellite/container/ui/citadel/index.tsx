@@ -7,7 +7,9 @@ import { ratingModel } from "widgets/layout-rating";
 
 export const CitadelMap = () => {
     
-    const zone = ratingModel.selectors.useRating().selectZone
+    const size = droneMapModel.selectors.useDroneSize().px
+    
+    const zone = ratingModel.selectors.useSelectZone()
 
     const eventCitadel = () => {
         popoutModel.events.setPopout('alert')
@@ -35,15 +37,7 @@ export const CitadelMap = () => {
             }, 300);
             
             droneMapModel.events.setSizeDrone()
-            // platform !== 'iphone' && setZise(metersToPx(centerLat, 30, map.getZoom()))
         },
-        // zoom: () => {
-
-        //     // Это только для дрона IOS
-        //     // droneMapModel.events.setSizeDrone()
-        //     // platform === 'iphone' && droneMapModel.events.setSizeDrone()
-        //     // platform === 'iphone' && setZise(metersToPx(centerLat, 30, map.getZoom()))
-        // },
     }, )
 
     if(!zone?.latlng) return <></>
@@ -52,6 +46,7 @@ export const CitadelMap = () => {
         <Citadel
             pos={zone?.latlng}
             _click={eventCitadel}
+            droneSize={size}
         />
     )
 }

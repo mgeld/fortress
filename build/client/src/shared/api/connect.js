@@ -2,13 +2,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.connectAPI = void 0;
 const socket_1 = require("processes/socket");
-const connectAPI = (url, name, icon, position) => {
+const connectAPI = (url, position) => {
     const data = {
         event: 'connect',
         payload: {
             url,
-            name,
-            icon,
             position,
         }
     };

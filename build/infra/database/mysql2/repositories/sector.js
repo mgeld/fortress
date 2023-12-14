@@ -43,7 +43,7 @@ let SectorRepository = class SectorRepository {
             ?,
             ?,
             ?,
-            0
+            ?
         );
     `, [
                 dtoSector.id,
@@ -52,6 +52,7 @@ let SectorRepository = class SectorRepository {
                 dtoSector.latlng[0],
                 dtoSector.latlng[1],
                 dtoSector.zone_id,
+                dtoSector.areal
             ]);
             return sector;
         });

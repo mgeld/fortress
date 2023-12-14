@@ -46,7 +46,7 @@ const Extraction = () => {
             <div className={styles_module_scss_1.default.noData}>
                         <div>Трюм пустой</div>
                     </div>}
-                <back_button_1.BackMap />
+                <back_button_1.BackMap color="#a542d3"/>
             </>
         </hold_1.ExtractionLayout>);
 };

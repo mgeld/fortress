@@ -31,6 +31,7 @@ const TYPES = {
     Base64EntityIdGenerator: Symbol.for('Base64EntityIdGenerator'),
     Handlers: Symbol.for('Handlers'),
     ConnectHandler: Symbol.for('ConnectHandler'),
+    EditZoneHandler: Symbol.for('EditZoneHandler'),
     DirectHandler: Symbol.for('DirectHandler'),
     TakeHandler: Symbol.for('TakeHandler'),
     BattleTakeHandler: Symbol.for('BattleTakeHandler'),

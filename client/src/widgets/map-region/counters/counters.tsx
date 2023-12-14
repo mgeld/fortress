@@ -38,18 +38,14 @@ export const Counters = () => {
 
     // if(mode !== 'invade') return <></>
 
-    const zoneLevel = zoneModel.selectors.useZoneLevel()
-
-    const rankLevel = userModel.selectors.useRankLevel()
-    const sects = zoneModel.selectors.useZoneSectors()
-
     const trophy = zoneModel.selectors.useZoneTrophies()
 
     const rankExp = userModel.selectors.useRankExp()
+    const rankLevel = userModel.selectors.useRankLevel()
     const progressExp = rankExp * 100 / Ranks.getExp(rankLevel as TRank);
 
-    // const sects = 365
-    // const zoneLevel = 3
+    const sects = zoneModel.selectors.useZoneSectors()
+    const zoneLevel = zoneModel.selectors.useZoneLevel()
 
     const zoneSects = sects - (ZoneLevel.getMaxLevelAllSectors(zoneLevel - 1 as TZoneLevel) || 0)
     const zoneProgress = zoneSects * 100 / ZoneLevel.getMaxLevelSectors(zoneLevel as TZoneLevel)

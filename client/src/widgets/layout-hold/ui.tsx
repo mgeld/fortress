@@ -57,7 +57,7 @@ export const Extraction: FC = () => {
                     <div className={styles.noData}>
                         <div>Трюм пустой</div>
                     </div>}
-                <BackMap />
+                <BackMap color="#a542d3" />
             </>
         </ExtractionLayout>
     )

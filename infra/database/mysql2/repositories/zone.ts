@@ -4,14 +4,15 @@ import { TYPES } from '../../../../types'
 import { IZoneRepository } from '../../../../entities/repository'
 import { Zone } from '../../../../entities/zone/zone'
 import { ZoneMapper } from '../../mappers/zone'
-import { IRatingZone } from '../../../../common-types/model'
+import { IRatingZone, TZoneColor } from '../../../../common-types/model'
 
 interface IZoneRowData {
     id?: number
 
     trophies?: number
 
-    color?: number
+    color?: TZoneColor
+    description?: string
 
     coins?: number
     rubies?: number
@@ -31,6 +32,8 @@ export class ZoneRepository implements IZoneRepository {
                     zones.id,
 
                     zones.color,
+                    zones.description,
+
                     zones.trophies,
                     zones.coins,
                     zones.rubies,
@@ -65,6 +68,7 @@ export class ZoneRepository implements IZoneRepository {
         const {
             id,
             color,
+            description,
 
             trophies,
             coins,
@@ -85,11 +89,10 @@ export class ZoneRepository implements IZoneRepository {
             rank_exp
         } = result
 
-        console.log('ZoneRepository result', result)
-
         return ZoneMapper.toDomain({
             id,
             color,
+            description,
 
             trophies,
             coins,
@@ -123,6 +126,7 @@ export class ZoneRepository implements IZoneRepository {
         const addZone = await this._connection.query<ResultSetHeader>(`
             INSERT INTO zones(
                 color,
+                description,
                 trophies,
                 coins,
                 rubies
@@ -130,17 +134,18 @@ export class ZoneRepository implements IZoneRepository {
                 ?,
                 ?,
                 ?,
+                ?,
                 ?
             );
         `, [
             dtoZone.color,
+            dtoZone.description,
             dtoZone.trophies,
             dtoZone.coins,
             dtoZone.rubies
         ])
 
         const zoneId = addZone[0].insertId
-        console.log('INSERT ID???', zoneId)
 
         const inserted = await this._connection.query(`
             INSERT INTO hold(zone_id,level,items)VALUES(?,?,?);
@@ -181,12 +186,16 @@ export class ZoneRepository implements IZoneRepository {
                     zones.id,
                     zones.color,
                     zones.trophies,
+                    zones.description,
+                    terrain.level as zone_level,
                     terrain.sectors as zone_sectors,
                     rc.level as rank_level,
+                    rc.exp as rank_exp,
                     p.icon,
                     p.name,
                     c.sectorId,
-                    c.latlng
+                    c.latlng,
+                    vk.user_id as vk_id
                 FROM
                     zones
 
@@ -194,6 +203,7 @@ export class ZoneRepository implements IZoneRepository {
                 LEFT JOIN rank_conquests as rc ON rc.zone_id = zones.id
                 LEFT JOIN pointers as p ON p.zone_id = zones.id
                 LEFT JOIN citadels as c ON c.zone_id = zones.id
+                LEFT JOIN vk_users as vk ON vk.zone_id = zones.id
 
                 ORDER BY zones.trophies DESC
                 LIMIT 20;
@@ -226,6 +236,7 @@ export class ZoneRepository implements IZoneRepository {
                 hold
             SET
                 zones.color = ?,
+                zones.description = ?,
                 
                 zones.trophies = ?,
                 zones.coins = ?,
@@ -254,6 +265,7 @@ export class ZoneRepository implements IZoneRepository {
 
         `, [
             dtoZone.color,
+            dtoZone.description,
 
             dtoZone.trophies,
             dtoZone.coins,

@@ -9,7 +9,6 @@ const fires_1 = __importDefault(require("entities/fire/ui/fires"));
 const pointers_map_1 = require("./pointers-map");
 const map_1 = require("entities/map");
 const model_1 = require("features/battle/battle-change-status/model");
-const ui_1 = require("entities/areal/ui");
 const sectors_map_1 = require("./sectors-map");
 const model_2 = require("features/map/scroll-map-pointer/model");
 const fort_counter_1 = require("./fort-counter");
@@ -17,7 +16,7 @@ const fort_map_1 = require("./fort-map");
 const select_place_1 = require("features/map/select-place");
 const hit_fire_in_1 = require("features/fire/hit-fire-in");
 const mine_explosion_1 = require("features/bomb/mine-explosion");
-const ui_2 = require("./arena-rectangle/ui");
+const ui_1 = require("./arena-rectangle/ui");
 const model_3 = require("features/user/set-map-pos/model");
 const model_4 = require("features/map/set-max-bounds/model");
 const model_5 = require("features/pointer/filter-pointers/model");
@@ -28,6 +27,7 @@ const bombs_1 = __importDefault(require("entities/bomb/ui/bombs"));
 const booty_1 = __importDefault(require("entities/projector/ui/booty"));
 const invaders_1 = __importDefault(require("entities/invader/ui/invaders"));
 const citadel_1 = require("./citadel");
+const ui_2 = require("./areal-rectangle/ui");
 (0, model_1.changeBattleStatusListener)();
 (0, model_2.scrollMapPointerListener)();
 (0, model_3.setMapPosListener)();
@@ -38,7 +38,6 @@ const citadel_1 = require("./citadel");
 const MapLayout = () => {
     const mode = map_1.mapModel.selectors.useMapMode().mode;
     const center = map_1.mapModel.selectors.useMapCenter();
-    console.log('MapLayout');
     return (<div className='mapCard'>
 
             <react_leaflet_1.MapContainer ref={map_1.mapModel.events.setMap} className='_MapContainer' center={center} zoom={16} minZoom={15} maxZoom={17} doubleClickZoom={false} zoomControl={false} bounceAtZoomLimits={false}>
@@ -49,7 +48,7 @@ const MapLayout = () => {
 
                 {mode === 'select-place' ? <select_place_1.MapSelectPlace /> : null}
 
-                {mode === 'invade' ? <ui_1.ArealRectangle /> : <ui_2.ArenaRectangle />}
+                {mode === 'invade' ? <ui_2.ArealRectangle /> : <ui_1.ArenaRectangle />}
 
                 <react_leaflet_1.Pane name="zoom-anim-map">
 

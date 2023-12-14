@@ -1,6 +1,7 @@
 export type TPointer = {
     userId: number
     lvl: number,
+    color: TZoneColor,
     health: number,
     icon?: string,
     name?: string,
@@ -50,7 +51,7 @@ export type TZoneColor = 1 | 2 | 3 | 4 | 5 | 6
 
 export type TZone = {
     zone_id: number
-    name: string
+    // name: string
     color: TZoneColor
 }
 export type TZoneItem = {
@@ -111,14 +112,18 @@ export type TTutType =
     | 'hold'
 
 
-export interface IRatingZone {
+export type IRatingZone = {
     id: number
     color: number
+    description: string
     trophies: number
+    zone_level: number
     zone_sectors: number
     rank_level: number
+    rank_exp: number
     icon: string
-    name: number
+    name: string
     sectorId: number
     latlng: TLatLng
+    vk_id: number
 }

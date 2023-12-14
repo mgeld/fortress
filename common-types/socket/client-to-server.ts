@@ -1,12 +1,13 @@
 import {
     TLatLng,
     THitPointer,
-    TJoystickDirection,
     TExtrTypes,
     TGameUnit,
+    TZoneColor,
 } from "../model"
 
 export type TEventConnect = 'connect'
+export type TEventEditZone = 'editZone'
 
 export type TEventDirect = 'direct'
 export type TEventFire = 'fire'
@@ -38,6 +39,7 @@ export type TEventGetRating = 'getRating'
 
 export type TEventsAPI =
     | TEventConnect
+    | TEventEditZone
     | TEventFire
     | TEventTake
     | TEventBattleTake
@@ -59,6 +61,7 @@ export type TEventsAPI =
 
 export type TSendEvent =
     | TConnectAPI
+    | TEditZoneAPI
     | TFireAPI
     | TTakeAPI
     | TBeamAPI
@@ -83,9 +86,20 @@ export type TConnectAPI = {
     event: TEventConnect
     payload: {
         url: string
-        name: string
-        icon: string
+        // name: string
+        // icon: string
         position: TLatLng
+    }
+}
+
+export type TEditZoneAPI = {
+    event: TEventEditZone
+    payload: {
+        icon: string,
+        name: string,
+        description: string,
+        color: TZoneColor
+        hash: string
     }
 }
 

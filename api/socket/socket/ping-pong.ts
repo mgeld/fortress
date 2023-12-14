@@ -27,6 +27,8 @@ export class PingPong {
 
     public async deleteUser(userId: number) {
 
+        console.log('deleteUser')
+
         if (!userId) return
 
         const _pointer = await this._pointerService.memoryGetById(userId)
@@ -57,6 +59,8 @@ export class PingPong {
 
         }
 
+        this._rooms.areals.getCientSocket(_zone.id)?.terminate();
+
         if (_pointer.areal !== -1) {
             this._rooms.areals.deleteClient(_pointer.zoneId, _pointer.areal)
             this._rooms.areals.broadcast(_pointer.areal, {
@@ -69,6 +73,7 @@ export class PingPong {
             _pointer.areal = -1 // Типа удаляем ареал, чтобы в след заход появится у других в игре
         }
 
+
         await this._pointerService.baseUpdate(_pointer)
         await this._zoneService.baseUpdate(_zone)
         await this._weaponService.baseUpdate(_weapon)
@@ -77,7 +82,40 @@ export class PingPong {
         await this._weaponService.remove(_pointer.weapons[0])
         this._pointerService.remove(userId)
         this._zoneService.remove(userId)
+
+        console.log('Конец удаления')
     }
+
+    
+
+    // public async deleteClientAreal(userId: number) {
+
+    //     console.log('deleteClientAreal')
+
+    //     if (!userId) return
+
+    //     const _pointer = await this._pointerService.memoryGetById(userId)
+    //     console.log('deleteClientAreal _pointer.areal', _pointer.areal)
+    //     // const _zone = await this._zoneService.memoryGetById(userId)
+
+    //     // this._rooms.areals.getCientSocket(_zone.id)?.terminate();
+        
+    //     if (_pointer.areal !== -1) {
+    //         this._rooms.areals.deleteClient(_pointer.zoneId, _pointer.areal)
+    //         this._rooms.areals.broadcast(_pointer.areal, {
+    //             event: 'del-pointer',
+    //             payload: {
+    //                 userId: _pointer.zoneId
+    //             }
+    //         }, _pointer.zoneId)
+            
+    //         // _pointer.areal = -1 // Типа удаляем ареал, чтобы в след заход появится у других в игре
+
+    //         // this._pointerService.memoryInsert(_pointer)
+    //     }
+
+    //     console.log('Конец удаления')
+    // }
 
     async each(ws: IWebSocket) {
 
@@ -103,7 +141,7 @@ export class PingPong {
     start(wss: WebSocket.Server) {
         this._wss = wss
         // const context = this
-        setInterval(this.pingPong.bind(this), 10000);
+        setInterval(this.pingPong.bind(this), 5000);
     }
 
 }

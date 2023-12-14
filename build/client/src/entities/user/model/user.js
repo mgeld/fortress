@@ -4,9 +4,7 @@ exports.selectors = exports.events = exports.$userVkIdStore = exports.$userIdSto
 const effector_1 = require("effector");
 const effector_react_1 = require("effector-react");
 const events_1 = require("shared/api/events");
-const { setUser, setRankLevel, setRankExp, addRankExp, } = events_1.userAPI.events;
-const setName = (0, effector_1.createEvent)();
-const setUserIcon = (0, effector_1.createEvent)();
+const { setUser, setRankLevel, setRankExp, addRankExp, setName, setUserIcon } = events_1.userAPI.events;
 const setVkUser = (0, effector_1.createEvent)();
 exports.$rankLevelStore = (0, effector_1.createStore)(0)
     .on(setRankLevel, (_, rank) => rank);
@@ -24,9 +22,7 @@ const DEFAULT_STORE_VK_USER = 0;
 exports.$userVkIdStore = (0, effector_1.createStore)(DEFAULT_STORE_VK_USER)
     .on(setVkUser, (_, state) => state);
 exports.events = {
-    setVkUser,
-    setName,
-    setUserIcon,
+    setVkUser
 };
 const useUser = () => {
     return {

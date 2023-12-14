@@ -6,12 +6,10 @@ import { PageRootContext } from "../page-root/ui";
 
 type PageProps = {
     id: string
-    // fill: string
     children: ReactNode
 }
 export const Page: FC<PageProps> = ({
     id,
-    // fill,
     children
 }) => {
 
@@ -21,7 +19,6 @@ export const Page: FC<PageProps> = ({
 
     return (
         <div
-            // style={{ backgroundColor: fill }}
             className={styles.page}
         >
             {children}

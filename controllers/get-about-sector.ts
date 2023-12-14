@@ -44,7 +44,7 @@ class GetAboutSectorHandler extends IRoute {
             latlng: dtoSector.latlng,
             invaders: dtoSector.invaders,
             defenders: dtoSector.defenders,
-            owner: _pointer.name
+            owner: _pointer.user.name
         }
 
         uSocket.send(JSON.stringify({

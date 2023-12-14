@@ -39,7 +39,6 @@ class CollectionRooms {
     }
 
     deleteClient(clientId: number, roomId: TRoomId) {
-
         console.log(' deleteClient clientId', clientId)
         // console.log(' deleteClientthis.data[roomId][clientId]', this.data[roomId])
         delete this.data[roomId][clientId]
@@ -77,6 +76,14 @@ class CollectionRooms {
             .map(room => room[0])
 
         if (room.length > 0) return room[0]
+        return null
+    }
+
+    getCientSocket(clientId: number): IWebSocket | null {
+        const roomId = Object.entries(this.data) // Массив комнат
+            .filter(([key, room]) => Object.keys(room).findIndex(client => Number(client) === clientId) !== -1)
+            .map(room => room[0])
+        if (roomId.length > 0) return this.data[roomId[0]][clientId]
         return null
     }
 

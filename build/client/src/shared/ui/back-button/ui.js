@@ -4,14 +4,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BackMap = void 0;
-const page_root_1 = require("shared/ui/page-root");
 const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
 const arrow_back_svg_1 = require("./arrow-back.svg");
-const BackMap = () => {
+const go_back_1 = require("processes/go-back");
+const BackMap = ({ color }) => {
+    const background = {
+        backgroundColor: color
+    };
     return (<>
-            <div className={styles_module_scss_1.default.back} onClick={() => page_root_1.pageModel.events.setPage('map')}>
+            <div className={styles_module_scss_1.default.back} onClick={() => (0, go_back_1.goBack)()}>
 
-                <div className={styles_module_scss_1.default.__main}>
+                <div className={styles_module_scss_1.default.__main} style={background}>
                     <div className={styles_module_scss_1.default.icon}>
                         <arrow_back_svg_1.ReactComponent width={20} height={20}/>
                     </div>
@@ -19,7 +22,7 @@ const BackMap = () => {
                         Вернуться в игру
                     </div>
                 </div>
-                <div className={styles_module_scss_1.default.iosBottom}/>
+                <div className={styles_module_scss_1.default.iosBottom} style={background}/>
             </div>
             <div className={styles_module_scss_1.default.__after}/>
         </>);

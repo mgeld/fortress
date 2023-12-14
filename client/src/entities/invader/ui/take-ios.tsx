@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from "react";
 import { ImageOverlay } from "react-leaflet";
 import { randomNumber } from "shared/lib/randomNumber"
 import { TTake } from "../model/invader";
-import { getDestination } from "entities/sector/lib/getDestination";
+import { getDestination } from "shared/lib/getDestination";
 import { TLatLng } from "shared/types";
 import { latLng } from "leaflet";
 

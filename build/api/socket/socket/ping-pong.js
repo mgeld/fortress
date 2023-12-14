@@ -32,7 +32,9 @@ let PingPong = class PingPong {
         this._wss = null;
     }
     deleteUser(userId) {
+        var _a;
         return __awaiter(this, void 0, void 0, function* () {
+            console.log('deleteUser');
             if (!userId)
                 return;
             const _pointer = yield this._pointerService.memoryGetById(userId);
@@ -59,6 +61,7 @@ let PingPong = class PingPong {
             }
             catch (e) {
             }
+            (_a = this._rooms.areals.getCientSocket(_zone.id)) === null || _a === void 0 ? void 0 : _a.terminate();
             if (_pointer.areal !== -1) {
                 this._rooms.areals.deleteClient(_pointer.zoneId, _pointer.areal);
                 this._rooms.areals.broadcast(_pointer.areal, {
@@ -75,6 +78,7 @@ let PingPong = class PingPong {
             yield this._weaponService.remove(_pointer.weapons[0]);
             this._pointerService.remove(userId);
             this._zoneService.remove(userId);
+            console.log('Конец удаления');
         });
     }
     each(ws) {
@@ -95,7 +99,7 @@ let PingPong = class PingPong {
     }
     start(wss) {
         this._wss = wss;
-        setInterval(this.pingPong.bind(this), 10000);
+        setInterval(this.pingPong.bind(this), 5000);
     }
 };
 __decorate([

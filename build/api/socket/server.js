@@ -107,9 +107,15 @@ let Server = class Server {
             ws.on('pong', () => {
                 ws.is_alive = true;
             });
-            ws.on('close', function () {
-                ws.is_alive = false;
-                (ws === null || ws === void 0 ? void 0 : ws.user_id) && Connection.deleteUser(ws.user_id);
+            ws.on('close', function (e, d) {
+                console.log('ws close user_id', ws.user_id);
+                if (d.toString() === 'session-destroy') {
+                    console.log('Сюда попадает');
+                    ws.terminate();
+                }
+                else {
+                    (ws === null || ws === void 0 ? void 0 : ws.user_id) && Connection.deleteUser(ws.user_id);
+                }
             });
             let router = serverContext._handlers.handle(ws);
             ws.on('message', router);

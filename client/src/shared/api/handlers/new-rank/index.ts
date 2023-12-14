@@ -12,9 +12,6 @@ class NewRankHandler extends Handler {
 
         zoneAPI.events.addRubies(Ranks.getLevelRewardRubies(message.payload.rank))
 
-        // popoutModel.events.setPopout(null)
-        // pageModel.events.setPage('map')
-
         noticeModel.events.newToast({
             name: 'Новый Ранг Завоеваний!',
             text: 'Вы достигли нового Ранга Завоеваний!',

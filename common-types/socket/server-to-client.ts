@@ -1,7 +1,9 @@
-import { IRatingZone, TBombSymbol, TExtrTypes, TExtrTypesName, TFindContType, TGameUnit, THitPointer, TJoystickDirection, TLatLng, TPointer, TTutType, TTypeToastNotice, TWeapon, TWeaponSymbol, TZoneItem } from "../model"
+import { IRatingZone, TBombSymbol, TExtrTypes, TExtrTypesName, TFindContType, TGameUnit, THitPointer, TJoystickDirection, TLatLng, TPointer, TTutType, TTypeToastNotice, TWeapon, TWeaponSymbol, TZoneColor, TZoneItem } from "../model"
 
 export type TEventConnect = 'connect'
 export type TEventSetUser = 'set-user'
+export type TEventEditZone = 'edit-zone'
+
 export type TEventSetRating = 'set-rating'
 
 export type TEventSetCitadel = 'set-citadel'
@@ -23,7 +25,7 @@ export type TEventReward = 'reward'
 
 export type TEventLimit = 'limit'
 export type TEventSession = 'session'
-
+export type TEventSessionDestroy = 'session-destroy'
 
 export type TEventNewRank = 'new-rank'
 export type TEventNewZone = 'new-zone'
@@ -49,6 +51,7 @@ export type TEventBattleJoin = 'battle-join'
 export type TEventsMessage =
     | TEventConnect
     | TEventSetUser
+    | TEventEditZone
     | TEventSetRating
     | TEventSetCitadel
     | TEventTutorial
@@ -63,6 +66,7 @@ export type TEventsMessage =
     | TEventReward
     | TEventLimit
     | TEventSession
+    | TEventSessionDestroy
     | TEventNewRank
     | TEventNewZone
     | TEventLevelUp
@@ -95,6 +99,8 @@ export type TCitadel = {
 export type TConnectPayload = {
     user: {
         zoneId: number
+        icon: string
+        name: string
     },
     ship: {
         pos: TLatLng
@@ -115,9 +121,11 @@ export type TConnectPayload = {
         sectors: number
     }
     zone: {
+        color: TZoneColor
         trophies: number
         coins: number
         rubies: number
+        description: string
     }
     hold: {
         level: number
@@ -153,6 +161,16 @@ type TSetUserPayload = {
 export type TSetUser = {
     event: TEventSetUser
     payload: TSetUserPayload
+}
+
+export type TEditZone = {
+    event: TEventEditZone
+    payload: {
+        icon?: string
+        name?: string
+        description?: string
+        color?: TZoneColor
+    }
 }
 
 type TSetRatingPayload = {
@@ -309,6 +327,11 @@ export type TLimit = {
 
 export type TSession = {
     event: TEventSession
+    payload: {
+    }
+}
+export type TSessionDestroy = {
+    event: TEventSessionDestroy
     payload: {
     }
 }
@@ -475,6 +498,7 @@ export type TMessage =
     | TConnectPointer
     | TConnect
     | TSetUser
+    | TEditZone
     | TSetRating
     | TSetCitadel
     | TTutorial
@@ -494,6 +518,7 @@ export type TMessage =
     | TReward
     | TLimit
     | TSession
+    | TSessionDestroy
     | TNewRank
     | TNewZone
     | TLevelUp

@@ -14,11 +14,11 @@ import styles from './styles.module.scss'
 
 export const LayoutRating: FC = () => {
 
-    const zones = ratingModel.selectors.useRating()
+    const zones = ratingModel.selectors.useRatingZones()
 
     const onZone = (zone: IRatingZone) => {
         ratingAPI.events.selectRatingZone(zone)
-        pageModel.events.setPage('map-satellite')
+        pageModel.events.setPage('zone')
         getSatelliteAPI(zone.latlng, zone.id)
     }
 
@@ -43,9 +43,9 @@ export const LayoutRating: FC = () => {
 
                     <div className={styles.__before} />
 
-                    {zones.zones ?
+                    {zones ?
                         <div className={styles.ratingList}>
-                            {zones.zones.map((item, i) => {
+                            {zones.map((item, i) => {
                                 return (
                                     <div
                                         onClick={() => onZone(item)}
@@ -67,7 +67,7 @@ export const LayoutRating: FC = () => {
                                                         <IconZone width={20} height={20} />
                                                     </div>
                                                     <div className={styles.text}>
-                                                        Количество секторов:
+                                                        Всего секторов:
                                                     </div>
                                                     <div className={styles.count}>
                                                         {item.zone_sectors}
@@ -98,7 +98,7 @@ export const LayoutRating: FC = () => {
                             <div>Загрузка...</div>
                         </div>}
 
-                    <BackMap />
+                    <BackMap color="#a542d3" />
 
                 </div>
             </div>

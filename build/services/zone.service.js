@@ -46,8 +46,13 @@ let ZoneService = class ZoneService {
     }
     memoryGetById(userId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const zone = yield this._memoryRepository.getById(userId);
-            return zone;
+            try {
+                const zone = yield this._memoryRepository.getById(userId);
+                return zone;
+            }
+            catch (e) {
+                throw new Error('ZoneService memoryGetById catch throw');
+            }
         });
     }
     memoryGetByIds(userIds) {
@@ -101,6 +106,7 @@ let ZoneService = class ZoneService {
         const zone = zone_1.ZoneMapper.toDomain({
             id: 0,
             color: DEFAULT_COLOR,
+            description: '',
             rubies: DEFAULT_RUBIES,
             coins: DEFAULT_COINS,
             trophies: DEFAULT_TROPHIES,

@@ -28,8 +28,9 @@ import { YTakeSectorHandler } from "shared/api/handlers/y-take-sector"
 import { YrTakeSectorHandler } from "shared/api/handlers/yr-take-sector"
 
 // import { Socket } from "shared/api/socket"
+
 import { API_BASE_URL } from "shared/config"
-import { events as socket } from "shared/api/socket/model"
+import { socketModel } from "shared/api/socket"
 import { Socket } from "shared/api/socket/socket"
 import { TutorialHandler } from "shared/api/handlers/tutorial"
 import { BattleTakeSectorHandler } from "shared/api/handlers/battle-take-sector"
@@ -39,8 +40,12 @@ import { SessionHandler } from "shared/api/handlers/session"
 import { SetHealthHandler } from "shared/api/handlers/set-health"
 import { SetRatingHandler } from "shared/api/handlers/set-rating"
 import { RewardHandler } from "shared/api/handlers/reward"
+import { SessionDestroyHandler } from "shared/api/handlers/session-destroy"
+import { EditZoneHandler } from "shared/api/handlers/edit-zone"
 
-export const WS = Socket.create(API_BASE_URL, socket.setSocketStatus)
+export const WS = Socket.create(API_BASE_URL, socketModel.events.setSocketStatus)
+
+WS.connect()
 
 // const callbacks = {
 //     [ConnectHandler.EVENT]: new ConnectHandler(),
@@ -107,10 +112,13 @@ const handlers = new Handlers({
     [LimitHandler.EVENT]: new LimitHandler(),
     [TutorialHandler.EVENT]: new TutorialHandler(),
     [SessionHandler.EVENT]: new SessionHandler(),
+    [SessionDestroyHandler.EVENT]: new SessionDestroyHandler(),
     [SetHealthHandler.EVENT]: new SetHealthHandler(),
     [SetRatingHandler.EVENT]: new SetRatingHandler(),
     [RewardHandler.EVENT]: new RewardHandler(),
-
+    [EditZoneHandler.EVENT]: new EditZoneHandler(),
+    
+    
 } as THandlers)
 
 WS.setHandlers(handlers.handle())

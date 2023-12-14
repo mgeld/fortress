@@ -38,8 +38,19 @@ export class User {
         return this._icon
     }
 
+    set icon(i: string) {
+        this._icon = i
+    }
+
     get name() {
         return this._name
+    }
+
+    set name(n: string) {
+        
+        if (n.trim().length >= 3 && n.trim().length <= 12) {
+            this._name = n
+        }
     }
 
 }

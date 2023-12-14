@@ -26,7 +26,6 @@
 //     }
 
 //     async getByIds(teamIds: string[]): Promise<Team[]> {
-//         console.log('team repository getByIds teamIds', teamIds)
 //         const teams = await this._database.arenaTeam.getByIds<UnmarshalledTeam>(teamIds)
 //         if (!teams) {
 //             throw new Error('----------')

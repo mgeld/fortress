@@ -31,12 +31,16 @@ export type TPopout =
     | 'hold-level-up'
     | 'alert'
     | 'lock-screen'
-    // | 'unit-out-hold'
+
     | 'panel'
     | 'primes'
     | 'vk-join-group'
+
+    | 'zone-edit'
+
+    // | 'unit-out-hold'
     // | 'load-app'
-// | 'use-item'
+    // | 'use-item'
 
 const setPopout = createEvent<TPopout | null>()
 

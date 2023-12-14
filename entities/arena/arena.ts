@@ -53,7 +53,6 @@ export class Arena {
     }
 
     set timeout(t: NodeJS.Timeout | null) {
-        console.log('arena set timer t', t)
         this._timer = t
     }
 
@@ -62,7 +61,6 @@ export class Arena {
     }
 
     destroyTimer() {
-        console.log('destroyTimer this._timer', this._timer)
         this._timer && clearTimeout(this._timer)
     }
 

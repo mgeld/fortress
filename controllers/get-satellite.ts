@@ -45,7 +45,7 @@ class GetSatelliteHandler extends IRoute {
                 zoneItems[zId] = {} as TZoneItem
                 zoneItems[zId]['zone'] = {
                     zone_id: zId,
-                    name: '',
+                    // name: '',
                     color: 1
                 }
                 zoneItems[zId]['sectors'] = []

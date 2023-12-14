@@ -1,11 +1,11 @@
-import { inject, injectable } from "inversify";
-import { TLatLng, TZone } from "../common-types/model";
-import { Pointer } from "../entities/pointer/pointer";
-import { IPointerMemoryRepository, IPointerRepository } from "../entities/repository";
 import { TYPES } from "../types";
-import { randomNumber } from "../libs/random-number";
+import { inject, injectable } from "inversify";
 import { User } from "../entities/pointer/user";
+import { randomNumber } from "../libs/random-number";
+import { Pointer } from "../entities/pointer/pointer";
 import { WeaponType } from "../entities/weapon/types";
+import { TLatLng, TZone, TZoneColor } from "../common-types/model";
+import { IPointerMemoryRepository, IPointerRepository } from "../entities/repository";
 
 @injectable()
 export class PointerService {
@@ -35,7 +35,7 @@ export class PointerService {
             const pointer = await this._memoryRepository.getById(userId)
             return pointer
         } catch (e) {
-            throw new Error('Ну вот эта ошибка')
+            throw new Error('PointerService memoryGetById catch throw')
         }
     }
 
@@ -53,7 +53,7 @@ export class PointerService {
     ): Pointer {
 
         const DEFAULT_HEALTH = 100
-        const DEFAULT_COLOR = randomNumber(1, 6)
+        const DEFAULT_COLOR = randomNumber(1, 6) as TZoneColor
 
         const DEFAULT_INVADERS = 100
         const DEFAULT_DEFENDERS = 100
@@ -90,14 +90,16 @@ export class PointerService {
             icon: string
             name: string
             health: number
+            color: TZoneColor
         }> = {}
 
         pointers.forEach(pointer => {
             users[pointer.zoneId] = {
                 lvl: pointer.level,
-                icon: pointer.icon,
-                name: pointer.name,
+                icon: pointer.user.icon,
+                name: pointer.user.name,
                 health: pointer.health,
+                color: pointer.color
             }
         })
 

@@ -1,6 +1,13 @@
 import { FC } from "react";
 
-import { IconChat, IconFaq, IconFort, IconNews, IconShip, IconShop } from "./assets/icons";
+import {
+    IconChat,
+    IconFaq,
+    IconFort,
+    IconNews,
+    IconShip,
+    IconShop
+} from "./assets/icons";
 
 import Link from "shared/ui/link/ui";
 
@@ -10,13 +17,14 @@ import { pageModel } from "shared/ui/page-root";
 import { citadelModel } from "entities/citadel";
 import { mapAPI, shipAPI } from "shared/api/events";
 import { popoutModel } from "shared/ui/popout-root";
-import { IconClose } from "shared/assets/icons/_icons";
+import { IconClose, IconTerrain } from "shared/assets/icons/_icons";
 
-
-import { getRatingAPI } from "shared/api/get-rating";
 import { IconTrophy } from "widgets/map-region/counters/icons/_icons";
 
+import { getRatingAPI } from "shared/api/get-rating";
+
 import styles from './styles.module.scss'
+import { setSelectMyZone } from "features/user/select-zone";
 
 export const Panel: FC = () => {
 
@@ -63,17 +71,6 @@ export const Panel: FC = () => {
                 </div>
             </div>
             <div className={styles.__content}>
-                {/* <div className={styles.profile}>
-                    <div className={styles.left}>
-                        <div className={styles.image}>
-                            <img src={photo} alt="<>" />
-                        </div>
-                    </div>
-                    <div className={styles.right}>
-                        <div className={styles.name}>Муса Гелдабаев</div>
-                        <div className={styles.status}>Туда сюда</div>
-                    </div>
-                </div> */}
                 <div className={styles.sections}>
                     <div className={styles.__flex}>
 
@@ -111,6 +108,22 @@ export const Panel: FC = () => {
                         </div>
 
                         <div
+                            onClick={() => {
+                                popoutModel.events.setPopout(null)
+                                setSelectMyZone()
+                                pageModel.events.setPage('zone')
+                            }}
+                            className={styles.section}
+                        >
+                            <div className={styles.item}>
+                                <div className={styles.icon}>
+                                    <IconTerrain width={44} height={44} />
+                                </div>
+                                <div className={styles.name}>Зона</div>
+                            </div>
+                        </div>
+
+                        <div
                             onClick={selectShip}
                             className={styles.section}
                         >
@@ -138,15 +151,12 @@ export const Panel: FC = () => {
                             className={styles.section}
                             link='https://vk.me/join/P10Woc9dcjIul09klvEP2MKEOrsy/T0hFvI='
                         >
-                            {/* <div className={styles.section}> */}
-
                             <div className={styles.item}>
                                 <div className={styles.icon}>
                                     <IconChat width={44} height={44} />
                                 </div>
                                 <div className={styles.name}>Чат</div>
                             </div>
-                            {/* </div> */}
                         </Link>
 
                         <Link

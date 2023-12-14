@@ -5,8 +5,6 @@ import { TPointers } from '@ctypes/socket/server-to-client'
 
 class PointersHandler extends Handler {
     handle(message: TPointers) {
-        console.log('___________PointersHandler handle')
-        
         pointersAPI.events.setPointers(message.payload.pointers)
     }
 }

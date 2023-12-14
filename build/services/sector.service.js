@@ -84,7 +84,6 @@ let SectorService = class SectorService {
                 zoneItems[item.zone_id] = {};
                 zoneItems[item.zone_id]['zone'] = {
                     zone_id: item.zone_id,
-                    name: '',
                     color: 1
                 };
                 zoneItems[item.zone_id]['sectors'] = [];

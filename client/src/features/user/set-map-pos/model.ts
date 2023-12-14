@@ -46,8 +46,6 @@ const setPosFx = createEffect(({
     }
 
     // setTimeout(() => {
-    // console.log('PPPPPPPPP setTimeout setPosFx')
-
     //     const areal = Areal.getBounds(pos)
     //     shipModel.events.setAreal(areal)
     //     source.map?.setMinZoom(15)

@@ -13,7 +13,7 @@ import {
     originToDirectedEdges,
     UNITS
 } from "h3-js";
-import { getDestination } from "entities/sector/lib/getDestination"
+import { getDestination } from "shared/lib/getDestination"
 import { LatLngBoundsExpression } from "leaflet"
 
 // import Icon from './lazaret.png';

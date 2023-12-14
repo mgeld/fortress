@@ -47,6 +47,7 @@ export class ZoneMapper {
             // }),
 
             color: zone.color,
+            description: zone.description,
 
             trophies: zone.trophies,
 

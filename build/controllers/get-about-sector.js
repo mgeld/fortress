@@ -41,7 +41,7 @@ let GetAboutSectorHandler = class GetAboutSectorHandler extends handlers_1.IRout
                 latlng: dtoSector.latlng,
                 invaders: dtoSector.invaders,
                 defenders: dtoSector.defenders,
-                owner: _pointer.name
+                owner: _pointer.user.name
             };
             uSocket.send(JSON.stringify({
                 event: 'sector',

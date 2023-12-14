@@ -12,9 +12,10 @@ const citadel_1 = require("entities/citadel");
 const events_1 = require("shared/api/events");
 const popout_root_1 = require("shared/ui/popout-root");
 const _icons_1 = require("shared/assets/icons/_icons");
-const get_rating_1 = require("shared/api/get-rating");
 const _icons_2 = require("widgets/map-region/counters/icons/_icons");
+const get_rating_1 = require("shared/api/get-rating");
 const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
+const select_zone_1 = require("features/user/select-zone");
 const Panel = () => {
     var _a;
     const latlng = ((_a = citadel_1.citadelModel.selectors.useCitadel()) === null || _a === void 0 ? void 0 : _a.latlng) || null;
@@ -52,7 +53,6 @@ const Panel = () => {
                 </div>
             </div>
             <div className={styles_module_scss_1.default.__content}>
-                
                 <div className={styles_module_scss_1.default.sections}>
                     <div className={styles_module_scss_1.default.__flex}>
 
@@ -83,6 +83,19 @@ const Panel = () => {
                             </div>
                         </div>
 
+                        <div onClick={() => {
+            popout_root_1.popoutModel.events.setPopout(null);
+            (0, select_zone_1.setSelectMyZone)();
+            page_root_1.pageModel.events.setPage('zone');
+        }} className={styles_module_scss_1.default.section}>
+                            <div className={styles_module_scss_1.default.item}>
+                                <div className={styles_module_scss_1.default.icon}>
+                                    <_icons_1.IconTerrain width={44} height={44}/>
+                                </div>
+                                <div className={styles_module_scss_1.default.name}>Зона</div>
+                            </div>
+                        </div>
+
                         <div onClick={selectShip} className={styles_module_scss_1.default.section}>
                             <div className={styles_module_scss_1.default.item}>
                                 <div className={styles_module_scss_1.default.icon}>
@@ -102,15 +115,12 @@ const Panel = () => {
                         </div>
 
                         <ui_1.default className={styles_module_scss_1.default.section} link='https://vk.me/join/P10Woc9dcjIul09klvEP2MKEOrsy/T0hFvI='>
-                            
-
                             <div className={styles_module_scss_1.default.item}>
                                 <div className={styles_module_scss_1.default.icon}>
                                     <icons_1.IconChat width={44} height={44}/>
                                 </div>
                                 <div className={styles_module_scss_1.default.name}>Чат</div>
                             </div>
-                            
                         </ui_1.default>
 
                         <ui_1.default className={styles_module_scss_1.default.section} link='https://vk.com/club223383803'>

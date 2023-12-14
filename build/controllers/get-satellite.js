@@ -43,7 +43,6 @@ let GetSatelliteHandler = class GetSatelliteHandler extends handlers_1.IRoute {
                 zoneItems[zId] = {};
                 zoneItems[zId]['zone'] = {
                     zone_id: zId,
-                    name: '',
                     color: 1
                 };
                 zoneItems[zId]['sectors'] = [];

@@ -7,11 +7,11 @@ const {
     setRankLevel,
     setRankExp,
     addRankExp,
+    setName,
+    setUserIcon
     // rankUpLevel
 } = userAPI.events
 
-const setName = createEvent<string>()
-const setUserIcon = createEvent<string>()
 
 const setVkUser = createEvent<number>()
 
@@ -38,9 +38,7 @@ export const $userVkIdStore = createStore(DEFAULT_STORE_VK_USER)
     .on(setVkUser, (_, state) => state)
 
 export const events = {
-    setVkUser,
-    setName,
-    setUserIcon,
+    setVkUser
 }
 
 const useUser = () => {

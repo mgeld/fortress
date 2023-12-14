@@ -61,6 +61,7 @@ const battle_get_about_sector_1 = require("./controllers/battle-get-about-sector
 const get_rating_1 = require("./controllers/get-rating");
 const get_satellite_1 = require("./controllers/get-satellite");
 const vk_callback_1 = require("./controllers/vk-callback");
+const edit_zone_1 = require("./controllers/edit-zone");
 const container = new inversify_1.Container();
 exports.container = container;
 container.bind(types_1.TYPES.Server).to(server_1.Server).inSingletonScope();
@@ -68,6 +69,7 @@ container.bind(types_1.TYPES.PingPong).to(ping_pong_1.PingPong).inSingletonScope
 container.bind(types_1.TYPES.Rooms).to(rooms_1.Rooms).inSingletonScope();
 container.bind(types_1.TYPES.Handlers).to(handlers_1.Handlers);
 container.bind(types_1.TYPES.ConnectHandler).to(connect_1.ConnectHandler);
+container.bind(types_1.TYPES.EditZoneHandler).to(edit_zone_1.EditZoneHandler);
 container.bind(types_1.TYPES.DirectHandler).to(direct_1.DirectHandler);
 container.bind(types_1.TYPES.FireHandler).to(fire_1.FireHandler);
 container.bind(types_1.TYPES.BeamHandler).to(beam_1.BeamHandler);
