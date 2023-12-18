@@ -1,15 +1,15 @@
+import { alertModel } from "shared/ui/alert";
 import { Citadel } from "entities/citadel";
 import { droneMapModel } from "entities/pointer";
 import { useMap, useMapEvents } from "react-leaflet";
-import { alertModel } from "shared/ui/alert";
 import { popoutModel } from "shared/ui/popout-root";
 import { ratingModel } from "widgets/layout-rating";
 
 export const CitadelMap = () => {
     
-    const size = droneMapModel.selectors.useDroneSize().px
-    
     const zone = ratingModel.selectors.useSelectZone()
+
+    const size = droneMapModel.selectors.useDroneSize().px
 
     const eventCitadel = () => {
         popoutModel.events.setPopout('alert')

@@ -11,10 +11,8 @@ const MapDrones = () => {
     const map = (0, react_leaflet_1.useMap)();
     const size = pointer_1.droneMapModel.selectors.useDroneSize().px;
     (0, react_1.useEffect)(() => {
-        console.log('MapDrones useEffect');
         pointer_1.droneMapModel.events.setSizeDrone();
     }, []);
-    console.log('MapDrones size', size);
     (0, react_leaflet_1.useMapEvents)({
         zoomstart: () => {
             var _a;

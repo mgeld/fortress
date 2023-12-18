@@ -14,9 +14,15 @@ const lost_internet_1 = require("processes/lost-internet");
 const connect_user_1 = require("features/user/connect-user");
 const socket_close_1 = require("processes/socket/socket-close");
 const vk_bridge_1 = __importDefault(require("@vkontakte/vk-bridge"));
+const get_hash_to_sector_id_1 = require("shared/lib/get-hash-to-sector-id");
+const get_satellite_fort_1 = require("shared/api/get-satellite-fort");
+const h3_js_1 = require("h3-js");
+const page_root_1 = require("shared/ui/page-root");
+const map_1 = require("entities/map");
 connect_user_1.userEvents.startConnectUser();
 const useApp = () => {
     const vkUserId = user_1.userModel.selectors.useVkUserId();
+    const zoneId = user_1.userModel.selectors.useUserId();
     const socketStatus = (0, model_1.useSocket)();
     (0, react_1.useEffect)(() => {
         window.addEventListener("offline", lost_internet_1.lostInternet);
@@ -41,8 +47,23 @@ const useApp = () => {
             return;
         }
     }, [vkUserId, socketStatus]);
+    (0, react_1.useEffect)(() => {
+        const sectorId = (0, get_hash_to_sector_id_1.getHashToSectorId)();
+        if (sectorId && socketStatus === 'open') {
+            vk_bridge_1.default.send("VKWebAppSetLocation", { "location": "" });
+            window.history.pushState("", document.title, window.location.pathname + window.location.search);
+            const latlng = (0, h3_js_1.cellToLatLng)(sectorId);
+            map_1.mapSatelliteModel.events.setMapSatellite({
+                type: 'sector',
+                latlng: latlng,
+                name: 'Сектор',
+            });
+            page_root_1.pageModel.events.setPage('map-satellite');
+            (0, get_satellite_fort_1.getSatelliteFortAPI)(latlng);
+        }
+    }, [socketStatus]);
     return {
-        vkUserId,
+        zoneId,
         socketStatus
     };
 };

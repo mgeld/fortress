@@ -24,7 +24,10 @@ export class Socket {
         this.setStatus = setStatus
 
         Socket._instance = this;
+
+        this.connect()
     }
+
 
     public static create(
         url: string,
@@ -38,11 +41,12 @@ export class Socket {
 
     connect() {
         // if (!this.url) return
-        console.log('Socket connect')
+        console.log('Socket connect new WebSocket')
         this.socket = new WebSocket(this.url)
         this.socketListener()
     }
 
+    
     destroy() {
         this.socket?.close()
         // if (this.timeOutId)
@@ -59,15 +63,12 @@ export class Socket {
         // this.socket.close()
 
         this.socket.onopen = () => {
-            console.log('socketListener onopen')
             this.setStatus('open')
 
             if (context?.socket)
                 context.socket.onmessage = this.callback
         }
         this.socket.onclose = (e) => {
-            console.log('onclose e.code', e.code)
-            console.log('onclose e.code', e.reason)
             this.setStatus('close')
             // this.timeOutId = setTimeout(() => this.connect(this.url), 1500)
         }

@@ -7,7 +7,6 @@ import { MemberService } from "../services/member.service"
 import { TBattleDirectAPI, TEventBattleDirect } from "../common-types/socket/client-to-server"
 import { TBombPayload } from "../common-types/socket/server-to-client"
 import { ArenaService } from "../services/arena.service"
-import { Member } from "../entities/arena/arena-team-member"
 import { PointerService } from "../services/pointer.service"
 import { BattleService } from "../services/battle.service"
 
@@ -131,7 +130,7 @@ class BattleDirectHandler extends IRoute {
                 userId: _pointer.zoneId,
                 pos: pos
             }
-        }, _member.userId)
+        }, [_member.userId])
 
     }
 }

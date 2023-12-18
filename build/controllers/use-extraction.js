@@ -66,7 +66,7 @@ let UseExtractionHandler = class UseExtractionHandler extends handlers_1.IRoute 
                             userId: pointer.zoneId,
                             health: pointer.health,
                         }
-                    }, pointer.zoneId);
+                    }, [pointer.zoneId]);
                 }
             }
             if (extr.gives === 'storm_power') {

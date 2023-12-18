@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { IconBattleLoupe, IconShip } from "shared/assets/icons/_icons";
+import { IconShip } from "shared/assets/icons/_icons";
 
 import styles from './styles.module.scss'
 
@@ -15,15 +15,6 @@ export const LoadApp: FC = () => {
                     <div className={styles.__text}>
                         Загружаем<span>...</span>
                     </div>
-                    {/* <div className={styles.button}>
-                        <div
-                            className={styles.__break}
-                            onClick={() => {
-                            }}
-                        >
-                            Прервать
-                        </div>
-                    </div> */}
                 </div>
             </div>
         </div>

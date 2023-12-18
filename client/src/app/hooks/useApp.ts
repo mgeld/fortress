@@ -10,6 +10,11 @@ import { userEvents } from "features/user/connect-user";
 import { reSocketClose } from "processes/socket/socket-close";
 
 import bridge from "@vkontakte/vk-bridge";
+import { getHashToSectorId } from "shared/lib/get-hash-to-sector-id";
+import { getSatelliteFortAPI } from "shared/api/get-satellite-fort";
+import { cellToLatLng } from "h3-js";
+import { pageModel } from "shared/ui/page-root";
+import { mapSatelliteModel } from "entities/map";
 
 // type TVkUserApi = {
 //     id: number
@@ -22,6 +27,8 @@ userEvents.startConnectUser()
 export const useApp = () => {
 
     const vkUserId = userModel.selectors.useVkUserId()
+
+    const zoneId = userModel.selectors.useUserId()
 
     const socketStatus = useSocket()
 
@@ -62,12 +69,16 @@ export const useApp = () => {
                 message: 'Соединение с сервером было потеряно. Возможно, вы подключились к игре с другого устройства.'
             })
         }
+
         if (vkUserId > 0 && socketStatus === 'open') {
             // const url = window.location.search;
+
             userAPI.events.connectUser()
+
             // sectorEvents.events.getSectorsStart()
             return
         }
+
         // if (vkUserId === 0 && socketStatus === 'no-init') {
         //     popoutModel.events.setPopout('load-app')
         // } else {
@@ -76,8 +87,35 @@ export const useApp = () => {
 
     }, [vkUserId, socketStatus])
 
+    useEffect(() => {
+
+        // if (!zoneId) return
+
+        const sectorId = getHashToSectorId()
+
+
+        if (sectorId && socketStatus === 'open') {
+
+            bridge.send("VKWebAppSetLocation", { "location": "" });
+            window.history.pushState("", document.title, window.location.pathname + window.location.search);
+
+            const latlng = cellToLatLng(sectorId)
+
+            mapSatelliteModel.events.setMapSatellite({
+                type: 'sector',
+                latlng: latlng,
+                name: 'Сектор',
+            })
+            pageModel.events.setPage('map-satellite')
+            getSatelliteFortAPI(latlng)
+        }
+
+    }, [socketStatus])
+
+
+
     return {
-        vkUserId,
+        zoneId,
         socketStatus
     }
 

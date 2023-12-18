@@ -19,11 +19,6 @@ class Collection {
     this.data[value.id] = value
     return value
   }
-
-  async count() {
-    return Object.values(this.data).length
-  }
-
   async update<T>(id: string | number, value: T): Promise<T> {
     this.data[id] = value
     return this.data[id] as T
@@ -32,7 +27,15 @@ class Collection {
   async delete(id: string | number): Promise<Boolean> {
     return delete this.data[id]
   }
-  
+
+  async count() {
+    return Object.values(this.data).length
+  }
+
+  async clear() {
+    this.data = {}
+  }
+
 }
 
 @injectable()
@@ -48,4 +51,5 @@ export class MemoryData {
   public weapon = new Collection()
   public bomb = new Collection()
   public sector = new Collection()
+  public vk_user = new Collection()
 }

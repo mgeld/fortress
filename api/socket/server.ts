@@ -137,7 +137,6 @@ export class Server {
             ws.on('close', function (e, d) {
                 console.log('ws close user_id', ws.user_id)
                 if (d.toString() === 'session-destroy') {
-                    console.log('Сюда попадает')
                     // ws.is_alive = false
                     // ws?.user_id && Connection.deleteClientAreal(ws.user_id)
                     ws.terminate()

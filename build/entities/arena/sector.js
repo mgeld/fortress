@@ -38,8 +38,6 @@ class ArenaSector {
     }
     static probabilityGettingExtractionInFort(pos) {
         const probabilityNumber = Math.ceil((+pos[0].toString().slice(-1) + +pos[1].toString().slice(-1)));
-        console.log('pos', pos);
-        console.log('probabilityNumber', probabilityNumber);
         return probabilityNumber <= 6;
     }
     invade(invader_team) {
@@ -50,7 +48,6 @@ class ArenaSector {
         }
         else {
             const winner = this.fightWinner();
-            console.log('winner', winner);
             if (invader_team === this._team_id && winner === 'defender') {
                 this.killInvader();
                 this.addDefender();

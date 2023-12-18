@@ -40,7 +40,6 @@ class CollectionRooms {
 
     deleteClient(clientId: number, roomId: TRoomId) {
         console.log(' deleteClient clientId', clientId)
-        // console.log(' deleteClientthis.data[roomId][clientId]', this.data[roomId])
         delete this.data[roomId][clientId]
     }
 
@@ -110,14 +109,17 @@ class CollectionRooms {
     broadcast(
         roomId: TRoomId,
         message: TMessage,
-        exceptionClient?: number
+        exceptionClients?: number[]
     ) {
         const clients = this.getClientsSocket(roomId)
 
         // if (clients.length < 2) return
 
         clients.forEach(uSocket => {
-            if (exceptionClient && this.data[roomId][exceptionClient] === uSocket) return
+            // if (exceptionClient && this.data[roomId][exceptionClient] === uSocket) return
+            if (exceptionClients && ~exceptionClients.findIndex(id => id === uSocket.user_id))  {
+                return
+            }
             uSocket.send(JSON.stringify((message)))
         })
 

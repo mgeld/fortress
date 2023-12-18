@@ -110,7 +110,6 @@ let Server = class Server {
             ws.on('close', function (e, d) {
                 console.log('ws close user_id', ws.user_id);
                 if (d.toString() === 'session-destroy') {
-                    console.log('Сюда попадает');
                     ws.terminate();
                 }
                 else {

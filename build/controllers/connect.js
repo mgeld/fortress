@@ -68,7 +68,7 @@ let ConnectHandler = class ConnectHandler {
                         payload: {
                             userId: zoneId
                         }
-                    }, zoneId);
+                    }, [zoneId]);
                     pointer.areal = -1;
                     weapon = yield this._weaponService.memoryGetById(pointer.weapons[0]);
                     zone = yield this._zoneService.getById(zoneId);

@@ -43,8 +43,6 @@ class LevelUpHandler extends IRoute {
         let currency: 'coins' | 'rubies' | null = null
         let isSpend = 0
 
-        console.log('LevelUpHandler __type', __type)
-
         if (__type === 'ship') {
 
             const maxLevel = RankLevels.getRankMaxLevelShip(zone.rank.rank)

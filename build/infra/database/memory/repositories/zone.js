@@ -51,7 +51,6 @@ let ZoneMemoryRepository = class ZoneMemoryRepository {
     }
     update(zone) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log('-----update zone');
             const dtoZone = zone.unmarshal();
             const updated = yield this._database.zone.update(dtoZone.id, dtoZone);
             return zone_1.ZoneMapper.toDomain(updated);

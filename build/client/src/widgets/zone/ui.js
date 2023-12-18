@@ -4,7 +4,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.LayoutZone = void 0;
-const events_1 = require("shared/api/events");
 const back_button_1 = require("shared/ui/back-button");
 const page_root_1 = require("shared/ui/page-root");
 const get_satellite_1 = require("shared/api/get-satellite");
@@ -17,11 +16,16 @@ const zone_level_1 = require("entities/zone/lib/zone-level");
 const _icons_1 = require("shared/assets/icons/_icons");
 const _icons_2 = require("widgets/map-region/battle-counters/icons/_icons");
 const ui_1 = __importDefault(require("shared/ui/link/ui"));
+const map_1 = require("entities/map");
 const LayoutZone = () => {
     const myZoneId = user_1.userModel.selectors.useUserId();
     const statistic = layout_rating_1.ratingModel.selectors.useSelectZone();
     const onZone = (zone) => {
-        events_1.ratingAPI.events.selectRatingZone(zone);
+        map_1.mapSatelliteModel.events.setMapSatellite({
+            type: 'zone',
+            latlng: zone.latlng,
+            name: zone.name,
+        });
         page_root_1.pageModel.events.setPage('map-satellite');
         (0, get_satellite_1.getSatelliteAPI)(zone.latlng, zone.id);
     };
@@ -41,7 +45,7 @@ const LayoutZone = () => {
                             <div className={styles_module_scss_1.default.icon}>
                                 <_icons_1.IconTerrain width={32} height={32}/>
                             </div>
-                            <div className={styles_module_scss_1.default.text}>Профиль</div>
+                            <div className={styles_module_scss_1.default.text}>Зона</div>
                         </div>
 
                     </div>

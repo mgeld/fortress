@@ -63,7 +63,6 @@ let BombRepository = class BombRepository {
     insert(bomb) {
         return __awaiter(this, void 0, void 0, function* () {
             const dtoBomb = bomb.unmarshal();
-            console.log('BOMB ID ///// ', dtoBomb.id);
             const inserted = yield this._connection.execute(`
             INSERT INTO bombs(
                 id,

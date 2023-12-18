@@ -23,6 +23,7 @@ export type TEventBuyUnit = 'buyUnit'
 
 export type TEventGetSectors = 'getSectors'
 export type TEventGetSatellite = 'getSatellite'
+export type TEventGetSatelliteFort = 'getSatelliteFort'
 
 export type TEventGetAboutSector = 'getAboutSector'
 export type TEventBattleGetAboutSector = 'battleGetAboutSector'
@@ -49,6 +50,7 @@ export type TEventsAPI =
     | TEventBuyUnit
     | TEventGetSectors
     | TEventGetSatellite
+    | TEventGetSatelliteFort
     | TEventGetAboutSector
     | TEventBattleGetAboutSector
     | TEventDirect
@@ -70,6 +72,7 @@ export type TSendEvent =
     | TBuyUnitAPI
     | TGetSectorsAPI
     | TGetSatelliteAPI
+    | TGetSatelliteFortAPI
     | TGetAboutSectorAPI
     | TBattleGetAboutSectorAPI
     | TDirectAPI
@@ -140,6 +143,15 @@ export type TGetSatelliteAPI = {
         zoneId: number
     }
 }
+
+export type TGetSatelliteFortAPI = {
+    event: TEventGetSatelliteFort
+    payload: {
+        position: TLatLng
+    }
+}
+
+
 
 export type TGetAboutSectorAPI = {
     event: TEventGetAboutSector

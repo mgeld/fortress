@@ -27,7 +27,6 @@ export class ZoneService {
             const zone = await this.memoryGetById(userId)
             return zone
         } catch (e) {
-            console.log('WORKIN!!!!!!!')
             const zone = await this.baseGetById(userId)
             this.memoryInsert(zone)
             return zone
@@ -49,7 +48,6 @@ export class ZoneService {
     }
 
     async baseGetById(userId: number): Promise<Zone> {
-        console.log('baseGetById userId', userId)
         const zone = await this._baseRepository.getById(userId)
         return zone
     }
@@ -120,7 +118,6 @@ export class ZoneService {
     }
 
     async memoryUpdate(zone: Zone) {
-        console.log('ZoneService memoryUpdate')
         await this._memoryRepository.update(zone)
     }
 

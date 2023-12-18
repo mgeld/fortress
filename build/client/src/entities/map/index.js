@@ -23,5 +23,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.mapModel = void 0;
+exports.mapSatelliteModel = exports.mapModel = void 0;
 exports.mapModel = __importStar(require("./model"));
+exports.mapSatelliteModel = __importStar(require("./model/satellite"));

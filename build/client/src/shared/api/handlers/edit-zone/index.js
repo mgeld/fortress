@@ -8,8 +8,10 @@ const select_zone_1 = require("features/user/select-zone");
 class EditZoneHandler extends __1.Handler {
     handle(message) {
         const update = message.payload;
+        console.log('EditZoneHandler');
         if (update === null || update === void 0 ? void 0 : update.color) {
             events_1.sectorsAPI.events.setMyZoneColor(update.color);
+            events_1.zoneAPI.events.setZoneColor(update.color);
         }
         if ((update === null || update === void 0 ? void 0 : update.description) !== undefined)
             events_1.zoneAPI.events.setZoneDescription(update.description);

@@ -57,7 +57,7 @@ let EditZoneHandler = class EditZoneHandler {
             else {
                 console.log('hash НЕ совпадаеют');
             }
-            this._zoneService.memoryInsert(zone);
+            this._zoneService.memoryUpdate(zone);
             this._pointerService.memoryUpdate(pointer);
             uSocket.send(JSON.stringify({
                 event: 'edit-zone',

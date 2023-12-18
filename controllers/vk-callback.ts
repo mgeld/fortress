@@ -32,19 +32,13 @@ class VkCallback {
         try {
             const { is_group, zone_id } = await this._vkUserRepository.getById(vk_id)
 
-            console.log('is_group', is_group)
-
             if (is_group === 0) {
 
                 const isClient = this._rooms.areals.isCient(zone_id)
 
-                console.log('isClient', isClient)
-
                 if (isClient) {
 
                     const zone = await this._zoneService.getById(zone_id)
-
-                    console.log('zone.id', zone.id)
 
                     const rubies = 50
 

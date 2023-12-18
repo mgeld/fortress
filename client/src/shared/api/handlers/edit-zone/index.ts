@@ -8,10 +8,15 @@ class EditZoneHandler extends Handler {
     handle(message: TEditZone) {
         const update = message.payload
 
+        console.log('EditZoneHandler')
+
         if (update?.color) {
             sectorsAPI.events.setMyZoneColor(update.color)
+            zoneAPI.events.setZoneColor(update.color)
         }
+
         if (update?.description !== undefined) zoneAPI.events.setZoneDescription(update.description)
+
         if (update?.name) userAPI.events.setName(update.name)
         if (update?.icon) userAPI.events.setUserIcon(update.icon)
         

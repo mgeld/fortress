@@ -7,12 +7,13 @@ const events_1 = require("shared/api/events");
 const get_user_1 = require("shared/api/get-user");
 const effector_1 = require("effector");
 const model_1 = require("entities/areal/model");
-const { setPos, setLevel, addHealth, setHealth, changeHealth, } = events_1.shipAPI.events;
+const { setPos, initPos, setLevel, addHealth, setHealth, changeHealth, } = events_1.shipAPI.events;
 const DEFAULT_STORE_POSITION = [0, 0];
 const resetUser = (0, effector_1.createEvent)();
 const movePoint = (0, effector_1.createEvent)();
 exports.$userPositionStore = (0, effector_1.createStore)(DEFAULT_STORE_POSITION)
     .on(movePoint, reducer_1.reducer)
+    .on(initPos, (_, pos) => pos)
     .on(setPos, (_, pos) => pos);
 exports.$shipLevel = (0, effector_1.createStore)(0)
     .on(setLevel, (_, areal) => areal);

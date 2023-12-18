@@ -154,7 +154,7 @@ let BattleTakeHandler = class BattleTakeHandler extends handlers_1.IRoute {
             this._rooms.arenas.broadcast(arena.id, {
                 event: 'take',
                 payload: take
-            }, _member.userId);
+            }, [_member.userId]);
         });
     }
 };

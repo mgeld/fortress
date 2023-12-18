@@ -1,26 +1,28 @@
-
 .controlInvader {
-    position: absolute;
-    left: 87%;
-    bottom: 34px;
-    margin-left: -25px;
-  
-    z-index: 101;
-  
-    .__circle {
-      box-sizing: border-box;
+  cursor: pointer;
 
-      display: flex;
-      justify-content: center;
-      align-items: center;
-  
-      position: relative;
+  position: absolute;
+  left: 87%;
+  bottom: 34px;
+  margin-left: -25px;
 
-      .__button {
-        transition: 0.2s;
-        &:active {
-          transform: scale(0.9)
-        }
+  z-index: 101;
+
+  .__circle {
+    box-sizing: border-box;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: relative;
+
+    .__button {
+      transition: 0.2s;
+
+      &:active {
+        transform: scale(0.9)
       }
     }
   }
+}

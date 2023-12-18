@@ -78,6 +78,8 @@
                         }
 
                         .levelUp {
+                            cursor: pointer;
+
                             padding: 0 6px;
                             border-left: 2px solid #dfdad4;
                         }
@@ -107,11 +109,6 @@
                         display: flex;
                         font-size: 17px;
                         align-items: center;
-                        // padding-right: 16px;
-
-                        // .icon {
-                        //     padding-right: 8px;
-                        // }
                     }
 
                     .__line {
@@ -136,6 +133,8 @@
                         }
 
                         .levelUp {
+                            cursor: pointer;
+
                             padding: 0 6px;
                             display: flex;
                             align-items: center;
@@ -166,6 +165,8 @@
                 padding: 12px 0;
 
                 .button {
+                    cursor: pointer;
+                    
                     margin-left: 12px;
                     font-size: 16px;
                     line-height: 16px;

@@ -17,6 +17,7 @@ import { IconSettings, IconTerrain, IconVK } from "shared/assets/icons/_icons";
 import { IconExperience, IconZone } from "widgets/map-region/battle-counters/icons/_icons";
 
 import Link from "shared/ui/link/ui";
+import { mapSatelliteModel } from "entities/map";
 
 export const LayoutZone: FC = () => {
 
@@ -25,7 +26,12 @@ export const LayoutZone: FC = () => {
     const statistic = ratingModel.selectors.useSelectZone()
 
     const onZone = (zone: IRatingZone) => {
-        ratingAPI.events.selectRatingZone(zone)
+        // ratingAPI.events.selectRatingZone(zone)
+        mapSatelliteModel.events.setMapSatellite({
+            type: 'zone',
+            latlng: zone.latlng,
+            name: zone.name,
+        })
         pageModel.events.setPage('map-satellite')
         getSatelliteAPI(zone.latlng, zone.id)
     }
@@ -49,7 +55,7 @@ export const LayoutZone: FC = () => {
                             <div className={styles.icon}>
                                 <IconTerrain width={32} height={32} />
                             </div>
-                            <div className={styles.text}>Профиль</div>
+                            <div className={styles.text}>Зона</div>
                         </div>
 
                     </div>

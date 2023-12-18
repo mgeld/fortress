@@ -93,7 +93,9 @@
                 }
 
                 .description {
+                    word-wrap: break-word;
                     color: rgb(72, 64, 102);
+                    // overflow: hidden;
                 }
             }
 

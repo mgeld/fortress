@@ -30,7 +30,6 @@
 //     }
 
 //     getByIds(teamIds: string[]): Promise<Team[]> {
-//         console.log('getByIds teamIds', teamIds)
 //         return this._memoryRepository.getByIds(teamIds)
 //     }
 

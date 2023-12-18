@@ -23,12 +23,9 @@ const inversify_1 = require("inversify");
 const types_1 = require("../types");
 const zone_service_1 = require("../services/zone.service");
 let GetRatingHandler = class GetRatingHandler {
-    constructor() {
-        console.log('GetRatingHandler');
-    }
     handle(message, uSocket) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log('------GetRatingHandler handle -----------');
+            console.log('GetRatingHandler');
             if (!uSocket.user_id)
                 return;
             let zones = yield this._zoneService.getTrophies();
@@ -47,7 +44,6 @@ __decorate([
     __metadata("design:type", zone_service_1.ZoneService)
 ], GetRatingHandler.prototype, "_zoneService", void 0);
 GetRatingHandler = __decorate([
-    (0, inversify_1.injectable)(),
-    __metadata("design:paramtypes", [])
+    (0, inversify_1.injectable)()
 ], GetRatingHandler);
 exports.GetRatingHandler = GetRatingHandler;

@@ -94,13 +94,9 @@ const ZoneEdit = () => {
             body: getFormData(api_send_object)
         })
             .then(response => {
-                
-                console.log('response', response)
                 return response.json()
             })
             .then(result => {
-
-                console.log('result', result)
 
                 if (result.res === "ok") {
 

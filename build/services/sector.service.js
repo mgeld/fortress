@@ -32,37 +32,21 @@ let SectorService = class SectorService {
             areal: areal_1.Areal.generator(latlng)
         });
     }
-    getBoundsSectors(position) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const bounds = areal_1.Areal.getBounds(position);
-            try {
-                console.log('getBoundsSectors try');
-                return yield this._memoryRepository.getBoundsSectors(bounds);
-            }
-            catch (e) {
-                const sectors = yield this._baseRepository.getBoundsSectors(bounds);
-                console.log('getBoundsSectors catch');
-                yield this._memoryRepository.inserts(sectors);
-                return sectors;
-            }
-        });
-    }
     getArealSectors(areal) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 return yield this._memoryRepository.getByAreal(areal);
             }
             catch (e) {
-                const sectors = yield this._baseRepository.getByAreal(areal);
-                yield this._memoryRepository.inserts(sectors);
-                return sectors.filter(sector => sector.zone_id > 0);
+                return this.getBaseArealsSectors([areal]);
             }
         });
     }
-    getZonesAroundPosition(position) {
+    getBaseArealsSectors(areals) {
         return __awaiter(this, void 0, void 0, function* () {
-            const _sectors = yield this.getBoundsSectors(position);
-            return this.unmarshalSectors(_sectors);
+            const sectors = yield this._baseRepository.getByAreals(areals);
+            yield this._memoryRepository.inserts(sectors);
+            return sectors.filter(sector => sector.zone_id > 0);
         });
     }
     getZonesAroundAreal(areal) {
@@ -71,9 +55,9 @@ let SectorService = class SectorService {
             return this.unmarshalSectors(_sectors);
         });
     }
-    getBoundsCitadel(position) {
+    getBoundsFort(position) {
         return __awaiter(this, void 0, void 0, function* () {
-            const bounds = areal_1.Areal.getBoundsCitadel(position);
+            const bounds = areal_1.Areal.getBoundsSatellite(position);
             const sectors = yield this._baseRepository.getBoundsSectors(bounds);
             return sectors;
         });

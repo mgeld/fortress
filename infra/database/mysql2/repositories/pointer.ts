@@ -78,7 +78,6 @@ export class PointerRepository implements IPointerRepository {
         const [result] = await this._connection.query<TZone[] & RowDataPacket[]>(
             `SELECT
                 zone_id,
-                -- name,
                 color
             FROM
                 pointers
@@ -93,7 +92,6 @@ export class PointerRepository implements IPointerRepository {
 
         return result.map(pointer => ({
             zone_id: pointer.zone_id,
-            // name: pointer.name,
             color: pointer.color
         }))
 

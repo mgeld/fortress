@@ -9,7 +9,6 @@
 
 // app.get('/api/', () => {
 //     arr.push(arr[arr.length - 1] + 1 || 1)
-//     console.log(arr)
 // })
 
 // app.listen(PORT, () => console.log(`App has been started on Port ${PORT}....`))

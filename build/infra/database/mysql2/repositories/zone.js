@@ -25,7 +25,6 @@ const zone_1 = require("../../mappers/zone");
 let ZoneRepository = class ZoneRepository {
     getById(_id) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log('***ZoneRepository getById _id', _id);
             const [[result]] = yield this._connection.query(`
                 SELECT
                     zones.id,

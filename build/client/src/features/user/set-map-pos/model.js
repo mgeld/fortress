@@ -23,8 +23,9 @@ const setMapPosListener = () => {
         source: {
             map: map_1.mapModel.$mapStore,
             mode: map_1.mapModel.$mapMode,
+            satellite: map_1.mapSatelliteModel.$satelliteStore
         },
-        filter: (source) => source.map !== null,
+        filter: (source) => source.map !== null && source.satellite === null,
         fn: (source, clock) => ({
             source,
             pos: clock

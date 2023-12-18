@@ -79,30 +79,35 @@ const $sectorsStore = createStore<TZoneItem[]>(DEFAULT_STORE)
         }
         return sectors
     })
-    .on(setSectorById, (sectors, sector: TSetSectorById) => {
-        if (sectors.findIndex(zone => zone.zone.zone_id === sector.new_zone_id) === -1) {
+    .on(setSectorById, (sectors, setter: TSetSectorById) => {
+
+        if (sectors.findIndex(zone => zone.zone.zone_id === setter.new_zone_id) === -1) {
             sectors.push({
                 zone: {
-                    zone_id: sector.new_zone_id,
-                    // name: '',
+                    zone_id: setter.new_zone_id,
                     color: 1
                 },
                 sectors: []
             })
         }
+
         return sectors.map(zoneItem => {
-            return zoneItem.zone.zone_id === sector.prev_zone_id ? {
-                ...zoneItem,
-                sectors: zoneItem.sectors.filter(sector_index => {
-                    if (sector_index === sector.sector) {
-                        return false
-                    }
-                    return true
-                })
-            } : zoneItem.zone.zone_id === sector.new_zone_id ? {
-                ...zoneItem,
-                sectors: [...zoneItem.sectors, sector.sector]
-            } : zoneItem
+            if (zoneItem.zone.zone_id === setter.prev_zone_id)
+                return {
+                    ...zoneItem,
+                    sectors: zoneItem.sectors.filter(sect_id => {
+                        if (sect_id === setter.sector) {
+                            return false
+                        }
+                        return true
+                    })
+                }
+            if (zoneItem.zone.zone_id === setter.new_zone_id)
+                return {
+                    ...zoneItem,
+                    sectors: [...zoneItem.sectors, setter.sector]
+                }
+            return zoneItem
         })
 
     })

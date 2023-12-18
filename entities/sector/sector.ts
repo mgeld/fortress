@@ -98,8 +98,6 @@ export class Sector {
         } else {
             const winner = this.fightWinner(invader_power, defender_power)
 
-            console.log('winner', winner)
-
             // Если это мой сектор
             // Если победил мой защитник (внешний защитник (захватчик)) на моем секторе
             // И на секторе есть чужие захватчики

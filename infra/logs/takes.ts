@@ -1,22 +1,22 @@
 import { injectable } from "inversify"
 
 class Takes {
-  private sectors: Record<string, string> = {}
+  private data: Record<string, string> = {}
 
   add<T extends string>(value: T): T {
-    this.sectors[value] = value
+    this.data[value] = value
 
     console.log('Logs takes add', value)
-    console.log('Logs takes sectors', this.sectors)
+    console.log('Logs takes sectors', this.data)
     return value
   }
 
   clear() {
-    this.sectors = {}
+    this.data = {}
   }
 
   get(): string[] {
-    return Object.values(this.sectors) as string[]
+    return Object.values(this.data) as string[]
   }
 }
 

@@ -48,7 +48,7 @@ let DirectHandler = class DirectHandler extends handlers_1.IRoute {
                         userId: _pointer.zoneId,
                         pos: __position
                     }
-                }, _pointer.zoneId);
+                }, [_pointer.zoneId]);
             }
             else {
                 if (_pointer.areal && _pointer.areal !== -1) {
@@ -58,7 +58,7 @@ let DirectHandler = class DirectHandler extends handlers_1.IRoute {
                         payload: {
                             userId: _pointer.zoneId
                         }
-                    }, _pointer.zoneId);
+                    }, [_pointer.zoneId]);
                 }
                 _pointer.areal = areal;
                 this._rooms.areals.addClientToRoom(_pointer.zoneId, _pointer.areal, uSocket);
@@ -123,7 +123,7 @@ let DirectHandler = class DirectHandler extends handlers_1.IRoute {
                         health: _pointer.health,
                         pos: __position
                     }
-                }, _pointer.zoneId);
+                }, [_pointer.zoneId]);
             }
             this._pointerService.memoryUpdate(_pointer);
         });

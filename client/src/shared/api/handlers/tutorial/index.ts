@@ -4,8 +4,6 @@ import { TTutorial } from '@ctypes/socket/server-to-client'
 
 class TutorialHandler extends Handler {
     handle(message: TTutorial) {
-        console.log('TutorialHandler handle')
-
         if (message.payload.type === 'hold') {
             setTimeout(() => {
                 tutorialModel.events.setTutorial('hold')

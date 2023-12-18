@@ -4,11 +4,10 @@
     box-sizing: border-box;
 
     .item {
+        cursor: pointer;
         margin: 0 auto;
-        // box-shadow: -4px 4px 0px #d990f3;
         border: 2px solid #f1ba68a2;
         border-radius: 4px;
-        // background-color: #bc69d9;
 
         .__icon {
             display: flex;

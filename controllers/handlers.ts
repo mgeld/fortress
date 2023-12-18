@@ -44,6 +44,7 @@ export class Handlers {
         @inject(TYPES.LevelUpHandler) private levelUp: IRoute,
         @inject(TYPES.GetRatingHandler) private getRating: IRoute,
         @inject(TYPES.GetSatelliteHandler) private getSatellite: IRoute,
+        @inject(TYPES.GetSatelliteFortHandler) private getSatelliteFort: IRoute,
         @inject(TYPES.EditZoneHandler) private editZone: IRoute,
     ) { }
 

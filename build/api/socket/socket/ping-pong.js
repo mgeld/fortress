@@ -53,7 +53,7 @@ let PingPong = class PingPong {
                         payload: {
                             userId: _pointer.zoneId
                         }
-                    }, _pointer.zoneId);
+                    }, [_pointer.zoneId]);
                 }
                 this._memberService.remove(member.userId);
                 this._rooms.arenas.deleteClient(member.userId, arena.id);
@@ -69,7 +69,7 @@ let PingPong = class PingPong {
                     payload: {
                         userId: _pointer.zoneId
                     }
-                }, _pointer.zoneId);
+                }, [_pointer.zoneId]);
                 _pointer.areal = -1;
             }
             yield this._pointerService.baseUpdate(_pointer);

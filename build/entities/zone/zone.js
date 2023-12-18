@@ -29,7 +29,7 @@ class Zone {
             terrain: this._terrain.unmarshal(),
             rank: this._rank.unmarshal(),
             stormtrooper_corps: this._stormtrooper_corps.unmarshal(),
-            hold: this._hold.unmarshal()
+            hold: this._hold.unmarshal(),
         };
     }
     get id() {
@@ -45,6 +45,9 @@ class Zone {
         if (c > 0 && c <= 6) {
             this._color = c;
         }
+    }
+    get description() {
+        return this._description;
     }
     set description(d) {
         if (d.length >= 0 && d.length <= 100) {

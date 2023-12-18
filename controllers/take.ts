@@ -14,6 +14,10 @@ import { CitadelService } from "../services/citadel.service";
 import { TFindContType } from "../common-types/model";
 import { Zone } from "../entities/zone/zone";
 import { Rank } from "../entities/zone/rank";
+import { VkUserService } from "../services/vk-user.service";
+
+import fetch from 'node-fetch';
+import { randomNumber } from "../libs/random-number";
 
 @injectable()
 class TakeHandler extends IRoute {
@@ -24,6 +28,7 @@ class TakeHandler extends IRoute {
     @inject(TYPES.ZoneService) private _zoneService!: ZoneService
     @inject(TYPES.SectorService) private _sectorService!: SectorService
     @inject(TYPES.CitadelService) private _citadelService!: CitadelService
+    @inject(TYPES.VkUserService) private _vkUserService!: VkUserService
 
     @inject(TYPES.Logs) private _logs!: Logs
 
@@ -106,8 +111,69 @@ class TakeHandler extends IRoute {
                 if (_sector.defenders === 0) {
                     // Убираем один сектор у пред-го владельца
                     if (prevZoneId) _prevZone.terrain.loseSector()
+
+                    // Отправляем сообщение через ВК
+                    const vkUser = await this._vkUserService.getById(prevZoneId)
+
+                    console.log('vkUser.is_msg', vkUser.is_msg)
+
+                    if (vkUser.is_msg === 1) {
+
+                        vkUser.losses = vkUser.losses + 1
+                        this._vkUserService.memoryUpdate(vkUser)
+
+                        const keyboard = {
+                            one_time: false,
+                            inline: true,
+                            buttons: [
+                                [
+                                    {
+                                        action: {
+                                            type: "open_app",
+                                            app_id: 51787878,
+                                            label: 'Открыть игру'
+                                        }
+                                    }
+                                ]
+                            ]
+                        }
+
+                        const request_params = {
+                            user_id: '' + vkUser.vk_id,
+                            message: '',
+                            random_id: '' + randomNumber(100, 10000),
+                            keyboard: JSON.stringify(keyboard),
+                            access_token: 'vk1.a.8PG1mPGkbbSNx8yWgdQt_qz4_EjRKy91SlNKqeZ7sxmaLqnx-b_9MJNbtC71Go1A_jknLxDaj41gR-yB687rte_XDGmdsnwwsom__UvxICg6Wc0pmIYIoT3jMXcfsprLs0JhzDg3VFCWD_upITg2VnHhmG_apBvkM6VpJk6FEmIAr9cpXiuICCSHYBZ-cHZVp8VF1jVZFmSFJGOky0kdiQ',
+                            v: '5.130'
+                        }
+
+                        switch (vkUser.losses) {
+                            case 1:
+                                request_params.message = 'Неопознанный корабль вторгся на ваши земли! Вражеские штурмовики захватывают форты!'
+                                break;
+                            case 3:
+                                request_params.message = 'Штурмовики продолжают захватывать ваши территории!'
+                                break;
+                            case 5:
+                                request_params.message = 'Ваши стражи не справляются с натиском врагов! Необходимо уничтожить корабль, нарушивший воздушное пространство вашей зоны!'
+                                break;
+                            default:
+                                request_params.message = `Ваш форт захвачен штурмовиками из зоны ${_pointer.user.name}`
+                        }
+
+                        const url = 'https://api.vk.com/method/messages.send?' + new URLSearchParams(request_params).toString();
+
+                        const result = await fetch(url, { method: 'GET' })
+                            .then(response => response.json())
+                            .then(res => console.log('res', res))
+                            .catch(error => console.log('error', error))
+
+                    }
+
+                    // Конец отправки сообщения
                 }
                 this._zoneService.memoryUpdate(_prevZone)
+
             }
 
             zone.terrain.newDefender()
@@ -224,7 +290,7 @@ class TakeHandler extends IRoute {
                 this._rooms.areals.broadcast(_pointer.areal, {
                     event: 'take-sector',
                     payload: takeSector
-                }, _pointer.zoneId)
+                }, [_pointer.zoneId, prevZoneId])
 
                 if (prevZoneId) {
                     this._rooms.areals.clientSocket(prevZoneId, _pointer.areal, {
@@ -258,7 +324,7 @@ class TakeHandler extends IRoute {
         this._rooms.areals.broadcast(_pointer.areal, {
             event: 'take',
             payload: take
-        }, _pointer.zoneId)
+        }, [_pointer.zoneId])
 
     }
 }

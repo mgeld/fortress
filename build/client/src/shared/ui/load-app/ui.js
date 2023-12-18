@@ -17,7 +17,6 @@ const LoadApp = () => {
                     <div className={styles_module_scss_1.default.__text}>
                         Загружаем<span>...</span>
                     </div>
-                    
                 </div>
             </div>
         </div>);

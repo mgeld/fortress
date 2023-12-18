@@ -25,6 +25,7 @@
             align-items: center;
 
             .close {
+                cursor: pointer;
                 padding: 0 6px;
             }
         }
@@ -89,6 +90,8 @@
                     box-sizing: border-box;
 
                     .item {
+                        cursor: pointer;
+                        
                         margin: 0 auto;
                         border: 1px solid #f1ba68a2;
                         background-color: #564971;

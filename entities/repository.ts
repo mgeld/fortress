@@ -1,4 +1,5 @@
 import { IRatingZone, TLatLng, TZone } from "../common-types/model"
+import { TSectorBounds } from "../infra/database/mysql2/repositories/sector"
 import { Areal } from "./areal/areal"
 import { Arena, TRegistr } from "./arena/arena"
 import { Team } from "./arena/arena-team"
@@ -112,9 +113,8 @@ export interface ISectorMemoryRepository {
 
 export interface IArenaSectorMemoryRepository {
     insert(sector: ArenaSector): Promise<ArenaSector>
-    // inserts(sectors: UnmarshalledArenaSector[]): Promise<Boolean>
     getById(sectorId: string, arenaId: string): Promise<ArenaSector>
-    // getByIds(sectorIds: string[]): Promise<ArenaSector[]>
+    getByArena(arena: string): Promise<UnmarshalledArenaSector[]>
     update(sector: ArenaSector): Promise<ArenaSector>
     delete(sectorId: string): Promise<Boolean>
     deleteByArenas(arenas: string[]): Promise<Boolean>
@@ -125,8 +125,8 @@ export interface ISectorRepository {
     inserts(sectors: Sector[]): Promise<Boolean>
     getById(sectorId: string): Promise<Sector>
     getByIds(sectorIds: string[]): Promise<Sector[]>
-    getBoundsSectors(bounds: [TLatLng, TLatLng]): Promise<UnmarshalledSector[]>
-    getByAreal(areal: number): Promise<UnmarshalledSector[]>
+    getBoundsSectors(bounds: [TLatLng, TLatLng]): Promise<TSectorBounds[]>
+    getByAreals(areals: number[]): Promise<UnmarshalledSector[]>
     update(sector: Sector): Promise<Sector>
     delete(sectorId: string): Promise<Boolean>
 }

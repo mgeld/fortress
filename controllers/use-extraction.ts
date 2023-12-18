@@ -67,7 +67,7 @@ class UseExtractionHandler extends IRoute {
                         userId: pointer.zoneId,
                         health: pointer.health,
                     }
-                }, pointer.zoneId)
+                }, [pointer.zoneId])
             }
         }
 

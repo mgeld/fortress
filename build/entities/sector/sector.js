@@ -49,7 +49,6 @@ class Sector {
         }
         else {
             const winner = this.fightWinner(invader_power, defender_power);
-            console.log('winner', winner);
             if (invader_user === this._zone_id && winner === 'defender') {
                 this.killInvader();
                 this.addDefender();

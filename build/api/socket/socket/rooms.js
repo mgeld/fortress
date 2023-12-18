@@ -100,11 +100,12 @@ class CollectionRooms {
             client.send(JSON.stringify((message)));
         }
     }
-    broadcast(roomId, message, exceptionClient) {
+    broadcast(roomId, message, exceptionClients) {
         const clients = this.getClientsSocket(roomId);
         clients.forEach(uSocket => {
-            if (exceptionClient && this.data[roomId][exceptionClient] === uSocket)
+            if (exceptionClients && ~exceptionClients.findIndex(id => id === uSocket.user_id)) {
                 return;
+            }
             uSocket.send(JSON.stringify((message)));
         });
     }

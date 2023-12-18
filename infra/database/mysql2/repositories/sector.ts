@@ -18,6 +18,11 @@ interface ISectorRowData {
     areal?: string
 }
 
+export type TSectorBounds = {
+    id: string
+    zone_id: number
+}
+
 @injectable()
 export class SectorRepository implements ISectorRepository {
 
@@ -107,21 +112,19 @@ export class SectorRepository implements ISectorRepository {
     }
 
 
-    async getBoundsSectors(bounds: [TLatLng, TLatLng]): Promise<UnmarshalledSector[]> {
+    async getBoundsSectors(bounds: [TLatLng, TLatLng]): Promise<TSectorBounds[]> {
 
         console.log('/// Base getBoundsSectors')
         const where = `lat > ? and lat < ? and lng > ? and lng < ?`;
         try {
-            const [result] = await this._connection.query<UnmarshalledSector[] & RowDataPacket[]>(
+            const [result] = await this._connection.query<TSectorBounds[] & RowDataPacket[]>(
                 `SELECT
                     id,
-                    number,
-                    CONCAT("[",lat,",",lng,"]") as latlng,
-                    zone_id,
-                    invaders,
-                    defenders,
-                    areal
-                FROM sectors WHERE ${where};`,
+                    zone_id
+                FROM
+                    sectors
+                WHERE
+                    ${where};`,
                 [
                     bounds[0][0],
                     bounds[1][0],
@@ -130,26 +133,21 @@ export class SectorRepository implements ISectorRepository {
                 ]
             )
 
-            const sects = result.map(sector => ({ ...sector, latlng: JSON.parse((sector.latlng as unknown) as string) }))
-            // console.log('result sects', sects)
+            // const sects = result.map(sector => ({ ...sector, latlng: JSON.parse((sector.latlng as unknown) as string) }))
 
-            return sects
+            return result
 
         } catch (e) {
 
             console.log('eeeeeee', e)
             throw new Error('Не удалось вывести территории из базы')
         }
-        // if (!result) {
-        //     throw new Error('Не удалось вывести сектора из базы')
-        // }
 
-        // return result
     }
 
 
 
-    async getByAreal(areal: number): Promise<UnmarshalledSector[]> {
+    async getByAreals(areals: number[]): Promise<UnmarshalledSector[]> {
 
         console.log('///>>>>>> Base getByAreal')
 
@@ -163,8 +161,11 @@ export class SectorRepository implements ISectorRepository {
                     invaders,
                     defenders,
                     areal
-                FROM sectors WHERE areal = ?;`,
-                [areal]
+                FROM
+                    sectors
+                WHERE
+                    areal IN(?);`,
+                [areals]
             )
 
             const sects = result.map(sector => ({ ...sector, latlng: JSON.parse((sector.latlng as unknown) as string) }))

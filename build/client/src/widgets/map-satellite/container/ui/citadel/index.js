@@ -1,15 +1,15 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CitadelMap = void 0;
+const alert_1 = require("shared/ui/alert");
 const citadel_1 = require("entities/citadel");
 const pointer_1 = require("entities/pointer");
 const react_leaflet_1 = require("react-leaflet");
-const alert_1 = require("shared/ui/alert");
 const popout_root_1 = require("shared/ui/popout-root");
 const layout_rating_1 = require("widgets/layout-rating");
 const CitadelMap = () => {
-    const size = pointer_1.droneMapModel.selectors.useDroneSize().px;
     const zone = layout_rating_1.ratingModel.selectors.useSelectZone();
+    const size = pointer_1.droneMapModel.selectors.useDroneSize().px;
     const eventCitadel = () => {
         popout_root_1.popoutModel.events.setPopout('alert');
         alert_1.alertModel.events.setAlert({

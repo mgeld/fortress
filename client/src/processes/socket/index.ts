@@ -45,7 +45,7 @@ import { EditZoneHandler } from "shared/api/handlers/edit-zone"
 
 export const WS = Socket.create(API_BASE_URL, socketModel.events.setSocketStatus)
 
-WS.connect()
+// WS.connect()
 
 // const callbacks = {
 //     [ConnectHandler.EVENT]: new ConnectHandler(),

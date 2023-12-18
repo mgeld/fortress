@@ -1,6 +1,7 @@
 import { createEffect, sample } from "effector"
 import { Areal } from "entities/areal/model"
-import { mapModel } from "entities/map"
+import { mapModel, mapSatelliteModel } from "entities/map"
+import { TSatellite } from "entities/map/model/satellite"
 import { droneMapModel } from "entities/pointer"
 import { shipModel } from "entities/ship"
 import { Map } from "leaflet"
@@ -12,6 +13,7 @@ import { TLatLng } from "shared/types"
 type TMap = {
     map: Map
     mode: TMapModes
+    satellite: null
 }
 
 const setPosFx = createEffect(({
@@ -22,34 +24,18 @@ const setPosFx = createEffect(({
     pos: TLatLng
 }) => {
 
-    // source.map.setMaxBounds([[-90, -180], [90, 180]])
-    // source.map.flyTo(pos, 16, {
-    //     animate: true,
-    //     duration: 2
-    // })
-
     const areal = Areal.getBounds(pos)
     shipModel.events.setAreal(areal)
 
     // Добавил в 06.12.2023 где в час ночи
     droneMapModel.events.setSizeDrone()
 
-    // setTimeout(() => {
-    // source.map.setZoom(16)
     source.map.setView(pos, 16)
-    // setTimeout(() => , 300)
-    // }, 200)
-    // source.map?.setMinZoom(15)
 
     if (source.mode === 'invade') {
         setTimeout(() => directAPI(pos), 200)
     }
 
-    // setTimeout(() => {
-    //     const areal = Areal.getBounds(pos)
-    //     shipModel.events.setAreal(areal)
-    //     source.map?.setMinZoom(15)
-    // }, 2000)
 })
 
 export const setMapPosListener = () => {
@@ -58,10 +44,12 @@ export const setMapPosListener = () => {
         source: {
             map: mapModel.$mapStore,
             mode: mapModel.$mapMode,
+            satellite: mapSatelliteModel.$satelliteStore
         },
         filter: (source: {
             map: Map | null
-        }): source is TMap => source.map !== null,
+            satellite: TSatellite | null
+        }): source is TMap => source.map !== null && source.satellite === null,
         fn: (source, clock) => ({
             source,
             pos: clock

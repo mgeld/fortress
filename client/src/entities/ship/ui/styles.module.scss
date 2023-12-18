@@ -28,6 +28,8 @@
             align-items: center;
 
             .close {
+                cursor: pointer;
+                
                 padding: 0 6px;
             }
         }
@@ -89,6 +91,8 @@
                             }
 
                             .levelUp {
+                                cursor: pointer;
+
                                 padding: 0 6px;
                                 border-left: 2px solid #9e6faf;
                             }
@@ -127,6 +131,7 @@
                             }
 
                             .levelUp {
+                                cursor: pointer;
                                 padding: 0 6px;
                             }
                         }
@@ -143,6 +148,8 @@
             background-color: #dfdad4;
 
             .item {
+
+                cursor: pointer;
 
                 &:first-child {
                     border-top: none;

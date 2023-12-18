@@ -221,7 +221,7 @@ class BattleTakeHandler extends IRoute {
         this._rooms.arenas.broadcast(arena.id, {
             event: 'take',
             payload: take
-        }, _member.userId)
+        },[_member.userId])
 
     }
 }

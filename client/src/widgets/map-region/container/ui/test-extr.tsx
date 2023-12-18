@@ -71,8 +71,6 @@ export const TestExtr: FC = () => {
 
     // const map = useMapEvent('click', (e) => {
     //     const h3Index = latLngToCell(e.latlng.lat, e.latlng.lng, 9);
-
-    //     console.log('e.latlng.lat, e.latlng.lng', e.latlng.lat, e.latlng.lng)
     // })
 
     return (

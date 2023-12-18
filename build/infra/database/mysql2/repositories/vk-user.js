@@ -31,9 +31,27 @@ let VkUserRepository = class VkUserRepository {
             return result;
         });
     }
-    getByIds(_ids) {
+    getByUserIds(_ids) {
         return __awaiter(this, void 0, void 0, function* () {
             const [result] = yield this._connection.query(`SELECT * FROM vk_users WHERE user_id IN (?);`, [_ids]);
+            if (!result) {
+                throw new Error('----------');
+            }
+            return result;
+        });
+    }
+    getByZoneId(_id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const [[result]] = yield this._connection.query(`SELECT * FROM vk_users WHERE zone_id = ?;`, [_id]);
+            if (!result) {
+                throw new Error('----------');
+            }
+            return result;
+        });
+    }
+    getByZoneIds(_ids) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const [result] = yield this._connection.query(`SELECT * FROM vk_users WHERE zone_id IN (?);`, [_ids]);
             if (!result) {
                 throw new Error('----------');
             }

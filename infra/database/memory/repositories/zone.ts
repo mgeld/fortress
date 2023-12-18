@@ -34,8 +34,6 @@ export class ZoneMemoryRepository implements IZoneMemoryRepository {
     }
 
     async update(zone: Zone): Promise<Zone> {
-
-        console.log('-----update zone')
         const dtoZone = zone.unmarshal()
         const updated = await this._database.zone.update<UnmarshalledZone>(
             dtoZone.id,

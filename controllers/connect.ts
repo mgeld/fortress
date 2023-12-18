@@ -72,12 +72,6 @@ class ConnectHandler implements IRoute {
             // Если клиент уже подключен
             if (isClient) {
 
-                // uSocket.send(JSON.stringify({
-                //     event: 'session',
-                //     payload: {}
-                // }))
-                // return
-
                 isClient.send(JSON.stringify({
                     event: 'session-destroy',
                     payload: {}
@@ -92,7 +86,7 @@ class ConnectHandler implements IRoute {
                     payload: {
                         userId: zoneId
                     }
-                }, zoneId)
+                }, [zoneId])
 
                 pointer.areal = -1
 

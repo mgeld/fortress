@@ -15,6 +15,7 @@ const TYPES = {
     ArenaSectorService: Symbol.for('ArenaSectorService'),
     ArenaTeamService: Symbol.for('ArenaTeamService'),
     CitadelService: Symbol.for('CitadelService'),
+    VkUserService: Symbol.for('VkUserService'),
     
     ArenaMemoryRepository: Symbol.for('ArenaMemoryRepository'),
     PointerMemoryRepository: Symbol.for('PointerMemoryRepository'),
@@ -29,6 +30,7 @@ const TYPES = {
     CitadelMemoryRepository: Symbol.for('CitadelMemoryRepository'),
     CitadelRepository: Symbol.for('CitadelRepository'),
     VkUserRepository: Symbol.for('VkUserRepository'), 
+    VkUserMemoryRepository: Symbol.for('VkUserMemoryRepository'), 
     
     Base64EntityIdGenerator: Symbol.for('Base64EntityIdGenerator'),
     
@@ -57,7 +59,7 @@ const TYPES = {
     
     GetRatingHandler: Symbol.for('GetRatingHandler'),
     GetSatelliteHandler: Symbol.for('GetSatelliteHandler'),
-    
+    GetSatelliteFortHandler: Symbol.for('GetSatelliteFortHandler'),
     
     PointerRepository: Symbol.for('PointerRepository'),
     ZoneRepository: Symbol.for('ZoneRepository'),

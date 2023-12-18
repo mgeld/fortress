@@ -24,8 +24,7 @@ const aboutSectorFx = createEffect(({
     ) {
         getAboutSectorAPI(sect)
     } else {
-        if (source?.arena)
-            battleGetAboutSectorAPI(sect, source.arena.id)
+        if (source?.arena) battleGetAboutSectorAPI(sect, source.arena.id)
     }
 })
 

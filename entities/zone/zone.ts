@@ -24,6 +24,8 @@ export type TZoneProps = {
 
     coins: number
     rubies: number
+
+    // vk_msg: -1 | 0 | 1
 }
 
 export type UnmarshalledZone = {
@@ -48,6 +50,7 @@ export class Zone {
     private _trophies: number
 
     private _coins: number
+
     private _rubies: number
 
     private _color: TZoneColor
@@ -60,6 +63,8 @@ export class Zone {
     private _stormtrooper_corps: StormtrooperCorps
 
     private _hold: Extraction
+
+    // private _vk_msg: -1 | 0 | 1
 
     private constructor(zone: TZoneProps) {
         this._id = zone.id || 0
@@ -78,6 +83,8 @@ export class Zone {
         this._stormtrooper_corps = zone.stormtrooper_corps
 
         this._hold = zone.hold
+
+        // this._vk_msg = zone.vk_msg
 
     }
 
@@ -103,8 +110,9 @@ export class Zone {
 
             stormtrooper_corps: this._stormtrooper_corps.unmarshal(),
 
-            hold: this._hold.unmarshal()
+            hold: this._hold.unmarshal(),
 
+            // vk_msg: this._vk_msg
         }
     }
 
@@ -124,6 +132,10 @@ export class Zone {
         if (c > 0 && c <= 6) {
             this._color = c
         }
+    }
+
+    get description() {
+        return this._description
     }
 
     set description(d: string) {

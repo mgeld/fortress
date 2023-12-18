@@ -17,6 +17,8 @@ export const SectorsMap: FC = () => {
         }
     })
 
+    console.log('sectors', sectors)
+
     return <>
         {sectors.zones.map(zoneItem => {
             // Временно
@@ -24,6 +26,7 @@ export const SectorsMap: FC = () => {
 
             return (
                 <Sectors
+                    key={zoneItem.zone.zone_id}
                     zoneItem={zoneItem}
                     color={color}
                     fillOpacity={0.3}

@@ -9,6 +9,7 @@ class Socket {
         this.url = url;
         this.setStatus = setStatus;
         Socket._instance = this;
+        this.connect();
     }
     static create(url, setStatus) {
         if (Socket._instance) {
@@ -17,7 +18,7 @@ class Socket {
         return new Socket(url, setStatus);
     }
     connect() {
-        console.log('Socket connect');
+        console.log('Socket connect new WebSocket');
         this.socket = new WebSocket(this.url);
         this.socketListener();
     }
@@ -31,14 +32,11 @@ class Socket {
             return;
         }
         this.socket.onopen = () => {
-            console.log('socketListener onopen');
             this.setStatus('open');
             if (context === null || context === void 0 ? void 0 : context.socket)
                 context.socket.onmessage = this.callback;
         };
         this.socket.onclose = (e) => {
-            console.log('onclose e.code', e.code);
-            console.log('onclose e.code', e.reason);
             this.setStatus('close');
         };
         this.socket.onerror = () => {

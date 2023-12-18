@@ -52,7 +52,6 @@ export class BombRepository implements IBombRepository {
 
     async insert(bomb: Bomb): Promise<Bomb> {
         const dtoBomb = bomb.unmarshal()
-        console.log('BOMB ID ///// ', dtoBomb.id)
         const inserted = await this._connection.execute(`
             INSERT INTO bombs(
                 id,

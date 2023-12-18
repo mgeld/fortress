@@ -48,7 +48,7 @@ export class PingPong {
                     payload: {
                         userId: _pointer.zoneId
                     }
-                }, _pointer.zoneId)
+                }, [_pointer.zoneId])
             }
 
             this._memberService.remove(member.userId)
@@ -68,7 +68,7 @@ export class PingPong {
                 payload: {
                     userId: _pointer.zoneId
                 }
-            }, _pointer.zoneId)
+            }, [_pointer.zoneId])
             
             _pointer.areal = -1 // Типа удаляем ареал, чтобы в след заход появится у других в игре
         }

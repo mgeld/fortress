@@ -62,10 +62,8 @@
 //             _teams.forEach(async team => {
 //                 await this._database.arenaTeam.delete(team.id)
 //             })
-//             console.log('deleteByArenas true')
 //             return true
 //         } catch (e) {
-//             console.log('deleteByArenas false')
 //             return false
 //         }
 //     }

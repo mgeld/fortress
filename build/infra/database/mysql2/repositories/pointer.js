@@ -47,7 +47,6 @@ let PointerRepository = class PointerRepository {
         return __awaiter(this, void 0, void 0, function* () {
             const [result] = yield this._connection.query(`SELECT
                 zone_id,
-                -- name,
                 color
             FROM
                 pointers

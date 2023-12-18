@@ -79,7 +79,7 @@ let BattleDirectHandler = class BattleDirectHandler extends handlers_1.IRoute {
                     userId: _pointer.zoneId,
                     pos: pos
                 }
-            }, _member.userId);
+            }, [_member.userId]);
         });
     }
 };

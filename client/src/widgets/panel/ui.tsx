@@ -23,8 +23,9 @@ import { IconTrophy } from "widgets/map-region/counters/icons/_icons";
 
 import { getRatingAPI } from "shared/api/get-rating";
 
-import styles from './styles.module.scss'
 import { setSelectMyZone } from "features/user/select-zone";
+
+import styles from './styles.module.scss'
 
 export const Panel: FC = () => {
 

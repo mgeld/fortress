@@ -21,7 +21,6 @@ import { LatLngBoundsExpression } from "leaflet"
 const getImageBoundsForIndexH3 = (indexh3: string): LatLngBoundsExpression => {
 
     const [lat, lng] = cellToLatLng(indexh3)
-    // console.log('getNumCells', getNumCells(8))
 
     const length_m = getHexagonEdgeLengthAvg(8, UNITS.m) / 2
     const length_degs = radsToDegs(edgeLength(originToDirectedEdges(indexh3)[1], UNITS.rads))

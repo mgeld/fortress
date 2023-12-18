@@ -5,7 +5,6 @@ const __1 = require("..");
 const tutorial_1 = require("shared/ui/tutorial");
 class TutorialHandler extends __1.Handler {
     handle(message) {
-        console.log('TutorialHandler handle');
         if (message.payload.type === 'hold') {
             setTimeout(() => {
                 tutorial_1.tutorialModel.events.setTutorial('hold');

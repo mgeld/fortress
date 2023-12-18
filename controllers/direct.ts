@@ -49,7 +49,7 @@ class DirectHandler extends IRoute {
                     userId: _pointer.zoneId,
                     pos: __position
                 }
-            }, _pointer.zoneId)
+            }, [_pointer.zoneId])
 
 
         } else {
@@ -62,7 +62,7 @@ class DirectHandler extends IRoute {
                     payload: {
                         userId: _pointer.zoneId
                     }
-                }, _pointer.zoneId)
+                }, [_pointer.zoneId])
             }
 
             // if (!_pointer.areal) {
@@ -124,7 +124,7 @@ class DirectHandler extends IRoute {
                 }
             }))
 
-            /** **/
+            /** ** **/
 
             const _sectors = await this._sectorService.getZonesAroundAreal(areal)
             // const _sectors = await this._sectorService.getZonesAroundPosition(_pointer.pos)
@@ -145,7 +145,6 @@ class DirectHandler extends IRoute {
                     return {
                         zone: {
                             ...zone.zone,
-                            // name: user?.name,
                             color: user?.color
                         },
                         sectors: zone.sectors
@@ -196,7 +195,7 @@ class DirectHandler extends IRoute {
                     health: _pointer.health,
                     pos: __position
                 }
-            }, _pointer.zoneId)
+            }, [_pointer.zoneId])
 
         }
 

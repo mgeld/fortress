@@ -1,19 +1,15 @@
-// import { userModel } from "entities/user";
 import { zoneModel } from "entities/zone";
-import { createEffect, createEvent, sample } from "effector";
-import { popoutModel } from "shared/ui/popout-root";
+import { createEvent, sample } from "effector";
 import { userModel } from "entities/user";
 import { citadelModel } from "entities/citadel";
 import { ratingAPI } from "shared/api/events";
 import { IRatingZone } from "@ctypes/model";
 
-type TMsgFxProps = {
-    sectors: number
-    // zoneId: number
-}
+// type TMsgFxProps = {
+//     sectors: number
+// }
 
 export const initSelectZoneSample = () => { }
-
 
 const selectMyZone = createEvent()
 

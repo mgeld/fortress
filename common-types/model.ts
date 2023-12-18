@@ -51,7 +51,6 @@ export type TZoneColor = 1 | 2 | 3 | 4 | 5 | 6
 
 export type TZone = {
     zone_id: number
-    // name: string
     color: TZoneColor
 }
 export type TZoneItem = {

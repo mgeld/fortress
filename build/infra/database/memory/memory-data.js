@@ -42,11 +42,6 @@ class Collection {
             return value;
         });
     }
-    count() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return Object.values(this.data).length;
-        });
-    }
     update(id, value) {
         return __awaiter(this, void 0, void 0, function* () {
             this.data[id] = value;
@@ -56,6 +51,16 @@ class Collection {
     delete(id) {
         return __awaiter(this, void 0, void 0, function* () {
             return delete this.data[id];
+        });
+    }
+    count() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return Object.values(this.data).length;
+        });
+    }
+    clear() {
+        return __awaiter(this, void 0, void 0, function* () {
+            this.data = {};
         });
     }
 }
@@ -71,6 +76,7 @@ let MemoryData = class MemoryData {
         this.weapon = new Collection();
         this.bomb = new Collection();
         this.sector = new Collection();
+        this.vk_user = new Collection();
     }
 };
 MemoryData = __decorate([

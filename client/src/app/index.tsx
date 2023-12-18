@@ -38,7 +38,6 @@ import { StormLevelUp } from 'features/storm-corps/storm-level-up/ui'
 import { HoldLevelUp } from 'features/hold/hold-level-up/ui'
 import { goBack } from 'processes/go-back'
 import { Primes } from 'widgets/primes'
-import { getPlatform } from 'shared/lib/get-platform'
 import { getPlatformNative } from 'shared/lib/get-platform-native'
 import { Alert } from 'shared/ui/alert'
 import { Tutorial } from 'shared/ui/tutorial/ui'
@@ -62,22 +61,19 @@ initVkJoinGroup()
 
 window.addEventListener('popstate', () => goBack());
 
-let platform = getPlatform()
+// let platform = getPlatform()
 const _platform = getPlatformNative()
 
 const App = () => {
 
   console.log('App')
-  console.log('platform', platform)
-  console.log('_platform', _platform)
-  console.log('Version 0.5')
+  console.log('Version 1.2')
 
   const popout = popoutModel.selectors.usePopout().data
   const page = pageModel.selectors.usePage().data
 
-
   const {
-    vkUserId,
+    zoneId,
     socketStatus
   } = useApp()
 
@@ -86,9 +82,10 @@ const App = () => {
   //   // popoutModel.events.setPopout('primes')
   // }, [])
 
-  if (!vkUserId) return (
-    <LoadApp />
-  )
+
+  // if (!zoneId) return (
+  //   <LoadApp />
+  // )
 
   return (
     <div className={`app ${_platform}`}>
@@ -357,6 +354,8 @@ const App = () => {
       <Notice />
 
       <Tutorial />
+
+      {!zoneId && <LoadApp />}
 
       {socketStatus ? (
         <PageRoot activePage={page}>

@@ -91,7 +91,7 @@ let BattleFireHandler = class BattleFireHandler extends handlers_1.IRoute {
             this._rooms.arenas.broadcast(_member.arena, {
                 event: 'fire',
                 payload: fire
-            }, _member.userId);
+            }, [_member.userId]);
         });
     }
 };

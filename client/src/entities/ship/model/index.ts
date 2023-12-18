@@ -14,6 +14,7 @@ export type TActionPos = {
 
 const {
     setPos,
+    initPos,
     setLevel,
     addHealth,
     setHealth,
@@ -28,6 +29,7 @@ const movePoint = createEvent<TActionPos>()
 
 export const $userPositionStore = createStore<TLatLng>(DEFAULT_STORE_POSITION)
     .on(movePoint, reducer)
+    .on(initPos, (_, pos) => pos)
     .on(setPos, (_, pos) => pos)
 
 export const $shipLevel = createStore<number>(0)

@@ -5,12 +5,12 @@ const setHealth = createEvent<number>()
 const changeHealth = createEvent<number>()
 const addHealth = createEvent<number>()
 
+const initPos = createEvent<TLatLng>()
 const setPos = createEvent<TLatLng>()
 const setLevel = createEvent<number>()
 
-// setPos.watch((pos) => console.log('SET_POS WATCH', pos))
-
 export const events = {
+    initPos,
     setPos,
     setLevel,
     setHealth,

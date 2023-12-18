@@ -10,19 +10,19 @@ exports.Logs = void 0;
 const inversify_1 = require("inversify");
 class Takes {
     constructor() {
-        this.sectors = {};
+        this.data = {};
     }
     add(value) {
-        this.sectors[value] = value;
+        this.data[value] = value;
         console.log('Logs takes add', value);
-        console.log('Logs takes sectors', this.sectors);
+        console.log('Logs takes sectors', this.data);
         return value;
     }
     clear() {
-        this.sectors = {};
+        this.data = {};
     }
     get() {
-        return Object.values(this.sectors);
+        return Object.values(this.data);
     }
 }
 let Logs = class Logs {

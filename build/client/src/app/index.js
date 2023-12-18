@@ -38,7 +38,6 @@ const ui_17 = require("features/storm-corps/storm-level-up/ui");
 const ui_18 = require("features/hold/hold-level-up/ui");
 const go_back_1 = require("processes/go-back");
 const primes_1 = require("widgets/primes");
-const get_platform_1 = require("shared/lib/get-platform");
 const get_platform_native_1 = require("shared/lib/get-platform-native");
 const alert_1 = require("shared/ui/alert");
 const ui_19 = require("shared/ui/tutorial/ui");
@@ -58,18 +57,13 @@ const ui_21 = __importDefault(require("features/user/edit/ui"));
 (0, select_zone_1.initSelectZoneSample)();
 (0, model_2.initVkJoinGroup)();
 window.addEventListener('popstate', () => (0, go_back_1.goBack)());
-let platform = (0, get_platform_1.getPlatform)();
 const _platform = (0, get_platform_native_1.getPlatformNative)();
 const App = () => {
     console.log('App');
-    console.log('platform', platform);
-    console.log('_platform', _platform);
-    console.log('Version 0.5');
+    console.log('Version 1.2');
     const popout = popout_root_1.popoutModel.selectors.usePopout().data;
     const page = page_root_1.pageModel.selectors.usePage().data;
-    const { vkUserId, socketStatus } = (0, useApp_1.useApp)();
-    if (!vkUserId)
-        return (<ui_20.LoadApp />);
+    const { zoneId, socketStatus } = (0, useApp_1.useApp)();
     return (<div className={`app ${_platform}`}>
 
       <load_fonts_1.default fontFamily='Lolita'/>
@@ -193,6 +187,8 @@ const App = () => {
       <ui_2.Notice />
 
       <ui_19.Tutorial />
+
+      {!zoneId && <ui_20.LoadApp />}
 
       {socketStatus ? (<page_root_1.PageRoot activePage={page}>
 

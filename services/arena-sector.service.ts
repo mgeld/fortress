@@ -32,7 +32,6 @@ export class ArenaSectorService {
     }
 
     // getByIds(sectorIds: string[]): Promise<ArenaSector[]> {
-    //     console.log('getByIds sectorIds', sectorIds)
     //     return this._memoryRepository.getByIds(sectorIds)
     // }
 

@@ -14,8 +14,8 @@ const popout_root_1 = require("shared/ui/popout-root");
 const _icons_1 = require("shared/assets/icons/_icons");
 const _icons_2 = require("widgets/map-region/counters/icons/_icons");
 const get_rating_1 = require("shared/api/get-rating");
-const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
 const select_zone_1 = require("features/user/select-zone");
+const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
 const Panel = () => {
     var _a;
     const latlng = ((_a = citadel_1.citadelModel.selectors.useCitadel()) === null || _a === void 0 ? void 0 : _a.latlng) || null;

@@ -74,10 +74,6 @@ export class ArenaSector {
 
     public static probabilityGettingExtractionInFort(pos: TLatLng): boolean {
         const probabilityNumber = Math.ceil((+pos[0].toString().slice(-1) + +pos[1].toString().slice(-1)))
-
-        console.log('pos', pos)
-        console.log('probabilityNumber', probabilityNumber)
-
         return probabilityNumber <= 6
     }
 
@@ -94,8 +90,6 @@ export class ArenaSector {
             return 'defense'
         } else {
             const winner = this.fightWinner()
-
-            console.log('winner', winner)
 
             // Если это мой сектор
             // Если победил мой защитник (внешний защитник (захватчик)) на моем секторе

@@ -12,20 +12,14 @@ class GetRatingHandler implements IRoute {
     // @inject(TYPES.PointerService) private _pointerService!: PointerService
     @inject(TYPES.ZoneService) private _zoneService!: ZoneService
 
-    constructor(
-    ) {
-        console.log('GetRatingHandler')
-    }
-    
     public static EVENT: TEventGetRating = "getRating"
 
     async handle(
         message: TGetRatingAPI,
         uSocket: IWebSocket,
     ) {
+        console.log('GetRatingHandler')
 
-        console.log('------GetRatingHandler handle -----------')
-        
         if (!uSocket.user_id) return
 
         // const USER_ID = uSocket.user_id

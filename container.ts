@@ -76,6 +76,9 @@ import { GetRatingHandler } from './controllers/get-rating'
 import { GetSatelliteHandler } from './controllers/get-satellite'
 import { VkCallback } from './controllers/vk-callback'
 import { EditZoneHandler } from './controllers/edit-zone'
+import { VkUserMemoryRepository } from './infra/database/memory/repositories/vk-user'
+import { VkUserService } from './services/vk-user.service'
+import { GetSatelliteFortHandler } from './controllers/get-satellite-fort'
 // import { ArenaTeamMemoryRepository } from './infra/database/memory/repositories/arena-team'
 // import { ArenaTeamService } from './services/arena-team.service'
 
@@ -117,6 +120,8 @@ container.bind(TYPES.LevelUpHandler).to(LevelUpHandler)
 
 container.bind(TYPES.GetRatingHandler).to(GetRatingHandler)
 container.bind(TYPES.GetSatelliteHandler).to(GetSatelliteHandler)
+container.bind(TYPES.GetSatelliteFortHandler).to(GetSatelliteFortHandler)
+
 
 container.bind(TYPES.ArenaService).to(ArenaService)
 container.bind(TYPES.PointerService).to(PointerService)
@@ -126,6 +131,8 @@ container.bind(TYPES.WeaponService).to(WeaponService)
 container.bind(TYPES.SectorService).to(SectorService)
 container.bind(TYPES.CitadelService).to(CitadelService)
 container.bind(TYPES.ArenaSectorService).to(ArenaSectorService)
+container.bind(TYPES.VkUserService).to(VkUserService)
+
 // container.bind(TYPES.ArenaTeamService).to(ArenaTeamService)
 
 container.bind(TYPES.Base64EntityIdGenerator).to(Base64EntityIdGenerator).inSingletonScope()
@@ -149,6 +156,7 @@ container.bind<ICitadelMemoryRepository>(TYPES.CitadelMemoryRepository).to(Citad
 container.bind<ICitadelRepository>(TYPES.CitadelRepository).to(CitadelRepository)
 
 container.bind(TYPES.VkUserRepository).to(VkUserRepository)
+container.bind(TYPES.VkUserMemoryRepository).to(VkUserMemoryRepository)
 
 
 container.bind<IPointerRepository>(TYPES.PointerRepository).to(PointerRepository)

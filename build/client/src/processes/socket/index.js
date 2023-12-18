@@ -43,7 +43,6 @@ const reward_1 = require("shared/api/handlers/reward");
 const session_destroy_1 = require("shared/api/handlers/session-destroy");
 const edit_zone_1 = require("shared/api/handlers/edit-zone");
 exports.WS = socket_2.Socket.create(config_1.API_BASE_URL, socket_1.socketModel.events.setSocketStatus);
-exports.WS.connect();
 const handlers = new handlers_1.Handlers({
     [connect_1.ConnectHandler.EVENT]: new connect_1.ConnectHandler(),
     [connect_pointer_1.ConnectPointerHandler.EVENT]: new connect_pointer_1.ConnectPointerHandler(),

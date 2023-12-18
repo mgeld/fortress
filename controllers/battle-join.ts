@@ -76,7 +76,7 @@ class BattleJoinHandler extends IRoute {
             payload: {
                 userId: _pointer.zoneId
             }
-        }, _pointer.zoneId)
+        }, [_pointer.zoneId])
         _pointer.areal = -1
         await this._pointerService.memoryUpdate(_pointer)
 

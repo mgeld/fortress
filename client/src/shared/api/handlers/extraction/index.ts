@@ -8,8 +8,6 @@
 // class UseExtractionHandler extends Handler {
 //     handle(message: TTakeHit) {
 
-//         console.log('UseExtractionHandler message', message)
-
 //         const { extr } = message.payload
 
 //         extractionAPI.events.delExtraction(extr.index)

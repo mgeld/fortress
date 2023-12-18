@@ -7,6 +7,8 @@ import { battleAPI, mapAPI } from "shared/api/events";
 
 import { noticeModel } from "shared/ui/notice";
 
+import bridge, { BannerAdLocation } from "@vkontakte/vk-bridge";
+
 import styles from './styles.module.scss'
 
 export const BattlePending: FC = () => {
@@ -20,6 +22,26 @@ export const BattlePending: FC = () => {
     const battleLeave = () => battleLeaveEvent.battleLeave()
 
     const tId = useRef<ReturnType<typeof setTimeout>>()
+
+    useEffect(() => {
+        bridge.send('VKWebAppShowBannerAd', {
+            banner_location: BannerAdLocation.BOTTOM
+        })
+            .then((data) => {
+                console.log('add data', data)
+                if (data.result) {
+                    // Баннерная реклама отобразилась
+                }
+            })
+            .catch((error) => {
+                // Ошибка
+                console.log('error', error);
+            });
+
+        return () => {
+            bridge.send('VKWebAppHideBannerAd')
+        }
+    }, [])
 
     useEffect(() => {
         tId.current = setTimeout(() => {

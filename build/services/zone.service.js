@@ -37,7 +37,6 @@ let ZoneService = class ZoneService {
                 return zone;
             }
             catch (e) {
-                console.log('WORKIN!!!!!!!');
                 const zone = yield this.baseGetById(userId);
                 this.memoryInsert(zone);
                 return zone;
@@ -63,7 +62,6 @@ let ZoneService = class ZoneService {
     }
     baseGetById(userId) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log('baseGetById userId', userId);
             const zone = yield this._baseRepository.getById(userId);
             return zone;
         });
@@ -119,7 +117,6 @@ let ZoneService = class ZoneService {
     }
     memoryUpdate(zone) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log('ZoneService memoryUpdate');
             yield this._memoryRepository.update(zone);
         });
     }

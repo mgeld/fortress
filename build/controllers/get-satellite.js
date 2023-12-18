@@ -23,27 +23,30 @@ const types_1 = require("../types");
 const handlers_1 = require("./handlers");
 const inversify_1 = require("inversify");
 const sector_service_1 = require("../services/sector.service");
+const pointer_service_1 = require("../services/pointer.service");
 let GetSatelliteHandler = class GetSatelliteHandler extends handlers_1.IRoute {
     handle(message, uSocket) {
         return __awaiter(this, void 0, void 0, function* () {
             const zoneId = message.payload.zoneId;
             const position = message.payload.position;
-            const _sectors = yield this._sectorService.getBoundsCitadel(position);
-            const array_sectors = Object.values(this.unmarshalSectors(zoneId, _sectors));
+            const _pointer = yield this._pointerService.getById(zoneId);
+            const _sectors = yield this._sectorService.getBoundsFort(position);
+            const array_sectors = Object.values(this.zoneUnmarshalSectors(zoneId, _pointer.color, _sectors));
             uSocket.send(JSON.stringify({
                 event: 'sectors',
                 payload: array_sectors
             }));
         });
     }
-    unmarshalSectors(zoneId, _sectors) {
+    zoneUnmarshalSectors(zoneId, zoneColor, _sectors) {
         const sectors = _sectors.reduce((zoneItems, item) => {
             const zId = zoneId === item.zone_id ? zoneId : -1;
+            const zColor = zoneId === item.zone_id ? zoneColor : 1;
             if (!zoneItems[zId]) {
                 zoneItems[zId] = {};
                 zoneItems[zId]['zone'] = {
                     zone_id: zId,
-                    color: 1
+                    color: zColor
                 };
                 zoneItems[zId]['sectors'] = [];
             }
@@ -58,6 +61,10 @@ __decorate([
     (0, inversify_1.inject)(types_1.TYPES.SectorService),
     __metadata("design:type", sector_service_1.SectorService)
 ], GetSatelliteHandler.prototype, "_sectorService", void 0);
+__decorate([
+    (0, inversify_1.inject)(types_1.TYPES.PointerService),
+    __metadata("design:type", pointer_service_1.PointerService)
+], GetSatelliteHandler.prototype, "_pointerService", void 0);
 GetSatelliteHandler = __decorate([
     (0, inversify_1.injectable)()
 ], GetSatelliteHandler);

@@ -19,13 +19,9 @@ export const MapDrones: FC = () => {
     const size = droneMapModel.selectors.useDroneSize().px
 
     useEffect(() => {
-        console.log('MapDrones useEffect')
         // После возвращения с другой страницы, обновляем
         droneMapModel.events.setSizeDrone()
     }, [])
-
-
-    console.log('MapDrones size', size)
 
     // const centerLat = map.getCenter().lat
     

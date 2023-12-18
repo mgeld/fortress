@@ -101,11 +101,9 @@ const ZoneEdit = () => {
             body: (0, getFormData_1.getFormData)(api_send_object)
         })
             .then(response => {
-            console.log('response', response);
             return response.json();
         })
             .then(result => {
-            console.log('result', result);
             if (result.res === "ok") {
                 setUserImage({
                     img: result.data.filename,

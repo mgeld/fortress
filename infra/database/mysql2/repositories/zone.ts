@@ -25,7 +25,6 @@ export class ZoneRepository implements IZoneRepository {
 
     async getById(_id: number): Promise<Zone> {
 
-        console.log('***ZoneRepository getById _id', _id)
         const [[result]] = await this._connection.query<Required<IZoneRowData>[] & RowDataPacket[]>(
             `
                 SELECT

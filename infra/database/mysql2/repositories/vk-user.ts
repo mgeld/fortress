@@ -2,8 +2,7 @@ import { injectable, inject } from 'inversify'
 import { Pool, RowDataPacket } from 'mysql2/promise'
 import { TYPES } from '../../../../types'
 
-
-interface IVkUserRowData {
+export interface IVkUserRowData {
     user_id: number
     zone_id: number
     is_msg: number
@@ -26,9 +25,31 @@ export class VkUserRepository {
         return result
     }
 
-    async getByIds(_ids: number[]): Promise<IVkUserRowData[]> {
+    async getByUserIds(_ids: number[]): Promise<IVkUserRowData[]> {
         const [result] = await this._connection.query<Required<IVkUserRowData>[] & RowDataPacket[]>(
             `SELECT * FROM vk_users WHERE user_id IN (?);`, [_ids]
+        )
+        if (!result) {
+            throw new Error('----------')
+        }
+
+        return result
+    }
+
+    async getByZoneId(_id: number): Promise<IVkUserRowData> {
+        const [[result]] = await this._connection.query<Required<IVkUserRowData>[] & RowDataPacket[]>(
+            `SELECT * FROM vk_users WHERE zone_id = ?;`, [_id]
+        )
+        if (!result) {
+            throw new Error('----------')
+        }
+
+        return result
+    }
+
+    async getByZoneIds(_ids: number[]): Promise<IVkUserRowData[]> {
+        const [result] = await this._connection.query<Required<IVkUserRowData>[] & RowDataPacket[]>(
+            `SELECT * FROM vk_users WHERE zone_id IN (?);`, [_ids]
         )
         if (!result) {
             throw new Error('----------')
