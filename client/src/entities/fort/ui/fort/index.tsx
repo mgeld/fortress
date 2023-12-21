@@ -1,6 +1,6 @@
-import { cellToLatLng, latLngToCell } from "h3-js";
+import { cellToChildren, cellToLatLng, cellsToMultiPolygon, compactCells, gridDisk, gridRingUnsafe, latLngToCell } from "h3-js";
 import { FC } from "react";
-import { Circle, FeatureGroup } from "react-leaflet";
+import { Circle, FeatureGroup, Polygon } from "react-leaflet";
 import { TLatLng } from "shared/types";
 
 import './styles.css'
@@ -11,7 +11,7 @@ type FortProps = {
 }
 
 export const Fort: FC<FortProps> = ({ pos }) => {
-    
+
     // if(!data) return <></>
 
     return (

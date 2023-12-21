@@ -43,7 +43,6 @@ export function Test() {
     const [h3Indexes, setH3Indexes] = useState<string[]>([])
 
     const __ = useMapEvent('move', (e) => {
-        console.log('_________________________')
     })
 
     const map = useMapEvent('click', (e) => {
@@ -64,25 +63,18 @@ export function Test() {
         const h3Index = latLngToCell(e.latlng.lat, e.latlng.lng, 9);
         // -> '87283472bffffff'
 
-        // console.log('getHexagonAreaAvg 8', getHexagonAreaAvg(8, UNITS.m2))
-        // console.log('getHexagonAreaAvg 9', getHexagonAreaAvg(9, UNITS.m2))
-
         // Get the center of the hexagon
         const hexCenterCoordinates = cellToLatLng(h3Index);
         // -> [37.35171820183272, -122.05032565263946]
 
-        console.log('h3Index', h3Index)
-
         // Get the vertices of the hexagon
         const hexBoundary: CoordPair[] = cellToBoundary(h3Index);
-        console.log('hexBoundary', hexBoundary)
         setSectors(prev => ([...prev, hexBoundary]))
 
         if (h3Indexes.findIndex((item) => item === h3Index) !== -1) return
 
         setH3Indexes(prev => ([...prev, h3Index]))
 
-        console.log('Test TIME: ', +new Date() - __start)
     })
 
     return <>

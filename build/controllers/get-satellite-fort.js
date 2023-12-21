@@ -27,7 +27,6 @@ const pointer_service_1 = require("../services/pointer.service");
 let GetSatelliteFortHandler = class GetSatelliteFortHandler extends handlers_1.IRoute {
     handle(message, uSocket) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log('GetSatelliteFortHandler');
             const position = message.payload.position;
             const _sectors = yield this._sectorService.getBoundsFort(position);
             const array_sectors = Object.values(yield this.fortUnmarshalSectors(_sectors));

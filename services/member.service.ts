@@ -1,7 +1,7 @@
-import { inject, injectable } from "inversify";
-import { Member } from "../entities/arena/arena-team-member";
-import { IArenaTeamMemberRepository } from "../entities/repository";
-import { TYPES } from "../types";
+import { TYPES } from "../types"
+import { inject, injectable } from "inversify"
+import { Member, UnmarshalledMember } from "../entities/arena/arena-team-member"
+import { IArenaTeamMemberRepository } from "../entities/repository"
 
 @injectable()
 export class MemberService {
@@ -20,6 +20,10 @@ export class MemberService {
         return this._repository.getByIds(userIds)
     }
 
+    // getDTOByIds(userIds: number[]): Promise<UnmarshalledMember[]> {
+    //     return this._repository.getDTOByIds(userIds)
+    // }
+    
     async update(member: Member) {
         await this._repository.update(member)
     }

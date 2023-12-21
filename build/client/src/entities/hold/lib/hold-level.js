@@ -27,10 +27,10 @@ class HoldLevel {
 HoldLevel._holdItems = {
     1: 10,
     2: 15,
-    3: 20,
-    4: 25,
-    5: 30,
-    6: 35
+    3: 25,
+    4: 40,
+    5: 60,
+    6: 85
 };
 HoldLevel._priceLevelUp = {
     1: 0,

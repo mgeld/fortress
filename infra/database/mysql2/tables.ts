@@ -22,10 +22,53 @@ const sectors = `
 		lat DECIMAL(10, 6) NOT NULL,
 		lng DECIMAL(10, 6) NOT NULL,
 
-		areal INT NOT NULL DEFAULT 0
+		areal INT NOT NULL DEFAULT 0,
+
+        date INT NOT NULL DEFAULT 0
 	)
     character set='utf8mb4';
 `
+
+
+const battles = `
+    CREATE TABLE battles(
+        id VARCHAR(11) NOT NULL primary key,
+        date INT NOT NULL DEFAULT 0
+    )
+    character set='utf8mb4';
+`
+
+const teams = `
+    CREATE TABLE battle_teams(
+        number INT NOT NULL auto_increment unique,
+        team_id tinyint NOT NULL DEFAULT 0,
+
+        -- 0 - "default"
+        -- 1 - "victory"
+        -- 2 - "defeat"
+        -- 3 - "draw"
+        status tinyint NOT NULL DEFAULT 0,
+
+        sectors tinyint NOT NULL DEFAULT 0,
+        members tinyint NOT NULL DEFAULT 0,
+        alive_members tinyint NOT NULL DEFAULT 0,
+        battle_id VARCHAR(11) NOT NULL
+    )
+    character set='utf8mb4';
+`
+const members = `
+    CREATE TABLE battle_members(
+        number INT NOT NULL auto_increment unique,
+        zone_id INT NOT NULL DEFAULT 0,
+        killed tinyint NOT NULL DEFAULT 0,
+        damage INT NOT NULL DEFAULT 0,
+        sectors INT NOT NULL DEFAULT 0,
+        team_id tinyint NOT NULL,
+        battle_id VARCHAR(11) NOT NULL
+    )
+    character set='utf8mb4';
+`
+
 
 const vk_users = `
     CREATE TABLE vk_users(
@@ -165,7 +208,6 @@ const drop = `
     DROP TABLE vk_users;
     DROP TABLE citadels;
 `
-
 
 const TABLES = `
     CREATE TABLE sectors(

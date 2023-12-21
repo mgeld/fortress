@@ -92,7 +92,6 @@ let TakeHandler = class TakeHandler extends handlers_1.IRoute {
                         if (prevZoneId)
                             _prevZone.terrain.loseSector();
                         const vkUser = yield this._vkUserService.getById(prevZoneId);
-                        console.log('vkUser.is_msg', vkUser.is_msg);
                         if (vkUser.is_msg === 1) {
                             vkUser.losses = vkUser.losses + 1;
                             this._vkUserService.memoryUpdate(vkUser);

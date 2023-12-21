@@ -25,7 +25,6 @@ const zone_service_1 = require("../services/zone.service");
 let GetRatingHandler = class GetRatingHandler {
     handle(message, uSocket) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log('GetRatingHandler');
             if (!uSocket.user_id)
                 return;
             let zones = yield this._zoneService.getTrophies();

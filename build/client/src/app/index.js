@@ -60,7 +60,7 @@ window.addEventListener('popstate', () => (0, go_back_1.goBack)());
 const _platform = (0, get_platform_native_1.getPlatformNative)();
 const App = () => {
     console.log('App');
-    console.log('Version 1.2');
+    console.log('Version 1.2.1');
     const popout = popout_root_1.popoutModel.selectors.usePopout().data;
     const page = page_root_1.pageModel.selectors.usePage().data;
     const { zoneId, socketStatus } = (0, useApp_1.useApp)();

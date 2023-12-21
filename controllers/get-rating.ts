@@ -18,8 +18,6 @@ class GetRatingHandler implements IRoute {
         message: TGetRatingAPI,
         uSocket: IWebSocket,
     ) {
-        console.log('GetRatingHandler')
-
         if (!uSocket.user_id) return
 
         // const USER_ID = uSocket.user_id

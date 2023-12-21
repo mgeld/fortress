@@ -3,7 +3,7 @@ import { ArenaPlace } from "./arena-place"
 import { Team, UnmarshalledTeam } from "./arena-team"
 
 export type TRegistr = 'open' | 'close'
-type TArenaStatus = 'pending' | 'start' | 'over'
+export type TArenaStatus = 'pending' | 'start' | 'over'
 
 export type TArenaProps = {
     id: string
@@ -44,6 +44,8 @@ export class Arena {
 
         this._teamList = arena.teams
         this._timer = arena?.timeout || null
+
+        console.log('Arena _id', this._id)
 
     }
 

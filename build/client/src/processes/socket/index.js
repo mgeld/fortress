@@ -42,6 +42,7 @@ const set_rating_1 = require("shared/api/handlers/set-rating");
 const reward_1 = require("shared/api/handlers/reward");
 const session_destroy_1 = require("shared/api/handlers/session-destroy");
 const edit_zone_1 = require("shared/api/handlers/edit-zone");
+const del_extraction_1 = require("shared/api/handlers/del-extraction");
 exports.WS = socket_2.Socket.create(config_1.API_BASE_URL, socket_1.socketModel.events.setSocketStatus);
 const handlers = new handlers_1.Handlers({
     [connect_1.ConnectHandler.EVENT]: new connect_1.ConnectHandler(),
@@ -81,5 +82,6 @@ const handlers = new handlers_1.Handlers({
     [set_rating_1.SetRatingHandler.EVENT]: new set_rating_1.SetRatingHandler(),
     [reward_1.RewardHandler.EVENT]: new reward_1.RewardHandler(),
     [edit_zone_1.EditZoneHandler.EVENT]: new edit_zone_1.EditZoneHandler(),
+    [del_extraction_1.DelExtractionHandler.EVENT]: new del_extraction_1.DelExtractionHandler(),
 });
 exports.WS.setHandlers(handlers.handle());

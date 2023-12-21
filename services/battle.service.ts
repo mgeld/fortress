@@ -11,19 +11,18 @@ import { ArenaService } from "./arena.service";
 @injectable()
 class BattleService {
     @inject(TYPES.Rooms) private _rooms!: Rooms
-    @inject(TYPES.MemberService) private _memberService!: MemberService
     @inject(TYPES.ZoneService) private _zoneService!: ZoneService
     @inject(TYPES.ArenaService) private _arenaService!: ArenaService
+    @inject(TYPES.MemberService) private _memberService!: MemberService
 
     async overGame(arenaId: string) {
 
-        const arena = await this._arenaService.getById(arenaId)
         console.log('BattleService overGame')
 
-        console.log('arena.timeout', arena.timeout)
+        const arena = await this._arenaService.getById(arenaId)
 
         arena.timeout && arena.destroyTimer()
-        
+
         // Это всё запихнуть бы в EventEmitter
         // И обрабатывать в отдельном обработчике
 
@@ -31,13 +30,14 @@ class BattleService {
             coins: number
             trophies: number
         }> = {}
+
         const members: Member[][] = []
 
         members[0] = await this._memberService.getByIds(arena.teamList[0].members)
         members[1] = await this._memberService.getByIds(arena.teamList[1].members)
 
-        if(arena.status !== 'over') {
-            
+        if (arena.status !== 'over') {
+
             const team1 = arena.getTeam(1).sectors
             const team2 = arena.getTeam(2).sectors
 
@@ -57,7 +57,6 @@ class BattleService {
                 members: members[index].map(member => {
 
                     const wonTrophies = Math.floor(member.damage / 10 + member.sectors)
-
                     const trophy = minTrophies > 0 ? minTrophies + wonTrophies : 0
 
                     _extraction[member.userId] = {
@@ -66,11 +65,11 @@ class BattleService {
                     }
 
                     return {
-                        userId: member.userId,
                         trophies: trophy,
-                        coins: trophy * 5
+                        coins: trophy * 5,
+                        userId: member.userId,
                     }
-                }),
+                })
             }
         })
 
@@ -78,11 +77,16 @@ class BattleService {
             ...arena.teamList[0].members,
             ...arena.teamList[1].members
         ])
+
         zones.forEach(zone => {
             zone.setTrophies(_extraction[zone.id].trophies)
             zone.addCoins(_extraction[zone.id].coins)
         })
         await this._zoneService.memoryUpdates(zones)
+
+        this._arenaService.mysqlInsertArena(arena)
+        // this._arenaService.mysqlInsertsTeam(arena.teamList)
+        this._arenaService.mysqlInsertsMembers([...members[0], ...members[1]])
 
         setTimeout(async () => {
             this._rooms.arenas.broadcast(arena.id, {

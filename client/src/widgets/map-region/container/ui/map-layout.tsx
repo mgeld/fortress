@@ -10,6 +10,8 @@ import {
     useMapEvents,
     Circle,
     Pane,
+    Polygon,
+    useMapEvent,
 } from 'react-leaflet'
 
 import Fires from "entities/fire/ui/fires";
@@ -87,6 +89,10 @@ const MapLayout: FC<TMapProps> = () => {
                     <Pane key="fort" name="fort" style={{ zIndex: 3001 }}>
                         <FortMap />
                     </Pane>
+                    {/* 
+                    <Pane key="grid" name="grid" style={{ zIndex: 3001 }}>
+                    <Grid />
+                    </Pane> */}
 
                     <Pane key="citadel" name="citadel" style={{ zIndex: 3001 }}>
                         <CitadelMap />

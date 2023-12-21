@@ -25,9 +25,6 @@ export const TestExtr: FC = () => {
         [areal[0][0], areal[0][1] + 0.03],
     ] : []
 
-    // console.log('areal areal polygon', polygon)
-
-
     const polygs = polygonToCells(polygon, 9);
 
     const p: CoordPair[][] = []

@@ -74,7 +74,6 @@ export class Socket {
         }
 
         this.socket.onerror = () => {
-            console.log('Socket Error')
         }
 
     }

@@ -27,7 +27,6 @@ class BeamHandler extends IRoute {
         message: TBeamAPI,
         uSocket: IWebSocket,
     ) {
-        console.log('BeamHandler handle')
 
         if (!uSocket.user_id) return
 
@@ -126,8 +125,6 @@ class BeamHandler extends IRoute {
 
             }
 
-            console.log('beamResp.payload.type', beamResp.payload.type)
-
             if (beamResp.payload.type) {
                 this._logs.takes.add(_sector.id)
                 this._zoneService.memoryUpdate(zone)
@@ -147,8 +144,6 @@ class BeamHandler extends IRoute {
 
         }
 
-        console.log('beamResp', beamResp)
-        
         uSocket.send(JSON.stringify(beamResp))
 
     }

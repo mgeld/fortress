@@ -32,7 +32,6 @@ let EditZoneHandler = class EditZoneHandler {
     }
     handle(message, uSocket) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log('------EditZoneHandler handle -----------');
             if (!uSocket.user_id)
                 return;
             const USER_ID = uSocket.user_id;
@@ -51,7 +50,6 @@ let EditZoneHandler = class EditZoneHandler {
             zone.description = __descr;
             const hash = crypto_1.default.createHash('md5').update(__icon + 'gm_fortress_2023').digest('hex');
             if (__hash === hash) {
-                console.log('hash совпадают!');
                 pointer.user.icon = __icon;
             }
             else {

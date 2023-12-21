@@ -21,6 +21,7 @@ export type TEventTakeHit = 'take-hit'
 export type TEventFindCont = 'find-cont'
 export type TEventTractorUnit = 'attraction'
 export type TEventUseExtraction = 'use-extraction'
+export type TEventDelExtraction = 'del-extraction'
 export type TEventReward = 'reward'
 
 export type TEventLimit = 'limit'
@@ -63,6 +64,7 @@ export type TEventsMessage =
     | TEventFindCont
     | TEventTractorUnit
     | TEventUseExtraction
+    | TEventDelExtraction
     | TEventReward
     | TEventLimit
     | TEventSession
@@ -300,6 +302,14 @@ export type TUseExtraction = {
     }
 }
 
+export type TDelExtraction = {
+    event: TEventDelExtraction
+    payload: {
+        unit: TExtrTypes
+        index: number
+    }
+}
+
 
 export type TReward = {
     event: TEventReward
@@ -515,6 +525,7 @@ export type TMessage =
     | TFindCont
     | TTractorUnit
     | TUseExtraction
+    | TDelExtraction
     | TReward
     | TLimit
     | TSession

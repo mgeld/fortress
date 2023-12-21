@@ -29,7 +29,6 @@ const pointer_service_1 = require("../services/pointer.service");
 let BattleLeaveHandler = class BattleLeaveHandler extends handlers_1.IRoute {
     handle(message, uSocket) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log('BattleLeaveHandler handle');
             if (!uSocket.user_id)
                 return;
             const member = yield this._memberService.getById(uSocket.user_id);

@@ -26,18 +26,12 @@ class ConnectHandler implements IRoute {
     @inject(TYPES.PointerService) private _pointerService!: PointerService
     @inject(TYPES.VkUserRepository) private _vkUserRepository!: VkUserRepository
 
-    constructor() {
-        console.log('ConnectHandler')
-    }
-
     public static EVENT: TEventConnect = "connect"
 
     async handle(
         message: TConnectAPI,
         uSocket: IWebSocket,
     ) {
-
-        console.log('------ConnectHandler handle -----------')
 
         const VK_URL = message.payload.url
 
@@ -118,8 +112,6 @@ class ConnectHandler implements IRoute {
             }
 
         } catch (e) {
-
-            console.log('Connect Cathc')
 
             weapon = this._weaponService.createGun()
 

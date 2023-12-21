@@ -42,6 +42,7 @@ import { SetRatingHandler } from "shared/api/handlers/set-rating"
 import { RewardHandler } from "shared/api/handlers/reward"
 import { SessionDestroyHandler } from "shared/api/handlers/session-destroy"
 import { EditZoneHandler } from "shared/api/handlers/edit-zone"
+import { DelExtractionHandler } from "shared/api/handlers/del-extraction"
 
 export const WS = Socket.create(API_BASE_URL, socketModel.events.setSocketStatus)
 
@@ -117,8 +118,7 @@ const handlers = new Handlers({
     [SetRatingHandler.EVENT]: new SetRatingHandler(),
     [RewardHandler.EVENT]: new RewardHandler(),
     [EditZoneHandler.EVENT]: new EditZoneHandler(),
-    
-    
+    [DelExtractionHandler.EVENT]: new DelExtractionHandler(),
 } as THandlers)
 
 WS.setHandlers(handlers.handle())

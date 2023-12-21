@@ -17,7 +17,6 @@ class BuyUnitHandler extends IRoute {
         message: TBuyUnitAPI,
         uSocket: IWebSocket,
     ) {
-        console.log('BuyUnitHandler handle')
 
         if (!uSocket.user_id) return
 

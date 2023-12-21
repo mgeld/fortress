@@ -15,6 +15,7 @@ export type UnmarshalledTeam = {
 
 class Team {
     private _id: number
+    
     private _status: TTeamStatus
     private _members: number[] // Участники
     private _sectors: number // Кол-во секторов

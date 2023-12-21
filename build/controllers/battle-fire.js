@@ -19,15 +19,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BattleFireHandler = void 0;
+const types_1 = require("../types");
 const handlers_1 = require("./handlers");
 const inversify_1 = require("inversify");
-const types_1 = require("../types");
 const rooms_1 = require("../api/socket/socket/rooms");
 const arena_service_1 = require("../services/arena.service");
 const weapon_service_1 = require("../services/weapon.service");
 const member_service_1 = require("../services/member.service");
-const pointer_service_1 = require("../services/pointer.service");
 const battle_service_1 = require("../services/battle.service");
+const pointer_service_1 = require("../services/pointer.service");
 let BattleFireHandler = class BattleFireHandler extends handlers_1.IRoute {
     handle(message, uSocket) {
         var _a, _b, _c, _d;

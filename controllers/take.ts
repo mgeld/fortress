@@ -115,8 +115,6 @@ class TakeHandler extends IRoute {
                     // Отправляем сообщение через ВК
                     const vkUser = await this._vkUserService.getById(prevZoneId)
 
-                    console.log('vkUser.is_msg', vkUser.is_msg)
-
                     if (vkUser.is_msg === 1) {
 
                         vkUser.losses = vkUser.losses + 1

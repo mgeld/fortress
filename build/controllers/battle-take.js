@@ -33,7 +33,6 @@ let BattleTakeHandler = class BattleTakeHandler extends handlers_1.IRoute {
     handle(message, uSocket) {
         var _a, _b;
         return __awaiter(this, void 0, void 0, function* () {
-            console.log('BattleTakeHandler handle');
             if (!uSocket.user_id)
                 return;
             const __fort = (_a = message.payload) === null || _a === void 0 ? void 0 : _a.fort;

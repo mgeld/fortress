@@ -25,13 +25,12 @@ class BattleLeaveHandler extends IRoute {
         uSocket: IWebSocket,
     ) {
         
-        console.log('BattleLeaveHandler handle')
-
         if (!uSocket.user_id) return
         
         const member = await this._memberService.getById(uSocket.user_id)
         const arena = await this._arenaService.getById(member.arena)
 
+        // Ливнуть можно только во время поиска противника
         if(arena.status !== 'pending') return
 
         const pointer = await this._pointerService.memoryGetById(member.userId)
@@ -42,7 +41,6 @@ class BattleLeaveHandler extends IRoute {
         this._memberService.remove(member.userId)
         
         // const roomValues = Object.values(this._rooms.arenas.getClients(arena.id))
-        // console.log('roomValuesLeave', roomValues)
 
         uSocket.send(JSON.stringify({
             event: 'set-user',

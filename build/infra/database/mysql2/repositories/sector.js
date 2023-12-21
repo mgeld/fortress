@@ -74,7 +74,6 @@ let SectorRepository = class SectorRepository {
                     dtoSector.areal
                 ];
             });
-            console.log('sqlSectors', sqlSectors);
             try {
                 const inserted = yield this._connection.query(`
                 INSERT INTO sectors(
@@ -100,7 +99,6 @@ let SectorRepository = class SectorRepository {
     }
     getBoundsSectors(bounds) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log('/// Base getBoundsSectors');
             const where = `lat > ? and lat < ? and lng > ? and lng < ?`;
             try {
                 const [result] = yield this._connection.query(`SELECT
@@ -118,14 +116,12 @@ let SectorRepository = class SectorRepository {
                 return result;
             }
             catch (e) {
-                console.log('eeeeeee', e);
                 throw new Error('Не удалось вывести территории из базы');
             }
         });
     }
     getByAreals(areals) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log('///>>>>>> Base getByAreal');
             try {
                 const [result] = yield this._connection.query(`SELECT
                     id,

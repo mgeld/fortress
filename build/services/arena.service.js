@@ -19,16 +19,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ArenaService = void 0;
+const types_1 = require("../types");
 const inversify_1 = require("inversify");
 const arena_1 = require("../entities/arena/arena");
-const types_1 = require("../types");
 const arena_team_1 = require("../entities/arena/arena-team");
 const arena_place_1 = require("../entities/arena/arena-place");
 let ArenaService = class ArenaService {
     getArena() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const arena = yield this._repository.getForRegistrArena('open');
+                const arena = yield this._memoryRepository.getForRegistrArena('open');
                 return arena;
             }
             catch (e) {
@@ -49,31 +49,46 @@ let ArenaService = class ArenaService {
                     arena_team_1.Team.create({ id: 2 }),
                 ]
             });
-            const _arena = yield this._repository.insert(arena);
+            const _arena = yield this._memoryRepository.insert(arena);
             return _arena;
         });
     }
     getById(arenaId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const arena = yield this._repository.getById(arenaId);
+            const arena = yield this._memoryRepository.getById(arenaId);
             return arena;
         });
     }
     remove(arenaId) {
-        return this._repository.delete(arenaId);
+        return this._memoryRepository.delete(arenaId);
     }
     update(arena) {
-        return this._repository.update(arena);
+        return this._memoryRepository.update(arena);
+    }
+    deleteArenas(arenas) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this._memoryRepository.deleteArenas(arenas);
+        });
+    }
+    mysqlInsertArena(arena) {
+        this._mysqlRepository.insertArena(arena);
+    }
+    mysqlInsertsMembers(members) {
+        this._mysqlRepository.insertsMember(members);
     }
 };
 __decorate([
-    (0, inversify_1.inject)(types_1.TYPES.ArenaMemoryRepository),
+    (0, inversify_1.inject)(types_1.TYPES.ArenaRepository),
     __metadata("design:type", Object)
-], ArenaService.prototype, "_repository", void 0);
+], ArenaService.prototype, "_mysqlRepository", void 0);
 __decorate([
     (0, inversify_1.inject)(types_1.TYPES.Base64EntityIdGenerator),
     __metadata("design:type", Object)
 ], ArenaService.prototype, "_entityId", void 0);
+__decorate([
+    (0, inversify_1.inject)(types_1.TYPES.ArenaMemoryRepository),
+    __metadata("design:type", Object)
+], ArenaService.prototype, "_memoryRepository", void 0);
 ArenaService = __decorate([
     (0, inversify_1.injectable)()
 ], ArenaService);

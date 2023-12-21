@@ -33,7 +33,7 @@ export const ShipPopout: FC = () => {
                 action: {
                     close: false,
                     text: 'Закрыть',
-                    _click: () => popoutModel.events.setPopout("storm-corps")
+                    _click: () => popoutModel.events.setPopout("ship")
                 }
             })
         }

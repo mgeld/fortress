@@ -7,24 +7,28 @@ const TYPES = {
     Logs: Symbol.for('Logs'),
 
     ArenaService: Symbol.for('ArenaService'),
+    ArenaTeamService: Symbol.for('ArenaTeamService'),
+    MemberService: Symbol.for('MemberService'),
+    ArenaSectorService: Symbol.for('ArenaSectorService'),
+
     PointerService: Symbol.for('PointerService'),
     ZoneService: Symbol.for('ZoneService'),
-    MemberService: Symbol.for('MemberService'),
     WeaponService: Symbol.for('WeaponService'),
     SectorService: Symbol.for('SectorService'),
-    ArenaSectorService: Symbol.for('ArenaSectorService'),
-    ArenaTeamService: Symbol.for('ArenaTeamService'),
     CitadelService: Symbol.for('CitadelService'),
     VkUserService: Symbol.for('VkUserService'),
-    
+
+    ArenaRepository: Symbol.for('ArenaRepository'),
+
     ArenaMemoryRepository: Symbol.for('ArenaMemoryRepository'),
+    ArenaTeamMemoryRepository: Symbol.for('ArenaTeamMemoryRepository'),
+    MemberMemoryRepository: Symbol.for('MemberMemoryRepository'),
+    ArenaSectorMemoryRepository: Symbol.for('ArenaSectorMemoryRepository'),
+
     PointerMemoryRepository: Symbol.for('PointerMemoryRepository'),
     ZoneMemoryRepository: Symbol.for('ZoneMemoryRepository'),
     WeaponMemoryRepository: Symbol.for('WeaponMemoryRepository'),
-    MemberMemoryRepository: Symbol.for('MemberMemoryRepository'),
     SectorMemoryRepository: Symbol.for('SectorMemoryRepository'),
-    ArenaSectorMemoryRepository: Symbol.for('ArenaSectorMemoryRepository'),
-    ArenaTeamMemoryRepository: Symbol.for('ArenaTeamMemoryRepository'),
     
     ArealMemoryRepository: Symbol.for('ArealMemoryRepository'),
     CitadelMemoryRepository: Symbol.for('CitadelMemoryRepository'),
@@ -60,6 +64,7 @@ const TYPES = {
     GetRatingHandler: Symbol.for('GetRatingHandler'),
     GetSatelliteHandler: Symbol.for('GetSatelliteHandler'),
     GetSatelliteFortHandler: Symbol.for('GetSatelliteFortHandler'),
+    DelExtractionHandler: Symbol.for('DelExtractionHandler'),
     
     PointerRepository: Symbol.for('PointerRepository'),
     ZoneRepository: Symbol.for('ZoneRepository'),

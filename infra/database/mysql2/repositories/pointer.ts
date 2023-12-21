@@ -194,9 +194,7 @@ export class PointerRepository implements IPointerRepository {
     }
 
     async update(pointer: Pointer): Promise<Pointer> {
-        console.log('Pointer Update Mysql2')
         const dtoPointer = pointer.unmarshal()
-        console.log('Pointer Update dtoPointer.color', dtoPointer.color)
 
         const updated = await this._connection.execute(`
             UPDATE

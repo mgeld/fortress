@@ -8,7 +8,6 @@ import { Rooms } from "../api/socket/socket/rooms";
 import { PointerService } from "../services/pointer.service";
 
 import { ZoneService } from "../services/zone.service";
-// import { TFindContType } from "../common-types/model";
 import { ArenaService } from "../services/arena.service";
 import { MemberService } from "../services/member.service";
 import { ArenaSectorService } from "../services/arena-sector.service";
@@ -36,7 +35,6 @@ class BattleTakeHandler extends IRoute {
         message: TTakeAPI,
         uSocket: IWebSocket,
     ) {
-        console.log('BattleTakeHandler handle')
 
         if (!uSocket.user_id) return
 
@@ -125,7 +123,6 @@ class BattleTakeHandler extends IRoute {
 
                 // Временно закомментили получение добычи в режиме Арены
                 // isBooty = Sector.probabilityGettingExtractionInFort(message.payload.fort)
-                // console.log('take isBooty', isBooty)
 
                 if (myTeam.sectors >= 5) {
                     arena.completeBattle(myTeam.id === 1 ? 2 : 1)

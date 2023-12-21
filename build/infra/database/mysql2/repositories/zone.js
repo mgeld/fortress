@@ -143,7 +143,6 @@ let ZoneRepository = class ZoneRepository {
     }
     getTrophies() {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log('***ZoneRepository getTrophies');
             const [result] = yield this._connection.query(`
                 SELECT
                     zones.id,

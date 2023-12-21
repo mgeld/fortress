@@ -38,10 +38,10 @@ class Extraction {
         const levels = {
             1: 10,
             2: 15,
-            3: 20,
-            4: 25,
-            5: 30,
-            6: 35
+            3: 25,
+            4: 40,
+            5: 60,
+            6: 85
         };
         return levels[level];
     }
@@ -53,6 +53,15 @@ class Extraction {
             return units_1.Units.getUnitQuantity(id);
         }
         return null;
+    }
+    delExtr(id, index) {
+        const items = this._items.slice();
+        if (items[index] === id) {
+            items.splice(index, 1);
+            this._items = items;
+            return true;
+        }
+        return false;
     }
     addExtrToList(probabilityNumber) {
         const maxValueLevel = Extraction.getLevelMaxItems(this._level);

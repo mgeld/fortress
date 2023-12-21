@@ -18,6 +18,7 @@ export type TEventBattleTake = 'battleTake'
 export type TEventBeam = 'beam'
 
 export type TEventUseExtraction = 'useExtraction'
+export type TEventDelExtraction = 'delExtraction'
 export type TEventLevelUp = 'levelUp'
 export type TEventBuyUnit = 'buyUnit'
 
@@ -46,6 +47,7 @@ export type TEventsAPI =
     | TEventBattleTake
     | TEventBeam
     | TEventUseExtraction
+    | TEventDelExtraction
     | TEventLevelUp
     | TEventBuyUnit
     | TEventGetSectors
@@ -68,6 +70,7 @@ export type TSendEvent =
     | TTakeAPI
     | TBeamAPI
     | TUseExtractionAPI
+    | TDelExtractionAPI
     | TLevelUpAPI
     | TBuyUnitAPI
     | TGetSectorsAPI
@@ -188,6 +191,14 @@ export type TBeamAPI = {
 
 export type TUseExtractionAPI = {
     event: TEventUseExtraction
+    payload: {
+        id: TExtrTypes
+        index: number
+    }
+}
+
+export type TDelExtractionAPI = {
+    event: TEventDelExtraction
     payload: {
         id: TExtrTypes
         index: number

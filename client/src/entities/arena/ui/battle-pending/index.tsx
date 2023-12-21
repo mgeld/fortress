@@ -28,14 +28,12 @@ export const BattlePending: FC = () => {
             banner_location: BannerAdLocation.BOTTOM
         })
             .then((data) => {
-                console.log('add data', data)
                 if (data.result) {
                     // Баннерная реклама отобразилась
                 }
             })
             .catch((error) => {
                 // Ошибка
-                console.log('error', error);
             });
 
         return () => {

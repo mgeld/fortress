@@ -14,6 +14,7 @@ class Arena {
         this._status = arena.status;
         this._teamList = arena.teams;
         this._timer = (arena === null || arena === void 0 ? void 0 : arena.timeout) || null;
+        console.log('Arena _id', this._id);
     }
     static create(arena) {
         const instance = new Arena(arena);

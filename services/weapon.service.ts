@@ -1,15 +1,15 @@
+import { TYPES } from "../types";
+import { Gun } from "../entities/weapon/gun";
 import { inject, injectable } from "inversify";
+import { WeaponType } from "../entities/weapon/types";
 import { EntityIdGenerator } from "../domain/entityId";
 import { IWeaponMemoryRepository, IWeaponRepository } from "../entities/repository";
-import { TYPES } from "../types";
-import { WeaponType } from "../entities/weapon/types";
-import { Gun } from "../entities/weapon/gun";
 
 @injectable()
 export class WeaponService {
-    @inject(TYPES.WeaponMemoryRepository) private _memoryRepository!: IWeaponMemoryRepository
     @inject(TYPES.WeaponRepository) private _baseRepository!: IWeaponRepository
     @inject(TYPES.Base64EntityIdGenerator) private _entityId!: EntityIdGenerator
+    @inject(TYPES.WeaponMemoryRepository) private _memoryRepository!: IWeaponMemoryRepository
 
     createGun(): WeaponType {
         const _weapon = Gun.create({

@@ -11,8 +11,6 @@ export const getDestination = (
 
     index ++
 
-    // console.log('index--------', index)
-
     var radius = 6371e3; // (Mean) radius of earth
 
     var toRadians = function (v: number) { return v * Math.PI / 180; };

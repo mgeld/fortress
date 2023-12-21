@@ -30,7 +30,7 @@ const AboutSector = () => {
                 
                 <about_sector_item_1.AboutSectorItem icon={<_icons_1.IconLocation width={18} height={18}/>} name="Владелец:" text={`${sector.owner}`}/>
                 <about_sector_item_1.AboutSectorItem icon={<_icons_1.IconFort width={18} height={18}/>} name="Форт:" text={`${sector.defenders} стражей`}/>
-                <about_sector_item_1.AboutSectorItem icon={<_icons_1.IconTarget width={20} height={20}/>} name="Точка:" text={`${sector.latlng[0].toFixed(4)}, ${sector.latlng[0].toFixed(4)}`}/>
+                <about_sector_item_1.AboutSectorItem icon={<_icons_1.IconTarget width={20} height={20}/>} name="Точка:" text={`${sector.latlng[0].toFixed(4)}, ${sector.latlng[1].toFixed(4)}`}/>
             </div>
         </div>);
 };

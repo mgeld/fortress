@@ -78,7 +78,7 @@ export class StormtrooperCorps {
         this._level = this._level + 1
         return this._level
     }
-    
+
     public static validLevel(level: number, limit: number) {
         return level > 0 && level <= limit
     }
@@ -123,17 +123,17 @@ export class StormtrooperCorps {
     private static getLevelMaxInvaders(level: number): number {
         const levels: { [key: number]: number } = {
             1: 150,
-            2: 200,
-            3: 255,
-            4: 315,
-            5: 380,
-            6: 450,
-            7: 525,
-            8: 605,
-            9: 690,
-            10: 780,
-            11: 875,
-            12: 975
+            2: 210,
+            3: 285,
+            4: 375,
+            5: 480,
+            6: 600,
+            7: 735,
+            8: 885,
+            9: 1050,
+            10: 1230,
+            11: 1425,
+            12: 1625
         }
         return levels[level]
     }

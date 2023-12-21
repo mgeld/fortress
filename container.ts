@@ -9,6 +9,7 @@ import { PointerMemoryRepository } from './infra/database/memory/repositories/po
 
 import {
     IArealMemoryRepository,
+    IArenaMemoryRepository,
     IArenaRepository,
     IArenaSectorMemoryRepository,
     IArenaTeamMemberRepository,
@@ -79,6 +80,9 @@ import { EditZoneHandler } from './controllers/edit-zone'
 import { VkUserMemoryRepository } from './infra/database/memory/repositories/vk-user'
 import { VkUserService } from './services/vk-user.service'
 import { GetSatelliteFortHandler } from './controllers/get-satellite-fort'
+import { DelExtractionHandler } from './controllers/del-extraction'
+import { ArenaRepository } from './infra/database/mysql2/repositories/arena'
+
 // import { ArenaTeamMemoryRepository } from './infra/database/memory/repositories/arena-team'
 // import { ArenaTeamService } from './services/arena-team.service'
 
@@ -122,6 +126,7 @@ container.bind(TYPES.GetRatingHandler).to(GetRatingHandler)
 container.bind(TYPES.GetSatelliteHandler).to(GetSatelliteHandler)
 container.bind(TYPES.GetSatelliteFortHandler).to(GetSatelliteFortHandler)
 
+container.bind(TYPES.DelExtractionHandler).to(DelExtractionHandler)
 
 container.bind(TYPES.ArenaService).to(ArenaService)
 container.bind(TYPES.PointerService).to(PointerService)
@@ -140,11 +145,14 @@ container.bind(TYPES.Base64EntityIdGenerator).to(Base64EntityIdGenerator).inSing
 container.bind(TYPES.Database).to(MemoryData).inSingletonScope()
 container.bind(TYPES.Logs).to(Logs).inSingletonScope()
 
-container.bind<IArenaRepository>(TYPES.ArenaMemoryRepository).to(ArenaMemoryRepository)
+container.bind<IArenaRepository>(TYPES.ArenaRepository).to(ArenaRepository)
+
+container.bind<IArenaMemoryRepository>(TYPES.ArenaMemoryRepository).to(ArenaMemoryRepository)
 container.bind<IPointerMemoryRepository>(TYPES.PointerMemoryRepository).to(PointerMemoryRepository)
 container.bind<IZoneMemoryRepository>(TYPES.ZoneMemoryRepository).to(ZoneMemoryRepository)
 container.bind<IWeaponRepository>(TYPES.WeaponMemoryRepository).to(WeaponMemoryRepository)
 container.bind<IArenaTeamMemberRepository>(TYPES.MemberMemoryRepository).to(MemberMemoryRepository)
+
 // container.bind<IArenaTeamRepository>(TYPES.ArenaTeamMemoryRepository).to(ArenaTeamMemoryRepository)
 
 container.bind<ISectorMemoryRepository>(TYPES.SectorMemoryRepository).to(SectorMemoryRepository)

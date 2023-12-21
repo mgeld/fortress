@@ -1,12 +1,13 @@
+import { TYPES } from "../types";
 import { inject, injectable } from "inversify";
 import { IArenaSectorMemoryRepository } from "../entities/repository";
-import { TYPES } from "../types";
 import { ArenaSector, TArenaSectorProps } from "../entities/arena/sector";
 
 type TCreateSectorProps = Omit<TArenaSectorProps, 'areal'>
 
 @injectable()
 export class ArenaSectorService {
+
     @inject(TYPES.ArenaSectorMemoryRepository) private _memoryRepository!: IArenaSectorMemoryRepository
 
     create({
@@ -31,10 +32,6 @@ export class ArenaSectorService {
         return this._memoryRepository.getById(sectorId, arenaId)
     }
 
-    // getByIds(sectorIds: string[]): Promise<ArenaSector[]> {
-    //     return this._memoryRepository.getByIds(sectorIds)
-    // }
-
     async update(sector: ArenaSector) {
         await this._memoryRepository.update(sector)
     }
@@ -46,4 +43,5 @@ export class ArenaSectorService {
     removeByArenas(arenas: string[]) {
         this._memoryRepository.deleteByArenas(arenas)
     }
+
 }

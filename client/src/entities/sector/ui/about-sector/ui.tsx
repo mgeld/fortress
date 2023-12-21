@@ -50,7 +50,7 @@ export const AboutSector: FC = () => {
                 <AboutSectorItem
                     icon={<IconTarget width={20} height={20} />}
                     name="Точка:"
-                    text={`${sector.latlng[0].toFixed(4)}, ${sector.latlng[0].toFixed(4)}`}
+                    text={`${sector.latlng[0].toFixed(4)}, ${sector.latlng[1].toFixed(4)}`}
                 />
             </div>
         </div>

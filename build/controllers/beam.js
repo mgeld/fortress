@@ -31,7 +31,6 @@ let BeamHandler = class BeamHandler extends handlers_1.IRoute {
     handle(message, uSocket) {
         var _a, _b, _c;
         return __awaiter(this, void 0, void 0, function* () {
-            console.log('BeamHandler handle');
             if (!uSocket.user_id)
                 return;
             const __fort = (_a = message.payload) === null || _a === void 0 ? void 0 : _a.fort;
@@ -106,7 +105,6 @@ let BeamHandler = class BeamHandler extends handlers_1.IRoute {
                         }
                     }
                 }
-                console.log('beamResp.payload.type', beamResp.payload.type);
                 if (beamResp.payload.type) {
                     this._logs.takes.add(_sector.id);
                     this._zoneService.memoryUpdate(zone);
@@ -115,7 +113,6 @@ let BeamHandler = class BeamHandler extends handlers_1.IRoute {
             }
             catch (e) {
             }
-            console.log('beamResp', beamResp);
             uSocket.send(JSON.stringify(beamResp));
         });
     }

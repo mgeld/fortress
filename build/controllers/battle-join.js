@@ -27,8 +27,8 @@ const arena_team_member_1 = require("../entities/arena/arena-team-member");
 const member_place_1 = require("../entities/arena/member-place");
 const types_1 = require("../types");
 const handlers_1 = require("./handlers");
-const pointer_service_1 = require("../services/pointer.service");
 const battle_service_1 = require("../services/battle.service");
+const pointer_service_1 = require("../services/pointer.service");
 let BattleJoinHandler = class BattleJoinHandler extends handlers_1.IRoute {
     handle(message, uSocket) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -52,7 +52,6 @@ let BattleJoinHandler = class BattleJoinHandler extends handlers_1.IRoute {
             const member = yield this._memberService.insert(_member);
             const roomId = this._rooms.arenas.getRoom(arena.id);
             this._rooms.arenas.addClientToRoom(uSocket.user_id, roomId, uSocket);
-            const roomValues = Object.values(this._rooms.arenas.getClients(roomId));
             uSocket.send(JSON.stringify({
                 event: 'battle-join',
                 payload: {
@@ -98,7 +97,7 @@ let BattleJoinHandler = class BattleJoinHandler extends handlers_1.IRoute {
                         })
                     }
                 });
-                arena.timeout = setTimeout(() => this._battleService.overGame(arena.id), 120000);
+                arena.timeout = setTimeout(() => this._battleService.overGame(arena.id), 500000);
             }
             yield this._arenaService.update(arena);
         });

@@ -178,7 +178,6 @@ export class ZoneRepository implements IZoneRepository {
 
     async getTrophies(): Promise<IRatingZone[]> {
 
-        console.log('***ZoneRepository getTrophies')
         const [result] = await this._connection.query<Required<IRatingZone>[] & RowDataPacket[]>(
             `
                 SELECT

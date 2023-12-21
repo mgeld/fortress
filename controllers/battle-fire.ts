@@ -1,17 +1,16 @@
+
+import { TYPES } from "../types"
+import { IRoute } from "./handlers"
+import { inject, injectable } from "inversify"
+import { IWebSocket } from "../api/socket/server"
+import { Rooms } from "../api/socket/socket/rooms"
+import { ArenaService } from "../services/arena.service"
+import { WeaponService } from "../services/weapon.service"
+import { MemberService } from "../services/member.service"
+import { BattleService } from "../services/battle.service"
+import { PointerService } from "../services/pointer.service"
 import { TFirePayload } from "../common-types/socket/server-to-client"
 import { TFireAPI, TEventBattleFire } from "../common-types/socket/client-to-server"
-import { IWebSocket } from "../api/socket/server";
-import { IRoute } from "./handlers"
-import { inject, injectable } from "inversify";
-import { TYPES } from "../types";
-import { Rooms } from "../api/socket/socket/rooms";
-import { ArenaService } from "../services/arena.service";
-import { WeaponService } from "../services/weapon.service";
-import { MemberService } from "../services/member.service";
-import { Member } from "../entities/arena/arena-team-member";
-import { PointerService } from "../services/pointer.service";
-import { ZoneService } from "../services/zone.service";
-import { BattleService } from "../services/battle.service";
 
 @injectable()
 class BattleFireHandler extends IRoute {
@@ -72,20 +71,6 @@ class BattleFireHandler extends IRoute {
             // Противник
             const hitPointer = await this._pointerService.memoryGetById(__hitPointer.userId)
 
-            // if (
-            //     !(fire.to_pos[0] >= hitPointer.pos[0] - 0.0004 || fire.to_pos[0] <= hitPointer.pos[0] + 0.0004 &&
-            //         fire.to_pos[1] <= hitPointer.pos[1] - 0.0008 || fire.to_pos[1] >= hitPointer.pos[1] + 0.0008)
-            // ) {
-            //     return
-            // }
-
-            // if (
-            //     !(fire.pos[0] >= _pointer.pos[0] - 0.0004 || fire.pos[0] <= _pointer.pos[0] + 0.0004 &&
-            //         fire.pos[1] <= _pointer.pos[1] - 0.0008 || fire.pos[1] >= _pointer.pos[1] + 0.0008)
-            // ) {
-            //     return
-            // }
-
             const hitMember = await this._memberService.getById(__hitPointer.userId)
 
             // Разница между точкой попадания и позицией игрока на сервере
@@ -95,10 +80,6 @@ class BattleFireHandler extends IRoute {
             // Разница между точкой выстрела и позицией игрока на сервере
             const pos_lat_diff = __pos[0] > _member.pos[0] ? __pos[0] - _member.pos[0] : _member.pos[0] - __pos[0]
             const pos_lng_diff = __pos[1] > _member.pos[1] ? __pos[1] - _member.pos[1] : _member.pos[1] - __pos[1]
-
-
-            // const lat_diff = hit_lat_diff > pos_lat_diff ? hit_lat_diff - pos_lat_diff : pos_lat_diff - hit_lat_diff
-            // const lng_diff = hit_lng_diff > pos_lng_diff ? hit_lng_diff - pos_lng_diff : pos_lng_diff - hit_lng_diff
 
             if (hit_lat_diff > 0.0004 || pos_lat_diff > 0.0004 || hit_lng_diff > 0.0008 || pos_lng_diff > 0.0008) return
 
@@ -121,7 +102,6 @@ class BattleFireHandler extends IRoute {
 
                 // Сохраняем в свою стату убитого противника
                 _member.addKilledPointer()
-
 
                 if (killPointerTeam.alive_members === 0) {
 

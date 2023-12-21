@@ -8,9 +8,13 @@ import { createEvent, createStore } from "effector"
 const setMap = createEvent<Map>()
 const setLatLngMap = createEvent<TLatLng>()
 const setMapCenter = createEvent<TLatLng>()
+const setMapGrid = createEvent()
 
 export const $mapStore = createStore<null | Map>(null)
     .on(setMap, (_, map) => map)
+
+export const $mapGrid = createStore<boolean>(false)
+    .on(setMapGrid, (grid) => !grid)
 
 export const $mapCenterDefaultStore = createStore<TLatLng>([55.74953, 37.61581])
     .on(setMapCenter, (_, latlng) => latlng)
@@ -23,6 +27,7 @@ export const $mapMode = createStore<TMapModes | null>(null)
 
 export const events = {
     setMap,
+    setMapGrid,
     setLatLngMap,
     setMapCenter,
 }
@@ -46,11 +51,14 @@ const useMapMode = () => {
         mode: useStore($mapMode)
     }
 }
+const useMapGrid = () => useStore($mapGrid)
+
 const useMapLayout = () => useStore($mapStore)
 const useMapCenter = () => useStore($mapCenterDefaultStore)
 
 export const selectors = {
     useMapMode,
+    useMapGrid,
     useMapCenter,
     useMapLayout,
     useMapClickLatLng,

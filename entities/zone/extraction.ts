@@ -69,10 +69,10 @@ export class Extraction {
         const levels: { [key: number]: number } = {
             1: 10,
             2: 15,
-            3: 20,
-            4: 25,
-            5: 30,
-            6: 35
+            3: 25,
+            4: 40,
+            5: 60,
+            6: 85
         }
         return levels[level]
     }
@@ -91,6 +91,16 @@ export class Extraction {
         //     return Units.getUnitQuantity(id)
         // }
         return null
+    }
+
+    delExtr(id: TExtrTypes, index: number): boolean {
+        const items = this._items.slice()
+        if (items[index] === id) {
+            items.splice(index, 1)
+            this._items = items
+            return true
+        }
+        return false
     }
 
     // addExtrToList(probabilityNumber: TExtrTypes) {

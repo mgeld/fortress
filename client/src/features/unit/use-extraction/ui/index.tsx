@@ -1,13 +1,15 @@
 import { FC } from "react";
 
 import { TExtrTypes } from "@ctypes/model";
-import { onUseExtraction } from "../model";
+import { deleteExtraction, onUseExtraction } from "../model";
 
 import styles from './styles.module.scss'
 
 import { popoutModel } from "shared/ui/popout-root";
 import { modules } from "entities/unit/lib/modules";
 import { holdModel } from "entities/hold";
+import { IconClose } from "shared/assets/icons/_icons";
+import { alertModel } from "shared/ui/alert";
 
 export const ExtractionPopout: FC = () => {
 
@@ -19,12 +21,35 @@ export const ExtractionPopout: FC = () => {
 
     const closePopout = () => popoutModel.events.setPopout(null)
 
+    const confirm = () => {
+        alertModel.events.setAlert({
+            alert: 'Удаление предмета',
+            message: `Вы уверены, что хотите удалить предмет «${extraction.name}»?`,
+            action: {
+                close: true,
+                text: 'Удалить',
+                _click: () => deleteExtraction()
+            }
+        })
+
+        popoutModel.events.setPopout('alert')
+
+    }
+
     return (
         <div className={`${styles.extraction} ${extr}`}>
 
             <div className={styles.header}>
                 <div className={styles.__border}>
+                    <div className={styles.name}>
                     {extraction.name}
+                    </div>
+                    <div
+                        onClick={closePopout}
+                        className={styles.close}
+                    >
+                        <IconClose width={16} height={16} fill="#ffffff" />
+                    </div>
                 </div>
             </div>
 
@@ -53,11 +78,17 @@ export const ExtractionPopout: FC = () => {
 
                 <div className={styles.actions}>
                     <div className={styles.inside}>
-                        <div
+                        {/* <div
                             onClick={closePopout}
                             className={`${styles.button} ${styles.__white}`}
                         >
                             Отмена
+                        </div> */}
+                        <div
+                            onClick={confirm}
+                            className={`${styles.button} ${styles.__white}`}
+                        >
+                            Удалить
                         </div>
                         <div
                             onClick={() => onUseExtraction()}

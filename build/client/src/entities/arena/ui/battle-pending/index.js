@@ -48,12 +48,10 @@ const BattlePending = () => {
             banner_location: vk_bridge_1.BannerAdLocation.BOTTOM
         })
             .then((data) => {
-            console.log('add data', data);
             if (data.result) {
             }
         })
             .catch((error) => {
-            console.log('error', error);
         });
         return () => {
             vk_bridge_1.default.send('VKWebAppHideBannerAd');

@@ -81,8 +81,6 @@ export class SectorRepository implements ISectorRepository {
             ]
         })
 
-        console.log('sqlSectors', sqlSectors)
-
         try {
 
             const inserted = await this._connection.query(`
@@ -113,8 +111,6 @@ export class SectorRepository implements ISectorRepository {
 
 
     async getBoundsSectors(bounds: [TLatLng, TLatLng]): Promise<TSectorBounds[]> {
-
-        console.log('/// Base getBoundsSectors')
         const where = `lat > ? and lat < ? and lng > ? and lng < ?`;
         try {
             const [result] = await this._connection.query<TSectorBounds[] & RowDataPacket[]>(
@@ -138,8 +134,6 @@ export class SectorRepository implements ISectorRepository {
             return result
 
         } catch (e) {
-
-            console.log('eeeeeee', e)
             throw new Error('Не удалось вывести территории из базы')
         }
 
@@ -148,8 +142,6 @@ export class SectorRepository implements ISectorRepository {
 
 
     async getByAreals(areals: number[]): Promise<UnmarshalledSector[]> {
-
-        console.log('///>>>>>> Base getByAreal')
 
         try {
             const [result] = await this._connection.query<UnmarshalledSector[] & RowDataPacket[]>(

@@ -32,7 +32,7 @@ const ShipPopout = () => {
                 action: {
                     close: false,
                     text: 'Закрыть',
-                    _click: () => popout_root_1.popoutModel.events.setPopout("storm-corps")
+                    _click: () => popout_root_1.popoutModel.events.setPopout("ship")
                 }
             });
         }

@@ -23,10 +23,10 @@ export class HoldLevel {
     private static _holdItems: Record<THoldLevel, number> = {
         1: 10,
         2: 15,
-        3: 20,
-        4: 25,
-        5: 30,
-        6: 35
+        3: 25,
+        4: 40,
+        5: 60,
+        6: 85
     }
     
     private static _priceLevelUp: Record<THoldLevel, number> = {

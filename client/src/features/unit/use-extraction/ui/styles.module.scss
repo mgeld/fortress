@@ -14,15 +14,39 @@
         border-top: 2px solid #ad5bca;
         border-bottom: 2px solid #ad5bca;
 
+        // .__border {
+        //     width: 100%;
+        //     padding: 6px;
+        //     box-sizing: border-box;
+        //     border: 2px solid #ad5bca;
+        //     border-radius: 2px;
+
+        //     color: white;
+        //     font-size: 18px;
+        // }
+
         .__border {
             width: 100%;
-            padding: 6px;
+            padding: 6px 0;
             box-sizing: border-box;
             border: 2px solid #ad5bca;
             border-radius: 2px;
 
             color: white;
             font-size: 18px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .name {
+                padding-left: 8px;
+            }
+
+            .close {
+                cursor: pointer;
+                padding: 0 8px;
+            }
         }
     }
 

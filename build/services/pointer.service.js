@@ -34,11 +34,9 @@ let PointerService = class PointerService {
     getById(userId) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                console.log('PointerService TRY');
                 return yield this.memoryGetById(userId);
             }
             catch (e) {
-                console.log('PointerService CATCH');
                 return this.baseGetById(userId);
             }
         });
@@ -56,7 +54,6 @@ let PointerService = class PointerService {
     }
     baseGetById(userId) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log('baseGetById userId', userId);
             return yield this._baseRepository.getById(userId);
         });
     }
@@ -116,13 +113,13 @@ let PointerService = class PointerService {
     }
 };
 __decorate([
-    (0, inversify_1.inject)(types_1.TYPES.PointerMemoryRepository),
-    __metadata("design:type", Object)
-], PointerService.prototype, "_memoryRepository", void 0);
-__decorate([
     (0, inversify_1.inject)(types_1.TYPES.PointerRepository),
     __metadata("design:type", Object)
 ], PointerService.prototype, "_baseRepository", void 0);
+__decorate([
+    (0, inversify_1.inject)(types_1.TYPES.PointerMemoryRepository),
+    __metadata("design:type", Object)
+], PointerService.prototype, "_memoryRepository", void 0);
 PointerService = __decorate([
     (0, inversify_1.injectable)()
 ], PointerService);

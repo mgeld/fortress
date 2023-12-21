@@ -9,8 +9,8 @@ import { IPointerMemoryRepository, IPointerRepository } from "../entities/reposi
 
 @injectable()
 export class PointerService {
-    @inject(TYPES.PointerMemoryRepository) private _memoryRepository!: IPointerMemoryRepository
     @inject(TYPES.PointerRepository) private _baseRepository!: IPointerRepository
+    @inject(TYPES.PointerMemoryRepository) private _memoryRepository!: IPointerMemoryRepository
 
     memoryInsert(pointer: Pointer): Promise<Pointer> {
         return this._memoryRepository.insert(pointer)
@@ -22,10 +22,8 @@ export class PointerService {
 
     async getById(userId: number): Promise<Pointer> {
         try {
-            console.log('PointerService TRY')
             return await this.memoryGetById(userId)
         } catch (e) {
-            console.log('PointerService CATCH')
             return this.baseGetById(userId)
         }
     }
@@ -40,7 +38,6 @@ export class PointerService {
     }
 
     async baseGetById(userId: number): Promise<Pointer> {
-        console.log('baseGetById userId', userId)
         return await this._baseRepository.getById(userId)
     }
 

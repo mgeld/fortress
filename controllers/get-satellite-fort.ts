@@ -22,8 +22,6 @@ class GetSatelliteFortHandler extends IRoute {
         uSocket: IWebSocket,
     ) {
 
-        console.log('GetSatelliteFortHandler')
-
         const position = message.payload.position
 
         const _sectors = await this._sectorService.getBoundsFort(position)

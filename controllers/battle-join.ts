@@ -5,15 +5,15 @@ import { IWebSocket } from "../api/socket/server";
 import { Rooms } from "../api/socket/socket/rooms";
 import { ArenaService } from "../services/arena.service";
 import { MemberService } from "../services/member.service";
-import { TBattleJoinAPI, TEventBattleJoin } from "../common-types/socket/client-to-server";
 import { Member } from "../entities/arena/arena-team-member";
 import { MemberPlace } from "../entities/arena/member-place";
+import { TBattleJoinAPI, TEventBattleJoin } from "../common-types/socket/client-to-server";
 
 import { TYPES } from "../types";
 import { IRoute } from "./handlers";
-import { PointerService } from "../services/pointer.service";
-import { BattleService } from "../services/battle.service";
 import { TZoneColor } from "../common-types/model";
+import { BattleService } from "../services/battle.service";
+import { PointerService } from "../services/pointer.service";
 
 @injectable()
 class BattleJoinHandler extends IRoute {
@@ -57,7 +57,7 @@ class BattleJoinHandler extends IRoute {
         const roomId = this._rooms.arenas.getRoom(arena.id)
         this._rooms.arenas.addClientToRoom(uSocket.user_id, roomId, uSocket)
 
-        const roomValues = Object.values(this._rooms.arenas.getClients(roomId))
+        // const roomValues = Object.values(this._rooms.arenas.getClients(roomId))
 
         uSocket.send(JSON.stringify({
             event: 'battle-join',
@@ -77,6 +77,7 @@ class BattleJoinHandler extends IRoute {
                 userId: _pointer.zoneId
             }
         }, [_pointer.zoneId])
+        
         _pointer.areal = -1
         await this._pointerService.memoryUpdate(_pointer)
 
@@ -122,7 +123,7 @@ class BattleJoinHandler extends IRoute {
                 }
             })
 
-            arena.timeout = setTimeout(() => this._battleService.overGame(arena.id), 120000)
+            arena.timeout = setTimeout(() => this._battleService.overGame(arena.id), 500000)
 
         }
 

@@ -6,6 +6,7 @@ import { debounce } from "shared/lib/debounce";
 import { cellToLatLng, latLngToCell } from "h3-js";
 import { FC, useEffect, useMemo, useRef, useState } from "react";
 import { AttackFort } from "entities/fort/ui/attack-fort/ui";
+import {  GridMap } from "../grid";
 
 export const FortMap: FC = () => {
     const pos = shipModel.selectors.useShipPos()
@@ -19,7 +20,7 @@ export const FortMap: FC = () => {
     useEffect(() => throttled.current(pos), [pos])
     
     const h3Index = latLngToCell(value[0], value[1], 9)
-    const hexCenterCoordinates = cellToLatLng(h3Index)
+    const hexCenterCoordinates: TLatLng = useMemo(() => cellToLatLng(h3Index), [h3Index])
 
     return (
         <>
@@ -29,6 +30,8 @@ export const FortMap: FC = () => {
             <Pane name="q2" style={{ zIndex: 3000 }}>
                 {useMemo(() => <AttackFort pos={hexCenterCoordinates} />, [hexCenterCoordinates])}
             </Pane>
+
+            {useMemo(() => <GridMap pos={hexCenterCoordinates} />, [hexCenterCoordinates])}
         </>
     )
 }

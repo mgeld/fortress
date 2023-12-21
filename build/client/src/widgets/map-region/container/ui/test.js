@@ -21,20 +21,16 @@ function Test() {
     const [sectors, setSectors] = (0, react_1.useState)([]);
     const [h3Indexes, setH3Indexes] = (0, react_1.useState)([]);
     const __ = (0, react_leaflet_1.useMapEvent)('move', (e) => {
-        console.log('_________________________');
     });
     const map = (0, react_leaflet_1.useMapEvent)('click', (e) => {
         const __start = +new Date();
         const h3Index = (0, h3_js_1.latLngToCell)(e.latlng.lat, e.latlng.lng, 9);
         const hexCenterCoordinates = (0, h3_js_1.cellToLatLng)(h3Index);
-        console.log('h3Index', h3Index);
         const hexBoundary = (0, h3_js_1.cellToBoundary)(h3Index);
-        console.log('hexBoundary', hexBoundary);
         setSectors(prev => ([...prev, hexBoundary]));
         if (h3Indexes.findIndex((item) => item === h3Index) !== -1)
             return;
         setH3Indexes(prev => ([...prev, h3Index]));
-        console.log('Test TIME: ', +new Date() - __start);
     });
     return <>
         <react_leaflet_1.Polygon weight={0.9} fillColor="#ff1c1c" pathOptions={{

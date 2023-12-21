@@ -1,18 +1,19 @@
+import { TYPES } from "../types";
+import { Zone } from "../entities/zone/zone";
 import { inject, injectable } from "inversify";
+import { randomNumber } from "../libs/random-number";
+import { THoldLevel } from "../entities/zone/extraction";
+import { ZoneMapper } from "../infra/database/mappers/zone";
 import { IRatingZone, TExtrTypes, TZoneColor } from "../common-types/model";
 import { IZoneMemoryRepository, IZoneRepository } from "../entities/repository";
-import { TYPES } from "../types";
-import { randomNumber } from "../libs/random-number";
-import { Zone } from "../entities/zone/zone";
-import { ZoneMapper } from "../infra/database/mappers/zone";
-import { EntityIdGenerator } from "../domain/entityId";
-import { THoldLevel } from "../entities/zone/extraction";
+
+// import { EntityIdGenerator } from "../domain/entityId";
 
 @injectable()
 export class ZoneService {
-    @inject(TYPES.ZoneMemoryRepository) private _memoryRepository!: IZoneMemoryRepository
     @inject(TYPES.ZoneRepository) private _baseRepository!: IZoneRepository
-    @inject(TYPES.Base64EntityIdGenerator) private _entityId!: EntityIdGenerator
+    // @inject(TYPES.Base64EntityIdGenerator) private _entityId!: EntityIdGenerator
+    @inject(TYPES.ZoneMemoryRepository) private _memoryRepository!: IZoneMemoryRepository
 
     memoryInsert(zone: Zone): Promise<Zone> {
         return this._memoryRepository.insert(zone)

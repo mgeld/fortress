@@ -12,6 +12,7 @@
 .fort-fill {
     animation: 0.4s linear translate-fort;
     transform-box: fill-box;
+    /* color: #994cff; */
 }
 
 @keyframes scale-fort {

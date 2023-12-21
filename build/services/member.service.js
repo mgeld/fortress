@@ -19,8 +19,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MemberService = void 0;
-const inversify_1 = require("inversify");
 const types_1 = require("../types");
+const inversify_1 = require("inversify");
 let MemberService = class MemberService {
     insert(member) {
         return this._repository.insert(member);

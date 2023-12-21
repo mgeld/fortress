@@ -1,16 +1,14 @@
 import { injectable, inject } from 'inversify'
 import { Arena, TRegistr, UnmarshalledArena } from '../../../../entities/arena/arena'
-import { IArenaRepository } from '../../../../entities/repository'
+import { IArenaMemoryRepository } from '../../../../entities/repository'
 import { TYPES } from '../../../../types'
 import { ArenaMapper } from '../../mappers/arena'
 import { MemoryData } from '../memory-data'
 
 @injectable()
-export class ArenaMemoryRepository implements IArenaRepository {
+export class ArenaMemoryRepository implements IArenaMemoryRepository {
 
-    constructor(
-        @inject(TYPES.Database) private _database: MemoryData
-    ) { }
+    @inject(TYPES.Database) private _database!: MemoryData
 
     async insert(arena: Arena): Promise<Arena> {
         const dtoCart = arena.unmarshal()
@@ -31,7 +29,6 @@ export class ArenaMemoryRepository implements IArenaRepository {
     }
 
     async getForRegistrArena(registr: TRegistr): Promise<Arena> {
-
         const arenas = await this._database.arena.findAll<UnmarshalledArena>()
         const arena = arenas.find(a => a.registr === registr)
 
@@ -39,7 +36,15 @@ export class ArenaMemoryRepository implements IArenaRepository {
             throw new Error()
         }
         return ArenaMapper.toDomain(arena)
+    }
 
+    async getOverUnmarshalledArena(): Promise<UnmarshalledArena[]> {
+        const arenas = await this._database.arena.findAll<UnmarshalledArena>()
+        const _arenas = arenas.filter(a => a.status === 'over')
+        if (!_arenas) {
+            throw new Error()
+        }
+        return arenas
     }
 
     async update(arena: Arena): Promise<Arena> {
@@ -57,5 +62,18 @@ export class ArenaMemoryRepository implements IArenaRepository {
 
     async delete(arenaId: string): Promise<Boolean> {
         return await this._database.arena.delete(arenaId)
+    }
+
+    async deleteByArenas(arenas: string[]): Promise<Boolean> {
+        try {
+            arenas.forEach(async arena => {
+                await this.delete(arena)
+            })
+            console.log('deleteByArenas true')
+            return true
+        } catch (e) {
+            console.log('deleteByArenas false')
+            return false
+        }
     }
 }

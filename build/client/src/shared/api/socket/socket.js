@@ -40,7 +40,6 @@ class Socket {
             this.setStatus('close');
         };
         this.socket.onerror = () => {
-            console.log('Socket Error');
         };
     }
     sendData(params) {

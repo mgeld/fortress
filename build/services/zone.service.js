@@ -19,8 +19,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ZoneService = void 0;
-const inversify_1 = require("inversify");
 const types_1 = require("../types");
+const inversify_1 = require("inversify");
 const random_number_1 = require("../libs/random-number");
 const zone_1 = require("../infra/database/mappers/zone");
 let ZoneService = class ZoneService {
@@ -137,17 +137,13 @@ let ZoneService = class ZoneService {
     }
 };
 __decorate([
-    (0, inversify_1.inject)(types_1.TYPES.ZoneMemoryRepository),
-    __metadata("design:type", Object)
-], ZoneService.prototype, "_memoryRepository", void 0);
-__decorate([
     (0, inversify_1.inject)(types_1.TYPES.ZoneRepository),
     __metadata("design:type", Object)
 ], ZoneService.prototype, "_baseRepository", void 0);
 __decorate([
-    (0, inversify_1.inject)(types_1.TYPES.Base64EntityIdGenerator),
+    (0, inversify_1.inject)(types_1.TYPES.ZoneMemoryRepository),
     __metadata("design:type", Object)
-], ZoneService.prototype, "_entityId", void 0);
+], ZoneService.prototype, "_memoryRepository", void 0);
 ZoneService = __decorate([
     (0, inversify_1.injectable)()
 ], ZoneService);

@@ -1,9 +1,9 @@
 import { IRatingZone, TLatLng, TZone } from "../common-types/model"
 import { TSectorBounds } from "../infra/database/mysql2/repositories/sector"
 import { Areal } from "./areal/areal"
-import { Arena, TRegistr } from "./arena/arena"
+import { Arena, TRegistr, UnmarshalledArena } from "./arena/arena"
 import { Team } from "./arena/arena-team"
-import { Member } from "./arena/arena-team-member"
+import { Member, UnmarshalledMember } from "./arena/arena-team-member"
 import { ArenaSector, UnmarshalledArenaSector } from "./arena/sector"
 import { Bomb } from "./bomb/bomb"
 import { Citadel } from "./citadel/citadel"
@@ -43,29 +43,32 @@ export interface IZoneRepository {
 }
 
 
-export interface IArenaRepository {
+export interface IArenaMemoryRepository {
     insert(arena: Arena): Promise<Arena>
     count(): Promise<number>
     getById(arenaId: string): Promise<Arena>
     getForRegistrArena(registr: TRegistr): Promise<Arena>
+    getOverUnmarshalledArena(): Promise<UnmarshalledArena[]>
     update(arena: Arena): Promise<Arena>
     delete(arenaId: string): Promise<Boolean>
+    deleteArenas(arenas: string[]): Promise<Boolean>
 }
 
-export interface IArenaTeamRepository {
-    insert(team: Team): Promise<Team>
-    // count(): Promise<number>
-    getById(teamId: string): Promise<Team>
-    getByIds(teamIds: string[]): Promise<Team[]>
-    update(team: Team): Promise<Team>
-    delete(teamId: string): Promise<Boolean>
-    deleteByArenas(arenas: string[]): Promise<Boolean>
-}
+// export interface IArenaTeamRepository {
+//     insert(team: Team): Promise<Team>
+//     // count(): Promise<number>
+//     getById(teamId: string): Promise<Team>
+//     getByIds(teamIds: string[]): Promise<Team[]>
+//     update(team: Team): Promise<Team>
+//     delete(teamId: string): Promise<Boolean>
+//     deleteByArenas(arenas: string[]): Promise<Boolean>
+// }
 
 export interface IArenaTeamMemberRepository {
     insert(member: Member): Promise<Member>
     getById(userId: number): Promise<Member>
     getByIds(userIds: number[]): Promise<Member[]>
+    // getDTOByIds(userIds: number[]): Promise<UnmarshalledMember[]>
     update(member: Member): Promise<Member>
     delete(userId: number): Promise<Boolean>
 }
@@ -129,6 +132,12 @@ export interface ISectorRepository {
     getByAreals(areals: number[]): Promise<UnmarshalledSector[]>
     update(sector: Sector): Promise<Sector>
     delete(sectorId: string): Promise<Boolean>
+}
+
+export interface IArenaRepository {
+    insertArena(arena: Arena): void
+    // insertsTeam(teams: Team[]): void
+    insertsMember(members: Member[]): void
 }
 
 export interface IArealMemoryRepository {

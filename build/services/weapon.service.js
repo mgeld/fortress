@@ -19,9 +19,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.WeaponService = void 0;
-const inversify_1 = require("inversify");
 const types_1 = require("../types");
 const gun_1 = require("../entities/weapon/gun");
+const inversify_1 = require("inversify");
 let WeaponService = class WeaponService {
     createGun() {
         const _weapon = gun_1.Gun.create({
@@ -65,10 +65,6 @@ let WeaponService = class WeaponService {
     }
 };
 __decorate([
-    (0, inversify_1.inject)(types_1.TYPES.WeaponMemoryRepository),
-    __metadata("design:type", Object)
-], WeaponService.prototype, "_memoryRepository", void 0);
-__decorate([
     (0, inversify_1.inject)(types_1.TYPES.WeaponRepository),
     __metadata("design:type", Object)
 ], WeaponService.prototype, "_baseRepository", void 0);
@@ -76,6 +72,10 @@ __decorate([
     (0, inversify_1.inject)(types_1.TYPES.Base64EntityIdGenerator),
     __metadata("design:type", Object)
 ], WeaponService.prototype, "_entityId", void 0);
+__decorate([
+    (0, inversify_1.inject)(types_1.TYPES.WeaponMemoryRepository),
+    __metadata("design:type", Object)
+], WeaponService.prototype, "_memoryRepository", void 0);
 WeaponService = __decorate([
     (0, inversify_1.injectable)()
 ], WeaponService);

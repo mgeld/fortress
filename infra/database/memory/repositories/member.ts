@@ -1,15 +1,13 @@
-import { injectable, inject } from 'inversify'
-import { Member, UnmarshalledMember } from '../../../../entities/arena/arena-team-member'
-import { IArenaTeamMemberRepository } from '../../../../entities/repository'
 import { TYPES } from '../../../../types'
-import { MemberMapper } from '../../mappers/member'
 import { MemoryData } from '../memory-data'
+import { injectable, inject } from 'inversify'
+import { MemberMapper } from '../../mappers/member'
+import { IArenaTeamMemberRepository } from '../../../../entities/repository'
+import { Member, UnmarshalledMember } from '../../../../entities/arena/arena-team-member'
 
 @injectable()
 export class MemberMemoryRepository implements IArenaTeamMemberRepository {
-    constructor(
-        @inject(TYPES.Database) private _database: MemoryData
-    ) { }
+    @inject(TYPES.Database) private _database!: MemoryData
 
     async insert(member: Member): Promise<Member> {
         const dtoMember = member.unmarshal()
@@ -36,6 +34,15 @@ export class MemberMemoryRepository implements IArenaTeamMemberRepository {
             return []
         }
     }
+
+    // async getDTOByIds(userIds: number[]): Promise<UnmarshalledMember[]> {
+    //     try {
+    //         const members = await this._database.arenaTeamMember.getByIds<UnmarshalledMember>(userIds)
+    //         return members.map(member => member)
+    //     } catch (e) {
+    //         return []
+    //     }
+    // }
 
     async update(member: Member): Promise<Member> {
         const dtoMember = member.unmarshal()

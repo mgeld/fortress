@@ -130,9 +130,7 @@ let PointerRepository = class PointerRepository {
     }
     update(pointer) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log('Pointer Update Mysql2');
             const dtoPointer = pointer.unmarshal();
-            console.log('Pointer Update dtoPointer.color', dtoPointer.color);
             const updated = yield this._connection.execute(`
             UPDATE
                 pointers

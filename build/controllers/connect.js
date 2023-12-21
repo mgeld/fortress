@@ -33,12 +33,8 @@ const verify_launch_params_1 = require("../libs/verify-launch-params");
 const vk_user_1 = require("../infra/database/mysql2/repositories/vk-user");
 const rooms_1 = require("../api/socket/socket/rooms");
 let ConnectHandler = class ConnectHandler {
-    constructor() {
-        console.log('ConnectHandler');
-    }
     handle(message, uSocket) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log('------ConnectHandler handle -----------');
             const VK_URL = message.payload.url;
             let pointer;
             let weapon;
@@ -86,7 +82,6 @@ let ConnectHandler = class ConnectHandler {
                 }
             }
             catch (e) {
-                console.log('Connect Cathc');
                 weapon = this._weaponService.createGun();
                 this._weaponService.memoryInsert(weapon);
                 this._weaponService.baseInsert(weapon);
@@ -191,7 +186,6 @@ __decorate([
     __metadata("design:type", vk_user_1.VkUserRepository)
 ], ConnectHandler.prototype, "_vkUserRepository", void 0);
 ConnectHandler = __decorate([
-    (0, inversify_1.injectable)(),
-    __metadata("design:paramtypes", [])
+    (0, inversify_1.injectable)()
 ], ConnectHandler);
 exports.ConnectHandler = ConnectHandler;

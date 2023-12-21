@@ -67,7 +67,7 @@ const _platform = getPlatformNative()
 const App = () => {
 
   console.log('App')
-  console.log('Version 1.2')
+  console.log('Version 1.2.1')
 
   const popout = popoutModel.selectors.usePopout().data
   const page = pageModel.selectors.usePage().data

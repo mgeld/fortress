@@ -28,11 +28,9 @@ const types_1 = require("../types");
 let GetUserHandler = class GetUserHandler {
     constructor(_pointerService) {
         this._pointerService = _pointerService;
-        console.log('GetUserHandler');
     }
     handle(message, uSocket) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log('------GetUserHandler handle -----------');
             if (!uSocket.user_id)
                 return;
             const USER_ID = uSocket.user_id;

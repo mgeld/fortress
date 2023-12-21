@@ -15,7 +15,6 @@ class Takes {
     add(value) {
         this.data[value] = value;
         console.log('Logs takes add', value);
-        console.log('Logs takes sectors', this.data);
         return value;
     }
     clear() {

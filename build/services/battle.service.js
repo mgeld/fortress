@@ -28,9 +28,8 @@ const arena_service_1 = require("./arena.service");
 let BattleService = class BattleService {
     overGame(arenaId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const arena = yield this._arenaService.getById(arenaId);
             console.log('BattleService overGame');
-            console.log('arena.timeout', arena.timeout);
+            const arena = yield this._arenaService.getById(arenaId);
             arena.timeout && arena.destroyTimer();
             const _extraction = {};
             const members = [];
@@ -56,11 +55,11 @@ let BattleService = class BattleService {
                             trophies: trophy
                         };
                         return {
-                            userId: member.userId,
                             trophies: trophy,
-                            coins: trophy * 5
+                            coins: trophy * 5,
+                            userId: member.userId,
                         };
-                    }),
+                    })
                 };
             });
             const zones = yield this._zoneService.memoryGetByIds([
@@ -72,6 +71,8 @@ let BattleService = class BattleService {
                 zone.addCoins(_extraction[zone.id].coins);
             });
             yield this._zoneService.memoryUpdates(zones);
+            this._arenaService.mysqlInsertArena(arena);
+            this._arenaService.mysqlInsertsMembers([...members[0], ...members[1]]);
             setTimeout(() => __awaiter(this, void 0, void 0, function* () {
                 this._rooms.arenas.broadcast(arena.id, {
                     event: 'battle-over',
@@ -88,10 +89,6 @@ __decorate([
     __metadata("design:type", rooms_1.Rooms)
 ], BattleService.prototype, "_rooms", void 0);
 __decorate([
-    (0, inversify_1.inject)(types_1.TYPES.MemberService),
-    __metadata("design:type", member_service_1.MemberService)
-], BattleService.prototype, "_memberService", void 0);
-__decorate([
     (0, inversify_1.inject)(types_1.TYPES.ZoneService),
     __metadata("design:type", zone_service_1.ZoneService)
 ], BattleService.prototype, "_zoneService", void 0);
@@ -99,6 +96,10 @@ __decorate([
     (0, inversify_1.inject)(types_1.TYPES.ArenaService),
     __metadata("design:type", arena_service_1.ArenaService)
 ], BattleService.prototype, "_arenaService", void 0);
+__decorate([
+    (0, inversify_1.inject)(types_1.TYPES.MemberService),
+    __metadata("design:type", member_service_1.MemberService)
+], BattleService.prototype, "_memberService", void 0);
 BattleService = __decorate([
     (0, inversify_1.injectable)()
 ], BattleService);

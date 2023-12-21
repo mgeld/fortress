@@ -55,6 +55,7 @@ const MapLayout = () => {
                     <react_leaflet_1.Pane key="fort" name="fort" style={{ zIndex: 3001 }}>
                         <fort_map_1.FortMap />
                     </react_leaflet_1.Pane>
+                    
 
                     <react_leaflet_1.Pane key="citadel" name="citadel" style={{ zIndex: 3001 }}>
                         <citadel_1.CitadelMap />

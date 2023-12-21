@@ -13,7 +13,6 @@ class GetUserHandler implements IRoute {
     constructor(
         @inject(TYPES.PointerService) private _pointerService: PointerService,
     ) {
-        console.log('GetUserHandler')
     }
     
     public static EVENT: TEventGetUser = "getUser"
@@ -23,8 +22,6 @@ class GetUserHandler implements IRoute {
         uSocket: IWebSocket,
     ) {
 
-        console.log('------GetUserHandler handle -----------')
-        
         if (!uSocket.user_id) return
 
         const USER_ID = uSocket.user_id

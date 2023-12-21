@@ -8,9 +8,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -22,14 +19,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MemberMemoryRepository = void 0;
-const inversify_1 = require("inversify");
 const types_1 = require("../../../../types");
-const member_1 = require("../../mappers/member");
 const memory_data_1 = require("../memory-data");
+const inversify_1 = require("inversify");
+const member_1 = require("../../mappers/member");
 let MemberMemoryRepository = class MemberMemoryRepository {
-    constructor(_database) {
-        this._database = _database;
-    }
     insert(member) {
         return __awaiter(this, void 0, void 0, function* () {
             const dtoMember = member.unmarshal();
@@ -70,9 +64,11 @@ let MemberMemoryRepository = class MemberMemoryRepository {
         });
     }
 };
+__decorate([
+    (0, inversify_1.inject)(types_1.TYPES.Database),
+    __metadata("design:type", memory_data_1.MemoryData)
+], MemberMemoryRepository.prototype, "_database", void 0);
 MemberMemoryRepository = __decorate([
-    (0, inversify_1.injectable)(),
-    __param(0, (0, inversify_1.inject)(types_1.TYPES.Database)),
-    __metadata("design:paramtypes", [memory_data_1.MemoryData])
+    (0, inversify_1.injectable)()
 ], MemberMemoryRepository);
 exports.MemberMemoryRepository = MemberMemoryRepository;
