@@ -1,5 +1,4 @@
 import { FC } from "react";
-import { pageModel } from "shared/ui/page-root";
 
 import styles from './styles.module.scss'
 

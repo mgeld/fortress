@@ -1,6 +1,6 @@
 import { Event } from "effector"
-import { TSendEvent } from "../../../../../common-types/socket/client-to-server"
 import { TSocketStatus } from "./model"
+import { TSendEvent } from "@ctypes/socket/client-to-server";
 
 export class Socket {
 
@@ -40,7 +40,6 @@ export class Socket {
     }
 
     connect() {
-        // if (!this.url) return
         console.log('Socket connect new WebSocket')
         this.socket = new WebSocket(this.url)
         this.socketListener()
@@ -49,8 +48,6 @@ export class Socket {
     
     destroy() {
         this.socket?.close()
-        // if (this.timeOutId)
-        //     clearTimeout(this.timeOutId)
     }
 
     socketListener() {
@@ -60,7 +57,6 @@ export class Socket {
         if (!this.socket) {
             return
         }
-        // this.socket.close()
 
         this.socket.onopen = () => {
             this.setStatus('open')
@@ -70,7 +66,6 @@ export class Socket {
         }
         this.socket.onclose = (e) => {
             this.setStatus('close')
-            // this.timeOutId = setTimeout(() => this.connect(this.url), 1500)
         }
 
         this.socket.onerror = () => {
@@ -78,13 +73,14 @@ export class Socket {
 
     }
 
+    // Отправка сообщений на сервер
     sendData(params: TSendEvent) {
         if (!this.socket) return
         this.socket.send(JSON.stringify(params))
     }
 
+    // Устанавливаем обработчики для входящих сообщений от бэка
     setHandlers(callback: (message: MessageEvent<any>) => void) {
-        // if (!this.socket) return
         this.callback = callback
     }
 

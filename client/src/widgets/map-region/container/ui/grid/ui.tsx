@@ -15,11 +15,8 @@ export const GridMap: FC<GridProps> = ({ pos }) => {
     const isGrid = mapModel.selectors.useMapGrid()
 
     useMapEvent('dblclick', (e) => {
-        console.log('dblclick')
         mapModel.events.setMapGrid()
     })
-
-    // console.log('isGrid', isGrid)
 
     if(!isGrid) return <></>
 

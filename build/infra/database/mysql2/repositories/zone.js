@@ -178,6 +178,41 @@ let ZoneRepository = class ZoneRepository {
             return zones;
         });
     }
+    getZone(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const [[result]] = yield this._connection.query(`
+                SELECT
+                    zones.id,
+                    zones.color,
+                    zones.trophies,
+                    zones.description,
+                    terrain.level as zone_level,
+                    terrain.sectors as zone_sectors,
+                    rc.level as rank_level,
+                    rc.exp as rank_exp,
+                    p.icon,
+                    p.name,
+                    c.sectorId,
+                    c.latlng,
+                    vk.user_id as vk_id
+                FROM
+                    zones
+
+                LEFT JOIN terrain ON terrain.zone_id = zones.id
+                LEFT JOIN rank_conquests as rc ON rc.zone_id = zones.id
+                LEFT JOIN pointers as p ON p.zone_id = zones.id
+                LEFT JOIN citadels as c ON c.zone_id = zones.id
+                LEFT JOIN vk_users as vk ON vk.zone_id = zones.id
+
+                WHERE zones.id = ?
+            `, [id]);
+            if (!result) {
+                throw new Error('----------');
+            }
+            console.log('ZoneRepository getZone zone', result);
+            return result;
+        });
+    }
     update(zone) {
         return __awaiter(this, void 0, void 0, function* () {
             const dtoZone = zone.unmarshal();

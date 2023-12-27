@@ -37,7 +37,6 @@ const ui_16 = require("features/weapon/gun-level-up/ui");
 const ui_17 = require("features/storm-corps/storm-level-up/ui");
 const ui_18 = require("features/hold/hold-level-up/ui");
 const go_back_1 = require("processes/go-back");
-const primes_1 = require("widgets/primes");
 const get_platform_native_1 = require("shared/lib/get-platform-native");
 const alert_1 = require("shared/ui/alert");
 const ui_19 = require("shared/ui/tutorial/ui");
@@ -52,6 +51,10 @@ const zone_1 = require("pages/zone");
 const model_3 = require("features/sector/set-zone-color/model");
 const select_zone_1 = require("features/user/select-zone");
 const ui_21 = __importDefault(require("features/user/edit/ui"));
+const abduction_1 = require("entities/user/ui/abduction");
+const abduction_2 = require("widgets/primes/abduction");
+const abduction_3 = require("pages/abduction");
+const ui_22 = require("features/user/abduction-link/ui");
 (0, model_1.mapStartPosition)();
 (0, model_3.setMyZoneColorStartSample)();
 (0, select_zone_1.initSelectZoneSample)();
@@ -72,17 +75,24 @@ const App = () => {
 
         
 
+        <popout_1.Popout key='abduction' id='abduction' fill='white' screen='full' close={false} edge={0}>
+          <abduction_1.Abduction />
+        </popout_1.Popout>
+        
+        <popout_1.Popout key='abduction-link' id='abduction-link' fill='white' screen='full' close={false} edge={0}>
+          <ui_22.AbductionLink />
+        </popout_1.Popout>
+
         <popout_1.Popout key='battle-pending' id='battle-pending' fill='white' screen='full' close={false} edge={0}>
           <battle_pending_1.BattlePending />
         </popout_1.Popout>
 
-        <popout_1.Popout key='vk-join-group' id='vk-join-group' fill='white' screen='full' close={true} edge={0}>
-          <vk_join_group_1.VkJoinGroup />
-        </popout_1.Popout>
-
-
         <popout_1.Popout key='battle-over' id='battle-over' fill='#5a166480' screen='full' close={false} edge={0}>
           <arena_1.BattleOver />
+        </popout_1.Popout>
+
+        <popout_1.Popout key='vk-join-group' id='vk-join-group' fill='white' screen='full' close={true} edge={0}>
+          <vk_join_group_1.VkJoinGroup />
         </popout_1.Popout>
 
         <popout_1.Popout key='user-dead' id='user-dead' fill='#5a166480' edge={12}>
@@ -92,7 +102,6 @@ const App = () => {
         <popout_1.Popout key='zone-edit' id='zone-edit' fill='#5a166480' edge={12}>
           <ui_21.default />
         </popout_1.Popout>
-
 
         <popout_1.Popout key='select-place' id='select-place' fill='#5a166480' close={false} edge={12}>
           <popout_2.SelectPlace />
@@ -117,7 +126,6 @@ const App = () => {
         <popout_1.Popout key='hold' id='hold' fill='#5a166480' edge={14}>
           <hold_1.HoldPopout />
         </popout_1.Popout>
-
 
         
         <popout_1.Popout key='gun-improve-distance' id='gun-improve-distance' fill='#5a166480' edge={14}>
@@ -174,8 +182,10 @@ const App = () => {
           <lock_screen_1.LockScreen />
         </popout_1.Popout>
 
-        <popout_1.Popout key='primes' id='primes' fill='#5a166480' edge={12} close={false}>
-          <primes_1.Primes />
+        
+
+        <popout_1.Popout key='abduction-primes' id='abduction-primes' fill='#5a166480' edge={12} close={false}>
+          <abduction_2.AbductionPrimes />
         </popout_1.Popout>
 
       </popout_root_1.PopoutRoot>
@@ -214,6 +224,10 @@ const App = () => {
 
           <page_root_1.Page key="zone" id='zone'>
             <zone_1.ZonePage />
+          </page_root_1.Page>
+
+          <page_root_1.Page key="abduction" id='abduction'>
+            <abduction_3.AbductionPage />
           </page_root_1.Page>
 
 

@@ -1,7 +1,6 @@
 import { FC } from "react";
 
 import { BackMap } from "shared/ui/back-button";
-import { getSatelliteAPI } from "shared/api/get-satellite";
 import { pageModel } from "shared/ui/page-root";
 import { ratingAPI } from "shared/api/events";
 import { IRatingZone } from "@ctypes/model";
@@ -19,7 +18,7 @@ export const LayoutRating: FC = () => {
     const onZone = (zone: IRatingZone) => {
         ratingAPI.events.selectRatingZone(zone)
         pageModel.events.setPage('zone')
-        getSatelliteAPI(zone.latlng, zone.id)
+        // getSatelliteAPI(zone.latlng, zone.id)
     }
 
     return (
@@ -48,6 +47,7 @@ export const LayoutRating: FC = () => {
                             {zones.map((item, i) => {
                                 return (
                                     <div
+                                        key={item.id}
                                         onClick={() => onZone(item)}
                                         className={styles.zone}
                                     >
@@ -76,7 +76,7 @@ export const LayoutRating: FC = () => {
                                             </div>
                                             <div className={styles.showing}>
                                                 <div className={styles.trophies}>
-                                                    
+
                                                     <div className={styles.__stroke}>
                                                         <div className={styles.count}>
                                                             {item.trophies}

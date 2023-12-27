@@ -53,7 +53,7 @@ class BattleFireHandler extends IRoute {
 
         // Если у меня нет патронов
         if (weapon.bullets < 1) {
-            return
+            // return
         }
 
         weapon.bullets = weapon.bullets - 1
@@ -90,6 +90,9 @@ class BattleFireHandler extends IRoute {
 
             // Отнимаем здоровье в зависимости от Урона Оружия
             hitPointer.removeHealth(weapon.power)
+            await this._pointerService.memoryUpdate(hitPointer)
+            
+            // await this._memberService.update(hitMember)
 
             fire.hitPointer.health = hitPointer.health
 
@@ -103,6 +106,8 @@ class BattleFireHandler extends IRoute {
                 // Сохраняем в свою стату убитого противника
                 _member.addKilledPointer()
 
+                await this._memberService.update(_member)
+
                 if (killPointerTeam.alive_members === 0) {
 
                     arena.completeBattle(killPointerTeam.id)
@@ -115,12 +120,10 @@ class BattleFireHandler extends IRoute {
                     await this._arenaService.update(arena)
                 }
 
+            } else {
+                await this._memberService.update(_member)
             }
 
-            await this._pointerService.memoryUpdate(hitPointer)
-
-            await this._memberService.update(hitMember)
-            await this._memberService.update(_member)
         }
 
         this._rooms.arenas.broadcast(_member.arena, {

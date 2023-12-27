@@ -24,7 +24,7 @@ IRoute = __decorate([
 ], IRoute);
 exports.IRoute = IRoute;
 let Handlers = class Handlers {
-    constructor(fire, take, battleTake, beam, direct, connect, battleJoin, battleLeave, battleFire, battleDirect, getSectors, getAboutSector, battleGetAboutSector, getUser, useExtraction, buyUnit, levelUp, getRating, getSatellite, getSatelliteFort, editZone, delExtraction) {
+    constructor(fire, take, battleTake, beam, direct, connect, battleJoin, battleLeave, battleFire, battleDirect, getSectors, getAboutSector, battleGetAboutSector, getUser, useExtraction, buyUnit, levelUp, getRating, getSatellite, getSatelliteFort, editZone, delExtraction, getAbduction, getZone) {
         this.fire = fire;
         this.take = take;
         this.battleTake = battleTake;
@@ -47,6 +47,8 @@ let Handlers = class Handlers {
         this.getSatelliteFort = getSatelliteFort;
         this.editZone = editZone;
         this.delExtraction = delExtraction;
+        this.getAbduction = getAbduction;
+        this.getZone = getZone;
     }
     handle(uSocket) {
         return (message) => {
@@ -85,7 +87,11 @@ Handlers = __decorate([
     __param(19, (0, inversify_1.inject)(types_1.TYPES.GetSatelliteFortHandler)),
     __param(20, (0, inversify_1.inject)(types_1.TYPES.EditZoneHandler)),
     __param(21, (0, inversify_1.inject)(types_1.TYPES.DelExtractionHandler)),
+    __param(22, (0, inversify_1.inject)(types_1.TYPES.GetAbductionHandler)),
+    __param(23, (0, inversify_1.inject)(types_1.TYPES.GetZoneHandler)),
     __metadata("design:paramtypes", [IRoute,
+        IRoute,
+        IRoute,
         IRoute,
         IRoute,
         IRoute,

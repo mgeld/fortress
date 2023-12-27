@@ -14,7 +14,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "@vkontakte/vk-bridge": "^2.8.2",
+    "@vkontakte/vk-bridge": "^2.12.2",
     "effector": "^22.7.0",
     "effector-react": "^22.5.1",
     "h3-js": "^4.1.0",

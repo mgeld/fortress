@@ -80,17 +80,17 @@ let ArenaMemoryRepository = class ArenaMemoryRepository {
             return yield this._database.arena.delete(arenaId);
         });
     }
-    deleteByArenas(arenas) {
+    deleteArenas(arenas) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 arenas.forEach((arena) => __awaiter(this, void 0, void 0, function* () {
                     yield this.delete(arena);
                 }));
-                console.log('deleteByArenas true');
+                console.log('deleteArenas true');
                 return true;
             }
             catch (e) {
-                console.log('deleteByArenas false');
+                console.log('deleteArenas false');
                 return false;
             }
         });

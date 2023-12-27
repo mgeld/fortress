@@ -49,7 +49,6 @@ let BattleFireHandler = class BattleFireHandler extends handlers_1.IRoute {
                 return;
             }
             if (weapon.bullets < 1) {
-                return;
             }
             weapon.bullets = weapon.bullets - 1;
             yield this._weaponService.memoryUpdate(weapon);
@@ -71,10 +70,12 @@ let BattleFireHandler = class BattleFireHandler extends handlers_1.IRoute {
                 _member.makeDamage(weapon.power);
                 fire['hitPointer'] = __hitPointer;
                 hitPointer.removeHealth(weapon.power);
+                yield this._pointerService.memoryUpdate(hitPointer);
                 fire.hitPointer.health = hitPointer.health;
                 if (hitPointer.health < 1) {
                     const killPointerTeam = arena.killPointer(hitMember.userId, hitMember.arenaTeam);
                     _member.addKilledPointer();
+                    yield this._memberService.update(_member);
                     if (killPointerTeam.alive_members === 0) {
                         arena.completeBattle(killPointerTeam.id);
                         yield this._arenaService.update(arena);
@@ -84,9 +85,9 @@ let BattleFireHandler = class BattleFireHandler extends handlers_1.IRoute {
                         yield this._arenaService.update(arena);
                     }
                 }
-                yield this._pointerService.memoryUpdate(hitPointer);
-                yield this._memberService.update(hitMember);
-                yield this._memberService.update(_member);
+                else {
+                    yield this._memberService.update(_member);
+                }
             }
             this._rooms.arenas.broadcast(_member.arena, {
                 event: 'fire',

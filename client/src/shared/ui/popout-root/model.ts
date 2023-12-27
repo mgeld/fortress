@@ -33,7 +33,13 @@ export type TPopout =
     | 'lock-screen'
 
     | 'panel'
-    | 'primes'
+
+    | 'common-primes'
+    | 'abduction-primes'
+
+    | 'abduction'
+    | 'abduction-link'
+
     | 'vk-join-group'
 
     | 'zone-edit'

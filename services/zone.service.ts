@@ -7,12 +7,9 @@ import { ZoneMapper } from "../infra/database/mappers/zone";
 import { IRatingZone, TExtrTypes, TZoneColor } from "../common-types/model";
 import { IZoneMemoryRepository, IZoneRepository } from "../entities/repository";
 
-// import { EntityIdGenerator } from "../domain/entityId";
-
 @injectable()
 export class ZoneService {
     @inject(TYPES.ZoneRepository) private _baseRepository!: IZoneRepository
-    // @inject(TYPES.Base64EntityIdGenerator) private _entityId!: EntityIdGenerator
     @inject(TYPES.ZoneMemoryRepository) private _memoryRepository!: IZoneMemoryRepository
 
     memoryInsert(zone: Zone): Promise<Zone> {
@@ -56,6 +53,11 @@ export class ZoneService {
     async getTrophies(): Promise<IRatingZone[]> {
         const zones = await this._baseRepository.getTrophies()
         return zones
+    }
+
+    async getZone(id: number): Promise<IRatingZone> {
+        const zone = await this._baseRepository.getZone(id)
+        return zone
     }
 
     create(

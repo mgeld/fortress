@@ -211,12 +211,53 @@ export class ZoneRepository implements IZoneRepository {
         if (!result) {
             throw new Error('----------')
         }
-        
-        const zones = result.map(zone => ({ ...zone}))
+
+        const zones = result.map(zone => ({ ...zone }))
 
         console.log('ZoneRepository getTrophies zones', zones)
 
         return zones
+    }
+
+
+    async getZone(id: number): Promise<IRatingZone> {
+
+        const [[result]] = await this._connection.query<Required<IRatingZone>[] & RowDataPacket[]>(
+            `
+                SELECT
+                    zones.id,
+                    zones.color,
+                    zones.trophies,
+                    zones.description,
+                    terrain.level as zone_level,
+                    terrain.sectors as zone_sectors,
+                    rc.level as rank_level,
+                    rc.exp as rank_exp,
+                    p.icon,
+                    p.name,
+                    c.sectorId,
+                    c.latlng,
+                    vk.user_id as vk_id
+                FROM
+                    zones
+
+                LEFT JOIN terrain ON terrain.zone_id = zones.id
+                LEFT JOIN rank_conquests as rc ON rc.zone_id = zones.id
+                LEFT JOIN pointers as p ON p.zone_id = zones.id
+                LEFT JOIN citadels as c ON c.zone_id = zones.id
+                LEFT JOIN vk_users as vk ON vk.zone_id = zones.id
+
+                WHERE zones.id = ?
+            `, [id]
+        )
+
+        if (!result) {
+            throw new Error('----------')
+        }
+
+        console.log('ZoneRepository getZone zone', result)
+
+        return result
     }
 
 

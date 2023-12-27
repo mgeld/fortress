@@ -1,0 +1,132 @@
+.button {
+
+    &:active {
+        transform: scale(0.94);
+
+        .text {
+            transform: scale(1.04);
+        }
+
+    }
+
+    cursor:pointer;
+
+    position: relative;
+    width: 100px;
+    height: 40px;
+    margin-bottom: 5px;
+
+    border-radius: 11px;
+    background:black;
+    box-shadow: 0px 5px 2px #301C09;
+
+    .couche2 {
+        position: absolute;
+        border-radius: 10px;
+        width: 98px;
+        height: 36px;
+        margin-top: 2px;
+        margin-left: 1px;
+        background: #FDA80D;
+        box-shadow: 0px 3px 0px #AF6B06;
+
+        .couche3 {
+            position: absolute;
+            border-radius: 10px;
+            width: 94px;
+            height: 34px;
+            margin-top: 2px;
+            margin-left: 2px;
+            box-shadow: 0px -1px 2px 0px #FFDC33;
+
+            .couche4 {
+                position: absolute;
+                border-radius: 10px;
+                margin-top: 2px;
+                margin-left: 2px;
+                width: 90px;
+                height: 29px;
+                background: rgba(255, 187, 42, 1);
+                box-shadow: 0px 2px 1px 0px #FE8906;
+
+                .couche5 {
+                    position: absolute;
+                    border-radius: 10px;
+                    margin-top: 0px;
+                    margin-left: 1px;
+                    width: 88px;
+                    height: 18px;
+                    background: #FFD053;
+
+                    .text {
+                        width: 88px;
+                        text-align: center;
+                        position: absolute;
+                        font-style: normal;
+                        font-weight: 400;
+                        color: #FFFFCC;
+                        font-size: 18px;
+                        margin-top: 4px;
+                        text-shadow: -1px 0 1px #582E00,
+                            1px 0 1px #582E00,
+                            0 -1px 1px #582E00,
+                            0 2px 1px #582E00,
+                            -2px 2px 1px #582E00,
+                            2px 3px 2px #582E00;
+                    }
+
+                    .couche6 {
+                        position: absolute;
+                        right: 2px;
+                        top: 2px;
+                        border-radius: 45%;
+                        width: 6px;
+                        height: 6px;
+                        background: #FFF1B6;
+                    }
+                }
+
+            }
+        }
+    }
+}
+
+
+
+
+/*effects*/
+.couche1:active {
+    width: 280px;
+    height: 95px;
+}
+
+.couche1:active .couche2 {
+    width: 274px;
+    height: 89px;
+}
+
+.couche1:active .couche23 {
+    width: 272px;
+    height: 75px;
+}
+
+.couche1:active .couche3 {
+    width: 261px;
+    height: 77px;
+}
+
+.couche1:active .couche4 {
+    width: 255px;
+    height: 32px;
+}
+
+.couche1:active .couche5 {
+    width: 6px;
+    height: 8px;
+    margin-left: 248px;
+}
+
+.couche1:active .battle {
+    margin-top: -3px;
+    margin-left: 75px;
+}

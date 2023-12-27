@@ -36,7 +36,7 @@ export class ArenaRepository implements IArenaRepository {
         if (teams.length === 0) {
             return false
         }
-        
+
         console.log('insertsTeam')
 
         const sqlTeams = teams.map(team => {
@@ -47,7 +47,7 @@ export class ArenaRepository implements IArenaRepository {
                         dtoTeam.status === 'draw' ? 3 : 0
             return [
                 dtoTeam.id,
-                status ,
+                status,
                 dtoTeam.sectors,
                 dtoTeam.members.length,
                 dtoTeam.alive_members,
@@ -71,11 +71,14 @@ export class ArenaRepository implements IArenaRepository {
         if (members.length === 0) {
             return false
         }
-        
+
         console.log('insertsMember')
 
         const sqlMembers = members.map(member => {
             const dtoMember = member.unmarshal()
+
+            console.log('dtoMember.killed', dtoMember.killed)
+
             return [
                 dtoMember.userId,
                 dtoMember.killed,

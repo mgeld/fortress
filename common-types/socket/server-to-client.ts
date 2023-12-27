@@ -1,10 +1,13 @@
-import { IRatingZone, TBombSymbol, TExtrTypes, TExtrTypesName, TFindContType, TGameUnit, THitPointer, TJoystickDirection, TLatLng, TPointer, TTutType, TTypeToastNotice, TWeapon, TWeaponSymbol, TZoneColor, TZoneItem } from "../model"
+import { IRatingZone, TBombSymbol, TExtrTypes, TExtrTypesName, TFindContType, TGameUnit, THitPointer, TJoystickDirection, TLatLng, TPointer, TTutType, TTypeToastNotice, TWeapon, TWeaponSymbol, TZoneAbduction, TZoneColor, TZoneItem } from "../model"
 
 export type TEventConnect = 'connect'
 export type TEventSetUser = 'set-user'
 export type TEventEditZone = 'edit-zone'
 
 export type TEventSetRating = 'set-rating'
+export type TEventSetAbduction = 'set-abduction'
+export type TEventSetZone = 'set-zone'
+
 
 export type TEventSetCitadel = 'set-citadel'
 export type TEventTutorial = 'tutorial'
@@ -54,6 +57,8 @@ export type TEventsMessage =
     | TEventSetUser
     | TEventEditZone
     | TEventSetRating
+    | TEventSetAbduction
+    | TEventSetZone
     | TEventSetCitadel
     | TEventTutorial
     | TEventFire
@@ -183,6 +188,18 @@ export type TSetRating = {
     payload: TSetRatingPayload
 }
 
+type TSetAbductionPayload = {
+    zones: TZoneAbduction[]
+}
+export type TSetAbduction = {
+    event: TEventSetAbduction
+    payload: TSetAbductionPayload
+}
+
+export type TSetZone = {
+    event: TEventSetZone
+    payload: IRatingZone
+}
 
 // type TConnectPointerPayload = {
 //     userId: number
@@ -287,9 +304,9 @@ type TTractorUnitPayloadNull = {
 export type TTractorUnit = {
     event: TEventTractorUnit
     payload:
-            | TTractorUnitPayloadCont
-            | TTractorUnitPayloadStrm
-            | TTractorUnitPayloadNull
+    | TTractorUnitPayloadCont
+    | TTractorUnitPayloadStrm
+    | TTractorUnitPayloadNull
 }
 
 export type TUseExtraction = {
@@ -510,6 +527,7 @@ export type TMessage =
     | TSetUser
     | TEditZone
     | TSetRating
+    | TSetAbduction
     | TSetCitadel
     | TTutorial
     | TDelPointer
@@ -539,3 +557,4 @@ export type TMessage =
     | TBattleStart
     | TBattleOver
     | TBattleJoin
+    | TSetZone

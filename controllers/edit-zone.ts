@@ -13,10 +13,6 @@ class EditZoneHandler implements IRoute {
 
     @inject(TYPES.PointerService) private _pointerService!: PointerService
     @inject(TYPES.ZoneService) private _zoneService!: ZoneService
-
-    constructor(
-    ) {
-    }
     
     public static EVENT: TEventEditZone = "editZone"
 

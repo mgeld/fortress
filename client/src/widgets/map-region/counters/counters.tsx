@@ -19,7 +19,7 @@ import { TZoneLevel, ZoneLevel } from "entities/zone/lib/zone-level"
 
 import styles from './styles.module.scss'
 import { Ranks, TRank } from "entities/user/lib/ranks"
-import { IconCoin, IconSapphire } from "../battle-counters/icons/_icons"
+import { IconCoin, IconSapphire, IconZoneLevel } from "../battle-counters/icons/_icons"
 
 export const Counters = () => {
     const [tooltip, setTooltip] = useState<null | 1 | 2 | 3 | 4 | 5 | 6>(null)
@@ -56,7 +56,10 @@ export const Counters = () => {
                 width={74}
                 onClick={() => setTooltip(1)}
                 className={styles.__sector}
-                icon={<IconSector />}
+                icon={<IconZone width={23} height={23} style={{
+                    marginTop: '-1px',
+                    marginLeft: '-1px',
+                }}/>}
                 text={String(zoneModel.selectors.useZoneSectors())}
             >
                 {tooltip === 1 ? (
@@ -136,7 +139,7 @@ export const Counters = () => {
                 onClick={() => setTooltip(6)}
                 className={styles.__zone}
                 position="left"
-                icon={<IconZone />}
+                icon={<IconZoneLevel />}
                 progress={zoneProgress}
                 color="#C163E0"
                 name={`Зона: ${zoneLevel} ур`}

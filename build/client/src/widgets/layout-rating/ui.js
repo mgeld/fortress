@@ -5,7 +5,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.LayoutRating = void 0;
 const back_button_1 = require("shared/ui/back-button");
-const get_satellite_1 = require("shared/api/get-satellite");
 const page_root_1 = require("shared/ui/page-root");
 const events_1 = require("shared/api/events");
 const _1 = require(".");
@@ -16,7 +15,6 @@ const LayoutRating = () => {
     const onZone = (zone) => {
         events_1.ratingAPI.events.selectRatingZone(zone);
         page_root_1.pageModel.events.setPage('zone');
-        (0, get_satellite_1.getSatelliteAPI)(zone.latlng, zone.id);
     };
     return (<>
             <div className={styles_module_scss_1.default.ratingLayout}>
@@ -41,7 +39,7 @@ const LayoutRating = () => {
                     {zones ?
             <div className={styles_module_scss_1.default.ratingList}>
                             {zones.map((item, i) => {
-                    return (<div onClick={() => onZone(item)} className={styles_module_scss_1.default.zone}>
+                    return (<div key={item.id} onClick={() => onZone(item)} className={styles_module_scss_1.default.zone}>
 
                                         <div className={styles_module_scss_1.default.image}>
                                             <div className={styles_module_scss_1.default.number}>{i + 1}</div>
@@ -67,7 +65,7 @@ const LayoutRating = () => {
                                             </div>
                                             <div className={styles_module_scss_1.default.showing}>
                                                 <div className={styles_module_scss_1.default.trophies}>
-                                                    
+
                                                     <div className={styles_module_scss_1.default.__stroke}>
                                                         <div className={styles_module_scss_1.default.count}>
                                                             {item.trophies}

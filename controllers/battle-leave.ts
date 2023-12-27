@@ -35,8 +35,13 @@ class BattleLeaveHandler extends IRoute {
 
         const pointer = await this._pointerService.memoryGetById(member.userId)
 
+        console.log('BattleLeaveHandler arena.id', arena.id)
+
         const team = arena.delPointer(member.userId, member.arenaTeam)
+
         this._rooms.arenas.deleteClient(member.userId, arena.id)
+
+        await this._arenaService.update(arena)
 
         this._memberService.remove(member.userId)
         
@@ -51,8 +56,6 @@ class BattleLeaveHandler extends IRoute {
                 }
             }
         }))
-
-        await this._arenaService.update(arena)
 
     }
 }

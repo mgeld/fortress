@@ -82,6 +82,8 @@ import { VkUserService } from './services/vk-user.service'
 import { GetSatelliteFortHandler } from './controllers/get-satellite-fort'
 import { DelExtractionHandler } from './controllers/del-extraction'
 import { ArenaRepository } from './infra/database/mysql2/repositories/arena'
+import { GetAbductionHandler } from './controllers/get-abduction'
+import { GetZoneHandler } from './controllers/get-zone'
 
 // import { ArenaTeamMemoryRepository } from './infra/database/memory/repositories/arena-team'
 // import { ArenaTeamService } from './services/arena-team.service'
@@ -127,6 +129,9 @@ container.bind(TYPES.GetSatelliteHandler).to(GetSatelliteHandler)
 container.bind(TYPES.GetSatelliteFortHandler).to(GetSatelliteFortHandler)
 
 container.bind(TYPES.DelExtractionHandler).to(DelExtractionHandler)
+container.bind(TYPES.GetAbductionHandler).to(GetAbductionHandler)
+container.bind(TYPES.GetZoneHandler).to(GetZoneHandler)
+
 
 container.bind(TYPES.ArenaService).to(ArenaService)
 container.bind(TYPES.PointerService).to(PointerService)

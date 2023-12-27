@@ -43,6 +43,8 @@ const reward_1 = require("shared/api/handlers/reward");
 const session_destroy_1 = require("shared/api/handlers/session-destroy");
 const edit_zone_1 = require("shared/api/handlers/edit-zone");
 const del_extraction_1 = require("shared/api/handlers/del-extraction");
+const set_abduction_1 = require("shared/api/handlers/set-abduction");
+const set_zone_1 = require("shared/api/handlers/set-zone");
 exports.WS = socket_2.Socket.create(config_1.API_BASE_URL, socket_1.socketModel.events.setSocketStatus);
 const handlers = new handlers_1.Handlers({
     [connect_1.ConnectHandler.EVENT]: new connect_1.ConnectHandler(),
@@ -80,6 +82,8 @@ const handlers = new handlers_1.Handlers({
     [session_destroy_1.SessionDestroyHandler.EVENT]: new session_destroy_1.SessionDestroyHandler(),
     [set_health_1.SetHealthHandler.EVENT]: new set_health_1.SetHealthHandler(),
     [set_rating_1.SetRatingHandler.EVENT]: new set_rating_1.SetRatingHandler(),
+    [set_abduction_1.SetAbductionHandler.EVENT]: new set_abduction_1.SetAbductionHandler(),
+    [set_zone_1.SetZoneHandler.EVENT]: new set_zone_1.SetZoneHandler(),
     [reward_1.RewardHandler.EVENT]: new reward_1.RewardHandler(),
     [edit_zone_1.EditZoneHandler.EVENT]: new edit_zone_1.EditZoneHandler(),
     [del_extraction_1.DelExtractionHandler.EVENT]: new del_extraction_1.DelExtractionHandler(),

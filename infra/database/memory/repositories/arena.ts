@@ -64,15 +64,15 @@ export class ArenaMemoryRepository implements IArenaMemoryRepository {
         return await this._database.arena.delete(arenaId)
     }
 
-    async deleteByArenas(arenas: string[]): Promise<Boolean> {
+    async deleteArenas(arenas: string[]): Promise<Boolean> {
         try {
             arenas.forEach(async arena => {
                 await this.delete(arena)
             })
-            console.log('deleteByArenas true')
+            console.log('deleteArenas true')
             return true
         } catch (e) {
-            console.log('deleteByArenas false')
+            console.log('deleteArenas false')
             return false
         }
     }

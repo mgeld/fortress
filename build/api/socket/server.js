@@ -108,11 +108,13 @@ let Server = class Server {
                 ws.is_alive = true;
             });
             ws.on('close', function (e, d) {
-                console.log('ws close user_id', ws.user_id);
+                console.log('close ws user_id', ws.user_id);
                 if (d.toString() === 'session-destroy') {
                     ws.terminate();
+                    console.log('ws.user_id', ws === null || ws === void 0 ? void 0 : ws.user_id);
                 }
                 else {
+                    console.log('close Else >>>>>>>>>>>>>>');
                     (ws === null || ws === void 0 ? void 0 : ws.user_id) && Connection.deleteUser(ws.user_id);
                 }
             });

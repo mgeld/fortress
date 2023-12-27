@@ -84,9 +84,8 @@ let PingPong = class PingPong {
     each(ws) {
         return __awaiter(this, void 0, void 0, function* () {
             if ((ws === null || ws === void 0 ? void 0 : ws.is_alive) === false) {
-                if (ws === null || ws === void 0 ? void 0 : ws.user_id) {
-                    this.deleteUser(ws === null || ws === void 0 ? void 0 : ws.user_id);
-                }
+                if (ws === null || ws === void 0 ? void 0 : ws.user_id)
+                    this.deleteUser(ws.user_id);
                 return ws.terminate();
             }
             ws.is_alive = false;
@@ -95,7 +94,9 @@ let PingPong = class PingPong {
     }
     pingPong() {
         if (this._wss)
-            this._wss.clients.forEach(this.each.bind(this));
+            this._wss.clients.forEach(() => {
+                this.each.bind(this);
+            });
     }
     start(wss) {
         this._wss = wss;
@@ -127,7 +128,6 @@ __decorate([
     __metadata("design:type", member_service_1.MemberService)
 ], PingPong.prototype, "_memberService", void 0);
 PingPong = __decorate([
-    (0, inversify_1.injectable)(),
-    __metadata("design:paramtypes", [])
+    (0, inversify_1.injectable)()
 ], PingPong);
 exports.PingPong = PingPong;

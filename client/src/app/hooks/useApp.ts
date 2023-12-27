@@ -3,18 +3,19 @@ import { useSocket } from "shared/api/socket/model"
 
 import { userModel } from "entities/user";
 import { userAPI } from "shared/api/events";
-import { popoutModel } from "shared/ui/popout-root";
 import { lockModel } from "shared/ui/lock-screen";
+import { popoutModel } from "shared/ui/popout-root";
 import { lostInternet } from "processes/lost-internet";
 import { userEvents } from "features/user/connect-user";
 import { reSocketClose } from "processes/socket/socket-close";
 
-import bridge from "@vkontakte/vk-bridge";
-import { getHashToSectorId } from "shared/lib/get-hash-to-sector-id";
-import { getSatelliteFortAPI } from "shared/api/get-satellite-fort";
 import { cellToLatLng } from "h3-js";
 import { pageModel } from "shared/ui/page-root";
 import { mapSatelliteModel } from "entities/map";
+import { getSatelliteFortAPI } from "shared/api/get-satellite-fort";
+import { getHashToSectorId } from "shared/lib/get-hash-to-sector-id";
+
+import bridge from "@vkontakte/vk-bridge";
 
 // type TVkUserApi = {
 //     id: number
@@ -34,11 +35,17 @@ export const useApp = () => {
 
     useEffect(() => {
 
+        console.log('0 useEffect')
+
         window.addEventListener("offline", lostInternet);
 
-        bridge.send('VKWebAppGetUserInfo').then(user => {
-            setTimeout(() => userModel.events.setVkUser(user.id), 1500)
-        })
+        bridge.send('VKWebAppGetUserInfo')
+            .then(user => {
+                console.log('then user', user)
+                setTimeout(() => userModel.events.setVkUser(user.id), 1500)
+            })
+            .catch(e => console.log('Error vk user_id', e))
+            .finally(() => console.log('finally vk user_id'))
 
         // const _user = randomNumber(38574839 - 100000, 250449525 + 100000)
 
@@ -55,9 +62,12 @@ export const useApp = () => {
         //     userModel.events.setName(data.response[0].first_name)
         //     userModel.events.setUserIcon(data.response[0].photo_50)
         // })
-    }, [])
+    }, [vkUserId])
 
     useEffect(() => {
+
+        console.log('1 useApp useEffect')
+
         if (vkUserId > 0 && socketStatus === 'close') {
             popoutModel.events.setPopout('lock-screen')
             lockModel.events.setLockScreen({
@@ -71,19 +81,9 @@ export const useApp = () => {
         }
 
         if (vkUserId > 0 && socketStatus === 'open') {
-            // const url = window.location.search;
-
             userAPI.events.connectUser()
-
-            // sectorEvents.events.getSectorsStart()
             return
         }
-
-        // if (vkUserId === 0 && socketStatus === 'no-init') {
-        //     popoutModel.events.setPopout('load-app')
-        // } else {
-        //     popoutModel.events.setPopout(null)
-        // }
 
     }, [vkUserId, socketStatus])
 
@@ -92,7 +92,6 @@ export const useApp = () => {
         // if (!zoneId) return
 
         const sectorId = getHashToSectorId()
-
 
         if (sectorId && socketStatus === 'open') {
 

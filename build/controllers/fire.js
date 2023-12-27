@@ -43,7 +43,6 @@ let FireHandler = class FireHandler extends handlers_1.IRoute {
                 return;
             }
             if (weapon.bullets < 1) {
-                return;
             }
             weapon.bullets = weapon.bullets - 1;
             yield this._weaponService.memoryUpdate(weapon);

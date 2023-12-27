@@ -126,3 +126,12 @@ export type IRatingZone = {
     latlng: TLatLng
     vk_id: number
 }
+
+
+export type TZoneAbduction = {
+    zone_id: number
+    icon: string
+    name: string
+    sectors: number
+    date: number
+}

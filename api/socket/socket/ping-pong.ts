@@ -19,11 +19,7 @@ export class PingPong {
     @inject(TYPES.ArenaService) private _arenaService!: ArenaService
     @inject(TYPES.MemberService) private _memberService!: MemberService
 
-    // @inject(TYPES.VkUserRepository) private _vkUserRepository!: VkUserRepository
     private _wss: WebSocket.Server | null = null
-
-    constructor() {
-    }
 
     public async deleteUser(userId: number) {
 
@@ -40,7 +36,9 @@ export class PingPong {
             const arena = await this._arenaService.getById(member.arena)
 
             if (arena.status === 'pending') {
+
                 arena.delPointer(member.userId, member.arenaTeam)
+
             } else if (arena.status === 'start') {
                 arena.killPointer(member.userId, member.arenaTeam)
                 this._rooms.arenas.broadcast(arena.id, {
@@ -62,6 +60,7 @@ export class PingPong {
         this._rooms.areals.getCientSocket(_zone.id)?.terminate();
 
         if (_pointer.areal !== -1) {
+
             this._rooms.areals.deleteClient(_pointer.zoneId, _pointer.areal)
             this._rooms.areals.broadcast(_pointer.areal, {
                 event: 'del-pointer',
@@ -69,15 +68,13 @@ export class PingPong {
                     userId: _pointer.zoneId
                 }
             }, [_pointer.zoneId])
-            
+
             _pointer.areal = -1 // Типа удаляем ареал, чтобы в след заход появится у других в игре
         }
-
 
         await this._pointerService.baseUpdate(_pointer)
         await this._zoneService.baseUpdate(_zone)
         await this._weaponService.baseUpdate(_weapon)
-
 
         await this._weaponService.remove(_pointer.weapons[0])
         this._pointerService.remove(userId)
@@ -86,44 +83,10 @@ export class PingPong {
         console.log('Конец удаления')
     }
 
-    
-
-    // public async deleteClientAreal(userId: number) {
-
-    //     console.log('deleteClientAreal')
-
-    //     if (!userId) return
-
-    //     const _pointer = await this._pointerService.memoryGetById(userId)
-    //     console.log('deleteClientAreal _pointer.areal', _pointer.areal)
-    //     // const _zone = await this._zoneService.memoryGetById(userId)
-
-    //     // this._rooms.areals.getCientSocket(_zone.id)?.terminate();
-        
-    //     if (_pointer.areal !== -1) {
-    //         this._rooms.areals.deleteClient(_pointer.zoneId, _pointer.areal)
-    //         this._rooms.areals.broadcast(_pointer.areal, {
-    //             event: 'del-pointer',
-    //             payload: {
-    //                 userId: _pointer.zoneId
-    //             }
-    //         }, _pointer.zoneId)
-            
-    //         // _pointer.areal = -1 // Типа удаляем ареал, чтобы в след заход появится у других в игре
-
-    //         // this._pointerService.memoryInsert(_pointer)
-    //     }
-
-    //     console.log('Конец удаления')
-    // }
-
     async each(ws: IWebSocket) {
 
         if (ws?.is_alive === false) {
-
-            if (ws?.user_id) {
-                this.deleteUser(ws?.user_id)
-            }
+            if (ws?.user_id) this.deleteUser(ws.user_id)
             return ws.terminate();
         }
 
@@ -134,8 +97,9 @@ export class PingPong {
     pingPong() {
         // console.log('pingPong')
         if (this._wss)
-            // const context = this
-            this._wss.clients.forEach(this.each.bind(this));
+            this._wss.clients.forEach(() => {
+                this.each.bind(this)
+            });
     }
 
     start(wss: WebSocket.Server) {

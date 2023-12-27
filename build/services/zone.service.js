@@ -72,6 +72,12 @@ let ZoneService = class ZoneService {
             return zones;
         });
     }
+    getZone(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const zone = yield this._baseRepository.getZone(id);
+            return zone;
+        });
+    }
     create(color) {
         const DEFAULT_COLOR = (0, random_number_1.randomNumber)(1, 6);
         const DEFAULT_RUBIES = 150;

@@ -1,0 +1,276 @@
+.abductionLayout {
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+
+    // background: linear-gradient(115deg, #624e69 0%, #7f608a 40%, #624e69 80%);
+    // background: repeating-linear-gradient(-45deg,
+    //         #a43fd3b0,
+    //         #953dbeb0 10px,
+    //         #8f33b9b0 10px,
+    //     );
+    // background-color: #cb7ffddc;
+    // background: linear-gradient(-45deg,
+    //         #9942d3dc,
+    //         #b0d649dc 10px,
+    //         #9648cadc 10px,
+    //     );
+    // background-color: #0ae;
+
+    // // background: linear-gradient(45deg, #cf7ffddc, #cb7ffd 20%, #b357ff 30%, #cb7ffd);
+
+    // background-size: 50px 50px;
+    // background-image: linear-gradient(rgba(255, 255, 255, .2) 50%, transparent 50%, transparent);
+
+    background-color: #9242af;
+    background-image: linear-gradient(30deg, #a242c5 12%, transparent 12.5%, transparent 87%, #a242c5 87.5%, #a242c5),
+        linear-gradient(150deg, #a242c5 12%, transparent 12.5%, transparent 87%, #a242c5 87.5%, #a242c5),
+        linear-gradient(30deg, #a242c5 12%, transparent 12.5%, transparent 87%, #a242c5 87.5%, #a242c5),
+        linear-gradient(150deg, #a242c5 12%, transparent 12.5%, transparent 87%, #a242c5 87.5%, #a242c5),
+        linear-gradient(60deg, #a948cc 25%, transparent 25.5%, transparent 75%, #a948cc 75%, #a948cc),
+        linear-gradient(60deg, #a948cc 25%, transparent 25.5%, transparent 75%, #a948cc 75%, #a948cc);
+    background-size: 80px 140px;
+    background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
+    // margin:0;
+    // padding:0;
+    // background-color: #0F4D84;
+    // background-image:
+    // repeating-linear-gradient(120deg, rgba(255,255,255,.1), transparent 1px, transparent 10000px),
+    // repeating-linear-gradient(60deg, rgba(255,255,255,.1), rgba(255,255,255,.1) 1px, transparent 1px, transparent 10000px),
+    // linear-gradient(60deg,rgba(0,0,0,.1) 10px, transparent 10px, transparent 30px, rgba(0,0,0,.1) 30px, rgba(0,0,0,.1)),
+    // linear-gradient(120deg, rgba(0,0,0,.1) 10px, transparent 10px, transparent 30px, rgba(0,0,0,.1) 30px, rgba(0,0,0,.1));
+    // // background-size: 180px 305px;
+
+    overflow: hidden;
+
+    .__content {
+        width: 100%;
+        height: 100%;
+        padding: 0 9px;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        align-content: flex-start;
+        overflow-y: auto;
+
+        
+        .button {
+            width: 100%;
+            padding: 12px 12px;
+            box-sizing: border-box;
+
+            z-index: 10;
+
+            position: absolute;
+            bottom: calc(var(--header_height) + var(--inset_bottom) - 8px);
+
+            display: flex;
+            justify-content: right;
+        }
+
+        &::-webkit-scrollbar {
+            width: 0;
+        }
+
+        .__header {
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+
+            .iosTop {
+                width: 100%;
+                height: var(--inset_top);
+            }
+
+            .__main {
+                width: 100%;
+                box-sizing: border-box;
+
+                color: white;
+
+                font-size: 20px;
+                line-height: 18px;
+                background-color: #a542d3;
+
+                height: var(--header_height);
+
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                .name {
+                    padding-left: 12px;
+                    display: flex;
+                    align-items: center;
+
+                    .icon {
+                        // transform: rotate(15deg);
+                    }
+
+                    .text {
+                        padding-left: 12px;
+                    }
+                }
+
+            }
+
+        }
+
+        .__before {
+            height: calc(var(--header_height) + var(--inset_top));
+            width: 100%;
+        }
+
+        .abductionList {
+            width: 100%;
+            max-width: 480px;
+
+            padding: 11px 0;
+            padding-bottom: 3px;
+
+            display: flex;
+            flex-direction: column;
+
+            .zone {
+                cursor: pointer;
+
+                width: 100%;
+                display: flex;
+                padding: 11px 11px;
+                border-radius: 8px;
+                background-color: rgba(243, 221, 255, 0.500);
+                box-sizing: border-box;
+
+                margin-bottom: 8px;
+
+                .image {
+                    position: relative;
+
+                    img {
+                        width: 42px;
+                        height: 42px;
+                        border-radius: 18px;
+                        border: 2px solid #313131;
+                    }
+
+                }
+
+                .info {
+                    flex: 1;
+                    width: 100%;
+                    display: flex;
+                    padding-left: 8px;
+                    box-sizing: border-box;
+
+                    .user {
+                        flex: 1;
+                        display: flex;
+                        flex-direction: column;
+
+                        .name {
+                            font-size: 19px;
+                            white-space: nowrap;
+                            color: #202122;
+                            padding-bottom: 1px;
+                        }
+
+                        .sectors {
+                            display: flex;
+                            align-items: center;
+
+                            font-size: 17px;
+
+                            .text {
+                                padding: 0 2px;
+                                color: #ffffff;
+                                white-space: nowrap;
+                            }
+
+                            .count {
+                                color: white;
+                                margin-left: 6px;
+                                padding: 2px 8px;
+                                border-radius: 4px;
+                                background-color: #25241e3b;
+                            }
+                        }
+
+                    }
+
+
+                    .showing {
+
+                        .trophies {
+
+                            position: relative;
+
+                            .__stroke {
+                                display: flex;
+                                align-items: center;
+
+                                font-size: 16px;
+                                line-height: 16px;
+
+                                padding: 1px 8px;
+                                border-radius: 8px;
+                                box-sizing: border-box;
+
+                                border: 2px solid #252525;
+                                background-color: #252525;
+
+                                .count {
+                                    z-index: 4;
+                                    color: white;
+                                    padding-right: 6px;
+                                }
+
+                                .icon {
+                                    z-index: 4;
+                                }
+
+                            }
+
+
+                            .__whiteEffect {
+                                width: 100%;
+                                height: 100%;
+                                box-sizing: border-box;
+                                z-index: 3;
+
+                                position: absolute;
+                                top: 0px;
+                                left: 0px;
+
+                                &>div {
+                                    width: 100%;
+                                    height: 50%;
+                                    background-color: rgba(255, 255, 255, 0.25);
+                                    border-radius: 8px 8px 0 0;
+                                }
+                            }
+
+
+                        }
+
+                    }
+
+                }
+            }
+
+        }
+    }
+}
+
+.noData {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    color: #fff;
+}

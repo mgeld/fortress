@@ -67,6 +67,8 @@ const vk_user_service_1 = require("./services/vk-user.service");
 const get_satellite_fort_1 = require("./controllers/get-satellite-fort");
 const del_extraction_1 = require("./controllers/del-extraction");
 const arena_2 = require("./infra/database/mysql2/repositories/arena");
+const get_abduction_1 = require("./controllers/get-abduction");
+const get_zone_1 = require("./controllers/get-zone");
 const container = new inversify_1.Container();
 exports.container = container;
 container.bind(types_1.TYPES.Server).to(server_1.Server).inSingletonScope();
@@ -95,6 +97,8 @@ container.bind(types_1.TYPES.GetRatingHandler).to(get_rating_1.GetRatingHandler)
 container.bind(types_1.TYPES.GetSatelliteHandler).to(get_satellite_1.GetSatelliteHandler);
 container.bind(types_1.TYPES.GetSatelliteFortHandler).to(get_satellite_fort_1.GetSatelliteFortHandler);
 container.bind(types_1.TYPES.DelExtractionHandler).to(del_extraction_1.DelExtractionHandler);
+container.bind(types_1.TYPES.GetAbductionHandler).to(get_abduction_1.GetAbductionHandler);
+container.bind(types_1.TYPES.GetZoneHandler).to(get_zone_1.GetZoneHandler);
 container.bind(types_1.TYPES.ArenaService).to(arena_service_1.ArenaService);
 container.bind(types_1.TYPES.PointerService).to(pointer_service_1.PointerService);
 container.bind(types_1.TYPES.ZoneService).to(zone_service_1.ZoneService);

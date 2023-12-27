@@ -40,7 +40,6 @@ let TakeHandler = class TakeHandler extends handlers_1.IRoute {
     handle(message, uSocket) {
         var _a, _b;
         return __awaiter(this, void 0, void 0, function* () {
-            console.log('TakeHandler handle');
             if (!uSocket.user_id)
                 return;
             const __fort = (_a = message.payload) === null || _a === void 0 ? void 0 : _a.fort;
@@ -132,10 +131,7 @@ let TakeHandler = class TakeHandler extends handlers_1.IRoute {
                                     request_params.message = `Ваш форт захвачен штурмовиками из зоны ${_pointer.user.name}`;
                             }
                             const url = 'https://api.vk.com/method/messages.send?' + new URLSearchParams(request_params).toString();
-                            const result = yield (0, node_fetch_1.default)(url, { method: 'GET' })
-                                .then(response => response.json())
-                                .then(res => console.log('res', res))
-                                .catch(error => console.log('error', error));
+                            const result = yield (0, node_fetch_1.default)(url, { method: 'GET' });
                         }
                     }
                     this._zoneService.memoryUpdate(_prevZone);
@@ -158,6 +154,37 @@ let TakeHandler = class TakeHandler extends handlers_1.IRoute {
                     }
                     const tempLevel = zone.terrain.level;
                     const sectsAndLevel = zone.terrain.addSector();
+                    if (zone.terrain.sectors === 3 || zone.terrain.sectors === 10) {
+                        const myVkUser = yield this._vkUserService.getById(zone.id);
+                        if (myVkUser === null || myVkUser === void 0 ? void 0 : myVkUser.ufo) {
+                            let rewardCoins = 0;
+                            let rewardSects = 0;
+                            const ufoZone = yield this._zoneService.getById(myVkUser.ufo);
+                            if (zone.terrain.sectors === 3) {
+                                rewardCoins = 400;
+                                rewardSects = 3;
+                                ufoZone.addCoins(rewardCoins);
+                            }
+                            else if (zone.terrain.sectors === 10) {
+                                rewardCoins = 1000;
+                                rewardSects = 10;
+                                ufoZone.addCoins(rewardCoins);
+                            }
+                            this._zoneService.memoryUpdate(ufoZone);
+                            const ufoVkUser = yield this._vkUserService.getById(ufoZone.id);
+                            if (ufoVkUser.is_msg === 1) {
+                                const request_params = {
+                                    user_id: '' + ufoVkUser.vk_id,
+                                    message: `Вы получили ${rewardCoins} монет в качестве вознаграждения! [id${myVkUser.vk_id}|${_pointer.user.name}] взял под контроль ${rewardSects === 3 ? rewardSects + ' форта' : rewardSects + ' фортов'}`,
+                                    random_id: '' + (0, random_number_1.randomNumber)(100, 10000),
+                                    access_token: 'vk1.a.8PG1mPGkbbSNx8yWgdQt_qz4_EjRKy91SlNKqeZ7sxmaLqnx-b_9MJNbtC71Go1A_jknLxDaj41gR-yB687rte_XDGmdsnwwsom__UvxICg6Wc0pmIYIoT3jMXcfsprLs0JhzDg3VFCWD_upITg2VnHhmG_apBvkM6VpJk6FEmIAr9cpXiuICCSHYBZ-cHZVp8VF1jVZFmSFJGOky0kdiQ',
+                                    v: '5.130'
+                                };
+                                const url = 'https://api.vk.com/method/messages.send?' + new URLSearchParams(request_params).toString();
+                                const result = yield (0, node_fetch_1.default)(url, { method: 'GET' });
+                            }
+                        }
+                    }
                     if (sectsAndLevel.level > tempLevel) {
                         const newLevel = {
                             event: 'new-zone',

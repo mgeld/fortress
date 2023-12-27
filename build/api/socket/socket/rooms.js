@@ -10,11 +10,12 @@ exports.Rooms = void 0;
 const inversify_1 = require("inversify");
 class CollectionRooms {
     constructor() {
-        this.data = {};
+        this.clients = {};
+        this.rooms = {};
     }
     getRoom(roomId) {
         try {
-            this.data[roomId];
+            this.rooms[roomId];
             return roomId;
         }
         catch (e) {
@@ -23,31 +24,36 @@ class CollectionRooms {
         }
     }
     createRoom(roomId) {
-        this.data[roomId] = {};
-        return this.data[roomId];
+        this.rooms[roomId] = {};
+        return this.rooms[roomId];
     }
     deleteRoom(roomId) {
-        delete this.data[roomId];
+        delete this.rooms[roomId];
     }
     addClientToRoom(clientId, roomId, uSocket) {
         try {
             console.log('addClientToRoom try');
-            const room = this.data[roomId];
-            room[clientId] = uSocket;
+            const room = this.rooms[roomId];
+            room[clientId] = clientId;
+            this.clients[clientId] = uSocket;
         }
         catch (e) {
             console.log('addClientToRoom catch');
             const room = this.createRoom(roomId);
-            room[clientId] = uSocket;
+            room[clientId] = clientId;
+            this.clients[clientId] = uSocket;
         }
     }
     deleteClient(clientId, roomId) {
-        console.log(' deleteClientInRoom clientId', clientId);
-        delete this.data[roomId][clientId];
+        console.log('deleteClientInRoom roomId clientId', roomId, clientId);
+        if (!roomId)
+            return;
+        delete this.rooms[roomId][clientId];
+        delete this.clients[clientId];
     }
     getClients(roomId) {
         try {
-            const roomClients = this.data[roomId];
+            const roomClients = this.rooms[roomId];
             return Object.keys(roomClients).map(key => Number(key));
         }
         catch (e) {
@@ -56,7 +62,7 @@ class CollectionRooms {
     }
     getInactiveRooms() {
         try {
-            return Object.entries(this.data)
+            return Object.entries(this.rooms)
                 .filter(([key, value]) => Object.keys(value).length === 0)
                 .map(([key, _]) => +key);
         }
@@ -66,11 +72,11 @@ class CollectionRooms {
     }
     clearRooms(rooms) {
         rooms.forEach(roomId => {
-            delete this.data[roomId];
+            delete this.rooms[roomId];
         });
     }
     isCient(clientId) {
-        const room = Object.entries(this.data)
+        const room = Object.entries(this.rooms)
             .filter(([key, room]) => Object.keys(room).findIndex(client => Number(client) === clientId) !== -1)
             .map(room => room[0]);
         if (room.length > 0)
@@ -78,24 +84,21 @@ class CollectionRooms {
         return null;
     }
     getCientSocket(clientId) {
-        const roomId = Object.entries(this.data)
-            .filter(([key, room]) => Object.keys(room).findIndex(client => Number(client) === clientId) !== -1)
-            .map(room => room[0]);
-        if (roomId.length > 0)
-            return this.data[roomId[0]][clientId];
+        if (this.clients[clientId])
+            return this.clients[clientId];
         return null;
     }
     getClientsSocket(roomId) {
         try {
-            const roomClients = this.data[roomId];
-            return Object.values(roomClients);
+            const roomClients = this.rooms[roomId];
+            return Object.values(roomClients).map(clientId => this.clients[clientId]);
         }
         catch (e) {
             return [];
         }
     }
     clientSocket(clientId, roomId, message) {
-        const client = this.data[roomId][clientId];
+        const client = this.clients[clientId];
         if (client) {
             client.send(JSON.stringify((message)));
         }

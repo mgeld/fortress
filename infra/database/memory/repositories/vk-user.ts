@@ -7,6 +7,7 @@ export interface IVkUser {
     vk_id: number
     is_msg: number
     losses: number
+    ufo?: number
 }
 
 @injectable()

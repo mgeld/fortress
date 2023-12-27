@@ -81,6 +81,7 @@ let ArenaRepository = class ArenaRepository {
             console.log('insertsMember');
             const sqlMembers = members.map(member => {
                 const dtoMember = member.unmarshal();
+                console.log('dtoMember.killed', dtoMember.killed);
                 return [
                     dtoMember.userId,
                     dtoMember.killed,

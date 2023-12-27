@@ -33,7 +33,10 @@ const Counters = () => {
     const zoneSects = sects - (zone_level_1.ZoneLevel.getMaxLevelAllSectors(zoneLevel - 1) || 0);
     const zoneProgress = zoneSects * 100 / zone_level_1.ZoneLevel.getMaxLevelSectors(zoneLevel);
     return (<>
-            <counter_1.Counter width={74} onClick={() => setTooltip(1)} className={styles_module_scss_1.default.__sector} icon={<_icons_1.IconSector />} text={String(zone_1.zoneModel.selectors.useZoneSectors())}>
+            <counter_1.Counter width={74} onClick={() => setTooltip(1)} className={styles_module_scss_1.default.__sector} icon={<_icons_1.IconZone width={23} height={23} style={{
+                marginTop: '-1px',
+                marginLeft: '-1px',
+            }}/>} text={String(zone_1.zoneModel.selectors.useZoneSectors())}>
                 {tooltip === 1 ? (<ui_1.Tooltip pos="right" message="Все завоеванные территории"/>) : <></>}
             </counter_1.Counter>
             <counter_1.Counter onClick={() => setTooltip(2)} width={74} className={styles_module_scss_1.default.__trophy} icon={(<_icons_1.IconTrophy />)} text={String(trophy)}>
@@ -55,7 +58,7 @@ const Counters = () => {
                 {tooltip === 5 ? (<ui_1.Tooltip pos="left" message="Опыт завоеваний"/>) : <></>}
             </counter_progress_1.CounterProgress>
 
-            <counter_progress_1.CounterProgress onClick={() => setTooltip(6)} className={styles_module_scss_1.default.__zone} position="left" icon={<_icons_1.IconZone />} progress={zoneProgress} color="#C163E0" name={`Зона: ${zoneLevel} ур`} counter={zoneSects} width={73}>
+            <counter_progress_1.CounterProgress onClick={() => setTooltip(6)} className={styles_module_scss_1.default.__zone} position="left" icon={<_icons_2.IconZoneLevel />} progress={zoneProgress} color="#C163E0" name={`Зона: ${zoneLevel} ур`} counter={zoneSects} width={73}>
                 {tooltip === 6 ? (<ui_1.Tooltip pos="left" message="Гексы текущего уровня зоны"/>) : <></>}
             </counter_progress_1.CounterProgress>
 

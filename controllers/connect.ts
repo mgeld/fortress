@@ -13,9 +13,10 @@ import { CitadelService } from "../services/citadel.service";
 import { PointerService } from "../services/pointer.service";
 import { verifyLaunchParams } from "../libs/verify-launch-params";
 import { TConnectPayload } from "../common-types/socket/server-to-client";
-import { VkUserRepository } from "../infra/database/mysql2/repositories/vk-user";
 import { TConnectAPI, TEventConnect } from "../common-types/socket/client-to-server";
 import { Rooms } from "../api/socket/socket/rooms";
+import { VkUserService } from "../services/vk-user.service";
+import { randomNumber } from "../libs/random-number";
 
 @injectable()
 class ConnectHandler implements IRoute {
@@ -24,7 +25,8 @@ class ConnectHandler implements IRoute {
     @inject(TYPES.WeaponService) private _weaponService!: WeaponService
     @inject(TYPES.CitadelService) private _citadelService!: CitadelService
     @inject(TYPES.PointerService) private _pointerService!: PointerService
-    @inject(TYPES.VkUserRepository) private _vkUserRepository!: VkUserRepository
+    // @inject(TYPES.VkUserRepository) private _vkUserRepository!: VkUserRepository
+    @inject(TYPES.VkUserService) private _vkUserService!: VkUserService
 
     public static EVENT: TEventConnect = "connect"
 
@@ -33,11 +35,14 @@ class ConnectHandler implements IRoute {
         uSocket: IWebSocket,
     ) {
 
-        const VK_URL = message.payload.url
+        console.log('ConnectHandler')
 
+        const VK_URL = message.payload.url
+        const __abduction = message.payload?.hash
+
+        let zone: Zone
         let pointer: Pointer
         let weapon: WeaponType
-        let zone: Zone
         let citadel: Citadel | null = null
 
         // const clientSecret = 'D1m0YtrP8D0nd7dvdkEO'
@@ -59,18 +64,25 @@ class ConnectHandler implements IRoute {
 
         try {
 
-            const { zone_id: zoneId } = await this._vkUserRepository.getById(vk_id)
+            console.log('CONNECT TRY')
+
+            const { zone_id: zoneId } = await this._vkUserService.baseGetById(vk_id)
 
             const isClient = this._rooms.areals.getCientSocket(zoneId)
 
             // Если клиент уже подключен
             if (isClient) {
 
+                console.log('isClient есть')
+
                 isClient.send(JSON.stringify({
                     event: 'session-destroy',
                     payload: {}
                 }))
+
                 isClient.close(3000, 'session-destroy')
+
+                // isClient.terminate()
 
                 pointer = await this._pointerService.memoryGetById(zoneId)
 
@@ -85,7 +97,6 @@ class ConnectHandler implements IRoute {
                 pointer.areal = -1
 
                 // throw new Error('terminate')
-
                 // this._rooms.areals.clientSocket(zoneId, isClient, {
                 //     event: 'session-destroy',
                 //     payload: {}
@@ -95,14 +106,12 @@ class ConnectHandler implements IRoute {
                 zone = await this._zoneService.getById(zoneId)
 
             } else {
-
                 pointer = await this._pointerService.baseGetById(zoneId)
                 weapon = await this._weaponService.baseGetById(pointer.weapons[0])
                 zone = await this._zoneService.getById(zoneId)
 
                 this._zoneService.memoryInsert(zone)
                 this._weaponService.memoryInsert(weapon)
-
             }
 
             this._pointerService.memoryInsert(pointer)
@@ -112,6 +121,8 @@ class ConnectHandler implements IRoute {
             }
 
         } catch (e) {
+            
+            console.log('CONNECT CATCH')
 
             weapon = this._weaponService.createGun()
 
@@ -120,13 +131,6 @@ class ConnectHandler implements IRoute {
 
             zone = this._zoneService.create(0)
             zone = await this._zoneService.baseInsert(zone)
-
-            await this._vkUserRepository.insert({
-                user_id: vk_id,
-                zone_id: zone.id,
-                is_msg: 0,
-                is_group: 0,
-            })
 
             const request_params = {
                 user_ids: '' + vk_id,
@@ -138,9 +142,7 @@ class ConnectHandler implements IRoute {
 
             const url = 'https://api.vk.com/method/users.get?' + new URLSearchParams(request_params).toString();
 
-            const result = await fetch(url, {
-                method: 'GET',
-            }).then(response => response.json())
+            const result = await fetch(url, { method: 'GET' }).then(response => response.json())
 
             const user = result.response[0]
 
@@ -155,10 +157,47 @@ class ConnectHandler implements IRoute {
                 weapon
             )
 
+            const vkUser = {
+                vk_id,
+                zone_id: zone.id,
+                ufo: 0
+            }
+
+            if (__abduction && Number(__abduction) > 0) {
+                try {
+                    const rewardCoins = 60
+
+                    const ufoZone = await this._zoneService.getById(__abduction)
+                    ufoZone.addCoins(rewardCoins)
+                    this._zoneService.memoryUpdate(ufoZone)
+
+                    vkUser.ufo = ufoZone.id
+
+                    const ufoVkUser = await this._vkUserService.getById(ufoZone.id)
+                    if (ufoVkUser.is_msg === 1) {
+                        const request_params = {
+                            user_id: '' + ufoVkUser.vk_id,
+                            message: `Вами был похищен [id${vkUser.vk_id}|${pointer.user.name}], который в следствие проведенных опытов стал одним из пришельцев. В качестве вознаграждения вы получили ${rewardCoins} монет.`,
+                            random_id: '' + randomNumber(100, 10000),
+                            access_token: 'vk1.a.8PG1mPGkbbSNx8yWgdQt_qz4_EjRKy91SlNKqeZ7sxmaLqnx-b_9MJNbtC71Go1A_jknLxDaj41gR-yB687rte_XDGmdsnwwsom__UvxICg6Wc0pmIYIoT3jMXcfsprLs0JhzDg3VFCWD_upITg2VnHhmG_apBvkM6VpJk6FEmIAr9cpXiuICCSHYBZ-cHZVp8VF1jVZFmSFJGOky0kdiQ',
+                            v: '5.130'
+                        }
+                        const url = 'https://api.vk.com/method/messages.send?' + new URLSearchParams(request_params).toString();
+
+                        fetch(url, { method: 'GET' })
+                    }
+                } catch (e) {
+
+                }
+            }
+
+            await this._vkUserService.baseInsert(vkUser)
+
             this._pointerService.baseInsert(pointer)
             this._pointerService.memoryInsert(pointer)
 
             this._zoneService.memoryInsert(zone)
+
         }
 
         uSocket.user_id = zone.id

@@ -41,6 +41,7 @@ let BattleJoinHandler = class BattleJoinHandler extends handlers_1.IRoute {
             if (_pointer.health < 1)
                 return;
             const arena = yield this._arenaService.getArena();
+            console.log('BattleJoinHandler arena.id', arena.id);
             const team = arena.addPointer(uSocket.user_id);
             const teamPlace = team.getPlace(arena.place.place);
             const _member = arena_team_member_1.Member.create({
@@ -97,7 +98,7 @@ let BattleJoinHandler = class BattleJoinHandler extends handlers_1.IRoute {
                         })
                     }
                 });
-                arena.timeout = setTimeout(() => this._battleService.overGame(arena.id), 500000);
+                arena.timeout = setTimeout(() => this._battleService.overGame(arena.id), 120000);
             }
             yield this._arenaService.update(arena);
         });

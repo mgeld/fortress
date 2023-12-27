@@ -38,7 +38,7 @@ class TakeHandler extends IRoute {
         message: TTakeAPI,
         uSocket: IWebSocket,
     ) {
-        console.log('TakeHandler handle')
+        // console.log('TakeHandler handle')
 
         if (!uSocket.user_id) return
 
@@ -162,9 +162,6 @@ class TakeHandler extends IRoute {
                         const url = 'https://api.vk.com/method/messages.send?' + new URLSearchParams(request_params).toString();
 
                         const result = await fetch(url, { method: 'GET' })
-                            .then(response => response.json())
-                            .then(res => console.log('res', res))
-                            .catch(error => console.log('error', error))
 
                     }
 
@@ -198,6 +195,44 @@ class TakeHandler extends IRoute {
 
                 const tempLevel = zone.terrain.level
                 const sectsAndLevel = zone.terrain.addSector()
+
+
+                if (zone.terrain.sectors === 3 || zone.terrain.sectors === 10) {
+
+                    const myVkUser = await this._vkUserService.getById(zone.id)
+                    if (myVkUser?.ufo) {
+
+                        let rewardCoins = 0
+                        let rewardSects = 0
+
+                        const ufoZone = await this._zoneService.getById(myVkUser.ufo)
+                        if (zone.terrain.sectors === 3) {
+                            rewardCoins = 400
+                            rewardSects = 3
+                            ufoZone.addCoins(rewardCoins)
+                        } else if (zone.terrain.sectors === 10) {
+                            rewardCoins = 1000
+                            rewardSects = 10
+                            ufoZone.addCoins(rewardCoins)
+                        }
+                        this._zoneService.memoryUpdate(ufoZone)
+
+                        const ufoVkUser = await this._vkUserService.getById(ufoZone.id)
+
+                        if (ufoVkUser.is_msg === 1) {
+                            const request_params = {
+                                user_id: '' + ufoVkUser.vk_id,
+                                message: `Вы получили ${rewardCoins} монет в качестве вознаграждения! [id${myVkUser.vk_id}|${_pointer.user.name}] взял под контроль ${rewardSects === 3 ? rewardSects + ' форта' :  rewardSects + ' фортов'}`,
+                                random_id: '' + randomNumber(100, 10000),
+                                access_token: 'vk1.a.8PG1mPGkbbSNx8yWgdQt_qz4_EjRKy91SlNKqeZ7sxmaLqnx-b_9MJNbtC71Go1A_jknLxDaj41gR-yB687rte_XDGmdsnwwsom__UvxICg6Wc0pmIYIoT3jMXcfsprLs0JhzDg3VFCWD_upITg2VnHhmG_apBvkM6VpJk6FEmIAr9cpXiuICCSHYBZ-cHZVp8VF1jVZFmSFJGOky0kdiQ',
+                                v: '5.130'
+                            }
+                            const url = 'https://api.vk.com/method/messages.send?' + new URLSearchParams(request_params).toString();
+
+                            const result = await fetch(url, { method: 'GET' })
+                        }
+                    }
+                }
 
                 if (sectsAndLevel.level > tempLevel) {
                     const newLevel: TNewZone = {

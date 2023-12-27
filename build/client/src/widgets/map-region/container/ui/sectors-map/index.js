@@ -14,7 +14,6 @@ const SectorsMap = () => {
                 map_1.mapModel.events.setLatLngMap([latlng === null || latlng === void 0 ? void 0 : latlng.lat, latlng === null || latlng === void 0 ? void 0 : latlng.lng]);
         }
     });
-    console.log('sectors', sectors);
     return <>
         {sectors.zones.map(zoneItem => {
             let color = zoneItem.zone.zone_id === -1 ? 0 : zoneItem.zone.color;

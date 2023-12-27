@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.IconZoneRed = exports.IconZone = exports.IconExperience = exports.IconSapphire = exports.IconCoin = exports.IconTrophy = exports.IconSector = void 0;
+exports.IconZoneRed = exports.IconZone = exports.IconZoneLevel = exports.IconExperience = exports.IconSapphire = exports.IconCoin = exports.IconTrophy = exports.IconSector = void 0;
 var sector_svg_1 = require("./sector.svg");
 Object.defineProperty(exports, "IconSector", { enumerable: true, get: function () { return sector_svg_1.ReactComponent; } });
 var trophy_svg_1 = require("./trophy.svg");
@@ -11,6 +11,8 @@ var sapphire_svg_1 = require("./sapphire.svg");
 Object.defineProperty(exports, "IconSapphire", { enumerable: true, get: function () { return sapphire_svg_1.ReactComponent; } });
 var experience_svg_1 = require("./experience.svg");
 Object.defineProperty(exports, "IconExperience", { enumerable: true, get: function () { return experience_svg_1.ReactComponent; } });
+var zone_level_svg_1 = require("./zone-level.svg");
+Object.defineProperty(exports, "IconZoneLevel", { enumerable: true, get: function () { return zone_level_svg_1.ReactComponent; } });
 var zone_svg_1 = require("./zone.svg");
 Object.defineProperty(exports, "IconZone", { enumerable: true, get: function () { return zone_svg_1.ReactComponent; } });
 var zone_red_svg_1 = require("./zone-red.svg");

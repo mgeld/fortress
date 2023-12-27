@@ -33,3 +33,7 @@ export { ReactComponent as IconVK } from './vk.svg';
 export { ReactComponent as IconSettings } from './settings.svg';
 
 export { ReactComponent as IconLoad } from './load.svg';
+
+export { ReactComponent as IconUFO } from './ufo.svg';
+export { ReactComponent as IconAlien } from './alien.svg';
+export { ReactComponent as IconShipBeam } from './ship-beam.svg';

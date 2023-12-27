@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.IconLoad = exports.IconSettings = exports.IconVK = exports.IconTerrain = exports.IconSapphire = exports.IconCoin = exports.IconShip = exports.IconCont3 = exports.IconCont2 = exports.IconCont1 = exports.IconShipGun = exports.IconZoneLevel = exports.IconLevelUp = exports.IconRank = exports.IconClose = exports.IconArrow = exports.IconBattleLoupe = exports.IconBattleSwords = void 0;
+exports.IconShipBeam = exports.IconAlien = exports.IconUFO = exports.IconLoad = exports.IconSettings = exports.IconVK = exports.IconTerrain = exports.IconSapphire = exports.IconCoin = exports.IconShip = exports.IconCont3 = exports.IconCont2 = exports.IconCont1 = exports.IconShipGun = exports.IconZoneLevel = exports.IconLevelUp = exports.IconRank = exports.IconClose = exports.IconArrow = exports.IconBattleLoupe = exports.IconBattleSwords = void 0;
 var battle_swords_svg_1 = require("./battle-swords.svg");
 Object.defineProperty(exports, "IconBattleSwords", { enumerable: true, get: function () { return battle_swords_svg_1.ReactComponent; } });
 var battle_loupe_svg_1 = require("./battle-loupe.svg");
@@ -37,3 +37,9 @@ var settings_svg_1 = require("./settings.svg");
 Object.defineProperty(exports, "IconSettings", { enumerable: true, get: function () { return settings_svg_1.ReactComponent; } });
 var load_svg_1 = require("./load.svg");
 Object.defineProperty(exports, "IconLoad", { enumerable: true, get: function () { return load_svg_1.ReactComponent; } });
+var ufo_svg_1 = require("./ufo.svg");
+Object.defineProperty(exports, "IconUFO", { enumerable: true, get: function () { return ufo_svg_1.ReactComponent; } });
+var alien_svg_1 = require("./alien.svg");
+Object.defineProperty(exports, "IconAlien", { enumerable: true, get: function () { return alien_svg_1.ReactComponent; } });
+var ship_beam_svg_1 = require("./ship-beam.svg");
+Object.defineProperty(exports, "IconShipBeam", { enumerable: true, get: function () { return ship_beam_svg_1.ReactComponent; } });

@@ -135,14 +135,18 @@ export class Server {
             })
 
             ws.on('close', function (e, d) {
-                console.log('ws close user_id', ws.user_id)
+                console.log('close ws user_id', ws.user_id)
+
                 if (d.toString() === 'session-destroy') {
                     // ws.is_alive = false
                     // ws?.user_id && Connection.deleteClientAreal(ws.user_id)
                     ws.terminate()
+                    console.log('ws.user_id', ws?.user_id)
                 } else {
+                    console.log('close Else >>>>>>>>>>>>>>')
                     ws?.user_id && Connection.deleteUser(ws.user_id)
                 }
+
             });
 
             // Сокет контроллеры

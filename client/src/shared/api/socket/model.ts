@@ -12,9 +12,7 @@ sample({
     target: $socketStatus
 })
 
-
 export const useSocket = () => useStore($socketStatus)
-
 
 const reSocket = createEvent()
 

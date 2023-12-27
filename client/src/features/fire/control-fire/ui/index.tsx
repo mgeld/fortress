@@ -1,11 +1,14 @@
 import { FC } from "react";
 
 import { Joystick as Control } from 'react-joystick-component';
-import { fireControl } from "../model";
+// import { fireControl } from "../model";
 
 import styles from './styles.module.scss'
+import { useControl } from "../hooks/use-control";
 
 const ControlFire: FC = () => {
+
+    const { moveControl, stopFire } = useControl()
 
     return (
         <div className={styles.controlFire}>
@@ -18,8 +21,8 @@ const ControlFire: FC = () => {
                     stickImage='icons/control-fire.png'
                     minDistance={70}
                     throttle={500}
-                    move={fireControl}
-                    stop={() => { }}
+                    move={moveControl}
+                    stop={stopFire}
                 />
             </div>
         </div>

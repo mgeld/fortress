@@ -38,7 +38,7 @@ class ConnectHandler extends __1.Handler {
             events_1.shipAPI.events.setPos(message.payload.ship.pos);
         }
         else {
-            popout_root_1.popoutModel.events.setPopout('primes');
+            popout_root_1.popoutModel.events.setPopout('abduction');
             events_1.mapAPI.events.setMapMode('start');
         }
     }

@@ -30,15 +30,19 @@ const weapon_service_1 = require("../services/weapon.service");
 const citadel_service_1 = require("../services/citadel.service");
 const pointer_service_1 = require("../services/pointer.service");
 const verify_launch_params_1 = require("../libs/verify-launch-params");
-const vk_user_1 = require("../infra/database/mysql2/repositories/vk-user");
 const rooms_1 = require("../api/socket/socket/rooms");
+const vk_user_service_1 = require("../services/vk-user.service");
+const random_number_1 = require("../libs/random-number");
 let ConnectHandler = class ConnectHandler {
     handle(message, uSocket) {
+        var _a;
         return __awaiter(this, void 0, void 0, function* () {
+            console.log('ConnectHandler');
             const VK_URL = message.payload.url;
+            const __abduction = (_a = message.payload) === null || _a === void 0 ? void 0 : _a.hash;
+            let zone;
             let pointer;
             let weapon;
-            let zone;
             let citadel = null;
             const clientSecret = 'SCecuoQxDCCS0hdTSuhe';
             const launchParams = decodeURIComponent(VK_URL.slice(VK_URL.indexOf('?') + 1));
@@ -49,9 +53,11 @@ let ConnectHandler = class ConnectHandler {
             if (!is_valid || !vk_id)
                 return 'ERROR_SECRET_KEY';
             try {
-                const { zone_id: zoneId } = yield this._vkUserRepository.getById(vk_id);
+                console.log('CONNECT TRY');
+                const { zone_id: zoneId } = yield this._vkUserService.baseGetById(vk_id);
                 const isClient = this._rooms.areals.getCientSocket(zoneId);
                 if (isClient) {
+                    console.log('isClient есть');
                     isClient.send(JSON.stringify({
                         event: 'session-destroy',
                         payload: {}
@@ -82,17 +88,12 @@ let ConnectHandler = class ConnectHandler {
                 }
             }
             catch (e) {
+                console.log('CONNECT CATCH');
                 weapon = this._weaponService.createGun();
                 this._weaponService.memoryInsert(weapon);
                 this._weaponService.baseInsert(weapon);
                 zone = this._zoneService.create(0);
                 zone = yield this._zoneService.baseInsert(zone);
-                yield this._vkUserRepository.insert({
-                    user_id: vk_id,
-                    zone_id: zone.id,
-                    is_msg: 0,
-                    is_group: 0,
-                });
                 const request_params = {
                     user_ids: '' + vk_id,
                     fields: 'photo_100',
@@ -101,13 +102,40 @@ let ConnectHandler = class ConnectHandler {
                     v: '5.130'
                 };
                 const url = 'https://api.vk.com/method/users.get?' + new URLSearchParams(request_params).toString();
-                const result = yield (0, node_fetch_1.default)(url, {
-                    method: 'GET',
-                }).then(response => response.json());
+                const result = yield (0, node_fetch_1.default)(url, { method: 'GET' }).then(response => response.json());
                 const user = result.response[0];
                 const USER_NAME = user.first_name;
                 const USER_ICON = user.photo_100;
                 pointer = this._pointerService.create(zone.id, [0, 0], USER_NAME, USER_ICON, weapon);
+                const vkUser = {
+                    vk_id,
+                    zone_id: zone.id,
+                    ufo: 0
+                };
+                if (__abduction && Number(__abduction) > 0) {
+                    try {
+                        const rewardCoins = 60;
+                        const ufoZone = yield this._zoneService.getById(__abduction);
+                        ufoZone.addCoins(rewardCoins);
+                        this._zoneService.memoryUpdate(ufoZone);
+                        vkUser.ufo = ufoZone.id;
+                        const ufoVkUser = yield this._vkUserService.getById(ufoZone.id);
+                        if (ufoVkUser.is_msg === 1) {
+                            const request_params = {
+                                user_id: '' + ufoVkUser.vk_id,
+                                message: `Вами был похищен [id${vkUser.vk_id}|${pointer.user.name}], который в следствие проведенных опытов стал одним из пришельцев. В качестве вознаграждения вы получили ${rewardCoins} монет.`,
+                                random_id: '' + (0, random_number_1.randomNumber)(100, 10000),
+                                access_token: 'vk1.a.8PG1mPGkbbSNx8yWgdQt_qz4_EjRKy91SlNKqeZ7sxmaLqnx-b_9MJNbtC71Go1A_jknLxDaj41gR-yB687rte_XDGmdsnwwsom__UvxICg6Wc0pmIYIoT3jMXcfsprLs0JhzDg3VFCWD_upITg2VnHhmG_apBvkM6VpJk6FEmIAr9cpXiuICCSHYBZ-cHZVp8VF1jVZFmSFJGOky0kdiQ',
+                                v: '5.130'
+                            };
+                            const url = 'https://api.vk.com/method/messages.send?' + new URLSearchParams(request_params).toString();
+                            (0, node_fetch_1.default)(url, { method: 'GET' });
+                        }
+                    }
+                    catch (e) {
+                    }
+                }
+                yield this._vkUserService.baseInsert(vkUser);
                 this._pointerService.baseInsert(pointer);
                 this._pointerService.memoryInsert(pointer);
                 this._zoneService.memoryInsert(zone);
@@ -182,9 +210,9 @@ __decorate([
     __metadata("design:type", pointer_service_1.PointerService)
 ], ConnectHandler.prototype, "_pointerService", void 0);
 __decorate([
-    (0, inversify_1.inject)(types_1.TYPES.VkUserRepository),
-    __metadata("design:type", vk_user_1.VkUserRepository)
-], ConnectHandler.prototype, "_vkUserRepository", void 0);
+    (0, inversify_1.inject)(types_1.TYPES.VkUserService),
+    __metadata("design:type", vk_user_service_1.VkUserService)
+], ConnectHandler.prototype, "_vkUserService", void 0);
 ConnectHandler = __decorate([
     (0, inversify_1.injectable)()
 ], ConnectHandler);

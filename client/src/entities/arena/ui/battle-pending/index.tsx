@@ -27,15 +27,6 @@ export const BattlePending: FC = () => {
         bridge.send('VKWebAppShowBannerAd', {
             banner_location: BannerAdLocation.BOTTOM
         })
-            .then((data) => {
-                if (data.result) {
-                    // Баннерная реклама отобразилась
-                }
-            })
-            .catch((error) => {
-                // Ошибка
-            });
-
         return () => {
             bridge.send('VKWebAppHideBannerAd')
         }
@@ -50,7 +41,7 @@ export const BattlePending: FC = () => {
             })
             battleLeave()
             setTimeout(breakBattlePending, 3000)
-        }, 60000)
+        }, 120000)
         return () => clearTimeout(tId.current);
     }, [])
 
@@ -58,21 +49,15 @@ export const BattlePending: FC = () => {
         <div className={styles.battleRoot}>
             <div className={styles.battlePending}>
                 <div className={`${styles.__content} strw2`}>
-                    {/*
-                    <div className={styles.__header}>
-                        <div className={styles.__border}>
-                            <div className={styles.name}>
-                                Навигатор
-                            </div>
-                        </div>
-                    </div>
-                    */}
+
                     <div className={styles.__search}>
                         <IconBattleLoupe />
                     </div>
+
                     <div className={styles.__text}>
                         Поиск противников<span>...</span>
                     </div>
+
                     <div className={styles.button}>
                         <div
                             className={styles.__break}
@@ -84,6 +69,7 @@ export const BattlePending: FC = () => {
                             Прервать
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>

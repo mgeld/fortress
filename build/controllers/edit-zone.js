@@ -28,8 +28,6 @@ const types_1 = require("../types");
 const zone_service_1 = require("../services/zone.service");
 const crypto_1 = __importDefault(require("crypto"));
 let EditZoneHandler = class EditZoneHandler {
-    constructor() {
-    }
     handle(message, uSocket) {
         return __awaiter(this, void 0, void 0, function* () {
             if (!uSocket.user_id)
@@ -79,7 +77,6 @@ __decorate([
     __metadata("design:type", zone_service_1.ZoneService)
 ], EditZoneHandler.prototype, "_zoneService", void 0);
 EditZoneHandler = __decorate([
-    (0, inversify_1.injectable)(),
-    __metadata("design:paramtypes", [])
+    (0, inversify_1.injectable)()
 ], EditZoneHandler);
 exports.EditZoneHandler = EditZoneHandler;

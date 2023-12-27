@@ -58,6 +58,41 @@ let VkUserRepository = class VkUserRepository {
             return result;
         });
     }
+    getAbduction({ ufo_id, page }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const count = 20;
+            const start = (page - 1) * count;
+            const end = page * count;
+            const [result] = yield this._connection.query(`
+                SELECT
+                    terrain.sectors,
+                    vk.zone_id,
+                    vk.date,
+                    p.icon,
+                    p.name
+                FROM
+                    vk_users as vk
+
+                LEFT JOIN terrain ON terrain.zone_id = vk.zone_id
+                LEFT JOIN pointers AS p ON p.zone_id = vk.zone_id
+
+                WHERE vk.ufo = ?
+
+                ORDER BY vk.date DESC
+
+                LIMIT ?, ?;
+            `, [
+                ufo_id,
+                start, end
+            ]);
+            if (!result) {
+                throw new Error('----------');
+            }
+            const zones = result.map(zone => (Object.assign({}, zone)));
+            console.log('VkUserRepository getAbduction zones', zones);
+            return zones;
+        });
+    }
     insert(user) {
         return __awaiter(this, void 0, void 0, function* () {
             const date_reg = Math.floor(new Date().getTime() / 1000);
@@ -65,8 +100,10 @@ let VkUserRepository = class VkUserRepository {
             INSERT INTO vk_users(
                 user_id,
                 zone_id,
-                date
+                date,
+                ufo
             )VALUES(
+                ?,
                 ?,
                 ?,
                 ?
@@ -74,7 +111,8 @@ let VkUserRepository = class VkUserRepository {
         `, [
                 user.user_id,
                 user.zone_id,
-                date_reg
+                date_reg,
+                user.ufo
             ]);
             if (!inserted) {
                 throw new Error('----------');

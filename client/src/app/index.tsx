@@ -37,7 +37,6 @@ import { GunLevelUp } from 'features/weapon/gun-level-up/ui'
 import { StormLevelUp } from 'features/storm-corps/storm-level-up/ui'
 import { HoldLevelUp } from 'features/hold/hold-level-up/ui'
 import { goBack } from 'processes/go-back'
-import { Primes } from 'widgets/primes'
 import { getPlatformNative } from 'shared/lib/get-platform-native'
 import { Alert } from 'shared/ui/alert'
 import { Tutorial } from 'shared/ui/tutorial/ui'
@@ -53,6 +52,10 @@ import { setMyZoneColorStartSample } from 'features/sector/set-zone-color/model'
 import { initSelectZoneSample } from 'features/user/select-zone'
 
 import ZoneEdit from 'features/user/edit/ui'
+import { Abduction } from 'entities/user/ui/abduction'
+import { AbductionPrimes } from 'widgets/primes/abduction'
+import { AbductionPage } from 'pages/abduction'
+import { AbductionLink } from 'features/user/abduction-link/ui'
 
 mapStartPosition()
 setMyZoneColorStartSample()
@@ -106,6 +109,28 @@ const App = () => {
         </Popout> */}
 
         <Popout
+          key='abduction'
+          id='abduction'
+          fill='white'
+          screen='full'
+          close={false}
+          edge={0}
+        >
+          <Abduction />
+        </Popout>
+        
+        <Popout
+          key='abduction-link'
+          id='abduction-link'
+          fill='white'
+          screen='full'
+          close={false}
+          edge={0}
+        >
+          <AbductionLink />
+        </Popout>
+
+        <Popout
           key='battle-pending'
           id='battle-pending'
           fill='white'
@@ -117,18 +142,6 @@ const App = () => {
         </Popout>
 
         <Popout
-          key='vk-join-group'
-          id='vk-join-group'
-          fill='white'
-          screen='full'
-          close={true}
-          edge={0}
-        >
-          <VkJoinGroup />
-        </Popout>
-
-
-        <Popout
           key='battle-over'
           id='battle-over'
           fill='#5a166480'
@@ -137,6 +150,17 @@ const App = () => {
           edge={0}
         >
           <BattleOver />
+        </Popout>
+
+        <Popout
+          key='vk-join-group'
+          id='vk-join-group'
+          fill='white'
+          screen='full'
+          close={true}
+          edge={0}
+        >
+          <VkJoinGroup />
         </Popout>
 
         <Popout
@@ -156,7 +180,6 @@ const App = () => {
         >
           <ZoneEdit />
         </Popout>
-
 
         <Popout
           key='select-place'
@@ -212,7 +235,6 @@ const App = () => {
         >
           <HoldPopout />
         </Popout>
-
 
         {/* START */}
         <Popout
@@ -335,14 +357,24 @@ const App = () => {
           <LockScreen />
         </Popout>
 
-        <Popout
-          key='primes'
-          id='primes'
+        {/* <Popout
+          key='common-primes'
+          id='common-primes'
           fill='#5a166480'
           edge={12}
           close={false}
         >
-          <Primes />
+          <CommonPrimes />
+        </Popout> */}
+
+        <Popout
+          key='abduction-primes'
+          id='abduction-primes'
+          fill='#5a166480'
+          edge={12}
+          close={false}
+        >
+          <AbductionPrimes />
         </Popout>
 
       </PopoutRoot>
@@ -382,6 +414,10 @@ const App = () => {
 
           <Page key="zone" id='zone'>
             <ZonePage />
+          </Page>
+
+          <Page key="abduction" id='abduction'>
+            <AbductionPage />
           </Page>
 
 

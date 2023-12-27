@@ -8,8 +8,6 @@ export const SectorsMap: FC = () => {
 
     const sectors = sectorMapModel.selectors.useSector()
 
-    console.log('SectorsMap sectors', sectors)
-
     useMapEvents({
         popupopen(e) {
             const latlng = e.popup.getLatLng()

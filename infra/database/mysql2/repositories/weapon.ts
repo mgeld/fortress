@@ -97,8 +97,6 @@ export class WeaponRepository implements IWeaponRepository {
 
     async update(weapon: WeaponType): Promise<WeaponType> {
 
-        console.log('MysqlWeaponRepository')
-        
         const dtoWeapon = weapon.unmarshal()
 
         let arr: any[] = []

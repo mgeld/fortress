@@ -47,6 +47,8 @@ export class Handlers {
         @inject(TYPES.GetSatelliteFortHandler) private getSatelliteFort: IRoute,
         @inject(TYPES.EditZoneHandler) private editZone: IRoute,
         @inject(TYPES.DelExtractionHandler) private delExtraction: IRoute,
+        @inject(TYPES.GetAbductionHandler) private getAbduction: IRoute,
+        @inject(TYPES.GetZoneHandler) private getZone: IRoute,
     ) { }
 
     handle(

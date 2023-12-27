@@ -31,6 +31,8 @@ let VkUserService = class VkUserService {
             is_msg: zone.is_msg,
             losses: 0
         };
+        if (zone.ufo)
+            vk_user.ufo = zone.ufo;
         this._memoryRepository.insert(vk_user);
         return vk_user;
     }
@@ -64,6 +66,26 @@ let VkUserService = class VkUserService {
         return __awaiter(this, void 0, void 0, function* () {
             const zone = yield this._baseRepository.getById(userId);
             return zone;
+        });
+    }
+    getAbduction(zone_id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const zone = yield this._baseRepository.getAbduction({
+                ufo_id: zone_id,
+                page: 1
+            });
+            return zone;
+        });
+    }
+    baseInsert({ vk_id, zone_id, ufo }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this._baseRepository.insert({
+                user_id: vk_id,
+                zone_id: zone_id,
+                is_msg: 0,
+                is_group: 0,
+                ufo: ufo || 0
+            });
         });
     }
     baseGetByZoneId(userId) {

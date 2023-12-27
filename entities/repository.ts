@@ -40,6 +40,7 @@ export interface IZoneRepository {
     insert(zone: Zone): Promise<Zone>
     update(zone: Zone): Promise<Zone>
     getTrophies(): Promise<IRatingZone[]>
+    getZone(id: number): Promise<IRatingZone> 
 }
 
 

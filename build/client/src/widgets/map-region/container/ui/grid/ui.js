@@ -7,7 +7,6 @@ const react_leaflet_1 = require("react-leaflet");
 const GridMap = ({ pos }) => {
     const isGrid = map_1.mapModel.selectors.useMapGrid();
     (0, react_leaflet_1.useMapEvent)('dblclick', (e) => {
-        console.log('dblclick');
         map_1.mapModel.events.setMapGrid();
     });
     if (!isGrid)

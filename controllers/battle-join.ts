@@ -43,6 +43,9 @@ class BattleJoinHandler extends IRoute {
         if (_pointer.health < 1) return
 
         const arena = await this._arenaService.getArena()
+
+        console.log('BattleJoinHandler arena.id', arena.id)
+
         const team = arena.addPointer(uSocket.user_id)
         const teamPlace = team.getPlace(arena.place.place)
 
@@ -77,7 +80,7 @@ class BattleJoinHandler extends IRoute {
                 userId: _pointer.zoneId
             }
         }, [_pointer.zoneId])
-        
+
         _pointer.areal = -1
         await this._pointerService.memoryUpdate(_pointer)
 
@@ -123,7 +126,7 @@ class BattleJoinHandler extends IRoute {
                 }
             })
 
-            arena.timeout = setTimeout(() => this._battleService.overGame(arena.id), 500000)
+            arena.timeout = setTimeout(() => this._battleService.overGame(arena.id), 120000)
 
         }
 

@@ -8,29 +8,35 @@ const react_1 = require("react");
 const model_1 = require("shared/api/socket/model");
 const user_1 = require("entities/user");
 const events_1 = require("shared/api/events");
-const popout_root_1 = require("shared/ui/popout-root");
 const lock_screen_1 = require("shared/ui/lock-screen");
+const popout_root_1 = require("shared/ui/popout-root");
 const lost_internet_1 = require("processes/lost-internet");
 const connect_user_1 = require("features/user/connect-user");
 const socket_close_1 = require("processes/socket/socket-close");
-const vk_bridge_1 = __importDefault(require("@vkontakte/vk-bridge"));
-const get_hash_to_sector_id_1 = require("shared/lib/get-hash-to-sector-id");
-const get_satellite_fort_1 = require("shared/api/get-satellite-fort");
 const h3_js_1 = require("h3-js");
 const page_root_1 = require("shared/ui/page-root");
 const map_1 = require("entities/map");
+const get_satellite_fort_1 = require("shared/api/get-satellite-fort");
+const get_hash_to_sector_id_1 = require("shared/lib/get-hash-to-sector-id");
+const vk_bridge_1 = __importDefault(require("@vkontakte/vk-bridge"));
 connect_user_1.userEvents.startConnectUser();
 const useApp = () => {
     const vkUserId = user_1.userModel.selectors.useVkUserId();
     const zoneId = user_1.userModel.selectors.useUserId();
     const socketStatus = (0, model_1.useSocket)();
     (0, react_1.useEffect)(() => {
+        console.log('0 useEffect');
         window.addEventListener("offline", lost_internet_1.lostInternet);
-        vk_bridge_1.default.send('VKWebAppGetUserInfo').then(user => {
+        vk_bridge_1.default.send('VKWebAppGetUserInfo')
+            .then(user => {
+            console.log('then user', user);
             setTimeout(() => user_1.userModel.events.setVkUser(user.id), 1500);
-        });
-    }, []);
+        })
+            .catch(e => console.log('Error vk user_id', e))
+            .finally(() => console.log('finally vk user_id'));
+    }, [vkUserId]);
     (0, react_1.useEffect)(() => {
+        console.log('1 useApp useEffect');
         if (vkUserId > 0 && socketStatus === 'close') {
             popout_root_1.popoutModel.events.setPopout('lock-screen');
             lock_screen_1.lockModel.events.setLockScreen({

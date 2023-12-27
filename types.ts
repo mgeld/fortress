@@ -65,6 +65,9 @@ const TYPES = {
     GetSatelliteHandler: Symbol.for('GetSatelliteHandler'),
     GetSatelliteFortHandler: Symbol.for('GetSatelliteFortHandler'),
     DelExtractionHandler: Symbol.for('DelExtractionHandler'),
+    GetAbductionHandler: Symbol.for('GetAbductionHandler'),
+    GetZoneHandler: Symbol.for('GetZoneHandler'),
+
     
     PointerRepository: Symbol.for('PointerRepository'),
     ZoneRepository: Symbol.for('ZoneRepository'),

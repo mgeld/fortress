@@ -16,7 +16,7 @@ const movePointFx = createEffect(({ payload }: TMovePointFx) => {
 })
 
 export const direction = createEvent<TJoystickDirection | null>()
-export const battleDirection = createEvent<TJoystickDirection | null>()
+// export const battleDirection = createEvent<TJoystickDirection | null>()
 
 sample({
     clock: direction,

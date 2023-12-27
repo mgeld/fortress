@@ -9,7 +9,7 @@ import { IconShipGun } from "shared/assets/icons/_icons";
 
 import styles from './styles.module.scss'
 
-export const Primes: FC = () => {
+export const CommonPrimes: FC = () => {
     const [card, setCard] = useState(1)
 
     const cards = [

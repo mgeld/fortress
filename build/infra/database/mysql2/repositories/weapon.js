@@ -99,7 +99,6 @@ let WeaponRepository = class WeaponRepository {
     }
     update(weapon) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log('MysqlWeaponRepository');
             const dtoWeapon = weapon.unmarshal();
             let arr = [];
             const arrQuerySet = (0, object_entries_1.entries)(dtoWeapon).map((item) => {

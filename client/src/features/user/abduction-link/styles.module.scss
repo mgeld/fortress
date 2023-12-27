@@ -1,0 +1,172 @@
+.violetScreenRoot {
+    width: 100%;
+    height: 100%;
+
+    background: url('/entities/arena/icons/clouds.png') #8c38b356;
+
+    /* Путь к картинке */
+    background-position: 0 0;
+    background-repeat: repeat;
+    animation: animated-sky 60s linear infinite;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 24px;
+    box-sizing: border-box;
+
+    .violetPopout {
+
+        width: 100%;
+        max-width: 400px;
+
+        .__content {
+
+            .header {
+                width: 100%;
+                padding: 3px 3px;
+                box-sizing: border-box;
+                background-color: #685a83;
+                border-radius: 10px;
+                position: relative;
+
+                .__border {
+                    width: 100%;
+                    padding: 8px 6px;
+                    box-sizing: border-box;
+                    border: 3px solid #564971;
+                    border-radius: 10px;
+
+                    color: white;
+                    font-size: 18px;
+
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    z-index: 2;
+                    position: relative;
+
+                    .close {
+                        padding: 0 6px;
+                    }
+                }
+
+                .__whiteEffect {
+                    z-index: 1;
+                    width: 100%;
+                    height: 100%;
+                    box-sizing: border-box;
+
+                    position: absolute;
+                    top: 0px;
+                    left: 0px;
+
+                    &>div {
+                        width: 100%;
+                        height: calc(50% + 2px);
+                        background-color: #ffffff2d;
+                        border-radius: 9px 9px 0 0;
+                    }
+                }
+
+            }
+
+            animation: on_popup 0.3s alternate;
+
+            width: 100%;
+            border: 3px solid #564971;
+
+            background: repeating-linear-gradient(-45deg,
+                #564971,
+                #5e507a 100px,
+                #564971 100px,
+            );
+
+            box-shadow: 0px 0px 4px #000000d2;
+
+            border-radius: 10px;
+
+            .main {
+
+                width: 100%;
+                padding: 24px 24px;
+
+                box-sizing: border-box;
+
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+
+                position: relative;
+
+                .__text {
+                    color: white;
+                    font-size: 18px;
+                    text-align: center;
+                    padding-bottom: 18px;
+                }
+
+                .__link {
+                    padding-bottom: 18px;
+
+                    .__in {
+                        color: #383838;
+                        font-size: 18px;
+                        width: 300px;
+                        border-radius: 6px;
+                        padding: 12px 8px;
+                        box-sizing: border-box;
+                        border: 1px solid #8c38b32d;
+                        background-color: aliceblue;
+                    }
+                }
+
+                .button {
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+
+                    .__copy {
+                        cursor: pointer;
+
+                        &:active {
+                            text-decoration: underline;
+                        }
+
+                        margin-left: 6px;
+                        margin-right: 6px;
+                        font-size: 18px;
+                        padding: 9px 10px;
+                        color: white;
+                        border: 3px dashed #ffffff00;
+                        border-radius: 24px;
+                    }
+
+                    .__share {
+                        cursor: pointer;
+                        margin-left: 6px;
+                        margin-right: 6px;
+                        font-size: 18px;
+                        padding: 9px 24px;
+                        color: white;
+                        border: 3px dashed #fff;
+                        border-radius: 24px;
+                    }
+                }
+
+            }
+        }
+    }
+}
+
+@keyframes animated-sky {
+    from {
+        background-position: 800px 0;
+    }
+
+    to {
+        background-position: 0 0;
+    }
+}

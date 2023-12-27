@@ -36,7 +36,9 @@ export type TEventBattleFire = 'battleFire'
 export type TEventBattleDirect = 'battleDirect'
 
 export type TEventGetUser = 'getUser'
+export type TEventGetZone = 'getZone'
 export type TEventGetRating = 'getRating'
+export type TEventGetAbduction = 'getAbduction'
 
 
 export type TEventsAPI =
@@ -61,7 +63,9 @@ export type TEventsAPI =
     | TEventBattleFire
     | TEventBattleDirect
     | TEventGetUser
+    | TEventGetZone
     | TEventGetRating
+    | TEventGetAbduction
 
 export type TSendEvent =
     | TConnectAPI
@@ -84,7 +88,9 @@ export type TSendEvent =
     | TBattleFireAPI
     | TBattleDirectAPI
     | TGetUserAPI
+    | TGetZoneAPI
     | TGetRatingAPI
+    | TGetAbductionAPI
 
 //----------------------------
 
@@ -94,7 +100,8 @@ export type TConnectAPI = {
         url: string
         // name: string
         // icon: string
-        position: TLatLng
+        // position: TLatLng
+        hash?: number
     }
 }
 
@@ -114,10 +121,26 @@ export type TGetUserAPI = {
     payload: {}
 }
 
+export type TGetZoneAPI = {
+    event: TEventGetZone
+    payload: {
+        id: number
+    }
+}
+
 export type TGetRatingAPI = {
     event: TEventGetRating
     payload: {}
 }
+
+export type TGetAbductionAPI = {
+    event: TEventGetAbduction
+    payload: {
+        zone_id: number
+        page: number
+    }
+}
+
 
 export type TFireAPI = {
     event: TEventFire

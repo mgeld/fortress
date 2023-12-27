@@ -46,12 +46,6 @@ const BattlePending = () => {
     (0, react_1.useEffect)(() => {
         vk_bridge_1.default.send('VKWebAppShowBannerAd', {
             banner_location: vk_bridge_1.BannerAdLocation.BOTTOM
-        })
-            .then((data) => {
-            if (data.result) {
-            }
-        })
-            .catch((error) => {
         });
         return () => {
             vk_bridge_1.default.send('VKWebAppHideBannerAd');
@@ -66,19 +60,21 @@ const BattlePending = () => {
             });
             battleLeave();
             setTimeout(breakBattlePending, 3000);
-        }, 60000);
+        }, 120000);
         return () => clearTimeout(tId.current);
     }, []);
     return (<div className={styles_module_scss_1.default.battleRoot}>
             <div className={styles_module_scss_1.default.battlePending}>
                 <div className={`${styles_module_scss_1.default.__content} strw2`}>
-                    
+
                     <div className={styles_module_scss_1.default.__search}>
                         <_icons_1.IconBattleLoupe />
                     </div>
+
                     <div className={styles_module_scss_1.default.__text}>
                         Поиск противников<span>...</span>
                     </div>
+
                     <div className={styles_module_scss_1.default.button}>
                         <div className={styles_module_scss_1.default.__break} onClick={() => {
             breakBattlePending();
@@ -87,6 +83,7 @@ const BattlePending = () => {
                             Прервать
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>);

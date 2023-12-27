@@ -17,8 +17,6 @@ export const SectorsMap: FC = () => {
         }
     })
 
-    console.log('sectors', sectors)
-
     return <>
         {sectors.zones.map(zoneItem => {
             // Временно
