@@ -115,7 +115,8 @@ class BattleTakeHandler extends IRoute {
                 takeSector = {
                     new_owner_id: _member.arenaTeam,
                     prev_owner_id: _sector.team_id,
-                    sector_id: __sector
+                    sector_id: __sector,
+                    area: 0
                 } as TTakeSectorPayload
 
                 // Обновляем владельца сектор

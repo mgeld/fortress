@@ -41,7 +41,6 @@ export const useApp = () => {
 
         bridge.send('VKWebAppGetUserInfo')
             .then(user => {
-                console.log('then user', user)
                 setTimeout(() => userModel.events.setVkUser(user.id), 1500)
             })
             .catch(e => console.log('Error vk user_id', e))

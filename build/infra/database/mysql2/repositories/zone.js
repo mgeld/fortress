@@ -174,7 +174,6 @@ let ZoneRepository = class ZoneRepository {
                 throw new Error('----------');
             }
             const zones = result.map(zone => (Object.assign({}, zone)));
-            console.log('ZoneRepository getTrophies zones', zones);
             return zones;
         });
     }
@@ -209,14 +208,12 @@ let ZoneRepository = class ZoneRepository {
             if (!result) {
                 throw new Error('----------');
             }
-            console.log('ZoneRepository getZone zone', result);
             return result;
         });
     }
     update(zone) {
         return __awaiter(this, void 0, void 0, function* () {
             const dtoZone = zone.unmarshal();
-            console.log('update dtoZone.hold.items', dtoZone.hold.items);
             const updated = yield this._connection.execute(`
             UPDATE
                 zones,

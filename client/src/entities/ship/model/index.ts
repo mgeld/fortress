@@ -42,7 +42,9 @@ type TPosAreal = {
 
 const setAreal = createEvent<[TLatLng, TLatLng] | null>()
 export const $arealStore = createStore<[TLatLng, TLatLng] | null>(null)
-    .on(setAreal, (_, areal) => areal)
+    // .on(setAreal, (_, areal) => areal)
+    
+export const $prevArealStore = createStore<[TLatLng, TLatLng] | null>(null)
 
 sample({
     clock: movePoint,
@@ -52,6 +54,17 @@ sample({
     },
     filter: (source: TPosAreal): source is TPosAreal => !!source.pos[0] && (source.areal?.toString() !== Areal.getBounds(source.pos).toString()),
     fn: (source, _) => Areal.getBounds(source.pos),
+    target: setAreal
+})
+
+sample({
+    clock: setAreal,
+    source: $arealStore,
+    target: $prevArealStore
+})
+
+sample({
+    clock: setAreal,
     target: $arealStore
 })
 

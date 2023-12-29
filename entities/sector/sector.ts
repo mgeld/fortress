@@ -250,5 +250,8 @@ export class Sector {
     get booty() {
         return this._booty
     }
+    get areal() {
+        return this._areal
+    }
 
 }

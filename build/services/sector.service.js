@@ -42,6 +42,21 @@ let SectorService = class SectorService {
             }
         });
     }
+    getArealsSectors(areals) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { sectors, diff } = yield this._memoryRepository.getByArealsSectorsAndDiff(areals);
+                if (diff.length > 0) {
+                    const diffSects = yield this.getBaseArealsSectors(diff);
+                    return [...diffSects, ...sectors.filter(item => item.zone_id > 0)];
+                }
+                return sectors.filter(item => item.zone_id > 0);
+            }
+            catch (e) {
+                return this.getBaseArealsSectors(areals);
+            }
+        });
+    }
     getBaseArealsSectors(areals) {
         return __awaiter(this, void 0, void 0, function* () {
             const sectors = yield this._baseRepository.getByAreals(areals);
@@ -52,6 +67,12 @@ let SectorService = class SectorService {
     getZonesAroundAreal(areal) {
         return __awaiter(this, void 0, void 0, function* () {
             const _sectors = yield this.getArealSectors(areal);
+            return this.unmarshalSectors(_sectors);
+        });
+    }
+    getZonesAroundAreals(areals) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const _sectors = yield this.getArealsSectors(areals);
             return this.unmarshalSectors(_sectors);
         });
     }
@@ -70,9 +91,11 @@ let SectorService = class SectorService {
                     zone_id: item.zone_id,
                     color: 1
                 };
-                zoneItems[item.zone_id]['sectors'] = [];
+                zoneItems[item.zone_id]['sectors'] = {};
             }
-            zoneItems[item.zone_id]['sectors'].push(item.id);
+            if (!zoneItems[item.zone_id]['sectors'][item.areal])
+                zoneItems[item.zone_id]['sectors'][item.areal] = [];
+            zoneItems[item.zone_id]['sectors'][item.areal].push(item.id);
             return zoneItems;
         }, {});
         return sectors;

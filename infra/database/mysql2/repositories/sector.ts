@@ -7,16 +7,16 @@ import { entries } from '../../../../libs/object-entries'
 import { TYPES } from '../../../../types'
 import { SectorMapper } from '../../mappers/sector'
 
-interface ISectorRowData {
-    id?: number
-    sector?: number
-    invaders?: number
-    defenders?: number
-    lat?: number
-    lng?: number
-    user_id?: number
-    areal?: string
-}
+// interface ISectorRowData {
+//     id?: number
+//     sector?: number
+//     invaders?: number
+//     defenders?: number
+//     lat?: number
+//     lng?: number
+//     user_id?: number
+//     areal?: string
+// }
 
 export type TSectorBounds = {
     id: string
@@ -130,7 +130,6 @@ export class SectorRepository implements ISectorRepository {
             )
 
             // const sects = result.map(sector => ({ ...sector, latlng: JSON.parse((sector.latlng as unknown) as string) }))
-
             return result
 
         } catch (e) {

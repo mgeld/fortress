@@ -2,9 +2,9 @@ import { FC } from "react";
 
 import { popoutModel } from "shared/ui/popout-root";
 
-import styles from './styles.module.scss'
 import { alertModel } from ".";
 
+import styles from './styles.module.scss'
 
 export const Alert: FC = () => {
 

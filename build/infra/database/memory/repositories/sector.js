@@ -8,9 +8,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -27,9 +24,6 @@ const types_1 = require("../../../../types");
 const sector_1 = require("../../mappers/sector");
 const memory_data_1 = require("../memory-data");
 let SectorMemoryRepository = class SectorMemoryRepository {
-    constructor(_database) {
-        this._database = _database;
-    }
     insert(sector) {
         return __awaiter(this, void 0, void 0, function* () {
             const dtoSector = sector.unmarshal();
@@ -99,7 +93,32 @@ let SectorMemoryRepository = class SectorMemoryRepository {
             if (!sectors) {
                 throw new Error('----------');
             }
-            return sectors.filter(sector => ~areals.findIndex(areal => sector.areal === areal));
+            return sectors.filter(sector => areals.includes(sector.areal));
+        });
+    }
+    getByArealsSectorsAndDiff(areals) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const sectors = yield this._database.sector.findAll();
+            if (!sectors) {
+                throw new Error('----------');
+            }
+            const isArealsInMemory = {};
+            const _sectors = sectors.filter(sector => {
+                if (areals.includes(sector.areal)) {
+                    if (!isArealsInMemory[sector.areal])
+                        isArealsInMemory[sector.areal] = sector.areal;
+                    return true;
+                }
+                return false;
+            });
+            const isArealsInMemoryArr = Object.values(isArealsInMemory);
+            const arealsDiff = _sectors.length > 0 ? areals.filter(item => {
+                return !isArealsInMemoryArr.includes(item);
+            }) : areals;
+            return {
+                sectors: _sectors,
+                diff: arealsDiff
+            };
         });
     }
     update(sector) {
@@ -131,9 +150,11 @@ let SectorMemoryRepository = class SectorMemoryRepository {
         });
     }
 };
+__decorate([
+    (0, inversify_1.inject)(types_1.TYPES.Database),
+    __metadata("design:type", memory_data_1.MemoryData)
+], SectorMemoryRepository.prototype, "_database", void 0);
 SectorMemoryRepository = __decorate([
-    (0, inversify_1.injectable)(),
-    __param(0, (0, inversify_1.inject)(types_1.TYPES.Database)),
-    __metadata("design:paramtypes", [memory_data_1.MemoryData])
+    (0, inversify_1.injectable)()
 ], SectorMemoryRepository);
 exports.SectorMemoryRepository = SectorMemoryRepository;

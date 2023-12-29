@@ -4,7 +4,6 @@ import { inject, injectable } from "inversify"
 import { IWebSocket } from "../api/socket/server"
 import { SectorService } from "../services/sector.service"
 import { TEventGetSatellite, TGetSatelliteAPI } from "../common-types/socket/client-to-server"
-import { TSectorProps } from "../entities/sector/sector"
 import { TZoneColor, TZoneItem } from "../common-types/model"
 import { PointerService } from "../services/pointer.service"
 import { TSectorBounds } from "../infra/database/mysql2/repositories/sector"
@@ -32,7 +31,7 @@ class GetSatelliteHandler extends IRoute {
         const array_sectors = Object.values(this.zoneUnmarshalSectors(zoneId, _pointer.color, _sectors))
 
         uSocket.send(JSON.stringify({
-            event: 'sectors',
+            event: 'set-sectors',
             payload: array_sectors
         }))
 
@@ -49,9 +48,9 @@ class GetSatelliteHandler extends IRoute {
                     zone_id: zId,
                     color: zColor
                 }
-                zoneItems[zId]['sectors'] = []
+                zoneItems[zId]['sectors'] = {1: []}
             }
-            zoneItems[zId]['sectors'].push(item.id)
+            zoneItems[zId]['sectors'][1].push(item.id)
             return zoneItems
 
         }, {} as Record<number, TZoneItem>)

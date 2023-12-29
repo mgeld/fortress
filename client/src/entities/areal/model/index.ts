@@ -9,6 +9,27 @@ export class Areal {
         return areal
     }
 
+    public static getAreals(_pos: TLatLng): number[] {
+        const [lat, lng] = Areal.getArealPlace(_pos)
+
+        const areals = [
+            [lat + 0.02, lng - 0.03],
+            [lat + 0.02, lng],
+            [lat + 0.02, lng + 0.03],
+
+            [lat, lng - 0.03],
+            [lat, lng],
+            [lat, lng + 0.03],
+
+            [lat - 0.02, lng - 0.03],
+            [lat - 0.02, lng],
+            [lat - 0.02, lng + 0.03],
+        ]
+
+        return areals.map(latlng => Number(String(Math.round(latlng[0] * 100)) + String(Math.round(latlng[1] * 100))))
+
+    }
+
     private static getArealPlace(pos: TLatLng): TLatLng {
         return [
             pos[0] - (pos[0] % 0.02),

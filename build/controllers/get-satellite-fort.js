@@ -31,7 +31,7 @@ let GetSatelliteFortHandler = class GetSatelliteFortHandler extends handlers_1.I
             const _sectors = yield this._sectorService.getBoundsFort(position);
             const array_sectors = Object.values(yield this.fortUnmarshalSectors(_sectors));
             uSocket.send(JSON.stringify({
-                event: 'sectors',
+                event: 'set-sectors',
                 payload: array_sectors
             }));
         });
@@ -45,9 +45,9 @@ let GetSatelliteFortHandler = class GetSatelliteFortHandler extends handlers_1.I
                         zone_id: item.zone_id,
                         color: 1
                     };
-                    zoneItems[item.zone_id]['sectors'] = [];
+                    zoneItems[item.zone_id]['sectors'] = { 1: [] };
                 }
-                zoneItems[item.zone_id]['sectors'].push(item.id);
+                zoneItems[item.zone_id]['sectors'][1].push(item.id);
                 return zoneItems;
             }, {});
             let zones = {};

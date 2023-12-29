@@ -20,12 +20,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DirectHandler = void 0;
 const inversify_1 = require("inversify");
-const pointer_service_1 = require("../services/pointer.service");
 const types_1 = require("../types");
 const handlers_1 = require("./handlers");
 const rooms_1 = require("../api/socket/socket/rooms");
 const areal_1 = require("../entities/pointer/areal");
 const sector_service_1 = require("../services/sector.service");
+const pointer_service_1 = require("../services/pointer.service");
 let DirectHandler = class DirectHandler extends handlers_1.IRoute {
     handle(message, uSocket) {
         var _a;
@@ -60,9 +60,8 @@ let DirectHandler = class DirectHandler extends handlers_1.IRoute {
                         }
                     }, [_pointer.zoneId]);
                 }
-                _pointer.areal = areal;
-                this._rooms.areals.addClientToRoom(_pointer.zoneId, _pointer.areal, uSocket);
-                const clients = this._rooms.areals.getClients(_pointer.areal).filter(p => p !== _pointer.zoneId);
+                this._rooms.areals.addClientToRoom(_pointer.zoneId, areal, uSocket);
+                const clients = this._rooms.areals.getClients(areal).filter(p => p !== _pointer.zoneId);
                 const pointers = yield this._repository.getByIds(clients);
                 uSocket.send(JSON.stringify({
                     event: 'pointers',
@@ -70,7 +69,26 @@ let DirectHandler = class DirectHandler extends handlers_1.IRoute {
                         pointers: pointers.map(pointer => pointer.pointerUnmarshal())
                     }
                 }));
-                const _sectors = yield this._sectorService.getZonesAroundAreal(areal);
+                let areals = areal_1.Areal.generatorAreals(__position);
+                if (_pointer.areal > 0) {
+                    const arealLat = +String(areal).slice(0, 4);
+                    const arealLng = +String(areal).slice(4);
+                    const prevArealLat = +String(_pointer.areal).slice(0, 4);
+                    const prevArealLng = +String(_pointer.areal).slice(4);
+                    if (arealLat > prevArealLat) {
+                        areals = areals.slice(0, 3);
+                    }
+                    if (arealLat < prevArealLat) {
+                        areals = areals.slice(6);
+                    }
+                    if (arealLng > prevArealLng) {
+                        areals = [areals[2], areals[5], areals[8]];
+                    }
+                    if (arealLng < prevArealLng) {
+                        areals = [areals[0], areals[3], areals[6]];
+                    }
+                }
+                const _sectors = yield this._sectorService.getZonesAroundAreals(areals);
                 const array_sectors = Object.values(_sectors);
                 if (array_sectors.length > 0) {
                     let zones = {};
@@ -91,11 +109,11 @@ let DirectHandler = class DirectHandler extends handlers_1.IRoute {
                                 zone_id: _pointer.zoneId,
                                 color: _pointer.color
                             },
-                            sectors: []
+                            sectors: {}
                         });
                     }
                     uSocket.send(JSON.stringify({
-                        event: 'sectors',
+                        event: 'add-sectors',
                         payload: sectors
                     }));
                 }
@@ -105,7 +123,7 @@ let DirectHandler = class DirectHandler extends handlers_1.IRoute {
                                 zone_id: _pointer.zoneId,
                                 color: _pointer.color
                             },
-                            sectors: []
+                            sectors: {}
                         }];
                     uSocket.send(JSON.stringify({
                         event: 'sectors',
@@ -125,6 +143,7 @@ let DirectHandler = class DirectHandler extends handlers_1.IRoute {
                     }
                 }, [_pointer.zoneId]);
             }
+            _pointer.areal = areal;
             this._pointerService.memoryUpdate(_pointer);
         });
     }

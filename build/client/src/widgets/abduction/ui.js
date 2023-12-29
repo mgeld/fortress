@@ -52,7 +52,6 @@ const LayoutAbduction = () => {
                     return (<div key={item.zone_id} onClick={() => onZone(item.zone_id)} className={styles_module_scss_1.default.zone}>
 
                                         <div className={styles_module_scss_1.default.image}>
-                                            
                                             <img src={item.icon} alt="<>"/>
                                         </div>
 
@@ -62,12 +61,10 @@ const LayoutAbduction = () => {
                                                     {item.name}
                                                 </div>
                                                 <div className={styles_module_scss_1.default.sectors}>
-                                                    
                                                     <div className={styles_module_scss_1.default.text}>
                                                         Похищен
                                                     </div>
                                                     <div className={styles_module_scss_1.default.count}>
-                                                        
                                                         {(0, date_time_1.dateTime)(item.date * 1000)}
                                                     </div>
                                                 </div>
@@ -80,7 +77,6 @@ const LayoutAbduction = () => {
                                                             {item.sectors}
                                                         </div>
                                                         <div className={styles_module_scss_1.default.icon}>
-                                                            
                                                             <_icons_1.IconZone width={26} height={26}/>
                                                         </div>
                                                     </div>
@@ -93,7 +89,7 @@ const LayoutAbduction = () => {
                 })}
                         </div> :
             <div className={styles_module_scss_1.default.noData}>
-                            <div>Загрузка...</div>
+                            <div>Тут пока пусто...</div>
                         </div>}
 
                     <back_button_1.BackMap color="#a542d3"/>

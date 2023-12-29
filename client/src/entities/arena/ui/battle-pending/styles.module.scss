@@ -25,92 +25,111 @@
             animation: on_popup 0.3s alternate;
 
             width: 100%;
-            border: 10px solid #8c38b386;
+            padding: 10px;
+            // background-color: #8c38b3;
 
-            background: repeating-linear-gradient(-45deg,
-                    #a43fd3b0,
-                    #953dbeb0 10px,
-                    #8f33b9b0 10px,
-                );
-
-            box-shadow: 0px 0px 4px #000000d2;
-            padding: 44px 0px;
+            border: 10px solid #8c38b35b;
 
             border-radius: 10px;
+
+            box-shadow: 0px 0px 4px #3b3b3bd2;
+            background: repeating-linear-gradient(-45deg,
+                    #a43fd3a1,
+                    #953dbea1 10px,
+                    #8f33b9a1 10px,
+                );
+
             box-sizing: border-box;
 
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-
-            position: relative;
-
-            .__text {
-                color: white;
-                font-size: 20px;
-                padding: 32px 0px;
-                padding-top: 28px;
-
-                span {
-                    font-size: 26px;
-                    clip-path: inset(0 3ch 0 0);
-                    animation: l 1.5s steps(10) infinite;
-                }
-            }
-
-            .__search {
-                display: inline-block;
-                animation: 2s linear infinite rotate;
-                
-                padding-top: 10px;
-                margin-top: -10px;
-
-                svg {
-                    animation: 2s linear infinite rotate-loupe;
-                    transform-origin: 50% 50%;
-                }
-
-            }
-
-
-            .button {
+            .__in {
                 width: 100%;
+                border-radius: 10px;
+
+                padding: 44px 0px;
+
                 display: flex;
                 justify-content: center;
+                align-items: center;
+                flex-direction: column;
 
-                .__break {
-                    cursor: pointer;
-                    
-                    font-size: 18px;
-                    padding: 10px 24px;
+                position: relative;
+
+                .__text {
                     color: white;
-                    border: 3px dashed #fff;
-                    border-radius: 24px;
+                    font-size: 20px;
+                    padding: 32px 0px;
+                    padding-top: 28px;
+
+                    span {
+                        font-size: 26px;
+                        clip-path: inset(0 3ch 0 0);
+                        animation: l 1.5s steps(10) infinite;
+                    }
                 }
+
+                .__search {
+                    display: inline-block;
+                    // animation: 2s linear infinite rotate;
+
+                    padding-top: 10px;
+                    margin-top: -10px;
+
+                    svg {
+                        animation: 2s linear infinite rotate-loupe;
+                        transform-origin: 50% 50%;
+                        // transform-origin: -10px -10px;
+                    }
+
+                }
+
+
+                .button {
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+
+                    .__break {
+                        cursor: pointer;
+
+                        &:active {
+                            transform: scale(0.94);
+                            transition: transform 0.2s;
+                        }
+
+                        font-size: 18px;
+                        padding: 10px 24px;
+                        color: white;
+                        border: 3px dashed #fff;
+                        border-radius: 24px;
+                    }
+                }
+
             }
         }
     }
 }
 
-@keyframes rotate {
-    from {
-        transform: rotate(0deg);
-    }
+// @keyframes rotate {
+//     from {
+//         transform: rotate(0deg);
+//     }
 
-    to {
-        transform: rotate(360deg);
-    }
-}
+//     to {
+//         transform: rotate(360deg);
+//     }
+// }
 
 @keyframes rotate-loupe {
     from {
-        transform: rotate(0deg);
-    }
-
-    to {
-        transform: rotate(-360deg);
-    }
+        transform: rotate(0deg)
+                   translate(-10px)
+                   rotate(0deg);
+}
+to {
+        transform: rotate(360deg)
+                   translate(-10px)
+                   rotate(-360deg);
+}
 }
 
 @keyframes l {

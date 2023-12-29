@@ -16,7 +16,6 @@ export class MemberService {
     }
 
     getByIds(userIds: number[]): Promise<Member[]> {
-        console.log('getByIds userIds', userIds)
         return this._repository.getByIds(userIds)
     }
 

@@ -33,7 +33,7 @@ let GetSatelliteHandler = class GetSatelliteHandler extends handlers_1.IRoute {
             const _sectors = yield this._sectorService.getBoundsFort(position);
             const array_sectors = Object.values(this.zoneUnmarshalSectors(zoneId, _pointer.color, _sectors));
             uSocket.send(JSON.stringify({
-                event: 'sectors',
+                event: 'set-sectors',
                 payload: array_sectors
             }));
         });
@@ -48,9 +48,9 @@ let GetSatelliteHandler = class GetSatelliteHandler extends handlers_1.IRoute {
                     zone_id: zId,
                     color: zColor
                 };
-                zoneItems[zId]['sectors'] = [];
+                zoneItems[zId]['sectors'] = { 1: [] };
             }
-            zoneItems[zId]['sectors'].push(item.id);
+            zoneItems[zId]['sectors'][1].push(item.id);
             return zoneItems;
         }, {});
         return sectors;

@@ -8,8 +8,6 @@ import { TZoneItem } from "../common-types/model"
 import { PointerService } from "../services/pointer.service"
 import { TSectorBounds } from "../infra/database/mysql2/repositories/sector"
 
-// import { PointerService } from "../services/pointer.service";
-
 @injectable()
 class GetSatelliteFortHandler extends IRoute {
     @inject(TYPES.SectorService) private _sectorService!: SectorService
@@ -22,6 +20,7 @@ class GetSatelliteFortHandler extends IRoute {
         uSocket: IWebSocket,
     ) {
 
+
         const position = message.payload.position
 
         const _sectors = await this._sectorService.getBoundsFort(position)
@@ -29,7 +28,7 @@ class GetSatelliteFortHandler extends IRoute {
         const array_sectors = Object.values(await this.fortUnmarshalSectors(_sectors))
 
         uSocket.send(JSON.stringify({
-            event: 'sectors',
+            event: 'set-sectors',
             payload: array_sectors
         }))
 
@@ -44,9 +43,9 @@ class GetSatelliteFortHandler extends IRoute {
                     zone_id: item.zone_id,
                     color: 1
                 }
-                zoneItems[item.zone_id]['sectors'] = []
+                zoneItems[item.zone_id]['sectors'] = {1: []}
             }
-            zoneItems[item.zone_id]['sectors'].push(item.id)
+            zoneItems[item.zone_id]['sectors'][1].push(item.id)
             
             return zoneItems
 

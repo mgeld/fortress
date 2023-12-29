@@ -35,7 +35,7 @@ let GetSectorsHandler = class GetSectorsHandler extends handlers_1.IRoute {
             const _sectors = yield this._sectorService.getZonesAroundAreal(areal);
             const array_sectors = Object.values(_sectors);
             uSocket.send(JSON.stringify({
-                event: 'sectors',
+                event: 'add-sectors',
                 payload: array_sectors
             }));
         });

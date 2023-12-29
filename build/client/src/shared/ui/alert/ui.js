@@ -5,8 +5,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Alert = void 0;
 const popout_root_1 = require("shared/ui/popout-root");
-const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
 const _1 = require(".");
+const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
 const Alert = () => {
     const data = _1.alertModel.selectors.useAlert();
     if (!data)

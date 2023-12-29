@@ -110,6 +110,10 @@ export interface ISectorMemoryRepository {
     getByIds(sectorIds: string[]): Promise<Sector[]>
     getBoundsSectors(bounds: [TLatLng, TLatLng]): Promise<UnmarshalledSector[]>
     getByAreal(areal: number): Promise<UnmarshalledSector[]>
+    getByArealsSectorsAndDiff(areals: number[]): Promise<{
+        sectors: UnmarshalledSector[]
+        diff: number[]
+    }> 
     update(sector: Sector): Promise<Sector>
     delete(sectorId: string): Promise<Boolean>
     deleteByAreals(areals: number[]): Promise<Boolean>

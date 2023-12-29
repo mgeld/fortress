@@ -15,9 +15,18 @@ const _icons_1 = require("shared/assets/icons/_icons");
 const _icons_2 = require("widgets/map-region/battle-counters/icons/_icons");
 const ui_1 = __importDefault(require("shared/ui/link/ui"));
 const map_1 = require("entities/map");
+const notice_1 = require("shared/ui/notice");
 const Profile = ({ statistic }) => {
     const myZoneId = user_1.userModel.selectors.useUserId();
-    const onZone = (zone) => {
+    const onMap = (zone) => {
+        if (zone.zone_sectors === 0) {
+            notice_1.noticeModel.events.newToast({
+                name: 'Нет секторов',
+                text: 'У пользователя нет захваченных территорий и фортов!',
+                t: 'warning'
+            });
+            return;
+        }
         map_1.mapSatelliteModel.events.setMapSatellite({
             type: 'zone',
             latlng: zone.latlng,
@@ -138,7 +147,7 @@ const Profile = ({ statistic }) => {
             <div className={styles_module_scss_1.default.sections}>
                 <div className={styles_module_scss_1.default.__flex}>
 
-                    <div onClick={() => onZone(statistic)} className={styles_module_scss_1.default.section}>
+                    <div onClick={() => onMap(statistic)} className={styles_module_scss_1.default.section}>
                         <div className={styles_module_scss_1.default.item}>
                             <div className={styles_module_scss_1.default.icon}>
                                 <_icons_1.IconTerrain width={44} height={44}/>

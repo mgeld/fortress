@@ -45,7 +45,7 @@ export type TBomb = {
 }
 
 // Секторы. Вывод
-export type TSectors = string[]
+export type TSectors = Record<number, string[]>
 
 export type TZoneColor = 1 | 2 | 3 | 4 | 5 | 6
 

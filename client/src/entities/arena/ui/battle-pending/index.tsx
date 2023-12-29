@@ -39,8 +39,9 @@ export const BattlePending: FC = () => {
                 text: 'Время ожидания противника истекло. Попробуйте снова',
                 t: 'common'
             })
+            breakBattlePending()
             battleLeave()
-            setTimeout(breakBattlePending, 3000)
+            // setTimeout(breakBattlePending, 3000)
         }, 120000)
         return () => clearTimeout(tId.current);
     }, [])
@@ -50,24 +51,28 @@ export const BattlePending: FC = () => {
             <div className={styles.battlePending}>
                 <div className={`${styles.__content} strw2`}>
 
-                    <div className={styles.__search}>
-                        <IconBattleLoupe />
-                    </div>
+                    <div className={styles.__in}>
 
-                    <div className={styles.__text}>
-                        Поиск противников<span>...</span>
-                    </div>
-
-                    <div className={styles.button}>
-                        <div
-                            className={styles.__break}
-                            onClick={() => {
-                                breakBattlePending()
-                                battleLeave()
-                            }}
-                        >
-                            Прервать
+                        <div className={styles.__search}>
+                            <IconBattleLoupe />
                         </div>
+
+                        <div className={styles.__text}>
+                            Поиск противников<span>...</span>
+                        </div>
+
+                        <div className={styles.button}>
+                            <div
+                                className={styles.__break}
+                                onClick={() => {
+                                    breakBattlePending()
+                                    battleLeave()
+                                }}
+                            >
+                                Прервать
+                            </div>
+                        </div>
+
                     </div>
 
                 </div>

@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.events = void 0;
 const effector_1 = require("effector");
 const setSectors = (0, effector_1.createEvent)();
+const addSectors = (0, effector_1.createEvent)();
 const addSector = (0, effector_1.createEvent)();
 const delSectorById = (0, effector_1.createEvent)();
 const setSectorById = (0, effector_1.createEvent)();
@@ -13,6 +14,7 @@ const setAboutSector = (0, effector_1.createEvent)();
 const addZoneAreal = (0, effector_1.createEvent)();
 exports.events = {
     setSectors,
+    addSectors,
     addSector,
     delSectorById,
     setTakeFort,

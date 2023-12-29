@@ -9,7 +9,6 @@ import { Areal } from "../entities/pointer/areal";
 @injectable()
 class GetSectorsHandler extends IRoute {
     @inject(TYPES.SectorService) private _sectorService!: SectorService
-    // @inject(TYPES.PointerService) private _pointerService!: PointerService
 
     public static EVENT: TEventGetSectors = "getSectors"
 
@@ -29,7 +28,7 @@ class GetSectorsHandler extends IRoute {
         const array_sectors = Object.values(_sectors)
 
         uSocket.send(JSON.stringify({
-            event: 'sectors',
+            event: 'add-sectors',
             payload: array_sectors
         }))
 

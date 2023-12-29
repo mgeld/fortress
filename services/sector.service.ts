@@ -38,6 +38,16 @@ export class SectorService {
     //     }
     // }
 
+    // async getZonesAroundPosition(position: TLatLng): Promise<Record<number, TZoneItem>> {
+    //     const _sectors = await this.getBoundsSectors(position)
+    //     return this.unmarshalSectors(_sectors)
+    // }
+
+    // async getZonesAroundCitadel(position: TLatLng): Promise<Record<number, TZoneItem>> {
+    //     const _sectors = await this.getBoundsCitadel(position)
+    //     return this.unmarshalSectors(_sectors)
+    // }
+
     async getArealSectors(areal: number): Promise<UnmarshalledSector[]> {
         try {
             return await this._memoryRepository.getByAreal(areal)
@@ -46,22 +56,38 @@ export class SectorService {
         }
     }
 
-    // Вывод секторов из базы по ареалам
+    // Вывод секторов из Memory и Mysql одновременно
+    async getArealsSectors(areals: number[]): Promise<UnmarshalledSector[]> {
+        try {
+            const { sectors, diff } = await this._memoryRepository.getByArealsSectorsAndDiff(areals)
+
+            if (diff.length > 0) {
+                const diffSects = await this.getBaseArealsSectors(diff)
+                return [...diffSects, ...sectors.filter(item => item.zone_id > 0)]
+            }
+
+            return sectors.filter(item => item.zone_id > 0)
+        } catch (e) {
+            return this.getBaseArealsSectors(areals)
+        }
+    }
+
+    // Вывод секторов из базы MySQL по ареалам
+    // А затем заносим их в базу Memory
     async getBaseArealsSectors(areals: number[]): Promise<UnmarshalledSector[]> {
         const sectors = await this._baseRepository.getByAreals(areals)
         await this._memoryRepository.inserts(sectors)
         return sectors.filter(sector => sector.zone_id > 0)
     }
 
-    // async getZonesAroundPosition(position: TLatLng): Promise<Record<number, TZoneItem>> {
-    //     const _sectors = await this.getBoundsSectors(position)
-    //     return this.unmarshalSectors(_sectors)
-    // }
-
     async getZonesAroundAreal(areal: number): Promise<Record<number, TZoneItem>> {
         const _sectors = await this.getArealSectors(areal)
         return this.unmarshalSectors(_sectors)
+    }
 
+    async getZonesAroundAreals(areals: number[]): Promise<Record<number, TZoneItem>> {
+        const _sectors = await this.getArealsSectors(areals)
+        return this.unmarshalSectors(_sectors)
     }
 
     async getBoundsFort(position: TLatLng): Promise<TSectorBounds[]> {
@@ -69,11 +95,6 @@ export class SectorService {
         const sectors = await this._baseRepository.getBoundsSectors(bounds)
         return sectors
     }
-
-    // async getZonesAroundCitadel(position: TLatLng): Promise<Record<number, TZoneItem>> {
-    //     const _sectors = await this.getBoundsCitadel(position)
-    //     return this.unmarshalSectors(_sectors)
-    // }
 
     unmarshalSectors(_sectors: TSectorProps[]) {
         const sectors: Record<number, TZoneItem> = _sectors.reduce((zoneItems, item) => {
@@ -83,9 +104,12 @@ export class SectorService {
                     zone_id: item.zone_id,
                     color: 1
                 }
-                zoneItems[item.zone_id]['sectors'] = []
+                zoneItems[item.zone_id]['sectors'] = {}
             }
-            zoneItems[item.zone_id]['sectors'].push(item.id)
+            if (!zoneItems[item.zone_id]['sectors'][item.areal]) zoneItems[item.zone_id]['sectors'][item.areal] = []
+
+            zoneItems[item.zone_id]['sectors'][item.areal].push(item.id)
+            
             return zoneItems
 
         }, {} as Record<number, TZoneItem>)

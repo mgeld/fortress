@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.selectors = exports.events = exports.$userHealthStore = exports.$arealStore = exports.$shipLevel = exports.$userPositionStore = void 0;
+exports.selectors = exports.events = exports.$userHealthStore = exports.$prevArealStore = exports.$arealStore = exports.$shipLevel = exports.$userPositionStore = void 0;
 const reducer_1 = require("../lib/reducer");
 const effector_react_1 = require("effector-react");
 const events_1 = require("shared/api/events");
@@ -18,8 +18,8 @@ exports.$userPositionStore = (0, effector_1.createStore)(DEFAULT_STORE_POSITION)
 exports.$shipLevel = (0, effector_1.createStore)(0)
     .on(setLevel, (_, areal) => areal);
 const setAreal = (0, effector_1.createEvent)();
-exports.$arealStore = (0, effector_1.createStore)(null)
-    .on(setAreal, (_, areal) => areal);
+exports.$arealStore = (0, effector_1.createStore)(null);
+exports.$prevArealStore = (0, effector_1.createStore)(null);
 (0, effector_1.sample)({
     clock: movePoint,
     source: {
@@ -28,6 +28,15 @@ exports.$arealStore = (0, effector_1.createStore)(null)
     },
     filter: (source) => { var _a; return !!source.pos[0] && (((_a = source.areal) === null || _a === void 0 ? void 0 : _a.toString()) !== model_1.Areal.getBounds(source.pos).toString()); },
     fn: (source, _) => model_1.Areal.getBounds(source.pos),
+    target: setAreal
+});
+(0, effector_1.sample)({
+    clock: setAreal,
+    source: exports.$arealStore,
+    target: exports.$prevArealStore
+});
+(0, effector_1.sample)({
+    clock: setAreal,
     target: exports.$arealStore
 });
 const DEFAULT_STORE_HEALTH = 0;

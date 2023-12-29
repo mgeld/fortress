@@ -29,7 +29,6 @@ const useApp = () => {
         window.addEventListener("offline", lost_internet_1.lostInternet);
         vk_bridge_1.default.send('VKWebAppGetUserInfo')
             .then(user => {
-            console.log('then user', user);
             setTimeout(() => user_1.userModel.events.setVkUser(user.id), 1500);
         })
             .catch(e => console.log('Error vk user_id', e))

@@ -1,6 +1,6 @@
 import { createEvent } from "effector"
 import { TSectorPayload, TTakeHitPayload } from "@ctypes/socket/server-to-client"
-import { TZone } from "@ctypes/model"
+import { TZone, TZoneItem } from "@ctypes/model"
 
 export type TSectors = string[]
 
@@ -11,20 +11,22 @@ type TZoneColor = 1 | 2 | 3 | 4 | 5 | 6
 //     color: TZoneColor
 //     name: string
 // }
-export type TZoneItem = {
-    zone: TZone
-    sectors: TSectors
-}
+// export type TZoneItem = {
+//     zone: TZone
+//     sectors: TSectors
+// }
 
 export type TSetSectorZone = {
     zone_id: number
     sector: string
+    area: number
 }
 
 export type TSetSectorById = {
     prev_zone_id: number
     new_zone_id: number
     sector: string
+    area: number
 }
 export type TSetZoneColor = {
     zone_id: number
@@ -32,6 +34,7 @@ export type TSetZoneColor = {
 }
 
 const setSectors = createEvent<TZoneItem[]>()
+const addSectors = createEvent<TZoneItem[]>()
 const addSector = createEvent<TSetSectorZone>()
 const delSectorById = createEvent<TSetSectorZone>()
 const setSectorById = createEvent<TSetSectorById>()
@@ -46,6 +49,7 @@ const addZoneAreal = createEvent<TZone>()
 
 export const events = {
     setSectors,
+    addSectors,
     addSector,
     delSectorById,
     setTakeFort,

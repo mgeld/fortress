@@ -1,15 +1,13 @@
 import { inject, injectable } from "inversify"
-import { TDirectAPI, TEventDirect } from "../common-types/socket/client-to-server"
-import { PointerService } from "../services/pointer.service"
 import { TYPES } from "../types"
-import { IWebSocket } from "../api/socket/server";
 import { IRoute } from "./handlers"
 import { Rooms } from "../api/socket/socket/rooms"
+import { IWebSocket } from "../api/socket/server"
 import { Areal } from "../entities/pointer/areal"
+import { SectorService } from "../services/sector.service"
+import { PointerService } from "../services/pointer.service"
 import { IPointerMemoryRepository } from "../entities/repository"
-import { SectorService } from "../services/sector.service";
-// import { TFirePayload } from "../common-types/socket/server-to-client";
-// import { TJoystickDirection } from "../common-types/model";
+import { TDirectAPI, TEventDirect } from "../common-types/socket/client-to-server"
 
 @injectable()
 class DirectHandler extends IRoute {
@@ -65,56 +63,9 @@ class DirectHandler extends IRoute {
                 }, [_pointer.zoneId])
             }
 
-            // if (!_pointer.areal) {
+            this._rooms.areals.addClientToRoom(_pointer.zoneId, areal, uSocket)
 
-            //     // Это можно было бы куда-то вынести...
-            //     // Но если это не нагружает сервер, если условие не выполняется
-            //     // То тогда можно и оставить
-
-            //     const direction: TJoystickDirection = Areal.generator([_pointer.pos[0] + 0.004, _pointer.pos[1]]) !== areal ? 'FORWARD' : 'BACKWARD'
-            //     const _lat = direction === 'FORWARD' ? _pointer.pos[0] - 0.004 : _pointer.pos[0] + 0.004
-
-            //     setTimeout(() => {
-
-            //         uSocket.send(JSON.stringify({
-            //             event: 'connect-pointer',
-            //             payload: {
-            //                 lvl: 1,
-            //                 userId: -1,
-            //                 icon: 'https://sun120-1.userapi.com/s/v1/ig2/Y5LhWYhLVxHswvVU4dGrqnGVc4wmSzQQKVKZXrlyflMWuRihg7F4TVephtlm4fmdE9SFxBCUKPFuxsqz4hIIu_cx.jpg?size=50x50&quality=95&crop=468,0,960,960&ava=1',
-            //                 name: 'НЛО',
-            //                 health: 50,
-            //                 pos: [_lat, _pointer.pos[1]]
-            //             }
-            //         }))
-
-            //         const fire: TFirePayload = {
-            //             pos: [_lat, _pointer.pos[1]],
-            //             to_pos: _pointer.pos,
-            //             direction,
-            //             userId: -1,
-            //             hitPointer: {
-            //                 userId: _pointer.zoneId,
-            //                 pos: _pointer.pos,
-            //                 health: _pointer.health - 5
-            //             }
-            //         }
-
-            //         _pointer.health = _pointer.health - 5
-
-            //         uSocket.send(JSON.stringify({
-            //             event: 'fire',
-            //             payload: fire
-            //         }))
-
-            //     }, 2000)
-            // }
-
-            _pointer.areal = areal
-
-            this._rooms.areals.addClientToRoom(_pointer.zoneId, _pointer.areal, uSocket)
-
-            const clients = this._rooms.areals.getClients(_pointer.areal).filter(p => p !== _pointer.zoneId)
+            const clients = this._rooms.areals.getClients(areal).filter(p => p !== _pointer.zoneId)
             const pointers = await this._repository.getByIds(clients)
 
             uSocket.send(JSON.stringify({
@@ -126,7 +77,32 @@ class DirectHandler extends IRoute {
 
             /** ** **/
 
-            const _sectors = await this._sectorService.getZonesAroundAreal(areal)
+
+            let areals = Areal.generatorAreals(__position)
+
+            if (_pointer.areal > 0) {
+
+                const arealLat = +String(areal).slice(0, 4)
+                const arealLng = +String(areal).slice(4)
+
+                const prevArealLat = +String(_pointer.areal).slice(0, 4)
+                const prevArealLng = +String(_pointer.areal).slice(4)
+
+                if (arealLat > prevArealLat) {
+                    areals = areals.slice(0, 3)
+                }
+                if (arealLat < prevArealLat) {
+                    areals = areals.slice(6)
+                }
+                if (arealLng > prevArealLng) {
+                    areals = [areals[2], areals[5], areals[8]]
+                }
+                if (arealLng < prevArealLng) {
+                    areals = [areals[0], areals[3], areals[6]]
+                }
+            }
+
+            const _sectors = await this._sectorService.getZonesAroundAreals(areals)
             // const _sectors = await this._sectorService.getZonesAroundPosition(_pointer.pos)
 
             const array_sectors = Object.values(_sectors)
@@ -158,12 +134,12 @@ class DirectHandler extends IRoute {
                             zone_id: _pointer.zoneId,
                             color: _pointer.color
                         },
-                        sectors: []
+                        sectors: {}
                     })
                 }
 
                 uSocket.send(JSON.stringify({
-                    event: 'sectors',
+                    event: 'add-sectors',
                     payload: sectors
                 }))
 
@@ -173,7 +149,7 @@ class DirectHandler extends IRoute {
                         zone_id: _pointer.zoneId,
                         color: _pointer.color
                     },
-                    sectors: []
+                    sectors: {}
                 }]
 
                 uSocket.send(JSON.stringify({
@@ -198,6 +174,8 @@ class DirectHandler extends IRoute {
             }, [_pointer.zoneId])
 
         }
+
+        _pointer.areal = areal
 
         this._pointerService.memoryUpdate(_pointer)
 

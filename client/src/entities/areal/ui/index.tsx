@@ -11,45 +11,45 @@ const ArealBorder: FC<TArealBorderProps> = ({ areal }) => {
         <>
             <Rectangle
                 bounds={[
-                    [areal[0][0] - 0.01, areal[0][1]],
-                    [areal[1][0] + 0.01, areal[0][1] - 0.01],
+                    [areal[0][0] - 0.02, areal[0][1]],
+                    [areal[1][0] + 0.02, areal[0][1] - 0.03],
                 ]}
                 pathOptions={{
                     fillColor: '#473c3c',
-                    fillOpacity: 0.2,
+                    fillOpacity: 0.1,
                     stroke: false
                 }}
             />
             <Rectangle
                 bounds={[
                     [areal[1][0], areal[0][1]],
-                    [areal[1][0] + 0.01, areal[1][1]],
+                    [areal[1][0] + 0.02, areal[1][1]],
                 ]}
                 pathOptions={{
                     fillColor: '#473c3c',
-                    fillOpacity: 0.2,
+                    fillOpacity: 0.1,
                     stroke: false
                 }}
             />
             <Rectangle
                 bounds={[
-                    [areal[0][0] - 0.01, areal[1][1]],
-                    [areal[1][0] + 0.01, areal[1][1] + 0.01],
+                    [areal[0][0] - 0.02, areal[1][1]],
+                    [areal[1][0] + 0.02, areal[1][1] + 0.03],
                 ]}
                 pathOptions={{
                     fillColor: '#473c3c',
-                    fillOpacity: 0.2,
+                    fillOpacity: 0.1,
                     stroke: false
                 }}
             />
             <Rectangle
                 bounds={[
                     [areal[0][0], areal[0][1]],
-                    [areal[0][0] - 0.01, areal[1][1]],
+                    [areal[0][0] - 0.02, areal[1][1]],
                 ]}
                 pathOptions={{
                     fillColor: '#473c3c',
-                    fillOpacity: 0.2,
+                    fillOpacity: 0.1,
                     stroke: false
                 }}
             />

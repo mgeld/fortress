@@ -21,10 +21,8 @@ export const LayoutAbduction: FC = () => {
     const zones = abductionModel.selectors.useAbductionZones()
 
     const onZone = (zone: number) => {
-        // ratingAPI.events.selectRatingZone(zone)
         getZoneAPI(zone)
         pageModel.events.setPage('zone')
-        // getSatelliteAPI(zone.latlng, zone.id)
     }
 
     return (
@@ -68,7 +66,6 @@ export const LayoutAbduction: FC = () => {
                                     >
 
                                         <div className={styles.image}>
-                                            {/* <div className={styles.number}>{i + 1}</div> */}
                                             <img src={item.icon} alt="<>" />
                                         </div>
 
@@ -78,14 +75,10 @@ export const LayoutAbduction: FC = () => {
                                                     {item.name}
                                                 </div>
                                                 <div className={styles.sectors}>
-                                                    {/* <div className={styles.icon}>
-                                                        <IconZone width={20} height={20} />
-                                                    </div> */}
                                                     <div className={styles.text}>
                                                         Похищен
                                                     </div>
                                                     <div className={styles.count}>
-                                                        {/* {item.zone_sectors} */}
                                                         {dateTime(item.date * 1000)}
                                                     </div>
                                                 </div>
@@ -98,7 +91,6 @@ export const LayoutAbduction: FC = () => {
                                                             {item.sectors}
                                                         </div>
                                                         <div className={styles.icon}>
-                                                            {/* <IconTrophy /> */}
                                                             <IconZone width={26} height={26} />
                                                         </div>
                                                     </div>
@@ -112,7 +104,7 @@ export const LayoutAbduction: FC = () => {
                             })}
                         </div> :
                         <div className={styles.noData}>
-                            <div>Загрузка...</div>
+                            <div>Тут пока пусто...</div>
                         </div>}
 
                     <BackMap color="#a542d3" />

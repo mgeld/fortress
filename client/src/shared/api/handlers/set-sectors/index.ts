@@ -3,14 +3,15 @@ import { Handler } from "..";
 
 import { TSectors } from '@ctypes/socket/server-to-client'
 
-class SectorsHandler extends Handler {
+class SetSectorsHandler extends Handler {
     handle(message: TSectors) {
+        console.log('SetSectorsHandler')
         sectorsAPI.events.setSectors(message.payload)
     }
 }
 
-SectorsHandler.EVENT = 'sectors'
+SetSectorsHandler.EVENT = 'set-sectors'
 
 export {
-    SectorsHandler
+    SetSectorsHandler
 }

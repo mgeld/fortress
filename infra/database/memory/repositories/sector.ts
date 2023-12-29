@@ -9,9 +9,7 @@ import { MemoryData } from '../memory-data'
 @injectable()
 export class SectorMemoryRepository implements ISectorMemoryRepository {
 
-    constructor(
-        @inject(TYPES.Database) private _database: MemoryData
-    ) { }
+    @inject(TYPES.Database) private _database!: MemoryData
 
     async insert(sector: Sector): Promise<Sector> {
         const dtoSector = sector.unmarshal()
@@ -25,7 +23,7 @@ export class SectorMemoryRepository implements ISectorMemoryRepository {
                 await this._database.sector.insert<UnmarshalledSector>(sector)
             })
             return true
-        } catch(e) {
+        } catch (e) {
             throw new Error('Ну, что-то пошло не так в inserts memory')
         }
     }
@@ -75,7 +73,40 @@ export class SectorMemoryRepository implements ISectorMemoryRepository {
         if (!sectors) {
             throw new Error('----------')
         }
-        return sectors.filter(sector => ~areals.findIndex(areal => sector.areal === areal))
+        return sectors.filter(sector => areals.includes(sector.areal))
+    }
+
+    async getByArealsSectorsAndDiff(areals: number[]): Promise<{
+        sectors: UnmarshalledSector[]
+        diff: number[]
+    }> {
+        const sectors = await this._database.sector.findAll<UnmarshalledSector>()
+        if (!sectors) {
+            throw new Error('----------')
+        }
+
+        const isArealsInMemory: Record<number, number> = {}
+
+        const _sectors = sectors.filter(sector => {
+            if (areals.includes(sector.areal)) {
+                if (!isArealsInMemory[sector.areal])
+                    isArealsInMemory[sector.areal] = sector.areal
+                return true
+            }
+            return false
+        })
+
+        const isArealsInMemoryArr = Object.values(isArealsInMemory)
+
+        const arealsDiff = _sectors.length > 0 ? areals.filter(item => {
+            return !isArealsInMemoryArr.includes(item)
+        }) : areals
+
+        return {
+            sectors: _sectors,
+            diff: arealsDiff
+        }
+
     }
 
     async update(sector: Sector): Promise<Sector> {

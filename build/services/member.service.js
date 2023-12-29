@@ -29,7 +29,6 @@ let MemberService = class MemberService {
         return this._repository.getById(userId);
     }
     getByIds(userIds) {
-        console.log('getByIds userIds', userIds);
         return this._repository.getByIds(userIds);
     }
     update(member) {

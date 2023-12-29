@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "./static/css/main.88d0d355.css",
-    "main.js": "./static/js/main.954bf2bf.js",
+    "main.css": "./static/css/main.5d7929b5.css",
+    "main.js": "./static/js/main.e94f7cce.js",
     "static/js/59.5601a8a5.chunk.js": "./static/js/59.5601a8a5.chunk.js",
     "static/media/Lilita.ttf": "./static/media/Lilita.eb90369243a760389944.ttf",
     "static/media/swords.svg": "./static/media/swords.293f3e1147b39a1495115ed3f1f9195d.svg",
@@ -29,18 +29,20 @@
     "static/media/exp-rank-2.svg": "./static/media/exp-rank-2.85405590de21654f84f4fa006d5f3f30.svg",
     "static/media/exp-rank-3.svg": "./static/media/exp-rank-3.98875089dccae1384ba0b79752cc69af.svg",
     "static/media/faq.svg": "./static/media/faq.f76fb6286a579eb93de81cd3cefe2893.svg",
+    "static/media/ship-beam.svg": "./static/media/ship-beam.048aba549e33d9dd0adc3b6a95d3b8fa.svg",
     "static/media/warning.svg": "./static/media/warning.da558371c476f92c5c80a5f02a222429.svg",
     "static/media/booty.svg": "./static/media/booty.c88ab28a44077ed35cbabfab67357446.svg",
     "static/media/power-gun-1.svg": "./static/media/power-gun-1.a7222146c9ef6b700d4811359e62eb35.svg",
     "static/media/power-gun-2.svg": "./static/media/power-gun-2.e73670f640c296c77efe27fd78d50a0a.svg",
     "static/media/power-gun-3.svg": "./static/media/power-gun-3.50099d16f355ca04907aeedd0529fdd9.svg",
     "static/media/ship-gun.svg": "./static/media/ship-gun.1abe3e943d0d024234f8a1f4e9708e18.svg",
-    "static/media/zone-level.svg": "./static/media/zone-level.2714705f10f3c1543545c6c592d99584.svg",
+    "static/media/zone-level.svg": "./static/media/zone-level.4eb0d927156cd25b51ef5dab7d077e24.svg",
     "static/media/health-ship-1.svg": "./static/media/health-ship-1.b4329b182d302b9d46af38d8b38611c9.svg",
     "static/media/health-ship-2.svg": "./static/media/health-ship-2.506d1ea06e2151b24df81f5fb2c1aea6.svg",
     "static/media/health-ship-3.svg": "./static/media/health-ship-3.f45fc123f7539f56bcf33895a96f9f95.svg",
     "static/media/chat.svg": "./static/media/chat.1f94dfc76b698d973140fa791c78721f.svg",
     "static/media/touch.svg": "./static/media/touch.183f1176dbbf8057d2265b585c0b196c.svg",
+    "static/media/ufo.svg": "./static/media/ufo.a023603fa3331ab365d215c2aeab22f1.svg",
     "static/media/news.svg": "./static/media/news.52870e502780d32442d6b370c729a91d.svg",
     "static/media/level-up.svg": "./static/media/level-up.ab4a1dcfb683c527ead61ba6066b5000.svg",
     "static/media/battle-loupe.svg": "./static/media/battle-loupe.9d4abfe0757cff01dc38a97c88151039.svg",
@@ -57,6 +59,7 @@
     "static/media/arrow-back.svg": "./static/media/arrow-back.19f9936ec2449cc3258098c323a01a10.svg",
     "static/media/close.svg": "./static/media/close.2b03bd9ed107da5dc4424f22f82584b5.svg",
     "static/media/coin.svg": "./static/media/coin.f329883d6fc2ad9f44bff51bf6037ee1.svg",
+    "static/media/alien.svg": "./static/media/alien.464257479a78766aed3cad35c0099103.svg",
     "static/media/gold-bar.svg": "./static/media/gold-bar.543c5672ca21d342afe0299f5b2a737e.svg",
     "static/media/lavender-ingot.svg": "./static/media/lavender-ingot.1d8f159bb35f322099de5e466a5109a8.svg",
     "static/media/experience.svg": "./static/media/experience.10cbd8fd6ab9dd9df2754b1f0287e1fd.svg",
@@ -68,11 +71,11 @@
     "static/media/cont_1.svg": "./static/media/cont_1.cef693995c524f30b994b08d0ffd6120.svg",
     "static/media/cont_2.svg": "./static/media/cont_2.f2772c6b0482a4bcdb28b5c0b4bea34b.svg",
     "static/media/cont_3.svg": "./static/media/cont_3.999ae689d628275380532601f4ff0962.svg",
-    "main.88d0d355.css.map": "./static/css/main.88d0d355.css.map",
-    "main.954bf2bf.js.map": "./static/js/main.954bf2bf.js.map"
+    "main.5d7929b5.css.map": "./static/css/main.5d7929b5.css.map",
+    "main.e94f7cce.js.map": "./static/js/main.e94f7cce.js.map"
   },
   "entrypoints": [
-    "static/css/main.88d0d355.css",
-    "static/js/main.954bf2bf.js"
+    "static/css/main.5d7929b5.css",
+    "static/js/main.e94f7cce.js"
   ]
 }

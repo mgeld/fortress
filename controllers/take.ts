@@ -247,7 +247,8 @@ class TakeHandler extends IRoute {
                 takeSector = {
                     new_owner_id: _pointer.zoneId,
                     prev_owner_id: _sector.zone_id,
-                    sector_id: __sector
+                    sector_id: __sector,
+                    area: _sector.areal
                 } as TTakeSectorPayload
 
                 if (_sector.zone_id === 0) {
@@ -283,7 +284,6 @@ class TakeHandler extends IRoute {
                     }, 2000)
                 }
             }
-
 
         }
 

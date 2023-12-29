@@ -40,7 +40,7 @@ const MapLayout = () => {
     const center = map_1.mapModel.selectors.useMapCenter();
     return (<div className='mapCard'>
 
-            <react_leaflet_1.MapContainer ref={map_1.mapModel.events.setMap} className='_MapContainer' center={center} zoom={16} minZoom={15} maxZoom={17} doubleClickZoom={false} zoomControl={false} bounceAtZoomLimits={false}>
+            <react_leaflet_1.MapContainer ref={map_1.mapModel.events.setMap} className='_MapContainer' center={center} zoom={16} minZoom={14} maxZoom={17} doubleClickZoom={false} zoomControl={false} bounceAtZoomLimits={false}>
                 <react_leaflet_1.TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
 
                 

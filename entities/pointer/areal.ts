@@ -8,6 +8,29 @@ export class Areal {
         return areal
     }
 
+    public static generatorAreals(_pos: TLatLng): number[] {
+        const [lat, lng] = Areal.getStartArealLatLng(_pos)
+
+        const areals = [
+            [lat + 0.02, lng - 0.03],
+            [lat + 0.02, lng],
+            [lat + 0.02, lng + 0.03],
+
+            [lat, lng - 0.03],
+            [lat, lng],
+            [lat, lng + 0.03],
+
+            [lat - 0.02, lng - 0.03],
+            [lat - 0.02, lng],
+            [lat - 0.02, lng + 0.03],
+        ]
+
+        // console.log('generatorAreals areals', areals)
+
+        return areals.map(latlng => Number(String(Math.round(latlng[0] * 100)) + String(Math.round(latlng[1] * 100))))
+
+    }
+
     public static getStartArealLatLng = (_pos: TLatLng): TLatLng => {
         const lat = (_pos[0] - (_pos[0] % 0.02))
         const lng = (_pos[1] - (_pos[1] % 0.03))

@@ -1,7 +1,6 @@
 import { FC } from "react";
 
 import { IRatingZone } from "@ctypes/model";
-import { BackMap } from "shared/ui/back-button";
 import { pageModel } from "shared/ui/page-root";
 import { getSatelliteAPI } from "shared/api/get-satellite";
 
@@ -16,6 +15,7 @@ import { IconExperience, IconZone } from "widgets/map-region/battle-counters/ico
 
 import Link from "shared/ui/link/ui";
 import { mapSatelliteModel } from "entities/map";
+import { noticeModel } from "shared/ui/notice";
 
 type ProfileProps = {
     statistic: IRatingZone
@@ -24,7 +24,16 @@ export const Profile: FC<ProfileProps> = ({ statistic }) => {
 
     const myZoneId = userModel.selectors.useUserId()
     
-    const onZone = (zone: IRatingZone) => {
+    const onMap = (zone: IRatingZone) => {
+
+        if(zone.zone_sectors === 0) {
+            noticeModel.events.newToast({
+                name: 'Нет секторов',
+                text: 'У пользователя нет захваченных территорий и фортов!',
+                t: 'warning'
+            })
+            return
+        }
         mapSatelliteModel.events.setMapSatellite({
             type: 'zone',
             latlng: zone.latlng,
@@ -160,7 +169,7 @@ export const Profile: FC<ProfileProps> = ({ statistic }) => {
                 <div className={styles.__flex}>
 
                     <div
-                        onClick={() => onZone(statistic)}
+                        onClick={() => onMap(statistic)}
                         className={styles.section}
                     >
                         <div className={styles.item}>

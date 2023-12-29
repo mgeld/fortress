@@ -111,7 +111,7 @@ let Server = class Server {
                 console.log('close ws user_id', ws.user_id);
                 if (d.toString() === 'session-destroy') {
                     ws.terminate();
-                    console.log('ws.user_id', ws === null || ws === void 0 ? void 0 : ws.user_id);
+                    console.log('session-destroy ws.user_id', ws === null || ws === void 0 ? void 0 : ws.user_id);
                 }
                 else {
                     console.log('close Else >>>>>>>>>>>>>>');

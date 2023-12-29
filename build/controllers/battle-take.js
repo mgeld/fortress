@@ -88,7 +88,8 @@ let BattleTakeHandler = class BattleTakeHandler extends handlers_1.IRoute {
                     takeSector = {
                         new_owner_id: _member.arenaTeam,
                         prev_owner_id: _sector.team_id,
-                        sector_id: __sector
+                        sector_id: __sector,
+                        area: 0
                     };
                     _sector.setOwner(_member.arenaTeam);
                     if (myTeam.sectors >= 5) {

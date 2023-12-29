@@ -9,12 +9,14 @@ class BattleTakeSectorHandler extends Handler {
             sectorsAPI.events.setSectorById({
                 new_zone_id: message.payload.new_owner_id,
                 prev_zone_id: message.payload.prev_owner_id,
-                sector: message.payload.sector_id
+                sector: message.payload.sector_id,
+                area: message.payload.area
             })
         else
             sectorsAPI.events.addSector({
                 zone_id: message.payload.new_owner_id,
-                sector: message.payload.sector_id
+                sector: message.payload.sector_id,
+                area: message.payload.area
             })
         // snackbarModel.events.newToast('Сектор захвачен!')
         

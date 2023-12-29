@@ -20,7 +20,6 @@ const new_rank_1 = require("shared/api/handlers/new-rank");
 const new_zone_1 = require("shared/api/handlers/new-zone");
 const pointers_1 = require("shared/api/handlers/pointers");
 const sector_1 = require("shared/api/handlers/sector");
-const sectors_1 = require("shared/api/handlers/sectors");
 const set_citadel_1 = require("shared/api/handlers/set-citadel");
 const set_user_1 = require("shared/api/handlers/set-user");
 const take_1 = require("shared/api/handlers/take");
@@ -45,6 +44,8 @@ const edit_zone_1 = require("shared/api/handlers/edit-zone");
 const del_extraction_1 = require("shared/api/handlers/del-extraction");
 const set_abduction_1 = require("shared/api/handlers/set-abduction");
 const set_zone_1 = require("shared/api/handlers/set-zone");
+const add_sectors_1 = require("shared/api/handlers/add-sectors");
+const set_sectors_1 = require("shared/api/handlers/set-sectors");
 exports.WS = socket_2.Socket.create(config_1.API_BASE_URL, socket_1.socketModel.events.setSocketStatus);
 const handlers = new handlers_1.Handlers({
     [connect_1.ConnectHandler.EVENT]: new connect_1.ConnectHandler(),
@@ -58,7 +59,8 @@ const handlers = new handlers_1.Handlers({
     [fire_1.FireHandler.EVENT]: new fire_1.FireHandler(),
     [bomb_1.BombHandler.EVENT]: new bomb_1.BombHandler(),
     [battle_join_1.BattleJoinHandler.EVENT]: new battle_join_1.BattleJoinHandler(),
-    [sectors_1.SectorsHandler.EVENT]: new sectors_1.SectorsHandler(),
+    [add_sectors_1.AddSectorsHandler.EVENT]: new add_sectors_1.AddSectorsHandler(),
+    [set_sectors_1.SetSectorsHandler.EVENT]: new set_sectors_1.SetSectorsHandler(),
     [sector_1.SectorHandler.EVENT]: new sector_1.SectorHandler(),
     [take_hit_1.TakeHitHandler.EVENT]: new take_hit_1.TakeHitHandler(),
     [take_sector_1.TakeSectorHandler.EVENT]: new take_sector_1.TakeSectorHandler(),

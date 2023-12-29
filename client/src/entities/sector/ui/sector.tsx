@@ -2,8 +2,8 @@ import { FC } from "react";
 import { cellsToMultiPolygon } from "h3-js";
 import { AboutSector } from "./about-sector";
 import { Pane, Polygon, Popup } from "react-leaflet";
-import { TZoneItem } from "shared/api/events/sectors";
 import { sectorColorList } from "../lib/sector-color-list";
+import { TZoneItem } from "@ctypes/model";
 
 type SectorsProps = {
     zoneItem: TZoneItem
@@ -17,6 +17,12 @@ const Sectors: FC<SectorsProps> = ({
     color
 }) => {
 
+    const sectors = Object.values(zoneItem.sectors)
+
+    let combinedAreas = sectors.reduce((acc, curr) => {
+        return acc.concat(curr);
+    }, []);
+
     return (
         <Polygon
             key={zoneItem.zone.zone_id}
@@ -26,7 +32,7 @@ const Sectors: FC<SectorsProps> = ({
                 fillColor: sectorColorList[color],
                 color: sectorColorList[color],
             }}
-            positions={cellsToMultiPolygon(zoneItem.sectors)}
+            positions={cellsToMultiPolygon(combinedAreas)}
         >
             <Pane
                 name={`popup_${zoneItem.zone.zone_id}`}

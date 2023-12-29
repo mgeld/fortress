@@ -45,7 +45,8 @@ export type TEventBattleTakeSector = 'battle-take-sector'
 export type TEventBattleYTakeSector = 'battle-y-take-sector'
 export type TEventBattleYrTakeSector = 'battle-yr-take-sector'
 
-export type TEventSectors = 'sectors'
+export type TEventAddSectors = 'add-sectors'
+export type TEventSetSectors = 'set-sectors'
 export type TEventSector = 'sector'
 
 export type TEventBattleStart = 'battle-start'
@@ -94,7 +95,8 @@ export type TEventsMessage =
     | TEventBattleStart
     | TEventBattleOver
     | TEventBattleJoin
-    | TEventSectors
+    | TEventAddSectors
+    | TEventSetSectors
     | TEventSector
 
 export type TCitadel = {
@@ -403,6 +405,7 @@ export type TTakeSectorPayload = {
     prev_owner_id: number
     new_owner_id: number
     sector_id: string
+    area: number
     exp?: number // Опыт завоеваний за захват сектора
     trp?: number // Трофеи за захват сектора
 }
@@ -420,7 +423,7 @@ export type TBattleTakeSector = {
 
 export type TSectorsPayload = TZoneItem[]
 export type TSectors = {
-    event: TEventSectors
+    event: TEventAddSectors | TEventSetSectors
     payload: TSectorsPayload
 }
 

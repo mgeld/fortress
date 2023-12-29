@@ -17,7 +17,6 @@ import { NewRankHandler } from "shared/api/handlers/new-rank"
 import { NewZoneHandler } from "shared/api/handlers/new-zone"
 import { PointersHandler } from "shared/api/handlers/pointers"
 import { SectorHandler } from "shared/api/handlers/sector"
-import { SectorsHandler } from "shared/api/handlers/sectors"
 import { SetCitadelHandler } from "shared/api/handlers/set-citadel"
 import { SetUserHandler } from "shared/api/handlers/set-user"
 import { TakeHandler } from "shared/api/handlers/take"
@@ -45,6 +44,8 @@ import { EditZoneHandler } from "shared/api/handlers/edit-zone"
 import { DelExtractionHandler } from "shared/api/handlers/del-extraction"
 import { SetAbductionHandler } from "shared/api/handlers/set-abduction"
 import { SetZoneHandler } from "shared/api/handlers/set-zone"
+import { AddSectorsHandler } from "shared/api/handlers/add-sectors"
+import { SetSectorsHandler } from "shared/api/handlers/set-sectors"
 
 export const WS = Socket.create(API_BASE_URL, socketModel.events.setSocketStatus)
 
@@ -91,7 +92,9 @@ const handlers = new Handlers({
     [FireHandler.EVENT]: new FireHandler(),
     [BombHandler.EVENT]: new BombHandler(),
     [BattleJoinHandler.EVENT]: new BattleJoinHandler(),
-    [SectorsHandler.EVENT]: new SectorsHandler(),
+    [AddSectorsHandler.EVENT]: new AddSectorsHandler(),
+    [SetSectorsHandler.EVENT]: new SetSectorsHandler(),
+    
     [SectorHandler.EVENT]: new SectorHandler(),
     [TakeHitHandler.EVENT]: new TakeHitHandler(),
 

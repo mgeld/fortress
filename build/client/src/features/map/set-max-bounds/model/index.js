@@ -8,15 +8,17 @@ const setMaxBoundsFx = (0, effector_1.createEffect)(({ map, areal, mode }) => {
     if (!map)
         return;
     if (mode === 'battle') {
+        map.setMinZoom(15);
         map.setMaxBounds([
             [areal[0][0] - 0.1, areal[0][1] - 0.1],
             [areal[1][0] + 0.1, areal[1][1] + 0.1],
         ]);
     }
     else {
+        map.setMinZoom(14);
         map.setMaxBounds([
-            [areal[0][0] - 0.01, areal[0][1] - 0.01],
-            [areal[1][0] + 0.01, areal[1][1] + 0.01],
+            [areal[0][0] - 0.02, areal[0][1] - 0.03],
+            [areal[1][0] + 0.02, areal[1][1] + 0.03],
         ]);
     }
 });

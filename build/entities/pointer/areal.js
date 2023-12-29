@@ -7,6 +7,21 @@ class Areal {
         const areal = Number(String(lat * 100) + String(lng * 100));
         return areal;
     }
+    static generatorAreals(_pos) {
+        const [lat, lng] = Areal.getStartArealLatLng(_pos);
+        const areals = [
+            [lat + 0.02, lng - 0.03],
+            [lat + 0.02, lng],
+            [lat + 0.02, lng + 0.03],
+            [lat, lng - 0.03],
+            [lat, lng],
+            [lat, lng + 0.03],
+            [lat - 0.02, lng - 0.03],
+            [lat - 0.02, lng],
+            [lat - 0.02, lng + 0.03],
+        ];
+        return areals.map(latlng => Number(String(Math.round(latlng[0] * 100)) + String(Math.round(latlng[1] * 100))));
+    }
     static getBounds(areal) {
         const latlng = Areal.getStartArealLatLng(areal);
         return [

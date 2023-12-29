@@ -214,8 +214,6 @@ export class ZoneRepository implements IZoneRepository {
 
         const zones = result.map(zone => ({ ...zone }))
 
-        console.log('ZoneRepository getTrophies zones', zones)
-
         return zones
     }
 
@@ -255,16 +253,12 @@ export class ZoneRepository implements IZoneRepository {
             throw new Error('----------')
         }
 
-        console.log('ZoneRepository getZone zone', result)
-
         return result
     }
 
 
     async update(zone: Zone): Promise<Zone> {
         const dtoZone = zone.unmarshal()
-
-        console.log('update dtoZone.hold.items', dtoZone.hold.items)
 
         const updated = await this._connection.execute(`
             UPDATE

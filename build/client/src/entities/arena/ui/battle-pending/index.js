@@ -58,8 +58,8 @@ const BattlePending = () => {
                 text: 'Время ожидания противника истекло. Попробуйте снова',
                 t: 'common'
             });
+            breakBattlePending();
             battleLeave();
-            setTimeout(breakBattlePending, 3000);
         }, 120000);
         return () => clearTimeout(tId.current);
     }, []);
@@ -67,21 +67,25 @@ const BattlePending = () => {
             <div className={styles_module_scss_1.default.battlePending}>
                 <div className={`${styles_module_scss_1.default.__content} strw2`}>
 
-                    <div className={styles_module_scss_1.default.__search}>
-                        <_icons_1.IconBattleLoupe />
-                    </div>
+                    <div className={styles_module_scss_1.default.__in}>
 
-                    <div className={styles_module_scss_1.default.__text}>
-                        Поиск противников<span>...</span>
-                    </div>
+                        <div className={styles_module_scss_1.default.__search}>
+                            <_icons_1.IconBattleLoupe />
+                        </div>
 
-                    <div className={styles_module_scss_1.default.button}>
-                        <div className={styles_module_scss_1.default.__break} onClick={() => {
+                        <div className={styles_module_scss_1.default.__text}>
+                            Поиск противников<span>...</span>
+                        </div>
+
+                        <div className={styles_module_scss_1.default.button}>
+                            <div className={styles_module_scss_1.default.__break} onClick={() => {
             breakBattlePending();
             battleLeave();
         }}>
-                            Прервать
+                                Прервать
+                            </div>
                         </div>
+
                     </div>
 
                 </div>
