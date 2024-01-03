@@ -20,8 +20,8 @@ const BottomSelectPlace = () => {
                     text: 'Понятно',
                     _click: () => popout_root_1.popoutModel.events.setPopout(null)
                 },
-                alert: 'Выбор места',
-                message: 'Коснитесь карты, чтобы выбрать место для захвата территорий'
+                alert: 'Выберите место',
+                message: 'Для начала необходимо выбрать место. Коснитесь карты, чтобы выбрать место для захвата территорий'
             });
             popout_root_1.popoutModel.events.setPopout('alert');
             return;
@@ -42,6 +42,6 @@ const BottomSelectPlace = () => {
             });
         }
     };
-    return (<bottom_flex_1.BottomFlex text="Выбор места дислокации" button={<ui_1.Button className="" radius={10} disabled={!pos} text="Сохранить" onClick={() => selectPosition(pos)}/>}/>);
+    return (<bottom_flex_1.BottomFlex text="Место размещения зоны" button={<ui_1.Button className="strw1" radius={8} text="Сохранить" onClick={() => selectPosition(pos)}/>}/>);
 };
 exports.BottomSelectPlace = BottomSelectPlace;

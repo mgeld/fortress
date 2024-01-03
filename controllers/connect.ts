@@ -1,22 +1,23 @@
-import { inject, injectable } from "inversify";
-import fetch from 'node-fetch';
-import { IWebSocket } from "../api/socket/server";
-import { TYPES } from "../types";
-import { IRoute } from "./handlers";
-import { Zone } from "../entities/zone/zone";
-import { Citadel } from "../entities/citadel/citadel";
-import { Pointer } from "../entities/pointer/pointer";
-import { WeaponType } from "../entities/weapon/types";
-import { ZoneService } from "../services/zone.service";
-import { WeaponService } from "../services/weapon.service";
-import { CitadelService } from "../services/citadel.service";
-import { PointerService } from "../services/pointer.service";
-import { verifyLaunchParams } from "../libs/verify-launch-params";
-import { TConnectPayload } from "../common-types/socket/server-to-client";
-import { TConnectAPI, TEventConnect } from "../common-types/socket/client-to-server";
-import { Rooms } from "../api/socket/socket/rooms";
-import { VkUserService } from "../services/vk-user.service";
-import { randomNumber } from "../libs/random-number";
+import fetch from 'node-fetch'
+
+import { TYPES } from "../types"
+import { IRoute } from "./handlers"
+import { Zone } from "../entities/zone/zone"
+import { inject, injectable } from "inversify"
+import { IWebSocket } from "../api/socket/server"
+import { Rooms } from "../api/socket/socket/rooms"
+import { randomNumber } from "../libs/random-number"
+import { Citadel } from "../entities/citadel/citadel"
+import { Pointer } from "../entities/pointer/pointer"
+import { WeaponType } from "../entities/weapon/types"
+import { ZoneService } from "../services/zone.service"
+import { VkUserService } from "../services/vk-user.service"
+import { WeaponService } from "../services/weapon.service"
+import { CitadelService } from "../services/citadel.service"
+import { PointerService } from "../services/pointer.service"
+import { verifyLaunchParams } from "../libs/verify-launch-params"
+import { TConnectPayload } from "../common-types/socket/server-to-client"
+import { TConnectAPI, TEventConnect } from "../common-types/socket/client-to-server"
 
 @injectable()
 class ConnectHandler implements IRoute {
@@ -25,7 +26,6 @@ class ConnectHandler implements IRoute {
     @inject(TYPES.WeaponService) private _weaponService!: WeaponService
     @inject(TYPES.CitadelService) private _citadelService!: CitadelService
     @inject(TYPES.PointerService) private _pointerService!: PointerService
-    // @inject(TYPES.VkUserRepository) private _vkUserRepository!: VkUserRepository
     @inject(TYPES.VkUserService) private _vkUserService!: VkUserService
 
     public static EVENT: TEventConnect = "connect"
@@ -95,12 +95,6 @@ class ConnectHandler implements IRoute {
                 }, [zoneId])
 
                 pointer.areal = -1
-
-                // throw new Error('terminate')
-                // this._rooms.areals.clientSocket(zoneId, isClient, {
-                //     event: 'session-destroy',
-                //     payload: {}
-                // })
 
                 weapon = await this._weaponService.memoryGetById(pointer.weapons[0])
                 zone = await this._zoneService.getById(zoneId)

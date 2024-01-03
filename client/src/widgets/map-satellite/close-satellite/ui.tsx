@@ -18,8 +18,8 @@ export const CloseSatellite: FC = () => {
             text="Режим просмотра"
             button={
                 <Button
-                    className={styles.__button}
-                    radius={6}
+                    className={`${styles.__button} strw1`}
+                    radius={8}
                     text="Закрыть"
                     onClick={closeSatellite}
                 />}

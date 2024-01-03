@@ -1,3 +1,43 @@
+.gold {
+    --c1: #301C09;
+    --c2: #FDA80D;
+    --c3: #AF6B06;
+    --c4: #FFDC33;
+    --c5: #ffbb2a;
+    --c6: #FE8906;
+    --c7: #FFD053;
+    --c8: #ffffec;
+    --c9: #582E00;
+    --c10: #FFF1B6;
+
+    
+}
+.violet {
+    --c1: #250930;
+    --c2: #af38ff;
+    --c3: #5506af;
+    --c4: #8823db;
+    --c5: #ac64e7;
+    --c6: #9b06fe;
+    --c7: #be70fd;
+    --c8: #ffffec;
+    --c9: #3f0058;
+    --c10: #efd5fd;
+}
+.blue {
+    --c1: #250930;
+    --c2: #2199FF;
+    --c3: #004FA5;
+    --c4: #2181FC;
+    --c5: #4CADFF;
+    --c6: #2181FC;
+    --c7: #3EBAFF;
+    --c8: #FEFEFE;
+    --c9: #002F83;
+    --c10: #D9FFFF;
+}
+
+
 .button {
 
     &:active {
@@ -12,67 +52,67 @@
     cursor:pointer;
 
     position: relative;
-    width: 100px;
     height: 40px;
     margin-bottom: 5px;
 
     border-radius: 11px;
     background:black;
-    box-shadow: 0px 5px 2px #301C09;
+    box-shadow: 0px 5px 2px var(--c1);
 
     .couche2 {
         position: absolute;
         border-radius: 10px;
-        width: 98px;
+        width: 98%;
         height: 36px;
         margin-top: 2px;
-        margin-left: 1px;
-        background: #FDA80D;
-        box-shadow: 0px 3px 0px #AF6B06;
+        margin-left: 1%;
+        background: var(--c2);
+        box-shadow: 0px 3px 0px var(--c3);
 
         .couche3 {
             position: absolute;
             border-radius: 10px;
-            width: 94px;
+            width: 96%;
             height: 34px;
             margin-top: 2px;
-            margin-left: 2px;
-            box-shadow: 0px -1px 2px 0px #FFDC33;
+            margin-left: 2%;
+            box-shadow: 0px -1px 2px 0px var(--c4);
 
             .couche4 {
                 position: absolute;
                 border-radius: 10px;
                 margin-top: 2px;
-                margin-left: 2px;
-                width: 90px;
+                margin-left: 2%;
+                width: 96%;
                 height: 29px;
-                background: rgba(255, 187, 42, 1);
-                box-shadow: 0px 2px 1px 0px #FE8906;
+                background: var(--c5);
+                box-shadow: 0px 2px 1px 0px var(--c6);
 
                 .couche5 {
                     position: absolute;
                     border-radius: 10px;
                     margin-top: 0px;
-                    margin-left: 1px;
-                    width: 88px;
+                    margin-left: 4%;
+                    width: 92%;
                     height: 18px;
-                    background: #FFD053;
+                    background: var(--c7);
 
                     .text {
-                        width: 88px;
+                        width: 100%;
                         text-align: center;
                         position: absolute;
                         font-style: normal;
                         font-weight: 400;
-                        color: #FFFFCC;
+                        white-space: nowrap;
+                        color: var(--c8);
                         font-size: 18px;
                         margin-top: 4px;
-                        text-shadow: -1px 0 1px #582E00,
-                            1px 0 1px #582E00,
-                            0 -1px 1px #582E00,
-                            0 2px 1px #582E00,
-                            -2px 2px 1px #582E00,
-                            2px 3px 2px #582E00;
+                        text-shadow: -1px 0 1px var(--c9),
+                            1px 0 1px var(--c9),
+                            0 -1px 1px var(--c9),
+                            0 2px 1px var(--c9),
+                            -2px 2px 1px var(--c9),
+                            2px 3px 2px var(--c9);
                     }
 
                     .couche6 {
@@ -82,51 +122,11 @@
                         border-radius: 45%;
                         width: 6px;
                         height: 6px;
-                        background: #FFF1B6;
+                        background: var(--c10);
                     }
                 }
 
             }
         }
     }
-}
-
-
-
-
-/*effects*/
-.couche1:active {
-    width: 280px;
-    height: 95px;
-}
-
-.couche1:active .couche2 {
-    width: 274px;
-    height: 89px;
-}
-
-.couche1:active .couche23 {
-    width: 272px;
-    height: 75px;
-}
-
-.couche1:active .couche3 {
-    width: 261px;
-    height: 77px;
-}
-
-.couche1:active .couche4 {
-    width: 255px;
-    height: 32px;
-}
-
-.couche1:active .couche5 {
-    width: 6px;
-    height: 8px;
-    margin-left: 248px;
-}
-
-.couche1:active .battle {
-    margin-top: -3px;
-    margin-left: 75px;
 }

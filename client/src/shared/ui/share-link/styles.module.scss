@@ -13,7 +13,7 @@
     justify-content: center;
     align-items: center;
 
-    padding: 24px;
+    padding: 16px;
     box-sizing: border-box;
 
     .violetPopout {
@@ -65,8 +65,8 @@
 
                     &>div {
                         width: 100%;
-                        height: calc(50% + 2px);
-                        background-color: #ffffff2d;
+                        height: calc(50% + 1px);
+                        background-color: #ffffff1a;
                         border-radius: 9px 9px 0 0;
                     }
                 }
@@ -77,6 +77,7 @@
 
             width: 100%;
             border: 3px solid #564971;
+            box-sizing: border-box;
 
             background: repeating-linear-gradient(-45deg,
                 #564971,
@@ -113,13 +114,13 @@
                     padding-bottom: 18px;
 
                     .__in {
-                        color: #383838;
+                        color: #464545;
                         font-size: 18px;
                         width: 300px;
-                        border-radius: 6px;
+                        border-radius: 8px;
                         padding: 12px 8px;
                         box-sizing: border-box;
-                        border: 1px solid #8c38b32d;
+                        border: 2px solid #685a83;
                         background-color: aliceblue;
                     }
                 }
@@ -147,6 +148,12 @@
 
                     .__share {
                         cursor: pointer;
+
+                        &:active {
+                            transform: scale(0.94);
+                            transition: transform 0.2s;
+                        }
+                        
                         margin-left: 6px;
                         margin-right: 6px;
                         font-size: 18px;

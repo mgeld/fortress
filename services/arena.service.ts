@@ -22,12 +22,12 @@ export class ArenaService {
         }
     }
 
-    async _create(): Promise<Arena> {
+    async _create(reg?: 'open' | 'private'): Promise<Arena> {
         const placeArena = ArenaPlace.nextPlace()
         const arena = Arena.create({
             id: this._entityId.nextIdEntity().id,
             place: placeArena,
-            registr: 'open',
+            registr: reg || 'open',
             status: 'pending',
             teams: [
                 Team.create({ id: 1 }),

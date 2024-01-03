@@ -73,7 +73,9 @@ let TakeHandler = class TakeHandler extends handlers_1.IRoute {
                 _prevZone = yield this._zoneService.getById(_sector.zone_id);
             }
             const invPower = zone.stormtrooper_corps.power;
-            const defPower = _prevZone ? _prevZone.stormtrooper_corps.power : invPower / 2;
+            let defPower = 0;
+            if (zone.terrain.sectors > 3)
+                defPower = _prevZone ? _prevZone.stormtrooper_corps.power : invPower / 3;
             const status = _sector.invade(zone.id, invPower, defPower);
             takeHit = {
                 status,

@@ -32,20 +32,21 @@ const config_1 = require("shared/config");
 const socket_1 = require("shared/api/socket");
 const socket_2 = require("shared/api/socket/socket");
 const tutorial_1 = require("shared/api/handlers/tutorial");
-const battle_take_sector_1 = require("shared/api/handlers/battle-take-sector");
-const battle_y_take_sector_1 = require("shared/api/handlers/battle-y-take-sector");
-const battle_yr_take_sector_1 = require("shared/api/handlers/battle-yr-take-sector");
 const session_1 = require("shared/api/handlers/session");
 const set_health_1 = require("shared/api/handlers/set-health");
 const set_rating_1 = require("shared/api/handlers/set-rating");
 const reward_1 = require("shared/api/handlers/reward");
-const session_destroy_1 = require("shared/api/handlers/session-destroy");
 const edit_zone_1 = require("shared/api/handlers/edit-zone");
-const del_extraction_1 = require("shared/api/handlers/del-extraction");
-const set_abduction_1 = require("shared/api/handlers/set-abduction");
 const set_zone_1 = require("shared/api/handlers/set-zone");
 const add_sectors_1 = require("shared/api/handlers/add-sectors");
 const set_sectors_1 = require("shared/api/handlers/set-sectors");
+const battle_id_1 = require("shared/api/handlers/battle-id");
+const set_abduction_1 = require("shared/api/handlers/set-abduction");
+const del_extraction_1 = require("shared/api/handlers/del-extraction");
+const session_destroy_1 = require("shared/api/handlers/session-destroy");
+const battle_take_sector_1 = require("shared/api/handlers/battle-take-sector");
+const battle_y_take_sector_1 = require("shared/api/handlers/battle-y-take-sector");
+const battle_yr_take_sector_1 = require("shared/api/handlers/battle-yr-take-sector");
 exports.WS = socket_2.Socket.create(config_1.API_BASE_URL, socket_1.socketModel.events.setSocketStatus);
 const handlers = new handlers_1.Handlers({
     [connect_1.ConnectHandler.EVENT]: new connect_1.ConnectHandler(),
@@ -54,11 +55,12 @@ const handlers = new handlers_1.Handlers({
     [direct_1.DirectPointerHandler.EVENT]: new direct_1.DirectPointerHandler(),
     [pointers_1.PointersHandler.EVENT]: new pointers_1.PointersHandler(),
     [take_1.TakeHandler.EVENT]: new take_1.TakeHandler(),
+    [battle_id_1.BattleIdHandler.EVENT]: new battle_id_1.BattleIdHandler(),
+    [battle_join_1.BattleJoinHandler.EVENT]: new battle_join_1.BattleJoinHandler(),
     [battle_start_1.BattleStartHandler.EVENT]: new battle_start_1.BattleStartHandler(),
     [battle_over_1.BattleOverHandler.EVENT]: new battle_over_1.BattleOverHandler(),
     [fire_1.FireHandler.EVENT]: new fire_1.FireHandler(),
     [bomb_1.BombHandler.EVENT]: new bomb_1.BombHandler(),
-    [battle_join_1.BattleJoinHandler.EVENT]: new battle_join_1.BattleJoinHandler(),
     [add_sectors_1.AddSectorsHandler.EVENT]: new add_sectors_1.AddSectorsHandler(),
     [set_sectors_1.SetSectorsHandler.EVENT]: new set_sectors_1.SetSectorsHandler(),
     [sector_1.SectorHandler.EVENT]: new sector_1.SectorHandler(),

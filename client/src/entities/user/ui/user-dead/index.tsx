@@ -77,7 +77,8 @@ export const UserDead: FC = () => {
                             <IconShip width={64} height={64} />
                         </div>
                         <div className={`${styles.__info} strw1`}>
-                            Ваш корабль сломан. Вернуться в цитадель или продолжить наблюдение за областью?
+                            {/* Ваш корабль сломан. Вернуться в цитадель или продолжить наблюдение за областью? */}
+                            Ваш корабль сломан. Восстановить корабль или продолжить наблюдение за областью?
                         </div>
                     </div>
 
@@ -85,7 +86,7 @@ export const UserDead: FC = () => {
 
                         <div className={styles.__button}>
                             <Button
-                                className=""
+                                className="strw1"
                                 radius={10}
                                 text="Наблюдать"
                                 onClick={() => popoutModel.events.setPopout(null)}
@@ -94,10 +95,11 @@ export const UserDead: FC = () => {
 
                         <div className={styles.__button}>
                             <Button
-                                className=""
+                                className="strw1"
                                 radius={10}
-                                text="В цитадель"
-                                onClick={() => selectCitadel(latlng)}
+                                text="Восстановить"
+                                // onClick={() => selectCitadel(latlng)}
+                                onClick={() => popoutModel.events.setPopout('ship-improve-health')}
                             />
                         </div>
 

@@ -6,7 +6,7 @@ const effector_1 = require("effector");
 const map_1 = require("entities/map");
 const popout_root_1 = require("shared/ui/popout-root");
 const changeBattleFx = (0, effector_1.createEffect)(({ source, battleStatus }) => {
-    if (battleStatus === 'pending') {
+    if (battleStatus === 'wait' || battleStatus === 'search') {
         popout_root_1.popoutModel.events.setPopout('battle-pending');
     }
     else if (battleStatus === 'start') {

@@ -5,13 +5,11 @@ import { TLatLng } from "shared/types";
 import { pointIcon } from "../lib/point-icon";
 
 type TPointIconProps = {
-    // userName: string
     userIcon: string
     position: TLatLng
 }
 
 export const PointIcon: FC<TPointIconProps> = ({
-    // userName,
     userIcon,
     position
 }) => {

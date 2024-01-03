@@ -42,7 +42,8 @@ let VkUserRepository = class VkUserRepository {
     }
     getByZoneId(_id) {
         return __awaiter(this, void 0, void 0, function* () {
-            const [[result]] = yield this._connection.query(`SELECT * FROM vk_users WHERE zone_id = ?;`, [_id]);
+            console.log('getByZoneId _id', _id);
+            const [[result]] = yield this._connection.query(`SELECT * FROM vk_users WHERE zone_id = ? LIMIT 1;`, [_id]);
             if (!result) {
                 throw new Error('----------');
             }

@@ -3,8 +3,9 @@ import { useMap, useMapEvents } from "react-leaflet";
 
 import { TLatLng } from "shared/types";
 
-import styles from './styles.module.scss'
 import { ShipLevel, TShipLevel } from "entities/ship/lib/ship-level";
+
+import styles from './styles.module.scss'
 
 type THealth = {
     position: TLatLng

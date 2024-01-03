@@ -2,7 +2,7 @@ import { TTeam } from "@ctypes/socket/server-to-client";
 import { createEvent } from "effector";
 import { TLatLng } from "shared/types";
 
-export type TBattleStatus = 'default' | 'pending' | 'start' | 'over'
+export type TBattleStatus = 'default' | 'wait' | 'search' | 'start' | 'over'
 const setBattleStatus = createEvent<TBattleStatus>()
 
 export type TDeadEvent = {
@@ -37,6 +37,8 @@ const loseSector = createEvent<TTeamSectorEvent>()
 const setTimer = createEvent<number>()
 const stepTimer = createEvent()
 
+const setBattleShareId= createEvent<string | null>()
+
 export const events = {
     setArena,
     setTeams,
@@ -48,5 +50,7 @@ export const events = {
     loseSector,
 
     setTimer,
-    stepTimer
+    stepTimer,
+
+    setBattleShareId
 }

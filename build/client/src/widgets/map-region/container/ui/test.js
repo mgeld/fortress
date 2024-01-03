@@ -28,14 +28,17 @@ function Test() {
         const hexCenterCoordinates = (0, h3_js_1.cellToLatLng)(h3Index);
         const hexBoundary = (0, h3_js_1.cellToBoundary)(h3Index);
         setSectors(prev => ([...prev, hexBoundary]));
-        if (h3Indexes.findIndex((item) => item === h3Index) !== -1)
-            return;
-        setH3Indexes(prev => ([...prev, h3Index]));
+        if (h3Indexes.findIndex((item) => item === h3Index) !== -1) {
+            setH3Indexes(h3Indexes => h3Indexes.filter(item => item !== h3Index));
+        }
+        else {
+            setH3Indexes(prev => ([...prev, h3Index]));
+        }
     });
     return <>
         <react_leaflet_1.Polygon weight={0.9} fillColor="#ff1c1c" pathOptions={{
-            fillColor: 'red',
-            color: 'red'
+            fillColor: '#ff1c1c',
+            color: '#ff1c1c'
         }} positions={(0, h3_js_1.cellsToMultiPolygon)(h3Indexes)}/>
         
     </>;

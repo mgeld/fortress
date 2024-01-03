@@ -82,7 +82,8 @@ class TakeHandler extends IRoute {
         }
 
         const invPower = zone.stormtrooper_corps.power
-        const defPower = _prevZone ? _prevZone.stormtrooper_corps.power : invPower / 2
+        let defPower = 0
+        if (zone.terrain.sectors > 3) defPower = _prevZone ? _prevZone.stormtrooper_corps.power : invPower / 3
 
         const status = _sector.invade(
             zone.id,
@@ -222,7 +223,7 @@ class TakeHandler extends IRoute {
                         if (ufoVkUser.is_msg === 1) {
                             const request_params = {
                                 user_id: '' + ufoVkUser.vk_id,
-                                message: `Вы получили ${rewardCoins} монет в качестве вознаграждения! [id${myVkUser.vk_id}|${_pointer.user.name}] взял под контроль ${rewardSects === 3 ? rewardSects + ' форта' :  rewardSects + ' фортов'}`,
+                                message: `Вы получили ${rewardCoins} монет в качестве вознаграждения! [id${myVkUser.vk_id}|${_pointer.user.name}] взял под контроль ${rewardSects === 3 ? rewardSects + ' форта' : rewardSects + ' фортов'}`,
                                 random_id: '' + randomNumber(100, 10000),
                                 access_token: 'vk1.a.8PG1mPGkbbSNx8yWgdQt_qz4_EjRKy91SlNKqeZ7sxmaLqnx-b_9MJNbtC71Go1A_jknLxDaj41gR-yB687rte_XDGmdsnwwsom__UvxICg6Wc0pmIYIoT3jMXcfsprLs0JhzDg3VFCWD_upITg2VnHhmG_apBvkM6VpJk6FEmIAr9cpXiuICCSHYBZ-cHZVp8VF1jVZFmSFJGOky0kdiQ',
                                 v: '5.130'

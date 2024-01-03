@@ -24,20 +24,60 @@ const inversify_1 = require("inversify");
 const types_1 = require("../types");
 const sector_service_1 = require("../services/sector.service");
 const areal_1 = require("../entities/pointer/areal");
+const pointer_service_1 = require("../services/pointer.service");
 let GetSectorsHandler = class GetSectorsHandler extends handlers_1.IRoute {
     handle(message, uSocket) {
         var _a;
         return __awaiter(this, void 0, void 0, function* () {
+            if (!uSocket.user_id)
+                return;
             const __position = (_a = message.payload) === null || _a === void 0 ? void 0 : _a.position;
             if (!__position)
                 return;
-            const areal = areal_1.Areal.generator(__position);
-            const _sectors = yield this._sectorService.getZonesAroundAreal(areal);
+            let areals = areal_1.Areal.generatorAreals(__position);
+            const _sectors = yield this._sectorService.getZonesAroundAreals(areals);
+            const _pointer = yield this._pointerService.memoryGetById(uSocket.user_id);
             const array_sectors = Object.values(_sectors);
-            uSocket.send(JSON.stringify({
-                event: 'add-sectors',
-                payload: array_sectors
-            }));
+            if (array_sectors.length > 0) {
+                let zones = {};
+                array_sectors.forEach(item => {
+                    zones[item.zone.zone_id] = item.zone.zone_id;
+                });
+                const _pointers = yield this._pointerService.getZoneByIds(Object.values(zones));
+                const sectors = array_sectors.map(zone => {
+                    const user = _pointers.find(pointer => pointer.zone_id === zone.zone.zone_id);
+                    return {
+                        zone: Object.assign(Object.assign({}, zone.zone), { color: user === null || user === void 0 ? void 0 : user.color }),
+                        sectors: zone.sectors
+                    };
+                });
+                if (!(_pointer.zoneId in zones)) {
+                    sectors.push({
+                        zone: {
+                            zone_id: _pointer.zoneId,
+                            color: _pointer.color
+                        },
+                        sectors: {}
+                    });
+                }
+                uSocket.send(JSON.stringify({
+                    event: 'set-sectors',
+                    payload: sectors
+                }));
+            }
+            else {
+                const sectors = [{
+                        zone: {
+                            zone_id: _pointer.zoneId,
+                            color: _pointer.color
+                        },
+                        sectors: {}
+                    }];
+                uSocket.send(JSON.stringify({
+                    event: 'set-sectors',
+                    payload: sectors
+                }));
+            }
         });
     }
 };
@@ -46,6 +86,10 @@ __decorate([
     (0, inversify_1.inject)(types_1.TYPES.SectorService),
     __metadata("design:type", sector_service_1.SectorService)
 ], GetSectorsHandler.prototype, "_sectorService", void 0);
+__decorate([
+    (0, inversify_1.inject)(types_1.TYPES.PointerService),
+    __metadata("design:type", pointer_service_1.PointerService)
+], GetSectorsHandler.prototype, "_pointerService", void 0);
 GetSectorsHandler = __decorate([
     (0, inversify_1.injectable)()
 ], GetSectorsHandler);

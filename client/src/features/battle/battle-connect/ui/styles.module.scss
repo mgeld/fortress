@@ -1,0 +1,148 @@
+// .violetScreenRoot {
+//     width: 100%;
+//     height: 100%;
+
+//     background: url('/entities/arena/icons/clouds.png') #8c38b356;
+
+//     /* Путь к картинке */
+//     background-position: 0 0;
+//     background-repeat: repeat;
+//     animation: animated-sky 60s linear infinite;
+
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+
+//     padding: 24px;
+//     box-sizing: border-box;
+// }
+
+.battleConnect {
+
+    width: 100%;
+    max-width: 400px;
+    border-radius: 10px;
+
+    .__content {
+
+        .header {
+            width: 100%;
+            padding: 4px 3px;
+            box-sizing: border-box;
+            background-color: #4b3f63;
+            border-radius: 10px;
+            position: relative;
+
+            .__border {
+                width: 100%;
+                padding: 8px 6px;
+                box-sizing: border-box;
+                border-radius: 10px;
+
+                text-align: center;
+
+                color: white;
+                font-size: 18px;
+
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                z-index: 2;
+                position: relative;
+
+                .name {
+                    width: 100%;
+                }
+
+                .close {
+                    cursor: pointer;
+                    padding: 0 6px;
+                }
+            }
+
+            .__whiteEffect {
+                z-index: 1;
+                width: 100%;
+                height: 100%;
+                box-sizing: border-box;
+
+                position: absolute;
+                top: 0px;
+                left: 0px;
+
+                &>div {
+                    width: 100%;
+                    height: calc(50% + 1px);
+                    background-color: #ffffff18;
+                    border-radius: 9px 9px 0 0;
+                }
+            }
+
+        }
+
+        animation: on_popup 0.3s alternate;
+
+        width: 100%;
+        border: 3px solid #564971;
+
+        box-sizing: border-box;
+
+        background: repeating-linear-gradient(-45deg,
+            #564971,
+            #5e507a 100px,
+            #564971 100px,
+        );
+
+        border: 3px solid #2e273d;
+
+        box-shadow: 0px 4px 2px #2e273d;
+
+        border-radius: 10px;
+
+        .main {
+
+            width: 100%;
+            padding: 24px 24px;
+
+            box-sizing: border-box;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+
+            position: relative;
+
+            .__text {
+                color: white;
+                font-size: 18px;
+                text-align: center;
+                padding-bottom: 18px;
+            }
+
+            .button {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+
+                .__link {
+                    padding-right: 12px;
+                }
+
+                .__battle {}
+
+            }
+
+        }
+    }
+}
+
+// @keyframes animated-sky {
+//     from {
+//         background-position: 800px 0;
+//     }
+
+//     to {
+//         background-position: 0 0;
+//     }
+// }

@@ -8,9 +8,7 @@ export type TSectorProps = {
     zone_id: number
     defenders?: number
     invaders?: number
-
     booty?: TFindContType | 0
-
     areal: number
 }
 
@@ -75,9 +73,7 @@ export class Sector {
 
     public static probabilityGettingExtractionInFort(pos: TLatLng): boolean {
         const probabilityNumber = Math.ceil((+pos[0].toString().slice(-1) + +pos[1].toString().slice(-1)))
-
         return probabilityNumber === 10
-
     }
 
     invade(
@@ -116,12 +112,9 @@ export class Sector {
                 return 'defeat'
 
             } else if (invader_user !== this._zone_id && winner === 'invader') {
-
                 this.killDefender()
                 this.addInvader()
-
                 return 'victory'
-
             }
             return 'defense'
 
@@ -223,8 +216,7 @@ export class Sector {
         defender_power: number
     ): 'invader' | 'defender' {
         const chance = randomNumber(0, invader_power + defender_power)
-        return chance < invader_power ? 'invader' : 'defender'
-        // Math.random() > 0.5 ? 'invader' : 'defender'
+        return chance <= invader_power ? 'invader' : 'defender'
     }
 
     get id(): string {

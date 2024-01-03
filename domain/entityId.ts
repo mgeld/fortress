@@ -13,7 +13,7 @@ class Base64UID {
         //     arr[j] = 1
         //     i++
         // }
-        return crypto.randomBytes(8).toString('base64').replace('=', '')
+        return crypto.randomBytes(8).toString('base64').replace('=', '').replace('+', 'b').replace('/', 'z')
     }
 }
 

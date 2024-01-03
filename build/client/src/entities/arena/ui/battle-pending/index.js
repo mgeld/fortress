@@ -29,13 +29,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.BattlePending = void 0;
 const react_1 = require("react");
 const _icons_1 = require("shared/assets/icons/_icons");
-const battle_1 = require("features/battle");
 const popout_root_1 = require("shared/ui/popout-root");
+const battle_1 = require("features/battle");
 const events_1 = require("shared/api/events");
 const notice_1 = require("shared/ui/notice");
 const vk_bridge_1 = __importStar(require("@vkontakte/vk-bridge"));
+const arena_1 = require("entities/arena/model/arena");
 const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
 const BattlePending = () => {
+    var _a;
+    const battleStatus = (_a = arena_1.selectors.useBattleStatus()) === null || _a === void 0 ? void 0 : _a.data;
     const breakBattlePending = () => {
         events_1.mapAPI.events.setMapMode('invade');
         events_1.battleAPI.events.setBattleStatus("default");
@@ -74,7 +77,7 @@ const BattlePending = () => {
                         </div>
 
                         <div className={styles_module_scss_1.default.__text}>
-                            Поиск противников<span>...</span>
+                            {battleStatus === 'wait' ? 'Ожидание противников' : 'Поиск противников'}<span>...</span>
                         </div>
 
                         <div className={styles_module_scss_1.default.button}>

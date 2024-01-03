@@ -84,6 +84,7 @@ import { DelExtractionHandler } from './controllers/del-extraction'
 import { ArenaRepository } from './infra/database/mysql2/repositories/arena'
 import { GetAbductionHandler } from './controllers/get-abduction'
 import { GetZoneHandler } from './controllers/get-zone'
+import { BattleCreateHandler } from './controllers/battle-create'
 
 // import { ArenaTeamMemoryRepository } from './infra/database/memory/repositories/arena-team'
 // import { ArenaTeamService } from './services/arena-team.service'
@@ -110,12 +111,13 @@ container.bind(TYPES.BeamHandler).to(BeamHandler)
 container.bind(TYPES.TakeHandler).to(TakeHandler)
 container.bind(TYPES.BattleTakeHandler).to(BattleTakeHandler)
 
+container.bind(TYPES.BattleCreateHandler).to(BattleCreateHandler)
 container.bind(TYPES.BattleJoinHandler).to(BattleJoinHandler)
 container.bind(TYPES.BattleLeaveHandler).to(BattleLeaveHandler)
 container.bind(TYPES.BattleFireHandler).to(BattleFireHandler)
 container.bind(TYPES.BattleDirectHandler).to(BattleDirectHandler)
-container.bind(TYPES.GetSectorsHandler).to(GetSectorsHandler)
 
+container.bind(TYPES.GetSectorsHandler).to(GetSectorsHandler)
 container.bind(TYPES.GetAboutSectorHandler).to(GetAboutSectorHandler)
 container.bind(TYPES.BattleGetAboutSectorHandler).to(BattleGetAboutSectorHandler)
 

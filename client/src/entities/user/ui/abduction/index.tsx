@@ -1,10 +1,10 @@
-import { FC, ReactNode, useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react"
+
+import { userModel } from "entities/user"
+import { popoutModel } from "shared/ui/popout-root"
+import { IconShip } from "entities/ship/ui/assets/icons"
 
 import styles from './styles.module.scss'
-// import { popoutModel } from "shared/ui/popout-root";
-import { userModel } from "entities/user";
-import { IconShip } from "entities/ship/ui/assets/icons";
-import { popoutModel } from "shared/ui/popout-root";
 
 // type TVioletScreenProps = {
 //     name: string
@@ -15,6 +15,7 @@ import { popoutModel } from "shared/ui/popout-root";
 //         _click: () => void
 //     }
 // }
+
 export const Abduction: FC = () => {
 
     const photo = userModel.selectors.useUser().userIcon

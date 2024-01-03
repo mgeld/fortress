@@ -5,7 +5,7 @@ const events_1 = require("shared/api/events");
 const __1 = require("..");
 class SetSectorsHandler extends __1.Handler {
     handle(message) {
-        console.log('SetSectorsHandler');
+        console.log('SetSectorsHandler message', message);
         events_1.sectorsAPI.events.setSectors(message.payload);
     }
 }

@@ -5,11 +5,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Tutorial = void 0;
 const _1 = require(".");
-const ship_1 = require("entities/ship");
 const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
 const Tutorial = () => {
     const card = _1.tutorialModel.selectors.useTutorial();
-    const pos = ship_1.shipModel.selectors.useShipPos();
     if (!card)
         return <></>;
     const setTutorial = () => {

@@ -146,7 +146,7 @@ class Sector {
     }
     fightWinner(invader_power, defender_power) {
         const chance = (0, random_number_1.randomNumber)(0, invader_power + defender_power);
-        return chance < invader_power ? 'invader' : 'defender';
+        return chance <= invader_power ? 'invader' : 'defender';
     }
     get id() {
         return this._id;

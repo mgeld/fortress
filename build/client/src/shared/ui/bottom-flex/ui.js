@@ -8,7 +8,7 @@ const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
 const BottomFlex = ({ text, button }) => {
     return (<div className={styles_module_scss_1.default.bottomFlex}>
             <div className={styles_module_scss_1.default.__content}>
-                <div className={styles_module_scss_1.default.__nameMode}>
+                <div className={`${styles_module_scss_1.default.__nameMode} shb`}>
                     {text}
                 </div>
                 <div className={styles_module_scss_1.default.__buttonMode}>

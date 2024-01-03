@@ -4,6 +4,8 @@ import { TDelPointer } from '@ctypes/socket/server-to-client'
 
 class DelPointerHandler extends Handler {
     handle(message: TDelPointer) {
+
+        console.log('DelPointerHandler userId', message.payload?.userId)
         pointersAPI.events.delPointer(message.payload)
     }
 }

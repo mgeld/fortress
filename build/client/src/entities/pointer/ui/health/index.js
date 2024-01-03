@@ -5,8 +5,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = require("react");
 const react_leaflet_1 = require("react-leaflet");
-const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
 const ship_level_1 = require("entities/ship/lib/ship-level");
+const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
 const Y_BACK = 64 + 24;
 const X_BACK = 32;
 const Health = ({ position, lvl, health }) => {

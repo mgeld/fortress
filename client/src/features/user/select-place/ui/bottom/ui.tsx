@@ -22,8 +22,8 @@ export const BottomSelectPlace: FC = () => {
                     text: 'Понятно',
                     _click: () => popoutModel.events.setPopout(null)
                 },
-                alert: 'Выбор места',
-                message: 'Коснитесь карты, чтобы выбрать место для захвата территорий'
+                alert: 'Выберите место',
+                message: 'Для начала необходимо выбрать место. Коснитесь карты, чтобы выбрать место для захвата территорий'
             })
             popoutModel.events.setPopout('alert')
             return
@@ -59,12 +59,17 @@ export const BottomSelectPlace: FC = () => {
 
     return (
         <BottomFlex
-            text="Выбор места дислокации"
+            text="Место размещения зоны"
             button={
+                // <FButton
+                //     color="violet"
+                //     text="Сохранить"
+                //     _click={() => selectPosition(pos)}
+                // />}
                 <Button
-                    className=""
-                    radius={10}
-                    disabled={!pos}
+                    className="strw1"
+                    radius={8}
+                    // disabled={!pos}
                     text="Сохранить"
                     onClick={() => selectPosition(pos)}
                 />}

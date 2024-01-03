@@ -14,6 +14,6 @@ const CloseSatellite = () => {
         get_sectors_1.sectorEvents.events.getSectorsStart();
         (0, go_back_1.goBack)();
     };
-    return (<bottom_flex_1.BottomFlex text="Режим просмотра" button={<ui_1.Button className={styles_module_scss_1.default.__button} radius={6} text="Закрыть" onClick={closeSatellite}/>}/>);
+    return (<bottom_flex_1.BottomFlex text="Режим просмотра" button={<ui_1.Button className={`${styles_module_scss_1.default.__button} strw1`} radius={8} text="Закрыть" onClick={closeSatellite}/>}/>);
 };
 exports.CloseSatellite = CloseSatellite;

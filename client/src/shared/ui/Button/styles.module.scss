@@ -1,5 +1,10 @@
 .button {
     cursor: pointer;
+
+    &:active {
+        transform: scale(0.94);
+        transition: transform 0.2s;
+    }
     
     min-width: 100px;
     box-sizing: border-box;
@@ -39,7 +44,7 @@
             &>span {
                 white-space: nowrap;
                 font-size: 18px;
-                -webkit-text-stroke: 1px black;
+                // -webkit-text-stroke: 1p.5x black;
             }
         }
 

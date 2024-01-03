@@ -29,10 +29,7 @@ const DroneIOS = ({ health, pos, }) => {
             marginLeft: `-${(size / 2)}px`,
         }}>
                 <_icons_1.IconShip width={size} height={size} fill={colorDroneCircle}/>
-                
             </div>
-            
-            
         </>);
 };
 exports.default = DroneIOS;

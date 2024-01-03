@@ -14,14 +14,6 @@ const UserPoint: FC = () => {
     const health = shipModel.selectors.useShipHealth()
     const lvl = shipModel.selectors.useShipLevel()
 
-    // const page = pageModel.selectors.usePage().data
-
-    // const map = useMap()
-
-    // useCallback(() => {
-    //     map.setView(pos, map.getZoom())
-    // }, [map, page, pos])
-
     return (
         <>
             {health > 0 ? (
@@ -40,7 +32,6 @@ const UserPoint: FC = () => {
             <PointIcon
                 position={pos}
                 userIcon={userIcon || ''}
-                // userName={userName || ''}
             />
         </>
     )

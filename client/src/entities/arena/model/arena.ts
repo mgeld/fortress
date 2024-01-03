@@ -9,35 +9,6 @@ const DEFAULT_STORE: TArena | null = null
 
 export type TArenaStore = TArena | null
 
-const useArena = () => {
-    return {
-        data: useStore($arenaStore)
-    }
-}
-
-const useTeams = () => {
-    return {
-        data: useStore($teamStore)
-    }
-}
-const useMyTeamId = () => {
-    return {
-        data: useStore($myTeamId)
-    }
-}
-
-const useBattleStatus = () => {
-    return {
-        data: useStore($battleStatusStore)
-    }
-}
-
-const useBattleTimer = () => {
-    return {
-        data: useStore($arenaTimer)
-    }
-}
-
 const {
     setArena,
     setTeams,
@@ -130,6 +101,34 @@ sample({
 })
 // ************* //
 
+const useArena = () => {
+    return {
+        data: useStore($arenaStore)
+    }
+}
+
+const useTeams = () => {
+    return {
+        data: useStore($teamStore)
+    }
+}
+const useMyTeamId = () => {
+    return {
+        data: useStore($myTeamId)
+    }
+}
+
+const useBattleStatus = () => {
+    return {
+        data: useStore($battleStatusStore)
+    }
+}
+
+const useBattleTimer = () => {
+    return {
+        data: useStore($arenaTimer)
+    }
+}
 
 // type TChangeSectors = {
 //     myTeam: 1 | 2 | null

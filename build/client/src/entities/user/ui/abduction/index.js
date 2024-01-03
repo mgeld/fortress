@@ -5,10 +5,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Abduction = void 0;
 const react_1 = require("react");
-const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
 const user_1 = require("entities/user");
-const icons_1 = require("entities/ship/ui/assets/icons");
 const popout_root_1 = require("shared/ui/popout-root");
+const icons_1 = require("entities/ship/ui/assets/icons");
+const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
 const Abduction = () => {
     const photo = user_1.userModel.selectors.useUser().userIcon;
     const [state, setState] = (0, react_1.useState)(null);

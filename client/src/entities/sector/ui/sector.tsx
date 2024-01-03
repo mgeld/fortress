@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { cellsToMultiPolygon } from "h3-js";
+import { cellsToMultiPolygon, latLngToCell } from "h3-js";
 import { AboutSector } from "./about-sector";
 import { Pane, Polygon, Popup } from "react-leaflet";
 import { sectorColorList } from "../lib/sector-color-list";
@@ -25,6 +25,12 @@ const Sectors: FC<SectorsProps> = ({
 
     return (
         <Polygon
+            // eventHandlers={{
+            //     click: (e) => {
+            //         const latlng = latLngToCell(e.latlng.lat, e.latlng.lng, 9)
+            //         console.log('latlng', latlng)
+            //     }
+            // }}
             key={zoneItem.zone.zone_id}
             weight={0.9}
             pathOptions={{

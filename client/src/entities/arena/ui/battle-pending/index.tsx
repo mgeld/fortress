@@ -1,17 +1,22 @@
 import { FC, useEffect, useRef } from "react";
 import { IconBattleLoupe } from "shared/assets/icons/_icons";
 
-import { battleLeaveEvent } from "features/battle";
 import { popoutModel } from "shared/ui/popout-root";
+
+import { battleLeaveEvent } from "features/battle";
 import { battleAPI, mapAPI } from "shared/api/events";
 
 import { noticeModel } from "shared/ui/notice";
 
 import bridge, { BannerAdLocation } from "@vkontakte/vk-bridge";
 
+import { selectors } from "entities/arena/model/arena";
+
 import styles from './styles.module.scss'
 
 export const BattlePending: FC = () => {
+
+    const battleStatus = selectors.useBattleStatus()?.data
 
     const breakBattlePending = () => {
         mapAPI.events.setMapMode('invade')
@@ -58,7 +63,7 @@ export const BattlePending: FC = () => {
                         </div>
 
                         <div className={styles.__text}>
-                            Поиск противников<span>...</span>
+                            {battleStatus === 'wait' ? 'Ожидание противников' : 'Поиск противников'}<span>...</span>
                         </div>
 
                         <div className={styles.button}>

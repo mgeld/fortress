@@ -31,6 +31,8 @@ export class Handlers {
         @inject(TYPES.BeamHandler) private beam: IRoute,
         @inject(TYPES.DirectHandler) private direct: IRoute,
         @inject(TYPES.ConnectHandler) private connect: IRoute,
+        
+        @inject(TYPES.BattleCreateHandler) private battleCreate: IRoute,
         @inject(TYPES.BattleJoinHandler) private battleJoin: IRoute,
         @inject(TYPES.BattleLeaveHandler) private battleLeave: IRoute,
         @inject(TYPES.BattleFireHandler) private battleFire: IRoute,

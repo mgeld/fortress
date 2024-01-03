@@ -2,7 +2,7 @@ import { TLatLng } from "../../common-types/model"
 import { ArenaPlace } from "./arena-place"
 import { Team, UnmarshalledTeam } from "./arena-team"
 
-export type TRegistr = 'open' | 'close'
+export type TRegistr = 'open' | 'close' | 'private'
 export type TArenaStatus = 'pending' | 'start' | 'over'
 
 export type TArenaProps = {
@@ -36,7 +36,6 @@ export class Arena {
     private _timer: NodeJS.Timeout | null = null
 
     private constructor(arena: TArenaProps) {
-
         this._id = arena.id
         this._place = arena.place
         this._registr = arena.registr
@@ -44,9 +43,6 @@ export class Arena {
 
         this._teamList = arena.teams
         this._timer = arena?.timeout || null
-
-        console.log('Arena _id', this._id)
-
     }
 
     public static create(arena: TArenaProps) {
@@ -65,7 +61,6 @@ export class Arena {
     destroyTimer() {
         this._timer && clearTimeout(this._timer)
     }
-
 
     public unmarshal(): UnmarshalledArena {
         return {

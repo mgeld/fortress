@@ -14,7 +14,7 @@ const inversify_1 = require("inversify");
 const crypto_1 = __importDefault(require("crypto"));
 class Base64UID {
     static generate() {
-        return crypto_1.default.randomBytes(8).toString('base64').replace('=', '');
+        return crypto_1.default.randomBytes(8).toString('base64').replace('=', '').replace('+', 'b').replace('/', 'z');
     }
 }
 class EntityId {

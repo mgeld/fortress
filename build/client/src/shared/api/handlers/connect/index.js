@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ConnectHandler = void 0;
-const events_1 = require("shared/api/events");
 const __1 = require("..");
 const popout_root_1 = require("shared/ui/popout-root");
+const events_1 = require("shared/api/events");
 class ConnectHandler extends __1.Handler {
     handle(message) {
         console.log('ConnectHandler ConnectHandler ConnectHandler');

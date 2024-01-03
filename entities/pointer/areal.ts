@@ -25,8 +25,6 @@ export class Areal {
             [lat - 0.02, lng + 0.03],
         ]
 
-        // console.log('generatorAreals areals', areals)
-
         return areals.map(latlng => Number(String(Math.round(latlng[0] * 100)) + String(Math.round(latlng[1] * 100))))
 
     }

@@ -31,17 +31,32 @@ const battle_service_1 = require("../services/battle.service");
 const pointer_service_1 = require("../services/pointer.service");
 let BattleJoinHandler = class BattleJoinHandler extends handlers_1.IRoute {
     handle(message, uSocket) {
+        var _a;
         return __awaiter(this, void 0, void 0, function* () {
             console.log('BattleJoinHandler handle');
             if (!uSocket.user_id)
                 return;
+            const __arenaId = (_a = message.payload) === null || _a === void 0 ? void 0 : _a.id;
             const _pointer = yield this._pointerService.memoryGetById(uSocket.user_id);
             if (_pointer.areal === -1)
                 return;
             if (_pointer.health < 1)
                 return;
-            const arena = yield this._arenaService.getArena();
-            console.log('BattleJoinHandler arena.id', arena.id);
+            let arena;
+            if (!__arenaId)
+                arena = yield this._arenaService.getArena();
+            else {
+                arena = yield this._arenaService.getById(__arenaId);
+                if (arena.status === 'over' || arena.status === 'start') {
+                    uSocket.send(JSON.stringify({
+                        event: 'battle-join',
+                        payload: {
+                            status: arena.status
+                        }
+                    }));
+                    return;
+                }
+            }
             const team = arena.addPointer(uSocket.user_id);
             const teamPlace = team.getPlace(arena.place.place);
             const _member = arena_team_member_1.Member.create({
@@ -56,10 +71,11 @@ let BattleJoinHandler = class BattleJoinHandler extends handlers_1.IRoute {
             uSocket.send(JSON.stringify({
                 event: 'battle-join',
                 payload: {
+                    status: __arenaId ? 'wait' : 'search',
                     user: {
                         pos: _member.pos,
                         team: _member.arenaTeam,
-                    },
+                    }
                 }
             }));
             this._rooms.areals.deleteClient(_pointer.zoneId, _pointer.areal);

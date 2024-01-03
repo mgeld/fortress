@@ -14,7 +14,7 @@ export const BottomFlex: FC<TBottomFlexProps> = ({
     return (
         <div className={styles.bottomFlex}>
             <div className={styles.__content}>
-                <div className={styles.__nameMode}>
+                <div className={`${styles.__nameMode} shb`}>
                     {text}
                 </div>
                 <div className={styles.__buttonMode}>

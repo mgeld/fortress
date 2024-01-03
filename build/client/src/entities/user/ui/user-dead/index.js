@@ -58,18 +58,19 @@ const UserDead = () => {
                             <icons_1.IconShip width={64} height={64}/>
                         </div>
                         <div className={`${styles_module_scss_1.default.__info} strw1`}>
-                            Ваш корабль сломан. Вернуться в цитадель или продолжить наблюдение за областью?
+                            
+                            Ваш корабль сломан. Восстановить корабль или продолжить наблюдение за областью?
                         </div>
                     </div>
 
                     <div className={styles_module_scss_1.default.__bottom}>
 
                         <div className={styles_module_scss_1.default.__button}>
-                            <ui_1.Button className="" radius={10} text="Наблюдать" onClick={() => popout_root_1.popoutModel.events.setPopout(null)}/>
+                            <ui_1.Button className="strw1" radius={10} text="Наблюдать" onClick={() => popout_root_1.popoutModel.events.setPopout(null)}/>
                         </div>
 
                         <div className={styles_module_scss_1.default.__button}>
-                            <ui_1.Button className="" radius={10} text="В цитадель" onClick={() => selectCitadel(latlng)}/>
+                            <ui_1.Button className="strw1" radius={10} text="Восстановить" onClick={() => popout_root_1.popoutModel.events.setPopout('ship-improve-health')}/>
                         </div>
 
                     </div>

@@ -14,6 +14,7 @@ import { IRoute } from "./handlers";
 import { TZoneColor } from "../common-types/model";
 import { BattleService } from "../services/battle.service";
 import { PointerService } from "../services/pointer.service";
+import { Arena } from "../entities/arena/arena";
 
 @injectable()
 class BattleJoinHandler extends IRoute {
@@ -34,17 +35,33 @@ class BattleJoinHandler extends IRoute {
 
         if (!uSocket.user_id) return
 
+        const __arenaId = message.payload?.id
+
         const _pointer = await this._pointerService.memoryGetById(uSocket.user_id)
 
         // Если игрок уже на Арене или ищет противника
         // Такого через игру не будет, но могут отправить запросы, чтобы найти уязы
         if (_pointer.areal === -1) return
-        
+
         if (_pointer.health < 1) return
 
-        const arena = await this._arenaService.getArena()
+        let arena: Arena
 
-        console.log('BattleJoinHandler arena.id', arena.id)
+        if (!__arenaId)
+            arena = await this._arenaService.getArena()
+        else {
+            arena = await this._arenaService.getById(__arenaId)
+
+            if(arena.status === 'over' || arena.status === 'start') {
+                uSocket.send(JSON.stringify({
+                    event: 'battle-join',
+                    payload: {
+                        status: arena.status
+                    }
+                }))
+                return
+            }
+        }
 
         const team = arena.addPointer(uSocket.user_id)
         const teamPlace = team.getPlace(arena.place.place)
@@ -65,10 +82,11 @@ class BattleJoinHandler extends IRoute {
         uSocket.send(JSON.stringify({
             event: 'battle-join',
             payload: {
+                status: __arenaId ? 'wait' : 'search',
                 user: {
                     pos: _member.pos,
                     team: _member.arenaTeam,
-                },
+                }
             }
         }))
 

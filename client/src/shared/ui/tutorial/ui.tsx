@@ -3,9 +3,6 @@ import { FC } from "react";
 import { tutorialModel } from ".";
 import { TTutType } from "@ctypes/model";
 
-import { shipModel } from "entities/ship";
-import { pointersAPI } from "shared/api/events";
-
 import styles from './styles.module.scss'
 
 // import { Areal } from "entities/areal/model";
@@ -21,7 +18,7 @@ type TDate = {
 export const Tutorial: FC = () => {
 
     const card = tutorialModel.selectors.useTutorial()
-    const pos = shipModel.selectors.useShipPos()
+    // const pos = shipModel.selectors.useShipPos()
     // const areal = shipModel.selectors.useAreal()
 
     if (!card) return <></>

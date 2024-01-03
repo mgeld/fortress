@@ -32,6 +32,7 @@ export type TEventBattleGetAboutSector = 'battleGetAboutSector'
 
 export type TEventBattleJoin = 'battleJoin'
 export type TEventBattleLeave = 'battleLeave'
+export type TEventBattleCreate = 'battleCreate'
 export type TEventBattleFire = 'battleFire'
 export type TEventBattleDirect = 'battleDirect'
 
@@ -60,6 +61,7 @@ export type TEventsAPI =
     | TEventDirect
     | TEventBattleJoin
     | TEventBattleLeave
+    | TEventBattleCreate
     | TEventBattleFire
     | TEventBattleDirect
     | TEventGetUser
@@ -85,6 +87,7 @@ export type TSendEvent =
     | TDirectAPI
     | TBattleJoinAPI
     | TBattleLeaveAPI
+    | TBattleCreateAPI
     | TBattleFireAPI
     | TBattleDirectAPI
     | TGetUserAPI
@@ -260,8 +263,6 @@ export type TBattleFireAPI = {
         to_pos: TLatLng
         direction: number
         hitPointer?: THitPointer
-        // weapon: string
-        // userId: number
     }
 }
 
@@ -269,19 +270,23 @@ export type TBattleDirectAPI = {
     event: TEventBattleDirect
     payload: {
         position: TLatLng
-        // userId: number
     }
 }
 
 export type TBattleJoinAPI = {
     event: TEventBattleJoin
     payload: {
-        // userId: number
+        id?: string
     }
 }
 export type TBattleLeaveAPI = {
     event: TEventBattleLeave
     payload: {
-        // userId: number
+    }
+}
+
+export type TBattleCreateAPI = {
+    event: TEventBattleCreate
+    payload: {
     }
 }

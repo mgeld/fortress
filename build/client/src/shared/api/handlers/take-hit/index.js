@@ -7,7 +7,6 @@ const snackbar_1 = require("shared/ui/snackbar");
 let timeId;
 class TakeHitHandler extends __1.Handler {
     handle(message) {
-        console.log('TakeHitHandler message', message);
         const hit = message.payload.hit;
         events_1.sectorsAPI.events.setTakeFort(hit);
         switch (hit.status) {

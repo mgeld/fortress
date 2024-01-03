@@ -16,6 +16,8 @@ import { getSatelliteFortAPI } from "shared/api/get-satellite-fort";
 import { getHashToSectorId } from "shared/lib/get-hash-to-sector-id";
 
 import bridge from "@vkontakte/vk-bridge";
+import { getHashToBattleId } from "shared/lib/get-hash-to-battle-id";
+import { battleConnectEvent } from "features/battle";
 
 // type TVkUserApi = {
 //     id: number
@@ -88,8 +90,6 @@ export const useApp = () => {
 
     useEffect(() => {
 
-        // if (!zoneId) return
-
         const sectorId = getHashToSectorId()
 
         if (sectorId && socketStatus === 'open') {
@@ -110,7 +110,25 @@ export const useApp = () => {
 
     }, [socketStatus])
 
+    useEffect(() => {
 
+        if (zoneId && socketStatus === 'open') {
+
+            const battleHashId = getHashToBattleId();
+
+            if (battleHashId) {
+                bridge.send("VKWebAppSetLocation", { "location": "" });
+                window.history.pushState("", document.title, window.location.pathname + window.location.search);
+
+                console.log('battleHashId', battleHashId)
+                
+                setTimeout(() => {
+                    battleConnectEvent.events.battleConnect(battleHashId)
+                }, 2000)
+            }
+        }
+
+    }, [socketStatus, zoneId])
 
     return {
         zoneId,

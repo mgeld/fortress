@@ -56,6 +56,8 @@ import { Abduction } from 'entities/user/ui/abduction'
 import { AbductionPrimes } from 'widgets/primes/abduction'
 import { AbductionPage } from 'pages/abduction'
 import { AbductionLink } from 'features/user/abduction-link/ui'
+import { BattleConnect } from 'features/battle/battle-connect/ui'
+import { BattleLink } from 'features/battle/battle-link'
 
 mapStartPosition()
 setMyZoneColorStartSample()
@@ -70,7 +72,7 @@ const _platform = getPlatformNative()
 const App = () => {
 
   console.log('App')
-  console.log('Version 1.2.1')
+  console.log('Version 1.2.3')
 
   const popout = popoutModel.selectors.usePopout().data
   const page = pageModel.selectors.usePage().data
@@ -80,33 +82,12 @@ const App = () => {
     socketStatus
   } = useApp()
 
-  // useEffect(() => {
-  //   // window.alert('Version 1.0')
-  //   // popoutModel.events.setPopout('primes')
-  // }, [])
-
-
-  // if (!zoneId) return (
-  //   <LoadApp />
-  // )
-
   return (
     <div className={`app ${_platform}`}>
 
       <LoadFonts fontFamily='Lolita' />
 
       <PopoutRoot activePopout={popout}>
-
-        {/* <Popout
-          key='load-app'
-          id='load-app'
-          fill='white'
-          screen='full'
-          close={false}
-          edge={0}
-        >
-          <LoadApp />
-        </Popout> */}
 
         <Popout
           key='abduction'
@@ -118,7 +99,7 @@ const App = () => {
         >
           <Abduction />
         </Popout>
-        
+
         <Popout
           key='abduction-link'
           id='abduction-link'
@@ -150,6 +131,26 @@ const App = () => {
           edge={0}
         >
           <BattleOver />
+        </Popout>
+
+        <Popout
+          key='battle-connect'
+          id='battle-connect'
+          fill='#5a166480'
+          edge={12}
+        >
+          <BattleConnect />
+        </Popout>
+
+        <Popout
+          key='battle-link'
+          id='battle-link'
+          fill='white'
+          screen='full'
+          close={false}
+          edge={0}
+        >
+          <BattleLink />
         </Popout>
 
         <Popout
@@ -186,7 +187,7 @@ const App = () => {
           id='select-place'
           fill='#5a166480'
           close={false}
-          edge={12}
+          edge={24}
         >
           <SelectPlace />
         </Popout>

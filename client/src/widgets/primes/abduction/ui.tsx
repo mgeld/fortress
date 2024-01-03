@@ -3,9 +3,9 @@ import { FC, useState } from "react";
 import { Prime } from "shared/ui/prime";
 import { mapAPI } from "shared/api/events";
 import { popoutModel } from "shared/ui/popout-root";
-import { IconFort, IconShip } from "widgets/panel/assets/icons";
+import { IconShip } from "widgets/panel/assets/icons";
 import { IconStorm2 } from "entities/unit/icons/_icons";
-import { IconAlien, IconShipBeam, IconShipGun, IconTerrain, IconUFO } from "shared/assets/icons/_icons";
+import { IconAlien, IconShipBeam, IconUFO } from "shared/assets/icons/_icons";
 
 import styles from './styles.module.scss'
 
@@ -59,6 +59,7 @@ export const AbductionPrimes: FC = () => {
                 popoutModel.events.setPopout('select-place')
                 mapAPI.events.setMapMode('select-place')
             }, 500)
+            
         },
         text: 'Начать'
     } : {

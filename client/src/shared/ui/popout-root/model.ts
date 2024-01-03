@@ -44,6 +44,9 @@ export type TPopout =
 
     | 'zone-edit'
 
+    | 'battle-connect'
+    | 'battle-link'
+
     // | 'unit-out-hold'
     // | 'load-app'
     // | 'use-item'

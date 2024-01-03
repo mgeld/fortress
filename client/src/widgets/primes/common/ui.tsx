@@ -41,6 +41,7 @@ export const CommonPrimes: FC = () => {
                 popoutModel.events.setPopout('select-place')
                 mapAPI.events.setMapMode('select-place')
             }, 500)
+            
         },
         text: 'Начать'
     } : {

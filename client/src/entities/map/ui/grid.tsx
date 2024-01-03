@@ -12,9 +12,6 @@ export const Grid: FC<GridProps> = ({ pos }) => {
     const disk = gridRingUnsafe(latLngToCell(pos[0], pos[1], 9), 1)
     const disk2 = gridRingUnsafe(latLngToCell(pos[0], pos[1], 9), 3)
 
-    // console.log('disk', disk)
-    // console.log('disk2', disk2)
-
     return (
         <Polygon
             weight={0.9}

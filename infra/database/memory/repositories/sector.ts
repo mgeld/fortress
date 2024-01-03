@@ -132,10 +132,8 @@ export class SectorMemoryRepository implements ISectorMemoryRepository {
             _sectors.forEach(async sector => {
                 await this._database.sector.delete(sector.id)
             })
-            console.log('deleteByAreals true')
             return true
         } catch (e) {
-            console.log('deleteByAreals false')
             return false
         }
     }

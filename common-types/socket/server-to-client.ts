@@ -51,6 +51,7 @@ export type TEventSector = 'sector'
 
 export type TEventBattleStart = 'battle-start'
 export type TEventBattleOver = 'battle-over'
+export type TEventBattleId = 'battle-id'
 export type TEventBattleJoin = 'battle-join'
 
 export type TEventsMessage =
@@ -94,6 +95,7 @@ export type TEventsMessage =
     | TEventDirect
     | TEventBattleStart
     | TEventBattleOver
+    | TEventBattleId
     | TEventBattleJoin
     | TEventAddSectors
     | TEventSetSectors
@@ -494,7 +496,6 @@ type TMember = {
 }
 
 
-
 export type TTeamStatus = 'default' | 'victory' | 'defeat' | 'draw'
 export type TTeam = {
     teamId: number
@@ -511,12 +512,19 @@ export type TBattleOver = {
     payload: TBattleOverPayload
 }
 
+export type TBattleId = {
+    event: TEventBattleId
+    payload: {
+        id: string
+    }
+}
+
 
 type TBattleJoinPayload = {
-    user: {
+    status: 'search' | 'wait' | 'over' | 'start'
+    user?: {
         pos: TLatLng
         team: number
-        // health: number
     }
 }
 export type TBattleJoin = {
@@ -559,5 +567,6 @@ export type TMessage =
     | TBattleTakeSector
     | TBattleStart
     | TBattleOver
+    | TBattleId
     | TBattleJoin
     | TSetZone

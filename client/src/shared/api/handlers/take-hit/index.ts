@@ -8,8 +8,6 @@ let timeId: ReturnType<typeof setTimeout>
 class TakeHitHandler extends Handler {
     handle(message: TTakeHit) {
 
-        console.log('TakeHitHandler message', message)
-
         const hit = message.payload.hit
         sectorsAPI.events.setTakeFort(hit)
 

@@ -5,7 +5,7 @@ import { TSectors } from '@ctypes/socket/server-to-client'
 
 class SetSectorsHandler extends Handler {
     handle(message: TSectors) {
-        console.log('SetSectorsHandler')
+        console.log('SetSectorsHandler message', message)
         sectorsAPI.events.setSectors(message.payload)
     }
 }

@@ -17,7 +17,6 @@ export const SelectPlace: FC = () => {
     const map = mapModel.selectors.useMapLayout()
 
     const selectPlace = () => {
-        // map?.flyTo(map.getCenter(), 8)
         map?.setMinZoom(6)
         map?.setView(map.getCenter(), 8)
         popoutModel.events.setPopout(null)
@@ -26,9 +25,8 @@ export const SelectPlace: FC = () => {
     const setRandPos = () => {
         const pos = getRandomPosition()
         popoutModel.events.setPopout(null)
-        // map?.flyTo(pos, 16)
-        map?.setMinZoom(6)
         map?.setView(pos, 16)
+        map?.setMinZoom(6)
         mapModel.events.setLatLngMap(pos)
     }
 
@@ -40,13 +38,13 @@ export const SelectPlace: FC = () => {
                     const pos: TLatLng = [data.lat, data.long]
                     if (pos[0] > 0 && pos[1] > 0) {
                         popoutModel.events.setPopout(null)
-                        map?.setMinZoom(6)
                         map?.setView(pos, 16)
+                        map?.setMinZoom(6)
                         mapModel.events.setLatLngMap(pos)
                     } else {
                         noticeModel.events.newToast({
                             name: 'Упс...',
-                            text: 'В вашей стране пока нельзя завоевывать территории, но вы можете выбрать любое место в России или странах СНГ!',
+                            text: 'На этом месте пока нельзя захватывать территории, но вы можете выбрать любое место в России или странах СНГ!',
                             t: 'common'
                         })
                     }
@@ -77,13 +75,10 @@ export const SelectPlace: FC = () => {
                     <div className={styles.name}>
                         Выбор территории
                     </div>
-                    {/* <div className={styles.icon}>
-                        <IconGlob width={60} height={60}/>
-                    </div> */}
                     <div className={styles.geoPlace}>
                         <Button
                             radius={10}
-                            className=""
+                            className="strw1"
                             text="Геолокация"
                             onClick={getGeo}
                         />
@@ -96,7 +91,7 @@ export const SelectPlace: FC = () => {
                             <IconTouch />
                         </div>
                         <div className={styles.text}>
-                            Коснитесь карты, чтобы выбрать место, где вы начнете захватывать территории
+                            Коснитесь карты, чтобы выбрать место, откуда вы начнете захватывать территории
                         </div>
                     </div>
 
@@ -105,7 +100,7 @@ export const SelectPlace: FC = () => {
                             <div className={styles.__randomPlace}>
                                 <Button
                                     radius={10}
-                                    className=""
+                                    className="strw1"
                                     text="Случайное"
                                     onClick={setRandPos}
                                 />
@@ -113,7 +108,7 @@ export const SelectPlace: FC = () => {
                             <div className={styles.__selectPlace}>
                                 <Button
                                     radius={10}
-                                    className=""
+                                    className="strw1"
                                     text="Выбрать"
                                     onClick={selectPlace}
                                 />

@@ -24,13 +24,14 @@ IRoute = __decorate([
 ], IRoute);
 exports.IRoute = IRoute;
 let Handlers = class Handlers {
-    constructor(fire, take, battleTake, beam, direct, connect, battleJoin, battleLeave, battleFire, battleDirect, getSectors, getAboutSector, battleGetAboutSector, getUser, useExtraction, buyUnit, levelUp, getRating, getSatellite, getSatelliteFort, editZone, delExtraction, getAbduction, getZone) {
+    constructor(fire, take, battleTake, beam, direct, connect, battleCreate, battleJoin, battleLeave, battleFire, battleDirect, getSectors, getAboutSector, battleGetAboutSector, getUser, useExtraction, buyUnit, levelUp, getRating, getSatellite, getSatelliteFort, editZone, delExtraction, getAbduction, getZone) {
         this.fire = fire;
         this.take = take;
         this.battleTake = battleTake;
         this.beam = beam;
         this.direct = direct;
         this.connect = connect;
+        this.battleCreate = battleCreate;
         this.battleJoin = battleJoin;
         this.battleLeave = battleLeave;
         this.battleFire = battleFire;
@@ -71,25 +72,27 @@ Handlers = __decorate([
     __param(3, (0, inversify_1.inject)(types_1.TYPES.BeamHandler)),
     __param(4, (0, inversify_1.inject)(types_1.TYPES.DirectHandler)),
     __param(5, (0, inversify_1.inject)(types_1.TYPES.ConnectHandler)),
-    __param(6, (0, inversify_1.inject)(types_1.TYPES.BattleJoinHandler)),
-    __param(7, (0, inversify_1.inject)(types_1.TYPES.BattleLeaveHandler)),
-    __param(8, (0, inversify_1.inject)(types_1.TYPES.BattleFireHandler)),
-    __param(9, (0, inversify_1.inject)(types_1.TYPES.BattleDirectHandler)),
-    __param(10, (0, inversify_1.inject)(types_1.TYPES.GetSectorsHandler)),
-    __param(11, (0, inversify_1.inject)(types_1.TYPES.GetAboutSectorHandler)),
-    __param(12, (0, inversify_1.inject)(types_1.TYPES.BattleGetAboutSectorHandler)),
-    __param(13, (0, inversify_1.inject)(types_1.TYPES.GetUserHandler)),
-    __param(14, (0, inversify_1.inject)(types_1.TYPES.UseExtractionHandler)),
-    __param(15, (0, inversify_1.inject)(types_1.TYPES.BuyUnitHandler)),
-    __param(16, (0, inversify_1.inject)(types_1.TYPES.LevelUpHandler)),
-    __param(17, (0, inversify_1.inject)(types_1.TYPES.GetRatingHandler)),
-    __param(18, (0, inversify_1.inject)(types_1.TYPES.GetSatelliteHandler)),
-    __param(19, (0, inversify_1.inject)(types_1.TYPES.GetSatelliteFortHandler)),
-    __param(20, (0, inversify_1.inject)(types_1.TYPES.EditZoneHandler)),
-    __param(21, (0, inversify_1.inject)(types_1.TYPES.DelExtractionHandler)),
-    __param(22, (0, inversify_1.inject)(types_1.TYPES.GetAbductionHandler)),
-    __param(23, (0, inversify_1.inject)(types_1.TYPES.GetZoneHandler)),
+    __param(6, (0, inversify_1.inject)(types_1.TYPES.BattleCreateHandler)),
+    __param(7, (0, inversify_1.inject)(types_1.TYPES.BattleJoinHandler)),
+    __param(8, (0, inversify_1.inject)(types_1.TYPES.BattleLeaveHandler)),
+    __param(9, (0, inversify_1.inject)(types_1.TYPES.BattleFireHandler)),
+    __param(10, (0, inversify_1.inject)(types_1.TYPES.BattleDirectHandler)),
+    __param(11, (0, inversify_1.inject)(types_1.TYPES.GetSectorsHandler)),
+    __param(12, (0, inversify_1.inject)(types_1.TYPES.GetAboutSectorHandler)),
+    __param(13, (0, inversify_1.inject)(types_1.TYPES.BattleGetAboutSectorHandler)),
+    __param(14, (0, inversify_1.inject)(types_1.TYPES.GetUserHandler)),
+    __param(15, (0, inversify_1.inject)(types_1.TYPES.UseExtractionHandler)),
+    __param(16, (0, inversify_1.inject)(types_1.TYPES.BuyUnitHandler)),
+    __param(17, (0, inversify_1.inject)(types_1.TYPES.LevelUpHandler)),
+    __param(18, (0, inversify_1.inject)(types_1.TYPES.GetRatingHandler)),
+    __param(19, (0, inversify_1.inject)(types_1.TYPES.GetSatelliteHandler)),
+    __param(20, (0, inversify_1.inject)(types_1.TYPES.GetSatelliteFortHandler)),
+    __param(21, (0, inversify_1.inject)(types_1.TYPES.EditZoneHandler)),
+    __param(22, (0, inversify_1.inject)(types_1.TYPES.DelExtractionHandler)),
+    __param(23, (0, inversify_1.inject)(types_1.TYPES.GetAbductionHandler)),
+    __param(24, (0, inversify_1.inject)(types_1.TYPES.GetZoneHandler)),
     __metadata("design:paramtypes", [IRoute,
+        IRoute,
         IRoute,
         IRoute,
         IRoute,

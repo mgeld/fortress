@@ -55,6 +55,8 @@ const abduction_1 = require("entities/user/ui/abduction");
 const abduction_2 = require("widgets/primes/abduction");
 const abduction_3 = require("pages/abduction");
 const ui_22 = require("features/user/abduction-link/ui");
+const ui_23 = require("features/battle/battle-connect/ui");
+const battle_link_1 = require("features/battle/battle-link");
 (0, model_1.mapStartPosition)();
 (0, model_3.setMyZoneColorStartSample)();
 (0, select_zone_1.initSelectZoneSample)();
@@ -63,7 +65,7 @@ window.addEventListener('popstate', () => (0, go_back_1.goBack)());
 const _platform = (0, get_platform_native_1.getPlatformNative)();
 const App = () => {
     console.log('App');
-    console.log('Version 1.2.1');
+    console.log('Version 1.2.3');
     const popout = popout_root_1.popoutModel.selectors.usePopout().data;
     const page = page_root_1.pageModel.selectors.usePage().data;
     const { zoneId, socketStatus } = (0, useApp_1.useApp)();
@@ -73,12 +75,10 @@ const App = () => {
 
       <popout_root_1.PopoutRoot activePopout={popout}>
 
-        
-
         <popout_1.Popout key='abduction' id='abduction' fill='white' screen='full' close={false} edge={0}>
           <abduction_1.Abduction />
         </popout_1.Popout>
-        
+
         <popout_1.Popout key='abduction-link' id='abduction-link' fill='white' screen='full' close={false} edge={0}>
           <ui_22.AbductionLink />
         </popout_1.Popout>
@@ -89,6 +89,14 @@ const App = () => {
 
         <popout_1.Popout key='battle-over' id='battle-over' fill='#5a166480' screen='full' close={false} edge={0}>
           <arena_1.BattleOver />
+        </popout_1.Popout>
+
+        <popout_1.Popout key='battle-connect' id='battle-connect' fill='#5a166480' edge={12}>
+          <ui_23.BattleConnect />
+        </popout_1.Popout>
+
+        <popout_1.Popout key='battle-link' id='battle-link' fill='white' screen='full' close={false} edge={0}>
+          <battle_link_1.BattleLink />
         </popout_1.Popout>
 
         <popout_1.Popout key='vk-join-group' id='vk-join-group' fill='white' screen='full' close={true} edge={0}>
@@ -103,7 +111,7 @@ const App = () => {
           <ui_21.default />
         </popout_1.Popout>
 
-        <popout_1.Popout key='select-place' id='select-place' fill='#5a166480' close={false} edge={12}>
+        <popout_1.Popout key='select-place' id='select-place' fill='#5a166480' close={false} edge={24}>
           <popout_2.SelectPlace />
         </popout_1.Popout>
 

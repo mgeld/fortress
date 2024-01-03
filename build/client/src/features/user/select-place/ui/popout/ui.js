@@ -31,8 +31,8 @@ const SelectPlace = () => {
     const setRandPos = () => {
         const pos = (0, get_random_position_1.getRandomPosition)();
         popout_root_1.popoutModel.events.setPopout(null);
-        map === null || map === void 0 ? void 0 : map.setMinZoom(6);
         map === null || map === void 0 ? void 0 : map.setView(pos, 16);
+        map === null || map === void 0 ? void 0 : map.setMinZoom(6);
         map_1.mapModel.events.setLatLngMap(pos);
     };
     const getGeo = () => __awaiter(void 0, void 0, void 0, function* () {
@@ -43,14 +43,14 @@ const SelectPlace = () => {
                 const pos = [data.lat, data.long];
                 if (pos[0] > 0 && pos[1] > 0) {
                     popout_root_1.popoutModel.events.setPopout(null);
-                    map === null || map === void 0 ? void 0 : map.setMinZoom(6);
                     map === null || map === void 0 ? void 0 : map.setView(pos, 16);
+                    map === null || map === void 0 ? void 0 : map.setMinZoom(6);
                     map_1.mapModel.events.setLatLngMap(pos);
                 }
                 else {
                     notice_1.noticeModel.events.newToast({
                         name: 'Упс...',
-                        text: 'В вашей стране пока нельзя завоевывать территории, но вы можете выбрать любое место в России или странах СНГ!',
+                        text: 'На этом месте пока нельзя захватывать территории, но вы можете выбрать любое место в России или странах СНГ!',
                         t: 'common'
                     });
                 }
@@ -77,9 +77,8 @@ const SelectPlace = () => {
                     <div className={styles_module_scss_1.default.name}>
                         Выбор территории
                     </div>
-                    
                     <div className={styles_module_scss_1.default.geoPlace}>
-                        <ui_1.Button radius={10} className="" text="Геолокация" onClick={getGeo}/>
+                        <ui_1.Button radius={10} className="strw1" text="Геолокация" onClick={getGeo}/>
                     </div>
                 </div>
 
@@ -89,17 +88,17 @@ const SelectPlace = () => {
                             <_icons_1.IconTouch />
                         </div>
                         <div className={styles_module_scss_1.default.text}>
-                            Коснитесь карты, чтобы выбрать место, где вы начнете захватывать территории
+                            Коснитесь карты, чтобы выбрать место, откуда вы начнете захватывать территории
                         </div>
                     </div>
 
                     <div className={styles_module_scss_1.default.bottom}>
                         <div className={styles_module_scss_1.default.buttons}>
                             <div className={styles_module_scss_1.default.__randomPlace}>
-                                <ui_1.Button radius={10} className="" text="Случайное" onClick={setRandPos}/>
+                                <ui_1.Button radius={10} className="strw1" text="Случайное" onClick={setRandPos}/>
                             </div>
                             <div className={styles_module_scss_1.default.__selectPlace}>
-                                <ui_1.Button radius={10} className="" text="Выбрать" onClick={selectPlace}/>
+                                <ui_1.Button radius={10} className="strw1" text="Выбрать" onClick={selectPlace}/>
                             </div>
                         </div>
                     </div>

@@ -37,8 +37,6 @@ export class ArenaRepository implements IArenaRepository {
             return false
         }
 
-        console.log('insertsTeam')
-
         const sqlTeams = teams.map(team => {
             const dtoTeam = team.unmarshal()
             let status =

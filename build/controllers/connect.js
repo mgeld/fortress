@@ -22,17 +22,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ConnectHandler = void 0;
-const inversify_1 = require("inversify");
 const node_fetch_1 = __importDefault(require("node-fetch"));
 const types_1 = require("../types");
+const inversify_1 = require("inversify");
+const rooms_1 = require("../api/socket/socket/rooms");
+const random_number_1 = require("../libs/random-number");
 const zone_service_1 = require("../services/zone.service");
+const vk_user_service_1 = require("../services/vk-user.service");
 const weapon_service_1 = require("../services/weapon.service");
 const citadel_service_1 = require("../services/citadel.service");
 const pointer_service_1 = require("../services/pointer.service");
 const verify_launch_params_1 = require("../libs/verify-launch-params");
-const rooms_1 = require("../api/socket/socket/rooms");
-const vk_user_service_1 = require("../services/vk-user.service");
-const random_number_1 = require("../libs/random-number");
 let ConnectHandler = class ConnectHandler {
     handle(message, uSocket) {
         var _a;

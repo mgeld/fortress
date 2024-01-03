@@ -22,7 +22,7 @@ const MapDrones = () => {
             setTimeout(() => {
                 var _a;
                 (_a = map.getPane('zoom-anim-map')) === null || _a === void 0 ? void 0 : _a.setAttribute('class', 'zoom-anim');
-            }, 300);
+            }, 10);
             pointer_1.droneMapModel.events.setSizeDrone();
         }
     });

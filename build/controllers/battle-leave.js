@@ -36,7 +36,6 @@ let BattleLeaveHandler = class BattleLeaveHandler extends handlers_1.IRoute {
             if (arena.status !== 'pending')
                 return;
             const pointer = yield this._pointerService.memoryGetById(member.userId);
-            console.log('BattleLeaveHandler arena.id', arena.id);
             const team = arena.delPointer(member.userId, member.arenaTeam);
             this._rooms.arenas.deleteClient(member.userId, arena.id);
             yield this._arenaService.update(arena);

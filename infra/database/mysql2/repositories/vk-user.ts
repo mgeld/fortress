@@ -12,13 +12,6 @@ export interface IVkUserRowData {
     date?: number
 }
 
-// export interface IVkUserAbduction {
-//     zone_id: number
-//     sectors: number
-//     date: number
-// }
-
-
 @injectable()
 export class VkUserRepository {
 
@@ -46,8 +39,9 @@ export class VkUserRepository {
     }
 
     async getByZoneId(_id: number): Promise<IVkUserRowData> {
+        console.log('getByZoneId _id', _id)
         const [[result]] = await this._connection.query<Required<IVkUserRowData>[] & RowDataPacket[]>(
-            `SELECT * FROM vk_users WHERE zone_id = ?;`, [_id]
+            `SELECT * FROM vk_users WHERE zone_id = ? LIMIT 1;`, [_id]
         )
         if (!result) {
             throw new Error('----------')

@@ -19,7 +19,6 @@ export const Ship: FC<TDroneProps> = ({ size, health, pos }) => {
         return <DroneIOS
             health={health}
             pos={pos}
-            // size={size}
         />
     return <Drone
         health={health}

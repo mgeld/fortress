@@ -36,13 +36,13 @@ let ArenaService = class ArenaService {
             }
         });
     }
-    _create() {
+    _create(reg) {
         return __awaiter(this, void 0, void 0, function* () {
             const placeArena = arena_place_1.ArenaPlace.nextPlace();
             const arena = arena_1.Arena.create({
                 id: this._entityId.nextIdEntity().id,
                 place: placeArena,
-                registr: 'open',
+                registr: reg || 'open',
                 status: 'pending',
                 teams: [
                     arena_team_1.Team.create({ id: 1 }),

@@ -53,8 +53,6 @@ export const BattleOver: FC = () => {
                 <div className={styles.__content}>
 
                     <div className={styles.__shield}>
-                        {/* <IconBattleShield width={64} height={64} /> */}
-
 
                         {userTeam?.status === 'victory' || userTeam?.status === 'draw' ?
                             <img src={IconBattleShield} alt="<>" /> :
@@ -131,7 +129,7 @@ export const BattleOver: FC = () => {
 
                     <div className={styles.button}>
                         <Button
-                            className={styles.__button}
+                            className={`${styles.__button} strw1`}
                             text="Вернуться"
                             radius={10}
                             onClick={leaveBattle}

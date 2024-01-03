@@ -5,6 +5,9 @@ import { TGetSectorsAPI } from "../../../../common-types/socket/client-to-server
 export const getSectorsAPI = (
     position: TLatLng,
 ) => {
+
+    console.log('getSectorsAPI')
+    
     const data: TGetSectorsAPI = {
         event: 'getSectors',
         payload: {

@@ -140,11 +140,9 @@ let SectorMemoryRepository = class SectorMemoryRepository {
                 _sectors.forEach((sector) => __awaiter(this, void 0, void 0, function* () {
                     yield this._database.sector.delete(sector.id);
                 }));
-                console.log('deleteByAreals true');
                 return true;
             }
             catch (e) {
-                console.log('deleteByAreals false');
                 return false;
             }
         });

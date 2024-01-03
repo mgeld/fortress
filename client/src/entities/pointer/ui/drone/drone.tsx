@@ -2,8 +2,6 @@ import { FC } from "react";
 import { Circle } from "react-leaflet";
 import { useHitFirePointer } from "../../hooks/use-hit-fire-pointer";
 
-// import { TLatLng } from "shared/types";
-
 import { TDroneProps } from ".";
 
 import './styles.css'

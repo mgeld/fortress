@@ -11,6 +11,7 @@ const addSector = (0, effector_1.createEvent)();
 const loseSector = (0, effector_1.createEvent)();
 const setTimer = (0, effector_1.createEvent)();
 const stepTimer = (0, effector_1.createEvent)();
+const setBattleShareId = (0, effector_1.createEvent)();
 exports.events = {
     setArena,
     setTeams,
@@ -20,5 +21,6 @@ exports.events = {
     addSector,
     loseSector,
     setTimer,
-    stepTimer
+    stepTimer,
+    setBattleShareId
 };

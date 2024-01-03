@@ -42,7 +42,7 @@ export const MapSatelliteLayout: FC<TMapProps> = () => {
                 zoomControl={false}
                 doubleClickZoom={false}
                 bounceAtZoomLimits={false}
-            // preferCanvas={true}
+                // preferCanvas={true}
             >
                 <TileLayer
                     // attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

@@ -44,8 +44,6 @@ const BattleOver = () => {
                 <div className={styles_module_scss_1.default.__content}>
 
                     <div className={styles_module_scss_1.default.__shield}>
-                        
-
 
                         {(userTeam === null || userTeam === void 0 ? void 0 : userTeam.status) === 'victory' || (userTeam === null || userTeam === void 0 ? void 0 : userTeam.status) === 'draw' ?
             <img src={battle_shield_png_1.default} alt="<>"/> :
@@ -114,7 +112,7 @@ const BattleOver = () => {
         })}
 
                     <div className={styles_module_scss_1.default.button}>
-                        <ui_1.Button className={styles_module_scss_1.default.__button} text="Вернуться" radius={10} onClick={leaveBattle}/>
+                        <ui_1.Button className={`${styles_module_scss_1.default.__button} strw1`} text="Вернуться" radius={10} onClick={leaveBattle}/>
                     </div>
 
                 </div>

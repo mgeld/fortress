@@ -34,7 +34,7 @@ export const MapDrones: FC = () => {
         zoomend: () => {
             setTimeout(() => {
                 map.getPane('zoom-anim-map')?.setAttribute('class', 'zoom-anim')
-            }, 300);
+            }, 10);
 
             droneMapModel.events.setSizeDrone()
         }

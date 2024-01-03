@@ -126,10 +126,11 @@ let DirectHandler = class DirectHandler extends handlers_1.IRoute {
                             sectors: {}
                         }];
                     uSocket.send(JSON.stringify({
-                        event: 'sectors',
+                        event: 'set-sectors',
                         payload: sectors
                     }));
                 }
+                _pointer.areal = areal;
                 this._rooms.areals.broadcast(_pointer.areal, {
                     event: 'connect-pointer',
                     payload: {
@@ -143,7 +144,6 @@ let DirectHandler = class DirectHandler extends handlers_1.IRoute {
                     }
                 }, [_pointer.zoneId]);
             }
-            _pointer.areal = areal;
             this._pointerService.memoryUpdate(_pointer);
         });
     }

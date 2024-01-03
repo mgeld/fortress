@@ -6,31 +6,6 @@ const effector_react_1 = require("effector-react");
 const user_1 = require("entities/user");
 const events_1 = require("shared/api/events");
 const DEFAULT_STORE = null;
-const useArena = () => {
-    return {
-        data: (0, effector_react_1.useStore)(exports.$arenaStore)
-    };
-};
-const useTeams = () => {
-    return {
-        data: (0, effector_react_1.useStore)($teamStore)
-    };
-};
-const useMyTeamId = () => {
-    return {
-        data: (0, effector_react_1.useStore)($myTeamId)
-    };
-};
-const useBattleStatus = () => {
-    return {
-        data: (0, effector_react_1.useStore)(exports.$battleStatusStore)
-    };
-};
-const useBattleTimer = () => {
-    return {
-        data: (0, effector_react_1.useStore)($arenaTimer)
-    };
-};
 const { setArena, setTeams, killPointer, setBattleStatus, setMyTeam, addSector, loseSector, setTimer, stepTimer } = events_1.battleAPI.events;
 exports.$battleStatusStore = (0, effector_1.createStore)('default')
     .on(setBattleStatus, (_, status) => status);
@@ -86,6 +61,31 @@ const battleOverFx = (0, effector_1.createEffect)((source) => {
     filter: (source, status) => status === 'over',
     target: battleOverFx
 });
+const useArena = () => {
+    return {
+        data: (0, effector_react_1.useStore)(exports.$arenaStore)
+    };
+};
+const useTeams = () => {
+    return {
+        data: (0, effector_react_1.useStore)($teamStore)
+    };
+};
+const useMyTeamId = () => {
+    return {
+        data: (0, effector_react_1.useStore)($myTeamId)
+    };
+};
+const useBattleStatus = () => {
+    return {
+        data: (0, effector_react_1.useStore)(exports.$battleStatusStore)
+    };
+};
+const useBattleTimer = () => {
+    return {
+        data: (0, effector_react_1.useStore)($arenaTimer)
+    };
+};
 exports.selectors = {
     useArena,
     useTeams,

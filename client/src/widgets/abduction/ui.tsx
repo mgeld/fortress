@@ -1,9 +1,9 @@
 import { FC } from "react";
 
+import { abductionModel } from ".";
+
 import { BackMap } from "shared/ui/back-button";
 import { pageModel } from "shared/ui/page-root";
-
-import { abductionModel } from ".";
 
 import { IconZone } from "widgets/map-region/battle-counters/icons/_icons";
 
@@ -13,8 +13,9 @@ import { IconShipBeam } from "shared/assets/icons/_icons";
 
 import { getZoneAPI } from "shared/api/get-zone";
 
-import styles from './styles.module.scss'
 import { dateTime } from "shared/lib/date-time";
+
+import styles from './styles.module.scss'
 
 export const LayoutAbduction: FC = () => {
 
@@ -50,12 +51,14 @@ export const LayoutAbduction: FC = () => {
 
                     <div className={styles.button}>
                         <FButton
+                            width={100}
+                            color="gold"
                             text="Похитить"
                             _click={() => popoutModel.events.setPopout('abduction-link')}
                         />
                     </div>
 
-                    {zones ?
+                    {zones && zones?.length > 0 ?
                         <div className={styles.abductionList}>
                             {zones.map((item, i) => {
                                 return (

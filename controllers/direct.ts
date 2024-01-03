@@ -153,10 +153,12 @@ class DirectHandler extends IRoute {
                 }]
 
                 uSocket.send(JSON.stringify({
-                    event: 'sectors',
+                    event: 'set-sectors',
                     payload: sectors
                 }))
             }
+
+            _pointer.areal = areal
 
             /** */
 
@@ -174,8 +176,6 @@ class DirectHandler extends IRoute {
             }, [_pointer.zoneId])
 
         }
-
-        _pointer.areal = areal
 
         this._pointerService.memoryUpdate(_pointer)
 

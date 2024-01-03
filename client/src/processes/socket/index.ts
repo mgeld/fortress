@@ -26,59 +26,29 @@ import { UseExtractionHandler } from "shared/api/handlers/use-extraction"
 import { YTakeSectorHandler } from "shared/api/handlers/y-take-sector"
 import { YrTakeSectorHandler } from "shared/api/handlers/yr-take-sector"
 
-// import { Socket } from "shared/api/socket"
-
 import { API_BASE_URL } from "shared/config"
 import { socketModel } from "shared/api/socket"
 import { Socket } from "shared/api/socket/socket"
 import { TutorialHandler } from "shared/api/handlers/tutorial"
-import { BattleTakeSectorHandler } from "shared/api/handlers/battle-take-sector"
-import { BattleYTakeSectorHandler } from "shared/api/handlers/battle-y-take-sector"
-import { BattleYrTakeSectorHandler } from "shared/api/handlers/battle-yr-take-sector"
 import { SessionHandler } from "shared/api/handlers/session"
 import { SetHealthHandler } from "shared/api/handlers/set-health"
 import { SetRatingHandler } from "shared/api/handlers/set-rating"
 import { RewardHandler } from "shared/api/handlers/reward"
-import { SessionDestroyHandler } from "shared/api/handlers/session-destroy"
 import { EditZoneHandler } from "shared/api/handlers/edit-zone"
-import { DelExtractionHandler } from "shared/api/handlers/del-extraction"
-import { SetAbductionHandler } from "shared/api/handlers/set-abduction"
 import { SetZoneHandler } from "shared/api/handlers/set-zone"
 import { AddSectorsHandler } from "shared/api/handlers/add-sectors"
 import { SetSectorsHandler } from "shared/api/handlers/set-sectors"
+import { BattleIdHandler } from "shared/api/handlers/battle-id"
+import { SetAbductionHandler } from "shared/api/handlers/set-abduction"
+import { DelExtractionHandler } from "shared/api/handlers/del-extraction"
+import { SessionDestroyHandler } from "shared/api/handlers/session-destroy"
+import { BattleTakeSectorHandler } from "shared/api/handlers/battle-take-sector"
+import { BattleYTakeSectorHandler } from "shared/api/handlers/battle-y-take-sector"
+import { BattleYrTakeSectorHandler } from "shared/api/handlers/battle-yr-take-sector"
 
 export const WS = Socket.create(API_BASE_URL, socketModel.events.setSocketStatus)
 
 // WS.connect()
-
-// const callbacks = {
-//     [ConnectHandler.EVENT]: new ConnectHandler(),
-//     [ConnectPointerHandler.EVENT]: new ConnectPointerHandler(),
-//     [DelPointerHandler.EVENT]: new DelPointerHandler(),
-//     [DirectPointerHandler.EVENT]: new DirectPointerHandler(),
-//     [PointersHandler.EVENT]: new PointersHandler(),
-//     [TakeHandler.EVENT]: new TakeHandler(),
-//     [BattleStartHandler.EVENT]: new BattleStartHandler(),
-//     [BattleOverHandler.EVENT]: new BattleOverHandler(),
-//     [FireHandler.EVENT]: new FireHandler(),
-//     [BombHandler.EVENT]: new BombHandler(),
-//     [BattleJoinHandler.EVENT]: new BattleJoinHandler(),
-//     [SectorsHandler.EVENT]: new SectorsHandler(),
-//     [SectorHandler.EVENT]: new SectorHandler(),
-//     [TakeHitHandler.EVENT]: new TakeHitHandler(),
-//     [YTakeSectorHandler.EVENT]: new YTakeSectorHandler(),
-//     [YrTakeSectorHandler.EVENT]: new YrTakeSectorHandler(),
-//     [TakeSectorHandler.EVENT]: new TakeSectorHandler(),
-//     [SetUserHandler.EVENT]: new SetUserHandler(),
-//     [SetCitadelHandler.EVENT]: new SetCitadelHandler(),
-//     [UseExtractionHandler.EVENT]: new UseExtractionHandler(),
-//     [AttractionHandler.EVENT]: new AttractionHandler(),
-//     [FindContHandler.EVENT]: new FindContHandler(),
-//     [BuyUnitHandler.EVENT]: new BuyUnitHandler(),
-//     [LevelUpHandler.EVENT]: new LevelUpHandler(),
-//     [NewRankHandler.EVENT]: new NewRankHandler(),
-//     [NewZoneHandler.EVENT]: new NewZoneHandler(),
-// } as THandlers
 
 const handlers = new Handlers({
     [ConnectHandler.EVENT]: new ConnectHandler(),
@@ -87,11 +57,14 @@ const handlers = new Handlers({
     [DirectPointerHandler.EVENT]: new DirectPointerHandler(),
     [PointersHandler.EVENT]: new PointersHandler(),
     [TakeHandler.EVENT]: new TakeHandler(),
+    
+    [BattleIdHandler.EVENT]: new BattleIdHandler(),
+    [BattleJoinHandler.EVENT]: new BattleJoinHandler(),
     [BattleStartHandler.EVENT]: new BattleStartHandler(),
     [BattleOverHandler.EVENT]: new BattleOverHandler(),
+
     [FireHandler.EVENT]: new FireHandler(),
     [BombHandler.EVENT]: new BombHandler(),
-    [BattleJoinHandler.EVENT]: new BattleJoinHandler(),
     [AddSectorsHandler.EVENT]: new AddSectorsHandler(),
     [SetSectorsHandler.EVENT]: new SetSectorsHandler(),
     

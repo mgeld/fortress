@@ -1,7 +1,8 @@
-import { citadelAPI, holdAPI, mapAPI, shipAPI, stormAPI, userAPI, weaponsAPI, zoneAPI } from "shared/api/events";
 import { Handler } from "..";
 import { TConnect } from '@ctypes/socket/server-to-client'
 import { popoutModel } from "shared/ui/popout-root";
+import { citadelAPI, holdAPI, mapAPI, shipAPI, stormAPI, userAPI, weaponsAPI, zoneAPI } from "shared/api/events";
+import { battleConnectEvent } from "features/battle";
 
 class ConnectHandler extends Handler {
     handle(message: TConnect) {
@@ -49,6 +50,7 @@ class ConnectHandler extends Handler {
         if (message.payload.ship.pos[0] && message.payload.ship.pos[1]) {
             mapAPI.events.setMapMode('invade')
             shipAPI.events.setPos(message.payload.ship.pos)
+            
             // popoutModel.events.setPopout('abduction')
         } else {
             // popoutModel.events.setPopout('select-place')

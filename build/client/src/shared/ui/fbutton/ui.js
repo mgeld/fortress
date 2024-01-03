@@ -5,8 +5,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FButton = void 0;
 const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
-const FButton = ({ text, _click }) => {
-    return (<div className={styles_module_scss_1.default.button} onClick={_click}>
+const FButton = ({ width, text, _click, color }) => {
+    return (<div className={`${styles_module_scss_1.default.button} ${styles_module_scss_1.default[color]}`} onClick={_click} style={{ width: `${width}px` }}>
             <div className={styles_module_scss_1.default.couche2}>
                 <div className={styles_module_scss_1.default.couche3}>
                     <div className={styles_module_scss_1.default.couche4}>

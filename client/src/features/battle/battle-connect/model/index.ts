@@ -4,10 +4,16 @@ import { battleJoinAPI } from "shared/api/battle-join"
 import { alertModel } from "shared/ui/alert"
 import { popoutModel } from "shared/ui/popout-root"
 
-const battleConnect = createEvent()
+const battleConnect = createEvent<string | null>()
 
-const isHealthFx = createEffect(({ health }: { health: number }) => {
-  if (health < 1) {
+type T = {
+  source: { health: number },
+  battleId: string | null
+}
+
+const isHealthFx = createEffect((props: T) => {
+
+  if (props.source.health < 1) {
     popoutModel.events.setPopout('alert')
     alertModel.events.setAlert({
       alert: 'Корабль сломан',
@@ -20,7 +26,10 @@ const isHealthFx = createEffect(({ health }: { health: number }) => {
     })
     return 0
   }
-  battleJoinAPI()
+
+  if (props?.battleId) battleJoinAPI(props.battleId)
+  else battleJoinAPI()
+
 })
 
 sample({
@@ -28,6 +37,7 @@ sample({
   source: {
     health: shipModel.$userHealthStore
   },
+  fn: (source, battleId) => ({ source, battleId }),
   target: isHealthFx
 })
 

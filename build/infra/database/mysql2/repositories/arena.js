@@ -46,7 +46,6 @@ let ArenaRepository = class ArenaRepository {
             if (teams.length === 0) {
                 return false;
             }
-            console.log('insertsTeam');
             const sqlTeams = teams.map(team => {
                 const dtoTeam = team.unmarshal();
                 let status = dtoTeam.status === 'victory' ? 1 :

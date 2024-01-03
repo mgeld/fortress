@@ -4,16 +4,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.LayoutAbduction = void 0;
+const _1 = require(".");
 const back_button_1 = require("shared/ui/back-button");
 const page_root_1 = require("shared/ui/page-root");
-const _1 = require(".");
 const _icons_1 = require("widgets/map-region/battle-counters/icons/_icons");
 const ui_1 = require("shared/ui/fbutton/ui");
 const popout_root_1 = require("shared/ui/popout-root");
 const _icons_2 = require("shared/assets/icons/_icons");
 const get_zone_1 = require("shared/api/get-zone");
-const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
 const date_time_1 = require("shared/lib/date-time");
+const styles_module_scss_1 = __importDefault(require("./styles.module.scss"));
 const LayoutAbduction = () => {
     const zones = _1.abductionModel.selectors.useAbductionZones();
     const onZone = (zone) => {
@@ -43,10 +43,10 @@ const LayoutAbduction = () => {
                     <div className={styles_module_scss_1.default.__before}/>
 
                     <div className={styles_module_scss_1.default.button}>
-                        <ui_1.FButton text="Похитить" _click={() => popout_root_1.popoutModel.events.setPopout('abduction-link')}/>
+                        <ui_1.FButton width={100} color="gold" text="Похитить" _click={() => popout_root_1.popoutModel.events.setPopout('abduction-link')}/>
                     </div>
 
-                    {zones ?
+                    {zones && (zones === null || zones === void 0 ? void 0 : zones.length) > 0 ?
             <div className={styles_module_scss_1.default.abductionList}>
                             {zones.map((item, i) => {
                     return (<div key={item.zone_id} onClick={() => onZone(item.zone_id)} className={styles_module_scss_1.default.zone}>
