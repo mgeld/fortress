@@ -9,7 +9,6 @@ const model_1 = require("entities/areal/model");
 const h3_js_1 = require("h3-js");
 const MapSatelliteLayout = () => {
     const satellite = map_1.mapSatelliteModel.selectors.useMapSatellite();
-    console.log('MapSatelliteLayout satellite', satellite);
     if (!(satellite === null || satellite === void 0 ? void 0 : satellite.latlng))
         return <></>;
     const bounds = model_1.Areal.getBoundsSatellite(satellite === null || satellite === void 0 ? void 0 : satellite.latlng);

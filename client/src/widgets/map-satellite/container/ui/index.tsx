@@ -22,8 +22,6 @@ export const MapSatelliteLayout: FC<TMapProps> = () => {
 
     const satellite = mapSatelliteModel.selectors.useMapSatellite()
 
-    console.log('MapSatelliteLayout satellite', satellite)
-
     if (!satellite?.latlng) return <></>
 
     const bounds = Areal.getBoundsSatellite(satellite?.latlng)

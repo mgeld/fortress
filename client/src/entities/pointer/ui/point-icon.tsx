@@ -1,4 +1,4 @@
-import { FC, useState } from "react"
+import { FC, useMemo, useState } from "react"
 import { Marker } from "react-leaflet";
 import { createPointer } from "../lib/create-pointer";
 import { TLatLng } from "shared/types";
@@ -26,9 +26,9 @@ export const PointIcon: FC<TPointIconProps> = ({
             })
     }
 
-    if (!icon) return <></>
+    let iconPoint = useMemo(() => pointIcon(icon || ''), [icon])
 
-    let iconPoint = pointIcon(icon)
+    if (!iconPoint) return <></>
 
     return (
         <Marker

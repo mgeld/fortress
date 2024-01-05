@@ -51,12 +51,12 @@ let BattleService = class BattleService {
                         const wonTrophies = Math.floor(member.damage / 10 + member.sectors);
                         const trophy = minTrophies > 0 ? minTrophies + wonTrophies : 0;
                         _extraction[member.userId] = {
-                            coins: trophy * 10,
+                            coins: trophy * 11,
                             trophies: trophy
                         };
                         return {
                             trophies: trophy,
-                            coins: trophy * 5,
+                            coins: trophy * 11,
                             userId: member.userId,
                         };
                     })

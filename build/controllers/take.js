@@ -32,10 +32,10 @@ const sector_1 = require("../entities/sector/sector");
 const takes_1 = require("../infra/logs/takes");
 const zone_service_1 = require("../services/zone.service");
 const citadel_service_1 = require("../services/citadel.service");
-const rank_1 = require("../entities/zone/rank");
 const vk_user_service_1 = require("../services/vk-user.service");
-const node_fetch_1 = __importDefault(require("node-fetch"));
+const rank_1 = require("../entities/zone/rank");
 const random_number_1 = require("../libs/random-number");
+const node_fetch_1 = __importDefault(require("node-fetch"));
 let TakeHandler = class TakeHandler extends handlers_1.IRoute {
     handle(message, uSocket) {
         var _a, _b;

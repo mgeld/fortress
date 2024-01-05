@@ -1,11 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.events = void 0;
-const effector_1 = require("effector");
 const ship_1 = require("entities/ship");
-const battle_join_1 = require("shared/api/battle-join");
 const alert_1 = require("shared/ui/alert");
 const popout_root_1 = require("shared/ui/popout-root");
+const battle_join_1 = require("shared/api/battle-join");
+const effector_1 = require("effector");
 const battleConnect = (0, effector_1.createEvent)();
 const isHealthFx = (0, effector_1.createEffect)((props) => {
     if (props.source.health < 1) {
@@ -15,7 +15,7 @@ const isHealthFx = (0, effector_1.createEffect)((props) => {
             message: 'Ваш корабль сломан. Чтобы участвовать в битвах, необходимо улучшить состояние корабля.',
             action: {
                 close: false,
-                text: 'Повысить',
+                text: 'Улучшить',
                 _click: () => popout_root_1.popoutModel.events.setPopout('ship-improve-health')
             }
         });

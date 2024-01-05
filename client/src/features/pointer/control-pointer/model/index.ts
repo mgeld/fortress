@@ -20,7 +20,9 @@ export const direction = createEvent<TJoystickDirection | null>()
 
 sample({
     clock: direction,
-    fn: (direction) => ({
+    source: shipModel.$userHealthStore,
+    filter: (userHealth) => userHealth > 0,
+    fn: (_, direction) => ({
         payload: {
             direction
         }
@@ -50,7 +52,7 @@ sample({
         battleStatus: arenaModel.$battleStatusStore,
         userPos: shipModel.$userPositionStore
     },
-    // filter: (source): source is TSource => source.userPos !== null,
+    // filter: (source): source is TSource => source.userHealth > 0,
     target: directFx
 })
 

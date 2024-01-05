@@ -1,22 +1,22 @@
 import { FC } from "react";
 import { Button } from "shared/ui/button/ui";
-import { mapModel } from "entities/map";
-import { mapAPI, shipAPI } from "shared/api/events";
-import { citadelModel } from "entities/citadel";
-import { TLatLng } from "shared/types";
+// import { mapModel } from "entities/map";
+// import { mapAPI, shipAPI } from "shared/api/events";
+// import { citadelModel } from "entities/citadel";
+// import { TLatLng } from "shared/types";
 import { popoutModel } from "shared/ui/popout-root";
 import { IconShip } from "widgets/panel/assets/icons";
 
 import styles from './styles.module.scss'
-import { alertModel } from "shared/ui/alert";
+// import { alertModel } from "shared/ui/alert";
 
 export const UserDead: FC = () => {
 
-    const { mode } = mapModel.selectors.useMapMode()
+    // const { mode } = mapModel.selectors.useMapMode()
 
     // const map = mapModel.selectors.useMapLayout()
 
-    const latlng = citadelModel.selectors.useCitadel()?.latlng || null
+    // const latlng = citadelModel.selectors.useCitadel()?.latlng || null
 
     // const selectPosition = (pos: TLatLng | null) => {
     //     if (!pos) return
@@ -28,26 +28,26 @@ export const UserDead: FC = () => {
     //     popoutModel.events.setPopout(null)
     // }
 
-    const selectCitadel = (pos: TLatLng | null) => {
-        if (!pos) {
-            popoutModel.events.setPopout('alert')
-            alertModel.events.setAlert({
-                alert: 'Цитадель',
-                message: 'Цитадель - это центр вашей зоны и первая захваченная башня. Вы еще не захватили ни одной башни!',
-                action: {
-                    close: false,
-                    text: 'Начать захват',
-                    _click: () => popoutModel.events.setPopout(null)
-                }
-            })
-            return
-        }
-        if (mode === 'battle') {
-            mapAPI.events.setMapMode('invade')
-        }
-        shipAPI.events.setPos(pos)
-        popoutModel.events.setPopout(null)
-    }
+    // const selectCitadel = (pos: TLatLng | null) => {
+    //     if (!pos) {
+    //         popoutModel.events.setPopout('alert')
+    //         alertModel.events.setAlert({
+    //             alert: 'Цитадель',
+    //             message: 'Цитадель - это центр вашей зоны и первая захваченная башня. Вы еще не захватили ни одной башни!',
+    //             action: {
+    //                 close: false,
+    //                 text: 'Начать захват',
+    //                 _click: () => popoutModel.events.setPopout(null)
+    //             }
+    //         })
+    //         return
+    //     }
+    //     if (mode === 'battle') {
+    //         mapAPI.events.setMapMode('invade')
+    //     }
+    //     shipAPI.events.setPos(pos)
+    //     popoutModel.events.setPopout(null)
+    // }
 
     return (
         <div className={styles.userDead}>

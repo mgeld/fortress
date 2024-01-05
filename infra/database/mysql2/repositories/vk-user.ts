@@ -103,8 +103,6 @@ export class VkUserRepository {
         
         const zones = result.map(zone => ({ ...zone}))
 
-        console.log('VkUserRepository getAbduction zones', zones)
-
         return zones
     }
 

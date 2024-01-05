@@ -31,8 +31,6 @@ class DirectHandler extends IRoute {
 
         const _pointer = await this._pointerService.memoryGetById(uSocket.user_id)
 
-        _pointer.pos = __position
-
         if (_pointer.health < 1 && _pointer.areal !== -1) {
             return
         }
@@ -48,7 +46,8 @@ class DirectHandler extends IRoute {
                     pos: __position
                 }
             }, [_pointer.zoneId])
-
+            
+            _pointer.pos = __position
 
         } else {
 
@@ -77,30 +76,40 @@ class DirectHandler extends IRoute {
 
             /** ** **/
 
-
             let areals = Areal.generatorAreals(__position)
 
-            if (_pointer.areal > 0) {
+            const prevPosLat =  _pointer.pos[0]
+            const prevPosLng =  _pointer.pos[1]
 
-                const arealLat = +String(areal).slice(0, 4)
-                const arealLng = +String(areal).slice(4)
+            const posLat =  __position[0]
+            const posLng =  __position[1]
 
-                const prevArealLat = +String(_pointer.areal).slice(0, 4)
-                const prevArealLng = +String(_pointer.areal).slice(4)
+            if (
+                Math.ceil(posLat - prevPosLat) > 0.02 ||
+                Math.ceil(posLng - prevPosLng) > 0.03
+            ) {
 
-                if (arealLat > prevArealLat) {
-                    areals = areals.slice(0, 3)
+            } else if (_pointer.areal > 0) {
+
+                    // const arealLat = +String(areal).slice(0, 4)
+                    // const arealLng = +String(areal).slice(4)
+
+                    // const prevArealLat = +String(_pointer.areal).slice(0, 4)
+                    // const prevArealLng = +String(_pointer.areal).slice(4)
+
+                    if (posLat > prevPosLat) {
+                        areals = areals.slice(0, 3)
+                    }
+                    if (posLat < prevPosLat) {
+                        areals = areals.slice(6)
+                    }
+                    if (posLng > prevPosLng) {
+                        areals = [areals[2], areals[5], areals[8]]
+                    }
+                    if (posLng < prevPosLng) {
+                        areals = [areals[0], areals[3], areals[6]]
+                    }
                 }
-                if (arealLat < prevArealLat) {
-                    areals = areals.slice(6)
-                }
-                if (arealLng > prevArealLng) {
-                    areals = [areals[2], areals[5], areals[8]]
-                }
-                if (arealLng < prevArealLng) {
-                    areals = [areals[0], areals[3], areals[6]]
-                }
-            }
 
             const _sectors = await this._sectorService.getZonesAroundAreals(areals)
             // const _sectors = await this._sectorService.getZonesAroundPosition(_pointer.pos)
@@ -158,6 +167,7 @@ class DirectHandler extends IRoute {
                 }))
             }
 
+            _pointer.pos = __position
             _pointer.areal = areal
 
             /** */

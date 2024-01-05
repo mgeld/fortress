@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { cellsToMultiPolygon, latLngToCell } from "h3-js";
+import { cellsToMultiPolygon } from "h3-js";
 import { AboutSector } from "./about-sector";
 import { Pane, Polygon, Popup } from "react-leaflet";
 import { sectorColorList } from "../lib/sector-color-list";

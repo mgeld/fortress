@@ -65,7 +65,7 @@ let BattleFireHandler = class BattleFireHandler extends handlers_1.IRoute {
                 const hit_lng_diff = __hitPointer.pos[1] > hitMember.pos[1] ? __hitPointer.pos[1] - hitMember.pos[1] : hitMember.pos[1] - __hitPointer.pos[1];
                 const pos_lat_diff = __pos[0] > _member.pos[0] ? __pos[0] - _member.pos[0] : _member.pos[0] - __pos[0];
                 const pos_lng_diff = __pos[1] > _member.pos[1] ? __pos[1] - _member.pos[1] : _member.pos[1] - __pos[1];
-                if (hit_lat_diff > 0.0004 || pos_lat_diff > 0.0004 || hit_lng_diff > 0.0008 || pos_lng_diff > 0.0008)
+                if (hit_lat_diff > 0.0006 || pos_lat_diff > 0.0006 || hit_lng_diff > 0.0010 || pos_lng_diff > 0.0010)
                     return;
                 _member.makeDamage(weapon.power);
                 fire['hitPointer'] = __hitPointer;

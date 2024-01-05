@@ -4,11 +4,11 @@ import { inject, injectable } from "inversify"
 import { IWebSocket } from "../api/socket/server"
 import { Rooms } from "../api/socket/socket/rooms"
 import { MemberService } from "../services/member.service"
-import { TBattleDirectAPI, TEventBattleDirect } from "../common-types/socket/client-to-server"
 import { TBombPayload } from "../common-types/socket/server-to-client"
 import { ArenaService } from "../services/arena.service"
 import { PointerService } from "../services/pointer.service"
 import { BattleService } from "../services/battle.service"
+import { TBattleDirectAPI, TEventBattleDirect } from "../common-types/socket/client-to-server"
 
 @injectable()
 class BattleDirectHandler extends IRoute {
@@ -82,36 +82,6 @@ class BattleDirectHandler extends IRoute {
                         await this._arenaService.update(arena)
 
                         this._battleService.overGame(arena.id)
-
-                        // setTimeout(async () => {
-
-                        //     const members: Member[][] = []
-
-                        //     members[0] = await this._memberService.getByIds(arena.teamList[0].members)
-                        //     members[1] = await this._memberService.getByIds(arena.teamList[1].members)
-
-                        //     this._rooms.arenas.broadcast(arena.id, {
-                        //         event: 'battle-over',
-                        //         payload: {
-                        //             teams: arena.teamList.map((team, index) => {
-                        //                 const minTrophies = team.status === 'victory' ? 10 : -10
-                        //                 return {
-                        //                     teamId: team.id,
-                        //                     status: team.status,
-                        //                     sectors: team.sectors,
-                        //                     members: members[index].map(member => {
-                        //                         const wonTrophies = member.damage / 5
-                        //                         return {
-                        //                             userId: member.userId,
-                        //                             trophies: minTrophies + wonTrophies
-                        //                         }
-                        //                     }),
-                        //                 }
-                        //             })
-                        //         }
-                        //     })
-
-                        // }, 2000)
 
                     } else {
                         await this._arenaService.update(arena)

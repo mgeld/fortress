@@ -44,7 +44,7 @@ let ConnectHandler = class ConnectHandler {
             let pointer;
             let weapon;
             let citadel = null;
-            const clientSecret = 'SCecuoQxDCCS0hdTSuhe';
+            const clientSecret = 'D1m0YtrP8D0nd7dvdkEO';
             const launchParams = decodeURIComponent(VK_URL.slice(VK_URL.indexOf('?') + 1));
             const result = (0, verify_launch_params_1.verifyLaunchParams)(launchParams, clientSecret);
             if (!result)
@@ -142,6 +142,7 @@ let ConnectHandler = class ConnectHandler {
             }
             uSocket.user_id = zone.id;
             const dtoZone = zone.unmarshal();
+            console.log('ConnectHandler pointer.pos', pointer.pos);
             const payload = {
                 user: {
                     zoneId: zone.id,

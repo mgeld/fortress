@@ -1,8 +1,8 @@
-import { createEffect, createEvent, sample } from "effector"
 import { shipModel } from "entities/ship"
-import { battleJoinAPI } from "shared/api/battle-join"
 import { alertModel } from "shared/ui/alert"
 import { popoutModel } from "shared/ui/popout-root"
+import { battleJoinAPI } from "shared/api/battle-join"
+import { createEffect, createEvent, sample } from "effector"
 
 const battleConnect = createEvent<string | null>()
 
@@ -20,7 +20,7 @@ const isHealthFx = createEffect((props: T) => {
       message: 'Ваш корабль сломан. Чтобы участвовать в битвах, необходимо улучшить состояние корабля.',
       action: {
         close: false,
-        text: 'Повысить',
+        text: 'Улучшить',
         _click: () => popoutModel.events.setPopout('ship-improve-health')
       }
     })

@@ -36,7 +36,6 @@ let DirectHandler = class DirectHandler extends handlers_1.IRoute {
             if (!__position)
                 return;
             const _pointer = yield this._pointerService.memoryGetById(uSocket.user_id);
-            _pointer.pos = __position;
             if (_pointer.health < 1 && _pointer.areal !== -1) {
                 return;
             }
@@ -49,6 +48,7 @@ let DirectHandler = class DirectHandler extends handlers_1.IRoute {
                         pos: __position
                     }
                 }, [_pointer.zoneId]);
+                _pointer.pos = __position;
             }
             else {
                 if (_pointer.areal && _pointer.areal !== -1) {
@@ -70,21 +70,24 @@ let DirectHandler = class DirectHandler extends handlers_1.IRoute {
                     }
                 }));
                 let areals = areal_1.Areal.generatorAreals(__position);
-                if (_pointer.areal > 0) {
-                    const arealLat = +String(areal).slice(0, 4);
-                    const arealLng = +String(areal).slice(4);
-                    const prevArealLat = +String(_pointer.areal).slice(0, 4);
-                    const prevArealLng = +String(_pointer.areal).slice(4);
-                    if (arealLat > prevArealLat) {
+                const prevPosLat = _pointer.pos[0];
+                const prevPosLng = _pointer.pos[1];
+                const posLat = __position[0];
+                const posLng = __position[1];
+                if (Math.ceil(posLat - prevPosLat) > 0.02 ||
+                    Math.ceil(posLng - prevPosLng) > 0.03) {
+                }
+                else if (_pointer.areal > 0) {
+                    if (posLat > prevPosLat) {
                         areals = areals.slice(0, 3);
                     }
-                    if (arealLat < prevArealLat) {
+                    if (posLat < prevPosLat) {
                         areals = areals.slice(6);
                     }
-                    if (arealLng > prevArealLng) {
+                    if (posLng > prevPosLng) {
                         areals = [areals[2], areals[5], areals[8]];
                     }
-                    if (arealLng < prevArealLng) {
+                    if (posLng < prevPosLng) {
                         areals = [areals[0], areals[3], areals[6]];
                     }
                 }
@@ -130,6 +133,7 @@ let DirectHandler = class DirectHandler extends handlers_1.IRoute {
                         payload: sectors
                     }));
                 }
+                _pointer.pos = __position;
                 _pointer.areal = areal;
                 this._rooms.areals.broadcast(_pointer.areal, {
                     event: 'connect-pointer',

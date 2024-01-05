@@ -27,7 +27,6 @@ const useApp = () => {
     const zoneId = user_1.userModel.selectors.useUserId();
     const socketStatus = (0, model_1.useSocket)();
     (0, react_1.useEffect)(() => {
-        console.log('0 useEffect');
         window.addEventListener("offline", lost_internet_1.lostInternet);
         vk_bridge_1.default.send('VKWebAppGetUserInfo')
             .then(user => {
@@ -37,7 +36,6 @@ const useApp = () => {
             .finally(() => console.log('finally vk user_id'));
     }, [vkUserId]);
     (0, react_1.useEffect)(() => {
-        console.log('1 useApp useEffect');
         if (vkUserId > 0 && socketStatus === 'close') {
             popout_root_1.popoutModel.events.setPopout('lock-screen');
             lock_screen_1.lockModel.events.setLockScreen({

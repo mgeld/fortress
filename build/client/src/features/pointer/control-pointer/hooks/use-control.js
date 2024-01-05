@@ -7,7 +7,7 @@ const useControl = () => {
     const moveId = (0, react_1.useRef)();
     (0, react_1.useEffect)(() => {
         return () => {
-            clearTimeout(moveId.current);
+            stopPoint();
         };
     }, []);
     const moveControl = (e) => {

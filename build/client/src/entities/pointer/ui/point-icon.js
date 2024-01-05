@@ -16,9 +16,9 @@ const PointIcon = ({ userIcon, position }) => {
             setIcon(icon);
         });
     }
-    if (!icon)
+    let iconPoint = (0, react_1.useMemo)(() => (0, point_icon_1.pointIcon)(icon || ''), [icon]);
+    if (!iconPoint)
         return <></>;
-    let iconPoint = (0, point_icon_1.pointIcon)(icon);
     return (<react_leaflet_1.Marker position={position} icon={iconPoint}/>);
 };
 exports.PointIcon = PointIcon;

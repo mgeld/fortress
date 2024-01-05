@@ -12,7 +12,9 @@ const movePointFx = (0, effector_1.createEffect)(({ payload }) => {
 exports.direction = (0, effector_1.createEvent)();
 (0, effector_1.sample)({
     clock: exports.direction,
-    fn: (direction) => ({
+    source: ship_1.shipModel.$userHealthStore,
+    filter: (userHealth) => userHealth > 0,
+    fn: (_, direction) => ({
         payload: {
             direction
         }

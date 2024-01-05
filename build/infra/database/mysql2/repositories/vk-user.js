@@ -90,7 +90,6 @@ let VkUserRepository = class VkUserRepository {
                 throw new Error('----------');
             }
             const zones = result.map(zone => (Object.assign({}, zone)));
-            console.log('VkUserRepository getAbduction zones', zones);
             return zones;
         });
     }

@@ -12,12 +12,13 @@ import { Logs } from "../infra/logs/takes";
 import { ZoneService } from "../services/zone.service";
 import { CitadelService } from "../services/citadel.service";
 import { TFindContType } from "../common-types/model";
+import { VkUserService } from "../services/vk-user.service";
 import { Zone } from "../entities/zone/zone";
 import { Rank } from "../entities/zone/rank";
-import { VkUserService } from "../services/vk-user.service";
+
+import { randomNumber } from "../libs/random-number";
 
 import fetch from 'node-fetch';
-import { randomNumber } from "../libs/random-number";
 
 @injectable()
 class TakeHandler extends IRoute {

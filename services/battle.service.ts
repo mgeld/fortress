@@ -4,7 +4,7 @@ import { Rooms } from "../api/socket/socket/rooms";
 import { MemberService } from "../services/member.service";
 import { Member } from "../entities/arena/arena-team-member";
 import { ZoneService } from "../services/zone.service";
-import { Arena } from "../entities/arena/arena";
+// import { Arena } from "../entities/arena/arena";
 import { ArenaService } from "./arena.service";
 
 // Пробный класс. Так делать наверное нельзя
@@ -60,13 +60,13 @@ class BattleService {
                     const trophy = minTrophies > 0 ? minTrophies + wonTrophies : 0
 
                     _extraction[member.userId] = {
-                        coins: trophy * 10,
+                        coins: trophy * 11,
                         trophies: trophy
                     }
 
                     return {
                         trophies: trophy,
-                        coins: trophy * 5,
+                        coins: trophy * 11,
                         userId: member.userId,
                     }
                 })

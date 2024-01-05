@@ -8,11 +8,13 @@ export const useControl = () => {
 
     useEffect(() => {
         return () => {
-            clearTimeout(moveId.current);
+            // clearTimeout(moveId.current);
+            stopPoint()
         }
     }, [])
 
     const moveControl = (e: IJoystickUpdateEvent) => {
+
         if (moveId.current) {
             clearTimeout(moveId.current);
             moveId.current = undefined
@@ -28,6 +30,12 @@ export const useControl = () => {
             moveId.current = undefined
         }
     }
+
+    // useEffect(() => {
+    //     if(health < 1) {
+    //         stopPoint()
+    //     }
+    // }, [health])
 
     return {
         stopPoint,

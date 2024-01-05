@@ -91,6 +91,15 @@
 
                     .item {
                         cursor: pointer;
+
+                        &:active {
+                            transform: scale(0.92);
+                            transition: transform 0.2s;
+
+                            .svg, svg {
+                                transform: scale(1.04);
+                            }
+                        }
                         
                         margin: 0 auto;
                         border: 1px solid #f1ba68a2;
