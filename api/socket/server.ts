@@ -157,8 +157,8 @@ export class Server {
 
         })
 
-        // const hostname = '89.108.71.67'
-        const hostname = '192.168.43.90'
+        const hostname = '89.108.71.67'
+        // const hostname = '192.168.43.90'
 
         server.listen(8080, hostname, () => console.log('Начинаем прослушку порта...'));
 

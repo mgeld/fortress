@@ -45,8 +45,8 @@ class ConnectHandler implements IRoute {
         let weapon: WeaponType
         let citadel: Citadel | null = null
 
-        const clientSecret = 'D1m0YtrP8D0nd7dvdkEO'
-        // const clientSecret = 'SCecuoQxDCCS0hdTSuhe' // FortRess Official
+        // const clientSecret = 'D1m0YtrP8D0nd7dvdkEO'
+        const clientSecret = 'SCecuoQxDCCS0hdTSuhe' // FortRess Official
 
         // Берём только параметры запуска.
         const launchParams = decodeURIComponent(VK_URL.slice(VK_URL.indexOf('?') + 1));
